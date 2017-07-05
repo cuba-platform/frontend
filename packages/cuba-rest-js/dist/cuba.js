@@ -1,18 +1,18 @@
 var cuba;
 (function (cuba) {
-    const apps = [];
+    var apps = [];
     function initializeApp(config) {
         if (getApp(config.name) != null) {
             throw new Error("Cuba app is already initialized");
         }
-        let cubaApp = new CubaApp(config.name, config.apiUrl, config.restClientId, config.restClientSecret, config.defaultLocale);
+        var cubaApp = new CubaApp(config.name, config.apiUrl, config.restClientId, config.restClientSecret, config.defaultLocale);
         apps.push(cubaApp);
         return cubaApp;
     }
     cuba.initializeApp = initializeApp;
     function getApp(appName) {
-        const nameToSearch = appName == null ? "" : appName;
-        for (let i = 0; i < apps.length; i++) {
+        var nameToSearch = appName == null ? "" : appName;
+        for (var i = 0; i < apps.length; i++) {
             if (apps[i].name === nameToSearch) {
                 return apps[i];
             }
@@ -20,8 +20,13 @@ var cuba;
         return null;
     }
     cuba.getApp = getApp;
-    class CubaApp {
-        constructor(name = "", apiUrl = '/app/rest/', restClientId = 'client', restClientSecret = 'secret', defaultLocale = 'en') {
+    var CubaApp = (function () {
+        function CubaApp(name, apiUrl, restClientId, restClientSecret, defaultLocale) {
+            if (name === void 0) { name = ""; }
+            if (apiUrl === void 0) { apiUrl = '/app/rest/'; }
+            if (restClientId === void 0) { restClientId = 'client'; }
+            if (restClientSecret === void 0) { restClientSecret = 'secret'; }
+            if (defaultLocale === void 0) { defaultLocale = 'en'; }
             this.name = name;
             this.apiUrl = apiUrl;
             this.restClientId = restClientId;
@@ -32,116 +37,129 @@ var cuba;
             this.enumsLoadingListeners = [];
             this.localeChangeListeners = [];
         }
-        get restApiToken() {
-            return localStorage.getItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
-        }
-        set restApiToken(token) {
-            localStorage.setItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY, token);
-        }
-        get locale() {
-            let storedLocale = localStorage.getItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY);
-            return storedLocale ? storedLocale : this.defaultLocale;
-        }
-        set locale(locale) {
-            localStorage.setItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY, locale);
-            this.localeChangeListeners.forEach((l) => l(this.locale));
-        }
-        login(login, password) {
+        Object.defineProperty(CubaApp.prototype, "restApiToken", {
+            get: function () {
+                return localStorage.getItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
+            },
+            set: function (token) {
+                localStorage.setItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY, token);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(CubaApp.prototype, "locale", {
+            get: function () {
+                var storedLocale = localStorage.getItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY);
+                return storedLocale ? storedLocale : this.defaultLocale;
+            },
+            set: function (locale) {
+                var _this = this;
+                localStorage.setItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY, locale);
+                this.localeChangeListeners.forEach(function (l) { return l(_this.locale); });
+            },
+            enumerable: true,
+            configurable: true
+        });
+        CubaApp.prototype.login = function (login, password) {
+            var _this = this;
             if (login == null)
                 login = '';
             if (password == null)
                 password = '';
-            let fetchOptions = {
+            var fetchOptions = {
                 method: 'POST',
                 headers: this._getBasicAuthHeaders(),
                 body: 'grant_type=password&username=' + encodeURIComponent(login) + '&password=' + encodeURIComponent(password)
             };
-            let loginRes = fetch(this.apiUrl + 'v2/oauth/token', fetchOptions)
+            var loginRes = fetch(this.apiUrl + 'v2/oauth/token', fetchOptions)
                 .then(this.checkStatus)
-                .then((resp) => resp.json())
-                .then((data) => {
-                this.restApiToken = data.access_token;
+                .then(function (resp) { return resp.json(); })
+                .then(function (data) {
+                _this.restApiToken = data.access_token;
                 return data;
             });
             return loginRes;
-        }
-        logout() {
-            let fetchOptions = {
+        };
+        CubaApp.prototype.logout = function () {
+            var fetchOptions = {
                 method: 'POST',
                 headers: this._getBasicAuthHeaders(),
                 body: "token=" + encodeURIComponent(this.restApiToken),
             };
             this.clearAuthData();
             return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
-        }
-        loadEntities(entityName, options) {
+        };
+        CubaApp.prototype.loadEntities = function (entityName, options) {
             return this.fetch('GET', 'v2/entities/' + entityName, options, { handleAs: 'json' });
-        }
-        loadEntity(entityName, id, options) {
+        };
+        CubaApp.prototype.loadEntity = function (entityName, id, options) {
             return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, { handleAs: 'json' });
-        }
-        deleteEntity(entityName, id) {
+        };
+        CubaApp.prototype.deleteEntity = function (entityName, id) {
             return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id);
-        }
-        commitEntity(entityName, entity) {
+        };
+        CubaApp.prototype.commitEntity = function (entityName, entity) {
             if (entity.id) {
                 return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity), { handleAs: 'json' });
             }
             else {
                 return this.fetch('POST', 'v2/entities/' + entityName, JSON.stringify(entity), { handleAs: 'json' });
             }
-        }
-        invokeService(serviceName, methodName, params, fetchOptions) {
+        };
+        CubaApp.prototype.invokeService = function (serviceName, methodName, params, fetchOptions) {
             return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, JSON.stringify(params), fetchOptions);
-        }
-        query(entityName, queryName, params) {
+        };
+        CubaApp.prototype.query = function (entityName, queryName, params) {
             return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, { handleAs: 'json' });
-        }
-        queryCount(entityName, queryName, params) {
+        };
+        CubaApp.prototype.queryCount = function (entityName, queryName, params) {
             return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params);
-        }
-        loadMetadata() {
+        };
+        CubaApp.prototype.loadMetadata = function () {
             return this.fetch('GET', 'v2/metadata/entities', null, { handleAs: 'json' });
-        }
-        loadEntityMetadata(entityName) {
+        };
+        CubaApp.prototype.loadEntityMetadata = function (entityName) {
             return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, { handleAs: 'json' });
-        }
-        loadEntitiesMessages() {
-            let fetchRes = this.fetch('GET', 'v2/messages/entities', null, { handleAs: 'json' });
-            fetchRes.then((messages) => {
-                this.messagesCache = messages;
-                this.messagesLoadingListeners.forEach(l => l(messages));
+        };
+        CubaApp.prototype.loadEntitiesMessages = function () {
+            var _this = this;
+            var fetchRes = this.fetch('GET', 'v2/messages/entities', null, { handleAs: 'json' });
+            fetchRes.then(function (messages) {
+                _this.messagesCache = messages;
+                _this.messagesLoadingListeners.forEach(function (l) { return l(messages); });
             });
             return fetchRes;
-        }
-        loadEnums() {
-            let fetchRes = this.fetch('GET', 'v2/metadata/enums', null, { handleAs: 'json' });
-            fetchRes.then((enums) => {
-                this.enumsCache = enums;
-                this.enumsLoadingListeners.forEach(l => l(enums));
+        };
+        CubaApp.prototype.loadEnums = function () {
+            var _this = this;
+            var fetchRes = this.fetch('GET', 'v2/metadata/enums', null, { handleAs: 'json' });
+            fetchRes.then(function (enums) {
+                _this.enumsCache = enums;
+                _this.enumsLoadingListeners.forEach(function (l) { return l(enums); });
             });
             return fetchRes;
-        }
-        getPermissions() {
+        };
+        CubaApp.prototype.getPermissions = function () {
             return this.fetch('GET', 'v2/permissions', null, { handleAs: 'json' });
-        }
-        getUserInfo() {
+        };
+        CubaApp.prototype.getUserInfo = function () {
             return this.fetch('GET', 'v2/userInfo', null, { handleAs: 'json' });
-        }
-        _getBasicAuthHeaders() {
+        };
+        CubaApp.prototype._getBasicAuthHeaders = function () {
             return {
                 "Accept-Language": this.locale,
                 "Authorization": "Basic " + btoa(this.restClientId + ':' + this.restClientSecret),
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
             };
-        }
-        clearAuthData() {
+        };
+        CubaApp.prototype.clearAuthData = function () {
             localStorage.removeItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
             localStorage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
-        }
-        fetch(method, path, data, fetchOptions) {
-            let url = this.apiUrl + path;
-            let settings = {
+        };
+        CubaApp.prototype.fetch = function (method, path, data, fetchOptions) {
+            var _this = this;
+            var url = this.apiUrl + path;
+            var settings = {
                 method: method,
                 headers: {
                     "Accept-Language": this.locale
@@ -156,11 +174,11 @@ var cuba;
             }
             if (method == 'GET' && data && Object.keys(data).length > 0) {
                 url += '?' + Object.keys(data)
-                    .map(k => {
+                    .map(function (k) {
                     return encodeURIComponent(k) + "=" + (data[k] != null ? encodeURIComponent(data[k]) : '');
                 }).join("&");
             }
-            let handleAs = fetchOptions ? fetchOptions.handleAs : undefined;
+            var handleAs = fetchOptions ? fetchOptions.handleAs : undefined;
             switch (handleAs) {
                 case "text":
                     settings.headers["Accept"] = "text/html";
@@ -169,14 +187,14 @@ var cuba;
                     settings.headers["Accept"] = "application/json";
                     break;
             }
-            let fetchRes = fetch(url, settings).then(this.checkStatus);
-            fetchRes.catch((error) => {
+            var fetchRes = fetch(url, settings).then(this.checkStatus);
+            fetchRes.catch(function (error) {
                 if (CubaApp.isTokenExpiredResponse(error.response)) {
-                    this.clearAuthData();
-                    this.tokenExpiryListeners.forEach((l) => l());
+                    _this.clearAuthData();
+                    _this.tokenExpiryListeners.forEach(function (l) { return l(); });
                 }
             });
-            return fetchRes.then((resp) => {
+            return fetchRes.then(function (resp) {
                 if (resp.status === 204) {
                     return resp.text();
                 }
@@ -191,35 +209,40 @@ var cuba;
                         return resp.text();
                 }
             });
-        }
-        onLocaleChange(c) {
+        };
+        CubaApp.prototype.onLocaleChange = function (c) {
+            var _this = this;
             this.localeChangeListeners.push(c);
-            return () => this.localeChangeListeners.splice(this.localeChangeListeners.indexOf(c), 1);
-        }
-        onTokenExpiry(c) {
+            return function () { return _this.localeChangeListeners.splice(_this.localeChangeListeners.indexOf(c), 1); };
+        };
+        CubaApp.prototype.onTokenExpiry = function (c) {
+            var _this = this;
             this.tokenExpiryListeners.push(c);
-            return () => this.tokenExpiryListeners.splice(this.tokenExpiryListeners.indexOf(c), 1);
-        }
-        onEnumsLoaded(c) {
+            return function () { return _this.tokenExpiryListeners.splice(_this.tokenExpiryListeners.indexOf(c), 1); };
+        };
+        CubaApp.prototype.onEnumsLoaded = function (c) {
+            var _this = this;
             this.enumsLoadingListeners.push(c);
-            return () => this.enumsLoadingListeners.splice(this.enumsLoadingListeners.indexOf(c), 1);
-        }
-        onMessagesLoaded(c) {
+            return function () { return _this.enumsLoadingListeners.splice(_this.enumsLoadingListeners.indexOf(c), 1); };
+        };
+        CubaApp.prototype.onMessagesLoaded = function (c) {
+            var _this = this;
             this.messagesLoadingListeners.push(c);
-            return () => this.messagesLoadingListeners.splice(this.messagesLoadingListeners.indexOf(c), 1);
-        }
-        checkStatus(response) {
+            return function () { return _this.messagesLoadingListeners.splice(_this.messagesLoadingListeners.indexOf(c), 1); };
+        };
+        CubaApp.prototype.checkStatus = function (response) {
             if (response.status >= 200 && response.status < 300) {
                 return response;
             }
             else {
                 return Promise.reject({ message: response.statusText, response: response });
             }
-        }
-        static isTokenExpiredResponse(resp) {
+        };
+        CubaApp.isTokenExpiredResponse = function (resp) {
             return resp && resp.status === 401;
-        }
-    }
+        };
+        return CubaApp;
+    }());
     CubaApp.REST_TOKEN_STORAGE_KEY = 'cubaAccessToken';
     CubaApp.USER_NAME_STORAGE_KEY = 'cubaUserName';
     CubaApp.LOCALE_STORAGE_KEY = 'cubaLocale';

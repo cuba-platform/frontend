@@ -2,7 +2,8 @@
   "name": "cuba-js-sdk",
   "version": "0.1.0",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
-  "main": "cuba.js",
+  "main": "dist/cuba.js",
+  "typings": "dist/cuba.d.ts",
   "scripts": {
     "compile": "tsc"
   },
