@@ -1,4 +1,6 @@
 .idea
+.editorconfig
 node_modules
+tsconfig.json
 
 src

@@ -12,9 +12,10 @@ var cuba;
     cuba.initializeApp = initializeApp;
     function getApp(appName) {
         var nameToSearch = appName == null ? "" : appName;
-        for (var i = 0; i < apps.length; i++) {
-            if (apps[i].name === nameToSearch) {
-                return apps[i];
+        for (var _i = 0, apps_1 = apps; _i < apps_1.length; _i++) {
+            var app = apps_1[_i];
+            if (app.name === nameToSearch) {
+                return app;
             }
         }
         return null;
@@ -23,10 +24,10 @@ var cuba;
     var CubaApp = (function () {
         function CubaApp(name, apiUrl, restClientId, restClientSecret, defaultLocale) {
             if (name === void 0) { name = ""; }
-            if (apiUrl === void 0) { apiUrl = '/app/rest/'; }
-            if (restClientId === void 0) { restClientId = 'client'; }
-            if (restClientSecret === void 0) { restClientSecret = 'secret'; }
-            if (defaultLocale === void 0) { defaultLocale = 'en'; }
+            if (apiUrl === void 0) { apiUrl = "/app/rest/"; }
+            if (restClientId === void 0) { restClientId = "client"; }
+            if (restClientSecret === void 0) { restClientSecret = "secret"; }
+            if (defaultLocale === void 0) { defaultLocale = "en"; }
             this.name = name;
             this.apiUrl = apiUrl;
             this.restClientId = restClientId;
@@ -62,16 +63,18 @@ var cuba;
         });
         CubaApp.prototype.login = function (login, password) {
             var _this = this;
-            if (login == null)
-                login = '';
-            if (password == null)
-                password = '';
+            if (login == null) {
+                login = "";
+            }
+            if (password == null) {
+                password = "";
+            }
             var fetchOptions = {
-                method: 'POST',
+                method: "POST",
                 headers: this._getBasicAuthHeaders(),
-                body: 'grant_type=password&username=' + encodeURIComponent(login) + '&password=' + encodeURIComponent(password)
+                body: "grant_type=password&username=" + encodeURIComponent(login) + "&password=" + encodeURIComponent(password)
             };
-            var loginRes = fetch(this.apiUrl + 'v2/oauth/token', fetchOptions)
+            var loginRes = fetch(this.apiUrl + "v2/oauth/token", fetchOptions)
                 .then(this.checkStatus)
                 .then(function (resp) { return resp.json(); })
                 .then(function (data) {
@@ -82,7 +85,7 @@ var cuba;
         };
         CubaApp.prototype.logout = function () {
             var fetchOptions = {
-                method: 'POST',
+                method: "POST",
                 headers: this._getBasicAuthHeaders(),
                 body: "token=" + encodeURIComponent(this.restApiToken),
             };
@@ -243,8 +246,8 @@ var cuba;
         };
         return CubaApp;
     }());
-    CubaApp.REST_TOKEN_STORAGE_KEY = 'cubaAccessToken';
-    CubaApp.USER_NAME_STORAGE_KEY = 'cubaUserName';
-    CubaApp.LOCALE_STORAGE_KEY = 'cubaLocale';
+    CubaApp.REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
+    CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
+    CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
     cuba.CubaApp = CubaApp;
 })(cuba || (cuba = {}));

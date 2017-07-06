@@ -5,6 +5,7 @@
   "main": "dist/cuba.js",
   "typings": "dist/cuba.d.ts",
   "scripts": {
+    "lint": "tslint -c tslint.json src/**/*.ts",
     "compile": "tsc"
   },
   "repository": {
@@ -12,6 +13,7 @@
     "url": "git@git.haulmont.com:minaev/cuba-js-sdk.git"
   },
   "devDependencies": {
+    "tslint": "5.4.3",
     "typescript": "2.3.2"
   },
   "author": "Vlad Minaev <minaev@haulmont.com>",

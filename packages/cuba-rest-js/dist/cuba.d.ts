@@ -1,5 +1,5 @@
 declare module cuba {
-    interface AppConfig {
+    interface IAppConfig {
         apiUrl: string;
         name?: string;
         restClientId?: string;
@@ -9,11 +9,11 @@ declare module cuba {
     interface IResponseError extends Error {
         response?: any;
     }
-    type ContentType = 'text' | 'json' | 'blob';
+    type ContentType = "text" | "json" | "blob";
     interface IFetchOptions extends RequestInit {
         handleAs?: ContentType;
     }
-    function initializeApp(config: AppConfig): CubaApp;
+    function initializeApp(config: IAppConfig): CubaApp;
     function getApp(appName?: string): CubaApp;
     class CubaApp {
         name: string;
@@ -21,9 +21,9 @@ declare module cuba {
         restClientId: string;
         restClientSecret: string;
         defaultLocale: string;
-        static REST_TOKEN_STORAGE_KEY: string;
-        static USER_NAME_STORAGE_KEY: string;
-        static LOCALE_STORAGE_KEY: string;
+        private static REST_TOKEN_STORAGE_KEY;
+        private static USER_NAME_STORAGE_KEY;
+        private static LOCALE_STORAGE_KEY;
         messagesCache: any[];
         enumsCache: any[];
         private tokenExpiryListeners;
