@@ -6,13 +6,15 @@
   "typings": "dist/cuba.d.ts",
   "scripts": {
     "lint": "tslint -c tslint.json src/**/*.ts",
-    "compile": "tsc"
+    "compile": "tsc",
+    "dist": "browserify --standalone cuba dist/cuba.js > ./cuba.js"
   },
   "repository": {
     "type": "git",
     "url": "git@git.haulmont.com:minaev/cuba-js-sdk.git"
   },
   "devDependencies": {
+    "browserify": "^14.4.0",
     "tslint": "5.4.3",
     "typescript": "2.3.2"
   },

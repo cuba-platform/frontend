@@ -24,8 +24,7 @@ bower install cuba-platform/cuba-js-sdk
 
 ## Dependencies and requirements
 Library has no external dependencies. It's assumed that `Promise` and `fetch` -compatible API are available 
-or polyfilled.
-
+or polyfilled i.e. in order to use it in node environment  
 
 ## API
 

@@ -1,4 +1,4 @@
-module cuba {
+namespace cuba {
 
   const apps: CubaApp[] = [];
 
@@ -95,7 +95,7 @@ module cuba {
       const fetchOptions = {
         method: "POST",
         headers: this._getBasicAuthHeaders(),
-        body: "grant_type=password&username=" + encodeURIComponent(login) + "&password=" + encodeURIComponent(password)
+        body: "grant_type=password&username=" + encodeURIComponent(login) + "&password=" + encodeURIComponent(password),
       };
       const loginRes = fetch(this.apiUrl + "v2/oauth/token", fetchOptions)
         .then(this.checkStatus)
@@ -131,13 +131,15 @@ module cuba {
 
     public commitEntity(entityName: string, entity: any): Promise<any> {
       if (entity.id) {
-        return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity), {handleAs: 'json'});
+        return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity),
+          {handleAs: 'json'});
       } else {
         return this.fetch('POST', 'v2/entities/' + entityName, JSON.stringify(entity), {handleAs: 'json'});
       }
     }
 
-    public invokeService(serviceName: string, methodName: string, params: any, fetchOptions?: IFetchOptions): Promise<any> {
+    public invokeService(serviceName: string, methodName: string, params: any,
+                         fetchOptions?: IFetchOptions): Promise<any> {
       return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, JSON.stringify(params), fetchOptions);
     }
 
@@ -217,7 +219,7 @@ module cuba {
       const fetchRes = fetch(url, settings).then(this.checkStatus);
 
       fetchRes.catch((error) => {
-        if (CubaApp.isTokenExpiredResponse(error.response)) {
+        if (this.isTokenExpiredResponse(error.response)) {
           this.clearAuthData();
           this.tokenExpiryListeners.forEach((l) => l());
         }
@@ -262,7 +264,7 @@ module cuba {
       return () => this.messagesLoadingListeners.splice(this.messagesLoadingListeners.indexOf(c), 1);
     }
 
-    private static isTokenExpiredResponse(resp: Response): boolean {
+    private isTokenExpiredResponse(resp: Response): boolean {
       return resp && resp.status === 401;
       // && resp.responseJSON
       // && resp.responseJSON.error === 'invalid_token';
@@ -291,3 +293,5 @@ module cuba {
 
   }
 }
+
+export = cuba;

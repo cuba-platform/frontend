@@ -1,4 +1,4 @@
-declare module cuba {
+declare namespace cuba {
     interface IAppConfig {
         apiUrl: string;
         name?: string;
@@ -12,6 +12,12 @@ declare module cuba {
     type ContentType = "text" | "json" | "blob";
     interface IFetchOptions extends RequestInit {
         handleAs?: ContentType;
+    }
+    interface IEntitiesLoadOptions {
+        view?: string;
+        sort?: string;
+        limit?: number;
+        offset?: number;
     }
     function initializeApp(config: IAppConfig): CubaApp;
     function getApp(appName?: string): CubaApp;
@@ -37,12 +43,7 @@ declare module cuba {
             access_token: string;
         }>;
         logout(): Promise<any>;
-        loadEntities(entityName: any, options?: {
-            view?: string;
-            sort?: string;
-            limit?: number;
-            offset?: number;
-        }): Promise<any[]>;
+        loadEntities(entityName: any, options?: IEntitiesLoadOptions): Promise<any[]>;
         loadEntity(entityName: any, id: any, options?: {
             view?: string;
         }): Promise<any>;
@@ -57,14 +58,15 @@ declare module cuba {
         loadEnums(): Promise<any>;
         getPermissions(): Promise<any>;
         getUserInfo(): Promise<any>;
-        private _getBasicAuthHeaders();
-        private clearAuthData();
         fetch(method: any, path: any, data?: any, fetchOptions?: IFetchOptions): Promise<any>;
         onLocaleChange(c: any): () => ((locale: string) => {})[];
         onTokenExpiry(c: any): () => (() => {})[];
         onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];
         onMessagesLoaded(c: any): () => ((messages: any[]) => {})[];
-        checkStatus(response: Response): any;
-        static isTokenExpiredResponse(resp: Response): boolean;
+        private isTokenExpiredResponse(resp);
+        private _getBasicAuthHeaders();
+        private checkStatus(response);
+        private clearAuthData();
     }
 }
+export = cuba;
