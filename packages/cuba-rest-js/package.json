@@ -2,12 +2,12 @@
   "name": "cuba-js-sdk",
   "version": "0.1.0",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
-  "main": "dist/cuba.js",
+  "main": "dist-node/cuba.js",
   "typings": "dist/cuba.d.ts",
   "scripts": {
     "lint": "tslint -c tslint.json src/**/*.ts",
     "compile": "tsc",
-    "dist": "browserify --standalone cuba dist/cuba.js > ./cuba.js"
+    "dist": "tsc && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js"
   },
   "repository": {
     "type": "git",
