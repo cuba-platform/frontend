@@ -1,0 +1,14 @@
+{
+  "name": "cuba-js-sdk-node-example",
+  "version": "1.0.0",
+  "description": "Example of cuba js sdk in node js app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "node-fetch": "^1.7.1",
+    "node-localstorage": "^1.3.0"
+  }
+}
