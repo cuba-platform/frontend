@@ -229,7 +229,7 @@ var cuba;
         CubaApp.prototype._getBasicAuthHeaders = function () {
             return {
                 "Accept-Language": this.locale,
-                "Authorization": "Basic " + btoa(this.restClientId + ':' + this.restClientSecret),
+                "Authorization": "Basic " + base64encode(this.restClientId + ':' + this.restClientSecret),
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             };
         };
@@ -251,6 +251,16 @@ var cuba;
     CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
     CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
     cuba.CubaApp = CubaApp;
+    function base64encode(str) {
+        if (typeof btoa === 'function') {
+            return btoa(str);
+        }
+        else if (global['Buffer']) {
+            return new global['Buffer'](str).toString('base64');
+        }
+        else {
+            throw new Error('Unable to encode to base64');
+        }
+    }
 })(cuba || (cuba = {}));
 module.exports = cuba;
-//# sourceMappingURL=cuba.js.map

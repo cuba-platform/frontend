@@ -26,7 +26,8 @@ namespace cuba {
     offset?: number;
   }
 
-  export function initializeApp(config: IAppConfig): CubaApp {
+  export function initializeApp(config?: IAppConfig): CubaApp {
+
     if (getApp(config.name) != null) {
       throw new Error("Cuba app is already initialized");
     }
@@ -60,8 +61,7 @@ namespace cuba {
     private enumsLoadingListeners: Array<((enums: any[]) => {})> = [];
     private localeChangeListeners: Array<((locale: string) => {})> = [];
 
-    constructor(public name = "",
-                public apiUrl = "/app/rest/",
+    constructor(public apiUrl = "/app/rest/",
                 public restClientId = "client",
                 public restClientSecret = "secret",
                 public defaultLocale = "en") {
@@ -273,7 +273,7 @@ namespace cuba {
     private _getBasicAuthHeaders(): { [header: string]: string } {
       return {
         "Accept-Language": this.locale,
-        "Authorization": "Basic " + btoa(this.restClientId + ':' + this.restClientSecret),
+        "Authorization": "Basic " + base64encode(this.restClientId + ':' + this.restClientSecret),
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       };
     }
@@ -291,6 +291,17 @@ namespace cuba {
       localStorage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
     }
 
+  }
+  declare const Buffer;
+  declare const global;
+  function base64encode(str) {
+    if (typeof btoa === 'function') {
+      return btoa(str);
+    } else if (global['Buffer']) { // prevent Buffer from being injected by browserify
+      return new global['Buffer'](str).toString('base64');
+    } else {
+      throw new Error('Unable to encode to base64');
+    }
   }
 }
 

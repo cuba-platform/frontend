@@ -4,7 +4,6 @@
     "noEmitOnError": true,
     "removeComments": true,
     "declaration": true,
-    "sourceMap": true,
     "outDir": "dist-node",
     "lib": [
       "DOM",

@@ -42,3 +42,10 @@ fetch = require('node-fetch');
 
 ## API
 
+
+## Development
+
+### Tests
+```bash
+npm run test
+```
