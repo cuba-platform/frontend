@@ -43,6 +43,7 @@ declare namespace cuba {
             access_token: string;
         }>;
         logout(): Promise<any>;
+        revokeToken(token: string): Promise<any>;
         loadEntities(entityName: any, options?: IEntitiesLoadOptions): Promise<any[]>;
         loadEntity(entityName: any, id: any, options?: {
             view?: string;

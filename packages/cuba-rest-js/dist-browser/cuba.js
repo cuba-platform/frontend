@@ -87,10 +87,13 @@ var cuba;
             return loginRes;
         };
         CubaApp.prototype.logout = function () {
+            return this.revokeToken(this.restApiToken);
+        };
+        CubaApp.prototype.revokeToken = function (token) {
             var fetchOptions = {
                 method: 'POST',
                 headers: this._getBasicAuthHeaders(),
-                body: 'token=' + encodeURIComponent(this.restApiToken),
+                body: 'token=' + encodeURIComponent(token),
             };
             this.clearAuthData();
             return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);

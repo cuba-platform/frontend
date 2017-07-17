@@ -1,5 +1,5 @@
 global.fetch = require('node-fetch');
-global.localStorage = new require('node-localstorage').LocalStorage('./local-storage');
+global.localStorage = new require('node-localstorage').LocalStorage('./.local-storage');
 
 const cuba = require('../../dist-node/cuba.js');
 

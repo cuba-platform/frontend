@@ -26,8 +26,7 @@ namespace cuba {
     offset?: number;
   }
 
-  export function initializeApp(config?: IAppConfig): CubaApp {
-
+  export function initializeApp(config: IAppConfig): CubaApp {
     if (getApp(config.name) != null) {
       throw new Error("Cuba app is already initialized");
     }
@@ -61,7 +60,8 @@ namespace cuba {
     private enumsLoadingListeners: Array<((enums: any[]) => {})> = [];
     private localeChangeListeners: Array<((locale: string) => {})> = [];
 
-    constructor(public apiUrl = "/app/rest/",
+    constructor(public name = "",
+                public apiUrl = "/app/rest/",
                 public restClientId = "client",
                 public restClientSecret = "secret",
                 public defaultLocale = "en") {
@@ -108,10 +108,14 @@ namespace cuba {
     }
 
     public logout(): Promise<any> {
+      return this.revokeToken(this.restApiToken);
+    }
+
+    public revokeToken(token: string): Promise<any> {
       const fetchOptions = {
         method: 'POST',
         headers: this._getBasicAuthHeaders(),
-        body: 'token=' + encodeURIComponent(this.restApiToken),
+        body: 'token=' + encodeURIComponent(token),
       };
       this.clearAuthData();
       return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
@@ -294,6 +298,7 @@ namespace cuba {
   }
   declare const Buffer;
   declare const global;
+
   function base64encode(str) {
     if (typeof btoa === 'function') {
       return btoa(str);

@@ -1,6 +1,9 @@
 const assert = require('assert');
 
-const apiUrl = 'http://localhost:8080/app/rest';
+global.localStorage = new require('node-localstorage').LocalStorage('.local-storage');
+global.fetch = new require('node-fetch');
+
+const apiUrl = 'http://localhost:8080/app/rest/';
 
 
 describe('cuba', function () {
@@ -32,15 +35,35 @@ describe('cuba', function () {
     });
   });
 
-  describe('#getApp()', function() {
-    it('initialize and retrieve - default config', function() {
-      let app = cuba.initializeApp();
-    })
+
+
+  describe('#getApp()', function () {
+    it('initialize and retrieve - default config', function () {
+      let app = cuba.initializeApp({});
+      assert.equal(app, cuba.getApp());
+    });
   });
 
+  describe('cubaApp', function() {
 
-  it('#login()', function () {
-    const app = cuba.initializeApp({apiUrl: apiUrl});
-    app.login('admin', 'admin');
-  })
+    describe('#login()', function () {
+      it('should work with right credentials', function () {
+        const app = cuba.initializeApp({apiUrl: apiUrl});
+        return app.login('admin', 'admin');
+      });
+
+      it('shouldn\'t work with bad credentials', function (done) {
+        const app = cuba.initializeApp({apiUrl: apiUrl});
+        app.login('admin', 'admin2')
+          .then(() => {
+            done('works with bad credentials');
+          })
+          .catch((e) => {
+            done()
+          });
+      })
+    });
+
+  });
+
 });
