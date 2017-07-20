@@ -10,5 +10,5 @@ app.getUserInfo().then((d) => {
 });
 
 app.login('admin', 'admin').then((d) => {
-  console.log(d)
+  console.log(d);
 });
