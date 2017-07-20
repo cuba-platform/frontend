@@ -1,22 +1,22 @@
-import { IMetaClassInfo } from "./model";
-export { IMetaClassInfo };
-export declare function initializeApp(config: IAppConfig): CubaApp;
+import { EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
+export * from './model';
+export declare function initializeApp(config: AppConfig): CubaApp;
 export declare function getApp(appName?: string): CubaApp;
-export interface IAppConfig {
+export interface AppConfig {
     apiUrl: string;
     name?: string;
     restClientId?: string;
     restClientSecret?: string;
     defaultLocale?: string;
 }
-export interface IResponseError extends Error {
+export interface ResponseError extends Error {
     response?: any;
 }
 export declare type ContentType = "text" | "json" | "blob";
-export interface IFetchOptions extends RequestInit {
+export interface FetchOptions extends RequestInit {
     handleAs?: ContentType;
 }
-export interface IEntitiesLoadOptions {
+export interface EntitiesLoadOptions {
     view?: string;
     sort?: string;
     limit?: number;
@@ -45,22 +45,22 @@ export declare class CubaApp {
     }>;
     logout(): Promise<any>;
     revokeToken(token: string): Promise<any>;
-    loadEntities(entityName: any, options?: IEntitiesLoadOptions): Promise<any[]>;
+    loadEntities(entityName: any, options?: EntitiesLoadOptions): Promise<any[]>;
     loadEntity(entityName: any, id: any, options?: {
         view?: string;
     }): Promise<any>;
     deleteEntity(entityName: any, id: any): Promise<any>;
     commitEntity(entityName: string, entity: any): Promise<any>;
-    invokeService(serviceName: string, methodName: string, params: any, fetchOptions?: IFetchOptions): Promise<any>;
+    invokeService(serviceName: string, methodName: string, params: any, fetchOptions?: FetchOptions): Promise<any>;
     query(entityName: string, queryName: string, params?: any): Promise<any>;
     queryCount(entityName: string, queryName: string, params?: any): Promise<any>;
-    loadMetadata(): Promise<IMetaClassInfo[]>;
-    loadEntityMetadata(entityName: string): Promise<IMetaClassInfo>;
+    loadMetadata(): Promise<MetaClassInfo[]>;
+    loadEntityMetadata(entityName: string): Promise<MetaClassInfo>;
     loadEntitiesMessages(): Promise<any>;
-    loadEnums(): Promise<any>;
-    getPermissions(): Promise<any>;
-    getUserInfo(): Promise<any>;
-    fetch(method: any, path: any, data?: any, fetchOptions?: IFetchOptions): Promise<any>;
+    loadEnums(): Promise<EnumInfo[]>;
+    getPermissions(): Promise<PermissionInfo[]>;
+    getUserInfo(): Promise<UserInfo>;
+    fetch(method: any, path: any, data?: any, fetchOptions?: FetchOptions): Promise<any>;
     onLocaleChange(c: any): () => ((locale: string) => {})[];
     onTokenExpiry(c: any): () => (() => {})[];
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];

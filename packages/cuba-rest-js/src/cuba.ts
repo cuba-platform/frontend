@@ -1,10 +1,10 @@
-import {IMetaClassInfo} from "./model";
+import {EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
 
-export {IMetaClassInfo};
+export * from './model';
 
 const apps: CubaApp[] = [];
 
-export function initializeApp(config: IAppConfig): CubaApp {
+export function initializeApp(config: AppConfig): CubaApp {
   if (getApp(config.name) != null) {
     throw new Error("Cuba app is already initialized");
   }
@@ -24,7 +24,7 @@ export function getApp(appName?: string): CubaApp {
   return null;
 }
 
-export interface IAppConfig {
+export interface AppConfig {
   apiUrl: string;
   name?: string;
   restClientId?: string;
@@ -32,16 +32,16 @@ export interface IAppConfig {
   defaultLocale?: string;
 }
 
-export interface IResponseError extends Error {
+export interface ResponseError extends Error {
   response?: any;
 }
 export type ContentType = "text" | "json" | "blob";
 
-export interface IFetchOptions extends RequestInit {
+export interface FetchOptions extends RequestInit {
   handleAs?: ContentType;
 }
 
-export interface IEntitiesLoadOptions {
+export interface EntitiesLoadOptions {
   view?: string;
   sort?: string;
   limit?: number;
@@ -123,7 +123,7 @@ export class CubaApp {
     return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
   }
 
-  public loadEntities(entityName, options?: IEntitiesLoadOptions): Promise<any[]> {
+  public loadEntities(entityName, options?: EntitiesLoadOptions): Promise<any[]> {
     return this.fetch('GET', 'v2/entities/' + entityName, options, {handleAs: 'json'});
   }
 
@@ -145,7 +145,7 @@ export class CubaApp {
   }
 
   public invokeService(serviceName: string, methodName: string, params: any,
-                       fetchOptions?: IFetchOptions): Promise<any> {
+                       fetchOptions?: FetchOptions): Promise<any> {
     return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, JSON.stringify(params), fetchOptions);
   }
 
@@ -157,11 +157,11 @@ export class CubaApp {
     return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params);
   }
 
-  public loadMetadata(): Promise<IMetaClassInfo[]> {
+  public loadMetadata(): Promise<MetaClassInfo[]> {
     return this.fetch('GET', 'v2/metadata/entities', null, {handleAs: 'json'});
   }
 
-  public loadEntityMetadata(entityName: string): Promise<IMetaClassInfo> {
+  public loadEntityMetadata(entityName: string): Promise<MetaClassInfo> {
     return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, {handleAs: 'json'});
   }
 
@@ -174,7 +174,7 @@ export class CubaApp {
     return fetchRes;
   }
 
-  public loadEnums(): Promise<any> {
+  public loadEnums(): Promise<EnumInfo[]> {
     const fetchRes = this.fetch('GET', 'v2/metadata/enums', null, {handleAs: 'json'});
     fetchRes.then((enums) => {
       this.enumsCache = enums;
@@ -183,15 +183,15 @@ export class CubaApp {
     return fetchRes;
   }
 
-  public getPermissions(): Promise<any> {
+  public getPermissions(): Promise<PermissionInfo[]> {
     return this.fetch('GET', 'v2/permissions', null, {handleAs: 'json'});
   }
 
-  public getUserInfo(): Promise<any> {
+  public getUserInfo(): Promise<UserInfo> {
     return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json'});
   }
 
-  public fetch(method, path, data?, fetchOptions?: IFetchOptions): Promise<any> {
+  public fetch(method, path, data?, fetchOptions?: FetchOptions): Promise<any> {
     let url = this.apiUrl + path;
     const settings: RequestInit = {
       method,

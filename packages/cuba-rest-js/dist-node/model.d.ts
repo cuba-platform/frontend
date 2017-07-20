@@ -1,6 +1,6 @@
 export declare type Cardinality = 'NONE' | 'ONE_TO_ONE' | 'MANY_TO_ONE' | 'ONE_TO_MANY' | 'MANY_TO_MANY';
 export declare type AttributeType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION';
-export interface IMetaPropertyInfo {
+export interface MetaPropertyInfo {
     name: string;
     type: string;
     mandatory: boolean;
@@ -10,7 +10,36 @@ export interface IMetaPropertyInfo {
     attributeType: AttributeType;
     cardinality: Cardinality;
 }
-export interface IMetaClassInfo {
+export interface MetaClassInfo {
     entityName: string;
-    properties: IMetaPropertyInfo[];
+    properties: MetaPropertyInfo[];
+}
+export interface UserInfo {
+    id: string;
+    login: string;
+    name: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    position: string;
+    email: string;
+    timeZone: string;
+    language: string;
+    _instanceName: string;
+    locale: string;
+}
+export interface PermissionInfo {
+    type: string;
+    target: string;
+    value: string;
+    intValue: number;
+}
+export interface EnumValueInfo {
+    name: string;
+    id: string | number;
+    caption: string;
+}
+export interface EnumInfo {
+    name: string;
+    values: EnumValueInfo[];
 }

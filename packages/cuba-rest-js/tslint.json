@@ -3,6 +3,7 @@
   "rules": {
     "max-line-length": [true, 120],
     "object-literal-sort-keys": false,
-    "quotemark": false
+    "quotemark": false,
+    "interface-name": false
   }
 }
