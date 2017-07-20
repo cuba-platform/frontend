@@ -1,6 +1,4 @@
 .idea
 .local-storage
 node_modules
-
-# Keep dist for bower
-#dist
+npm-debug.log

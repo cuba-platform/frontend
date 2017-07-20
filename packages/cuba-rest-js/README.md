@@ -1,5 +1,5 @@
 # CUBA JS SDK
-JavaScript library for web and node applications which facilitates using CUBA Platfotm's REST API.
+JavaScript library for web and Node.js which facilitates CUBA Platfotm's REST API usage.
  
 ## Installation
 
@@ -47,5 +47,9 @@ fetch = require('node-fetch');
 
 ### Tests
 ```bash
-npm run test
+npm test
+```
+### Build
+```bash
+npm run dist
 ```
