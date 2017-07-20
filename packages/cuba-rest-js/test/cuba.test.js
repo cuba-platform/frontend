@@ -21,8 +21,7 @@ describe('cuba', function () {
 
   describe('#initializeApp()', function () {
     it('simple initialization', function () {
-      let app = typeof cuba.initializeApp({});
-      assert.equal(app, 'object');
+      assert.equal(typeof cuba.initializeApp({}), 'object');
     });
     it('initialization with the same name fails', function (done) {
       try {
@@ -36,7 +35,6 @@ describe('cuba', function () {
   });
 
 
-
   describe('#getApp()', function () {
     it('initialize and retrieve - default config', function () {
       let app = cuba.initializeApp({});
@@ -44,26 +42,38 @@ describe('cuba', function () {
     });
   });
 
-  describe('cubaApp', function() {
+});
 
-    describe('#login()', function () {
-      it('should work with right credentials', function () {
-        const app = cuba.initializeApp({apiUrl: apiUrl});
-        return app.login('admin', 'admin');
-      });
+describe('cubaApp', function() {
 
-      it('shouldn\'t work with bad credentials', function (done) {
-        const app = cuba.initializeApp({apiUrl: apiUrl});
-        app.login('admin', 'admin2')
-          .then(() => {
-            done('works with bad credentials');
-          })
-          .catch((e) => {
-            done()
-          });
-      })
+  const cuba = require('../dist-node/cuba.js');
+  const app = cuba.initializeApp({apiUrl: apiUrl});
+
+  describe('#login()', function () {
+    it('should work with right credentials', function () {
+      return app.login('admin', 'admin');
     });
 
+    it('shouldn\'t work with bad credentials', function (done) {
+      app.login('admin', 'admin2')
+        .then(() => {
+          done('works with bad credentials');
+        })
+        .catch((e) => {
+          done()
+        });
+    })
   });
+
+
+  it('#loadMetadata()', function() {
+    return app.loadMetadata();
+  });
+
+  it('#loadEnums()', function() {
+    return app.loadEnums();
+  });
+
+  delete require.cache[require.resolve('../dist-node/cuba.js')];
 
 });
