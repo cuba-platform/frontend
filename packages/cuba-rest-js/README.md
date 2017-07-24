@@ -40,7 +40,16 @@ npm install node-fetch --save
 fetch = require('node-fetch');
 ```
 
-## API
+## Usage
+
+```javascript
+import * as cuba from 'cuba-js-sdk';
+
+const app = cuba.initializeApp({});
+app.getUserInfo().then((d) => {
+  console.log(d);
+})
+```
 
 
 ## Development
@@ -52,4 +61,9 @@ npm test
 ### Build
 ```bash
 npm run dist
+```
+
+### Lint
+```bash
+npm run lint
 ```
