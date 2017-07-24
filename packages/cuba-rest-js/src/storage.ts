@@ -1,3 +1,6 @@
+/**
+ * Simple im-memory storage compatible with localStorage/sessionStorage API.
+ */
 export class DefaultStorage implements Storage {
 
   private items = {};
@@ -14,6 +17,9 @@ export class DefaultStorage implements Storage {
     return this.items[key];
   }
 
+  /**
+   * @deprecated operation not supported
+   */
   public key(index: number): string | any {
     throw new Error('Unsupported operation');
   }

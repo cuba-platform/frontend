@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Simple im-memory storage compatible with localStorage/sessionStorage API.
+ */
 var DefaultStorage = (function () {
     function DefaultStorage() {
         this.items = {};
@@ -17,6 +20,9 @@ var DefaultStorage = (function () {
     DefaultStorage.prototype.getItem = function (key) {
         return this.items[key];
     };
+    /**
+     * @deprecated operation not supported
+     */
     DefaultStorage.prototype.key = function (index) {
         throw new Error('Unsupported operation');
     };

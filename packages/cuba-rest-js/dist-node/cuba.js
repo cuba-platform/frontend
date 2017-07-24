@@ -3,6 +3,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
+var storage_1 = require("./storage");
 __export(require("./storage"));
 var apps = [];
 function initializeApp(config) {
@@ -26,17 +27,19 @@ function getApp(appName) {
 }
 exports.getApp = getApp;
 var CubaApp = (function () {
-    function CubaApp(name, apiUrl, restClientId, restClientSecret, defaultLocale) {
+    function CubaApp(name, apiUrl, restClientId, restClientSecret, defaultLocale, storage) {
         if (name === void 0) { name = ""; }
         if (apiUrl === void 0) { apiUrl = "/app/rest/"; }
         if (restClientId === void 0) { restClientId = "client"; }
         if (restClientSecret === void 0) { restClientSecret = "secret"; }
         if (defaultLocale === void 0) { defaultLocale = "en"; }
+        if (storage === void 0) { storage = new storage_1.DefaultStorage(); }
         this.name = name;
         this.apiUrl = apiUrl;
         this.restClientId = restClientId;
         this.restClientSecret = restClientSecret;
         this.defaultLocale = defaultLocale;
+        this.storage = storage;
         this.tokenExpiryListeners = [];
         this.messagesLoadingListeners = [];
         this.enumsLoadingListeners = [];
@@ -44,22 +47,22 @@ var CubaApp = (function () {
     }
     Object.defineProperty(CubaApp.prototype, "restApiToken", {
         get: function () {
-            return localStorage.getItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
+            return this.storage.getItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
         },
         set: function (token) {
-            localStorage.setItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY, token);
+            this.storage.setItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY, token);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(CubaApp.prototype, "locale", {
         get: function () {
-            var storedLocale = localStorage.getItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY);
+            var storedLocale = this.storage.getItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY);
             return storedLocale ? storedLocale : this.defaultLocale;
         },
         set: function (locale) {
             var _this = this;
-            localStorage.setItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY, locale);
+            this.storage.setItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY, locale);
             this.localeChangeListeners.forEach(function (l) { return l(_this.locale); });
         },
         enumerable: true,
@@ -231,6 +234,8 @@ var CubaApp = (function () {
     };
     CubaApp.prototype.isTokenExpiredResponse = function (resp) {
         return resp && resp.status === 401;
+        // && resp.responseJSON
+        // && resp.responseJSON.error === 'invalid_token';
     };
     CubaApp.prototype._getBasicAuthHeaders = function () {
         return {
@@ -248,8 +253,8 @@ var CubaApp = (function () {
         }
     };
     CubaApp.prototype.clearAuthData = function () {
-        localStorage.removeItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
-        localStorage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
+        this.storage.removeItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
+        this.storage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
     };
     return CubaApp;
 }());
@@ -258,6 +263,7 @@ CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
 CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
 exports.CubaApp = CubaApp;
 function base64encode(str) {
+    /* tslint:disable:no-string-literal */
     if (typeof btoa === 'function') {
         return btoa(str);
     }
@@ -267,4 +273,5 @@ function base64encode(str) {
     else {
         throw new Error('Unable to encode to base64');
     }
+    /* tslint:enable:no-string-literal */
 }

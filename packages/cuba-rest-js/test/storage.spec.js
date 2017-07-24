@@ -57,9 +57,7 @@ describe('DefaultStorage', function () {
     it('should throw an exception since not implemented', function () {
       const storage = new cuba.DefaultStorage();
       storage.setItem('item1', 'value1');
-      assert.throws(() => {
-        storage.key(0)
-      }, Error);
+      assert.throws(() => storage.key(0), Error);
     });
   })
 

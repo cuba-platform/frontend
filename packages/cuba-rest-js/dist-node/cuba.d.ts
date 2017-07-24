@@ -1,4 +1,5 @@
 import { EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
+import { DefaultStorage } from "./storage";
 export * from './model';
 export * from './storage';
 export declare function initializeApp(config: AppConfig): CubaApp;
@@ -29,6 +30,7 @@ export declare class CubaApp {
     restClientId: string;
     restClientSecret: string;
     defaultLocale: string;
+    private storage;
     private static REST_TOKEN_STORAGE_KEY;
     private static USER_NAME_STORAGE_KEY;
     private static LOCALE_STORAGE_KEY;
@@ -38,7 +40,7 @@ export declare class CubaApp {
     private messagesLoadingListeners;
     private enumsLoadingListeners;
     private localeChangeListeners;
-    constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string);
+    constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string, storage?: DefaultStorage);
     restApiToken: string;
     locale: string;
     login(login: string, password: string): Promise<{

@@ -1,4 +1,5 @@
 import {EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
+import {DefaultStorage} from "./storage";
 
 export * from './model';
 export * from './storage';
@@ -67,24 +68,25 @@ export class CubaApp {
               public apiUrl = "/app/rest/",
               public restClientId = "client",
               public restClientSecret = "secret",
-              public defaultLocale = "en") {
+              public defaultLocale = "en",
+              private storage = new DefaultStorage()) {
   }
 
   get restApiToken(): string {
-    return localStorage.getItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
+    return this.storage.getItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
   }
 
   set restApiToken(token: string) {
-    localStorage.setItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY, token);
+    this.storage.setItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY, token);
   }
 
   get locale(): string {
-    const storedLocale = localStorage.getItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY);
+    const storedLocale = this.storage.getItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY);
     return storedLocale ? storedLocale : this.defaultLocale;
   }
 
   set locale(locale: string) {
-    localStorage.setItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY, locale);
+    this.storage.setItem(this.name + "_" + CubaApp.LOCALE_STORAGE_KEY, locale);
     this.localeChangeListeners.forEach((l) => l(this.locale));
   }
 
@@ -294,8 +296,8 @@ export class CubaApp {
   }
 
   private clearAuthData(): void {
-    localStorage.removeItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
-    localStorage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
+    this.storage.removeItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
+    this.storage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
   }
 
 }
