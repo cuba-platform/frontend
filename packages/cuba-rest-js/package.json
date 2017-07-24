@@ -24,6 +24,9 @@
     "tslint": "5.4.3",
     "typescript": "2.3.2"
   },
+  "engines": {
+    "node": ">=6"
+  },
   "author": "Vlad Minaev <minaev@haulmont.com>",
   "license": "Apache-2.0"
 }
