@@ -15,7 +15,7 @@ export class DefaultStorage implements Storage {
   }
 
   public key(index: number): string | any {
-    return undefined;
+    throw new Error('Unsupported operation');
   }
 
   public removeItem(key: string): void {

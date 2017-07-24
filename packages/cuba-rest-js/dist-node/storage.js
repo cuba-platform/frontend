@@ -18,7 +18,7 @@ var DefaultStorage = (function () {
         return this.items[key];
     };
     DefaultStorage.prototype.key = function (index) {
-        return undefined;
+        throw new Error('Unsupported operation');
     };
     DefaultStorage.prototype.removeItem = function (key) {
         delete this.items[key];
