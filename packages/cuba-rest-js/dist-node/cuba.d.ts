@@ -1,5 +1,6 @@
 import { EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
 export * from './model';
+export * from './storage';
 export declare function initializeApp(config: AppConfig): CubaApp;
 export declare function getApp(appName?: string): CubaApp;
 export interface AppConfig {

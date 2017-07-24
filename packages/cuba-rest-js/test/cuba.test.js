@@ -1,3 +1,5 @@
+"use strict";
+
 const assert = require('assert');
 
 global.localStorage = new require('node-localstorage').LocalStorage('.local-storage');

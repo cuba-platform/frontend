@@ -1,6 +1,7 @@
 import {EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
 
 export * from './model';
+export * from './storage';
 
 const apps: CubaApp[] = [];
 
