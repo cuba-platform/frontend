@@ -1,5 +1,5 @@
 /**
- * Basic im-memory storage with localStorage/sessionStorage compatible API.
+ * Simple im-memory storage compatible with localStorage/sessionStorage API.
  */
 export declare class DefaultStorage implements Storage {
     private items;

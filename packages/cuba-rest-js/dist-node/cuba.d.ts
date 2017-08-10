@@ -1,15 +1,16 @@
 import { EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
-import { DefaultStorage } from "./storage";
 export * from './model';
 export * from './storage';
-export declare function initializeApp(config: AppConfig): CubaApp;
+export declare function initializeApp(config?: AppConfig): CubaApp;
 export declare function getApp(appName?: string): CubaApp;
+export declare function removeApp(appName?: string): void;
 export interface AppConfig {
-    apiUrl: string;
+    apiUrl?: string;
     name?: string;
     restClientId?: string;
     restClientSecret?: string;
     defaultLocale?: string;
+    storage?: Storage;
 }
 export interface ResponseError extends Error {
     response?: any;
@@ -40,7 +41,7 @@ export declare class CubaApp {
     private messagesLoadingListeners;
     private enumsLoadingListeners;
     private localeChangeListeners;
-    constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string, storage?: DefaultStorage);
+    constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string, storage?: Storage);
     restApiToken: string;
     locale: string;
     login(login: string, password: string): Promise<{
@@ -68,6 +69,7 @@ export declare class CubaApp {
     onTokenExpiry(c: any): () => (() => {})[];
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];
     onMessagesLoaded(c: any): () => ((messages: any[]) => {})[];
+    cleanup(): void;
     private isTokenExpiredResponse(resp);
     private _getBasicAuthHeaders();
     private checkStatus(response);

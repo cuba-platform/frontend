@@ -24,7 +24,7 @@ describe('DefaultStorage', function () {
     })
   });
 
-  describe('#setItem()', function () {
+  describe('.setItem()', function () {
     const storage = new cuba.DefaultStorage();
     it('should add item', function () {
       storage.setItem('key1', 'value');
@@ -32,7 +32,7 @@ describe('DefaultStorage', function () {
     });
   });
 
-  describe('#removeItem()', function() {
+  describe('.removeItem()', function() {
     const storage = new cuba.DefaultStorage();
     it('should remove item', function() {
       storage.setItem('item1', 'value1');
@@ -41,7 +41,7 @@ describe('DefaultStorage', function () {
     });
   });
 
-  describe('#clear()', function () {
+  describe('.clear()', function () {
     it('clears all items', function () {
       const storage = new cuba.DefaultStorage();
       storage.setItem('item1', 1);
@@ -53,7 +53,7 @@ describe('DefaultStorage', function () {
     });
   });
 
-  describe('#key()', function () {
+  describe('.key()', function () {
     it('should throw an exception since not implemented', function () {
       const storage = new cuba.DefaultStorage();
       storage.setItem('item1', 'value1');

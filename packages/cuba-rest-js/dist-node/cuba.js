@@ -7,10 +7,11 @@ var storage_1 = require("./storage");
 __export(require("./storage"));
 var apps = [];
 function initializeApp(config) {
+    if (config === void 0) { config = {}; }
     if (getApp(config.name) != null) {
         throw new Error("Cuba app is already initialized");
     }
-    var cubaApp = new CubaApp(config.name, config.apiUrl, config.restClientId, config.restClientSecret, config.defaultLocale);
+    var cubaApp = new CubaApp(config.name, config.apiUrl, config.restClientId, config.restClientSecret, config.defaultLocale, config.storage);
     apps.push(cubaApp);
     return cubaApp;
 }
@@ -26,6 +27,15 @@ function getApp(appName) {
     return null;
 }
 exports.getApp = getApp;
+function removeApp(appName) {
+    var app = getApp(appName);
+    if (!app) {
+        throw new Error('App is not found');
+    }
+    app.cleanup();
+    apps.splice(apps.indexOf(app), 1);
+}
+exports.removeApp = removeApp;
 var CubaApp = (function () {
     function CubaApp(name, apiUrl, restClientId, restClientSecret, defaultLocale, storage) {
         if (name === void 0) { name = ""; }
@@ -231,6 +241,9 @@ var CubaApp = (function () {
         var _this = this;
         this.messagesLoadingListeners.push(c);
         return function () { return _this.messagesLoadingListeners.splice(_this.messagesLoadingListeners.indexOf(c), 1); };
+    };
+    CubaApp.prototype.cleanup = function () {
+        this.storage.clear();
     };
     CubaApp.prototype.isTokenExpiredResponse = function (resp) {
         return resp && resp.status === 401;

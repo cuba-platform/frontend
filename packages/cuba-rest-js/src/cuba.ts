@@ -6,12 +6,12 @@ export * from './storage';
 
 const apps: CubaApp[] = [];
 
-export function initializeApp(config: AppConfig): CubaApp {
+export function initializeApp(config: AppConfig = {}): CubaApp {
   if (getApp(config.name) != null) {
     throw new Error("Cuba app is already initialized");
   }
   const cubaApp = new CubaApp(config.name, config.apiUrl, config.restClientId, config.restClientSecret,
-    config.defaultLocale);
+    config.defaultLocale, config.storage);
   apps.push(cubaApp);
   return cubaApp;
 }
@@ -26,12 +26,22 @@ export function getApp(appName?: string): CubaApp {
   return null;
 }
 
+export function removeApp(appName?: string): void {
+  const app = getApp(appName);
+  if (!app) {
+    throw new Error('App is not found');
+  }
+  app.cleanup();
+  apps.splice(apps.indexOf(app), 1);
+}
+
 export interface AppConfig {
-  apiUrl: string;
+  apiUrl?: string;
   name?: string;
   restClientId?: string;
   restClientSecret?: string;
   defaultLocale?: string;
+  storage?: Storage;
 }
 
 export interface ResponseError extends Error {
@@ -69,7 +79,7 @@ export class CubaApp {
               public restClientId = "client",
               public restClientSecret = "secret",
               public defaultLocale = "en",
-              private storage = new DefaultStorage()) {
+              private storage: Storage = new DefaultStorage()) {
   }
 
   get restApiToken(): string {
@@ -271,6 +281,10 @@ export class CubaApp {
   public onMessagesLoaded(c) {
     this.messagesLoadingListeners.push(c);
     return () => this.messagesLoadingListeners.splice(this.messagesLoadingListeners.indexOf(c), 1);
+  }
+
+  public cleanup() {
+    this.storage.clear();
   }
 
   private isTokenExpiredResponse(resp: Response): boolean {
