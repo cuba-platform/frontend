@@ -1,4 +1,4 @@
-# CUBA JS SDK
+# CUBA JS
 JavaScript library for web and Node.js which facilitates CUBA Platfotm's REST API usage.
  
 ## Installation
@@ -6,25 +6,25 @@ JavaScript library for web and Node.js which facilitates CUBA Platfotm's REST AP
 ### npm
 
 ```bash
-npm install cuba-platform/cuba-js-sdk --save
+npm install cuba-platform/cuba-js --save
 ```
 Import as module  
 ```javascript
-const cuba = require('cuba-js-sdk');
+const cuba = require('cuba-js');
 ```
 
 Or using ES6 imports:
 
 ```javascript
-import * as cuba from 'cuba-js-sdk';
+import * as cuba from 'cuba-js';
 ```
 
 ### bower
 ```bash
-bower install cuba-platform/cuba-js-sdk
+bower install cuba-platform/cuba-js
 ```
 ```html
-<script src="./bower_components/cuba-js-sdk/dist-browser/cuba.js">
+<script src="./bower_components/cuba-js/dist-browser/cuba.js">
 ```
 
 
@@ -43,7 +43,7 @@ fetch = require('node-fetch');
 ## Usage
 
 ```javascript
-import * as cuba from 'cuba-js-sdk';
+import * as cuba from 'cuba-js';
 
 const app = cuba.initializeApp({});
 app.getUserInfo().then((d) => {
