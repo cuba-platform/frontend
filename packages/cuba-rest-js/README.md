@@ -1,4 +1,4 @@
-# CUBA JS
+# CUBA REST JS
 JavaScript library for web and Node.js which facilitates CUBA Platfotm's REST API usage.
  
 ## Installation
@@ -45,12 +45,26 @@ fetch = require('node-fetch');
 ```javascript
 import * as cuba from 'cuba-rest-js';
 
-const app = cuba.initializeApp({});
+const app = cuba.initializeApp({
+  name: 'myApp',
+  apiUrl: 'http://localhost:8080/app/rest/'
+});
+
 app.getUserInfo().then((d) => {
   console.log(d);
 })
+
+// retrieve app by name
+
+const myApp = cuba.getApp('myApp');
+```
+or use if you want to manage instances yourself
+```javascript
+const app = new CubaApp("myaApp", "http://localhost:8080/app/rest/")
 ```
 
+## API
+WIP, see `dist-node/cuba.d.ts`
 
 ## Development
 
