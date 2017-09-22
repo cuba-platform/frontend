@@ -47,6 +47,7 @@ export interface AppConfig {
 export interface ResponseError extends Error {
   response?: any;
 }
+
 export type ContentType = "text" | "json" | "blob";
 
 export interface FetchOptions extends RequestInit {
@@ -100,7 +101,14 @@ export class CubaApp {
     this.localeChangeListeners.forEach((l) => l(this.locale));
   }
 
-  public login(login: string, password: string): Promise<{ access_token: string }> {
+  /**
+   * Logs in user and stores token in provided storage.
+   * @param {string} login
+   * @param {string} password
+   * @param {{tokenEndpoint: string}} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
+   * @returns {Promise<{access_token: string}>}
+   */
+  public login(login: string, password: string, options?: {tokenEndpoint: string}): Promise<{ access_token: string }> {
     if (login == null) {
       login = "";
     }
@@ -112,7 +120,8 @@ export class CubaApp {
       headers: this._getBasicAuthHeaders(),
       body: "grant_type=password&username=" + encodeURIComponent(login) + "&password=" + encodeURIComponent(password),
     };
-    const loginRes = fetch(this.apiUrl + "v2/oauth/token", fetchOptions)
+    const endpoint = options && options.tokenEndpoint ? options.tokenEndpoint : 'oauth/token';
+    const loginRes = fetch(this.apiUrl + "v2/" + endpoint, fetchOptions)
       .then(this.checkStatus)
       .then((resp) => resp.json())
       .then((data) => {
@@ -221,9 +230,9 @@ export class CubaApp {
     }
     if (method === 'GET' && data && Object.keys(data).length > 0) {
       url += '?' + Object.keys(data)
-          .map((k) => {
-            return encodeURIComponent(k) + "=" + (data[k] != null ? encodeURIComponent(data[k]) : '');
-          }).join("&");
+        .map((k) => {
+          return encodeURIComponent(k) + "=" + (data[k] != null ? encodeURIComponent(data[k]) : '');
+        }).join("&");
     }
     const handleAs: ContentType = fetchOptions ? fetchOptions.handleAs : undefined;
     switch (handleAs) {

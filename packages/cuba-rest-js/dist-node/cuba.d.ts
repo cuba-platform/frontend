@@ -44,7 +44,16 @@ export declare class CubaApp {
     constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string, storage?: Storage);
     restApiToken: string;
     locale: string;
-    login(login: string, password: string): Promise<{
+    /**
+     * Logs in user and stores token in provided storage.
+     * @param {string} login
+     * @param {string} password
+     * @param {{tokenEndpoint: string}} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
+     * @returns {Promise<{access_token: string}>}
+     */
+    login(login: string, password: string, options?: {
+        tokenEndpoint: string;
+    }): Promise<{
         access_token: string;
     }>;
     logout(): Promise<any>;

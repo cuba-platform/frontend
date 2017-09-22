@@ -80,7 +80,14 @@ var CubaApp = (function () {
         enumerable: true,
         configurable: true
     });
-    CubaApp.prototype.login = function (login, password) {
+    /**
+     * Logs in user and stores token in provided storage.
+     * @param {string} login
+     * @param {string} password
+     * @param {{tokenEndpoint: string}} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
+     * @returns {Promise<{access_token: string}>}
+     */
+    CubaApp.prototype.login = function (login, password, options) {
         var _this = this;
         if (login == null) {
             login = "";
@@ -93,7 +100,8 @@ var CubaApp = (function () {
             headers: this._getBasicAuthHeaders(),
             body: "grant_type=password&username=" + encodeURIComponent(login) + "&password=" + encodeURIComponent(password),
         };
-        var loginRes = fetch(this.apiUrl + "v2/oauth/token", fetchOptions)
+        var endpoint = options && options.tokenEndpoint ? options.tokenEndpoint : 'oauth/token';
+        var loginRes = fetch(this.apiUrl + "v2/" + endpoint, fetchOptions)
             .then(this.checkStatus)
             .then(function (resp) { return resp.json(); })
             .then(function (data) {
