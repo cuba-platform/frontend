@@ -1,0 +1,14 @@
+{
+  "name": "cuba-rest-js",
+  "description": "JavaScript library for working with CUBA Platform's REST API v2",
+  "main": [
+    "dist-browser/cuba.js"
+  ],
+  "ignore": [
+    "*",
+    "!/dist-browser/*",
+    "!/package.json",
+    "!/bower.json"
+  ],
+  "license": "Apache-2.0"
+}
