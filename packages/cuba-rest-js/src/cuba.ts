@@ -1,8 +1,10 @@
 import {EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
 import {DefaultStorage} from "./storage";
+import {EntityFilter} from "./filter";
 
 export * from './model';
 export * from './storage';
+export * from './filter';
 
 const apps: CubaApp[] = [];
 
@@ -145,15 +147,20 @@ export class CubaApp {
     return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
   }
 
-  public loadEntities(entityName, options?: EntitiesLoadOptions): Promise<any[]> {
+  public loadEntities(entityName: string, options?: EntitiesLoadOptions): Promise<any[]> {
     return this.fetch('GET', 'v2/entities/' + entityName, options, {handleAs: 'json'});
   }
 
-  public loadEntity(entityName, id, options?: { view?: string }): Promise<any> {
+  public searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions): Promise<any[]> {
+    const data = {...options, filter: entityFilter};
+    return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, {handleAs: 'json'});
+  }
+
+  public loadEntity(entityName: string, id, options?: { view?: string }): Promise<any> {
     return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, {handleAs: 'json'});
   }
 
-  public deleteEntity(entityName, id): Promise<any> {
+  public deleteEntity(entityName: string, id): Promise<any> {
     return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id);
   }
 
@@ -213,7 +220,7 @@ export class CubaApp {
     return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json'});
   }
 
-  public fetch(method, path, data?, fetchOptions?: FetchOptions): Promise<any> {
+  public fetch(method: string, path: string, data?, fetchOptions?: FetchOptions): Promise<any> {
     let url = this.apiUrl + path;
     const settings: RequestInit = {
       method,

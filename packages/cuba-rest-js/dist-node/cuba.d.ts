@@ -1,6 +1,8 @@
 import { EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
+import { EntityFilter } from "./filter";
 export * from './model';
 export * from './storage';
+export * from './filter';
 export declare function initializeApp(config?: AppConfig): CubaApp;
 export declare function getApp(appName?: string): CubaApp;
 export declare function removeApp(appName?: string): void;
@@ -58,11 +60,12 @@ export declare class CubaApp {
     }>;
     logout(): Promise<any>;
     revokeToken(token: string): Promise<any>;
-    loadEntities(entityName: any, options?: EntitiesLoadOptions): Promise<any[]>;
-    loadEntity(entityName: any, id: any, options?: {
+    loadEntities(entityName: string, options?: EntitiesLoadOptions): Promise<any[]>;
+    searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions): Promise<any[]>;
+    loadEntity(entityName: string, id: any, options?: {
         view?: string;
     }): Promise<any>;
-    deleteEntity(entityName: any, id: any): Promise<any>;
+    deleteEntity(entityName: string, id: any): Promise<any>;
     commitEntity(entityName: string, entity: any): Promise<any>;
     invokeService(serviceName: string, methodName: string, params: any, fetchOptions?: FetchOptions): Promise<any>;
     query(entityName: string, queryName: string, params?: any): Promise<any>;
@@ -73,7 +76,7 @@ export declare class CubaApp {
     loadEnums(): Promise<EnumInfo[]>;
     getPermissions(): Promise<PermissionInfo[]>;
     getUserInfo(): Promise<UserInfo>;
-    fetch(method: any, path: any, data?: any, fetchOptions?: FetchOptions): Promise<any>;
+    fetch(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<any>;
     onLocaleChange(c: any): () => ((locale: string) => {})[];
     onTokenExpiry(c: any): () => (() => {})[];
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];

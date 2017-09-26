@@ -1,6 +1,14 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.cuba = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
@@ -124,6 +132,10 @@ var CubaApp = (function () {
     };
     CubaApp.prototype.loadEntities = function (entityName, options) {
         return this.fetch('GET', 'v2/entities/' + entityName, options, { handleAs: 'json' });
+    };
+    CubaApp.prototype.searchEntities = function (entityName, entityFilter, options) {
+        var data = __assign({}, options, { filter: entityFilter });
+        return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, { handleAs: 'json' });
     };
     CubaApp.prototype.loadEntity = function (entityName, id, options) {
         return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, { handleAs: 'json' });
