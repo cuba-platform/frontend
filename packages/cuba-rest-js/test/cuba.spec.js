@@ -40,11 +40,11 @@ describe('cuba', function () {
 
 });
 
-describe('CubaApp', function() {
+describe('CubaApp', function () {
 
   let app;
 
-  before(function() {
+  before(function () {
     app = new cuba.CubaApp('', apiUrl);
   });
 
@@ -64,29 +64,46 @@ describe('CubaApp', function() {
   });
 
 
-  it('.loadMetadata()', function() {
+  it('.loadMetadata()', function () {
     return app.loadMetadata();
   });
 
-  it('.loadEnums()', function() {
+  it('.loadEnums()', function () {
     return app.loadEnums();
   });
 
-  it('.getUserInfo()', function() {
+  it('.getUserInfo()', function () {
     return app.getUserInfo();
   });
 
-  it('.searchEntities()', function() {
-    const filter = {
-      conditions: [
-        {
+  describe('.searchEntities()', function () {
+    it('should search entities by a simple condition', function () {
+      const filter = {
+        conditions: [{
           property: 'name',
           operator: 'contains',
           value: 'adm'
-        }
-      ]
-    };
-    return app.searchEntities('sec$User', filter);
+        }]
+      };
+      return app.searchEntities('sec$User', filter);
+    });
+    it('should search group conditions', function () {
+      const filter = {
+        conditions: [{
+          group: 'OR',
+          conditions: [{
+            property: 'name',
+            operator: 'contains',
+            value: 'adm'
+          },{
+            property: 'active',
+            operator: '=',
+            value: true
+          }]
+        }]
+      };
+      return app.searchEntities('sec$User', filter);
+    })
   })
 
 });
