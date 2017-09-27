@@ -2,7 +2,7 @@
 buildscript {
     ext.cubaVersion = '6.7-SNAPSHOT'
     repositories {
-        
+        mavenLocal()
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
             credentials {
@@ -117,6 +117,16 @@ configure(coreModule) {
         dbName = 'restmock'
         dbUser = 'sa'
         dbPassword = ''
+    }
+
+    task startDb(description: 'Starts local HSQLDB server', type: CubaHsqlStart) {
+        dbPort = 9001
+        dbName = 'restmock'
+    }
+
+    task stopDb(description: 'Stops local HSQLDB server', type: CubaHsqlStop) {
+        dbPort = 9001
+        dbName = 'restmock'
     }
 }
 
