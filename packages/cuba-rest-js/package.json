@@ -6,7 +6,7 @@
   "typings": "dist/cuba.d.ts",
   "scripts": {
     "lint": "tslint -c tslint.json src/**/*.ts",
-    "start-test-app": "cd test-app && ./gradlew startDb --offline && ./gradlew restart --offline && sleep 20",
+    "start-test-app": "cd test-app && ./gradlew startDb --offline && ./gradlew createDb --offline && ./gradlew restart --offline && sleep 20",
     "teardown-test-app": "cd test-app && ./gradlew stop --offline && ./gradlew stopDb --offline",
     "test:integration": "npm run start-test-app && nyc mocha && teardown-test-app",
     "test": "nyc mocha",
