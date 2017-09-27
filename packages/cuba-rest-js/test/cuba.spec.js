@@ -76,6 +76,21 @@ describe('CubaApp', function () {
     return app.getUserInfo();
   });
 
+  describe('.loadEntities()', function() {
+    it('should load list of entities', function() {
+      const options = {
+        view: '_minimal',
+        limit: 1,
+      };
+      let loadPromise = app.loadEntities('sec$User', options);
+      loadPromise.then((users) => {
+        assert.equal(users.length, 1);
+        assert.ok(!users[0].hasOwnProperty('password'));
+      });
+      return loadPromise;
+    });
+  });
+
   describe('.searchEntities()', function () {
     it('should search entities by a simple condition', function () {
       const filter = {
