@@ -76,7 +76,7 @@ export declare class CubaApp {
     loadEnums(): Promise<EnumInfo[]>;
     getPermissions(): Promise<PermissionInfo[]>;
     getUserInfo(): Promise<UserInfo>;
-    fetch(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<any>;
+    fetch(method: string, path: string, data?: {}, fetchOptions?: FetchOptions): Promise<any>;
     onLocaleChange(c: any): () => ((locale: string) => {})[];
     onTokenExpiry(c: any): () => (() => {})[];
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];

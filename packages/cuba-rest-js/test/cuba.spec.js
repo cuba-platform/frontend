@@ -76,4 +76,17 @@ describe('CubaApp', function() {
     return app.getUserInfo();
   });
 
+  it('.searchEntities()', function() {
+    const filter = {
+      conditions: [
+        {
+          property: 'name',
+          operator: 'contains',
+          value: 'adm'
+        }
+      ]
+    };
+    return app.searchEntities('sec$User', filter);
+  })
+
 });

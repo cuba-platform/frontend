@@ -1,6 +1,7 @@
 import {EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
+import {base64encode, encodeGetParams} from "./util";
 
 export * from './model';
 export * from './storage';
@@ -220,7 +221,7 @@ export class CubaApp {
     return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json'});
   }
 
-  public fetch(method: string, path: string, data?, fetchOptions?: FetchOptions): Promise<any> {
+  public fetch(method: string, path: string, data?: {}, fetchOptions?: FetchOptions): Promise<any> {
     let url = this.apiUrl + path;
     const settings: RequestInit = {
       method,
@@ -236,10 +237,7 @@ export class CubaApp {
       settings.headers["Content-Type"] = "application/json; charset=UTF-8";
     }
     if (method === 'GET' && data && Object.keys(data).length > 0) {
-      url += '?' + Object.keys(data)
-        .map((k) => {
-          return encodeURIComponent(k) + "=" + (data[k] != null ? encodeURIComponent(data[k]) : '');
-        }).join("&");
+      url += '?' + encodeGetParams(data);
     }
     const handleAs: ContentType = fetchOptions ? fetchOptions.handleAs : undefined;
     switch (handleAs) {
@@ -330,19 +328,4 @@ export class CubaApp {
     this.storage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
   }
 
-}
-
-declare const Buffer;
-declare const global;
-
-function base64encode(str) {
-  /* tslint:disable:no-string-literal */
-  if (typeof btoa === 'function') {
-    return btoa(str);
-  } else if (global['Buffer']) { // prevent Buffer from being injected by browserify
-    return new global['Buffer'](str).toString('base64');
-  } else {
-    throw new Error('Unable to encode to base64');
-  }
-  /* tslint:enable:no-string-literal */
 }

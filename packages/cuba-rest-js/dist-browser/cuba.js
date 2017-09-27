@@ -1,5 +1,4 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.cuba = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (global){
 "use strict";
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -14,6 +13,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 var storage_1 = require("./storage");
+var util_1 = require("./util");
 __export(require("./storage"));
 var apps = [];
 function initializeApp(config) {
@@ -207,10 +207,7 @@ var CubaApp = (function () {
             settings.headers["Content-Type"] = "application/json; charset=UTF-8";
         }
         if (method === 'GET' && data && Object.keys(data).length > 0) {
-            url += '?' + Object.keys(data)
-                .map(function (k) {
-                return encodeURIComponent(k) + "=" + (data[k] != null ? encodeURIComponent(data[k]) : '');
-            }).join("&");
+            url += '?' + util_1.encodeGetParams(data);
         }
         var handleAs = fetchOptions ? fetchOptions.handleAs : undefined;
         switch (handleAs) {
@@ -275,7 +272,7 @@ var CubaApp = (function () {
     CubaApp.prototype._getBasicAuthHeaders = function () {
         return {
             "Accept-Language": this.locale,
-            "Authorization": "Basic " + base64encode(this.restClientId + ':' + this.restClientSecret),
+            "Authorization": "Basic " + util_1.base64encode(this.restClientId + ':' + this.restClientSecret),
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         };
     };
@@ -297,22 +294,8 @@ CubaApp.REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
 CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
 CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
 exports.CubaApp = CubaApp;
-function base64encode(str) {
-    /* tslint:disable:no-string-literal */
-    if (typeof btoa === 'function') {
-        return btoa(str);
-    }
-    else if (global['Buffer']) {
-        return new global['Buffer'](str).toString('base64');
-    }
-    else {
-        throw new Error('Unable to encode to base64');
-    }
-    /* tslint:enable:no-string-literal */
-}
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./storage":2}],2:[function(require,module,exports){
+},{"./storage":2,"./util":3}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
@@ -351,5 +334,43 @@ var DefaultStorage = (function () {
 }());
 exports.DefaultStorage = DefaultStorage;
 
+},{}],3:[function(require,module,exports){
+(function (global){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function base64encode(str) {
+    /* tslint:disable:no-string-literal */
+    if (typeof btoa === 'function') {
+        return btoa(str);
+    }
+    else if (global['Buffer']) {
+        return new global['Buffer'](str).toString('base64');
+    }
+    else {
+        throw new Error('Unable to encode to base64');
+    }
+    /* tslint:enable:no-string-literal */
+}
+exports.base64encode = base64encode;
+function encodeGetParams(data) {
+    return Object
+        .keys(data)
+        .map(function (key) {
+        return encodeURIComponent(key) + "=" + (encodeURIComponent(serialize(data[key])));
+    })
+        .join("&");
+}
+exports.encodeGetParams = encodeGetParams;
+function serialize(rawParam) {
+    if (rawParam == null) {
+        return '';
+    }
+    if (typeof rawParam === 'object') {
+        return JSON.stringify(rawParam);
+    }
+    return rawParam;
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}]},{},[1])(1)
 });

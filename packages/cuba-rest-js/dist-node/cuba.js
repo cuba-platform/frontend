@@ -12,6 +12,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 var storage_1 = require("./storage");
+var util_1 = require("./util");
 __export(require("./storage"));
 var apps = [];
 function initializeApp(config) {
@@ -205,10 +206,7 @@ var CubaApp = (function () {
             settings.headers["Content-Type"] = "application/json; charset=UTF-8";
         }
         if (method === 'GET' && data && Object.keys(data).length > 0) {
-            url += '?' + Object.keys(data)
-                .map(function (k) {
-                return encodeURIComponent(k) + "=" + (data[k] != null ? encodeURIComponent(data[k]) : '');
-            }).join("&");
+            url += '?' + util_1.encodeGetParams(data);
         }
         var handleAs = fetchOptions ? fetchOptions.handleAs : undefined;
         switch (handleAs) {
@@ -273,7 +271,7 @@ var CubaApp = (function () {
     CubaApp.prototype._getBasicAuthHeaders = function () {
         return {
             "Accept-Language": this.locale,
-            "Authorization": "Basic " + base64encode(this.restClientId + ':' + this.restClientSecret),
+            "Authorization": "Basic " + util_1.base64encode(this.restClientId + ':' + this.restClientSecret),
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         };
     };
@@ -295,16 +293,3 @@ CubaApp.REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
 CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
 CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
 exports.CubaApp = CubaApp;
-function base64encode(str) {
-    /* tslint:disable:no-string-literal */
-    if (typeof btoa === 'function') {
-        return btoa(str);
-    }
-    else if (global['Buffer']) {
-        return new global['Buffer'](str).toString('base64');
-    }
-    else {
-        throw new Error('Unable to encode to base64');
-    }
-    /* tslint:enable:no-string-literal */
-}
