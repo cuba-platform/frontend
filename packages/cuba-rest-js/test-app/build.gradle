@@ -213,6 +213,21 @@ task restart(dependsOn: ['stop', ':app-core:deploy', ':app-web:deploy'], descrip
     }
 }
 
+task restartAndWaitForInitialization(dependsOn: ['stop', ':app-core:deploy', ':app-web:deploy'], description: 'Redeploys application,' +
+  ' restarts local Tomcat, waits until app initialized') {
+    doLast {
+        ant.waitfor(maxwait: 6, maxwaitunit: 'second', checkevery: 2, checkeveryunit: 'second') {
+            not {
+                socket(server: 'localhost', port: '8787')
+            }
+        }
+        start.execute()
+        ant.waitfor(maxwait: 10, maxwaitunit: 'second', checkevery: 1, checkeveryunit: 'second') {
+            socket(server: 'localhost', port: '8080')
+        }
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4'
 }
