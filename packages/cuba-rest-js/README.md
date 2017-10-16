@@ -1,4 +1,7 @@
 # CUBA REST JS
+
+[![Build Status](https://travis-ci.org/cuba-platform/cuba-rest-js.svg?branch=master)](https://travis-ci.org/cuba-platform/cuba-rest-js)
+
 JavaScript library for web and Node.js which facilitates CUBA Platfotm's REST API usage.
  
 ## Installation
