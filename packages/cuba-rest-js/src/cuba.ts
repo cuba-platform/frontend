@@ -53,8 +53,16 @@ export interface ResponseError extends Error {
 
 export type ContentType = "text" | "json" | "blob";
 
+/*
+ * Temporary typings until AbortSignal gets landed to the TypeScript library
+ */
+export interface AbortSignal extends EventTarget {
+  aborted: boolean;
+}
+
 export interface FetchOptions extends RequestInit {
   handleAs?: ContentType;
+  signal?: AbortSignal;
 }
 
 export interface EntitiesLoadOptions {
@@ -111,7 +119,7 @@ export class CubaApp {
    * @param {{tokenEndpoint: string}} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
    * @returns {Promise<{access_token: string}>}
    */
-  public login(login: string, password: string, options?: {tokenEndpoint: string}): Promise<{ access_token: string }> {
+  public login(login: string, password: string, options?: { tokenEndpoint: string }): Promise<{ access_token: string }> {
     if (login == null) {
       login = "";
     }
@@ -148,29 +156,31 @@ export class CubaApp {
     return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
   }
 
-  public loadEntities(entityName: string, options?: EntitiesLoadOptions): Promise<any[]> {
-    return this.fetch('GET', 'v2/entities/' + entityName, options, {handleAs: 'json'});
+  public loadEntities(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<any[]> {
+    return this.fetch('GET', 'v2/entities/' + entityName, options, {handleAs: 'json', ...fetchOptions});
   }
 
-  public searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions): Promise<any[]> {
+  public searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions,
+                        fetchOptions?: FetchOptions): Promise<any[]> {
     const data = {...options, filter: entityFilter};
-    return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, {handleAs: 'json'});
+    return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, {handleAs: 'json', ...fetchOptions});
   }
 
-  public loadEntity(entityName: string, id, options?: { view?: string }): Promise<any> {
-    return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, {handleAs: 'json'});
+  public loadEntity(entityName: string, id, options?: { view?: string }, fetchOptions?: FetchOptions): Promise<any> {
+    return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, {handleAs: 'json', ...fetchOptions});
   }
 
-  public deleteEntity(entityName: string, id): Promise<any> {
-    return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id);
+  public deleteEntity(entityName: string, id, fetchOptions?: FetchOptions): Promise<any> {
+    return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id, null, fetchOptions);
   }
 
-  public commitEntity(entityName: string, entity: any): Promise<any> {
+  public commitEntity(entityName: string, entity: any, fetchOptions?: FetchOptions): Promise<any> {
     if (entity.id) {
       return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity),
-        {handleAs: 'json'});
+        {handleAs: 'json', ...fetchOptions});
     } else {
-      return this.fetch('POST', 'v2/entities/' + entityName, JSON.stringify(entity), {handleAs: 'json'});
+      return this.fetch('POST', 'v2/entities/' + entityName, JSON.stringify(entity),
+        {handleAs: 'json', ...fetchOptions});
     }
   }
 
@@ -179,24 +189,24 @@ export class CubaApp {
     return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, JSON.stringify(params), fetchOptions);
   }
 
-  public query(entityName: string, queryName: string, params?: any): Promise<any> {
-    return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, {handleAs: 'json'});
+  public query(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any> {
+    return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, {handleAs: 'json', ...fetchOptions});
   }
 
-  public queryCount(entityName: string, queryName: string, params?: any): Promise<any> {
-    return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params);
+  public queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any> {
+    return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params, fetchOptions);
   }
 
-  public loadMetadata(): Promise<MetaClassInfo[]> {
-    return this.fetch('GET', 'v2/metadata/entities', null, {handleAs: 'json'});
+  public loadMetadata(fetchOptions?: FetchOptions): Promise<MetaClassInfo[]> {
+    return this.fetch('GET', 'v2/metadata/entities', null, {handleAs: 'json', ...fetchOptions});
   }
 
-  public loadEntityMetadata(entityName: string): Promise<MetaClassInfo> {
-    return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, {handleAs: 'json'});
+  public loadEntityMetadata(entityName: string, fetchOptions?: FetchOptions): Promise<MetaClassInfo> {
+    return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, {handleAs: 'json', ...fetchOptions});
   }
 
-  public loadEntitiesMessages(): Promise<any> {
-    const fetchRes = this.fetch('GET', 'v2/messages/entities', null, {handleAs: 'json'});
+  public loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<any> {
+    const fetchRes = this.fetch('GET', 'v2/messages/entities', null, {handleAs: 'json', ...fetchOptions});
     fetchRes.then((messages) => {
       this.messagesCache = messages;
       this.messagesLoadingListeners.forEach((l) => l(messages));
@@ -204,8 +214,8 @@ export class CubaApp {
     return fetchRes;
   }
 
-  public loadEnums(): Promise<EnumInfo[]> {
-    const fetchRes = this.fetch('GET', 'v2/metadata/enums', null, {handleAs: 'json'});
+  public loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]> {
+    const fetchRes = this.fetch('GET', 'v2/metadata/enums', null, {handleAs: 'json', ...fetchOptions});
     fetchRes.then((enums) => {
       this.enumsCache = enums;
       this.enumsLoadingListeners.forEach((l) => l(enums));
@@ -213,12 +223,12 @@ export class CubaApp {
     return fetchRes;
   }
 
-  public getPermissions(): Promise<PermissionInfo[]> {
-    return this.fetch('GET', 'v2/permissions', null, {handleAs: 'json'});
+  public getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]> {
+    return this.fetch('GET', 'v2/permissions', null, {handleAs: 'json', ...fetchOptions});
   }
 
-  public getUserInfo(): Promise<UserInfo> {
-    return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json'});
+  public getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo> {
+    return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json', ...fetchOptions});
   }
 
   public fetch(method: string, path: string, data?: {}, fetchOptions?: FetchOptions): Promise<any> {
@@ -228,6 +238,7 @@ export class CubaApp {
       headers: {
         "Accept-Language": this.locale,
       },
+      ...fetchOptions,
     };
     if (this.restApiToken) {
       settings.headers.authorization = "Bearer " + this.restApiToken;

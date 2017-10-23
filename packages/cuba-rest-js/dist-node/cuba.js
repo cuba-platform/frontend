@@ -129,75 +129,72 @@ var CubaApp = (function () {
         this.clearAuthData();
         return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
     };
-    CubaApp.prototype.loadEntities = function (entityName, options) {
-        return this.fetch('GET', 'v2/entities/' + entityName, options, { handleAs: 'json' });
+    CubaApp.prototype.loadEntities = function (entityName, options, fetchOptions) {
+        return this.fetch('GET', 'v2/entities/' + entityName, options, __assign({ handleAs: 'json' }, fetchOptions));
     };
-    CubaApp.prototype.searchEntities = function (entityName, entityFilter, options) {
+    CubaApp.prototype.searchEntities = function (entityName, entityFilter, options, fetchOptions) {
         var data = __assign({}, options, { filter: entityFilter });
-        return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, { handleAs: 'json' });
+        return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, __assign({ handleAs: 'json' }, fetchOptions));
     };
-    CubaApp.prototype.loadEntity = function (entityName, id, options) {
-        return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, { handleAs: 'json' });
+    CubaApp.prototype.loadEntity = function (entityName, id, options, fetchOptions) {
+        return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, __assign({ handleAs: 'json' }, fetchOptions));
     };
-    CubaApp.prototype.deleteEntity = function (entityName, id) {
-        return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id);
+    CubaApp.prototype.deleteEntity = function (entityName, id, fetchOptions) {
+        return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id, null, fetchOptions);
     };
-    CubaApp.prototype.commitEntity = function (entityName, entity) {
+    CubaApp.prototype.commitEntity = function (entityName, entity, fetchOptions) {
         if (entity.id) {
-            return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity), { handleAs: 'json' });
+            return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity), __assign({ handleAs: 'json' }, fetchOptions));
         }
         else {
-            return this.fetch('POST', 'v2/entities/' + entityName, JSON.stringify(entity), { handleAs: 'json' });
+            return this.fetch('POST', 'v2/entities/' + entityName, JSON.stringify(entity), __assign({ handleAs: 'json' }, fetchOptions));
         }
     };
     CubaApp.prototype.invokeService = function (serviceName, methodName, params, fetchOptions) {
         return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, JSON.stringify(params), fetchOptions);
     };
-    CubaApp.prototype.query = function (entityName, queryName, params) {
-        return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, { handleAs: 'json' });
+    CubaApp.prototype.query = function (entityName, queryName, params, fetchOptions) {
+        return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, __assign({ handleAs: 'json' }, fetchOptions));
     };
-    CubaApp.prototype.queryCount = function (entityName, queryName, params) {
-        return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params);
+    CubaApp.prototype.queryCount = function (entityName, queryName, params, fetchOptions) {
+        return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params, fetchOptions);
     };
-    CubaApp.prototype.loadMetadata = function () {
-        return this.fetch('GET', 'v2/metadata/entities', null, { handleAs: 'json' });
+    CubaApp.prototype.loadMetadata = function (fetchOptions) {
+        return this.fetch('GET', 'v2/metadata/entities', null, __assign({ handleAs: 'json' }, fetchOptions));
     };
-    CubaApp.prototype.loadEntityMetadata = function (entityName) {
-        return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, { handleAs: 'json' });
+    CubaApp.prototype.loadEntityMetadata = function (entityName, fetchOptions) {
+        return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, __assign({ handleAs: 'json' }, fetchOptions));
     };
-    CubaApp.prototype.loadEntitiesMessages = function () {
+    CubaApp.prototype.loadEntitiesMessages = function (fetchOptions) {
         var _this = this;
-        var fetchRes = this.fetch('GET', 'v2/messages/entities', null, { handleAs: 'json' });
+        var fetchRes = this.fetch('GET', 'v2/messages/entities', null, __assign({ handleAs: 'json' }, fetchOptions));
         fetchRes.then(function (messages) {
             _this.messagesCache = messages;
             _this.messagesLoadingListeners.forEach(function (l) { return l(messages); });
         });
         return fetchRes;
     };
-    CubaApp.prototype.loadEnums = function () {
+    CubaApp.prototype.loadEnums = function (fetchOptions) {
         var _this = this;
-        var fetchRes = this.fetch('GET', 'v2/metadata/enums', null, { handleAs: 'json' });
+        var fetchRes = this.fetch('GET', 'v2/metadata/enums', null, __assign({ handleAs: 'json' }, fetchOptions));
         fetchRes.then(function (enums) {
             _this.enumsCache = enums;
             _this.enumsLoadingListeners.forEach(function (l) { return l(enums); });
         });
         return fetchRes;
     };
-    CubaApp.prototype.getPermissions = function () {
-        return this.fetch('GET', 'v2/permissions', null, { handleAs: 'json' });
+    CubaApp.prototype.getPermissions = function (fetchOptions) {
+        return this.fetch('GET', 'v2/permissions', null, __assign({ handleAs: 'json' }, fetchOptions));
     };
-    CubaApp.prototype.getUserInfo = function () {
-        return this.fetch('GET', 'v2/userInfo', null, { handleAs: 'json' });
+    CubaApp.prototype.getUserInfo = function (fetchOptions) {
+        return this.fetch('GET', 'v2/userInfo', null, __assign({ handleAs: 'json' }, fetchOptions));
     };
     CubaApp.prototype.fetch = function (method, path, data, fetchOptions) {
         var _this = this;
         var url = this.apiUrl + path;
-        var settings = {
-            method: method,
-            headers: {
+        var settings = __assign({ method: method, headers: {
                 "Accept-Language": this.locale,
-            },
-        };
+            } }, fetchOptions);
         if (this.restApiToken) {
             settings.headers.authorization = "Bearer " + this.restApiToken;
         }
