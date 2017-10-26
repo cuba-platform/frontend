@@ -1,4 +1,4 @@
-import { EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
+import { EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
 import { EntityFilter } from "./filter";
 export * from './model';
 export * from './storage';
@@ -17,7 +17,7 @@ export interface AppConfig {
 export interface ResponseError extends Error {
     response?: any;
 }
-export declare type ContentType = "text" | "json" | "blob";
+export declare type ContentType = "text" | "json" | "blob" | "raw";
 export interface AbortSignal extends EventTarget {
     aborted: boolean;
 }
@@ -65,6 +65,7 @@ export declare class CubaApp {
     logout(): Promise<any>;
     revokeToken(token: string): Promise<any>;
     loadEntities(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<any[]>;
+    loadEntitiesWithCount(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
     searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<any[]>;
     loadEntity(entityName: string, id: any, options?: {
         view?: string;
@@ -73,6 +74,7 @@ export declare class CubaApp {
     commitEntity(entityName: string, entity: any, fetchOptions?: FetchOptions): Promise<any>;
     invokeService(serviceName: string, methodName: string, params: any, fetchOptions?: FetchOptions): Promise<any>;
     query(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any>;
+    queryWithCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
     queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any>;
     loadMetadata(fetchOptions?: FetchOptions): Promise<MetaClassInfo[]>;
     loadEntityMetadata(entityName: string, fetchOptions?: FetchOptions): Promise<MetaClassInfo>;

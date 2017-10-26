@@ -132,6 +132,15 @@ var CubaApp = (function () {
     CubaApp.prototype.loadEntities = function (entityName, options, fetchOptions) {
         return this.fetch('GET', 'v2/entities/' + entityName, options, __assign({ handleAs: 'json' }, fetchOptions));
     };
+    CubaApp.prototype.loadEntitiesWithCount = function (entityName, options, fetchOptions) {
+        var count;
+        var optionsWithCount = __assign({}, options, { returnCount: true });
+        return this.fetch('GET', "v2/entities/" + entityName, optionsWithCount, __assign({ handleAs: 'raw' }, fetchOptions))
+            .then(function (response) {
+            count = response.headers.get('X-Total-Count');
+            return response.json();
+        }).then(function (result) { return ({ result: result, count: count }); });
+    };
     CubaApp.prototype.searchEntities = function (entityName, entityFilter, options, fetchOptions) {
         var data = __assign({}, options, { filter: entityFilter });
         return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, __assign({ handleAs: 'json' }, fetchOptions));
@@ -155,6 +164,15 @@ var CubaApp = (function () {
     };
     CubaApp.prototype.query = function (entityName, queryName, params, fetchOptions) {
         return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, __assign({ handleAs: 'json' }, fetchOptions));
+    };
+    CubaApp.prototype.queryWithCount = function (entityName, queryName, params, fetchOptions) {
+        var count;
+        var paramsWithCount = __assign({}, params, { returnCount: true });
+        return this.fetch('GET', "v2/queries/" + entityName + "/" + queryName, paramsWithCount, __assign({ handleAs: 'raw' }, fetchOptions))
+            .then(function (response) {
+            count = response.headers.get('X-Total-Count');
+            return response.json();
+        }).then(function (result) { return ({ result: result, count: count }); });
     };
     CubaApp.prototype.queryCount = function (entityName, queryName, params, fetchOptions) {
         return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params, fetchOptions);
@@ -232,6 +250,8 @@ var CubaApp = (function () {
                     return resp.blob();
                 case "json":
                     return resp.json();
+                case "raw":
+                    return resp;
                 default:
                     return resp.text();
             }

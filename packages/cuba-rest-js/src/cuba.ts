@@ -1,4 +1,4 @@
-import {EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
+import {EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
 import {base64encode, encodeGetParams} from "./util";
@@ -51,7 +51,7 @@ export interface ResponseError extends Error {
   response?: any;
 }
 
-export type ContentType = "text" | "json" | "blob";
+export type ContentType = "text" | "json" | "blob" | "raw";
 
 /*
  * Temporary typings until AbortSignal gets landed to the TypeScript library
@@ -160,6 +160,20 @@ export class CubaApp {
     return this.fetch('GET', 'v2/entities/' + entityName, options, {handleAs: 'json', ...fetchOptions});
   }
 
+  public loadEntitiesWithCount(entityName: string, options?: EntitiesLoadOptions,
+                               fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
+
+  public loadEntitiesWithCount<T>(entityName: string, options?: EntitiesLoadOptions,
+                                  fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>> {
+    let count;
+    const optionsWithCount = {...options, returnCount: true};
+    return this.fetch('GET', `v2/entities/${entityName}`, optionsWithCount, {handleAs: 'raw', ...fetchOptions})
+      .then((response: Response) => {
+        count = response.headers.get('X-Total-Count');
+        return response.json();
+      }).then((result: T[]) => ({result, count}));
+  }
+
   public searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions,
                         fetchOptions?: FetchOptions): Promise<any[]> {
     const data = {...options, filter: entityFilter};
@@ -191,6 +205,20 @@ export class CubaApp {
 
   public query(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any> {
     return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, {handleAs: 'json', ...fetchOptions});
+  }
+
+  public queryWithCount(entityName: string, queryName: string, params?: any,
+                        fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
+
+  public queryWithCount<T>(entityName: string, queryName: string, params?: any,
+                           fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>> {
+    let count;
+    const paramsWithCount = {...params, returnCount: true};
+    return this.fetch('GET', `v2/queries/${entityName}/${queryName}`, paramsWithCount, {handleAs: 'raw', ...fetchOptions})
+      .then((response: Response) => {
+        count = response.headers.get('X-Total-Count');
+        return response.json();
+      }).then((result: T[]) => ({result, count}));
   }
 
   public queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any> {
@@ -282,6 +310,8 @@ export class CubaApp {
           return resp.blob();
         case "json":
           return resp.json();
+        case "raw":
+          return resp;
         default:
           return resp.text();
       }

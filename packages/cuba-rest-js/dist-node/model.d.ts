@@ -1,5 +1,9 @@
 export declare type Cardinality = 'NONE' | 'ONE_TO_ONE' | 'MANY_TO_ONE' | 'ONE_TO_MANY' | 'MANY_TO_MANY';
 export declare type AttributeType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION';
+export interface EntitiesWithCount<T> {
+    result: T[];
+    count: number;
+}
 export interface MetaPropertyInfo {
     name: string;
     type: string;
