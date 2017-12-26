@@ -137,7 +137,7 @@ var CubaApp = (function () {
         var optionsWithCount = __assign({}, options, { returnCount: true });
         return this.fetch('GET', "v2/entities/" + entityName, optionsWithCount, __assign({ handleAs: 'raw' }, fetchOptions))
             .then(function (response) {
-            count = response.headers.get('X-Total-Count');
+            count = parseInt(response.headers.get('X-Total-Count'), 10);
             return response.json();
         }).then(function (result) { return ({ result: result, count: count }); });
     };
@@ -170,7 +170,7 @@ var CubaApp = (function () {
         var paramsWithCount = __assign({}, params, { returnCount: true });
         return this.fetch('GET', "v2/queries/" + entityName + "/" + queryName, paramsWithCount, __assign({ handleAs: 'raw' }, fetchOptions))
             .then(function (response) {
-            count = response.headers.get('X-Total-Count');
+            count = parseInt(response.headers.get('X-Total-Count'), 10);
             return response.json();
         }).then(function (result) { return ({ result: result, count: count }); });
     };

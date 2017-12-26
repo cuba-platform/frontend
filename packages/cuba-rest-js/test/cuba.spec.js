@@ -48,7 +48,7 @@ describe('CubaApp', function () {
     app = new cuba.CubaApp('', apiUrl);
   });
 
-  describe('#login()', function () {
+  describe('.login()', function () {
     it('shouldn\'t work with bad credentials', function (done) {
       app.login('admin', 'admin2')
         .then(() => {
@@ -89,6 +89,22 @@ describe('CubaApp', function () {
       });
       return loadPromise;
     });
+  });
+
+  describe('.loadEntitiesWithCount()', function() {
+    it('should return entities and count', function(done) {
+      app.loadEntitiesWithCount('sec$User')
+        .then(function(resp) {
+          if(!Array.isArray(resp.result)) throw new Error('.result is not array');
+          if(resp.result.length !== 2) throw new Error('result should contain 2 entities');
+          if(resp.count !== 2) throw new Error('count should be 2');
+
+          done();
+        })
+        .catch(function(e) {
+          done(e)
+        });
+    })
   });
 
   describe('.searchEntities()', function () {

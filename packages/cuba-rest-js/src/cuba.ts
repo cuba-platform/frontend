@@ -169,7 +169,7 @@ export class CubaApp {
     const optionsWithCount = {...options, returnCount: true};
     return this.fetch('GET', `v2/entities/${entityName}`, optionsWithCount, {handleAs: 'raw', ...fetchOptions})
       .then((response: Response) => {
-        count = response.headers.get('X-Total-Count');
+        count = parseInt(response.headers.get('X-Total-Count'), 10);
         return response.json();
       }).then((result: T[]) => ({result, count}));
   }
@@ -216,7 +216,7 @@ export class CubaApp {
     const paramsWithCount = {...params, returnCount: true};
     return this.fetch('GET', `v2/queries/${entityName}/${queryName}`, paramsWithCount, {handleAs: 'raw', ...fetchOptions})
       .then((response: Response) => {
-        count = response.headers.get('X-Total-Count');
+        count = parseInt(response.headers.get('X-Total-Count'), 10);
         return response.json();
       }).then((result: T[]) => ({result, count}));
   }
