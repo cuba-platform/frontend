@@ -2,8 +2,7 @@
 
 const assert = require('assert');
 const cuba = require('../dist-node/cuba.js');
-
-global.fetch = new require('node-fetch');
+global.fetch = require('node-fetch');
 
 const apiUrl = 'http://localhost:8080/app/rest/';
 
@@ -77,17 +76,20 @@ describe('CubaApp', function () {
   });
 
   describe('.loadEntities()', function() {
-    it('should load list of entities', function() {
+    it('should load list of entities', function(done) {
       const options = {
         view: '_minimal',
         limit: 1,
       };
-      let loadPromise = app.loadEntities('sec$User', options);
-      loadPromise.then((users) => {
-        assert.equal(users.length, 1);
-        assert.ok(!users[0].hasOwnProperty('password'));
-      });
-      return loadPromise;
+      app.loadEntities('sec$User', options)
+        .then(function (users) {
+          assert.equal(users.length, 1);
+          assert.ok(!users[0].hasOwnProperty('password'));
+          done();
+        })
+        .catch(function(e) {
+          done(e);
+        });
     });
   });
 
@@ -95,10 +97,9 @@ describe('CubaApp', function () {
     it('should return entities and count', function(done) {
       app.loadEntitiesWithCount('sec$User')
         .then(function(resp) {
-          if(!Array.isArray(resp.result)) throw new Error('.result is not array');
-          if(resp.result.length !== 2) throw new Error('result should contain 2 entities');
-          if(resp.count !== 2) throw new Error('count should be 2');
-
+          assert(Array.isArray(resp.result), '.result is not array');
+          assert(resp.result.length === 2, 'result array should contain 2 entities');
+          assert(resp.count === 2, 'count should be 2');
           done();
         })
         .catch(function(e) {
