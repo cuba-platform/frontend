@@ -72,7 +72,7 @@ myApp.loadEntities('sec$User', {view: '_minimal', sort: 'login'}).then((users) =
 });
 ```
 
-[Full API reference](https://cuba-platform.github.io/cuba-rest-js)
+[Full API reference](https://cuba-platform.github.io/cuba-rest-js/)
 
 ## Development
 
