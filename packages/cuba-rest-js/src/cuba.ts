@@ -9,6 +9,11 @@ export * from './filter';
 
 const apps: CubaApp[] = [];
 
+/**
+ * Initializes app.
+ * @param {AppConfig} config
+ * @returns {CubaApp}
+ */
 export function initializeApp(config: AppConfig = {}): CubaApp {
   if (getApp(config.name) != null) {
     throw new Error("Cuba app is already initialized");
@@ -19,7 +24,12 @@ export function initializeApp(config: AppConfig = {}): CubaApp {
   return cubaApp;
 }
 
-export function getApp(appName?: string): CubaApp {
+/**
+ * Retrieve previously initialized app by name.
+ * @param {string} appName
+ * @returns {CubaApp | null}
+ */
+export function getApp(appName?: string): CubaApp|null {
   const nameToSearch = appName == null ? "" : appName;
   for (const app of apps) {
     if (app.name === nameToSearch) {
@@ -261,7 +271,7 @@ export class CubaApp {
 
   public fetch(method: string, path: string, data?: {}, fetchOptions?: FetchOptions): Promise<any> {
     let url = this.apiUrl + path;
-    const settings: RequestInit = {
+    const settings: FetchOptions = {
       method,
       headers: {
         "Accept-Language": this.locale,

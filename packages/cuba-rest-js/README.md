@@ -55,7 +55,7 @@ const app = cuba.initializeApp({
 
 app.getUserInfo().then((d) => {
   console.log(d);
-})
+});
 
 // retrieve app by name
 
@@ -63,11 +63,16 @@ const myApp = cuba.getApp('myApp');
 ```
 or use if you want to manage instances yourself
 ```javascript
-const app = new CubaApp("myaApp", "http://localhost:8080/app/rest/")
+const myApp = new CubaApp("myApp", "http://localhost:8080/app/rest/")
 ```
 
-## API
-WIP, see `dist-node/cuba.d.ts`
+```javascript
+myApp.loadEntities('sec$User', {view: '_minimal', sort: 'login'}).then((users) => {
+  console.log(users);
+});
+```
+
+[Full API reference](https://cuba-platform.github.io/cuba-rest-js)
 
 ## Development
 
@@ -83,4 +88,9 @@ npm run dist
 ### Lint
 ```bash
 npm run lint
+```
+
+### Generate documentation
+```bash
+npm run generate-docs
 ```
