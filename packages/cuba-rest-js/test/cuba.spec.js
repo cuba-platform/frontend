@@ -75,8 +75,62 @@ describe('CubaApp', function () {
     return app.getUserInfo();
   });
 
-  describe('.loadEntities()', function() {
-    it('should load list of entities', function(done) {
+  it('.loadEntity()', function () {
+    return app.loadEntity('sec$User', 'a405db59-e674-4f63-8afe-269dda788fe8')
+  });
+
+  describe('.commitEntity()', function () {
+    it('should create new entity and pass persisted one in promise', function (done) {
+      const role = {
+        name: 'Manager',
+        description: 'Role for managers',
+        type: 'READONLY'
+      };
+
+      app.commitEntity('sec$Role', role)
+        .then(function (entity) {
+          assert.equal(entity.name, role.name);
+          assert(entity.id != null);
+          done()
+        })
+        .catch(function (e) {
+          done(e);
+        });
+    });
+
+    it('should update existing entity', function (done) {
+      const admRole = {
+        id: '0c018061-b26f-4de2-a5be-dff348347f93',
+        description: 'Updated role description'
+      };
+      app.commitEntity('sec$Role', admRole)
+        .then(function (updatedRole) {
+          assert(updatedRole.description === admRole.description);
+          done();
+        })
+        .catch(function(e) {
+          done(e);
+        })
+    });
+  });
+
+  describe('.deleteEntity()', function () {
+    it('should delete entity', function (done) {
+      app.commitEntity('sec$Role', {name: 'newRole'}).then(function (newRole) {
+        app.deleteEntity('sec$Role', newRole.id)
+          .then(function() {
+            done();
+          })
+          .catch(function(e) {
+            done(e);
+          });
+      })
+    });
+
+  });
+
+  describe('.loadEntities()', function () {
+    it('should load list of entities', function (done) {
       const options = {
         view: '_minimal',
         limit: 1,
@@ -87,22 +141,22 @@ describe('CubaApp', function () {
           assert.ok(!users[0].hasOwnProperty('password'));
           done();
         })
-        .catch(function(e) {
+        .catch(function (e) {
           done(e);
         });
     });
   });
 
-  describe('.loadEntitiesWithCount()', function() {
-    it('should return entities and count', function(done) {
+  describe('.loadEntitiesWithCount()', function () {
+    it('should return entities and count', function (done) {
       app.loadEntitiesWithCount('sec$User')
-        .then(function(resp) {
+        .then(function (resp) {
           assert(Array.isArray(resp.result), '.result is not array');
           assert(resp.result.length === 2, 'result array should contain 2 entities');
           assert(resp.count === 2, 'count should be 2');
           done();
         })
-        .catch(function(e) {
+        .catch(function (e) {
           done(e)
         });
     })
@@ -127,7 +181,7 @@ describe('CubaApp', function () {
             property: 'name',
             operator: 'contains',
             value: 'adm'
-          },{
+          }, {
             property: 'active',
             operator: '=',
             value: true
