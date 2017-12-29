@@ -190,6 +190,24 @@ describe('CubaApp', function () {
       };
       return app.searchEntities('sec$User', filter);
     })
-  })
+  });
+
+  describe('.query()', function() {
+    it ('should load query results', function() {
+      return app.query('sec$User', 'allUsers')
+    });
+    it ('should work with params', function(done) {
+      app.query('sec$User', 'userByLogin', {login: 'admin'})
+        .then(function (users) {
+          users.forEach((u) => {
+            assert(u.login === 'admin');
+          });
+          done();
+        })
+        .catch((e) => {
+          done(e);
+        });
+    })
+  });
 
 });

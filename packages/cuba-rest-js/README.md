@@ -77,9 +77,24 @@ myApp.loadEntities('sec$User', {view: '_minimal', sort: 'login'}).then((users) =
 ## Development
 
 ### Tests
+#### Integration tests
+```bash
+npm run test:integration
+```
+#### Running manually
+Start test CUBA app
+```bash
+npm run start-test-app
+```
+Run tests
 ```bash
 npm test
 ```
+Stop test app
+```bash
+npm run teardown-test-app
+```
+
 ### Build
 ```bash
 npm run dist

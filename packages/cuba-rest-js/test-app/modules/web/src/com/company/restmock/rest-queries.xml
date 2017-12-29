@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<queries xmlns="http://schemas.haulmont.com/cuba/rest-queries.xsd">
+    <query name="allUsers" entity="sec$User" view="_minimal">
+        <jpql><![CDATA[select u from sec$User u]]></jpql>
+    </query>
+    <query name="userByLogin" entity="sec$User" view="_minimal">
+        <jpql><![CDATA[select u from sec$User u where u.login = :login]]></jpql>
+        <params>
+            <param name="login" type="java.lang.String"/>
+        </params>
+    </query>
+</queries>
