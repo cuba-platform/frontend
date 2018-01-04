@@ -210,7 +210,8 @@ export class CubaApp {
 
   public invokeService(serviceName: string, methodName: string, params: any,
                        fetchOptions?: FetchOptions): Promise<any> {
-    return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, JSON.stringify(params), fetchOptions);
+    const serializedParams = params != null ? JSON.stringify(params) : null;
+    return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, serializedParams, fetchOptions);
   }
 
   public query(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any> {

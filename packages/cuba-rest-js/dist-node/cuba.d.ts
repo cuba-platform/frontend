@@ -3,8 +3,18 @@ import { EntityFilter } from "./filter";
 export * from './model';
 export * from './storage';
 export * from './filter';
+/**
+ * Initializes app.
+ * @param {AppConfig} config
+ * @returns {CubaApp}
+ */
 export declare function initializeApp(config?: AppConfig): CubaApp;
-export declare function getApp(appName?: string): CubaApp;
+/**
+ * Retrieve previously initialized app by name.
+ * @param {string} appName
+ * @returns {CubaApp | null}
+ */
+export declare function getApp(appName?: string): CubaApp | null;
 export declare function removeApp(appName?: string): void;
 export interface AppConfig {
     apiUrl?: string;

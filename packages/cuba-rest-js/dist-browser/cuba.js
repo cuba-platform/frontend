@@ -16,6 +16,11 @@ var storage_1 = require("./storage");
 var util_1 = require("./util");
 __export(require("./storage"));
 var apps = [];
+/**
+ * Initializes app.
+ * @param {AppConfig} config
+ * @returns {CubaApp}
+ */
 function initializeApp(config) {
     if (config === void 0) { config = {}; }
     if (getApp(config.name) != null) {
@@ -26,6 +31,11 @@ function initializeApp(config) {
     return cubaApp;
 }
 exports.initializeApp = initializeApp;
+/**
+ * Retrieve previously initialized app by name.
+ * @param {string} appName
+ * @returns {CubaApp | null}
+ */
 function getApp(appName) {
     var nameToSearch = appName == null ? "" : appName;
     for (var _i = 0, apps_1 = apps; _i < apps_1.length; _i++) {
@@ -161,7 +171,8 @@ var CubaApp = (function () {
         }
     };
     CubaApp.prototype.invokeService = function (serviceName, methodName, params, fetchOptions) {
-        return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, JSON.stringify(params), fetchOptions);
+        var serializedParams = params != null ? JSON.stringify(params) : null;
+        return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, serializedParams, fetchOptions);
     };
     CubaApp.prototype.query = function (entityName, queryName, params, fetchOptions) {
         return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, __assign({ handleAs: 'json' }, fetchOptions));

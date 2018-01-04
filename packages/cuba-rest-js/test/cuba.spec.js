@@ -108,7 +108,7 @@ describe('CubaApp', function () {
           assert(updatedRole.description === admRole.description);
           done();
         })
-        .catch(function(e) {
+        .catch(function (e) {
           done(e);
         })
     });
@@ -118,10 +118,10 @@ describe('CubaApp', function () {
     it('should delete entity', function (done) {
       app.commitEntity('sec$Role', {name: 'newRole'}).then(function (newRole) {
         app.deleteEntity('sec$Role', newRole.id)
-          .then(function() {
+          .then(function () {
             done();
           })
-          .catch(function(e) {
+          .catch(function (e) {
             done(e);
           });
       })
@@ -192,11 +192,11 @@ describe('CubaApp', function () {
     })
   });
 
-  describe('.query()', function() {
-    it ('should load query results', function() {
+  describe('.query()', function () {
+    it('should load query results', function () {
       return app.query('sec$User', 'allUsers')
     });
-    it ('should work with params', function(done) {
+    it('should work with params', function (done) {
       app.query('sec$User', 'userByLogin', {login: 'admin'})
         .then(function (users) {
           users.forEach((u) => {
@@ -209,5 +209,14 @@ describe('CubaApp', function () {
         });
     })
   });
+
+  describe('.invokeService()', function () {
+    it('should invoke service without params and void result', function () {
+      return app.invokeService('restmock_DummyService', 'voidNoParams');
+    });
+    it('should not fail if null passed as params', function() {
+      return app.invokeService('restmock_DummyService', 'voidNoParams', null);
+    })
+  })
 
 });
