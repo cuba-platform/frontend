@@ -1,0 +1,12 @@
+plugins {
+  id "com.moowork.node" version "1.2.0"
+}
+
+node {
+  version = "8.9.4"
+  download = true
+}
+
+task dist(type: NpmTask, dependsOn: [npmInstall]) {
+  args = ['run', 'dist']
+}

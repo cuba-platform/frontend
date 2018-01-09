@@ -7,3 +7,7 @@ src
 test
 docs
 examples
+
+gradle
+gradlew
+gradlew.bat
