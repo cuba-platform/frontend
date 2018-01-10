@@ -1,5 +1,5 @@
 {
-  "name": "cuba-rest-js",
+  "name": "@cuba-platform/rest-js",
   "version": "0.3.0",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
   "main": "dist-node/cuba.js",
@@ -32,5 +32,6 @@
     "node": ">=6"
   },
   "author": "Vlad Minaev <minaev@haulmont.com>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/cuba-platform/cuba-rest-js"
 }
