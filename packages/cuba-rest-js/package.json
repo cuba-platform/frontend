@@ -1,6 +1,6 @@
 {
-  "name": "@cuba-platform/rest-js",
-  "version": "0.3.0",
+  "name": "@cuba-platform/rest",
+  "version": "0.3.0-pre.1",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
   "main": "dist-node/cuba.js",
   "typings": "dist/cuba.d.ts",
@@ -30,6 +30,9 @@
   },
   "engines": {
     "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "author": "Vlad Minaev <minaev@haulmont.com>",
   "license": "Apache-2.0",

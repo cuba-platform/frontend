@@ -9,17 +9,17 @@ JavaScript library for web and Node.js which facilitates CUBA Platfotm's REST AP
 ### npm
 
 ```bash
-npm install cuba-platform/cuba-rest-js --save
+npm install @cuba-platform/rest --save
 ```
 Import as module  
 ```javascript
-const cuba = require('cuba-rest-js');
+const cuba = require('@cuba-platform/rest');
 ```
 
 Or using ES6 imports:
 
 ```javascript
-import * as cuba from 'cuba-rest-js';
+import * as cuba from '@cuba-platform/rest';
 ```
 
 ### bower
