@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>cuba-rest-js</title>
+	<title>@cuba-platform/rest</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">cuba-rest-js</a>
+					<a href="index.html" class="title">@cuba-platform/rest</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> cuba-rest-js</h1>
+			<h1> @cuba-platform/rest</h1>
 		</div>
 	</div>
 </header>
@@ -69,13 +69,13 @@
 				<p>JavaScript library for web and Node.js which facilitates CUBA Platfotm&#39;s REST API usage.</p>
 				<h2 id="installation">Installation</h2>
 				<h3 id="npm">npm</h3>
-				<pre><code class="lang-bash">npm install cuba-platform/cuba-rest-js --save
+				<pre><code class="lang-bash">npm install @cuba-platform/rest --save
 </code></pre>
 				<p>Import as module  </p>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cuba = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cuba-rest-js'</span>);
+				<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cuba = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cuba-platform/rest'</span>);
 </code></pre>
 				<p>Or using ES6 imports:</p>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'cuba-rest-js'</span>;
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'@cuba-platform/rest'</span>;
 </code></pre>
 				<h3 id="bower">bower</h3>
 				<pre><code class="lang-bash">bower install cuba-platform/cuba-rest-js
@@ -112,9 +112,21 @@ app.getUserInfo().then(<span class="hljs-function">(<span class="hljs-params">d<
   <span class="hljs-built_in">console</span>.log(users);
 });
 </code></pre>
+				<p><a href="https://cuba-platform.github.io/cuba-rest-js/">Full API reference</a></p>
 				<h2 id="development">Development</h2>
 				<h3 id="tests">Tests</h3>
+				<h4 id="integration-tests">Integration tests</h4>
+				<pre><code class="lang-bash">npm run <span class="hljs-built_in">test</span>:integration
+</code></pre>
+				<h4 id="running-manually">Running manually</h4>
+				<p>Start test CUBA app</p>
+				<pre><code class="lang-bash">npm run start-test-app
+</code></pre>
+				<p>Run tests</p>
 				<pre><code class="lang-bash">npm <span class="hljs-built_in">test</span>
+</code></pre>
+				<p>Stop test app</p>
+				<pre><code class="lang-bash">npm run teardown-test-app
 </code></pre>
 				<h3 id="build">Build</h3>
 				<pre><code class="lang-bash">npm run dist
@@ -123,7 +135,8 @@ app.getUserInfo().then(<span class="hljs-function">(<span class="hljs-params">d<
 				<pre><code class="lang-bash">npm run lint
 </code></pre>
 				<h3 id="generate-documentation">Generate documentation</h3>
-				<p>npm run generate-docs</p>
+				<pre><code class="lang-bash">npm run generate-docs
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
