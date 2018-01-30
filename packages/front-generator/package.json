@@ -19,6 +19,7 @@
     "url": "git@git.haulmont.com:minaev/cuba-front-generator.git"
   },
   "devDependencies": {
+    "@types/node": "^9.4.0",
     "typescript": "^2.6.2"
   },
   "dependencies": {
