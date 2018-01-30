@@ -1,0 +1,51 @@
+<%
+def className = polymerClient_classPrefix + 'LocaleSelect'
+%>
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="${project_namespace}-locale-select">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <%if (project_polymerClient_availableLocales) {%>
+    <paper-radio-group selected="[[locale]]" on-selected-changed="_changeLocale">
+      <% project_polymerClient_availableLocales.each { k,v ->
+        print "<paper-radio-button name=\"$k\">$v</paper-radio-button>\n"
+      } %>
+    </paper-radio-group>
+    <% } %>
+  </template>
+  <script>
+    {
+      /**
+       * @extends {Polymer.Element}
+       */
+      class ${className} extends Polymer.Element {
+        static get is() {
+          return '${project_namespace}-locale-select';
+        }
+
+        static get properties() {
+          return {
+            locale: {
+              type: String,
+              value: function () {
+                return cuba.getApp().locale;
+              }
+            }
+          }
+        }
+      }
+
+      customElements.define(${className}.is, ${className});
+    }
+  </script>
+</dom-module>

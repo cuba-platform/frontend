@@ -1,1 +1,1 @@
-Generator and scripts for front-end clients for CUBA Platform
+Generator and maintainable scripts for CUBA Platform front-end clients
