@@ -1,0 +1,1 @@
+Generate front-end clients for CUBA Platform
