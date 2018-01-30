@@ -1,0 +1,15 @@
+{
+  "name": "cuba-front-generator",
+  "version": "0.1.0",
+  "description": "Generator and scripts for front-end clients for CUBA Platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.haulmont.com:minaev/cuba-front-generator.git"
+  },
+  "author": "CUBA Platform Team <info@cuba-platform.com>",
+  "license": "Apache-2.0"
+}

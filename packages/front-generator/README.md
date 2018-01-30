@@ -1,1 +1,1 @@
-Generate front-end clients for CUBA Platform
+Generator and scripts for front-end clients for CUBA Platform
