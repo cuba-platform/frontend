@@ -1,7 +1,18 @@
 import * as commander from "commander";
+import {initialize} from "./generator";
 
-const program = commander;
+const cli = commander;
 
-program
-    .version('0.1.0', '-v, --version')
-    .parse(process.argv);
+cli.version(require('../package').version, '-v, --version');
+
+cli
+  .command('client [clientType]')
+  .action(async function (clientType) {
+    await initialize();
+    if (!clientType) {
+      throw new Error('client type is not specified');
+    }
+  });
+
+
+cli.parse(process.argv);

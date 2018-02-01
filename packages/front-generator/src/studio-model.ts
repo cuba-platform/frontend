@@ -1,4 +1,4 @@
 interface ProjectInfo {
-    namespace: string;
-    modulePrefix: string;
+  namespace: string;
+  modulePrefix: string;
 }

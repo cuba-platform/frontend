@@ -8,19 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const commander = require("commander");
-const generator_1 = require("./generator");
-const cli = commander;
-cli.version(require('../package').version, '-v, --version');
-cli
-    .command('client [clientType]')
-    .action(function (clientType) {
+const fs = require("fs");
+const util_1 = require("util");
+const CLIENTS_DIR = '../../clients';
+const clients = {};
+function initialize() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield generator_1.initialize();
-        if (!clientType) {
-            throw new Error('client type is not specified');
-        }
+        console.log(__dirname);
+        const res = yield util_1.promisify(fs.readdir)('.');
+        console.log(res);
     });
-});
-cli.parse(process.argv);
-//# sourceMappingURL=cli.js.map
+}
+exports.initialize = initialize;
+//# sourceMappingURL=generator.js.map
