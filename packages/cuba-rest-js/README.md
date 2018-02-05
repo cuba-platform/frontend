@@ -77,6 +77,7 @@ myApp.loadEntities('sec$User', {view: '_minimal', sort: 'login'}).then((users) =
 ## Development
 
 ### Tests
+In order to run integration tests you need Java to be [installed](https://doc.cuba-platform.com/manual-latest/setup.html).
 #### Integration tests
 ```bash
 npm run test:integration
