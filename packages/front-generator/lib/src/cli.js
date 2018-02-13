@@ -9,25 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander = require("commander");
-const generator_1 = require("./generator");
+const init_1 = require("./init");
 const cli = commander;
 cli.version(require('../package').version, '-v, --version');
-cli
-    .command('client [clientType]')
-    .description('Creates a new application by specified preset')
-    .action(function (clientType) {
+function initCommands(cli) {
     return __awaiter(this, void 0, void 0, function* () {
-        const localClients = yield generator_1.getLocalClients();
-        const clientInfo = localClients.find(c => c.name === clientType);
-        if (!clientInfo) {
-            console.log(localClients.map(c => c.name));
-            throw new Error('Please specify client type');
-        }
-        yield generator_1.generate(clientInfo);
+        const generators = yield init_1.collectGenerators();
+        generators.forEach(generator => {
+            cli
+                .command(`${generator.name}`)
+                .action(function () {
+                return __awaiter(this, void 0, void 0, function* () {
+                    yield init_1.generate(generator);
+                });
+            });
+        });
     });
-});
-cli.parse(process.argv);
-if (!process.argv.slice(2).length) {
-    cli.outputHelp();
 }
+initCommands(cli).then(() => {
+    cli.parse(process.argv);
+    if (!process.argv.slice(2).length) {
+        cli.outputHelp();
+    }
+});
 //# sourceMappingURL=cli.js.map

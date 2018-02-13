@@ -12,6 +12,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "clients/**/*.ts"
+    "clients/**/*.ts",
+    "custom_types/**/*.ts"
   ]
 }

@@ -1,28 +1,28 @@
 import * as commander from 'commander';
-import {generate, getLocalClients} from "./generator";
-import {Command} from "commander";
+import {generate, collectGenerators} from "./init";
+import {Command} from 'commander';
 
 const cli: Command = commander;
 
 cli.version(require('../package').version, '-v, --version');
 
-cli
-  .command('client [clientType]')
-  .description('Creates a new application by specified preset')
-  .action(async function (clientType: string) {
-    const localClients = await getLocalClients();
+async function initCommands(cli: Command) {
 
-    const clientInfo = localClients.find(c => c.name === clientType);
-    if (!clientInfo) {
-      console.log(localClients.map(c => c.name));
-      throw new Error('Please specify client type')
-    }
+  const generators = await collectGenerators();
 
-    await generate(clientInfo);
+  generators.forEach(generator => {
+    cli
+      .command(`${generator.name}`)
+      .action(async function () {
+         await generate(generator);
+      });
   });
-
-cli.parse(process.argv);
-
-if (!process.argv.slice(2).length) {
-  cli.outputHelp()
 }
+
+initCommands(cli).then(() => {
+  cli.parse(process.argv);
+
+  if (!process.argv.slice(2).length) {
+    cli.outputHelp()
+  }
+});
