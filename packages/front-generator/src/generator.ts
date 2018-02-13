@@ -1,13 +1,32 @@
-import * as fs from 'fs';
+import {readdir} from 'fs';
 import {promisify} from "util";
+import * as vfs from 'vinyl-fs';
+import * as through2 from "through2";
+import * as VinylFile from "vinyl";
 
-const CLIENTS_DIR = '../../clients';
-const clients = {};
+const CLIENTS_DIR = 'clients';
+const clients:ClientInfo[] = [];
 
-export async function initialize(): Promise<void> {
-
-  console.log(__dirname);
-
-  const res = await promisify(fs.readdir)('.');
-  console.log(res);
+interface ClientInfo {
+  name: string
 }
+
+export async function getLocalClients(): Promise<ClientInfo[]> {
+
+  const dirs = await promisify(readdir)(CLIENTS_DIR);
+
+  return dirs.map(dirName => {
+    return {name: dirName}
+  });
+
+}
+
+export async function generate(client: ClientInfo): Promise<void> {
+  vfs
+    .src([`./clients/${client.name}/base/**/*`])
+    .pipe(through2.obj(function (file: VinylFile, end, callback) {
+      callback(null, file);
+    }))
+    .pipe(vfs.dest('./.tmp'))
+}
+

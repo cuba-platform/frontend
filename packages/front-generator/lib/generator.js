@@ -8,16 +8,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
+const fs_1 = require("fs");
 const util_1 = require("util");
-const CLIENTS_DIR = '../../clients';
-const clients = {};
-function initialize() {
+const vfs = require("vinyl-fs");
+const through2 = require("through2");
+const CLIENTS_DIR = 'clients';
+const clients = [];
+function getLocalClients() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(__dirname);
-        const res = yield util_1.promisify(fs.readdir)('.');
-        console.log(res);
+        const dirs = yield util_1.promisify(fs_1.readdir)(CLIENTS_DIR);
+        return dirs.map(dirName => {
+            return { name: dirName };
+        });
     });
 }
-exports.initialize = initialize;
+exports.getLocalClients = getLocalClients;
+function generate(client) {
+    return __awaiter(this, void 0, void 0, function* () {
+        vfs
+            .src([`./clients/${client.name}/base/**/*`])
+            .pipe(through2.obj(function (file, end, callback) {
+            callback(null, file);
+        }))
+            .pipe(vfs.dest('./.tmp'));
+    });
+}
+exports.generate = generate;
 //# sourceMappingURL=generator.js.map

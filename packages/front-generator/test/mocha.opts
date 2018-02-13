@@ -1,2 +1,2 @@
---require source-map-support/register
-lib/test/**/*.test.js
+--require ts-node/register
+src/test/**/*.test.ts

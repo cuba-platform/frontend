@@ -14,13 +14,20 @@ const cli = commander;
 cli.version(require('../package').version, '-v, --version');
 cli
     .command('client [clientType]')
+    .description('Creates a new application by specified preset')
     .action(function (clientType) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield generator_1.initialize();
-        if (!clientType) {
-            throw new Error('client type is not specified');
+        const localClients = yield generator_1.getLocalClients();
+        const clientInfo = localClients.find(c => c.name === clientType);
+        if (!clientInfo) {
+            console.log(localClients.map(c => c.name));
+            throw new Error('Please specify client type');
         }
+        yield generator_1.generate(clientInfo);
     });
 });
 cli.parse(process.argv);
+if (!process.argv.slice(2).length) {
+    cli.outputHelp();
+}
 //# sourceMappingURL=cli.js.map
