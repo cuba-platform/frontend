@@ -1,28 +1,25 @@
 import * as commander from 'commander';
-import {generate, collectGenerators} from "./init";
+import {generate, collectGenerators, collectSubGenerators} from "./init";
 import {Command} from 'commander';
 
 const cli: Command = commander;
 
 cli.version(require('../package').version, '-v, --version');
 
-async function initCommands(cli: Command) {
+const generators = collectGenerators();
 
-  const generators = await collectGenerators();
-
-  generators.forEach(generator => {
+generators.forEach(generator => {
+  const subgenerators = collectSubGenerators(generator.name);
+  subgenerators.forEach(subgen => {
     cli
-      .command(`${generator.name}`)
-      .action(async function () {
-         await generate(generator);
-      });
-  });
-}
-
-initCommands(cli).then(() => {
-  cli.parse(process.argv);
-
-  if (!process.argv.slice(2).length) {
-    cli.outputHelp()
-  }
+      .command(`${generator.name}:${subgen.name}`)
+      .action(async function() {
+        generate(generator.name, subgen.name);
+      })
+  })
 });
+cli.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+  cli.outputHelp()
+}

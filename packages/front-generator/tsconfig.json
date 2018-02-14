@@ -10,5 +10,8 @@
     "src/**/*.ts",
     "packages/**/index.ts",
     "custom_types/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/template/**"
   ]
 }

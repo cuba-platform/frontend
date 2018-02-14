@@ -12,24 +12,21 @@ const commander = require("commander");
 const init_1 = require("./init");
 const cli = commander;
 cli.version(require('../package').version, '-v, --version');
-function initCommands(cli) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const generators = yield init_1.collectGenerators();
-        generators.forEach(generator => {
-            cli
-                .command(`${generator.name}`)
-                .action(function () {
-                return __awaiter(this, void 0, void 0, function* () {
-                    yield init_1.generate(generator);
-                });
+const generators = init_1.collectGenerators();
+generators.forEach(generator => {
+    const subgenerators = init_1.collectSubGenerators(generator.name);
+    subgenerators.forEach(subgen => {
+        cli
+            .command(`${generator.name}:${subgen.name}`)
+            .action(function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                init_1.generate(generator.name, subgen.name);
             });
         });
     });
-}
-initCommands(cli).then(() => {
-    cli.parse(process.argv);
-    if (!process.argv.slice(2).length) {
-        cli.outputHelp();
-    }
 });
+cli.parse(process.argv);
+if (!process.argv.slice(2).length) {
+    cli.outputHelp();
+}
 //# sourceMappingURL=cli.js.map

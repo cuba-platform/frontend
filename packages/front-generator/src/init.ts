@@ -1,47 +1,37 @@
-import {readdir} from 'fs';
-import {promisify} from 'util';
+import {readdirSync} from 'fs';
 import * as YeomanEnvironment from "yeoman-environment";
 import * as path from "path";
 
-const GENERATORS_DIR = 'packages/@cuba-platform';
-const GENERATOR_COMMON_PREFIX = 'generator-cuba-';
-const GENERATOR_COMMON_SUFFIX = '-front';
-
+const GENERATORS_DIR = 'generators';
 
 export interface GeneratorInfo {
   bundled: boolean;
   name: string;
 }
 
-export async function collectGenerators(): Promise<GeneratorInfo[]> {
-
-  const dirs = await promisify(readdir)(GENERATORS_DIR);
-
-  return dirs
-    .filter(dirName => dirName.startsWith(GENERATOR_COMMON_PREFIX))
-    .map(dirName => {
-      return {
-        name: extractName(dirName),
-        bundled: true
-      }
-    });
-
+export function collectGenerators(): GeneratorInfo[] {
+  return scanDir(path.join(__dirname, GENERATORS_DIR));
 }
 
-export async function generate(generatorInfo: GeneratorInfo): Promise<void> {
+export function collectSubGenerators(generatorName: string): GeneratorInfo[] {
+  return scanDir(path.join(__dirname, GENERATORS_DIR, generatorName));
+}
+
+export async function generate(generatorName: string, subgeneratorName: string): Promise<void> {
   const env = new YeomanEnvironment();
 
-  const generator = require.resolve(path.join(GENERATORS_DIR, fromName(generatorInfo.name)));
+  const generator = require(path.join(__dirname, GENERATORS_DIR, generatorName, subgeneratorName, 'index'));
+  env.registerStub(generator, generator.name);
+  env.run(generator.name);
 
-  env.registerStub(generator, "cuba:generator");
-
-  console.log('generated');
 }
 
-function extractName(dirName: string): string {
-  return dirName.replace(GENERATOR_COMMON_PREFIX, '').replace(GENERATOR_COMMON_SUFFIX, '');
-}
-
-function fromName(name: string): string {
-  return GENERATOR_COMMON_PREFIX + name + GENERATOR_COMMON_SUFFIX;
+function scanDir(generatorsDir: string) {
+  const dirs = readdirSync(generatorsDir);
+  return dirs.map(dirName => {
+    return {
+      name: dirName,
+      bundled: true
+    }
+  });
 }
