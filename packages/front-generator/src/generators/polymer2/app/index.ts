@@ -5,11 +5,12 @@ import {ProjectInfo} from "../../../common/model";
 
 export = class AppGenerator extends Base {
 
-  private props: ProjectInfo;
+  private props?: ProjectInfo;
 
   constructor(args: string | string[], options: any) {
     super(args, options);
     this.sourceRoot(path.join(__dirname, 'template'));
+    this.destinationPath(path.join(__dirname, '.tmp'));
   }
 
   async prompting() {
@@ -31,7 +32,13 @@ export = class AppGenerator extends Base {
     console.log(this.sourceRoot());
     console.log(this.destinationPath());
 
-    this.fs.copyTpl(this.templatePath() + '/**', this.destinationPath(), this.props);
+    if (!this.props) {
+      return;
+    }
+
+    this.fs.copy(this.templatePath() + '/images/**', this.destinationPath(), this.props);
+    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath(), this.props);
+    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.props);
   }
 
   end() {
