@@ -20,7 +20,7 @@ export function collectSubGenerators(generatorName: string): GeneratorInfo[] {
 export async function generate(generatorName: string, subgeneratorName: string): Promise<void> {
   const env = new YeomanEnvironment();
 
-  const generator = require(path.join(__dirname, GENERATORS_DIR, generatorName, subgeneratorName, 'index'));
+  const generator = require(path.join(__dirname, GENERATORS_DIR, generatorName, subgeneratorName));
   env.registerStub(generator, generator.name);
   env.run(generator.name);
 

@@ -1,7 +1,7 @@
 {
-  "name": "cuba-front-generator",
+  "name": "@cuba-platform/front-generator",
   "version": "0.1.0",
-  "description": "Generator and scripts for front-end clients for CUBA Platform",
+  "description": "CUBA Platform front-end clients generator",
   "main": "lib/cli.js",
   "bin": {
     "gen-cuba-front": "bin/gen-cuba-front.js"
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.haulmont.com:minaev/cuba-front-generator.git"
+    "url": "https://github.com/cuba-labs/cuba-front-generator"
   },
   "dependencies": {
     "commander": "~2.13.0",

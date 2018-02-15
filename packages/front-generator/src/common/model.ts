@@ -1,4 +1,4 @@
-interface ProjectInfo {
+export interface ProjectInfo {
   namespace: string;
   modulePrefix: string;
 }
