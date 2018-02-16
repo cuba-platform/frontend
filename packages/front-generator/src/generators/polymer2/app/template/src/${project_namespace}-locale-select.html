@@ -1,6 +1,3 @@
-<%
-def className = polymerClient_classPrefix + 'LocaleSelect'
-%>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
@@ -15,11 +12,11 @@ def className = polymerClient_classPrefix + 'LocaleSelect'
         display: block;
       }
     </style>
-    <%if (project_polymerClient_availableLocales) {%>
+    <% if (project.locales) { %>
     <paper-radio-group selected="[[locale]]" on-selected-changed="_changeLocale">
-      <% project_polymerClient_availableLocales.each { k,v ->
-        print "<paper-radio-button name=\"$k\">$v</paper-radio-button>\n"
-      } %>
+      <% project.locales.forEach(function(locale){%>
+        <paper-radio-button name="<%= locale.code %>"><%= locale.caption %></paper-radio-button>
+      <%}); %>
     </paper-radio-group>
     <% } %>
   </template>

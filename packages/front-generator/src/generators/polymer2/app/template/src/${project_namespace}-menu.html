@@ -1,6 +1,3 @@
-<%
-def className = polymerClient_classPrefix + 'Menu'
-%>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
@@ -11,7 +8,7 @@ def className = polymerClient_classPrefix + 'Menu'
 <link rel="import" href="../bower_components/cuba-styles/cuba-styles.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="${project_namespace}-menu">
+<dom-module id="<%=project.namespace%>-menu">
   <template>
     <style include="cuba-styles"></style>
     <style include="shared-styles"></style>

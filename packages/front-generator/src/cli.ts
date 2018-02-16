@@ -5,6 +5,7 @@ import {Command} from 'commander';
 const cli: Command = commander;
 
 cli.version(require('../package').version, '-v, --version');
+cli.option('-d, --debug', 'run in debug mode (generates into .tmp folder)');
 
 const generators = collectGenerators();
 
@@ -13,7 +14,7 @@ generators.forEach(generator => {
   subgenerators.forEach(subgen => {
     cli
       .command(`${generator.name}:${subgen.name}`)
-      .action(async function() {
+      .action(async function(cmd, opts) {
         generate(generator.name, subgen.name);
       })
   })

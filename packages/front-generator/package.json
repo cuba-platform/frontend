@@ -10,6 +10,7 @@
     "node": ">=8.0"
   },
   "scripts": {
+    "compile": "tsc",
     "build": "rm -rf lib && tsc && node scripts/copy-templates.js",
     "watch": "tsc -w",
     "test": "mocha --config test/mocha.js.opts"

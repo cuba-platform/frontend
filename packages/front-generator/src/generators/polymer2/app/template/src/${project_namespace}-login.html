@@ -1,12 +1,9 @@
-<%
-def className = polymerClient_classPrefix + 'Login'
-%>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="../bower_components/cuba-login/cuba-login.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
-<%if (project_polymerClient_availableLocales && project_polymerClient_availableLocales.size() > 0) {%>
+<%if (project.locales) {%>
 <link rel="import" href="${project_namespace}-locale-select.html">
 <% } %>
 <link rel="import" href="shared-styles.html">
@@ -42,7 +39,7 @@ def className = polymerClient_classPrefix + 'Login'
       mpg-locale-select {
         margin-top: 24px;
       }
-      <%if (project_polymerClient_availableLocales && project_polymerClient_availableLocales.size() > 0) {%>
+      <%if (project.locales) {%>
       ${project_namespace}-locale-select {
         margin-top: 20px;
       }
@@ -64,7 +61,7 @@ def className = polymerClient_classPrefix + 'Login'
           </cuba-login>
         </div>
       </paper-card>
-      <%if (project_polymerClient_availableLocales && project_polymerClient_availableLocales.size() > 0) {%>
+      <%if (project.locales) {%>
       <${project_namespace}-locale-select></${project_namespace}-locale-select>
       <% } %>
     </div>
