@@ -101,7 +101,7 @@ var CubaApp = (function () {
      * Logs in user and stores token in provided storage.
      * @param {string} login
      * @param {string} password
-     * @param {{tokenEndpoint: string}} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
+     * @param {LoginOptions} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
      * @returns {Promise<{access_token: string}>}
      */
     CubaApp.prototype.login = function (login, password, options) {
@@ -193,6 +193,12 @@ var CubaApp = (function () {
     };
     CubaApp.prototype.loadEntityMetadata = function (entityName, fetchOptions) {
         return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, __assign({ handleAs: 'json' }, fetchOptions));
+    };
+    CubaApp.prototype.loadEntityViews = function (entityName, fetchOptions) {
+        return this.fetch('GET', 'v2/metadata/entities/' + entityName + '/views', null, __assign({ handleAs: 'json' }, fetchOptions));
+    };
+    CubaApp.prototype.loadEntityView = function (entityName, viewName, fetchOptions) {
+        return this.fetch('GET', 'v2/metadata/entities/' + entityName + '/views/' + viewName + '/', null, __assign({ handleAs: 'json' }, fetchOptions));
     };
     CubaApp.prototype.loadEntitiesMessages = function (fetchOptions) {
         var _this = this;

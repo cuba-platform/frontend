@@ -47,3 +47,8 @@ export interface EnumInfo {
     name: string;
     values: EnumValueInfo[];
 }
+export interface View {
+    name: string;
+    entity: string;
+    properties: string[];
+}

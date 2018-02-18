@@ -1,4 +1,4 @@
-import { EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo } from "./model";
+import { EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo, View } from "./model";
 import { EntityFilter } from "./filter";
 export * from './model';
 export * from './storage';
@@ -41,6 +41,9 @@ export interface EntitiesLoadOptions {
     limit?: number;
     offset?: number;
 }
+export interface LoginOptions {
+    tokenEndpoint: string;
+}
 export declare class CubaApp {
     name: string;
     apiUrl: string;
@@ -64,12 +67,10 @@ export declare class CubaApp {
      * Logs in user and stores token in provided storage.
      * @param {string} login
      * @param {string} password
-     * @param {{tokenEndpoint: string}} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
+     * @param {LoginOptions} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
      * @returns {Promise<{access_token: string}>}
      */
-    login(login: string, password: string, options?: {
-        tokenEndpoint: string;
-    }): Promise<{
+    login(login: string, password: string, options?: LoginOptions): Promise<{
         access_token: string;
     }>;
     logout(): Promise<any>;
@@ -88,6 +89,8 @@ export declare class CubaApp {
     queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any>;
     loadMetadata(fetchOptions?: FetchOptions): Promise<MetaClassInfo[]>;
     loadEntityMetadata(entityName: string, fetchOptions?: FetchOptions): Promise<MetaClassInfo>;
+    loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View>;
+    loadEntityView(entityName: string, viewName: string, fetchOptions?: FetchOptions): Promise<View>;
     loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<any>;
     loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]>;
     getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]>;

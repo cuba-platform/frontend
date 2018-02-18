@@ -1,4 +1,4 @@
-import {EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "./model";
+import {EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo, View} from "./model";
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
 import {base64encode, encodeGetParams} from "./util";
@@ -249,6 +249,15 @@ export class CubaApp {
     return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, {handleAs: 'json', ...fetchOptions});
   }
 
+  public loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View> {
+    return this.fetch('GET', 'v2/metadata/entities/' + entityName + '/views', null,
+      {handleAs: 'json', ...fetchOptions});
+  }
+
+  public loadEntityView(entityName: string, viewName: string, fetchOptions?: FetchOptions): Promise<View> {
+    return this.fetch('GET', 'v2/metadata/entities/' + entityName + '/views/' + viewName + '/', null,
+      {handleAs: 'json', ...fetchOptions});
+  }
   public loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<any> {
     const fetchRes = this.fetch('GET', 'v2/messages/entities', null, {handleAs: 'json', ...fetchOptions});
     fetchRes.then((messages) => {

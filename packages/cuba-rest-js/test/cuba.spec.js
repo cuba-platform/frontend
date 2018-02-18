@@ -214,9 +214,23 @@ describe('CubaApp', function () {
     it('should invoke service without params and void result', function () {
       return app.invokeService('restmock_DummyService', 'voidNoParams');
     });
-    it('should not fail if null passed as params', function() {
+    it('should not fail if null passed as params', function () {
       return app.invokeService('restmock_DummyService', 'voidNoParams', null);
     })
-  })
+  });
+
+  describe('.loadEntityViews()', function () {
+    it('should load entity views', async function () {
+      const views = await app.loadEntityViews('sec$User');
+      assert(Array.isArray(views));
+    })
+  });
+
+  describe('.loadEntityView()', function () {
+    it('should load particular view', async function () {
+      const view = await app.loadEntityView('sec$User', 'user.browse');
+      assert(typeof view === 'object');
+    })
+  });
 
 });
