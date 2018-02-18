@@ -29,7 +29,7 @@ export function initializeApp(config: AppConfig = {}): CubaApp {
  * @param {string} appName
  * @returns {CubaApp | null}
  */
-export function getApp(appName?: string): CubaApp|null {
+export function getApp(appName?: string): CubaApp | null {
   const nameToSearch = appName == null ? "" : appName;
   for (const app of apps) {
     if (app.name === nameToSearch) {
@@ -82,6 +82,10 @@ export interface EntitiesLoadOptions {
   offset?: number;
 }
 
+export interface LoginOptions {
+  tokenEndpoint: string;
+}
+
 export class CubaApp {
 
   private static REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
@@ -126,10 +130,10 @@ export class CubaApp {
    * Logs in user and stores token in provided storage.
    * @param {string} login
    * @param {string} password
-   * @param {{tokenEndpoint: string}} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
+   * @param {LoginOptions} options You can use custom endpoints e.g. {tokenEndpoint:'ldap/token'}.
    * @returns {Promise<{access_token: string}>}
    */
-  public login(login: string, password: string, options?: { tokenEndpoint: string }): Promise<{ access_token: string }> {
+  public login(login: string, password: string, options?: LoginOptions): Promise<{ access_token: string }> {
     if (login == null) {
       login = "";
     }
@@ -225,7 +229,8 @@ export class CubaApp {
                            fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>> {
     let count;
     const paramsWithCount = {...params, returnCount: true};
-    return this.fetch('GET', `v2/queries/${entityName}/${queryName}`, paramsWithCount, {handleAs: 'raw', ...fetchOptions})
+    return this.fetch('GET', `v2/queries/${entityName}/${queryName}`, paramsWithCount,
+      {handleAs: 'raw', ...fetchOptions})
       .then((response: Response) => {
         count = parseInt(response.headers.get('X-Total-Count'), 10);
         return response.json();
