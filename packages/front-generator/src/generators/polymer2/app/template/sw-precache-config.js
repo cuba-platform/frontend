@@ -1,5 +1,5 @@
 module.exports = {
-  replacePrefix: '/${modulePrefix}${project_polymerClient_suffix}/',
+  replacePrefix: '/<%= basePath %>/',
   staticFileGlobs: [
     'index.html',
     'src/**.html',

@@ -4,7 +4,8 @@ export interface Locale {
 }
 
 export interface ProjectInfo {
+  name: string;
   namespace: string;
   modulePrefix: string;
-  locales: Locale[]
+  locales: Locale[];
 }

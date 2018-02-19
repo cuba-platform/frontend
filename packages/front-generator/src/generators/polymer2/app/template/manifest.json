@@ -1,9 +1,9 @@
 {
-  "name": "${project_polymerClient_title}",
-  "short_name": "${project_name}",
+  "name": "<%= title %>",
+  "short_name": "<%= project.name %>",
   "start_url": "/${modulePrefix}${project_polymerClient_suffix}/",
   "display": "standalone",
-  "background_color": "${project_polymerClient_baseColor}",
+  "background_color": "<%= baseColor %>",
   "icons": [
     {
       "src": "images/app-icon/icon-192x192.png",

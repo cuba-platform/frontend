@@ -1,5 +1,5 @@
 {
-  "name": "${project_namespace}",
+  "name": "<%= project.name %>",
   "main": "index.html",
   "private": true,
   "dependencies": {

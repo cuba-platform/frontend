@@ -3,7 +3,7 @@ import {Questions} from "yeoman-generator";
 import * as path from "path";
 import {ProjectInfo} from "../../../common/model";
 import {QuestionType} from "../../../common/inquirer";
-
+import {Polymer2AppTemplateModel} from "./template-model";
 
 
 export = class Polymer2AppGenerator extends Base {
@@ -12,7 +12,6 @@ export = class Polymer2AppGenerator extends Base {
 
   constructor(args: string | string[], options: any) {
     super(args, options);
-    // console.log(options);
     this.sourceRoot(path.join(__dirname, 'template'));
     this.destinationRoot(path.join(this.destinationRoot(), '.tmp'));
   }
@@ -52,12 +51,23 @@ export = class Polymer2AppGenerator extends Base {
       return;
     }
 
+    const templateModel: Polymer2AppTemplateModel = answersToModel(this.props.project);
+
     this.fs.copy(this.templatePath() + '/images/**', this.destinationPath('images'));
-    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), this.props);
-    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.props);
+    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), templateModel);
+    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), templateModel);
   }
 
   end() {
     this.log('CUBA Polymer client has been successfully generated');
   }
+}
+
+
+function answersToModel(project: ProjectInfo): Polymer2AppTemplateModel {
+  return {
+    title: project.name,
+    baseColor: '#2196F3',
+    project: project
+  };
 }
