@@ -249,7 +249,7 @@ export class CubaApp {
     return this.fetch('GET', 'v2/metadata/entities' + '/' + entityName, null, {handleAs: 'json', ...fetchOptions});
   }
 
-  public loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View> {
+  public loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View[]> {
     return this.fetch('GET', 'v2/metadata/entities/' + entityName + '/views', null,
       {handleAs: 'json', ...fetchOptions});
   }

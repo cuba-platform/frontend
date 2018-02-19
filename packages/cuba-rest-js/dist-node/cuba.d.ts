@@ -89,7 +89,7 @@ export declare class CubaApp {
     queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any>;
     loadMetadata(fetchOptions?: FetchOptions): Promise<MetaClassInfo[]>;
     loadEntityMetadata(entityName: string, fetchOptions?: FetchOptions): Promise<MetaClassInfo>;
-    loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View>;
+    loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View[]>;
     loadEntityView(entityName: string, viewName: string, fetchOptions?: FetchOptions): Promise<View>;
     loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<any>;
     loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]>;
