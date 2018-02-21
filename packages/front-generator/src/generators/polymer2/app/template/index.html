@@ -19,7 +19,7 @@
 
   <link rel="manifest" href="manifest.json">
 
-  <meta name="theme-color" content="${project_polymerClient_baseColor}">
+  <meta name="theme-color" content="<%= baseColor %>">
 
   <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -39,7 +39,7 @@
 
   <!-- Tile icon for Windows 8 (144x144 + tile color) -->
   <meta name="msapplication-TileImage" content="images/app-icon/icon-144x144.png">
-  <meta name="msapplication-TileColor" content="${project_polymerClient_baseColor}">
+  <meta name="msapplication-TileColor" content="<%= baseColor %>">
   <meta name="msapplication-tap-highlight" content="no">
 
   <script>
@@ -69,7 +69,7 @@
   <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
   <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
-  <link rel="import" href="src/${project_namespace}-shell.html">
+  <link rel="import" href="src/<%= project.namespace %>-shell.html">
 
   <style>
     body {
@@ -79,6 +79,6 @@
   </style>
 </head>
 <body>
-  <${project_namespace}-shell api-url="/${project_modulePrefix}/rest/"></${project_namespace}-shell>
+  <<%= project.namespace %>-shell api-url="/<%= project.modulePrefix %>/rest/"></<%= project.namespace %>-shell>
 </body>
 </html>

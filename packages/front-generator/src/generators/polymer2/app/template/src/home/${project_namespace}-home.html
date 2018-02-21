@@ -1,10 +1,11 @@
+<%  const className = genClassName('Home'); %>
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="../../bower_components/cuba-styles/cuba-styles.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../shared-styles.html">
 
-<dom-module id="${project_namespace}-home">
+<dom-module id="<%= project.namespace %>-home">
   <template>
     <style include="cuba-styles"></style>
     <style include="shared-styles"></style>
@@ -25,9 +26,9 @@
        * @extends {Polymer.Element}
        * @appliesMixin CubaLocalizeBehavior
        */
-      class ${className} extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
 
-        static get is() { return '${project_namespace}-home'; }
+        static get is() { return '<%= project.namespace %>-home'; }
 
         static get properties() {
           return {
@@ -43,7 +44,7 @@
         }
       }
 
-      customElements.define(${className}.is, ${className});
+      customElements.define(<%= className %>.is, <%= className %>);
     }
   </script>
 </dom-module>

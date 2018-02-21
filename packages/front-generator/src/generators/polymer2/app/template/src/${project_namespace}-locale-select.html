@@ -1,10 +1,11 @@
+<%  const className = genClassName('LocaleSelect'); %>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
 
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="${project_namespace}-locale-select">
+<dom-module id="<%= project.namespace %>-locale-select">
   <template>
     <style include="shared-styles"></style>
     <style>
@@ -25,9 +26,9 @@
       /**
        * @extends {Polymer.Element}
        */
-      class ${className} extends Polymer.Element {
+      class <%= className %> extends Polymer.Element {
         static get is() {
-          return '${project_namespace}-locale-select';
+          return '<%= project.namespace %>-locale-select';
         }
 
         static get properties() {
@@ -42,7 +43,7 @@
         }
       }
 
-      customElements.define(${className}.is, ${className});
+      customElements.define(<%= className %>.is, <%= className %>);
     }
   </script>
 </dom-module>

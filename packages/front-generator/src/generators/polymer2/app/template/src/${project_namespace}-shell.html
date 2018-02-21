@@ -1,3 +1,4 @@
+<% const className = genClassName('Shell') %>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <!-- Ensure Web Animations polyfill is loaded since neon-animation 2.0 doesn't import it -->
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
@@ -19,13 +20,13 @@
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker-light.html">
 <link rel="import" href="shared-styles.html">
 
-<link rel="import" href="${project_namespace}-menu.html">
-<link rel="import" href="${project_namespace}-user-menu.html">
-<link rel="import" href="${project_namespace}-login.html">
-<link rel="import" href="home/${project_namespace}-home.html">
+<link rel="import" href="<%= project.namespace %>-menu.html">
+<link rel="import" href="<%= project.namespace %>-user-menu.html">
+<link rel="import" href="<%= project.namespace %>-login.html">
+<link rel="import" href="home/<%= project.namespace %>-home.html">
 
 
-<dom-module id="${project_namespace}-shell">
+<dom-module id="<%= project.namespace %>-shell">
   <template>
     <style include="shared-styles">
       :host {
@@ -70,8 +71,8 @@
     </app-route>
 
     <template is="dom-if" if="[[!authenticated]]">
-      <${project_namespace}-login on-cuba-login-success="_handleLogin">
-      </${project_namespace}-login>
+      <<%= project.namespace %>-login on-cuba-login-success="_handleLogin">
+      </<%= project.namespace %>-login>
     </template>
 
     <template is="dom-if" if="[[authenticated]]" restamp="true">
@@ -79,10 +80,10 @@
 
         <app-drawer id="drawer" slot="drawer">
           <app-toolbar>
-            <div class="title">[[msg('${project_polymerClient_title}')]]</div>
+            <div class="title">[[msg('<%= title %>')]]</div>
           </app-toolbar>
           <div class="content fit drawer-content">
-            <${project_namespace}-menu on-menu-navigate="_closeDrawer"></${project_namespace}-menu>
+            <<%= project.namespace %>-menu on-menu-navigate="_closeDrawer"></<%= project.namespace %>-menu>
           </div>
         </app-drawer>
 
@@ -91,7 +92,7 @@
             <app-toolbar class="main-toolbar">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
               <div main-title></div>
-              <${project_namespace}-user-menu></${project_namespace}-user-menu>
+              <<%= project.namespace %>-user-menu></<%= project.namespace %>-user-menu>
             </app-toolbar>
           </app-header>
           <iron-lazy-pages
@@ -99,7 +100,7 @@
             attr-for-selected="data-route"
             selected-attribute="active"
             class="content fit">
-              <${project_namespace}-home data-route=""></${project_namespace}-home>
+              <<%= project.namespace %>-home data-route=""></<%= project.namespace %>-home>
           </iron-lazy-pages>
         </app-header-layout>
 
@@ -114,9 +115,9 @@
        * @appliesMixin CubaAppAwareBehavior
        * @appliesMixin CubaLocalizeBehavior
        */
-      class ${className} extends Polymer.mixinBehaviors([CubaAppAwareBehavior, CubaLocalizeBehavior], Polymer.Element) {
+      class <%= className %> extends Polymer.mixinBehaviors([CubaAppAwareBehavior, CubaLocalizeBehavior], Polymer.Element) {
         static get is() {
-          return '${project_namespace}-shell';
+          return '<%= project.namespace %>-shell';
         }
 
         static get properties() {
@@ -177,7 +178,7 @@
 
       }
 
-      customElements.define(${className}.is, ${className});
+      customElements.define(<%= className %>.is, <%= className %>);
     }
   </script>
 </dom-module>

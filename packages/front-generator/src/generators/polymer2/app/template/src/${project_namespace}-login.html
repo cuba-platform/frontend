@@ -1,13 +1,14 @@
+<%  const className = genClassName('Login'); %>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="../bower_components/cuba-login/cuba-login.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
 <%if (project.locales) {%>
-<link rel="import" href="${project_namespace}-locale-select.html">
+<link rel="import" href="<%= project.namespace %>-locale-select.html">
 <% } %>
 <link rel="import" href="shared-styles.html">
-<dom-module id="${project_namespace}-login">
+<dom-module id="<%= project.namespace %>-login">
   <template>
     <style include="shared-styles"></style>
     <style>
@@ -40,7 +41,7 @@
         margin-top: 24px;
       }
       <%if (project.locales) {%>
-      ${project_namespace}-locale-select {
+        <%= project.namespace %>-locale-select {
         margin-top: 20px;
       }
       <% } %>
@@ -55,14 +56,14 @@
       <paper-card class="login-card">
         <div class="card-content">
           <iron-icon id="logo" src="images/app-icon/icon-32x32.png"></iron-icon>
-          Welcome to ${project_polymerClient_title}
+          Welcome to <%= title %>
           <cuba-login on-cuba-login-error="_handleLoginError">
             <paper-button slot="login-button" raised class="login-button">Login</paper-button>
           </cuba-login>
         </div>
       </paper-card>
       <%if (project.locales) {%>
-      <${project_namespace}-locale-select></${project_namespace}-locale-select>
+      <<%= project.namespace %>-locale-select></<%= project.namespace %>-locale-select>
       <% } %>
     </div>
     <paper-toast id="loginError" horizontal-align="right">
@@ -75,9 +76,9 @@
        * @extends {Polymer.Element}
        * @appliesMixin CubaLocalizeBehavior
        */
-      class ${className} extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
         static get is() {
-          return '${project_namespace}-login'
+          return '<%= project.namespace %>-login'
         }
 
         _handleLoginError() {
@@ -85,7 +86,7 @@
         }
       }
 
-      customElements.define(${className}.is, ${className});
+      customElements.define(<%= className %>.is, <%= className %>);
     }
   </script>
 </dom-module>

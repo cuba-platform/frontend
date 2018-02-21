@@ -1,3 +1,4 @@
+<%  const className = genClassName('Login'); %>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
@@ -45,9 +46,9 @@
        * @extends {Polymer.Element}
        * @appliesMixin CubaLocalizeBehavior
        */
-      class ${className} extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
         static get is() {
-          return '${project_namespace}-menu';
+          return '<%= project.namespace %>-menu';
         }
 
         static get properties() {
@@ -66,7 +67,7 @@
         }
       }
 
-      customElements.define(${className}.is, ${className});
+      customElements.define(<%= className %>.is, <%= className %>);
     }
   </script>
 </dom-module>

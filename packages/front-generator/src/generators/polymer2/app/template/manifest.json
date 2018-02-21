@@ -1,7 +1,7 @@
 {
   "name": "<%= title %>",
   "short_name": "<%= project.name %>",
-  "start_url": "/${modulePrefix}${project_polymerClient_suffix}/",
+  "start_url": "/<%= basePath %>/",
   "display": "standalone",
   "background_color": "<%= baseColor %>",
   "icons": [
