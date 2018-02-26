@@ -5,16 +5,23 @@ import {ProjectInfo} from "../../../common/model";
 import {QuestionType} from "../../../common/inquirer";
 import {Polymer2AppTemplateModel} from "./template-model";
 import through2 = require("through2");
+import {Polymer2AppGeneratorOptions, options as availableOptions} from "./options";
 
 
 class Polymer2AppGenerator extends Base {
 
-  props?: {project:ProjectInfo};
+  options: Polymer2AppGeneratorOptions = {};
+  props?: { project: ProjectInfo };
 
-  constructor(args: string | string[], options: any) {
+  constructor(args: string | string[], options: Polymer2AppGeneratorOptions) {
     super(args, options);
+
+    Object.keys(availableOptions).forEach(key => {
+      this.option(key, availableOptions[key]);
+    });
+
     this.sourceRoot(path.join(__dirname, 'template'));
-    this.destinationRoot(path.join(this.destinationRoot(), '.tmp'));
+    this.destinationRoot(this._getDestRoot());
     this.registerTransformStream(rename(this));
   }
 
@@ -52,6 +59,7 @@ class Polymer2AppGenerator extends Base {
   writing() {
     console.log(this.sourceRoot());
     console.log(this.destinationPath());
+    console.log(this.options);
 
     if (!this.props) {
       return;
@@ -68,6 +76,12 @@ class Polymer2AppGenerator extends Base {
     this.log('CUBA Polymer client has been successfully generated');
   }
 
+  private _getDestRoot(): string {
+    // const subDir = this.options.debug ? '.tmp' : '';
+    console.log(this.options.debug);
+    const subDir = '.tmp';
+    return path.join(this.destinationRoot(), subDir)
+  }
 }
 
 
