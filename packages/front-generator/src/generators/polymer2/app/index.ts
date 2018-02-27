@@ -16,8 +16,8 @@ class Polymer2AppGenerator extends Base {
   constructor(args: string | string[], options: Polymer2AppGeneratorOptions) {
     super(args, options);
 
-    Object.keys(availableOptions).forEach(key => {
-      this.option(key, availableOptions[key]);
+    Object.keys(availableOptions).forEach(optionName => {
+      this.option(optionName, availableOptions[optionName]);
     });
 
     this.sourceRoot(path.join(__dirname, 'template'));
@@ -25,6 +25,8 @@ class Polymer2AppGenerator extends Base {
     this.registerTransformStream(rename(this));
   }
 
+
+  // noinspection JSUnusedGlobalSymbols
   async prompting() {
     const questions: Questions = [{
       name: 'name',
@@ -56,10 +58,9 @@ class Polymer2AppGenerator extends Base {
     this.props = {project: await this.prompt(questions) as ProjectInfo};
   }
 
+  // noinspection JSUnusedGlobalSymbols
   writing() {
-    console.log(this.sourceRoot());
-    console.log(this.destinationPath());
-    console.log(this.options);
+    this.log(`Generating to ${this.destinationPath()}`);
 
     if (!this.props) {
       return;
@@ -77,9 +78,7 @@ class Polymer2AppGenerator extends Base {
   }
 
   private _getDestRoot(): string {
-    // const subDir = this.options.debug ? '.tmp' : '';
-    console.log(this.options.debug);
-    const subDir = '.tmp';
+    const subDir = this.options.debug ? '.tmp' : '';
     return path.join(this.destinationRoot(), subDir)
   }
 }

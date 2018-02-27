@@ -13,7 +13,8 @@ generators.forEach(generator => {
 
   const subGenerators = collectSubGenerators(generator.name);
 
-  subGenerators.forEach(subgen => {
+  subGenerators.forEach(function(subgen) {
+
     cli.command(`${generator.name}:${subgen.name}`);
     if (subgen.options) {
       Object.keys(subgen.options).forEach(optionFullName => {
@@ -21,7 +22,8 @@ generators.forEach(generator => {
         cli.option(`-${optionInfo.alias}, --${optionFullName}`, optionInfo.description);
       });
     }
-    cli.action(async (cmd) => {
+
+    cli.action(function (name, cmd) {
       const passedOptions: {[key:string]: any} = {};
       if (subgen.options) {
         Object.keys(subgen.options).forEach(optionFullName => {
@@ -30,8 +32,10 @@ generators.forEach(generator => {
           }
         })
       }
-      await generate(generator.name, subgen.name, passedOptions);
+      console.log(`Pass options: ${JSON.stringify(passedOptions)}`);
+      return generate(generator.name, subgen.name, passedOptions);
     })
+
   })
 
 });

@@ -10,6 +10,6 @@ describe('generator', function () {
   });
 
   it('generates Polymer client', function () {
-    return generate('polymer2', 'app');
+    return generate('polymer2', 'app', {debug: true});
   })
 });
