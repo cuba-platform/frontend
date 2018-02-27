@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/front-generator",
-  "version": "0.1.0",
+  "version": "0.1.0-pre.2",
   "description": "CUBA Platform front-end clients generator",
   "main": "lib/cli.js",
   "bin": {
@@ -13,7 +13,8 @@
     "compile": "tsc",
     "build": "rm -rf lib && tsc && node scripts/copy-templates.js",
     "watch": "tsc -w",
-    "test": "mocha --config test/mocha.js.opts"
+    "test": "mocha --config test/mocha.js.opts",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
