@@ -19,7 +19,11 @@ generators.forEach(generator => {
     if (subgen.options) {
       Object.keys(subgen.options).forEach(optionFullName => {
         const optionInfo = subgen.options![optionFullName];
-        cli.option(`-${optionInfo.alias}, --${optionFullName}`, optionInfo.description);
+        let optionPattern = `-${optionInfo.alias}, --${optionFullName}`;
+        if (optionInfo.type === String) {
+          optionPattern += ` [${optionFullName}]`;
+        }
+        cli.option(optionPattern, optionInfo.description);
       });
     }
 

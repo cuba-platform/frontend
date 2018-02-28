@@ -1,13 +1,13 @@
 import {GeneratorCliOptions} from "../../../common/generation";
 
 export interface Polymer2AppGeneratorOptions {
-  debug?: boolean;
+  dest?: string;
 }
 
 export const options: GeneratorCliOptions = {
-  debug: {
+  dest: {
     alias: 'd',
-    description: 'run generator in debug mode (generate to .tmp)',
-    type: Boolean
+    description: 'destination directory',
+    type: String
   }
 };

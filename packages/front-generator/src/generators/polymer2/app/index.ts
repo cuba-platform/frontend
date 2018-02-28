@@ -31,7 +31,13 @@ class Polymer2AppGenerator extends Base {
     const questions: Questions = [{
       name: 'name',
       message: 'Project Name',
-      type: QuestionType.input
+      type: QuestionType.input,
+      validate(input) {
+        if (!input || input.length < 1) {
+          return 'must be at least 1 symbols'
+        }
+        return true;
+      }
     },{
       name: 'modulePrefix',
       message: 'Module Prefix',
@@ -74,11 +80,11 @@ class Polymer2AppGenerator extends Base {
   }
 
   end() {
-    this.log('CUBA Polymer client has been successfully generated');
+    this.log(`CUBA Polymer client has been successfully generated into ${this.destinationRoot()}`);
   }
 
   private _getDestRoot(): string {
-    const subDir = this.options.debug ? '.tmp' : '';
+    const subDir = this.options.dest ? this.options.dest : '';
     return path.join(this.destinationRoot(), subDir)
   }
 }
