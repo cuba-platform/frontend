@@ -4,6 +4,7 @@ import * as path from "path";
 import {GeneratorCliOptions} from "./common/generation";
 
 const GENERATORS_DIR = 'generators';
+const CLI_OPTIONS_FILE_NAME = 'cli-options.js';
 
 export interface GeneratorInfo {
   bundled: boolean;
@@ -37,8 +38,8 @@ function scanDir(generatorsDir: string) {
       bundled: true
     };
 
-    if (existsSync(path.join(generatorsDir, dirName, 'options.js'))) {
-      generatorInfo.options = require(path.join(generatorsDir, dirName, 'options.js')).options;
+    if (existsSync(path.join(generatorsDir, dirName, CLI_OPTIONS_FILE_NAME))) {
+      generatorInfo.options = require(path.join(generatorsDir, dirName, CLI_OPTIONS_FILE_NAME)).options;
     }
 
     return generatorInfo;

@@ -1,21 +1,31 @@
-import * as commander from 'commander';
 import {generate, collectGenerators, collectSubGenerators} from "./init";
 import {Command} from 'commander';
 
-const cli: Command = commander;
+const program: Command = require('commander');
 
-cli.version(require('../package').version, '-v, --version')
+program.version(require('../package').version, '-v, --version')
   .usage('[command] [options]');
 
 const generators = collectGenerators();
+
+program
+  .command('list')
+  .description('List all available generators')
+  .action(function () {
+    console.log(generators.reduce((prev, gen, i) => prev += (i === 0 ? '' : ',') + gen.name, ''));
+  });
 
 generators.forEach(generator => {
 
   const subGenerators = collectSubGenerators(generator.name);
 
-  subGenerators.forEach(function(subgen) {
+  subGenerators.forEach(function (subgen) {
 
-    cli.command(`${generator.name}:${subgen.name}`);
+    const command = program
+      .command(`${generator.name}:${subgen.name}`)
+      .description(`Generates ${generator.name} ${subgen.name}`);
+
+
     if (subgen.options) {
       Object.keys(subgen.options).forEach(optionFullName => {
         const optionInfo = subgen.options![optionFullName];
@@ -23,12 +33,12 @@ generators.forEach(generator => {
         if (optionInfo.type === String) {
           optionPattern += ` [${optionFullName}]`;
         }
-        cli.option(optionPattern, optionInfo.description);
+        command.option(optionPattern, optionInfo.description);
       });
     }
 
-    cli.action(function (name, cmd) {
-      const passedOptions: {[key:string]: any} = {};
+    command.action(function (cmd) {
+      const passedOptions: { [key: string]: any } = {};
       if (subgen.options) {
         Object.keys(subgen.options).forEach(optionFullName => {
           if (cmd.hasOwnProperty(optionFullName)) {
@@ -36,7 +46,6 @@ generators.forEach(generator => {
           }
         })
       }
-      console.log(`Pass options: ${JSON.stringify(passedOptions)}`);
       return generate(generator.name, subgen.name, passedOptions);
     })
 
@@ -44,8 +53,8 @@ generators.forEach(generator => {
 
 });
 
-cli.parse(process.argv);
+program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {
-  cli.outputHelp()
+  program.outputHelp()
 }

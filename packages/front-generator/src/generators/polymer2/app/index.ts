@@ -5,13 +5,14 @@ import {ProjectInfo} from "../../../common/model";
 import {QuestionType} from "../../../common/inquirer";
 import {Polymer2AppTemplateModel} from "./template-model";
 import through2 = require("through2");
-import {Polymer2AppGeneratorOptions, options as availableOptions} from "./options";
+import {Polymer2AppGeneratorOptions, options as availableOptions} from "./cli-options";
 
 
 class Polymer2AppGenerator extends Base {
 
   options: Polymer2AppGeneratorOptions = {};
-  props?: { project: ProjectInfo };
+  answers?: { project: ProjectInfo };
+  model?: Polymer2AppTemplateModel;
 
   constructor(args: string | string[], options: Polymer2AppGeneratorOptions) {
     super(args, options);
@@ -28,16 +29,14 @@ class Polymer2AppGenerator extends Base {
 
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
+    if (this.options.model) {
+      this.log('Skipping prompts since model provided');
+      return;
+    }
     const questions: Questions = [{
       name: 'name',
       message: 'Project Name',
-      type: QuestionType.input,
-      validate(input) {
-        if (!input || input.length < 1) {
-          return 'must be at least 1 symbols'
-        }
-        return true;
-      }
+      type: QuestionType.input
     },{
       name: 'modulePrefix',
       message: 'Module Prefix',
@@ -61,22 +60,28 @@ class Polymer2AppGenerator extends Base {
       }]
     }];
 
-    this.props = {project: await this.prompt(questions) as ProjectInfo};
+    this.answers = {project: await this.prompt(questions) as ProjectInfo};
+  }
+
+  prepareModel() {
+    if (this.options.model) {
+      this.model = {} as Polymer2AppTemplateModel //todo VM read model
+    } else if (this.answers) {
+      this.model = createModel(this.answers.project);
+    }
   }
 
   // noinspection JSUnusedGlobalSymbols
   writing() {
     this.log(`Generating to ${this.destinationPath()}`);
 
-    if (!this.props) {
-      return;
+    if (!this.model) {
+      throw new Error('Model is not provided');
     }
 
-    const templateModel: Polymer2AppTemplateModel = answersToModel(this.props.project);
-
     this.fs.copy(this.templatePath() + '/images/**', this.destinationPath('images'));
-    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), templateModel);
-    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), templateModel);
+    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), this.model);
+    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
   }
 
   end() {
@@ -90,7 +95,7 @@ class Polymer2AppGenerator extends Base {
 }
 
 
-function answersToModel(project: ProjectInfo): Polymer2AppTemplateModel {
+function createModel(project: ProjectInfo): Polymer2AppTemplateModel {
   return {
     title: project.name,
     project: project,
@@ -104,7 +109,7 @@ function answersToModel(project: ProjectInfo): Polymer2AppTemplateModel {
 
 function rename(generator: Polymer2AppGenerator) {
   return through2.obj(function (file, enc, callback) {
-    file.basename = file.basename.replace('${project_namespace}', generator.props!.project.namespace);
+    file.basename = file.basename.replace('${project_namespace}', generator.model!.project.namespace);
     this.push(file);
     callback();
   });
