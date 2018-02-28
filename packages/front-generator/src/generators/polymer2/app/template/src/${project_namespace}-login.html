@@ -3,6 +3,8 @@
 <link rel="import" href="../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="../bower_components/cuba-login/cuba-login.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 
 <%if (project.locales) {%>
 <link rel="import" href="<%= project.namespace %>-locale-select.html">
@@ -82,7 +84,7 @@
         }
 
         _handleLoginError() {
-          this.\$.loginError.show();
+          this.$.loginError.show();
         }
       }
 

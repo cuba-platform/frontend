@@ -41,6 +41,10 @@
             }
           }
         }
+
+        _changeLocale(event) {
+          cuba.getApp().locale = event.detail.value;
+        }
       }
 
       customElements.define(<%= className %>.is, <%= className %>);
