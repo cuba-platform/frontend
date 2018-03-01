@@ -28,12 +28,8 @@ export interface ResponseError extends Error {
     response?: any;
 }
 export declare type ContentType = "text" | "json" | "blob" | "raw";
-export interface AbortSignal extends EventTarget {
-    aborted: boolean;
-}
 export interface FetchOptions extends RequestInit {
     handleAs?: ContentType;
-    signal?: AbortSignal;
 }
 export interface EntitiesLoadOptions {
     view?: string;
@@ -95,7 +91,7 @@ export declare class CubaApp {
     loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]>;
     getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]>;
     getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo>;
-    fetch(method: string, path: string, data?: {}, fetchOptions?: FetchOptions): Promise<any>;
+    fetch(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<any>;
     onLocaleChange(c: any): () => ((locale: string) => {})[];
     onTokenExpiry(c: any): () => (() => {})[];
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];

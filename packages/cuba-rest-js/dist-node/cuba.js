@@ -55,7 +55,7 @@ function removeApp(appName) {
     apps.splice(apps.indexOf(app), 1);
 }
 exports.removeApp = removeApp;
-var CubaApp = (function () {
+var CubaApp = /** @class */ (function () {
     function CubaApp(name, apiUrl, restClientId, restClientSecret, defaultLocale, storage) {
         if (name === void 0) { name = ""; }
         if (apiUrl === void 0) { apiUrl = "/app/rest/"; }
@@ -231,7 +231,7 @@ var CubaApp = (function () {
                 "Accept-Language": this.locale,
             } }, fetchOptions);
         if (this.restApiToken) {
-            settings.headers.authorization = "Bearer " + this.restApiToken;
+            settings.headers["Authorization"] = "Bearer " + this.restApiToken;
         }
         if (method === 'POST' || method === 'PUT') {
             settings.body = data;
@@ -243,10 +243,10 @@ var CubaApp = (function () {
         var handleAs = fetchOptions ? fetchOptions.handleAs : undefined;
         switch (handleAs) {
             case "text":
-                settings.headers.accept = "text/html";
+                settings.headers["Accept"] = "text/html";
                 break;
             case "json":
-                settings.headers.accept = "application/json";
+                settings.headers["Accept"] = "application/json";
                 break;
         }
         var fetchRes = fetch(url, settings).then(this.checkStatus);
@@ -321,9 +321,9 @@ var CubaApp = (function () {
         this.storage.removeItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
         this.storage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
     };
+    CubaApp.REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
+    CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
+    CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
     return CubaApp;
 }());
-CubaApp.REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
-CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
-CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
 exports.CubaApp = CubaApp;

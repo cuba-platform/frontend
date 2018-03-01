@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.cuba = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.cuba = f()}})(function(){var define,module,exports;return (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -56,7 +56,7 @@ function removeApp(appName) {
     apps.splice(apps.indexOf(app), 1);
 }
 exports.removeApp = removeApp;
-var CubaApp = (function () {
+var CubaApp = /** @class */ (function () {
     function CubaApp(name, apiUrl, restClientId, restClientSecret, defaultLocale, storage) {
         if (name === void 0) { name = ""; }
         if (apiUrl === void 0) { apiUrl = "/app/rest/"; }
@@ -232,7 +232,7 @@ var CubaApp = (function () {
                 "Accept-Language": this.locale,
             } }, fetchOptions);
         if (this.restApiToken) {
-            settings.headers.authorization = "Bearer " + this.restApiToken;
+            settings.headers["Authorization"] = "Bearer " + this.restApiToken;
         }
         if (method === 'POST' || method === 'PUT') {
             settings.body = data;
@@ -244,10 +244,10 @@ var CubaApp = (function () {
         var handleAs = fetchOptions ? fetchOptions.handleAs : undefined;
         switch (handleAs) {
             case "text":
-                settings.headers.accept = "text/html";
+                settings.headers["Accept"] = "text/html";
                 break;
             case "json":
-                settings.headers.accept = "application/json";
+                settings.headers["Accept"] = "application/json";
                 break;
         }
         var fetchRes = fetch(url, settings).then(this.checkStatus);
@@ -322,11 +322,11 @@ var CubaApp = (function () {
         this.storage.removeItem(this.name + "_" + CubaApp.REST_TOKEN_STORAGE_KEY);
         this.storage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
     };
+    CubaApp.REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
+    CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
+    CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
     return CubaApp;
 }());
-CubaApp.REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
-CubaApp.USER_NAME_STORAGE_KEY = "cubaUserName";
-CubaApp.LOCALE_STORAGE_KEY = "cubaLocale";
 exports.CubaApp = CubaApp;
 
 },{"./storage":2,"./util":3}],2:[function(require,module,exports){
@@ -335,7 +335,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Simple im-memory storage compatible with localStorage/sessionStorage API.
  */
-var DefaultStorage = (function () {
+var DefaultStorage = /** @class */ (function () {
     function DefaultStorage() {
         this.items = {};
     }

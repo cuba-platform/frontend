@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Simple im-memory storage compatible with localStorage/sessionStorage API.
  */
-var DefaultStorage = (function () {
+var DefaultStorage = /** @class */ (function () {
     function DefaultStorage() {
         this.items = {};
     }

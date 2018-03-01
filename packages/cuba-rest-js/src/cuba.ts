@@ -66,13 +66,9 @@ export type ContentType = "text" | "json" | "blob" | "raw";
 /*
  * Temporary typings until AbortSignal gets landed to the TypeScript library
  */
-export interface AbortSignal extends EventTarget {
-  aborted: boolean;
-}
 
 export interface FetchOptions extends RequestInit {
   handleAs?: ContentType;
-  signal?: AbortSignal;
 }
 
 export interface EntitiesLoadOptions {
@@ -284,7 +280,7 @@ export class CubaApp {
     return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json', ...fetchOptions});
   }
 
-  public fetch(method: string, path: string, data?: {}, fetchOptions?: FetchOptions): Promise<any> {
+  public fetch(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<any> {
     let url = this.apiUrl + path;
     const settings: FetchOptions = {
       method,
@@ -294,7 +290,7 @@ export class CubaApp {
       ...fetchOptions,
     };
     if (this.restApiToken) {
-      settings.headers.authorization = "Bearer " + this.restApiToken;
+      settings.headers["Authorization"] = "Bearer " + this.restApiToken;
     }
     if (method === 'POST' || method === 'PUT') {
       settings.body = data;
@@ -306,10 +302,10 @@ export class CubaApp {
     const handleAs: ContentType = fetchOptions ? fetchOptions.handleAs : undefined;
     switch (handleAs) {
       case "text":
-        settings.headers.accept = "text/html";
+        settings.headers["Accept"] = "text/html";
         break;
       case "json":
-        settings.headers.accept = "application/json";
+        settings.headers["Accept"] = "application/json";
         break;
     }
 
