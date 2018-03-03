@@ -1,11 +1,12 @@
 import * as Base from "yeoman-generator";
 import {Questions} from "yeoman-generator";
 import * as path from "path";
-import {ProjectInfo} from "../../../common/model";
+import {ProjectInfo, ProjectModel} from "../../../common/model";
 import {QuestionType} from "../../../common/inquirer";
 import {Polymer2AppTemplateModel} from "./template-model";
 import through2 = require("through2");
 import {Polymer2AppGeneratorOptions, options as availableOptions} from "./cli-options";
+import * as fs from "fs";
 
 
 class Polymer2AppGenerator extends Base {
@@ -23,7 +24,7 @@ class Polymer2AppGenerator extends Base {
 
     this.sourceRoot(path.join(__dirname, 'template'));
     this.destinationRoot(this._getDestRoot());
-    this.registerTransformStream(rename(this));
+    this.registerTransformStream(createRenameTransform(this));
   }
 
 
@@ -37,7 +38,7 @@ class Polymer2AppGenerator extends Base {
       name: 'name',
       message: 'Project Name',
       type: QuestionType.input
-    },{
+    }, {
       name: 'modulePrefix',
       message: 'Module Prefix',
       type: QuestionType.input,
@@ -65,7 +66,8 @@ class Polymer2AppGenerator extends Base {
 
   prepareModel() {
     if (this.options.model) {
-      this.model = {} as Polymer2AppTemplateModel //todo VM read model
+      const projectModel = readProjectModel(this.options.model);
+      this.model = createModel(projectModel.project);
     } else if (this.answers) {
       this.model = createModel(this.answers.project);
     }
@@ -101,13 +103,20 @@ function createModel(project: ProjectInfo): Polymer2AppTemplateModel {
     project: project,
     basePath: 'app-front',
     baseColor: '#2196F3',
-    genClassName: function(suffix:string) {
+    genClassName: function (suffix: string) {
       return project.namespace[0].toUpperCase() + project.namespace.slice(1) + suffix;
     }
   };
 }
 
-function rename(generator: Polymer2AppGenerator) {
+function readProjectModel(modelFilePath: string): ProjectModel {
+  if (!fs.existsSync(modelFilePath)) {
+    throw new Error('Specified model file does not exist');
+  }
+  return require(modelFilePath);
+}
+
+function createRenameTransform(generator: Polymer2AppGenerator) {
   return through2.obj(function (file, enc, callback) {
     file.basename = file.basename.replace('${project_namespace}', generator.model!.project.namespace);
     this.push(file);

@@ -1,4 +1,4 @@
-export interface Model {
+export interface ProjectModel {
   project: ProjectInfo;
   entities: Entity[];
   views: View[];
