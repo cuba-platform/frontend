@@ -1,0 +1,28 @@
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+
+<link rel="import" href="<%= relDirShift %>shared-styles.html">
+
+<dom-module id="<%= componentName %>">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <!-- Place your markup here -->
+
+  </template>
+  <script>
+    {
+      class <%= className %> extends Polymer.Element {
+        static get is() {
+          return '<%= componentName %>';
+        }
+      }
+
+      customElements.define(<%= className %>.is, <%= className %>);
+    }
+  </script>
+</dom-module>

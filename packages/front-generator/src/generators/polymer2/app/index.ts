@@ -1,29 +1,19 @@
-import * as Base from "yeoman-generator";
-import {Questions} from "yeoman-generator";
-import * as path from "path";
 import {ProjectInfo, ProjectModel} from "../../../common/model";
-import {QuestionType} from "../../../common/inquirer";
 import {Polymer2AppTemplateModel} from "./template-model";
-import through2 = require("through2");
-import {Polymer2AppGeneratorOptions, options as availableOptions} from "./cli-options";
 import * as fs from "fs";
+import {polymer2AppQuestions} from "./questions";
+import {BaseGenerator, CommonGenerationOptions} from "../../../common/cli-common";
+import through2 = require("through2");
 
 
-class Polymer2AppGenerator extends Base {
+class Polymer2AppGenerator extends BaseGenerator {
 
-  options: Polymer2AppGeneratorOptions = {};
+  options: CommonGenerationOptions = {};
   answers?: { project: ProjectInfo };
   model?: Polymer2AppTemplateModel;
 
-  constructor(args: string | string[], options: Polymer2AppGeneratorOptions) {
+  constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
-
-    Object.keys(availableOptions).forEach(optionName => {
-      this.option(optionName, availableOptions[optionName]);
-    });
-
-    this.sourceRoot(path.join(__dirname, 'template'));
-    this.destinationRoot(this._getDestRoot());
     this.registerTransformStream(createRenameTransform(this));
   }
 
@@ -34,34 +24,7 @@ class Polymer2AppGenerator extends Base {
       this.log('Skipping prompts since model provided');
       return;
     }
-    const questions: Questions = [{
-      name: 'name',
-      message: 'Project Name',
-      type: QuestionType.input
-    }, {
-      name: 'modulePrefix',
-      message: 'Module Prefix',
-      type: QuestionType.input,
-      'default': 'app'
-    }, {
-      name: 'namespace',
-      message: 'Project Namespace',
-      type: QuestionType.input
-    }, {
-      name: 'locales',
-      message: 'Locales',
-      type: QuestionType.checkbox,
-      choices: [{
-        name: 'English',
-        value: 'en',
-        checked: true
-      }, {
-        name: 'Russian',
-        value: 'ru'
-      }]
-    }];
-
-    this.answers = {project: await this.prompt(questions) as ProjectInfo};
+    this.answers = {project: await this.prompt(polymer2AppQuestions) as ProjectInfo};
   }
 
   prepareModel() {
@@ -88,11 +51,6 @@ class Polymer2AppGenerator extends Base {
 
   end() {
     this.log(`CUBA Polymer client has been successfully generated into ${this.destinationRoot()}`);
-  }
-
-  private _getDestRoot(): string {
-    const subDir = this.options.dest ? this.options.dest : '';
-    return path.join(this.destinationRoot(), subDir)
   }
 }
 

@@ -1,7 +1,7 @@
 import {readdirSync, existsSync} from 'fs';
 import * as YeomanEnvironment from "yeoman-environment";
 import * as path from "path";
-import {GeneratorCliOptions} from "./common/generation";
+import {OptionsConfig} from "./common/cli-common";
 
 const GENERATORS_DIR = 'generators';
 const CLI_OPTIONS_FILE_NAME = 'cli-options.js';
@@ -9,7 +9,7 @@ const CLI_OPTIONS_FILE_NAME = 'cli-options.js';
 export interface GeneratorInfo {
   bundled: boolean;
   name: string;
-  options?: GeneratorCliOptions;
+  options?: OptionsConfig;
 }
 
 export function collectGenerators(): GeneratorInfo[] {
