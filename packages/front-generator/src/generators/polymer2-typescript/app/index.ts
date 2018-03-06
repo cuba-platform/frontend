@@ -1,13 +1,12 @@
+import {polymer2AppQuestions} from "../../polymer2/app/questions";
 import {ProjectInfo, ProjectModel} from "../../../common/model";
-import {Polymer2AppTemplateModel} from "./template-model";
-import * as fs from "fs";
-import {polymer2AppQuestions} from "./questions";
+import {Polymer2AppTemplateModel} from "../../polymer2/app/template-model";
 import {BaseGenerator, CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
-import through2 = require("through2");
+import * as fs from "fs";
+import * as through2 from "through2";
 import * as path from "path";
 
-
-class Polymer2AppGenerator extends BaseGenerator {
+class Polymer2TypescriptAppGenerator extends BaseGenerator {
 
   options: CommonGenerationOptions = {};
   answers?: { project: ProjectInfo };
@@ -50,13 +49,12 @@ class Polymer2AppGenerator extends BaseGenerator {
       throw new Error('Model is not provided');
     }
 
-    this.fs.copy(this.templatePath() + '/images/**', this.destinationPath('images'));
     this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), this.model);
     this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
   }
 
   end() {
-    this.log(`CUBA Polymer client has been successfully generated into ${this.destinationRoot()}`);
+    this.log(`CUBA Polymer client (TypeScript) has been successfully generated into ${this.destinationRoot()}`);
   }
 }
 
@@ -80,7 +78,7 @@ function readProjectModel(modelFilePath: string): ProjectModel {
   return require(modelFilePath);
 }
 
-function createRenameTransform(generator: Polymer2AppGenerator) {
+function createRenameTransform(generator: Polymer2TypescriptAppGenerator) {
   return through2.obj(function (file, enc, callback) {
     file.basename = file.basename.replace('${project_namespace}', generator.model!.project.namespace);
     this.push(file);
@@ -88,4 +86,4 @@ function createRenameTransform(generator: Polymer2AppGenerator) {
   });
 }
 
-export = Polymer2AppGenerator;
+export = Polymer2TypescriptAppGenerator;

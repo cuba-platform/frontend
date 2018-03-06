@@ -1,7 +1,6 @@
 import {OptionConfig} from "yeoman-generator";
 import * as Base from "yeoman-generator";
 import * as path from "path";
-import {options as availableOptions} from "../generators/polymer2/app/cli-options";
 
 export type OptionsConfig = {
   [optionName: string]: OptionConfig
@@ -33,16 +32,15 @@ export class BaseGenerator extends Base {
 
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
-
-    Object.keys(availableOptions).forEach(optionName => {
-      this.option(optionName, availableOptions[optionName]);
-    });
-
-    this.sourceRoot(path.join(__dirname, 'template'));
-    this.destinationRoot(this._getDestRoot());
   }
 
-  private _getDestRoot(): string {
+  protected _populateOptions(availableOption: OptionsConfig) {
+    Object.keys(availableOption).forEach(optionName => {
+      this.option(optionName, availableOption[optionName]);
+    });
+  }
+
+  protected _getDestRoot(): string {
     const subDir = this.options.dest ? this.options.dest : '';
     return path.join(this.destinationRoot(), subDir)
   }
