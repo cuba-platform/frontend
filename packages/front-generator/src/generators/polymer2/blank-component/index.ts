@@ -1,8 +1,9 @@
 import * as path from "path";
 import {options as availableOptions} from "../app/cli-options";
-import {BaseGenerator, CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
+import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
 import {questions} from "./questions";
 import {Polymer2ComponentTemplateModel} from "./template-model";
+import {BaseGenerator} from "../../../common/generation";
 
 interface Answers {
   componentName: string

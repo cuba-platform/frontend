@@ -1,9 +1,36 @@
 import {OptionConfig} from "yeoman-generator";
-import * as Base from "yeoman-generator";
-import * as path from "path";
 
 export type OptionsConfig = {
   [optionName: string]: OptionConfig
+}
+
+interface CommanderOptionInfo {
+  pattern: string;
+  description?: string;
+}
+
+export function extractAvailableOptions(optionsConfig?: OptionsConfig): CommanderOptionInfo[] {
+  if (!optionsConfig) {
+    return [];
+  }
+  return Object.keys(optionsConfig).map(optionFullName => {
+    const {type, alias, description} = optionsConfig[optionFullName];
+    const pattern = `-${alias}, --${optionFullName}${type === String ? ` [${optionFullName}]` : ''}`;
+
+    return {pattern, description}
+  });
+}
+
+export function pickOptions(cmd: {[key:string]: any}, availableOptions?: OptionsConfig, ):{[key:string]: string|boolean} {
+  const passedOptions: { [key: string]: any } = {};
+  if (availableOptions) {
+    Object.keys(availableOptions).forEach(optionFullName => {
+      if (cmd.hasOwnProperty(optionFullName)) {
+        passedOptions[optionFullName] = cmd[optionFullName] as string | boolean;
+      }
+    })
+  }
+  return passedOptions;
 }
 
 export interface CommonGenerationOptions {
@@ -23,25 +50,3 @@ export const commonGenerationOptionsConfig: OptionsConfig = {
     type: String
   }
 };
-
-export class BaseGenerator extends Base {
-
-  options: CommonGenerationOptions = {};
-  answers?: {};
-  model?: {};
-
-  constructor(args: string | string[], options: CommonGenerationOptions) {
-    super(args, options);
-  }
-
-  protected _populateOptions(availableOption: OptionsConfig) {
-    Object.keys(availableOption).forEach(optionName => {
-      this.option(optionName, availableOption[optionName]);
-    });
-  }
-
-  protected _getDestRoot(): string {
-    const subDir = this.options.dest ? this.options.dest : '';
-    return path.join(this.destinationRoot(), subDir)
-  }
-}

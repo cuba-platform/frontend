@@ -1,10 +1,11 @@
 import {polymer2AppQuestions} from "../../polymer2/app/questions";
 import {ProjectInfo, ProjectModel} from "../../../common/model";
 import {Polymer2AppTemplateModel} from "../../polymer2/app/template-model";
-import {BaseGenerator, CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
+import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
 import * as fs from "fs";
 import * as through2 from "through2";
 import * as path from "path";
+import {BaseGenerator} from "../../../common/generation";
 
 class Polymer2TypescriptAppGenerator extends BaseGenerator {
 

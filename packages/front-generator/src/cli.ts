@@ -1,56 +1,37 @@
-import {generate, collectGenerators, collectSubGenerators} from "./init";
+import {generate, collectClients, ClientInfo} from "./init";
 import {Command} from 'commander';
+import {exportList} from "./list";
+import {extractAvailableOptions, pickOptions} from "./common/cli-common";
 
 const program: Command = require('commander');
 
 program.version(require('../package').version, '-v, --version')
   .usage('[command] [options]');
 
-const generators = collectGenerators();
+const clients: ClientInfo[] = collectClients();
 
 program
   .command('list')
-  .description('List all available generators')
-  .action(function () {
-    console.log(generators.reduce((prev, gen, i) => prev += (i === 0 ? '' : ',') + gen.name, ''));
-  });
+  .description('List all available clients and their clients')
+  .option('-s, --save [saveTo]', 'Save information about clients ')
+  .action((cmd) => exportList(clients, cmd));
 
-generators.forEach(generator => {
+clients.forEach(client => {
+  client.generators.forEach(function (generator) {
 
-  const subGenerators = collectSubGenerators(generator.name);
+    const generationCommand = program
+      .command(`${client.name}:${generator.name}`)
+      .description(`Generates ${client.name} ${generator.name}`);
 
-  subGenerators.forEach(function (subgen) {
+    extractAvailableOptions(generator.options).forEach(({pattern, description}) => {
+      generationCommand.option(pattern, description);
+    });
 
-    const command = program
-      .command(`${generator.name}:${subgen.name}`)
-      .description(`Generates ${generator.name} ${subgen.name}`);
-
-
-    if (subgen.options) {
-      Object.keys(subgen.options).forEach(optionFullName => {
-        const optionInfo = subgen.options![optionFullName];
-        let optionPattern = `-${optionInfo.alias}, --${optionFullName}`;
-        if (optionInfo.type === String) {
-          optionPattern += ` [${optionFullName}]`;
-        }
-        command.option(optionPattern, optionInfo.description);
-      });
-    }
-
-    command.action(function (cmd) {
-      const passedOptions: { [key: string]: any } = {};
-      if (subgen.options) {
-        Object.keys(subgen.options).forEach(optionFullName => {
-          if (cmd.hasOwnProperty(optionFullName)) {
-            passedOptions[optionFullName] = cmd[optionFullName]
-          }
-        })
-      }
-      return generate(generator.name, subgen.name, passedOptions);
+    generationCommand.action(function (cmd) {
+      return generate(client.name, generator.name, pickOptions(cmd, generator.options));
     })
 
   })
-
 });
 
 program.parse(process.argv);

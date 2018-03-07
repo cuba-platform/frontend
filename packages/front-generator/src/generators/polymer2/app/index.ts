@@ -2,9 +2,10 @@ import {ProjectInfo, ProjectModel} from "../../../common/model";
 import {Polymer2AppTemplateModel} from "./template-model";
 import * as fs from "fs";
 import {polymer2AppQuestions} from "./questions";
-import {BaseGenerator, CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
+import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
 import through2 = require("through2");
 import * as path from "path";
+import {BaseGenerator} from "../../../common/generation";
 
 
 class Polymer2AppGenerator extends BaseGenerator {
