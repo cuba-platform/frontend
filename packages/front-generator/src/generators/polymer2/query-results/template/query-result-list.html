@@ -1,0 +1,83 @@
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-ui/cuba-entity-list-view-behavior.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-data/cuba-query.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-button/paper-button.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>shared-styles.html">
+
+
+<dom-module id="${componentName}">
+  <template>
+    <style include="cuba-styles"></style>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <cuba-query id="data"
+                entity-name="${query.entity.name}"
+                query-name="${query.name}"
+                params="[[queryParams]]"
+                data="{{entities}}"
+                loading="{{dataLoading}}"
+                provide-count="true"
+                count="{{entitiesCount}}"
+                auto="[[active]]">
+    </cuba-query>
+
+    <app-toolbar id="toolbar" class="list-toolbar">
+      <% if (query.params.size() > 0) { %>
+      <div class="filter">
+        <% query.params.each {
+          def fieldBinding = api.evaluateScript("polymer/restParamField.groovy", [
+            'api': api,
+            'restParam': it,
+            'bindPrefix': 'queryParams.'
+          ])
+          def fieldHtml = api.processSnippet("polymer/fields/${fieldBinding.type}Field.html", fieldBinding)
+          println fieldHtml
+        }%>
+      </div>
+      <% } %>
+      <span main-title>
+        <paper-spinner active="[[dataLoading]]"></paper-spinner>
+      </span>
+      <paper-icon-button icon="refresh"
+                         on-tap="reload"></paper-icon-button>
+    </app-toolbar>
+    <iron-selector id="selector" on-iron-activate="_handleSelectionChange" class="item-list">
+      <template id="entitiesList" is="dom-repeat" items="{{entities}}">
+        <div class="row">
+          <div class="title">[[item._instanceName]]</div>
+        </div>
+      </template>
+    </iron-selector>
+    <template is="dom-if" if="[[moreDataAvailable]]">
+      <paper-button on-tap="_loadMore" class="load-more">
+        Load more
+      </paper-button>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: '${componentName}',
+      behaviors: [CubaLocalizeBehavior, CubaEntityListViewBehavior],
+      properties: {
+        queryParams: {
+          type: Object,
+          value: {
+            offset: 0,
+            limit: 10,
+            <% if (query.params.size() > 0) {query.params.each { println it.name + ": null," }} %>
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>
