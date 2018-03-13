@@ -1,0 +1,154 @@
+<%
+def className = managementComponentName.split('-')*.capitalize().join('')
+%>
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-route/app-location.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-route/app-route.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="${listComponentName}.html">
+<link rel="import" href="${editComponentName}.html">
+
+<dom-module id="${managementComponentName}">
+  <template>
+    <style include="shared-styles"></style>
+    <style include="cuba-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <app-route route="[[route]]"
+               pattern="/:action"
+               data="{{actionRouteData}}"
+               tail="{{actionRouteTail}}"
+               active="{{actionRouteActive}}"></app-route>
+
+    <app-route route="[[actionRouteTail]]"
+               pattern="/:id"
+               data="{{idRouteData}}"
+               active="{{idRouteActive}}"></app-route>
+
+    <template is="dom-if" if="[[showEditor]]" restamp="true">
+      <${editComponentName} entity-id="[[editedEntityId]]"
+                       on-commit="_onEditorCommit"
+                       on-cancel="_closeEditor"
+                       on-delete="_deleteEntity"></${editComponentName}>
+    </template>
+
+    <template is="dom-if" if="[[!showEditor]]">
+      <app-toolbar id="toolbar" class="list-toolbar">
+        <span main-title>
+          <paper-spinner active="[[dataLoading]]"></paper-spinner>
+        </span>
+        <paper-icon-button icon="refresh" on-tap="_reload"></paper-icon-button>
+        <paper-icon-button icon="add" on-tap="_createEntity"></paper-icon-button>
+      </app-toolbar>
+      <${listComponentName} id="list"
+                            active="[[active]]"
+                            on-item-tap="_editEntity"
+                            data-loading="{{dataLoading}}"></${listComponentName}>
+    </template>
+
+    <paper-toast id="successMessage" horizontal-align="right">[[msg('Successfully saved')]]</paper-toast>
+    <paper-toast id="errorMessage" horizontal-align="right">[[msg('Failed to save')]]</paper-toast>
+
+  </template>
+  <script>
+    {
+      /**
+       * @extends {Polymer.Element}
+       * @appliesMixin CubaLocalizeBehavior
+       */
+      class ${className} extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
+        static get is() {
+          return '${managementComponentName}';
+        }
+
+        static get properties() {
+          return {
+            route: Object,
+            actionRouteData: Object,
+            actionRouteTail: Object,
+            actionRouteActive: Boolean,
+            idRouteData: Object,
+            idRouteActive: Boolean,
+            showEditor: {
+              type: Boolean,
+              computed: '_computeShowEditor(route, active, actionRouteActive)',
+              value: false
+            },
+            editedEntityId: {
+              type: String,
+              computed: '_computeEditedEntityId(route, idRouteActive, idRouteData.id)'
+            },
+            active: {
+              type: Boolean,
+              value: false
+            }
+          }
+        }
+
+        _computeShowEditor() {
+          return this.active && this.actionRouteActive;
+        }
+
+        _computeEditedEntityId() {
+          return this.idRouteActive ? this.idRouteData.id : null;
+        }
+
+        _reload() {
+          this.shadowRoot.querySelector('#list').reload();
+        }
+
+        _createEntity() {
+          this.dispatchEvent(new CustomEvent('navigate', {
+            bubbles: true,
+            composed: true,
+            detail: this.route.prefix + '/new'
+          }));
+        }
+
+        _editEntity(event) {
+          this.dispatchEvent(new CustomEvent('navigate', {
+            bubbles: true,
+            composed: true,
+            detail: this.route.prefix + '/edit/' + event.detail.id
+          }));
+        }
+
+        _deleteEntity(event) {
+          const listComponent = this.shadowRoot.querySelector('#list');
+          if (listComponent) {
+            listComponent.remove(event.detail.entity);
+          }
+          this._closeEditor();
+        }
+
+        _onEditorCommit() {
+          const listComponent = this.shadowRoot.querySelector('#list');
+          if (listComponent) {
+            listComponent.reload();
+          }
+          this.\$.successMessage.open();
+          this._closeEditor();
+        }
+
+        _closeEditor() {
+          this.dispatchEvent(new CustomEvent('navigate', {
+            bubbles: true,
+            composed: true,
+            detail: this.route.prefix
+          }))
+        }
+      }
+
+      customElements.define(${className}.is, ${className});
+    }
+  </script>
+</dom-module>

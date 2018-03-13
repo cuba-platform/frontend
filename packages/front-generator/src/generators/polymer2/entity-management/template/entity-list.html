@@ -1,0 +1,10 @@
+<%
+def binding = [
+  'api': api,
+  'relDirShift': relDirShift,
+  'entity': entity,
+  'view': listView,
+  'componentName': listComponentName
+]
+def componentHtml = api.processSnippet("polymer/v2/entity-${listType}.html", binding)
+%>${componentHtml}

@@ -1,0 +1,10 @@
+<%
+def binding = [
+  'api': api,
+  'relDirShift': relDirShift,
+  'entity': entity,
+  'view': editView,
+  'componentName': editComponentName
+]
+def editHtml = api.processSnippet('polymer/v2/entity-edit.html', binding)
+%>${editHtml}
