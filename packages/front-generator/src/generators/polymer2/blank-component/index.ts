@@ -1,15 +1,16 @@
 import * as path from "path";
-import {options as availableOptions} from "../app/cli-options";
-import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
-import {questions} from "./questions";
+import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../../common/cli-options";
+import {entityManagementParams} from "./params";
 import {Polymer2ComponentTemplateModel} from "./template-model";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator, NonInteractiveGenerator} from "../../../common/generation";
+import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {fromStudioProperties} from "../../../common/questions";
 
 interface Answers {
   componentName: string
 }
 
-class Polymer2ComponentGenerator extends BaseGenerator {
+class Polymer2ComponentGenerator extends BaseGenerator implements NonInteractiveGenerator {
 
   answers?: Answers;
   model?: Polymer2ComponentTemplateModel;
@@ -17,7 +18,7 @@ class Polymer2ComponentGenerator extends BaseGenerator {
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
 
-    this._populateOptions(commonGenerationOptionsConfig);
+    this._populateOptions(this._getOptions());
 
     this.sourceRoot(path.join(__dirname, 'template'));
     this.destinationRoot(this._getDestRoot());
@@ -25,7 +26,7 @@ class Polymer2ComponentGenerator extends BaseGenerator {
 
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
-    this.answers = await this.prompt(questions) as Answers;
+    this.answers = await this.prompt(fromStudioProperties(this._getParams())) as Answers;
   }
 
   prepareModel() {
@@ -50,6 +51,18 @@ class Polymer2ComponentGenerator extends BaseGenerator {
   end() {
     this.log(`Blank component has been successfully generated into ${this.destinationRoot()}`);
   }
+
+  _getOptions(): OptionsConfig {
+    return commonGenerationOptionsConfig;
+  }
+
+  _getParams(): StudioTemplateProperty[] {
+    return entityManagementParams;
+  }
 }
 
-export = Polymer2ComponentGenerator;
+export {
+  Polymer2ComponentGenerator as generator,
+  commonGenerationOptionsConfig as options,
+  entityManagementParams as params
+};

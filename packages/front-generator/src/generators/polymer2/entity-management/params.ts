@@ -1,6 +1,6 @@
-import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../studio/templating";
+import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
 
-export const entityManagementQuestions: StudioTemplateProperty[] = [
+export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
   {
     code: 'entity',
     caption: 'Entity',
@@ -32,6 +32,20 @@ export const entityManagementQuestions: StudioTemplateProperty[] = [
   {
     code: 'listView',
     caption: 'List view',
+    propertyType: StudioTemplatePropertyType.VIEW,
+    relatedProperty: "entity",
+    required: true
+  },
+  {
+    code: 'editComponentName',
+    caption: 'Edit component name',
+    propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
+    defaultValue: '-edit',
+    required: true
+  },
+  {
+    code: 'editView',
+    caption: 'Edit view',
     propertyType: StudioTemplatePropertyType.VIEW,
     relatedProperty: "entity",
     required: true

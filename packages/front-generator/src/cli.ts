@@ -1,7 +1,7 @@
 import {generate, collectClients, ClientInfo} from "./init";
 import {Command} from 'commander';
 import {exportList} from "./list";
-import {extractAvailableOptions, pickOptions} from "./common/cli-common";
+import {extractAvailableOptions, pickOptions} from "./common/cli-options";
 
 const program: Command = require('commander');
 

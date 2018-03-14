@@ -1,23 +1,23 @@
-import {ProjectInfo, ProjectModel} from "../../../common/model";
+import {ProjectInfo, ProjectModel} from "../../../common/cuba-model";
 import {Polymer2AppTemplateModel} from "./template-model";
 import * as fs from "fs";
-import {polymer2AppQuestions} from "./questions";
-import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-common";
-import through2 = require("through2");
+import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator, GeneratorExports, NonInteractiveGenerator} from "../../../common/generation";
+import {questions} from "./questions";
+import through2 = require("through2");
+import {StudioTemplateProperty} from "../../../common/cuba-studio";
 
 
-class Polymer2AppGenerator extends BaseGenerator {
+class Polymer2AppGenerator extends BaseGenerator implements NonInteractiveGenerator {
 
-  options: CommonGenerationOptions = {};
   answers?: { project: ProjectInfo };
   model?: Polymer2AppTemplateModel;
 
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
 
-    this._populateOptions(commonGenerationOptionsConfig);
+    this._populateOptions(this._getOptions());
 
     this.registerTransformStream(createRenameTransform(this));
     this.sourceRoot(path.join(__dirname, 'template'));
@@ -31,7 +31,7 @@ class Polymer2AppGenerator extends BaseGenerator {
       this.log('Skipping prompts since model provided');
       return;
     }
-    this.answers = {project: await this.prompt(polymer2AppQuestions) as ProjectInfo};
+    this.answers = {project: await this.prompt(questions) as ProjectInfo};
   }
 
   prepareModel() {
@@ -58,6 +58,14 @@ class Polymer2AppGenerator extends BaseGenerator {
 
   end() {
     this.log(`CUBA Polymer client has been successfully generated into ${this.destinationRoot()}`);
+  }
+
+  _getOptions(): OptionsConfig {
+    return commonGenerationOptionsConfig;
+  }
+
+  _getParams(): StudioTemplateProperty[] {
+    return [];
   }
 }
 
@@ -89,4 +97,6 @@ function createRenameTransform(generator: Polymer2AppGenerator) {
   });
 }
 
-export = Polymer2AppGenerator;
+export {Polymer2AppGenerator as generator};
+export {commonGenerationOptionsConfig as options};
+export const params = [];

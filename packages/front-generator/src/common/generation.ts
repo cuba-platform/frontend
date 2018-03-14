@@ -1,16 +1,13 @@
 import * as Base from "yeoman-generator";
 import * as path from "path";
-import {CommonGenerationOptions, OptionsConfig} from "./cli-common";
+import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "./cli-options";
+import {StudioTemplateProperty} from "./cuba-studio";
 
-export class BaseGenerator extends Base {
+export abstract class BaseGenerator extends Base {
 
   options: CommonGenerationOptions = {};
   answers?: {};
   model?: {};
-
-  constructor(args: string | string[], options: CommonGenerationOptions) {
-    super(args, options);
-  }
 
   protected _populateOptions(availableOption: OptionsConfig) {
     Object.keys(availableOption).forEach(optionName => {
@@ -22,4 +19,23 @@ export class BaseGenerator extends Base {
     const subDir = this.options.dest ? this.options.dest : '';
     return path.join(this.destinationRoot(), subDir)
   }
+}
+
+/**
+ * Designates that generator can be used in non interactive mode e.g. by CUBA Studio
+ *
+ * Leading underscore in methods needed to prevent yeoman from running the method in generation cycle
+ */
+export interface NonInteractiveGenerator {
+
+  _getParams(): StudioTemplateProperty[];
+
+  _getOptions(): OptionsConfig;
+
+}
+
+export interface GeneratorExports {
+  generator: any,
+  options?: OptionsConfig,
+  params?: StudioTemplateProperty[]
 }

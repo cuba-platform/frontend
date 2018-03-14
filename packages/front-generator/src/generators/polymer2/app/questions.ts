@@ -1,7 +1,7 @@
-import {QuestionType} from "../../../common/inquirer";
 import {Questions} from "yeoman-generator";
+import {QuestionType} from "../../../common/questions";
 
-export const polymer2AppQuestions: Questions = [{
+export const questions: Questions = [{
   name: 'name',
   message: 'Project Name',
   type: QuestionType.input

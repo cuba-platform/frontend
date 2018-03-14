@@ -1,4 +1,4 @@
-import {ProjectInfo} from "../../../common/model";
+import {ProjectInfo} from "../../../common/cuba-model";
 
 export interface Polymer2AppTemplateModel {
   title: string;
