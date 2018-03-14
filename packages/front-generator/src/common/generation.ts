@@ -35,7 +35,7 @@ export interface NonInteractiveGenerator {
 }
 
 export interface GeneratorExports {
-  generator: any,
+  generator: typeof BaseGenerator,
   options?: OptionsConfig,
   params?: StudioTemplateProperty[]
 }
