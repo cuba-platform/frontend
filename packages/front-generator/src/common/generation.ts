@@ -1,6 +1,6 @@
 import * as Base from "yeoman-generator";
 import * as path from "path";
-import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "./cli-options";
+import {CommonGenerationOptions, OptionsConfig} from "./cli-options";
 import {StudioTemplateProperty} from "./cuba-studio";
 
 export abstract class BaseGenerator extends Base {
@@ -16,8 +16,13 @@ export abstract class BaseGenerator extends Base {
   }
 
   protected _getDestRoot(): string {
-    const subDir = this.options.dest ? this.options.dest : '';
-    return path.join(this.destinationRoot(), subDir)
+    if (!this.options.dest) {
+      return this.destinationRoot();
+    }
+    if (path.isAbsolute(this.options.dest)) {
+      return this.options.dest
+    }
+    return path.join(this.destinationRoot(), this.options.dest)
   }
 }
 
