@@ -222,7 +222,7 @@ task restartAndWaitForInitialization(dependsOn: ['stop', ':app-core:deploy', ':a
         }
         start.execute()
         ant.waitfor(maxwait: 10, maxwaitunit: 'second', checkevery: 1, checkeveryunit: 'second') {
-            socket(server: 'localhost', port: '8080')
+            http(url: 'http://localhost:8080/app/rest/health')
         }
     }
 }
