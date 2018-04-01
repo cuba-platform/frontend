@@ -47,8 +47,12 @@ export interface EnumInfo {
     name: string;
     values: EnumValueInfo[];
 }
+export declare type ViewProperty = string | {
+    name: string;
+    view: View;
+};
 export interface View {
     name: string;
     entity: string;
-    properties: string[];
+    properties: ViewProperty[];
 }
