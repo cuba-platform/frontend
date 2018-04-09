@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/front-generator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CUBA Platform front-end clients generator",
   "main": "lib/cli.js",
   "bin": {
