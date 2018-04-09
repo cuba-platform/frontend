@@ -1,17 +1,16 @@
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/polymer/polymer.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-app/cuba-localize-behavior.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-ui/cuba-entity-list-view-behavior.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-data/cuba-query.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-styles/cuba-styles.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-button/paper-button.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>shared-styles.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-list-view-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-query.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="<%= relDirShift %>shared-styles.html">
 
-
-<dom-module id="${componentName}">
+<dom-module id="<%= componentName %>">
   <template>
     <style include="cuba-styles"></style>
     <style include="shared-styles"></style>
@@ -21,8 +20,8 @@
       }
     </style>
     <cuba-query id="data"
-                entity-name="${query.entity.name}"
-                query-name="${query.name}"
+                entity-name="<%=query.entity%>"
+                query-name="<%=query.name%>"
                 params="[[queryParams]]"
                 data="{{entities}}"
                 loading="{{dataLoading}}"
@@ -32,17 +31,11 @@
     </cuba-query>
 
     <app-toolbar id="toolbar" class="list-toolbar">
-      <% if (query.params.size() > 0) { %>
+      <% if (fields) { %>
       <div class="filter">
-        <% query.params.each {
-          def fieldBinding = api.evaluateScript("polymer/restParamField.groovy", [
-            'api': api,
-            'restParam': it,
-            'bindPrefix': 'queryParams.'
-          ])
-          def fieldHtml = api.processSnippet("polymer/fields/${fieldBinding.type}Field.html", fieldBinding)
-          println fieldHtml
-        }%>
+<% for (let i = 0; i < fields.length; i++) { %>
+<%-fields[i]%>
+<%_ } _%>
       </div>
       <% } %>
       <span main-title>
@@ -65,19 +58,34 @@
     </template>
   </template>
   <script>
-    Polymer({
-      is: '${componentName}',
-      behaviors: [CubaLocalizeBehavior, CubaEntityListViewBehavior],
-      properties: {
-        queryParams: {
-          type: Object,
-          value: {
-            offset: 0,
-            limit: 10,
-            <% if (query.params.size() > 0) {query.params.each { println it.name + ": null," }} %>
+    {
+      /**
+       * @extends {Polymer.Element}
+       * @appliesMixin CubaLocalizeBehavior
+       * @appliesMixin CubaEntityListViewBehavior
+       */
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior, CubaEntityListViewBehavior], Polymer.Element) {
+        static get is() {
+          return '<%= componentName %>';
+        }
+
+        static get properties() {
+          return {
+            queryParams: {
+              type: Object,
+              value: {
+                offset: 0,
+                limit: 10,
+                <%if (query.params) { for(let i = 0; i < query.params; i++) {%>
+                  <%-query.params[i].name%>
+                <%}} %>
+              }
+            }
           }
         }
       }
-    });
+
+      customElements.define(<%= className %>.is, <%= className %>);
+    }
   </script>
 </dom-module>

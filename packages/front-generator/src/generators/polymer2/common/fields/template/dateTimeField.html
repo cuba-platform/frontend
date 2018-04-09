@@ -1,0 +1,7 @@
+<paper-input value="{{<%-bindPath%>}}"
+             label="<%-label%> (yyyy-MM-dd HH:mm:ss.SSS)"
+             <% if (required) { %> required <% }%>
+             <% if (maxLength!=null) { %> maxlength="<%-maxLength%>" <%}%>
+             error-message="[[<%-errorBindPath%>]]"
+             invalid="[[_isInvalid(<%-errorBindPath%>)]]">
+</paper-input>

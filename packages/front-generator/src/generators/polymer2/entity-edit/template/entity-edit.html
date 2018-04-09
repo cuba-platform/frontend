@@ -1,0 +1,71 @@
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-card/paper-card.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-edit-view-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-entity.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-form/cuba-entity-form.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
+<%for (let i = 0; i < imports.length; i++) {%>
+<link rel="import" href="<%= relDirShift %>../bower_components/<%- imports[i] %>">
+<%}%>
+<link rel="import" href="<%= relDirShift %>shared-styles.html">
+
+<dom-module id="<%= componentName %>">
+  <template>
+    <style include="cuba-styles"></style>
+    <style include="shared-styles"></style>
+    <style>
+      paper-card {
+        display: block;
+      }
+    </style>
+
+    <cuba-entity entity-name="<%= entity.name %>" entity-id="[[entityId]]" view="<%= view.name %>" data="{{entity}}"></cuba-entity>
+    <cuba-entity-form id="form"
+                      entity-name="<%= entity.name %>"
+                      entity="{{entity}}"
+                      on-cuba-form-response="_onSuccess"
+                      on-cuba-form-error="_onError"
+                      server-errors="{{serverErrors}}">
+      <paper-card>
+        <div class="card-content">
+<% for (let i = 0; i < fields.length; i++) { %>
+<%-fields[i]%>
+<%_ } _%>
+        </div>
+        <div class="card-actions">
+          <paper-button on-tap="_delete" hidden$="[[!entityId]]">
+            [[msg('Delete')]]
+          </paper-button>
+          <paper-button on-tap="_cancel">
+            [[msg('Cancel')]]
+          </paper-button>
+          <paper-button on-tap="_save">
+            [[msg('Save')]]
+          </paper-button>
+        </div>
+      </paper-card>
+    </cuba-entity-form>
+
+    <paper-toast id="errorMessage" horizontal-align="right">[[msg('Failed to save')]]</paper-toast>
+
+  </template>
+  <script>
+    {
+      /**
+       * @extends {Polymer.Element}
+       * @appliesMixin CubaLocalizeBehavior
+       * @appliesMixin CubaEntityEditViewBehavior
+       */
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior, CubaEntityEditViewBehavior], Polymer.Element) {
+
+        static get is() { return '<%= componentName %>'; }
+
+      }
+
+      customElements.define(<%= className %>.is, <%= className %>);
+    }
+  </script>
+</dom-module>

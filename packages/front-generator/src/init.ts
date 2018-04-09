@@ -1,4 +1,4 @@
-import {existsSync, readdirSync} from 'fs';
+import {existsSync, readdirSync, statSync} from 'fs';
 import * as YeomanEnvironment from "yeoman-environment";
 import * as path from "path";
 import {OptionsConfig} from "./common/cli-options";
@@ -34,23 +34,29 @@ export function collectClients(): ClientInfo[] {
 export async function generate(generatorName: string, subGeneratorName: string, options?: {}): Promise<void> {
   const env = new YeomanEnvironment();
 
-  const {generator} = require(path.join(__dirname, GENERATORS_DIR_NAME, generatorName, subGeneratorName));
+  const {generator} = await import(path.join(__dirname, GENERATORS_DIR_NAME, generatorName, subGeneratorName));
   env.registerStub(generator, generator.name);
   env.run(generator.name, options);
 }
 
 function collectGenerators(generatorsDir: string): GeneratorInfo[] {
   const dirs = readdirSync(generatorsDir);
-  return dirs.map((name): GeneratorInfo => {
+  return dirs.reduce((generators: GeneratorInfo[], name: string) => {
 
-    let options: OptionsConfig | undefined;
-    let params: StudioTemplateProperty[] | undefined;
-    if (existsSync(path.join(generatorsDir, name, GENERATOR_FILE_NAME))) {
-      const generatorExports: GeneratorExports = require(path.join(generatorsDir, name, GENERATOR_FILE_NAME));
-      options = generatorExports.options;
-      params = generatorExports.params;
+    const generatorPath = path.join(generatorsDir, name);
+    if (existsSync(generatorPath)
+        && existsSync(path.join(generatorPath, GENERATOR_FILE_NAME))
+        && statSync(generatorPath).isDirectory()) {
+      const generatorExports: GeneratorExports = require(generatorPath);
+      if (generatorExports.generator == null) {
+        return generators;
+      }
+      const options = generatorExports.options;
+      const params = generatorExports.params;
+      generators.push({name, options, params});
+      return generators;
+    } else {
+      return generators;
     }
-
-    return {name, options, params};
-  });
+  }, []);
 }

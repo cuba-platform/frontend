@@ -8,5 +8,8 @@
     "bower": "^1.8.2",
     "polymer-cli": "^1.5.7"
   },
-  "private": true
+  "private": true,
+  "cubaPlatform": {
+    "generator": "polymer2"
+  }
 }

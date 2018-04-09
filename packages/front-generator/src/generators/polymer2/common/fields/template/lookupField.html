@@ -1,0 +1,15 @@
+<cuba-lookup picked-entity="{{<%-bindPath%>}}">
+  <div slot="dropdown">
+    <cuba-entities entity-name="<%-lookupEntityName%>" view="_minimal" data="{{<%-itemsBindPath%>}}"></cuba-entities>
+    <vaadin-combo-box label="<%-label%>"
+                      items="[[<%-itemsBindPath%>]]"
+                      selected-item="{{<%-bindPath%>}}"
+                      item-label-path="_instanceName"
+                      item-value-path="id"
+                      value="[[<%=bindPath%>.id]]"
+                      <% if (required) { %> required <%}%>
+                      error-message="[[<%-errorBindPath%>]]"
+                      invalid="[[_isInvalid(<%-errorBindPath%>)]]">
+    </vaadin-combo-box>
+  </div>
+</cuba-lookup>

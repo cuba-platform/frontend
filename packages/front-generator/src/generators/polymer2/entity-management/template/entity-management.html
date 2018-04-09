@@ -1,19 +1,16 @@
-<%
-def className = managementComponentName.split('-')*.capitalize().join('')
-%>
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/polymer/polymer.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-app/cuba-localize-behavior.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/cuba-styles/cuba-styles.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-route/app-location.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-route/app-route.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="<%if (relDirShift) { print(relDirShift) }%>../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="${listComponentName}.html">
-<link rel="import" href="${editComponentName}.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-route/app-location.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-route/app-route.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="<%= listComponentName %>.html">
+<link rel="import" href="<%= editComponentName %>.html">
 
-<dom-module id="${managementComponentName}">
+<dom-module id="<%= componentName %>">
   <template>
     <style include="shared-styles"></style>
     <style include="cuba-styles"></style>
@@ -35,10 +32,10 @@ def className = managementComponentName.split('-')*.capitalize().join('')
                active="{{idRouteActive}}"></app-route>
 
     <template is="dom-if" if="[[showEditor]]" restamp="true">
-      <${editComponentName} entity-id="[[editedEntityId]]"
+      <<%= editComponentName %> entity-id="[[editedEntityId]]"
                        on-commit="_onEditorCommit"
                        on-cancel="_closeEditor"
-                       on-delete="_deleteEntity"></${editComponentName}>
+                       on-delete="_deleteEntity"></<%= editComponentName %>>
     </template>
 
     <template is="dom-if" if="[[!showEditor]]">
@@ -49,10 +46,10 @@ def className = managementComponentName.split('-')*.capitalize().join('')
         <paper-icon-button icon="refresh" on-tap="_reload"></paper-icon-button>
         <paper-icon-button icon="add" on-tap="_createEntity"></paper-icon-button>
       </app-toolbar>
-      <${listComponentName} id="list"
+      <<%= listComponentName%> id="list"
                             active="[[active]]"
                             on-item-tap="_editEntity"
-                            data-loading="{{dataLoading}}"></${listComponentName}>
+                            data-loading="{{dataLoading}}"></<%= listComponentName%>>
     </template>
 
     <paper-toast id="successMessage" horizontal-align="right">[[msg('Successfully saved')]]</paper-toast>
@@ -65,9 +62,9 @@ def className = managementComponentName.split('-')*.capitalize().join('')
        * @extends {Polymer.Element}
        * @appliesMixin CubaLocalizeBehavior
        */
-      class ${className} extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
         static get is() {
-          return '${managementComponentName}';
+          return '<%= componentName %>';
         }
 
         static get properties() {
@@ -135,7 +132,7 @@ def className = managementComponentName.split('-')*.capitalize().join('')
           if (listComponent) {
             listComponent.reload();
           }
-          this.\$.successMessage.open();
+          this.$.successMessage.open();
           this._closeEditor();
         }
 
@@ -148,7 +145,7 @@ def className = managementComponentName.split('-')*.capitalize().join('')
         }
       }
 
-      customElements.define(${className}.is, ${className});
+      customElements.define(<%= className %>.is, <%= className %>);
     }
   </script>
 </dom-module>

@@ -1,3 +1,5 @@
+import {RestService, RestServiceMethod} from "./cuba-model";
+
 export const enum StudioTemplatePropertyType {
   ENTITY = 'ENTITY',
   VIEW = 'VIEW',
@@ -8,7 +10,7 @@ export const enum StudioTemplatePropertyType {
   MULTI_OPTION = 'MULTI_OPTION',
   REST_QUERY = 'REST_QUERY',
   REST_SERVICE_METHOD = 'REST_SERVICE_METHOD',
-  POLYMER_COMPONENT_NAME = 'REST_SERVICE_METHOD'
+  POLYMER_COMPONENT_NAME = 'POLYMER_COMPONENT_NAME'
 }
 
 export interface StudioTemplateProperty {
@@ -22,4 +24,9 @@ export interface StudioTemplateProperty {
   // --not supported
   //advanced: boolean;
   //filterScript: string;
+}
+
+export interface RestServiceMethodInfo {
+  service: RestService;
+  method: RestServiceMethod;
 }

@@ -16,5 +16,8 @@
     "watch": "tsc -w",
     "build": "npm run compile && polymer build",
     "serve": "tsc && concurrently \"tsc -w\" \"polymer serve\" "
+  },
+  "cubaPlatform": {
+    "clientType": "polymer2-typescript"
   }
 }

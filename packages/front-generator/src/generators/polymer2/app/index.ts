@@ -1,29 +1,23 @@
 import {ProjectInfo, ProjectModel} from "../../../common/cuba-model";
 import {Polymer2AppTemplateModel} from "./template-model";
 import * as fs from "fs";
-import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../../common/cli-options";
+import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {BaseGenerator, GeneratorExports, NonInteractiveGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/generation";
 import {questions} from "./questions";
 import through2 = require("through2");
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
 
+interface Answers {
+  project: ProjectInfo
+}
 
-class Polymer2AppGenerator extends BaseGenerator implements NonInteractiveGenerator {
-
-  answers?: { project: ProjectInfo };
-  model?: Polymer2AppTemplateModel;
+class Polymer2AppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateModel, CommonGenerationOptions> {
 
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
-
-    this._populateOptions(this._getOptions());
-
     this.registerTransformStream(createRenameTransform(this));
     this.sourceRoot(path.join(__dirname, 'template'));
-    this.destinationRoot(this._getDestRoot());
   }
-
 
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
@@ -54,18 +48,11 @@ class Polymer2AppGenerator extends BaseGenerator implements NonInteractiveGenera
     this.fs.copy(this.templatePath() + '/images/**', this.destinationPath('images'));
     this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), this.model);
     this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
+    this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
   }
 
   end() {
     this.log(`CUBA Polymer client has been successfully generated into ${this.destinationRoot()}`);
-  }
-
-  _getOptions(): OptionsConfig {
-    return commonGenerationOptionsConfig;
-  }
-
-  _getParams(): StudioTemplateProperty[] {
-    return [];
   }
 }
 
@@ -86,7 +73,7 @@ function readProjectModel(modelFilePath: string): ProjectModel {
   if (!fs.existsSync(modelFilePath)) {
     throw new Error('Specified model file does not exist');
   }
-  return require(modelFilePath);
+  return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
 }
 
 function createRenameTransform(generator: Polymer2AppGenerator) {

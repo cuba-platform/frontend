@@ -36,6 +36,7 @@ export function pickOptions(cmd: {[key:string]: any}, availableOptions?: Options
 export interface CommonGenerationOptions {
   dest?: string;
   model?: string;
+  answers?: string;
 }
 
 export const commonGenerationOptionsConfig: OptionsConfig = {
@@ -47,6 +48,24 @@ export const commonGenerationOptionsConfig: OptionsConfig = {
   model: {
     alias: 'm',
     description: 'specify path to project model, if given no interactive prompt will be invoked',
+    type: String
+  },
+  answers: {
+    alias: 'a',
+    description: 'fulfilled params for generator to avoid interactive input in serialized JSON string',
+    type: String
+  }
+};
+
+export interface PolymerElementOptions extends CommonGenerationOptions {
+  dirShift?: string;
+}
+
+export const polymerElementOptionsConfig: OptionsConfig = {
+  ...commonGenerationOptionsConfig,
+  dirShift: {
+    alias: 'ds',
+    description: 'directory shift for html imports e.g ../../',
     type: String
   }
 };

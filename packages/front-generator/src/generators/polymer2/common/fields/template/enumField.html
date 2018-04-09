@@ -1,0 +1,7 @@
+<vaadin-combo-box label="<%-label%>"
+                  items="<%-enumItems%>"
+                  value="{{<%-bindPath%>}}"
+                  error-message="[[<%-errorBindPath%>]]"
+                  invalid="[[_isInvalid(<%-errorBindPath%>)]]"
+                  <% if (required) { %> required <%}%>>
+</vaadin-combo-box>

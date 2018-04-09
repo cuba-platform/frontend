@@ -1,68 +1,64 @@
 import * as path from "path";
-import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../../common/cli-options";
+import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from "../../../common/cli-options";
 import {entityManagementParams} from "./params";
 import {Polymer2ComponentTemplateModel} from "./template-model";
-import {BaseGenerator, NonInteractiveGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/generation";
 import {StudioTemplateProperty} from "../../../common/cuba-studio";
-import {fromStudioProperties} from "../../../common/questions";
+import {elementNameToClass} from "../../../common/utils";
 
 interface Answers {
   componentName: string
 }
 
-class Polymer2ComponentGenerator extends BaseGenerator implements NonInteractiveGenerator {
+class Polymer2ComponentGenerator extends BaseGenerator<Answers, Polymer2ComponentTemplateModel, PolymerElementOptions> {
 
-  answers?: Answers;
-  model?: Polymer2ComponentTemplateModel;
-
-  constructor(args: string | string[], options: CommonGenerationOptions) {
+  constructor(args: string | string[], options: PolymerElementOptions) {
     super(args, options);
-
-    this._populateOptions(this._getOptions());
-
     this.sourceRoot(path.join(__dirname, 'template'));
-    this.destinationRoot(this._getDestRoot());
   }
 
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
-    this.answers = await this.prompt(fromStudioProperties(this._getParams())) as Answers;
-  }
-
-  prepareModel() {
-    this.model = {
-      componentName: this.answers!.componentName,
-      className: this.answers!.componentName,
-      relDirShift: ''
-    }
+    await this._promptOrParse();
   }
 
   // noinspection JSUnusedGlobalSymbols
   writing() {
     this.log(`Generating to ${this.destinationPath()}`);
-
-    if (!this.model) {
-      throw new Error('Model is not provided');
+    if (!this.answers) {
+      throw new Error('Answers not provided');
     }
-
-    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
+    this.model = answersToModel(this.answers, this.options.dirShift);
+    this.fs.copyTpl(
+      this.templatePath('component.html'),
+      this.destinationPath(this.model.componentName + '.html'), this.model
+    );
   }
 
   end() {
     this.log(`Blank component has been successfully generated into ${this.destinationRoot()}`);
   }
 
-  _getOptions(): OptionsConfig {
-    return commonGenerationOptionsConfig;
-  }
-
   _getParams(): StudioTemplateProperty[] {
     return entityManagementParams;
+  }
+
+  _getAvailableOptions(): OptionsConfig {
+    return polymerElementOptionsConfig;
+  }
+
+}
+
+function answersToModel(answers: Answers, dirShift: string | undefined): Polymer2ComponentTemplateModel {
+  return {
+    componentName: answers.componentName,
+    className: elementNameToClass(answers.componentName),
+    relDirShift: dirShift || ''
   }
 }
 
 export {
   Polymer2ComponentGenerator as generator,
-  commonGenerationOptionsConfig as options,
+  polymerElementOptionsConfig as options,
   entityManagementParams as params
 };

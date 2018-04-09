@@ -1,4 +1,5 @@
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
+import {Entity, View} from "../../../common/cuba-model";
 
 export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
   {
@@ -51,3 +52,15 @@ export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
     required: true
   }
 ];
+
+export type entityManagementListType = 'list' | 'cards';
+
+export interface EntityManagementAnswers {
+  entity: Entity;
+  managementComponentName: string;
+  listType: entityManagementListType;
+  listComponentName: string;
+  listView: View;
+  editComponentName: string;
+  editView: View;
+}

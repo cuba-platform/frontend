@@ -4,7 +4,7 @@ import * as assert from "assert";
 
 describe('generator', function () {
   it('collectGenerators' , async function() {
-    const generators = await collectClients();
+    const generators = collectClients();
     assert(Array.isArray(generators));
     console.log(generators.reduce((p, gen) => p+= gen.name + '\n', ''));
   });

@@ -1,4 +1,5 @@
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
+import {RestQuery} from "../../../common/cuba-model";
 
 export const queryResultParams: StudioTemplateProperty[] = [
   {
@@ -15,3 +16,8 @@ export const queryResultParams: StudioTemplateProperty[] = [
     required: true
   }
 ];
+
+export interface QueryResultAnswers {
+  componentName: string;
+  query: RestQuery;
+}

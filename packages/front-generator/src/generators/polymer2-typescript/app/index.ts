@@ -1,26 +1,22 @@
 import {questions} from "../../polymer2/app/questions";
 import {ProjectInfo, ProjectModel} from "../../../common/cuba-model";
 import {Polymer2AppTemplateModel} from "../../polymer2/app/template-model";
-import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../../common/cli-options";
+import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as fs from "fs";
 import * as through2 from "through2";
 import * as path from "path";
-import {BaseGenerator, NonInteractiveGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {BaseGenerator} from "../../../common/generation";
 
-class Polymer2TypescriptAppGenerator extends BaseGenerator implements NonInteractiveGenerator {
+interface Answers {
+  project: ProjectInfo
+}
 
-  answers?: { project: ProjectInfo };
-  model?: Polymer2AppTemplateModel;
+class Polymer2TypescriptAppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateModel, CommonGenerationOptions> {
 
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
-
-    this._populateOptions(commonGenerationOptionsConfig);
-
     this.registerTransformStream(createRenameTransform(this));
     this.sourceRoot(path.join(__dirname, 'template'));
-    this.destinationRoot(this._getDestRoot());
   }
 
 
@@ -58,14 +54,6 @@ class Polymer2TypescriptAppGenerator extends BaseGenerator implements NonInterac
     this.log(`CUBA Polymer client (TypeScript) has been successfully generated into ${this.destinationRoot()}`);
   }
 
-
-  _getParams(): StudioTemplateProperty[] {
-    return [];
-  }
-
-  _getOptions(): OptionsConfig {
-    return commonGenerationOptionsConfig;
-  }
 }
 
 
@@ -98,5 +86,5 @@ function createRenameTransform(generator: Polymer2TypescriptAppGenerator) {
 
 export {
   Polymer2TypescriptAppGenerator as generator,
-  commonGenerationOptionsConfig as config
+  commonGenerationOptionsConfig as options
 };

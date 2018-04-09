@@ -1,0 +1,90 @@
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-service.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="<%= relDirShift %>shared-styles.html">
+
+<dom-module id="<%= componentName %>">
+  <template>
+    <style include="cuba-styles"></style>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <cuba-service id="data"
+                service-name="<%=service.name%>"
+                method="<%=method.name%>"
+                <% if (method.params) {%>params=[[serviceParams]]<%}%>
+                data="{{entities}}"
+                loading="{{dataLoading}}"
+                auto="[[active]]">
+    </cuba-service>
+
+    <app-toolbar id="toolbar" class="list-toolbar">
+      <% if (fields) { %>
+      <div class="filter">
+<% for (let i = 0; i < fields.length; i++) { %>
+<%-fields[i]%>
+<% } %>
+      </div>
+      <% } %>
+      <span class="title">
+        <paper-spinner active="[[dataLoading]]"></paper-spinner>
+      </span>
+      <paper-icon-button icon="refresh"
+                         on-tap="_reload"></paper-icon-button>
+    </app-toolbar>
+    <div class="item-list">
+      <template is="dom-repeat" items="{{entities}}">
+        <div class="row">
+          <div class="title">[[item._instanceName]]</div>
+        </div>
+      </template>
+    </div>
+  </template>
+  <script>
+    {
+      /**
+       * @extends {Polymer.Element}
+       * @appliesMixin CubaLocalizeBehavior
+       */
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
+        static get is() {
+          return '<%= componentName %>';
+        }
+
+        static get properties() {
+          return {
+            active: {
+              type: Boolean,
+              value: false
+            },
+            entities: {
+              type: Array
+            },
+            <% if (method.params) { %>
+            serviceParams: {
+              type: Object,
+                value:{<% for(let i = 0; i<method.params.length; i++) { %>
+                  <%=method.params[i].name%>:null
+                <%}%>
+              }
+            }
+            <% } %>
+          }
+        }
+
+        _reload() {
+          this.$.data.load();
+        }
+      }
+
+      customElements.define(<%= className %>.is, <%= className %>);
+    }
+  </script>
+</dom-module>

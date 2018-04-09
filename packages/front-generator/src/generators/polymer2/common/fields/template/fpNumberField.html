@@ -1,0 +1,8 @@
+<paper-input type="number"
+             value="{{<%-bindPath%>}}"
+             label="<%-label%>"
+             step="any"
+             <% if (required) { %> required <%}%>
+             error-message="[[<%-errorBindPath%>]]"
+             invalid="[[_isInvalid(<%-errorBindPath%>)]]">
+</paper-input>

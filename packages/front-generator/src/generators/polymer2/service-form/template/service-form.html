@@ -1,0 +1,76 @@
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-form/cuba-service-form.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-card/paper-card.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
+<link rel="import" href="<%= relDirShift %>shared-styles.html">
+
+<dom-module id="<%= componentName %>">
+  <template>
+    <style include="cuba-styles"></style>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-card {
+        display: block;
+      }
+    </style>
+    <paper-card>
+      <div class="card-content">
+        <cuba-service-form id="form"
+                    service-name="<%=service.name%>"
+                    method="<%=service.name%>"
+                    server-errors="{{serverErrors}}"
+                    <% if (method.params) {%>params=[[serviceParams]]<%}%>>
+        <% for (let i = 0; i < fields.length; i++) { %>
+        <%-fields[i]%>
+        <%_ } _%>
+        </cuba-service-form>
+      </div>
+      <div class="card-actions">
+        <paper-button on-tap="_submit">
+          [[msg('Submit')]]
+        </paper-button>
+      </div>
+    </paper-card>
+  </template>
+  <script>
+    {
+      /**
+       * @extends {Polymer.Element}
+       * @appliesMixin CubaLocalizeBehavior
+       */
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
+        static get is() {
+          return '<%= componentName %>';
+        }
+
+        static get properties() {
+          return {
+            <% if (method.params) { %>
+              serviceParams: {
+                type: Object,
+                value:{<%_ for(let i = 0; i<method.params.length; i++ ) { _%>
+                <%=method.params[i].name%>:null<%}%>
+                }
+              }
+            <% } %>
+          }
+        }
+
+        _submit() {
+          this.$.form.submit();
+        }
+
+        _isInvalid(err) {
+          return typeof err !== 'undefined';
+        }
+      }
+
+      customElements.define(<%= className %>.is, <%= className %>);
+    }
+  </script>
+</dom-module>

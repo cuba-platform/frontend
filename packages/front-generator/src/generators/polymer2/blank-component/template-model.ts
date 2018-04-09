@@ -1,5 +1,4 @@
-export interface Polymer2ComponentTemplateModel {
-  componentName: string;
-  className: string;
-  relDirShift: string;
+import {CommonTemplateModel} from "../common/template-model";
+
+export interface Polymer2ComponentTemplateModel extends CommonTemplateModel {
 }

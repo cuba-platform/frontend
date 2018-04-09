@@ -1,0 +1,69 @@
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-list-view-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-entities.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-card/paper-card.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
+<link rel="import" href="<%= relDirShift %>shared-styles.html">
+
+
+<dom-module id="<%= componentName %>">
+  <template>
+    <style include="cuba-styles"></style>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-card {
+        cursor: pointer;
+      }
+    </style>
+
+    <cuba-entities id="data"
+                   entity-name="<%= entity.name %>"
+                   data="{{entities}}"
+                   <%if (view) {%>view="<%= view.name %>"<%}%>
+                   loading="{{dataLoading}}"
+                   limit="10"
+                   provide-count="true"
+                   count="{{entitiesCount}}"
+                   auto="[[active]]">
+    </cuba-entities>
+
+    <iron-selector id="selector" on-iron-activate="_handleSelectionChange">
+      <template id="entitiesList" is="dom-repeat" items="{{entities}}">
+        <paper-card heading="[[item._instanceName]]" on-tap="_handleItemTap" class="page-widget">
+          <div class="card-content">
+            <% if (view) { for (let i = 0; i < view.allProperties.length ; i++) { %>
+              [[msg('<%= entity.name %>.<%= view.allProperties[i].name %>')]]: [[item.<%= view.allProperties[i].name %>]]<br>
+            <%}}%>
+          </div>
+        </paper-card>
+      </template>
+    </iron-selector>
+
+    <paper-button on-tap="_loadMore" class="load-more" hidden$="[[!moreDataAvailable]]">
+      [[msg('Load more')]]
+    </paper-button>
+
+  </template>
+  <script>
+    {
+      /**
+       * @extends {Polymer.Element}
+       * @appliesMixin CubaLocalizeBehavior
+       * @appliesMixin CubaEntityListViewBehavior
+       */
+      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior, CubaEntityListViewBehavior], Polymer.Element) {
+
+        static get is() { return '<%= componentName %>' }
+
+      }
+
+      customElements.define(<%= className %>.is, <%= className %>);
+    }
+  </script>
+</dom-module>
