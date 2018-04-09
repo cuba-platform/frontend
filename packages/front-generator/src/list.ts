@@ -1,13 +1,25 @@
 import {ClientInfo} from "./init";
 import * as fs from "fs";
+import * as path from "path";
 
 export function exportList(clients: ClientInfo[], cmd: { save?: string | boolean }) {
   const data = JSON.stringify(clients);
   const {save} = cmd;
   if (save) {
     if (typeof save === 'string') {
-      fs.writeFileSync(save, data);
+      const filepath = save;
+      ensureDir(filepath);
+      fs.writeFileSync(filepath, data);
     }
   }
   console.log(data);
+}
+
+function ensureDir(filePath: string) {
+  var dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+    return true;
+  }
+  ensureDir(dirname);
+  fs.mkdirSync(dirname);
 }
