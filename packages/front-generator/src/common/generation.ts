@@ -18,7 +18,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
 
   protected async _promptOrParse() {
     if (this.options.answers) {
-      this.answers = JSON.parse(this.options.answers) as A;
+      this.answers = JSON.parse(Buffer.from(this.options.answers, 'base64').toString('utf8')) as A;
       return Promise.resolve();
     }
     this.answers = await this.prompt(fromStudioProperties(this._getParams())) as A;

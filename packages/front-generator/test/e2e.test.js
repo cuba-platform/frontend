@@ -22,14 +22,14 @@ const answers = require('./answers');
   }
 })();
 
-function runGenerator(name, dest, answers, dirShift) {
+function runGenerator(name, dest, answersJSONString, dirShift) {
   const pathToModel = path.join(process.cwd(), 'test', 'projectModel.json');
   let command = `node bin/gen-cuba-front ${name} --model ${pathToModel}`;
   if (dest) {
     command += ` --dest ${dest}`;
   }
-  if (answers) {
-    command += ` --answers '${answers}'`;
+  if (answersJSONString) {
+    command += ` --answers ${Buffer.from(answersJSONString).toString('base64')}`;
   }
   if (dirShift) {
     command += ` --dirShift '${dirShift}'`
