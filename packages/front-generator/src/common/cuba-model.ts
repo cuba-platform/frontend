@@ -1,7 +1,14 @@
 export interface ProjectModel {
   project: ProjectInfo;
-  entities: Entity[];
+  entities: {
+    [entityName: string]: Entity;
+  };
+  baseProjectEntities?: {
+    [entityName: string]: Entity;
+  };
   views: View[];
+  restQueries: RestQuery[];
+  restServices: RestService[];
 }
 
 export interface ProjectInfo {

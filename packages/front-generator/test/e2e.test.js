@@ -14,7 +14,7 @@ const answers = require('./answers');
     await runGenerator('polymer2:entity-list', '.tmp/polymer2-app/src/entity-list', answers.entityList, '../');
     await runGenerator('polymer2:entity-edit', '.tmp/polymer2-app/src/entity-edit', answers.entityEdit, '../');
     await runGenerator('polymer2:query-results', '.tmp/polymer2-app/src/query-results', answers.queryResults, '../');
-    await runGenerator('polymer2:service-form', '.tmp/polymer2-app/src/service-form', answers.serviceForm);
+    await runGenerator('polymer2:service-form', '.tmp/polymer2-app/src/service-form', answers.serviceForm, '../');
     await runGenerator('polymer2:service-data', '.tmp/polymer2-app/src/service-data', answers.serviceData, '../');
   } catch (e) {
     console.log(e);

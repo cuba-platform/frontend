@@ -3,7 +3,7 @@ import {Polymer2AppTemplateModel} from "./template-model";
 import * as fs from "fs";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator, readProjectModel} from "../../../common/generation";
 import {questions} from "./questions";
 import through2 = require("through2");
 
@@ -67,13 +67,6 @@ function createModel(project: ProjectInfo): Polymer2AppTemplateModel {
       return project.namespace[0].toUpperCase() + project.namespace.slice(1) + suffix;
     }
   };
-}
-
-function readProjectModel(modelFilePath: string): ProjectModel {
-  if (!fs.existsSync(modelFilePath)) {
-    throw new Error('Specified model file does not exist');
-  }
-  return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
 }
 
 function createRenameTransform(generator: Polymer2AppGenerator) {

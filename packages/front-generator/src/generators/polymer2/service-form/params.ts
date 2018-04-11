@@ -1,4 +1,9 @@
-import {RestServiceMethodInfo, StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
+import {
+  RestServiceMethodInfo,
+  RestServiceMethodModel,
+  StudioTemplateProperty,
+  StudioTemplatePropertyType
+} from "../../../common/cuba-studio";
 
 export const serviceFormParams: StudioTemplateProperty[] = [
   {
@@ -18,5 +23,5 @@ export const serviceFormParams: StudioTemplateProperty[] = [
 
 export interface ServiceFormAnswers {
   componentName: string;
-  serviceMethod: RestServiceMethodInfo;
+  serviceMethod: RestServiceMethodModel;
 }

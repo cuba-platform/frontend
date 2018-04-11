@@ -49,11 +49,6 @@ export const commonGenerationOptionsConfig: OptionsConfig = {
     alias: 'm',
     description: 'specify path to project model, if given no interactive prompt will be invoked',
     type: String
-  },
-  answers: {
-    alias: 'a',
-    description: 'fulfilled params for generator to avoid interactive input in serialized JSON string',
-    type: String
   }
 };
 
@@ -66,6 +61,11 @@ export const polymerElementOptionsConfig: OptionsConfig = {
   dirShift: {
     alias: 'ds',
     description: 'directory shift for html imports e.g ../../',
+    type: String
+  },
+  answers: {
+    alias: 'a',
+    description: 'fulfilled params for generator to avoid interactive input in serialized JSON string',
     type: String
   }
 };

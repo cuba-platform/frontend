@@ -26,7 +26,26 @@ export interface StudioTemplateProperty {
   //filterScript: string;
 }
 
-export interface RestServiceMethodInfo {
+export interface RestServiceMethodModel {
   service: RestService;
   method: RestServiceMethod;
+}
+
+export interface EntityInfo {
+  name: string;
+}
+
+export interface ViewInfo {
+  name: string;
+  entityName: string;
+}
+
+export interface RestQueryInfo {
+  name: string;
+  entityName: string;
+}
+
+export interface RestServiceMethodInfo {
+  serviceName: string;
+  methodName: string;
 }
