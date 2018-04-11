@@ -11,7 +11,7 @@
   },
   "scripts": {
     "compile": "tsc",
-    "build": "rm -rf lib && tsc && node scripts/copy-templates.js",
+    "build": "rimraf lib && tsc && node scripts/copy-templates.js",
     "watch": "tsc -w",
     "test": "mocha --config test/mocha.js.opts",
     "test:e2e": "node test/e2e.test.js",

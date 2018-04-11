@@ -32,7 +32,7 @@ function runGenerator(name, dest, answersJSONString, dirShift) {
     command += ` --answers ${Buffer.from(answersJSONString).toString('base64')}`;
   }
   if (dirShift) {
-    command += ` --dirShift '${dirShift}'`
+    command += ` --dirShift ${dirShift}`
   }
   console.log(command);
   return exec(command);
