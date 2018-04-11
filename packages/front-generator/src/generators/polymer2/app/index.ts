@@ -59,6 +59,7 @@ class Polymer2AppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateMod
 
 function createModel(project: ProjectInfo): Polymer2AppTemplateModel {
   return {
+    generatorPackageVersion: process.env.npm_package_version || '0.2.0',
     title: project.name,
     project: project,
     basePath: 'app-front',
