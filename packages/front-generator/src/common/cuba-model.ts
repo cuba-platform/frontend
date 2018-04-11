@@ -112,6 +112,12 @@ export interface ViewProperty {
   lazy: boolean;
 }
 
+export const enum BuiltinView {
+  LOCAL = '_local',
+  MINIMAL = '_minimal',
+  BASE = '_base',
+}
+
 export interface Locale {
   code: string;
   caption: string;

@@ -48,6 +48,9 @@ class EntityEditGenerator extends BaseGenerator<EntityEditAnswers, EntityEditTem
 }
 
 export const composeEditFields = (entity: Entity, view: View): { fields: string[], imports: string[] } => {
+  if (entity == null || view == null) {
+    return {fields: [], imports: []};
+  }
   const attributes: EntityAttribute[] = view.allProperties.reduce((attrArr: EntityAttribute[], prop) => {
     const attr = entity.attributes.find(ea => ea.name === prop.name);
     if (attr) {
