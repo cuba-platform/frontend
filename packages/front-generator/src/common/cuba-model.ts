@@ -1,11 +1,7 @@
 export interface ProjectModel {
   project: ProjectInfo;
-  entities: {
-    [entityName: string]: Entity;
-  };
-  baseProjectEntities?: {
-    [entityName: string]: Entity;
-  };
+  entities: Entity[] | {[entityName: string]: Entity};
+  baseProjectEntities?: Entity[] | {[entityName: string]: Entity};
   views: View[];
   restQueries: RestQuery[];
   restServices: RestService[];

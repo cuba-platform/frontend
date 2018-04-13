@@ -4,14 +4,15 @@ import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} f
 import {
   EntityInfo,
   RestQueryInfo,
-  RestServiceMethodInfo, RestServiceMethodModel,
+  RestServiceMethodInfo,
+  RestServiceMethodModel,
   StudioTemplateProperty,
   StudioTemplatePropertyType,
   ViewInfo
 } from "./cuba-studio";
 import {fromStudioProperties} from "./questions";
 import * as fs from "fs";
-import {ProjectModel, RestServiceMethod} from "./cuba-model";
+import {Entity, ProjectModel} from "./cuba-model";
 
 export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> extends Base {
 
@@ -75,15 +76,30 @@ export function readProjectModel(modelFilePath: string): ProjectModel {
   return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
 }
 
-function findEntity(projectModel: ProjectModel, entityInfo: EntityInfo) {
-  if (projectModel.entities.hasOwnProperty(entityInfo.name)) {
-    return projectModel.entities[entityInfo.name];
+function findEntity(projectModel: ProjectModel, entityInfo: EntityInfo): Entity | undefined {
+  const entityName = entityInfo.name;
+  let entity: Entity | undefined;
+  if (Array.isArray(projectModel.entities)) {
+    entity = projectModel.entities.find(e => e.name === entityName);
+    if (entity != null) {
+      return entity;
+    }
+  } else {
+    if (projectModel.entities.hasOwnProperty(entityName)) {
+      return projectModel.entities[entityName];
+    }
   }
-  if (projectModel.baseProjectEntities != null
-    && projectModel.baseProjectEntities.hasOwnProperty(entityInfo.name)) {
-    return projectModel.baseProjectEntities[entityInfo.name];
+
+  if (projectModel.baseProjectEntities != null) {
+    if (Array.isArray(projectModel.baseProjectEntities)) {
+      entity = projectModel.baseProjectEntities.find(e => e.name === entityName);
+      if (entity != null) {
+        return entity;
+      }
+    } else {
+      return projectModel.baseProjectEntities[entityName];
+    }
   }
-  return null;
 }
 
 function findView(projectModel: ProjectModel, view: ViewInfo) {
