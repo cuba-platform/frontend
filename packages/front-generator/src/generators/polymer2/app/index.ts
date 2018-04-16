@@ -1,6 +1,5 @@
-import {ProjectInfo, ProjectModel} from "../../../common/cuba-model";
+import {ProjectInfo} from "../../../common/cuba-model";
 import {Polymer2AppTemplateModel} from "./template-model";
-import * as fs from "fs";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 import {BaseGenerator, readProjectModel} from "../../../common/generation";
@@ -13,6 +12,8 @@ interface Answers {
 
 class Polymer2AppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateModel, CommonGenerationOptions> {
 
+  conflicter!: {force: boolean}; //missing in typings
+
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
     this.registerTransformStream(createRenameTransform(this));
@@ -22,6 +23,7 @@ class Polymer2AppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateMod
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
     if (this.options.model) {
+      this.conflicter.force = true;
       this.log('Skipping prompts since model provided');
       return;
     }
