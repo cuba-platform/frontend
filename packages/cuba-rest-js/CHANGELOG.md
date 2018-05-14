@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## 0.4.0
 - Added typings for browser dist
 - Added `loadEntityViews` and `loadEntityView` methods
 ## 0.3.0
