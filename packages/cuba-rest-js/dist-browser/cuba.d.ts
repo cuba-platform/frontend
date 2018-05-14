@@ -104,3 +104,5 @@ declare namespace cuba {
   }
 
 }
+export = cuba;
+export as namespace cuba;
