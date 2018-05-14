@@ -1,4 +1,7 @@
 # Changelog
+## Unreleased
+- Added typings for browser dist
+- Added `loadEntityViews` and `loadEntityView` methods
 ## 0.3.0
 - Added methods to load entities and query results with count: `loadEntitiesWithCount`, `queryWithCount`
 - Ability to abort request via [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)
