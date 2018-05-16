@@ -1,4 +1,3 @@
-<%  const className = genClassName('Menu'); %>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
@@ -40,34 +39,5 @@
     </paper-listbox>
 
   </template>
-  <script>
-    {
-      /**
-       * @extends {Polymer.Element}
-       * @appliesMixin CubaLocalizeBehavior
-       */
-      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
-        static get is() {
-          return '<%= project.namespace %>-menu';
-        }
-
-        static get properties() {
-          return {
-            path: String
-          }
-        }
-
-        navigate(event) {
-          this.path = '/' + event.target.dataset.path;
-          this.dispatchEvent(new CustomEvent('menu-navigate'));
-        }
-
-        _computeSelectedItem(page) {
-          return page || '';
-        }
-      }
-
-      customElements.define(<%= className %>.is, <%= className %>);
-    }
-  </script>
+  <script src="<%= project.namespace %>-menu.js"></script>
 </dom-module>

@@ -1,6 +1,6 @@
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
 
-export const entityManagementParams: StudioTemplateProperty[] = [
+export const blankComponentParams: StudioTemplateProperty[] = [
   {
     caption: "Component name",
     code: "componentName",

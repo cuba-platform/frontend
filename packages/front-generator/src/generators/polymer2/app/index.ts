@@ -10,7 +10,7 @@ interface Answers {
   project: ProjectInfo
 }
 
-class Polymer2AppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateModel, CommonGenerationOptions> {
+export class Polymer2AppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateModel, CommonGenerationOptions> {
 
   conflicter!: {force: boolean}; //missing in typings
 

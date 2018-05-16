@@ -1,23 +1,18 @@
 {
   "name": "<%= project.name %>",
-  "devDependencies": {
-    "concurrently": "^3.5.0",
-    "eslint": "^3.19.0",
-    "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^2.0.0",
-    "typescript": "~2.7.1"
-  },
+  "version": "0.0.1",
   "scripts": {
-    "lint": "npm run lint:javascript && polymer lint",
-    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI",
-    "compile": "tsc",
-    "watch": "tsc -w",
     "build": "npm run compile && polymer build",
-    "serve": "tsc && concurrently \"tsc -w\" \"polymer serve\" "
+    "compile": "tsc",
+    "watch": "tsc -w"
   },
+  "devDependencies": {
+    "bower": "~1.8.2",
+    "polymer-cli": "~1.6.0",
+    "typescript": "~2.8.1"
+  },
+  "private": true,
   "cubaPlatform": {
-    "clientType": "polymer2-typescript"
+    "generator": "polymer2-typescript"
   }
 }

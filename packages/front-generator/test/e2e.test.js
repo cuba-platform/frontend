@@ -18,6 +18,8 @@ const answers = require('./answers');
   generationProcesses.push(runGenerator('polymer2:service-form', '.tmp/polymer2-app/src/service-form', answers.serviceForm, '../'));
   generationProcesses.push(runGenerator('polymer2:service-data', '.tmp/polymer2-app/src/service-data', answers.serviceData, '../'));
 
+  generationProcesses.push(runGenerator('polymer2-typescript:app', '.tmp/polymer2ts-app'));
+
   Promise.all(generationProcesses).catch((e) => {
     console.log(e);
     process.exit(1);

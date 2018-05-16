@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "allowJs": false,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "rootDir": "src",
+    "experimentalDecorators": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "bower_components/polymer/**/*.d.ts",
+    "bower_components/polymer-decorators/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules/**"
+  ]
+}

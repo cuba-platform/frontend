@@ -1,4 +1,3 @@
-<%  const className = genClassName('Login'); %>
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="../bower_components/cuba-login/cuba-login.html">
@@ -72,23 +71,5 @@
       [[msg('Login failed')]]
     </paper-toast>
   </template>
-  <script>
-    {
-      /**
-       * @extends {Polymer.Element}
-       * @appliesMixin CubaLocalizeBehavior
-       */
-      class <%= className %> extends Polymer.mixinBehaviors([CubaLocalizeBehavior], Polymer.Element) {
-        static get is() {
-          return '<%= project.namespace %>-login'
-        }
-
-        _handleLoginError() {
-          this.$.loginError.show();
-        }
-      }
-
-      customElements.define(<%= className %>.is, <%= className %>);
-    }
-  </script>
+  <script src="<%= project.namespace %>-login.js"></script>
 </dom-module>

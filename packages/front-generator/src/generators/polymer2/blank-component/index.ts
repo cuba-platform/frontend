@@ -1,6 +1,6 @@
 import * as path from "path";
 import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from "../../../common/cli-options";
-import {entityManagementParams} from "./params";
+import {blankComponentParams} from "./params";
 import {Polymer2ComponentTemplateModel} from "./template-model";
 import {BaseGenerator} from "../../../common/generation";
 import {StudioTemplateProperty} from "../../../common/cuba-studio";
@@ -10,7 +10,7 @@ interface Answers {
   componentName: string
 }
 
-class Polymer2ComponentGenerator extends BaseGenerator<Answers, Polymer2ComponentTemplateModel, PolymerElementOptions> {
+export class Polymer2ComponentGenerator extends BaseGenerator<Answers, Polymer2ComponentTemplateModel, PolymerElementOptions> {
 
   constructor(args: string | string[], options: PolymerElementOptions) {
     super(args, options);
@@ -40,7 +40,7 @@ class Polymer2ComponentGenerator extends BaseGenerator<Answers, Polymer2Componen
   }
 
   _getParams(): StudioTemplateProperty[] {
-    return entityManagementParams;
+    return blankComponentParams;
   }
 
   _getAvailableOptions(): OptionsConfig {
@@ -60,5 +60,5 @@ function answersToModel(answers: Answers, dirShift: string | undefined): Polymer
 export {
   Polymer2ComponentGenerator as generator,
   polymerElementOptionsConfig as options,
-  entityManagementParams as params
+  blankComponentParams as params
 };

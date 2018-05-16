@@ -1,0 +1,19 @@
+{
+  "name": "<%= title %>",
+  "short_name": "<%= project.name %>",
+  "start_url": "/<%= basePath %>/",
+  "display": "standalone",
+  "background_color": "<%= baseColor %>",
+  "icons": [
+    {
+      "src": "images/app-icon/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/app-icon/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

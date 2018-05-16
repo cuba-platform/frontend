@@ -1,0 +1,23 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="../../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../shared-styles.html">
+
+<dom-module id="<%= project.namespace %>-home">
+  <template>
+    <style include="cuba-styles"></style>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-card heading="[[msg('welcomeHeading')]]" class="page-widget">
+      <div class="card-content">
+        [[msg('welcomeContent')]]
+      </div>
+    </paper-card>
+  </template>
+  <script src="<%= project.namespace %>-home.js"></script>
+</dom-module>

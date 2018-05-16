@@ -1,20 +1,15 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
-  "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html",
-    "src/my-view404.html"
-  ],
+  "shell": "src/<%= project.namespace %>-shell.html",
   "sources": [
+    "src/**/*",
     "images/**/*",
-    "src/**/*"
+    "bower.json"
   ],
   "extraDependencies": [
-    "bower_components/webcomponentsjs/*.js",
-    "!bower_components/webcomponentsjs/gulpfile.js",
     "manifest.json",
+    "service-worker.js",
+    "bower_components/webcomponentsjs/*.js",
     "bower_components/fetch/fetch.js"
   ],
   "lint": {
