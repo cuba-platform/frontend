@@ -23,11 +23,13 @@
   },
   "dependencies": {
     "commander": "~2.13.0",
+    "through2": "^2.0.3",
     "yeoman-environment": "^2.1.1",
     "yeoman-generator": "^2.0.5"
   },
   "bundleDependencies": [
     "commander",
+    "through2",
     "yeoman-environment",
     "yeoman-generator"
   ],
