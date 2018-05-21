@@ -134,7 +134,6 @@ export const getFieldModel = (attribute: EntityAttribute): FieldModel | EnumFiel
 
 export const getFieldHtml = (model: FieldModel): string => {
   const html = render(fs.readFileSync(path.join(__dirname, 'template', model.type + 'Field.html'), 'utf8'), model);
-  console.log(html);
   return html;
 };
 

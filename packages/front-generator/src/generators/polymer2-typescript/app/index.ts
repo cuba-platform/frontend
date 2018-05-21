@@ -1,6 +1,7 @@
 import {commonGenerationOptionsConfig} from "../../../common/cli-options";
-import {Polymer2AppGenerator} from "../../polymer2/app";
+import {createPolymer2AppGenerator} from "../../polymer2/app";
+import * as path from "path";
 
-export {Polymer2AppGenerator as generator};
+export const generator = createPolymer2AppGenerator(path.join(__dirname, 'template'));
 export {commonGenerationOptionsConfig as options};
 export const params = [];
