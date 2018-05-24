@@ -56,7 +56,7 @@ class Polymer2EntityManagementGenerator extends BaseGenerator<EntityManagementAn
   }
 }
 
-function answersToManagementModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityManagementTemplateModel {
+export function answersToManagementModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityManagementTemplateModel {
   return {
     componentName: answers.managementComponentName,
     className: elementNameToClass(answers.managementComponentName),
@@ -67,7 +67,7 @@ function answersToManagementModel(answers: EntityManagementAnswers, dirShift: st
   }
 }
 
-function answersToListModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityListTemplateModel | EntityCardsTemplateModel {
+export function answersToListModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityListTemplateModel | EntityCardsTemplateModel {
   return {
     componentName: answers.listComponentName,
     className: elementNameToClass(answers.listComponentName),
@@ -77,7 +77,7 @@ function answersToListModel(answers: EntityManagementAnswers, dirShift: string |
   }
 }
 
-function answersToEditModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityEditTemplateModel {
+export function answersToEditModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityEditTemplateModel {
   const {fields, imports} = composeEditFields(answers.entity, answers.editView);
   return {
     fields,

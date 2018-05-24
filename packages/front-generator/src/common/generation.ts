@@ -20,6 +20,8 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   answers?: A;
   model?: M;
 
+  protected cubaProjectModel?: ProjectModel;
+
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
     this._populateOptions(this._getAvailableOptions());
@@ -30,9 +32,9 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     if (this.options.answers && this.options.model) { // passed from studio
       const encodedAnswers = Buffer.from(this.options.answers, 'base64').toString('utf8');
       const parsedAnswers = JSON.parse(encodedAnswers);
-      const projectModel = readProjectModel(this.options.model);
+      this.cubaProjectModel = readProjectModel(this.options.model);
 
-      this.answers = refineAnswers<A>(projectModel, this._getParams(), parsedAnswers);
+      this.answers = refineAnswers<A>(this.cubaProjectModel, this._getParams(), parsedAnswers);
       return Promise.resolve();
     }
     this.answers = await this.prompt(fromStudioProperties(this._getParams())) as A;

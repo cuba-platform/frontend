@@ -27,7 +27,7 @@ class EntityEditGenerator extends BaseGenerator<EntityEditAnswers, EntityEditTem
     if (!this.answers) {
       throw new Error('Answers not provided');
     }
-    this.model = answersToModel(this.answers, this.options.dirShift);
+    this.model = entityEditAnswersToModel(this.answers, this.options.dirShift);
     this.fs.copyTpl(
       this.templatePath('entity-edit.html'),
       this.destinationPath(this.model.componentName + '.html'), this.model
@@ -76,7 +76,7 @@ export const composeEditFields = (entity: Entity, view: View): { fields: string[
   return {fields, imports}
 };
 
-function answersToModel(answers: EntityEditAnswers, dirShift: string | undefined): EntityEditTemplateModel {
+export function entityEditAnswersToModel(answers: EntityEditAnswers, dirShift: string | undefined): EntityEditTemplateModel {
   const {fields, imports} = composeEditFields(answers.entity, answers.editView);
   return {
     fields,

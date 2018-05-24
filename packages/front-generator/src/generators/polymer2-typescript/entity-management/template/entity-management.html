@@ -1,0 +1,60 @@
+<link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-route/app-location.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-route/app-route.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="<%= relDirShift %>../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="<%= listComponentName %>.html">
+<link rel="import" href="<%= editComponentName %>.html">
+
+<dom-module id="<%= componentName %>">
+  <template>
+    <style include="shared-styles"></style>
+    <style include="cuba-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <app-route route="[[route]]"
+               pattern="/:action"
+               data="{{actionRouteData}}"
+               tail="{{actionRouteTail}}"
+               active="{{actionRouteActive}}"></app-route>
+
+    <app-route route="[[actionRouteTail]]"
+               pattern="/:id"
+               data="{{idRouteData}}"
+               active="{{idRouteActive}}"></app-route>
+
+    <template is="dom-if" if="[[showEditor]]" restamp="true">
+      <<%= editComponentName %> entity-id="[[editedEntityId]]"
+                       on-commit="_onEditorCommit"
+                       on-cancel="_closeEditor"
+                       on-delete="_deleteEntity"></<%= editComponentName %>>
+    </template>
+
+    <template is="dom-if" if="[[!showEditor]]">
+      <app-toolbar id="toolbar" class="list-toolbar">
+        <span main-title>
+          <paper-spinner active="[[dataLoading]]"></paper-spinner>
+        </span>
+        <paper-icon-button icon="refresh" on-tap="_reload"></paper-icon-button>
+        <paper-icon-button icon="add" on-tap="_createEntity"></paper-icon-button>
+      </app-toolbar>
+      <<%= listComponentName%> id="list"
+                            active="[[active]]"
+                            on-item-tap="_editEntity"
+                            data-loading="{{dataLoading}}"></<%= listComponentName%>>
+    </template>
+
+    <paper-toast id="successMessage" horizontal-align="right">[[msg('Successfully saved')]]</paper-toast>
+    <paper-toast id="errorMessage" horizontal-align="right">[[msg('Failed to save')]]</paper-toast>
+
+  </template>
+  <script src="<%= componentName %>.js"></script>
+</dom-module>

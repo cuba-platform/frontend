@@ -1,4 +1,4 @@
-{
+namespace <%= projectNamespace %> {
   const {customElement} = Polymer.decorators;
 
   @customElement('<%= componentName %>')

@@ -1,13 +1,15 @@
-import {BaseGenerator} from "../../../common/generation";
-import {EntityCardsAnswers, entityCardsParams} from "./params";
+import {entityCardsAnswersToModel} from "../../polymer2/entity-cards";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {EntityCardsAnswers, entityCardsParams} from "../../polymer2/entity-cards/params";
 import * as path from "path";
-import {EntityCardsTemplateModel} from "./template-model";
-import {elementNameToClass} from "../../../common/utils";
+import {BaseGenerator} from "../../../common/generation";
+import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {EntityCardsTemplateModel} from "../../polymer2/entity-cards/template-model";
+import {TSPolymerElementModel} from "../common";
 
+type TemplateModel = EntityCardsTemplateModel & TSPolymerElementModel;
 
-class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCardsTemplateModel, PolymerElementOptions> {
+class EntityCardsTSGenerator extends BaseGenerator<EntityCardsAnswers, TemplateModel, PolymerElementOptions> {
 
   constructor(args: string | string[], options: PolymerElementOptions) {
     super(args, options);
@@ -25,10 +27,17 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
     if (!this.answers) {
       throw new Error('Answers not provided');
     }
-    this.model = entityCardsAnswersToModel(this.answers, this.options.dirShift);
+    this.model = {
+      ...entityCardsAnswersToModel(this.answers, this.options.dirShift),
+      projectNamespace: this.cubaProjectModel!.project.namespace
+    };
     this.fs.copyTpl(
       this.templatePath('entity-cards.html'),
       this.destinationPath(this.model.componentName + '.html'), this.model
+    );
+    this.fs.copyTpl(
+      this.templatePath('entity-cards.ts'),
+      this.destinationPath(this.model.componentName + '.ts'), this.model
     );
   }
 
@@ -45,18 +54,9 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
   }
 }
 
-export function entityCardsAnswersToModel(answers: EntityCardsAnswers, dirShift: string | undefined): EntityCardsTemplateModel {
-  return {
-    componentName: answers.componentName,
-    className: elementNameToClass(answers.componentName),
-    relDirShift: dirShift || '',
-    entity: answers.entity,
-    view: answers.entityView
-  }
-}
 
 export {
-  EntityCardsGenerator as generator,
+  EntityCardsTSGenerator as generator,
   polymerElementOptionsConfig as options,
   entityCardsParams as params
 }

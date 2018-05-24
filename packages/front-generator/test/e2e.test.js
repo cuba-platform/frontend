@@ -19,6 +19,11 @@ const answers = require('./answers');
   generationProcesses.push(runGenerator('polymer2:service-data', '.tmp/polymer2-app/src/service-data', answers.serviceData, '../'));
 
   generationProcesses.push(runGenerator('polymer2-typescript:app', '.tmp/polymer2ts-app'));
+  generationProcesses.push(runGenerator('polymer2-typescript:blank-component', '.tmp/polymer2ts-app/src/component', answers.blankComponent, '../'));
+  generationProcesses.push(runGenerator('polymer2-typescript:entity-cards', '.tmp/polymer2ts-app/src/entity-cards', answers.entityCards, '../'));
+  generationProcesses.push(runGenerator('polymer2-typescript:entity-list', '.tmp/polymer2ts-app/src/entity-list', answers.entityList, '../'));
+  generationProcesses.push(runGenerator('polymer2-typescript:entity-edit', '.tmp/polymer2ts-app/src/entity-edit', answers.entityEdit, '../'));
+  generationProcesses.push(runGenerator('polymer2-typescript:entity-management', '.tmp/polymer2ts-app/src/entity-management', answers.entityManagement, '../'));
 
   Promise.all(generationProcesses).catch((e) => {
     console.log(e);

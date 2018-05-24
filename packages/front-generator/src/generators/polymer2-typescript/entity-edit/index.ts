@@ -1,15 +1,16 @@
-import {BlankComponentAnswers, blankComponentAnswersToModel,} from "../../polymer2/blank-component";
-import {blankComponentParams} from "../../polymer2/blank-component/params";
-import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
+import {EntityEditAnswers, entityEditParams} from "../../polymer2/entity-edit/params";
+import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {Polymer2ComponentTemplateModel} from "../../polymer2/blank-component/template-model";
 import {BaseGenerator} from "../../../common/generation";
+import {EntityEditTemplateModel} from "../../polymer2/entity-edit/template-model";
 import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {entityEditAnswersToModel} from "../../polymer2/entity-edit";
 import {TSPolymerElementModel} from "../common";
 
-type TemplateModel = Polymer2ComponentTemplateModel & TSPolymerElementModel;
+type TemplateModel = EntityEditTemplateModel & TSPolymerElementModel;
 
-class Polymer2ComponentTSGenerator extends BaseGenerator<BlankComponentAnswers, TemplateModel, PolymerElementOptions> {
+
+class EntityEditTSGenerator extends BaseGenerator<EntityEditAnswers, TemplateModel, PolymerElementOptions> {
 
   constructor(args: string | string[], options: PolymerElementOptions) {
     super(args, options);
@@ -28,35 +29,34 @@ class Polymer2ComponentTSGenerator extends BaseGenerator<BlankComponentAnswers, 
       throw new Error('Answers not provided');
     }
     this.model = {
-      ...blankComponentAnswersToModel(this.answers, this.options.dirShift),
+      ...entityEditAnswersToModel(this.answers, this.options.dirShift),
       projectNamespace: this.cubaProjectModel!.project.namespace
     };
     this.fs.copyTpl(
-      this.templatePath('component.html'),
+      this.templatePath('entity-edit.html'),
       this.destinationPath(this.model.componentName + '.html'), this.model
     );
     this.fs.copyTpl(
-      this.templatePath('component.ts'),
+      this.templatePath('entity-edit.ts'),
       this.destinationPath(this.model.componentName + '.ts'), this.model
     );
   }
 
   end() {
-    this.log(`Blank component has been successfully generated into ${this.destinationRoot()}`);
+    this.log(`Entity edit has been successfully generated into ${this.destinationRoot()}`);
   }
 
   _getParams(): StudioTemplateProperty[] {
-    return blankComponentParams;
+    return entityEditParams
   }
 
-  _getAvailableOptions(): OptionsConfig {
+  _getAvailableOptions() {
     return polymerElementOptionsConfig;
   }
-
 }
 
 export {
-  Polymer2ComponentTSGenerator as generator,
+  EntityEditTSGenerator as generator,
+  entityEditParams as params,
   polymerElementOptionsConfig as options,
-  blankComponentParams as params
-};
+}
