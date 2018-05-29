@@ -3,7 +3,6 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-service.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="<%= relDirShift %>shared-styles.html">
 
@@ -21,7 +20,6 @@
                 method="<%=method.name%>"
                 <% if (method.params) {%>params=[[serviceParams]]<%}%>
                 data="{{entities}}"
-                loading="{{dataLoading}}"
                 auto="[[active]]">
     </cuba-service>
 
@@ -33,9 +31,6 @@
 <% } %>
       </div>
       <% } %>
-      <span class="title">
-        <paper-spinner active="[[dataLoading]]"></paper-spinner>
-      </span>
       <paper-icon-button icon="refresh"
                          on-tap="_reload"></paper-icon-button>
     </app-toolbar>

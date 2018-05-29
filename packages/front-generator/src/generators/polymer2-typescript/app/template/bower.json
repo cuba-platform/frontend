@@ -18,7 +18,6 @@
     "paper-icon-button": "PolymerElements/paper-icon-button#^2.2.0",
     "paper-card": "PolymerElements/paper-card#^2.1.0",
     "paper-toolbar": "PolymerElements/paper-toolbar#^2.1.0",
-    "paper-spinner": "PolymerElements/paper-spinner#^2.1.0",
     "paper-toast": "PolymerElements/paper-toast#^2.1.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.1.0",
     "paper-item": "PolymerElements/paper-item#^2.1.0",

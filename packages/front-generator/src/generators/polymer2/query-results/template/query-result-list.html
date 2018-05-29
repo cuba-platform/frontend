@@ -5,7 +5,6 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-list-view-behavior.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-query.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="<%= relDirShift %>shared-styles.html">
@@ -24,7 +23,6 @@
                 query-name="<%=query.name%>"
                 params="[[queryParams]]"
                 data="{{entities}}"
-                loading="{{dataLoading}}"
                 provide-count="true"
                 count="{{entitiesCount}}"
                 auto="[[active]]">
@@ -38,9 +36,6 @@
 <%_ } _%>
       </div>
       <% } %>
-      <span main-title>
-        <paper-spinner active="[[dataLoading]]"></paper-spinner>
-      </span>
       <paper-icon-button icon="refresh"
                          on-tap="reload"></paper-icon-button>
     </app-toolbar>

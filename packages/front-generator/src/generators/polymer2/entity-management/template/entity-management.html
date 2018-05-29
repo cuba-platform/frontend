@@ -4,7 +4,6 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/app-route/app-location.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/app-route/app-route.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="<%= listComponentName %>.html">
@@ -40,16 +39,12 @@
 
     <template is="dom-if" if="[[!showEditor]]">
       <app-toolbar id="toolbar" class="list-toolbar">
-        <span main-title>
-          <paper-spinner active="[[dataLoading]]"></paper-spinner>
-        </span>
         <paper-icon-button icon="refresh" on-tap="_reload"></paper-icon-button>
         <paper-icon-button icon="add" on-tap="_createEntity"></paper-icon-button>
       </app-toolbar>
       <<%= listComponentName%> id="list"
                             active="[[active]]"
-                            on-item-tap="_editEntity"
-                            data-loading="{{dataLoading}}"></<%= listComponentName%>>
+                            on-item-tap="_editEntity"></<%= listComponentName%>>
     </template>
 
     <paper-toast id="successMessage" horizontal-align="right">[[msg('Successfully saved')]]</paper-toast>
