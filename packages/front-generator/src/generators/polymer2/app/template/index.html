@@ -59,11 +59,13 @@
       }
     })();
 
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js');
-      });
-    }
+    // Uncomment if you want to load service worker
+    //
+    // if ('serviceWorker' in navigator) {
+    //   window.addEventListener('load', function() {
+    //     navigator.serviceWorker.register('service-worker.js');
+    //   });
+    // }
   </script>
 
   <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
