@@ -14,6 +14,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var storage_1 = require("./storage");
 var util_1 = require("./util");
+__export(require("./model"));
 __export(require("./storage"));
 var apps = [];
 /**
@@ -329,7 +330,11 @@ var CubaApp = /** @class */ (function () {
 }());
 exports.CubaApp = CubaApp;
 
-},{"./storage":2,"./util":3}],2:[function(require,module,exports){
+},{"./model":2,"./storage":3,"./util":4}],2:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+
+},{}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
@@ -368,7 +373,7 @@ var DefaultStorage = /** @class */ (function () {
 }());
 exports.DefaultStorage = DefaultStorage;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function (global){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });

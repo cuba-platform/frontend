@@ -13,6 +13,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var storage_1 = require("./storage");
 var util_1 = require("./util");
+__export(require("./model"));
 __export(require("./storage"));
 var apps = [];
 /**
