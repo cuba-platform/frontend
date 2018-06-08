@@ -45,11 +45,13 @@ describe('CubaApp', function () {
 
   before(function () {
     app = new cuba.CubaApp('', apiUrl);
+    return app.login('admin', 'admin');
   });
 
   describe('.login()', function () {
     it('shouldn\'t work with bad credentials', function (done) {
-      app.login('admin', 'admin2')
+      const newApp = new cuba.CubaApp('', apiUrl);
+      newApp.login('admin', 'admin2')
         .then(() => {
           done('works with bad credentials');
         })
@@ -58,7 +60,8 @@ describe('CubaApp', function () {
         });
     });
     it('should work with right credentials', function () {
-      return app.login('admin', 'admin');
+      const newApp = new cuba.CubaApp('', apiUrl);
+      return newApp.login('admin', 'admin');
     });
   });
 
