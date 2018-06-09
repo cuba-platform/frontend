@@ -64,7 +64,7 @@ export interface View {
   properties: ViewProperty[];
 }
 
-export const enum PredefinedView {
+export enum PredefinedView {
   MINIMAL = '_minimal',
   LOCAL = '_local',
   BASE = '_base', // Available since CUBA 6.7

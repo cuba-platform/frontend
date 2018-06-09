@@ -333,6 +333,12 @@ exports.CubaApp = CubaApp;
 },{"./model":2,"./storage":3,"./util":4}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var PredefinedView;
+(function (PredefinedView) {
+    PredefinedView["MINIMAL"] = "_minimal";
+    PredefinedView["LOCAL"] = "_local";
+    PredefinedView["BASE"] = "_base";
+})(PredefinedView = exports.PredefinedView || (exports.PredefinedView = {}));
 
 },{}],3:[function(require,module,exports){
 "use strict";

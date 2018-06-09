@@ -56,7 +56,7 @@ export interface View {
     entity: string;
     properties: ViewProperty[];
 }
-export declare const enum PredefinedView {
+export declare enum PredefinedView {
     MINIMAL = "_minimal",
     LOCAL = "_local",
     BASE = "_base",
