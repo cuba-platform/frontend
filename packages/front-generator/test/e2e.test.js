@@ -9,7 +9,7 @@ const answers = require('./answers');
 
   const generationProcesses = [];
 
-  const polymer2AppDir = '.tmp/polymer2-app';
+  const polymer2AppDir = '../platform-6.10/polymer2-app-vc';
 
   generationProcesses.push(runGenerator('polymer2:app', polymer2AppDir));
   generationProcesses.push(runGenerator('polymer2:blank-component', `${polymer2AppDir}/src/component`, answers.blankComponent, '../'));
