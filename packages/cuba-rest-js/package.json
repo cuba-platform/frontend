@@ -1,9 +1,9 @@
 {
   "name": "@cuba-platform/rest",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
   "main": "dist-node/cuba.js",
-  "typings": "dist/cuba.d.ts",
+  "typings": "dist-node/cuba.d.ts",
   "scripts": {
     "lint": "tslint -c tslint.json src/**/*.ts",
     "start-test-app": "cd test-app && ./gradlew setupTomcat && ./gradlew startDb && ./gradlew createDb && ./gradlew restartAndWaitForInitialization",
