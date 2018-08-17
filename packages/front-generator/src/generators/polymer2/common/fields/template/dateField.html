@@ -1,9 +1,7 @@
-<vaadin-date-picker-light attr-for-value="value"
-                          value="{{<%-bindPath%>}}"
-                          <% if (required) { %> required <%}%>>
-  <paper-input label="<%-label%>"
-               error-message="[[<%-errorBindPath%>]]"
-               invalid="[[_isInvalid(<%-errorBindPath%>)]]">
-    <iron-icon icon="event" slot="suffix"></iron-icon>
-  </paper-input>
-</vaadin-date-picker-light>
+<vaadin-date-picker attr-for-value="value"
+                    value="{{<%-bindPath%>}}"
+                    label="<%-label%>"
+                    error-message="[[<%-errorBindPath%>]]"
+                    invalid="[[_isInvalid(<%-errorBindPath%>)]]"
+                    <% if (required) { %> required <%}%>>
+</vaadin-date-picker>

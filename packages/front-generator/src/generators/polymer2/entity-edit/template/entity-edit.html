@@ -31,20 +31,22 @@
                       server-errors="{{serverErrors}}">
       <paper-card>
         <div class="card-content">
+          <vaadin-form-layout>
 <% for (let i = 0; i < fields.length; i++) { %>
 <%-fields[i]%>
 <%_ } _%>
+          </vaadin-form-layout>
         </div>
         <div class="card-actions">
-          <paper-button on-tap="_delete" hidden$="[[!entityId]]">
+          <vaadin-button on-tap="_delete" hidden$="[[!entityId]]">
             [[msg('Delete')]]
-          </paper-button>
-          <paper-button on-tap="_cancel">
+          </vaadin-button>
+          <vaadin-button on-tap="_cancel">
             [[msg('Cancel')]]
-          </paper-button>
-          <paper-button on-tap="_save">
+          </vaadin-button>
+          <vaadin-button on-tap="_save">
             [[msg('Save')]]
-          </paper-button>
+          </vaadin-button>
         </div>
       </paper-card>
     </cuba-entity-form>

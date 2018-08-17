@@ -61,19 +61,19 @@ export const composeEditFields = (entity: Entity, view: View): { fields: string[
   const models: FieldModel[] = attributes.map(attr => getFieldModel(attr));
 
   const fields: string[] = models.map(m => getFieldHtml(m));
-  const imports: string[] = models.reduce((importsCollector:string[], model) => {
-    const deps = fieldDependencies[model.type];
-    if (deps) {
-      deps.forEach(dep => {
-        if (importsCollector.indexOf(dep) < 0) {
-          importsCollector.push(dep);
-        }
-      })
-    }
-    return importsCollector;
-  }, []);
+  // const imports: string[] = models.reduce((importsCollector:string[], model) => {
+  //   const deps = fieldDependencies[model.type];
+  //   if (deps) {
+  //     deps.forEach(dep => {
+  //       if (importsCollector.indexOf(dep) < 0) {
+  //         importsCollector.push(dep);
+  //       }
+  //     })
+  //   }
+  //   return importsCollector;
+  // }, []);
 
-  return {fields, imports}
+  return {fields, imports: []}
 };
 
 export function entityEditAnswersToModel(answers: EntityEditAnswers, dirShift: string | undefined): EntityEditTemplateModel {

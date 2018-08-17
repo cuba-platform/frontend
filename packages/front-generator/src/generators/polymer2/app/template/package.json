@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "bower": "~1.8.2",
-    "polymer-cli": "~1.7.4"
+    "polymer-cli": "~1.7.7"
   },
   "private": true,
   "cubaPlatform": {

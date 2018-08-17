@@ -1,7 +1,7 @@
-<paper-input value="{{<%-bindPath%>}}"
-             label="<%-label%>"
-             <% if (required) { %>required <%}%>
-             <% if (maxLength != null) { %>maxlength="<%-maxLength%>" <%}%>
-             error-message="[[<%-errorBindPath%>]]"
-             invalid="[[_isInvalid(<%-errorBindPath%>)]]">
-</paper-input>
+<vaadin-text-field value="{{<%-bindPath%>}}"
+                   label="<%-label%>"
+                   <% if (required) { %>required <%}%>
+                   <% if (maxLength != null) { %>maxlength="<%-maxLength%>" <%}%>
+                   error-message="[[<%-errorBindPath%>]]"
+                   invalid="[[_isInvalid(<%-errorBindPath%>)]]">
+</vaadin-text-field>

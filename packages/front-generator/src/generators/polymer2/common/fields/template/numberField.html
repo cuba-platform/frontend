@@ -1,7 +1,7 @@
-<paper-input type="number"
-             value="{{<%-bindPath%>}}"
-             label="<%-label%>"
-             <% if (required) {%> print "required" <%}%>
-             error-message="[[<%-errorBindPath%>]]"
-             invalid="[[_isInvalid(<%-errorBindPath%>)]]">
-</paper-input>
+<vaadin-text-field type="number"
+                   value="{{<%-bindPath%>}}"
+                   label="<%-label%>"
+                   <% if (required) {%> print "required" <%}%>
+                   error-message="[[<%-errorBindPath%>]]"
+                   invalid="[[_isInvalid(<%-errorBindPath%>)]]">
+</vaadin-text-field>
