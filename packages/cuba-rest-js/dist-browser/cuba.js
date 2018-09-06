@@ -305,11 +305,7 @@ var CubaApp = /** @class */ (function () {
         // && resp.responseJSON.error === 'invalid_token';
     };
     CubaApp.prototype._getBasicAuthHeaders = function () {
-        return {
-            "Accept-Language": this.locale,
-            "Authorization": "Basic " + util_1.base64encode(this.restClientId + ':' + this.restClientSecret),
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        };
+        return getBasicAuthHeaders(this.restClientId, this.restClientSecret, this.locale);
     };
     CubaApp.prototype.checkStatus = function (response) {
         if (response.status >= 200 && response.status < 300) {
@@ -329,6 +325,15 @@ var CubaApp = /** @class */ (function () {
     return CubaApp;
 }());
 exports.CubaApp = CubaApp;
+function getBasicAuthHeaders(client, secret, locale) {
+    if (locale === void 0) { locale = 'en'; }
+    return {
+        "Accept-Language": locale,
+        "Authorization": "Basic " + util_1.base64encode(client + ':' + secret),
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    };
+}
+exports.getBasicAuthHeaders = getBasicAuthHeaders;
 
 },{"./model":2,"./storage":3,"./util":4}],2:[function(require,module,exports){
 "use strict";

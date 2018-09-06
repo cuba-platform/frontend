@@ -102,3 +102,6 @@ export declare class CubaApp {
     private checkStatus(response);
     private clearAuthData();
 }
+export declare function getBasicAuthHeaders(client: string, secret: string, locale?: string): {
+    [header: string]: string;
+};

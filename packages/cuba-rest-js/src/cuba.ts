@@ -370,11 +370,7 @@ export class CubaApp {
   }
 
   private _getBasicAuthHeaders(): { [header: string]: string } {
-    return {
-      "Accept-Language": this.locale,
-      "Authorization": "Basic " + base64encode(this.restClientId + ':' + this.restClientSecret),
-      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-    };
+    return getBasicAuthHeaders(this.restClientId, this.restClientSecret, this.locale);
   }
 
   private checkStatus(response: Response): any {
@@ -390,4 +386,12 @@ export class CubaApp {
     this.storage.removeItem(this.name + "_" + CubaApp.USER_NAME_STORAGE_KEY);
   }
 
+}
+
+export function getBasicAuthHeaders(client: string, secret: string, locale = 'en'): { [header: string]: string } {
+  return {
+    "Accept-Language": locale,
+    "Authorization": "Basic " + base64encode(client + ':' + secret),
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+  };
 }
