@@ -2,11 +2,12 @@
   "name": "<%= project.name %>",
   "version": "0.0.1",
   "scripts": {
-    "build": "polymer build"
+    "build": "polymer build",
+    "serve": "polymer serve"
   },
   "devDependencies": {
     "bower": "~1.8.2",
-    "polymer-cli": "~1.7.7"
+    "polymer-cli": "~1.8.0"
   },
   "private": true,
   "cubaPlatform": {
