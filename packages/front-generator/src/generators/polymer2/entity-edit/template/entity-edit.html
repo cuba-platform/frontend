@@ -1,6 +1,4 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-card/paper-card.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-edit-view-behavior.html">
@@ -51,7 +49,11 @@
       </paper-card>
     </cuba-entity-form>
 
-    <paper-toast id="errorMessage" horizontal-align="right">[[msg('Failed to save')]]</paper-toast>
+    <vaadin-notification id="errorMessage" position="bottom-end">
+      <template>
+        [[msg('Failed to save')]]
+      </template>
+    </vaadin-notification>
 
   </template>
   <script>

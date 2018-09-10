@@ -1,5 +1,4 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-list-view-behavior.html">
@@ -42,9 +41,9 @@
       </template>
     </iron-selector>
 
-    <paper-button on-tap="_loadMore" class="load-more" hidden$="[[!moreDataAvailable]]">
+    <vaadin-button on-tap="_loadMore" class="load-more" hidden$="[[!moreDataAvailable]]">
       [[msg('Load more')]]
-    </paper-button>
+    </vaadin-button>
 
   </template>
   <script>

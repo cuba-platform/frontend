@@ -1,6 +1,6 @@
 /// <reference path="../../bower_components/cuba-app/cuba-localize-behavior.d.ts" />
 /// <reference path="../../bower_components/cuba-ui/cuba-entity-list-view-behavior.d.ts" />
-/// <reference path="../../bower_components/paper-toast/paper-toast.d.ts" />
+
 namespace <%= projectNamespace %> {
 
   const {customElement, property, query} = Polymer.decorators;
@@ -45,7 +45,7 @@ namespace <%= projectNamespace %> {
     editedEntityId: string;
 
     @query('#successMessage')
-    successMessageEl: PaperToastElement;
+    successMessageEl: any;
 
     _computeShowEditor() {
       return this.active && this.actionRouteActive;

@@ -3,7 +3,6 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-form/cuba-service-form.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-card/paper-card.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
 <link rel="import" href="<%= relDirShift %>shared-styles.html">
 
 <dom-module id="<%= componentName %>">
@@ -31,9 +30,9 @@
         </cuba-service-form>
       </div>
       <div class="card-actions">
-        <paper-button on-tap="_submit">
+        <vaadin-button on-tap="_submit">
           [[msg('Submit')]]
-        </paper-button>
+        </vaadin-button>
       </div>
     </paper-card>
   </template>

@@ -5,7 +5,6 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-list-view-behavior.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-query.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="<%= relDirShift %>shared-styles.html">
 
@@ -47,9 +46,9 @@
       </template>
     </iron-selector>
     <template is="dom-if" if="[[moreDataAvailable]]">
-      <paper-button on-tap="_loadMore" class="load-more">
+      <vaadin-button on-tap="_loadMore" class="load-more">
         Load more
-      </paper-button>
+      </vaadin-button>
     </template>
   </template>
   <script>

@@ -42,15 +42,15 @@ export const enum PolymerUIFieldType {
 
 export const fieldDependencies = {
   [PolymerUIFieldType.BOOLEAN]: [
-    'paper-checkbox/paper-checkbox.html'
+    'vaadin-checkbox/vaadin-checkbox.html'
   ],
   [PolymerUIFieldType.DATE]: [
-    'paper-input/paper-input.html',
+    'vaadin-text-field/vaadin-text-field.html',
     'vaadin-date-picker/vaadin-date-picker-light.html',
     'iron-icons/iron-icons.html'
   ],
   [PolymerUIFieldType.DATE_TIME]: [
-    'paper-input/paper-input.html'
+    'vaadin-text-field/vaadin-text-field.html'
   ],
   [PolymerUIFieldType.ENUM]: [
     'vaadin-combo-box/vaadin-combo-box.html'
@@ -59,10 +59,10 @@ export const fieldDependencies = {
     'cuba-file-field/cuba-file-field.html'
   ],
   [PolymerUIFieldType.FP_NUMBER]: [
-    'paper-input/paper-input.html'
+    'vaadin-text-field/vaadin-text-field.html'
   ],
   [PolymerUIFieldType.NUMBER]: [
-    'paper-input/paper-input.html'
+    'vaadin-text-field/vaadin-text-field.html'
   ],
   [PolymerUIFieldType.LOOKUP]: [
     'cuba-ui/cuba-lookup.html',
@@ -70,10 +70,10 @@ export const fieldDependencies = {
     'vaadin-combo-box/vaadin-combo-box.html'
   ],
   [PolymerUIFieldType.TEXT]: [
-    'paper-input/paper-input.html'
+    'vaadin-text-field/vaadin-text-field.html'
   ],
   [PolymerUIFieldType.TIME]: [
-    'paper-input/paper-input.html'
+    'vaadin-text-field/vaadin-text-field.html'
   ]
 };
 

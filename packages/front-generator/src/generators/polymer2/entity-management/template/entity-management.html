@@ -5,7 +5,6 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/app-route/app-route.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="<%= listComponentName %>.html">
 <link rel="import" href="<%= editComponentName %>.html">
 
@@ -47,8 +46,16 @@
                             on-item-tap="_editEntity"></<%= listComponentName%>>
     </template>
 
-    <paper-toast id="successMessage" horizontal-align="right">[[msg('Successfully saved')]]</paper-toast>
-    <paper-toast id="errorMessage" horizontal-align="right">[[msg('Failed to save')]]</paper-toast>
+    <vaadin-notification id="successMessage" position="bottom-end">
+      <template>
+        [[msg('Successfully saved')]]
+      </template>
+    </vaadin-notification>
+    <vaadin-notification id="errorMessage" position="bottom-end">
+      <template>
+        [[msg('Failed to save')]]
+      </template>
+    </vaadin-notification>
 
   </template>
   <script>

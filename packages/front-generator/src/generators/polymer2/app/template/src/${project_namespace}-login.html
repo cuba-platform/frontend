@@ -2,7 +2,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="../bower_components/cuba-login/cuba-login.html">
-<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 
@@ -39,6 +38,13 @@
         --iron-icon-height: 32px;
         margin-right: 12px;
       }
+      cuba-login {
+        margin-top: 24px;
+      }
+      .login-field {
+        width: 100%;
+        margin-bottom: 6px;
+      }
       <%= project.namespace %>-locale-select {
         margin-top: 24px;
       }
@@ -60,7 +66,9 @@
           <iron-icon id="logo" src="images/app-icon/icon-32x32.png"></iron-icon>
           Welcome to <%= title %>
           <cuba-login on-cuba-login-error="_handleLoginError">
-            <paper-button slot="login-button" raised class="login-button">Login</paper-button>
+            <vaadin-text-field slot="username-input" class="login-field" placeholder="[[msg('User Name')]]"></vaadin-text-field>
+            <vaadin-password-field slot="password-input" class="login-field" placeholder="[[msg('Password')]]"></vaadin-password-field>
+            <vaadin-button slot="login-button" theme="primary" class="login-button">[[msg('Login')]]</vaadin-button>
           </cuba-login>
         </div>
       </paper-card>
@@ -68,9 +76,11 @@
       <<%= project.namespace %>-locale-select></<%= project.namespace %>-locale-select>
       <% } %>
     </div>
-    <paper-toast id="loginError" horizontal-align="right">
-      [[msg('Login failed')]]
-    </paper-toast>
+    <vaadin-notification id="loginError" position="bottom-end">
+      <template>
+        [[msg('Login failed')]]
+      </template>
+    </vaadin-notification>
   </template>
   <script>
     {

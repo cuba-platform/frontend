@@ -5,7 +5,6 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-data/cuba-entities.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-styles/cuba-styles.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-card/paper-card.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
 <link rel="import" href="<%= relDirShift %>shared-styles.html">
 
 
@@ -45,9 +44,9 @@
       </template>
     </iron-selector>
 
-    <paper-button on-tap="_loadMore" class="load-more" hidden$="[[!moreDataAvailable]]">
+    <vaadin-button on-tap="_loadMore" class="load-more" hidden$="[[!moreDataAvailable]]">
       [[msg('Load more')]]
-    </paper-button>
+    </vaadin-button>
 
   </template>
   <script src="<%= componentName %>.js"></script>

@@ -1,6 +1,4 @@
 <link rel="import" href="<%= relDirShift %>../bower_components/polymer/polymer.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="<%= relDirShift %>../bower_components/paper-button/paper-button.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/paper-card/paper-card.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-app/cuba-localize-behavior.html">
 <link rel="import" href="<%= relDirShift %>../bower_components/cuba-ui/cuba-entity-edit-view-behavior.html">
@@ -31,25 +29,31 @@
                       server-errors="{{serverErrors}}">
       <paper-card>
         <div class="card-content">
+          <vaadin-form-layout>
 <% for (let i = 0; i < fields.length; i++) { %>
 <%-fields[i]%>
 <%_ } _%>
+          </vaadin-form-layout>
         </div>
         <div class="card-actions">
-          <paper-button on-tap="_delete" hidden$="[[!entityId]]">
+          <vaadin-button on-tap="_delete" hidden$="[[!entityId]]">
             [[msg('Delete')]]
-          </paper-button>
-          <paper-button on-tap="_cancel">
+          </vaadin-button>
+          <vaadin-button on-tap="_cancel">
             [[msg('Cancel')]]
-          </paper-button>
-          <paper-button on-tap="_save">
+          </vaadin-button>
+          <vaadin-button on-tap="_save">
             [[msg('Save')]]
-          </paper-button>
+          </vaadin-button>
         </div>
       </paper-card>
     </cuba-entity-form>
 
-    <paper-toast id="errorMessage" horizontal-align="right">[[msg('Failed to save')]]</paper-toast>
+    <vaadin-notification id="errorMessage" position="bottom-end">
+      <template>
+        [[msg('Failed to save')]]
+      </template>
+    </vaadin-notification>
 
   </template>
   <script src="<%= componentName %>.js"></script>

@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "scripts": {
     "build": "npm run compile && polymer build",
+    "serve": "polymer serve",
     "compile": "tsc",
     "watch": "tsc -w"
   },
   "devDependencies": {
     "bower": "~1.8.2",
-    "polymer-cli": "~1.6.0",
+    "polymer-cli": "~1.8.0",
     "typescript": "~2.8.1"
   },
   "private": true,

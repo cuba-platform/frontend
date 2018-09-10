@@ -1,6 +1,5 @@
 <%  const className = genClassName('Login'); %>
 /// <reference path="../bower_components/cuba-app/cuba-localize-behavior.d.ts" />
-/// <reference path="../bower_components/paper-toast/paper-toast.d.ts" />
 namespace <%= project.namespace %> {
 
   const {customElement, query} = Polymer.decorators;
@@ -14,7 +13,7 @@ namespace <%= project.namespace %> {
     new() => Polymer.Element & CubaLocalizeBehavior) {
 
     @query('#loginError')
-    loginError: PaperToastElement;
+    loginError: any;
 
     _handleLoginError() {
       this.loginError.show();
