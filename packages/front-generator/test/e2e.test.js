@@ -9,7 +9,7 @@ const answers = require('./answers');
 
   const generationProcesses = [];
 
-  const polymer2AppDir = '../platform-6.10/polymer2-app-vc';
+  const polymer2AppDir = '.tmp/polymer2-app';
 
   generationProcesses.push(runGenerator('polymer2:app', polymer2AppDir));
   generationProcesses.push(runGenerator('polymer2:blank-component', `${polymer2AppDir}/src/component`, answers.blankComponent, '../'));
@@ -21,7 +21,7 @@ const answers = require('./answers');
   generationProcesses.push(runGenerator('polymer2:service-form', `${polymer2AppDir}/src/service-form`, answers.serviceForm, '../'));
   generationProcesses.push(runGenerator('polymer2:service-data', `${polymer2AppDir}/src/service-data`, answers.serviceData, '../'));
 
-  const polymer2tsAppDir = '.tmp/polymer2-app';
+  const polymer2tsAppDir = '.tmp/polymer2-ts-app';
 
   generationProcesses.push(runGenerator('polymer2-typescript:app', polymer2tsAppDir));
   generationProcesses.push(runGenerator('polymer2-typescript:blank-component', `${polymer2tsAppDir}/src/component`, answers.blankComponent, '../'));
