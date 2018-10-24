@@ -1,8 +1,8 @@
-import {ClientInfo} from "./init";
+import {GeneratedClientInfo} from "./init";
 import * as fs from "fs";
 import * as path from "path";
 
-export function exportList(clients: ClientInfo[], cmd: { save?: string | boolean }) {
+export function exportList(clients: GeneratedClientInfo[], cmd: { save?: string | boolean }) {
   const data = JSON.stringify(clients);
   const {save} = cmd;
   if (save) {

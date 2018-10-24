@@ -7,11 +7,19 @@ import {GeneratorExports} from "./common/generation";
 
 const GENERATORS_DIR_NAME = 'generators';
 const GENERATOR_FILE_NAME = 'index.js';
+const INFO_FILE_NAME = 'info.json';
 
-export interface ClientInfo {
+export interface GeneratedClientInfo {
   bundled: boolean;
   name: string
   generators: GeneratorInfo[];
+  bower?: boolean,
+  clientBaseTech?: string
+}
+
+export interface ProvidedClientInfo {
+  bower: boolean
+  clientBaseTech: string
 }
 
 export interface GeneratorInfo {
@@ -20,12 +28,15 @@ export interface GeneratorInfo {
   params?: StudioTemplateProperty[]
 }
 
-export function collectClients(): ClientInfo[] {
+export function collectClients(): GeneratedClientInfo[] {
   const clientsDirPath = path.join(__dirname, GENERATORS_DIR_NAME);
-  return readdirSync(clientsDirPath).map((clientDirName): ClientInfo => {
+  return readdirSync(clientsDirPath).map((clientDirName): GeneratedClientInfo => {
+    const info:ProvidedClientInfo = require(path.join(clientsDirPath, clientDirName, INFO_FILE_NAME));
     return {
       bundled: true,
       name: clientDirName,
+      bower: info.bower,
+      clientBaseTech: info.clientBaseTech,
       generators: collectGenerators(path.join(clientsDirPath, clientDirName))
     }
   });

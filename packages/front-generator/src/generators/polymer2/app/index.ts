@@ -14,8 +14,6 @@ export function createPolymer2AppGenerator(templateDir = path.join(__dirname, 't
 
   class Polymer2AppGenerator extends BaseGenerator<Answers, Polymer2AppTemplateModel, CommonGenerationOptions> {
 
-    conflicter!: { force: boolean }; //missing in typings
-
     constructor(args: string | string[], options: CommonGenerationOptions) {
       super(args, options);
       this.registerTransformStream(createRenameTransform(this));
@@ -52,6 +50,7 @@ export function createPolymer2AppGenerator(templateDir = path.join(__dirname, 't
       this.fs.copy(this.templatePath() + '/images/**', this.destinationPath('images'));
       this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), this.model);
       this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
+      this.fs.copyTpl(this.templatePath('.package-lock.json'), this.destinationPath('package-lock.json'), this.model);
       this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
     }
 
@@ -66,7 +65,7 @@ export function createPolymer2AppGenerator(templateDir = path.join(__dirname, 't
       generatorPackageVersion: process.env.npm_package_version || '0.2.0',
       title: project.name,
       project: project,
-      basePath: 'app-front',
+      basePath: project.modulePrefix +'-front',
       baseColor: '#2196F3',
       genClassName: function (suffix: string) {
         return project.namespace[0].toUpperCase() + project.namespace.slice(1) + suffix;

@@ -20,6 +20,8 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   answers?: A;
   model?: M;
 
+  conflicter!: { force: boolean }; //patch missing in typings
+
   protected cubaProjectModel?: ProjectModel;
 
   constructor(args: string | string[], options: CommonGenerationOptions) {
@@ -30,6 +32,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
 
   protected async _promptOrParse() {
     if (this.options.answers && this.options.model) { // passed from studio
+      this.conflicter.force = true;
       const encodedAnswers = Buffer.from(this.options.answers, 'base64').toString('utf8');
       const parsedAnswers = JSON.parse(encodedAnswers);
       this.cubaProjectModel = readProjectModel(this.options.model);

@@ -1,4 +1,4 @@
-import {generate, collectClients, ClientInfo} from "./init";
+import {generate, collectClients, GeneratedClientInfo} from "./init";
 import {Command} from 'commander';
 import {exportList} from "./list";
 import {extractAvailableOptions, pickOptions} from "./common/cli-options";
@@ -8,7 +8,7 @@ const program: Command = require('commander');
 program.version(require('../package').version, '-v, --version')
   .usage('[command] [options]');
 
-const clients: ClientInfo[] = collectClients();
+const clients: GeneratedClientInfo[] = collectClients();
 
 program
   .command('list')

@@ -8,6 +8,10 @@ export const elementNameToClass = (elementName: string): string => {
   }
   return elementName
     .split('-')
-    .map(part => part[0].toUpperCase() + part.slice(1))
+    .map(capitalizeFirst)
     .join('');
 };
+
+export const capitalizeFirst = (part: string) => part[0].toUpperCase() + part.slice(1);
+
+export const unCapitalizeFirst = (part: string) => part[0].toLowerCase() + part.slice(1);
