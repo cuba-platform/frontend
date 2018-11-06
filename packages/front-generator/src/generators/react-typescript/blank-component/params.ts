@@ -2,7 +2,7 @@ import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../commo
 
 export const blankComponentParams: StudioTemplateProperty[] = [
   {
-    caption: "Component name",
+    caption: "Component class name",
     code: "componentName",
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     required: true

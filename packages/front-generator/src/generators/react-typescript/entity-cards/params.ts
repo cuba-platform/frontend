@@ -9,7 +9,7 @@ export const entityCardsParams: StudioTemplateProperty[] = [
     required: true
   },
   {
-    caption: "Component name",
+    caption: "Component class name",
     code: "componentName",
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     defaultValue: "Cards",
