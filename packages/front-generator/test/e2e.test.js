@@ -30,7 +30,7 @@ const answers = require('./answers');
   generationProcesses.push(runGenerator('polymer2-typescript:entity-edit', `${polymer2tsAppDir}/src/entity-edit`, answers.entityEdit, '../'));
   generationProcesses.push(runGenerator('polymer2-typescript:entity-management', `${polymer2tsAppDir}/src/entity-management`, answers.entityManagement, '../'));
 
-  const reactAppDir = '../platform-6.10/react-client';
+  const reactAppDir = '.tmp/react-client';
   await runGenerator('react-typescript:app', reactAppDir);
   generationProcesses.push(runGenerator('react-typescript:entity-cards', `${reactAppDir}/src/app/entity-cards`, answers.entityCards, '../../'));
   generationProcesses.push(runGenerator('react-typescript:entity-management', `${reactAppDir}/src/app/entity-management`, answers.entityManagement, '../../'));

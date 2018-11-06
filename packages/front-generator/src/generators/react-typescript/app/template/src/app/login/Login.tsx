@@ -5,6 +5,9 @@ import {observer} from "mobx-react";
 import {action, observable} from "mobx";
 import {AppStateObserver, injectAppState} from "../AppState";
 
+import './Login.css';
+import logo from './logo.png';
+
 @injectAppState
 @observer
 class Login extends React.Component<AppStateObserver> {
@@ -39,32 +42,38 @@ class Login extends React.Component<AppStateObserver> {
 
   render() {
     return(
-      <Form layout='vertical' onSubmit={this.doLogin}>
-        <Form.Item>
-          <Input placeholder='Login'
-                 onChange={this.changeLogin}
-                 value={this.login}
-                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>}
-                 size='large'/>
-        </Form.Item>
-        <Form.Item>
-          <Input placeholder='Password'
-                 onChange={this.changePassword}
-                 value={this.password}
-                 type='password'
-                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>}
-                 size='large'/>
-        </Form.Item>
-        <Form.Item>
-          <Button type='primary'
-                  htmlType='submit'
-                  size='large'
-                  block={true}
-                  loading={this.performingLoginRequest}>
-            Login
-          </Button>
-        </Form.Item>
-      </Form>
+      <div className='Login'>
+        <img src={logo} alt='logo' className='logo'/>
+        <div className='login-title'>
+          <%= title %>
+        </div>
+        <Form layout='vertical' onSubmit={this.doLogin}>
+          <Form.Item>
+            <Input placeholder='Login'
+                   onChange={this.changeLogin}
+                   value={this.login}
+                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                   size='large'/>
+          </Form.Item>
+          <Form.Item>
+            <Input placeholder='Password'
+                   onChange={this.changePassword}
+                   value={this.password}
+                   type='password'
+                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                   size='large'/>
+          </Form.Item>
+          <Form.Item>
+            <Button type='primary'
+                    htmlType='submit'
+                    size='large'
+                    block={true}
+                    loading={this.performingLoginRequest}>
+              Login
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     );
   }
 }
