@@ -69,7 +69,7 @@ class Login extends React.Component<AppStateObserver> {
                     size='large'
                     block={true}
                     loading={this.performingLoginRequest}>
-              Login
+              Submit
             </Button>
           </Form.Item>
         </Form>
