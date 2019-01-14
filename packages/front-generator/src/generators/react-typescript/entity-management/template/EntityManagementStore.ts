@@ -3,7 +3,7 @@ import {cubaREST} from "<%= relDirShift %>index";
 import {EntitiesLoadOptions} from "@cuba-platform/rest";
 import {DEFAULT_COUNT} from "<%= relDirShift %>config";
 import {AppState, getPropertyInfo, PropertyType} from "<%= relDirShift %>app/AppState";
-import * as moment from "moment";
+import moment from "moment";
 
 export class Browse<%=entity.className%>Part {
   static ENTITY_NAME = '<%=entity.name%>';
