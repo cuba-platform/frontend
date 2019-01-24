@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as Generator from "yeoman-generator";
+import {convertToUnixPath} from "../../../common/utils";
 
 interface AddToMenuOpts {
   destRoot: string;
@@ -27,7 +28,7 @@ export function addToMenu(fs: Generator.MemFsEditor,
 
   const routingDir = path.join(destRoot, dirShift ? dirShift : '');
   const routingPath = path.join(routingDir, 'routing.ts');
-  const componentPath = `./${path.relative(routingDir, destRoot)}/${componentFileName}`;
+  const componentPath = `./${getRelativePath(routingDir, destRoot)}/${componentFileName}`;
 
   if (fs.exists(routingPath)) {
     const routingContents = fs.read(routingPath);
@@ -61,3 +62,7 @@ mainRoutes.push({
   component: ${componentClassName},
   caption: '${caption}'
 });`;
+
+function getRelativePath(routingDir: string, destRoot: string) {
+  return convertToUnixPath(path.relative(routingDir, destRoot));
+}
