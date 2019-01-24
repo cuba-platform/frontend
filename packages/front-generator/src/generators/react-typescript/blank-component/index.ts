@@ -3,14 +3,16 @@ import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from 
 import {blankComponentParams} from "./params";
 import {BaseGenerator} from "../../../common/generation";
 import {StudioTemplateProperty} from "../../../common/cuba-studio";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {CommonTemplateModel} from "../../polymer2/common/template-model";
+import {addToMenu} from "../common/menu";
+import {Entity, View} from "../../../common/cuba-model";
 
 export interface BlankComponentAnswers {
   componentName: string
 }
 
-class ReactComponentGenerator extends BaseGenerator<BlankComponentAnswers, CommonTemplateModel, PolymerElementOptions> {
+class ReactComponentGenerator extends BaseGenerator<BlankComponentAnswers, BlankComponentTemplateModel, PolymerElementOptions> {
 
   constructor(args: string | string[], options: PolymerElementOptions) {
     super(args, options);
@@ -33,6 +35,17 @@ class ReactComponentGenerator extends BaseGenerator<BlankComponentAnswers, Commo
       this.templatePath('Component.tsx'),
       this.destinationPath(this.model.componentName + '.tsx'), this.model
     );
+    if (!addToMenu(this.fs, {
+      componentFileName: this.model.className,
+      componentClassName: this.model.className,
+      caption: this.model.className,
+      dirShift: this.options.dirShift,
+      destRoot: this.destinationRoot(),
+      menuLink: '/' + this.model.nameLiteral,
+      pathPattern: '/' + this.model.nameLiteral
+    })) {
+      this.log('Unable to add component to menu: route registry not found');
+    }
   }
 
   end() {
@@ -49,12 +62,17 @@ class ReactComponentGenerator extends BaseGenerator<BlankComponentAnswers, Commo
 
 }
 
+export interface BlankComponentTemplateModel extends CommonTemplateModel {
+  nameLiteral: string;
+}
 
-export function blankComponentAnswersToModel(answers: BlankComponentAnswers, dirShift: string | undefined): CommonTemplateModel {
+export function blankComponentAnswersToModel(answers: BlankComponentAnswers, dirShift: string | undefined): BlankComponentTemplateModel {
+  const className = elementNameToClass(answers.componentName);
   return {
+    className,
     componentName: answers.componentName,
-    className: elementNameToClass(answers.componentName),
-    relDirShift: dirShift || ''
+    relDirShift: dirShift || '',
+    nameLiteral: unCapitalizeFirst(className)
   }
 }
 
