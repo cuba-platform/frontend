@@ -5,7 +5,7 @@ import {EntityEditAnswers, entityEditParams} from "./params";
 import {EntityEditTemplateModel} from "./template-model";
 import * as path from "path";
 import {elementNameToClass} from "../../../common/utils";
-import {Entity, EntityAttribute, View} from "../../../common/cuba-model";
+import {Entity, EntityAttribute, View} from "../../../common/model/cuba-model";
 import {fieldDependencies, FieldModel, getFieldHtml, getFieldModel} from "../common/fields";
 
 

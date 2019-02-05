@@ -1,8 +1,9 @@
-import {ProjectInfo} from "../../../common/cuba-model";
+import {ProjectInfo} from "../../../common/model/cuba-model";
 import {BaseGenerator, readProjectModel} from "../../../common/generation";
 import {questions} from "../../polymer2/app/questions";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
+import {generateEntities} from "../../../common/model/api-generation";
 
 interface TemplateModel {
   title: string;
@@ -57,6 +58,11 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.fs.copyTpl(this.templatePath('.env.development.local'), this.destinationPath('.env.development.local'), this.model);
     this.fs.copyTpl(this.templatePath('.package-lock.json'), this.destinationPath('package-lock.json'), this.model);
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
+
+    if (this.cubaProjectModel) {
+      generateEntities(this.cubaProjectModel, this.destinationPath('src/api/entities'), this.fs);
+    }
+
   }
 
   end() {

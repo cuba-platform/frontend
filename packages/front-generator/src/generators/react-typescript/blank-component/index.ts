@@ -6,7 +6,7 @@ import {StudioTemplateProperty} from "../../../common/cuba-studio";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {CommonTemplateModel} from "../../polymer2/common/template-model";
 import {addToMenu} from "../common/menu";
-import {Entity, View} from "../../../common/cuba-model";
+import {Entity, View} from "../../../common/model/cuba-model";
 
 export interface BlankComponentAnswers {
   componentName: string

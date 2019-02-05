@@ -4,7 +4,7 @@ import {
   FILE_DESCRIPTOR_FQN,
   MappingType,
   TemporalType
-} from "../../../../common/cuba-model";
+} from "../../../../common/model/cuba-model";
 import {render} from 'ejs';
 import * as fs from "fs";
 import * as path from "path";

@@ -12,7 +12,7 @@ import {
 } from "./cuba-studio";
 import {fromStudioProperties} from "./questions";
 import * as fs from "fs";
-import {Entity, ProjectModel} from "./cuba-model";
+import {Entity, ProjectModel} from "./model/cuba-model";
 
 export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> extends Base {
 

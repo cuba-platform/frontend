@@ -1,4 +1,4 @@
-import {EntityAttribute, RestParam} from "../../../../common/cuba-model";
+import {EntityAttribute, RestParam} from "../../../../common/model/cuba-model";
 import {EnumFieldModel, FieldModel, LookupFieldModel, PolymerUIFieldType} from "./index";
 
 export const getRestParamFieldType = (restParam: RestParam): PolymerUIFieldType => {

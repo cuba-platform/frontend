@@ -5,7 +5,7 @@ import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../commo
 import {QueryResultsTemplateModel} from "./template-model";
 import * as path from "path";
 import {elementNameToClass} from "../../../common/utils";
-import {RestParam} from "../../../common/cuba-model";
+import {RestParam} from "../../../common/model/cuba-model";
 import {getRestParamFieldModel} from "../common/fields/rest-params";
 import {getFieldHtml} from "../common/fields";
 

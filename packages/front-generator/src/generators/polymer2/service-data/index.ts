@@ -6,7 +6,7 @@ import {ServiceDataTemplateModel} from "./template-model";
 import * as path from "path";
 import {elementNameToClass} from "../../../common/utils";
 import {composeParamFields} from "../service-form";
-import {RestService} from "../../../common/cuba-model";
+import {RestService} from "../../../common/model/cuba-model";
 
 class ServiceDataGenerator extends BaseGenerator<ServiceDataAnswers, ServiceDataTemplateModel, PolymerElementOptions> {
 
