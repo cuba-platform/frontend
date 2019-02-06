@@ -44,12 +44,14 @@ const answers = require('./answers');
 
 function runGenerator(name, dest, answersJSONString, dirShift) {
   const pathToModel = path.join(process.cwd(), 'test', 'projectModel.json');
+  const encodedAnswers = Buffer.from(answersJSONString).toString('base64');
+
   let command = `node bin/gen-cuba-front ${name} --model ${pathToModel}`;
   if (dest) {
     command += ` --dest ${dest}`;
   }
   if (answersJSONString) {
-    command += ` --answers ${Buffer.from(answersJSONString).toString('base64')}`;
+    command += ` --answers ${encodedAnswers}`;
   }
   if (dirShift) {
     command += ` --dirShift ${dirShift}`

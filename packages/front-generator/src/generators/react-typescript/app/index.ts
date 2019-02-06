@@ -29,15 +29,15 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     if (this.options.model) {
       this.conflicter.force = true;
       this.log('Skipping prompts since model provided');
+      this.cubaProjectModel = readProjectModel(this.options.model);
       return;
     }
     this.answers = {project: await this.prompt(questions) as ProjectInfo};
   }
 
   prepareModel() {
-    if (this.options.model) {
-      const projectModel = readProjectModel(this.options.model);
-      this.model = createModel(projectModel.project);
+    if (this.cubaProjectModel) {
+      this.model = createModel(this.cubaProjectModel.project);
     } else if (this.answers) {
       this.model = createModel(this.answers.project);
     }
@@ -60,7 +60,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
 
     if (this.cubaProjectModel) {
-      generateEntities(this.cubaProjectModel, this.destinationPath('src/api/entities'), this.fs);
+      generateEntities(this.cubaProjectModel, path.join(this.destinationRoot(), 'src/generated/entities'), this.fs);
     }
 
   }
