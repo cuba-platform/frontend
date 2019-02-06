@@ -1,6 +1,6 @@
 import {collectClients, generate} from "../init";
 import * as assert from "assert";
-import {generateEntity} from "../common/model/api-generation";
+import {createEntityClass} from "../common/model/api-generation";
 import {Entity, ProjectModel} from "../common/model/cuba-model";
 import * as path from "path";
 
@@ -34,9 +34,8 @@ describe('generator', function () {
 });
 
 describe('generate entity', function() {
-  it(generateEntity.name, function() {
-    const entityCode = generateEntity((projectModel.entities as Entity[])[0]);
-    console.log(entityCode);
-    assert(entityCode.length > 0);
+  it(createEntityClass.name, function() {
+    const classTsNode = createEntityClass((projectModel.entities as Entity[])[0], projectModel);
+    assert(classTsNode != null);
   });
 });

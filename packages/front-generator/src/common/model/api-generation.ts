@@ -12,7 +12,7 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   for (const entity of entities) {
     fs.write(
       path.join(destDir, `${entity.name}.ts`),
-      generateEntity(entity)
+      tsNodeToText(createEntityClass(entity, projectModel))
     )
   }
 
@@ -22,42 +22,67 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     }
     fs.write(
       path.join(destDir, BASE_ENTITIES_DIR, `${entity.name}.ts`),
-      generateEntity(entity)
+      tsNodeToText(createEntityClass(entity, projectModel))
     )
   }
 }
 
 
-export function generateEntity(entity: Entity): string {
-
-  const entityClass = ts.createClassDeclaration(
+export function createEntityClass(entity: Entity, projectModel: ProjectModel): ts.ClassDeclaration {
+  return ts.createClassDeclaration(
     undefined,
     [ts.createToken(ts.SyntaxKind.ExportKeyword)],
     entity.className,
     undefined,
-    [],
-    createEntityClassMembers(entity.attributes)
+    createEntityClassHeritage(entity, projectModel),
+    createEntityClassMembers(entity)
   );
-  return tsNodeToText(entityClass);
-
 }
 
-function createEntityClassMembers(attributes: EntityAttribute[]): ts.ClassElement[] {
-  if (!attributes) {
+function createEntityClassHeritage(entity: Entity, projectModel: ProjectModel): ts.HeritageClause[] {
+  if (!entity.parentClassName) {
     return [];
   }
+  return [ts.createHeritageClause(
+    ts.SyntaxKind.ExtendsKeyword,
+    [
+      ts.createExpressionWithTypeArguments(
+        [],
+        ts.createIdentifier(entity.parentClassName),
+      )
+    ]
+  )];
+}
 
-  return attributes.map(entityAttr => {
+function createEntityClassMembers(entity: Entity): ts.ClassElement[] {
+
+  const classMembers = [
+    ts.createProperty(
+      undefined,
+      [ts.createToken(ts.SyntaxKind.StaticKeyword)],
+      'NAME',
+      undefined,
+      undefined,
+      ts.createLiteral(entity.name)
+    )
+  ];
+
+  if (!entity.attributes) {
+    return classMembers;
+  }
+
+  return [...classMembers,...entity.attributes.map(entityAttr => {
 
     return ts.createProperty(
       undefined,
       undefined,
       entityAttr.name,
-      undefined,
+      ts.createToken(ts.SyntaxKind.QuestionToken),
       createAttributeTypeRef(entityAttr),
       undefined
     );
-  });
+
+  })];
 }
 
 
