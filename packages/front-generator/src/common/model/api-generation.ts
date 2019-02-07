@@ -78,7 +78,7 @@ function createEntityClassMembers(entity: Entity): ts.ClassElement[] {
       undefined,
       entityAttr.name,
       ts.createToken(ts.SyntaxKind.QuestionToken),
-      createAttributeTypeRef(entityAttr),
+      createAttributeType(entityAttr),
       undefined
     );
 
@@ -96,29 +96,22 @@ function getEntitiesArray(entities: Entity[] | {[entityName: string]: Entity} | 
 }
 
 
-function createAttributeTypeRef(entityAttr: EntityAttribute) {
-  let typeName: string = 'any';
+function createAttributeType(entityAttr: EntityAttribute): ts.TypeNode {
 
   if (entityAttr.mappingType === MappingType.DATATYPE) {
     switch (entityAttr.type.fqn) {
       case 'java.lang.Boolean':
-        typeName = 'boolean';
-        break;
+        return ts.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
       case 'java.lang.Integer':
-        typeName = 'number';
-        break;
+        return ts.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
       case 'java.lang.String':
-        typeName = 'string';
-        break;
+        return ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
       default:
-        typeName = 'any';
+        return ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
     }
   }
 
-  return ts.createTypeReferenceNode(
-    typeName,
-    undefined
-  );
+  return ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
 }
 
 
