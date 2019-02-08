@@ -3,7 +3,7 @@ import {BaseGenerator, readProjectModel} from "../../../common/generation";
 import {questions} from "../../polymer2/app/questions";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {generateEntities} from "../../../common/model/api-generation";
+import {generateEntities} from "../../../common/model/entities-generation";
 
 interface TemplateModel {
   title: string;

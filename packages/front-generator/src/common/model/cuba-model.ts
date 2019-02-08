@@ -2,6 +2,7 @@ export interface ProjectModel {
   project: ProjectInfo;
   entities: Entity[] | {[entityName: string]: Entity};
   baseProjectEntities?: Entity[] | {[entityName: string]: Entity};
+  enums: Enum[];
   views: View[];
   restQueries: RestQuery[];
   restServices: RestService[];
@@ -53,6 +54,15 @@ export interface Datatype {
   fqn: string;
   label: string;
   entityName?: string
+}
+
+export interface EnumValue {
+  id: string;
+  name: string;
+}
+
+export interface Enum extends Datatype {
+  values: EnumValue[]
 }
 
 export const enum MappingType {
@@ -143,3 +153,12 @@ export interface RestServiceMethod {
 }
 
 export const FILE_DESCRIPTOR_FQN = 'com.haulmont.cuba.core.entity.FileDescriptor';
+
+export function getEntitiesArray(entities: Entity[] | { [entityName: string]: Entity } | undefined): Entity[] {
+  if (!entities) {
+    return [];
+  }
+  return Array.isArray(entities)
+    ? entities
+    : Object.keys(entities).map(k => (entities as { [entityName: string]: Entity }) [k]);
+}

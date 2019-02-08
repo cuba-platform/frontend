@@ -1,6 +1,6 @@
 import {collectClients, generate} from "../init";
 import * as assert from "assert";
-import {createEntityClass} from "../common/model/api-generation";
+import {createEntityClass} from "../common/model/entities-generation";
 import {Entity, ProjectModel} from "../common/model/cuba-model";
 import * as path from "path";
 

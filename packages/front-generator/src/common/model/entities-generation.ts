@@ -1,18 +1,44 @@
-import {Entity, EntityAttribute, MappingType, ProjectModel} from "./cuba-model";
+import {Cardinality, Entity, EntityAttribute, Enum, getEntitiesArray, MappingType, ProjectModel} from "./cuba-model";
 import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
 
 const BASE_ENTITIES_DIR = 'base';
 
+interface EntityInfo {
+  entity: Entity;
+  baseProject: boolean;
+}
+
+interface DatatypeInfo {
+  kind: 'enum' | 'entity'
+  datatype: EntityInfo | Enum;
+}
+
+const entitiesMap = new Map<string, EntityInfo>();
+
 export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor ) : void  {
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
   const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
 
+  entities.forEach( e => {
+    entitiesMap.set(e.fqn, {
+      baseProject: false,
+      entity: e
+    })
+  });
+
+  baseProjectEntities.forEach( e => {
+    entitiesMap.set(e.fqn, {
+      baseProject: true,
+      entity: e
+    })
+  });
+
   for (const entity of entities) {
     fs.write(
       path.join(destDir, `${entity.name}.ts`),
-      tsNodeToText(createEntityClass(entity, projectModel))
+      renderTSNodes(createEntityClass(entity, projectModel))
     )
   }
 
@@ -22,7 +48,7 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     }
     fs.write(
       path.join(destDir, BASE_ENTITIES_DIR, `${entity.name}.ts`),
-      tsNodeToText(createEntityClass(entity, projectModel))
+      renderTSNodes(createEntityClass(entity, projectModel))
     )
   }
 }
@@ -78,21 +104,14 @@ function createEntityClassMembers(entity: Entity): ts.ClassElement[] {
       undefined,
       entityAttr.name,
       ts.createToken(ts.SyntaxKind.QuestionToken),
-      createAttributeType(entityAttr),
+      ts.createUnionTypeNode([
+        createAttributeType(entityAttr),
+        ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)
+      ]),
       undefined
     );
 
   })];
-}
-
-
-function getEntitiesArray(entities: Entity[] | {[entityName: string]: Entity} | undefined): Entity[] {
-  if (!entities) {
-    return [];
-  }
-  return Array.isArray(entities)
-    ? entities
-    : Object.keys(entities).map(k => (entities as { [entityName: string]: Entity }) [k]);
 }
 
 
@@ -111,11 +130,24 @@ function createAttributeType(entityAttr: EntityAttribute): ts.TypeNode {
     }
   }
 
+  if (entityAttr.mappingType === MappingType.ASSOCIATION || entityAttr.mappingType === MappingType.COMPOSITION) {
+    switch (entityAttr.cardinality) {
+      case Cardinality.ONE_TO_ONE:
+      case Cardinality.MANY_TO_ONE:
+        return ts.createTypeReferenceNode(entityAttr.type.className, undefined);
+      case Cardinality.MANY_TO_MANY:
+      case Cardinality.ONE_TO_MANY:
+        return ts.createArrayTypeNode(
+          ts.createTypeReferenceNode(entityAttr.type.className, undefined)
+        );
+    }
+  }
+
   return ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
 }
 
 
-function tsNodeToText(node: ts.Node): string {
+function renderTSNodes(node: ts.Node): string {
   const resultFile = ts.createSourceFile(
     'temp.ts',
     '',
