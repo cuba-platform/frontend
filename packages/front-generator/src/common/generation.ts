@@ -9,7 +9,7 @@ import {
   StudioTemplateProperty,
   StudioTemplatePropertyType,
   ViewInfo
-} from "./cuba-studio";
+} from "./studio/studio-model";
 import {fromStudioProperties} from "./questions";
 import * as fs from "fs";
 import {Entity, ProjectModel} from "./model/cuba-model";

@@ -2,7 +2,7 @@ import * as path from "path";
 import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from "../../../common/cli-options";
 import {blankComponentParams} from "./params";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {CommonTemplateModel} from "../../polymer2/common/template-model";
 import {addToMenu} from "../common/menu";

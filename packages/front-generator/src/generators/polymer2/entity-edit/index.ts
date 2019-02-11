@@ -1,6 +1,6 @@
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {EntityEditAnswers, entityEditParams} from "./params";
 import {EntityEditTemplateModel} from "./template-model";
 import * as path from "path";

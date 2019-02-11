@@ -1,4 +1,4 @@
-import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
+import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {Entity, View} from "../../../common/model/cuba-model";
 
 export const entityCardsParams: StudioTemplateProperty[] = [

@@ -4,7 +4,7 @@ import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from 
 import * as path from "path";
 import {Polymer2ComponentTemplateModel} from "../../polymer2/blank-component/template-model";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {TSPolymerElementModel} from "../common";
 
 type TemplateModel = Polymer2ComponentTemplateModel & TSPolymerElementModel;

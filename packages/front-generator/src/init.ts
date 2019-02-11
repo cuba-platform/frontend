@@ -2,7 +2,7 @@ import {existsSync, readdirSync, statSync} from 'fs';
 import * as YeomanEnvironment from "yeoman-environment";
 import * as path from "path";
 import {OptionsConfig} from "./common/cli-options";
-import {StudioTemplateProperty} from "./common/cuba-studio";
+import {StudioTemplateProperty} from "./common/studio/studio-model";
 import {GeneratorExports} from "./common/generation";
 
 const GENERATORS_DIR_NAME = 'generators';

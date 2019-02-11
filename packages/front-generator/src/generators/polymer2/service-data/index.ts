@@ -1,4 +1,4 @@
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {BaseGenerator} from "../../../common/generation";
 import {ServiceDataAnswers, serviceDataParams} from "./params";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";

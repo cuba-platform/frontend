@@ -3,7 +3,7 @@ import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../commo
 import * as path from "path";
 import {BaseGenerator} from "../../../common/generation";
 import {EntityEditTemplateModel} from "../../polymer2/entity-edit/template-model";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {entityEditAnswersToModel} from "../../polymer2/entity-edit";
 import {TSPolymerElementModel} from "../common";
 

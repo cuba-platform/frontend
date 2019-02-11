@@ -1,4 +1,4 @@
-import {StudioTemplateProperty, StudioTemplatePropertyType} from "./cuba-studio";
+import {StudioTemplateProperty, StudioTemplatePropertyType} from "./studio/studio-model";
 import {Question} from "yeoman-generator";
 
 export const enum QuestionType {

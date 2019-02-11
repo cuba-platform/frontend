@@ -3,7 +3,7 @@ import {EntityListAnswers, entityListParams} from "../../polymer2/entity-list/pa
 import {EntityListTemplateModel} from "../../polymer2/entity-list/template-model";
 import * as path from "path";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {entityListAnswersToModel} from "../../polymer2/entity-list";
 import {TSPolymerElementModel} from "../common";
 

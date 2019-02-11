@@ -3,7 +3,7 @@ import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../commo
 import {ServiceFormAnswers, serviceFormParams} from "./params";
 import {ServiceFormTemplateModel} from "./template-model";
 import * as path from "path";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass} from "../../../common/utils";
 import {RestParam} from "../../../common/model/cuba-model";
 import {getRestParamFieldModel} from "../common/fields/rest-params";

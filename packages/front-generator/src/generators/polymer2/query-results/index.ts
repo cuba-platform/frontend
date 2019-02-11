@@ -1,6 +1,6 @@
 import {BaseGenerator} from "../../../common/generation";
 import {QueryResultAnswers, queryResultParams} from "./params";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {QueryResultsTemplateModel} from "./template-model";
 import * as path from "path";

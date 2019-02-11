@@ -3,7 +3,7 @@ import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from 
 import {blankComponentParams} from "./params";
 import {Polymer2ComponentTemplateModel} from "./template-model";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass} from "../../../common/utils";
 
 export interface BlankComponentAnswers {
