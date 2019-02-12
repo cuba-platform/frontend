@@ -1,9 +1,9 @@
 import {ProjectInfo} from "../../../common/model/cuba-model";
 import {BaseGenerator, readProjectModel} from "../../../common/generation";
-import {questions} from "../../polymer2/app/questions";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 import {generateEntities} from "../../../common/model/entities-generation";
+import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../../common/studio/studio-integration";
 
 interface TemplateModel {
   title: string;
@@ -12,7 +12,7 @@ interface TemplateModel {
 }
 
 interface Answers {
-  project: ProjectInfo
+  projectInfo: StudioProjectInfo;
 }
 
 class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGenerationOptions> {
@@ -32,14 +32,32 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
       this.cubaProjectModel = readProjectModel(this.options.model);
       return;
     }
-    this.answers = {project: await this.prompt(questions) as ProjectInfo};
+
+    const openedCubaProjects = await getOpenedCubaProjects();
+    if (openedCubaProjects.length < 1) {
+      this.env.error(Error("Please open Cuba Studio Intellij and enable Old Studio integration"));
+    }
+
+    this.answers = await this.prompt([{
+      name: 'projectInfo',
+      type: 'list',
+      message: 'Please select CUBA project you want use for generation',
+      choices: openedCubaProjects.map(p => ({
+        name: `${p.name} [${p.path}]`,
+        value: p
+      }))
+    }]) as Answers;
+
   }
 
-  prepareModel() {
+  async prepareModel() {
     if (this.cubaProjectModel) {
       this.model = createModel(this.cubaProjectModel.project);
     } else if (this.answers) {
-      this.model = createModel(this.answers.project);
+      const modelFilePath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(this.answers.projectInfo.locationHash, modelFilePath);
+      this.cubaProjectModel = readProjectModel(modelFilePath);
+      this.model = createModel(this.cubaProjectModel.project);
     }
   }
 

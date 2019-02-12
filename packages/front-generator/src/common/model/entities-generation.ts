@@ -17,18 +17,18 @@ interface DatatypeInfo {
 
 const entitiesMap = new Map<string, EntityInfo>();
 
-export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor ) : void  {
+export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): void {
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
   const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
 
-  entities.forEach( e => {
+  entities.forEach(e => {
     entitiesMap.set(e.fqn, {
       baseProject: false,
       entity: e
     })
   });
 
-  baseProjectEntities.forEach( e => {
+  baseProjectEntities.forEach(e => {
     entitiesMap.set(e.fqn, {
       baseProject: true,
       entity: e
@@ -36,9 +36,11 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   });
 
   for (const entity of entities) {
+    const classInfo = createEntityClass(entity);
+    const includes = createIncludes(classInfo.refEntities, false);
     fs.write(
       path.join(destDir, `${entity.name}.ts`),
-      renderTSNodes(createEntityClass(entity, projectModel))
+      renderTSNodes([...includes, classInfo.classDeclaration])
     )
   }
 
@@ -46,43 +48,79 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     if (!entity.name) {
       continue;
     }
+    const classInfo = createEntityClass(entity);
+    const includes = createIncludes(classInfo.refEntities, true);
     fs.write(
       path.join(destDir, BASE_ENTITIES_DIR, `${entity.name}.ts`),
-      renderTSNodes(createEntityClass(entity, projectModel))
+      renderTSNodes([...includes, classInfo.classDeclaration])
     )
   }
 }
 
 
-export function createEntityClass(entity: Entity, projectModel: ProjectModel): ts.ClassDeclaration {
-  return ts.createClassDeclaration(
-    undefined,
-    [ts.createToken(ts.SyntaxKind.ExportKeyword)],
-    entity.className,
-    undefined,
-    createEntityClassHeritage(entity, projectModel),
-    createEntityClassMembers(entity)
-  );
-}
+export function createEntityClass(entity: Entity): {
+  classDeclaration: ts.ClassDeclaration,
+  refEntities: EntityInfo[]
+} {
 
-function createEntityClassHeritage(entity: Entity, projectModel: ProjectModel): ts.HeritageClause[] {
-  if (!entity.parentClassName) {
-    return [];
+  const heritageInfo = createEntityClassHeritage(entity);
+  const refEntities: EntityInfo[] = [];
+  if (heritageInfo.parentEntity) {
+    refEntities.push(heritageInfo.parentEntity)
   }
-  return [ts.createHeritageClause(
-    ts.SyntaxKind.ExtendsKeyword,
-    [
-      ts.createExpressionWithTypeArguments(
-        [],
-        ts.createIdentifier(entity.parentClassName),
-      )
-    ]
-  )];
+
+  const classMembersInfo = createEntityClassMembers(entity);
+  if (classMembersInfo.refEntities) {
+    refEntities.push(...classMembersInfo.refEntities);
+  }
+
+
+  return {
+    classDeclaration: ts.createClassDeclaration(
+      undefined,
+      [ts.createToken(ts.SyntaxKind.ExportKeyword)],
+      entity.className,
+      undefined,
+      heritageInfo.heritageClauses,
+      classMembersInfo.classMembers
+    ),
+    refEntities
+  };
 }
 
-function createEntityClassMembers(entity: Entity): ts.ClassElement[] {
+function createEntityClassHeritage(entity: Entity): {
+  heritageClauses: ts.HeritageClause[]
+  parentEntity?: EntityInfo
+} {
+  if (!entity.parentClassName || !entity.parentPackage) {
+    return {heritageClauses: []};
+  }
 
-  const classMembers = [
+  const parentEntityInfo = entitiesMap.get(entity.parentPackage + '.' + entity.parentClassName);
+  if (!parentEntityInfo) {
+    return {heritageClauses: []};
+  }
+
+  return {
+    heritageClauses: [ts.createHeritageClause(
+      ts.SyntaxKind.ExtendsKeyword,
+      [
+        ts.createExpressionWithTypeArguments(
+          [],
+          ts.createIdentifier(entity.parentClassName),
+        )
+      ]
+    )],
+    parentEntity: parentEntityInfo
+  };
+}
+
+function createEntityClassMembers(entity: Entity): {
+  classMembers: ts.ClassElement[]
+  refEntities: EntityInfo[]
+} {
+
+  const basicClassMembers = [
     ts.createProperty(
       undefined,
       [ts.createToken(ts.SyntaxKind.StaticKeyword)],
@@ -94,60 +132,115 @@ function createEntityClassMembers(entity: Entity): ts.ClassElement[] {
   ];
 
   if (!entity.attributes) {
-    return classMembers;
+    return {classMembers: basicClassMembers, refEntities: []};
   }
 
-  return [...classMembers,...entity.attributes.map(entityAttr => {
+  const refEntities: EntityInfo[] = [];
 
+  const allClassMembers = [...basicClassMembers, ...entity.attributes.map(entityAttr => {
+    const attributeTypeInfo = createAttributeType(entityAttr);
+    if (attributeTypeInfo.entity) {
+      refEntities.push(attributeTypeInfo.entity);
+    }
     return ts.createProperty(
       undefined,
       undefined,
       entityAttr.name,
       ts.createToken(ts.SyntaxKind.QuestionToken),
       ts.createUnionTypeNode([
-        createAttributeType(entityAttr),
+        attributeTypeInfo.node,
         ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)
       ]),
       undefined
     );
 
   })];
+
+  return {classMembers: allClassMembers, refEntities}
 }
 
 
-function createAttributeType(entityAttr: EntityAttribute): ts.TypeNode {
+function createAttributeType(entityAttr: EntityAttribute): {
+  node: ts.TypeNode,
+  entity?: EntityInfo
+} {
+
+  let node: ts.TypeNode | undefined;
+  let refEntity: EntityInfo | undefined;
 
   if (entityAttr.mappingType === MappingType.DATATYPE) {
     switch (entityAttr.type.fqn) {
       case 'java.lang.Boolean':
-        return ts.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
+        node = ts.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
+        break;
       case 'java.lang.Integer':
-        return ts.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
+        node = ts.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
+        break;
       case 'java.lang.String':
-        return ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
+        node = ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
+        break;
       default:
-        return ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
+        node = ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
+        break;
     }
   }
 
   if (entityAttr.mappingType === MappingType.ASSOCIATION || entityAttr.mappingType === MappingType.COMPOSITION) {
-    switch (entityAttr.cardinality) {
-      case Cardinality.ONE_TO_ONE:
-      case Cardinality.MANY_TO_ONE:
-        return ts.createTypeReferenceNode(entityAttr.type.className, undefined);
-      case Cardinality.MANY_TO_MANY:
-      case Cardinality.ONE_TO_MANY:
-        return ts.createArrayTypeNode(
-          ts.createTypeReferenceNode(entityAttr.type.className, undefined)
-        );
+     refEntity = entitiesMap.get(entityAttr.type.fqn);
+
+    if (refEntity) {
+      switch (entityAttr.cardinality) {
+        case Cardinality.ONE_TO_ONE:
+        case Cardinality.MANY_TO_ONE:
+          node = ts.createTypeReferenceNode(entityAttr.type.className, undefined);
+          break;
+        case Cardinality.MANY_TO_MANY:
+        case Cardinality.ONE_TO_MANY:
+          node = ts.createArrayTypeNode(
+            ts.createTypeReferenceNode(entityAttr.type.className, undefined)
+          );
+          break;
+      }
     }
   }
 
-  return ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
+  if (!node) {
+    node = ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
+  }
+
+  return {
+    node,
+    entity: refEntity
+  };
 }
 
+function createIncludes(entities: EntityInfo[], isBaseEntity: boolean): ts.ImportDeclaration[] {
+  return Array.from(new Set(entities)).map(e => {
+    return ts.createImportDeclaration(
+      undefined,
+      undefined,
+      ts.createImportClause(
+        undefined,
+        ts.createNamedImports([
+          ts.createImportSpecifier(undefined, ts.createIdentifier(e.entity.className))
+        ])
+      ),
+      ts.createLiteral(
+        getImportPath(e, isBaseEntity),
+      ),
+    );
+  });
+}
 
-function renderTSNodes(node: ts.Node): string {
+function getImportPath(importedEntity: EntityInfo, isBaseEntity: boolean) {
+  if (!isBaseEntity && importedEntity.baseProject) {
+    return `./${BASE_ENTITIES_DIR}/${importedEntity.entity.name}`;
+  }
+
+  return `./${importedEntity.entity.name}`;
+}
+
+function renderTSNodes(nodes: ts.Node[]): string {
   const resultFile = ts.createSourceFile(
     'temp.ts',
     '',
@@ -158,9 +251,15 @@ function renderTSNodes(node: ts.Node): string {
   const printer = ts.createPrinter({
     newLine: ts.NewLineKind.LineFeed,
   });
-  return printer.printNode(
-    ts.EmitHint.Unspecified,
-    node,
-    resultFile,
-  );
+  // todo VM
+  let content = '';
+  nodes.forEach(node => {
+    content += printer.printNode(
+      ts.EmitHint.Unspecified,
+      node,
+      resultFile,
+    ) + '\n';
+  });
+
+  return content;
 }

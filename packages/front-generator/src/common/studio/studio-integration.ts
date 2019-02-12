@@ -2,7 +2,7 @@ import * as http from "http";
 
 const DEFAULT_INTEGRATION_PORT = 48561;
 
-interface ProjectInfo {
+export interface StudioProjectInfo {
   name: string;
   path: string;
   locationHash: string;
@@ -12,7 +12,7 @@ export async function exportProjectModel(projectLocationHash: string, dest: stri
   return get(`http://localhost:${port}/?exportModelProjectDest=${encodeURIComponent(dest)}&exportModelProjectHash=${projectLocationHash}`);
 }
 
-export async function getOpenedCubaProjects(port = DEFAULT_INTEGRATION_PORT): Promise<ProjectInfo[]> {
+export async function getOpenedCubaProjects(port = DEFAULT_INTEGRATION_PORT): Promise<StudioProjectInfo[]> {
   return get(`http://localhost:${port}/?printCubaProjects`)
     .then(resp => JSON.parse(resp));
 }
