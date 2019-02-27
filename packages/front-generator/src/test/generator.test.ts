@@ -35,7 +35,7 @@ describe('generator', function () {
 
 describe('generate entity', function() {
   it(createEntityClass.name, function() {
-    const classTsNode = createEntityClass((projectModel.entities as Entity[])[0], projectModel);
+    const classTsNode = createEntityClass((projectModel.entities as Entity[])[0]);
     assert(classTsNode != null);
   });
 });
