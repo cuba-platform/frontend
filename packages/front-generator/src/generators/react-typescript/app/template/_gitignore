@@ -6,6 +6,7 @@
 
 # production
 /build
+/build-gradle
 
 # misc
 .DS_Store

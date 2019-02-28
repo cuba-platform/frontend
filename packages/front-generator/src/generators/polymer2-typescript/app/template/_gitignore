@@ -1,5 +1,6 @@
 bower_components
 node_modules
 build
+/build-gradle
 src/**/*.js
 src/**/*.js.map
