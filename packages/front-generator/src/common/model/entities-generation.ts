@@ -36,11 +36,11 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   });
 
   for (const entity of entities) {
-    const classInfo = createEntityClass(entity);
-    const includes = createIncludes(classInfo.refEntities, false);
+    const {refEntities, classDeclaration} = createEntityClass(entity);
+    const includes = createIncludes(entity, refEntities, false);
     fs.write(
       path.join(destDir, `${entity.name}.ts`),
-      renderTSNodes([...includes, classInfo.classDeclaration])
+      renderTSNodes([...includes, classDeclaration])
     )
   }
 
@@ -48,11 +48,11 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     if (!entity.name) {
       continue;
     }
-    const classInfo = createEntityClass(entity);
-    const includes = createIncludes(classInfo.refEntities, true);
+    const {refEntities, classDeclaration} = createEntityClass(entity);
+    const includes = createIncludes(entity, refEntities, true);
     fs.write(
       path.join(destDir, BASE_ENTITIES_DIR, `${entity.name}.ts`),
-      renderTSNodes([...includes, classInfo.classDeclaration])
+      renderTSNodes([...includes, classDeclaration])
     )
   }
 }
@@ -93,6 +93,10 @@ function createEntityClassHeritage(entity: Entity): {
   parentEntity?: EntityInfo
 } {
   if (!entity.parentClassName || !entity.parentPackage) {
+    return {heritageClauses: []};
+  }
+
+  if (entity.parentClassName === 'AbstractSearchFolder') { // todo AbstractSearchFolder does not have name (?)
     return {heritageClauses: []};
   }
 
@@ -186,19 +190,20 @@ function createAttributeType(entityAttr: EntityAttribute): {
   }
 
   if (entityAttr.mappingType === MappingType.ASSOCIATION || entityAttr.mappingType === MappingType.COMPOSITION) {
-     refEntity = entitiesMap.get(entityAttr.type.fqn);
+    refEntity = entitiesMap.get(entityAttr.type.fqn);
 
     if (refEntity) {
       switch (entityAttr.cardinality) {
-        case Cardinality.ONE_TO_ONE:
-        case Cardinality.MANY_TO_ONE:
-          node = ts.createTypeReferenceNode(entityAttr.type.className, undefined);
-          break;
         case Cardinality.MANY_TO_MANY:
         case Cardinality.ONE_TO_MANY:
           node = ts.createArrayTypeNode(
             ts.createTypeReferenceNode(entityAttr.type.className, undefined)
           );
+          break;
+        case Cardinality.ONE_TO_ONE:
+        case Cardinality.MANY_TO_ONE:
+        default:
+          node = ts.createTypeReferenceNode(entityAttr.type.className, undefined);
           break;
       }
     }
@@ -214,22 +219,24 @@ function createAttributeType(entityAttr: EntityAttribute): {
   };
 }
 
-function createIncludes(entities: EntityInfo[], isBaseEntity: boolean): ts.ImportDeclaration[] {
-  return Array.from(new Set(entities)).map(e => {
-    return ts.createImportDeclaration(
-      undefined,
-      undefined,
-      ts.createImportClause(
+function createIncludes(entity: Entity, entities: EntityInfo[], isBaseEntity: boolean): ts.ImportDeclaration[] {
+  return Array.from(new Set(entities))
+    .filter(e => e.entity.name !== entity.name)
+    .map(e => {
+      return ts.createImportDeclaration(
         undefined,
-        ts.createNamedImports([
-          ts.createImportSpecifier(undefined, ts.createIdentifier(e.entity.className))
-        ])
-      ),
-      ts.createLiteral(
-        getImportPath(e, isBaseEntity),
-      ),
-    );
-  });
+        undefined,
+        ts.createImportClause(
+          undefined,
+          ts.createNamedImports([
+            ts.createImportSpecifier(undefined, ts.createIdentifier(e.entity.className))
+          ])
+        ),
+        ts.createLiteral(
+          getImportPath(e, isBaseEntity),
+        ),
+      );
+    });
 }
 
 function getImportPath(importedEntity: EntityInfo, isBaseEntity: boolean) {
