@@ -3,6 +3,7 @@ import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
 
+const ENTITIES_DIR = 'entities';
 const BASE_ENTITIES_DIR = 'base';
 
 interface EntityInfo {
@@ -39,7 +40,7 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     const {refEntities, classDeclaration} = createEntityClass(entity);
     const includes = createIncludes(entity, refEntities, false);
     fs.write(
-      path.join(destDir, `${entity.name}.ts`),
+      path.join(destDir, ENTITIES_DIR, `${entity.name}.ts`),
       renderTSNodes([...includes, classDeclaration])
     )
   }
@@ -51,7 +52,7 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     const {refEntities, classDeclaration} = createEntityClass(entity);
     const includes = createIncludes(entity, refEntities, true);
     fs.write(
-      path.join(destDir, BASE_ENTITIES_DIR, `${entity.name}.ts`),
+      path.join(destDir, ENTITIES_DIR, BASE_ENTITIES_DIR, `${entity.name}.ts`),
       renderTSNodes([...includes, classDeclaration])
     )
   }

@@ -54,7 +54,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
   // noinspection JSUnusedGlobalSymbols
   writing() {
     this.log(`Generating to ${this.destinationPath()}`);
-
+    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.cubaProjectModel!);
     if (this.cubaProjectModel) {
       generateEntities(this.cubaProjectModel, path.join(this.destinationRoot()), this.fs);
     }

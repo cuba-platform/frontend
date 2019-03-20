@@ -31,9 +31,17 @@ describe('generator', function () {
       debug: true
     });
   })
+
+  it ('generates SDK', function () {
+    return generate('sdk', 'all', {
+      model: modelPath,
+      dest: path.join(tmpGenerationDir, 'sdk'),
+      debug: true
+    });
+  })
 });
 
-describe('generate entity', function() {
+describe('generate TS entity', function() {
   it(createEntityClass.name, function() {
     const classTsNode = createEntityClass((projectModel.entities as Entity[])[0]);
     assert(classTsNode != null);

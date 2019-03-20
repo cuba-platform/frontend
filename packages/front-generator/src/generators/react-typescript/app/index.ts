@@ -78,7 +78,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
 
     if (this.cubaProjectModel) {
-      generateEntities(this.cubaProjectModel, path.join(this.destinationRoot(), 'src/cuba/entities'), this.fs);
+      generateEntities(this.cubaProjectModel, path.join(this.destinationRoot(), 'src/cuba'), this.fs);
     }
 
   }
