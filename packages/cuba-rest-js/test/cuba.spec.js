@@ -17,7 +17,7 @@ describe('cuba', function () {
   describe('.initializeApp()', function () {
     it('simple initialization', function () {
       const app = cuba.initializeApp();
-      assert.equal(typeof app, 'object');
+      assert.strictEqual(typeof app, 'object');
     });
     it('initialization with the same name fails', function (done) {
       try {
@@ -33,7 +33,7 @@ describe('cuba', function () {
   describe('.getApp()', function () {
     it('initialize and retrieve - default config', function () {
       let app = cuba.initializeApp();
-      assert.equal(app, cuba.getApp());
+      assert.strictEqual(app, cuba.getApp());
     });
   });
 
@@ -70,6 +70,10 @@ describe('CubaApp', function () {
     return app.loadMetadata();
   });
 
+  it('.loadMessages()', function () {
+    return app.loadEntitiesMessages();
+  });
+
   it('.loadEnums()', function () {
     return app.loadEnums();
   });
@@ -78,8 +82,15 @@ describe('CubaApp', function () {
     return app.getUserInfo();
   });
 
-  it('.loadEntity()', function () {
-    return app.loadEntity('sec$User', 'a405db59-e674-4f63-8afe-269dda788fe8')
+  it('.loadEntity()', function (done) {
+    app.loadEntity('sec$User', 'a405db59-e674-4f63-8afe-269dda788fe8')
+      .then((entity) => {
+        assert(entity._instanceName != null);
+        done();
+      })
+      .catch((e) => {
+        done(e)
+      });
   });
 
   describe('.commitEntity()', function () {
@@ -92,7 +103,7 @@ describe('CubaApp', function () {
 
       app.commitEntity('sec$Role', role)
         .then(function (entity) {
-          assert.equal(entity.name, role.name);
+          assert.strictEqual(entity.name, role.name);
           assert(entity.id != null);
           done()
         })
@@ -140,8 +151,9 @@ describe('CubaApp', function () {
       };
       app.loadEntities('sec$User', options)
         .then(function (users) {
-          assert.equal(users.length, 1);
+          assert.strictEqual(users.length, 1);
           assert.ok(!users[0].hasOwnProperty('password'));
+          assert(users[0]._instanceName != null);
           done();
         })
         .catch(function (e) {
@@ -157,6 +169,7 @@ describe('CubaApp', function () {
           assert(Array.isArray(resp.result), '.result is not array');
           assert(resp.result.length === 2, 'result array should contain 2 entities');
           assert(resp.count === 2, 'count should be 2');
+          assert(resp.result[0]._instanceName != null);
           done();
         })
         .catch(function (e) {

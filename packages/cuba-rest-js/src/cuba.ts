@@ -1,4 +1,12 @@
-import {EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo, View} from "./model";
+import {
+  EntitiesWithCount,
+  EnumInfo,
+  MetaClassInfo,
+  PermissionInfo,
+  SerializedEntity,
+  UserInfo,
+  View
+} from "./model";
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
 import {base64encode, encodeGetParams} from "./util";
@@ -89,7 +97,7 @@ export class CubaApp {
   private static LOCALE_STORAGE_KEY = "cubaLocale";
 
   public messagesCache: any[];
-  public enumsCache: any[];
+  public enumsCache: EnumInfo[];
 
   private tokenExpiryListeners: Array<(() => {})> = [];
   private messagesLoadingListeners: Array<((messages: any[]) => {})> = [];
@@ -166,39 +174,56 @@ export class CubaApp {
     return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
   }
 
-  public loadEntities(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<any[]> {
+  public loadEntities<T>(
+    entityName: string,
+    options?: EntitiesLoadOptions,
+    fetchOptions?: FetchOptions
+  ): Promise<Array<SerializedEntity<T>>> {
     return this.fetch('GET', 'v2/entities/' + entityName, options, {handleAs: 'json', ...fetchOptions});
   }
 
-  public loadEntitiesWithCount(entityName: string, options?: EntitiesLoadOptions,
-                               fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
-
-  public loadEntitiesWithCount<T>(entityName: string, options?: EntitiesLoadOptions,
-                                  fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>> {
+  public loadEntitiesWithCount<T>(
+    entityName: string,
+    options?: EntitiesLoadOptions,
+    fetchOptions?: FetchOptions
+  ): Promise<EntitiesWithCount<T>> {
     let count;
     const optionsWithCount = {...options, returnCount: true};
     return this.fetch('GET', `v2/entities/${entityName}`, optionsWithCount, {handleAs: 'raw', ...fetchOptions})
       .then((response: Response) => {
         count = parseInt(response.headers.get('X-Total-Count'), 10);
         return response.json();
-      }).then((result: T[]) => ({result, count}));
+      }).then((result: Array<SerializedEntity<T>>) => ({result, count}));
   }
 
-  public searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions,
-                        fetchOptions?: FetchOptions): Promise<any[]> {
+  public searchEntities<T>(
+    entityName: string,
+    entityFilter: EntityFilter,
+    options?: EntitiesLoadOptions,
+    fetchOptions?: FetchOptions
+  ): Promise<Array<SerializedEntity<T>>> {
     const data = {...options, filter: entityFilter};
     return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, {handleAs: 'json', ...fetchOptions});
   }
 
-  public loadEntity(entityName: string, id, options?: { view?: string }, fetchOptions?: FetchOptions): Promise<any> {
+  public loadEntity<T>(
+    entityName: string,
+    id,
+    options?: { view?: string },
+    fetchOptions?: FetchOptions
+  ): Promise<SerializedEntity<T>> {
     return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, {handleAs: 'json', ...fetchOptions});
   }
 
-  public deleteEntity(entityName: string, id, fetchOptions?: FetchOptions): Promise<any> {
+  public deleteEntity(entityName: string, id, fetchOptions?: FetchOptions): Promise<void> {
     return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id, null, fetchOptions);
   }
 
-  public commitEntity(entityName: string, entity: any, fetchOptions?: FetchOptions): Promise<any> {
+  public commitEntity<T extends {id?: string}>(
+    entityName: string,
+    entity: T,
+    fetchOptions?: FetchOptions
+  ): Promise<Partial<T>> {
     if (entity.id) {
       return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity),
         {handleAs: 'json', ...fetchOptions});
@@ -208,18 +233,24 @@ export class CubaApp {
     }
   }
 
-  public invokeService(serviceName: string, methodName: string, params: any,
-                       fetchOptions?: FetchOptions): Promise<any> {
+  public invokeService<T>(
+    serviceName: string,
+    methodName: string,
+    params: any,
+    fetchOptions?: FetchOptions
+  ): Promise<T> {
     const serializedParams = params != null ? JSON.stringify(params) : null;
     return this.fetch('POST', 'v2/services/' + serviceName + '/' + methodName, serializedParams, fetchOptions);
   }
 
-  public query(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any> {
+  public query<T>(
+    entityName: string,
+    queryName: string,
+    params?: any,
+    fetchOptions?: FetchOptions
+  ): Promise<Array<SerializedEntity<T>>> {
     return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName, params, {handleAs: 'json', ...fetchOptions});
   }
-
-  public queryWithCount(entityName: string, queryName: string, params?: any,
-                        fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
 
   public queryWithCount<T>(entityName: string, queryName: string, params?: any,
                            fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>> {
@@ -230,10 +261,11 @@ export class CubaApp {
       .then((response: Response) => {
         count = parseInt(response.headers.get('X-Total-Count'), 10);
         return response.json();
-      }).then((result: T[]) => ({result, count}));
+      })
+      .then((result: Array<SerializedEntity<T>>) => ({result, count}));
   }
 
-  public queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any> {
+  public queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<number> {
     return this.fetch('GET', 'v2/queries/' + entityName + '/' + queryName + '/count', params, fetchOptions);
   }
 
@@ -255,7 +287,7 @@ export class CubaApp {
       {handleAs: 'json', ...fetchOptions});
   }
   public loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<any> {
-    const fetchRes = this.fetch('GET', 'v2/messages/entities', null, {handleAs: 'json', ...fetchOptions});
+    const fetchRes = this.fetch<any>('GET', 'v2/messages/entities', null, {handleAs: 'json', ...fetchOptions});
     fetchRes.then((messages) => {
       this.messagesCache = messages;
       this.messagesLoadingListeners.forEach((l) => l(messages));
@@ -264,7 +296,7 @@ export class CubaApp {
   }
 
   public loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]> {
-    const fetchRes = this.fetch('GET', 'v2/metadata/enums', null, {handleAs: 'json', ...fetchOptions});
+    const fetchRes = this.fetch<EnumInfo[]>('GET', 'v2/metadata/enums', null, {handleAs: 'json', ...fetchOptions});
     fetchRes.then((enums) => {
       this.enumsCache = enums;
       this.enumsLoadingListeners.forEach((l) => l(enums));
@@ -280,7 +312,7 @@ export class CubaApp {
     return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json', ...fetchOptions});
   }
 
-  public fetch(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<any> {
+  public fetch<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T> {
     let url = this.apiUrl + path;
     const settings: FetchOptions = {
       method,

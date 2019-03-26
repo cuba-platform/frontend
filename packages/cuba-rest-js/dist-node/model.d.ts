@@ -1,7 +1,12 @@
 export declare type Cardinality = 'NONE' | 'ONE_TO_ONE' | 'MANY_TO_ONE' | 'ONE_TO_MANY' | 'MANY_TO_MANY';
 export declare type AttributeType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION';
+export interface SerializedEntityProps {
+    _entityName: string;
+    _instanceName: string;
+}
+export declare type SerializedEntity<T> = SerializedEntityProps & T;
 export interface EntitiesWithCount<T> {
-    result: T[];
+    result: Array<SerializedEntity<T>>;
     count: number;
 }
 export interface MetaPropertyInfo {
@@ -59,5 +64,5 @@ export interface View {
 export declare enum PredefinedView {
     MINIMAL = "_minimal",
     LOCAL = "_local",
-    BASE = "_base",
+    BASE = "_base"
 }

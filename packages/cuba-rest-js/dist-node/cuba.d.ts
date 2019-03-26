@@ -1,4 +1,4 @@
-import { EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo, View } from "./model";
+import { EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, SerializedEntity, UserInfo, View } from "./model";
 import { EntityFilter } from "./filter";
 export * from './model';
 export * from './storage';
@@ -51,7 +51,7 @@ export declare class CubaApp {
     private static USER_NAME_STORAGE_KEY;
     private static LOCALE_STORAGE_KEY;
     messagesCache: any[];
-    enumsCache: any[];
+    enumsCache: EnumInfo[];
     private tokenExpiryListeners;
     private messagesLoadingListeners;
     private enumsLoadingListeners;
@@ -71,18 +71,20 @@ export declare class CubaApp {
     }>;
     logout(): Promise<any>;
     revokeToken(token: string): Promise<any>;
-    loadEntities(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<any[]>;
-    loadEntitiesWithCount(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
-    searchEntities(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<any[]>;
-    loadEntity(entityName: string, id: any, options?: {
+    loadEntities<T>(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<Array<SerializedEntity<T>>>;
+    loadEntitiesWithCount<T>(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>>;
+    searchEntities<T>(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<Array<SerializedEntity<T>>>;
+    loadEntity<T>(entityName: string, id: any, options?: {
         view?: string;
-    }, fetchOptions?: FetchOptions): Promise<any>;
-    deleteEntity(entityName: string, id: any, fetchOptions?: FetchOptions): Promise<any>;
-    commitEntity(entityName: string, entity: any, fetchOptions?: FetchOptions): Promise<any>;
-    invokeService(serviceName: string, methodName: string, params: any, fetchOptions?: FetchOptions): Promise<any>;
-    query(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any>;
-    queryWithCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<any>>;
-    queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<any>;
+    }, fetchOptions?: FetchOptions): Promise<SerializedEntity<T>>;
+    deleteEntity(entityName: string, id: any, fetchOptions?: FetchOptions): Promise<void>;
+    commitEntity<T extends {
+        id?: string;
+    }>(entityName: string, entity: T, fetchOptions?: FetchOptions): Promise<Partial<T>>;
+    invokeService<T>(serviceName: string, methodName: string, params: any, fetchOptions?: FetchOptions): Promise<T>;
+    query<T>(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<Array<SerializedEntity<T>>>;
+    queryWithCount<T>(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>>;
+    queryCount(entityName: string, queryName: string, params?: any, fetchOptions?: FetchOptions): Promise<number>;
     loadMetadata(fetchOptions?: FetchOptions): Promise<MetaClassInfo[]>;
     loadEntityMetadata(entityName: string, fetchOptions?: FetchOptions): Promise<MetaClassInfo>;
     loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View[]>;
@@ -91,16 +93,16 @@ export declare class CubaApp {
     loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]>;
     getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]>;
     getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo>;
-    fetch(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<any>;
+    fetch<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T>;
     onLocaleChange(c: any): () => ((locale: string) => {})[];
     onTokenExpiry(c: any): () => (() => {})[];
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];
     onMessagesLoaded(c: any): () => ((messages: any[]) => {})[];
     cleanup(): void;
-    private isTokenExpiredResponse(resp);
-    private _getBasicAuthHeaders();
-    private checkStatus(response);
-    private clearAuthData();
+    private isTokenExpiredResponse;
+    private _getBasicAuthHeaders;
+    private checkStatus;
+    private clearAuthData;
 }
 export declare function getBasicAuthHeaders(client: string, secret: string, locale?: string): {
     [header: string]: string;

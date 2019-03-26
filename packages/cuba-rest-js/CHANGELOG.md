@@ -1,4 +1,7 @@
 # Changelog
+## Unreleased
+- Added `SerializedEntity` type
+- Added generic type parameter for fetching methods
 ## 0.4.1
 - Added `PredefinedView` enumeration
 ## 0.4.0

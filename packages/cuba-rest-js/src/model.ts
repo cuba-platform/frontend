@@ -2,8 +2,15 @@ export type Cardinality = 'NONE' | 'ONE_TO_ONE' | 'MANY_TO_ONE' | 'ONE_TO_MANY' 
 
 export type AttributeType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION';
 
+export interface SerializedEntityProps {
+  _entityName: string;
+  _instanceName: string;
+}
+
+export type SerializedEntity<T> = SerializedEntityProps & T;
+
 export interface EntitiesWithCount<T> {
-  result: T[];
+  result: Array<SerializedEntity<T>>;
   count: number;
 }
 

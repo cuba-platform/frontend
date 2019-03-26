@@ -5,7 +5,7 @@ function base64encode(str) {
     if (typeof btoa === 'function') {
         return btoa(str);
     }
-    else if (global['Buffer']) {
+    else if (global['Buffer']) { // prevent Buffer from being injected by browserify
         return new global['Buffer'](str).toString('base64');
     }
     else {

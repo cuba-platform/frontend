@@ -6,6 +6,8 @@
     "no-string-literal": false,
     "quotemark": false,
     "interface-name": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "trailing-comma": false,
+    "no-trailing-whitespace": false
   }
 }
