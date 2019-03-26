@@ -1,6 +1,7 @@
 rootProject.name = 'rest-mock'
-include(':app-global', ':app-core', ':app-gui', ':app-web')
-project(':app-global').projectDir = new File(settingsDir, 'modules/global')
-project(':app-core').projectDir = new File(settingsDir, 'modules/core')
-project(':app-gui').projectDir = new File(settingsDir, 'modules/gui')
-project(':app-web').projectDir = new File(settingsDir, 'modules/web')
+def modulePrefix = 'app'
+include(":${modulePrefix}-global" , ":${modulePrefix}-core" , ":${modulePrefix}-gui" , ":${modulePrefix}-web" )
+project(":${modulePrefix}-global" ).projectDir = new File(settingsDir, 'modules/global')
+project(":${modulePrefix}-core" ).projectDir = new File(settingsDir, 'modules/core')
+project(":${modulePrefix}-gui" ).projectDir = new File(settingsDir, 'modules/gui')
+project(":${modulePrefix}-web" ).projectDir = new File(settingsDir, 'modules/web')
