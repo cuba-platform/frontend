@@ -30,7 +30,7 @@ describe('generator', function () {
       dest: path.join(tmpGenerationDir, 'react-client'),
       debug: true
     });
-  })
+  });
 
   it ('generates SDK', function () {
     return generate('sdk', 'all', {

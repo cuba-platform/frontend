@@ -2,21 +2,23 @@ import {Cardinality, Entity, EntityAttribute, Enum, getEntitiesArray, MappingTyp
 import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
+import {renderTSNodes} from "./ts-helpers";
+import {createEntityViewTypes} from "./entity-views-generation";
 
 const ENTITIES_DIR = 'entities';
 const BASE_ENTITIES_DIR = 'base';
 
-interface EntityInfo {
+export interface ProjectEntityInfo {
   entity: Entity;
   baseProject: boolean;
 }
 
 interface DatatypeInfo {
   kind: 'enum' | 'entity'
-  datatype: EntityInfo | Enum;
+  datatype: ProjectEntityInfo | Enum;
 }
 
-const entitiesMap = new Map<string, EntityInfo>();
+const entitiesMap = new Map<string, ProjectEntityInfo>();
 
 export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): void {
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
@@ -39,9 +41,10 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   for (const entity of entities) {
     const {refEntities, classDeclaration} = createEntityClass(entity);
     const includes = createIncludes(entity, refEntities, false);
+    const views = createEntityViewTypes(entity, projectModel);
     fs.write(
       path.join(destDir, ENTITIES_DIR, `${entity.name}.ts`),
-      renderTSNodes([...includes, classDeclaration])
+      renderTSNodes([...includes, classDeclaration, ...views])
     )
   }
 
@@ -51,9 +54,10 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     }
     const {refEntities, classDeclaration} = createEntityClass(entity);
     const includes = createIncludes(entity, refEntities, true);
+    const views = createEntityViewTypes(entity, projectModel);
     fs.write(
       path.join(destDir, ENTITIES_DIR, BASE_ENTITIES_DIR, `${entity.name}.ts`),
-      renderTSNodes([...includes, classDeclaration])
+      renderTSNodes([...includes, classDeclaration, ...views])
     )
   }
 }
@@ -61,11 +65,11 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
 
 export function createEntityClass(entity: Entity): {
   classDeclaration: ts.ClassDeclaration,
-  refEntities: EntityInfo[]
+  refEntities: ProjectEntityInfo[]
 } {
 
   const heritageInfo = createEntityClassHeritage(entity);
-  const refEntities: EntityInfo[] = [];
+  const refEntities: ProjectEntityInfo[] = [];
   if (heritageInfo.parentEntity) {
     refEntities.push(heritageInfo.parentEntity)
   }
@@ -91,7 +95,7 @@ export function createEntityClass(entity: Entity): {
 
 function createEntityClassHeritage(entity: Entity): {
   heritageClauses: ts.HeritageClause[]
-  parentEntity?: EntityInfo
+  parentEntity?: ProjectEntityInfo
 } {
   if (!entity.parentClassName || !entity.parentPackage) {
     return {heritageClauses: []};
@@ -122,7 +126,7 @@ function createEntityClassHeritage(entity: Entity): {
 
 function createEntityClassMembers(entity: Entity): {
   classMembers: ts.ClassElement[]
-  refEntities: EntityInfo[]
+  refEntities: ProjectEntityInfo[]
 } {
 
   const basicClassMembers = [
@@ -140,7 +144,7 @@ function createEntityClassMembers(entity: Entity): {
     return {classMembers: basicClassMembers, refEntities: []};
   }
 
-  const refEntities: EntityInfo[] = [];
+  const refEntities: ProjectEntityInfo[] = [];
 
   const allClassMembers = [...basicClassMembers, ...entity.attributes.map(entityAttr => {
     const attributeTypeInfo = createAttributeType(entityAttr);
@@ -167,11 +171,11 @@ function createEntityClassMembers(entity: Entity): {
 
 function createAttributeType(entityAttr: EntityAttribute): {
   node: ts.TypeNode,
-  entity?: EntityInfo
+  entity?: ProjectEntityInfo
 } {
 
   let node: ts.TypeNode | undefined;
-  let refEntity: EntityInfo | undefined;
+  let refEntity: ProjectEntityInfo | undefined;
 
   if (entityAttr.mappingType === MappingType.DATATYPE) {
     switch (entityAttr.type.fqn) {
@@ -220,7 +224,7 @@ function createAttributeType(entityAttr: EntityAttribute): {
   };
 }
 
-function createIncludes(entity: Entity, entities: EntityInfo[], isBaseEntity: boolean): ts.ImportDeclaration[] {
+function createIncludes(entity: Entity, entities: ProjectEntityInfo[], isBaseEntity: boolean): ts.ImportDeclaration[] {
   return Array.from(new Set(entities))
     .filter(e => e.entity.name !== entity.name)
     .map(e => {
@@ -240,7 +244,7 @@ function createIncludes(entity: Entity, entities: EntityInfo[], isBaseEntity: bo
     });
 }
 
-function getImportPath(importedEntity: EntityInfo, isBaseEntity: boolean) {
+function getImportPath(importedEntity: ProjectEntityInfo, isBaseEntity: boolean) {
   if (!isBaseEntity && importedEntity.baseProject) {
     return `./${BASE_ENTITIES_DIR}/${importedEntity.entity.name}`;
   }
@@ -248,26 +252,3 @@ function getImportPath(importedEntity: EntityInfo, isBaseEntity: boolean) {
   return `./${importedEntity.entity.name}`;
 }
 
-function renderTSNodes(nodes: ts.Node[]): string {
-  const resultFile = ts.createSourceFile(
-    'temp.ts',
-    '',
-    ts.ScriptTarget.Latest,
-    false,
-    ts.ScriptKind.TS,
-  );
-  const printer = ts.createPrinter({
-    newLine: ts.NewLineKind.LineFeed,
-  });
-  // todo VM
-  let content = '';
-  nodes.forEach(node => {
-    content += printer.printNode(
-      ts.EmitHint.Unspecified,
-      node,
-      resultFile,
-    ) + '\n';
-  });
-
-  return content;
-}
