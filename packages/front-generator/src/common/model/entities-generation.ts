@@ -83,7 +83,9 @@ export function createEntityClass(entity: Entity): {
   return {
     classDeclaration: ts.createClassDeclaration(
       undefined,
-      [ts.createToken(ts.SyntaxKind.ExportKeyword)],
+      [
+        ts.createToken(ts.SyntaxKind.ExportKeyword)
+      ],
       entity.className,
       undefined,
       heritageInfo.heritageClauses,
