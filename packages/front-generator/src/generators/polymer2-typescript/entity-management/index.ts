@@ -2,7 +2,7 @@ import {EntityManagementTemplateModel} from "../../polymer2/entity-management/te
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {EntityManagementAnswers, entityManagementGeneratorParams} from "../../polymer2/entity-management/params";
 import {answersToEditModel, answersToListModel, answersToManagementModel} from "../../polymer2/entity-management";
 import {TSPolymerElementModel} from "../common";

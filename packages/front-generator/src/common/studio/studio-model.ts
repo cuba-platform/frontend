@@ -1,4 +1,4 @@
-import {RestService, RestServiceMethod} from "./cuba-model";
+import {RestService, RestServiceMethod} from "../model/cuba-model";
 
 export const enum StudioTemplatePropertyType {
   ENTITY = 'ENTITY',

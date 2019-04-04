@@ -1,4 +1,4 @@
-import {RestServiceMethodModel, StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
+import {RestServiceMethodModel, StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 
 export const serviceFormParams: StudioTemplateProperty[] = [
   {

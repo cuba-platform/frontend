@@ -3,7 +3,7 @@ import {EntityManagementAnswers, entityManagementGeneratorParams} from "./params
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {EntityManagementTemplateModel} from "./template-model";
 import * as path from "path";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass} from "../../../common/utils";
 import {EntityListTemplateModel} from "../entity-list/template-model";
 import {EntityCardsTemplateModel} from "../entity-cards/template-model";

@@ -1,4 +1,4 @@
-import {ProjectInfo} from "../../../common/cuba-model";
+import {ProjectInfo} from "../../../common/model/cuba-model";
 import {Polymer2AppTemplateModel} from "./template-model";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";

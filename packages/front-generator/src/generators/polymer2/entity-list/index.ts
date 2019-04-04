@@ -1,6 +1,6 @@
 import {EntityListAnswers, entityListParams} from "./params";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {EntityListTemplateModel} from "./template-model";
 import * as path from "path";

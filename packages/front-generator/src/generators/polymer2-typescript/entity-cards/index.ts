@@ -3,7 +3,7 @@ import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from 
 import {EntityCardsAnswers, entityCardsParams} from "../../polymer2/entity-cards/params";
 import * as path from "path";
 import {BaseGenerator} from "../../../common/generation";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {EntityCardsTemplateModel} from "../../polymer2/entity-cards/template-model";
 import {TSPolymerElementModel} from "../common";
 

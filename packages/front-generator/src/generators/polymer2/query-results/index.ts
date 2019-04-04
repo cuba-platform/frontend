@@ -1,11 +1,11 @@
 import {BaseGenerator} from "../../../common/generation";
 import {QueryResultAnswers, queryResultParams} from "./params";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {QueryResultsTemplateModel} from "./template-model";
 import * as path from "path";
 import {elementNameToClass} from "../../../common/utils";
-import {RestParam} from "../../../common/cuba-model";
+import {RestParam} from "../../../common/model/cuba-model";
 import {getRestParamFieldModel} from "../common/fields/rest-params";
 import {getFieldHtml} from "../common/fields";
 

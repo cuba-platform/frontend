@@ -11,6 +11,8 @@ const answers = require('./answers');
 
   const polymer2AppDir = '.tmp/polymer2-app';
 
+  console.log(answers);
+
   generationProcesses.push(runGenerator('polymer2:app', polymer2AppDir));
   generationProcesses.push(runGenerator('polymer2:blank-component', `${polymer2AppDir}/src/component`, answers.blankComponent, '../'));
   generationProcesses.push(runGenerator('polymer2:entity-management', `${polymer2AppDir}/src/entity-management`, answers.entityManagement, '../'));
@@ -44,12 +46,14 @@ const answers = require('./answers');
 
 function runGenerator(name, dest, answersJSONString, dirShift) {
   const pathToModel = path.join(process.cwd(), 'test', 'projectModel.json');
+
   let command = `node bin/gen-cuba-front ${name} --model ${pathToModel}`;
   if (dest) {
     command += ` --dest ${dest}`;
   }
   if (answersJSONString) {
-    command += ` --answers ${Buffer.from(answersJSONString).toString('base64')}`;
+    const encodedAnswers = Buffer.from(answersJSONString).toString('base64');
+    command += ` --answers ${encodedAnswers}`;
   }
   if (dirShift) {
     command += ` --dirShift ${dirShift}`

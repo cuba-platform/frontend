@@ -1,7 +1,7 @@
 import {BaseGenerator} from "../../../common/generation";
 import {EntityCardsAnswers, entityCardsParams} from "./params";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
-import {StudioTemplateProperty} from "../../../common/cuba-studio";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import * as path from "path";
 import {EntityCardsTemplateModel} from "./template-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";

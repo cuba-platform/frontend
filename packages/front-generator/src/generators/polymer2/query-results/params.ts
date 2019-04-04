@@ -1,5 +1,5 @@
-import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/cuba-studio";
-import {RestQuery} from "../../../common/cuba-model";
+import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
+import {RestQuery} from "../../../common/model/cuba-model";
 
 export const queryResultParams: StudioTemplateProperty[] = [
   {

@@ -9,10 +9,10 @@ import {
   StudioTemplateProperty,
   StudioTemplatePropertyType,
   ViewInfo
-} from "./cuba-studio";
+} from "./studio/studio-model";
 import {fromStudioProperties} from "./questions";
 import * as fs from "fs";
-import {Entity, ProjectModel} from "./cuba-model";
+import {Entity, ProjectModel} from "./model/cuba-model";
 
 export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> extends Base {
 
@@ -31,15 +31,19 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   }
 
   protected async _promptOrParse() {
-    if (this.options.answers && this.options.model) { // passed from studio
+    if (this.options.model) {
+      this.cubaProjectModel = readProjectModel(this.options.model);
+    }
+
+    if (this.options.model && this.options.answers) { // passed from studio
       this.conflicter.force = true;
       const encodedAnswers = Buffer.from(this.options.answers, 'base64').toString('utf8');
       const parsedAnswers = JSON.parse(encodedAnswers);
-      this.cubaProjectModel = readProjectModel(this.options.model);
 
-      this.answers = refineAnswers<A>(this.cubaProjectModel, this._getParams(), parsedAnswers);
+      this.answers = refineAnswers<A>(this.cubaProjectModel!, this._getParams(), parsedAnswers);
       return Promise.resolve();
     }
+
     this.answers = await this.prompt(fromStudioProperties(this._getParams())) as A;
   }
 
