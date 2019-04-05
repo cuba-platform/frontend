@@ -1,4 +1,4 @@
-# CUBA Platform front-end and JS SDK generator
+# CUBA Platform front-end and TypeScript SDK generator
 
 The generator is `@cuba-platform/front-generator` npm package which
  * provides an ability to generate:
@@ -11,7 +11,7 @@ The generator is `@cuba-platform/front-generator` npm package which
 
 ### Prerequisites
 
-Install [Node.js](https://nodejs.org/en/download/) 10.15+ and npm 6+ (usually comes with node). 
+Install [Node.js](https://nodejs.org/en/download/) 10.15+ and npm 6+ (usually comes with node). Install [CUBA Studio](https://doc.cuba-platform.com/studio/#installation).
 
 Install the generator using the npm package manager: 
 
@@ -24,6 +24,22 @@ Then you will be able to run it via command line:
 ```bash
 gen-cuba-front
 ```
+
+You can also run the generator without installation using `npx`:
+
+```bash
+npx @cuba-platform/front-generator
+```
+
+### CLI Options
+* `-v, --version`: prints current version of the generator.
+* `-h, --help`: prints help for given command.
+
+#### Common generation options 
+
+* `--model`: path to exported project model.
+* `--dest`: destination directory (default: current).
+
 
 ## Development
 Run locally
