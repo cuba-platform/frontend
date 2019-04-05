@@ -4,7 +4,7 @@ The generator is `@cuba-platform/front-generator` npm package which
  * provides an ability to generate:
     * [Polymer 2 starter](https://doc.cuba-platform.com/manual-7.0/polymer_ui.html)
     * [React starter](src/generators/react-typescript/app/template/README.md)
-    * Framework agnostic JS SDK
+    * Framework agnostic TS SDK
  * is used by [CUBA Studio](https://doc.cuba-platform.com/studio/) for [front module](https://doc.cuba-platform.com/manual-7.0/front_ui.html) creation
 
 ## Using via command line
@@ -25,11 +25,39 @@ Then you will be able to run it via command line:
 gen-cuba-front
 ```
 
-You can also run the generator without installation using `npx`:
+Alternatively you can also run the generator without installation using `npx`:
 
 ```bash
 npx @cuba-platform/front-generator
 ```
+
+### Workflow
+
+In order to create some project-related stuff we need to pass project information to the generator. There are two types of ways of doing it
+
+#### Interactive
+
+Open your project in Intellij/CUBA Studio. Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA` . Tick the `Old Studio integration` checkbox:
+
+![GitHub Logo](etc/studio-integration.png)
+
+After that when running generator without any options it will automatically detect CUBA projects opened in Studio: 
+
+```bash
+gen-cuba-front sdk:all
+```
+![Interactive project selection](etc/interactive-projects.png)
+
+#### Manual
+
+Alternatively you can export project model manually. In main menu select `CUBA > Advanced > Export project model`. Studio will generate `projectModel.json` file.
+
+Use `--model` cli option to specify destination to project model file:
+
+```bash
+gen-cuba-front sdk:all --model /work/cuba-samples/sample-sales/projectModel.json
+```
+
 
 ### CLI Options
 * `-v, --version`: prints current version of the generator.
