@@ -4,8 +4,7 @@
 
 React client is alternative to Polymer UI which provides more opionated and front-end oriented
 development experience. While it requires better knowledge of modern front-end stack it allows to build 
-more complex and feature-rich apps as well as using bigger amount of front-end packages. Unlike 
-Polymer which uses outdated bower packaging, React client utilizes more widespread npm ecosystem.
+more complex and feature-rich apps as well as using bigger amount of front-end packages. You will need IDE with TypeScript support: [VSCode](https://code.visualstudio.com/), WebStorm or [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate Edition.
  
 #### Technologies
 
