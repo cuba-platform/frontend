@@ -10,7 +10,7 @@ const BASE_ENTITIES_DIR = 'base';
 
 export interface ProjectEntityInfo {
   entity: Entity;
-  baseProject: boolean;
+  isBaseProjectEntity: boolean;
 }
 
 interface DatatypeInfo {
@@ -24,39 +24,24 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
   const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
 
-  entities.forEach(e => {
-    entitiesMap.set(e.fqn, {
-      baseProject: false,
+  const addEntityToMap = (map: Map<string, ProjectEntityInfo>, isBaseProjectEntity = false) => (e: Entity) => {
+    map.set(e.fqn, {
+      isBaseProjectEntity,
       entity: e
     })
-  });
+  };
 
-  baseProjectEntities.forEach(e => {
-    entitiesMap.set(e.fqn, {
-      baseProject: true,
-      entity: e
-    })
-  });
+  entities.forEach(addEntityToMap(entitiesMap));
+  baseProjectEntities.forEach(addEntityToMap(entitiesMap, true));
 
-  for (const entity of entities) {
+
+  for (const [fqn, entityInfo] of entitiesMap) {
+    const {entity} = entityInfo;
     const {refEntities, classDeclaration} = createEntityClass(entity);
-    const includes = createIncludes(entity, refEntities, false);
+    const includes = createIncludes(entity, refEntities, entityInfo.isBaseProjectEntity);
     const views = createEntityViewTypes(entity, projectModel);
     fs.write(
-      path.join(destDir, ENTITIES_DIR, `${entity.name}.ts`),
-      renderTSNodes([...includes, classDeclaration, ...views])
-    )
-  }
-
-  for (const entity of baseProjectEntities) {
-    if (!entity.name) {
-      continue;
-    }
-    const {refEntities, classDeclaration} = createEntityClass(entity);
-    const includes = createIncludes(entity, refEntities, true);
-    const views = createEntityViewTypes(entity, projectModel);
-    fs.write(
-      path.join(destDir, ENTITIES_DIR, BASE_ENTITIES_DIR, `${entity.name}.ts`),
+      path.join(destDir, !entityInfo.isBaseProjectEntity ? ENTITIES_DIR : path.join(ENTITIES_DIR, BASE_ENTITIES_DIR), getEntityModuleName(entity) + '.ts'),
       renderTSNodes([...includes, classDeclaration, ...views])
     )
   }
@@ -131,16 +116,18 @@ function createEntityClassMembers(entity: Entity): {
   refEntities: ProjectEntityInfo[]
 } {
 
-  const basicClassMembers = [
-    ts.createProperty(
-      undefined,
-      [ts.createToken(ts.SyntaxKind.StaticKeyword)],
-      'NAME',
-      undefined,
-      undefined,
-      ts.createLiteral(entity.name)
-    )
-  ];
+  const basicClassMembers = entity.name != null
+    ? [
+      ts.createProperty(
+        undefined,
+        [ts.createToken(ts.SyntaxKind.StaticKeyword)],
+        'NAME',
+        undefined,
+        undefined,
+        ts.createLiteral(entity.name)
+      )
+    ]
+    : [];
 
   if (!entity.attributes) {
     return {classMembers: basicClassMembers, refEntities: []};
@@ -247,10 +234,16 @@ function createIncludes(entity: Entity, entities: ProjectEntityInfo[], isBaseEnt
 }
 
 function getImportPath(importedEntity: ProjectEntityInfo, isBaseEntity: boolean) {
-  if (!isBaseEntity && importedEntity.baseProject) {
-    return `./${BASE_ENTITIES_DIR}/${importedEntity.entity.name}`;
+  if (!isBaseEntity && importedEntity.isBaseProjectEntity) {
+    return `./${BASE_ENTITIES_DIR}/${getEntityModuleName(importedEntity.entity)}`;
   }
 
-  return `./${importedEntity.entity.name}`;
+  return `./${getEntityModuleName(importedEntity.entity)}`;
 }
 
+function getEntityModuleName(entity: Entity): string {
+  if (entity.name != null) {
+    return entity.name;
+  }
+  return entity.className;
+}

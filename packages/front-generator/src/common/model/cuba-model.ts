@@ -22,7 +22,7 @@ export const enum InheritanceType {
 }
 
 export interface Entity {
-  name: string;
+  name?: string;
   className: string;
   packageName: string;
   dataStore: string,
