@@ -40,7 +40,7 @@ npm install node-fetch --save
 ```
 
 ```javascript
-fetch = require('node-fetch');
+global.fetch = require('node-fetch');
 ```
 
 ## Usage
