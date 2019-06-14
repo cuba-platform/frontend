@@ -79,10 +79,10 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_cuba_.abortsignal.html" class="tsd-kind-icon">Abort<wbr>Signal</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_cuba_.appconfig.html" class="tsd-kind-icon">App<wbr>Config</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_cuba_.entitiesloadoptions.html" class="tsd-kind-icon">Entities<wbr>Load<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_cuba_.fetchoptions.html" class="tsd-kind-icon">Fetch<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_cuba_.loginoptions.html" class="tsd-kind-icon">Login<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_cuba_.responseerror.html" class="tsd-kind-icon">Response<wbr>Error</a></li>
 							</ul>
 						</section>
@@ -102,6 +102,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_cuba_.html#getapp" class="tsd-kind-icon">get<wbr>App</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_cuba_.html#getbasicauthheaders" class="tsd-kind-icon">get<wbr>Basic<wbr>Auth<wbr>Headers</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_cuba_.html#initializeapp" class="tsd-kind-icon">initialize<wbr>App</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_cuba_.html#removeapp" class="tsd-kind-icon">remove<wbr>App</a></li>
 							</ul>
@@ -117,7 +118,7 @@
 					<div class="tsd-signature tsd-kind-icon">Content<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"text"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"json"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"blob"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"raw"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/334575f/src/cuba.ts#L64">cuba.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/cuba.ts#L72">cuba.ts:72</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -126,11 +127,11 @@
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="apps" class="tsd-anchor"></a>
-					<h3>apps</h3>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> apps</h3>
 					<div class="tsd-signature tsd-kind-icon">apps<span class="tsd-signature-symbol">:</span> <a href="../classes/_cuba_.cubaapp.html" class="tsd-signature-type">CubaApp</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/334575f/src/cuba.ts#L10">cuba.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/cuba.ts#L18">cuba.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -147,7 +148,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/334575f/src/cuba.ts#L32">cuba.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/cuba.ts#L40">cuba.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -169,6 +170,40 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="getbasicauthheaders" class="tsd-anchor"></a>
+					<h3>get<wbr>Basic<wbr>Auth<wbr>Headers</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Basic<wbr>Auth<wbr>Headers<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, secret<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, locale<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/cuba.ts#L423">cuba.ts:423</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>secret: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> locale: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;en&quot;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-index-signature">
+									<h5><span class="tsd-signature-symbol">[</span>header: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="initializeapp" class="tsd-anchor"></a>
 					<h3>initialize<wbr>App</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
@@ -178,7 +213,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/334575f/src/cuba.ts#L17">cuba.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/cuba.ts#L25">cuba.ts:25</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -206,7 +241,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/334575f/src/cuba.ts#L42">cuba.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/cuba.ts#L50">cuba.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -250,9 +285,6 @@
 						<a href="../classes/_cuba_.cubaapp.html" class="tsd-kind-icon">Cuba<wbr>App</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_cuba_.abortsignal.html" class="tsd-kind-icon">Abort<wbr>Signal</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_cuba_.appconfig.html" class="tsd-kind-icon">App<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
@@ -260,6 +292,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_cuba_.fetchoptions.html" class="tsd-kind-icon">Fetch<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_cuba_.loginoptions.html" class="tsd-kind-icon">Login<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_cuba_.responseerror.html" class="tsd-kind-icon">Response<wbr>Error</a>
@@ -272,6 +307,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_cuba_.html#getapp" class="tsd-kind-icon">get<wbr>App</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_cuba_.html#getbasicauthheaders" class="tsd-kind-icon">get<wbr>Basic<wbr>Auth<wbr>Headers</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_cuba_.html#initializeapp" class="tsd-kind-icon">initialize<wbr>App</a>

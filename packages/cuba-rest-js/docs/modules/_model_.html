@@ -71,6 +71,12 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum tsd-parent-kind-external-module"><a href="../enums/_model_.predefinedview.html" class="tsd-kind-icon">Predefined<wbr>View</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_model_.entitieswithcount.html" class="tsd-kind-icon">Entities<wbr>With<wbr>Count</a></li>
@@ -79,7 +85,9 @@
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_model_.metaclassinfo.html" class="tsd-kind-icon">Meta<wbr>Class<wbr>Info</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_model_.metapropertyinfo.html" class="tsd-kind-icon">Meta<wbr>Property<wbr>Info</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_model_.permissioninfo.html" class="tsd-kind-icon">Permission<wbr>Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_model_.serializedentityprops.html" class="tsd-kind-icon">Serialized<wbr>Entity<wbr>Props</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_model_.userinfo.html" class="tsd-kind-icon">User<wbr>Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_model_.view.html" class="tsd-kind-icon">View</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -87,6 +95,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_model_.html#attributetype" class="tsd-kind-icon">Attribute<wbr>Type</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_model_.html#cardinality" class="tsd-kind-icon">Cardinality</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_model_.html#serializedentity" class="tsd-kind-icon">Serialized<wbr>Entity</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_model_.html#viewproperty" class="tsd-kind-icon">View<wbr>Property</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,7 +110,7 @@
 					<div class="tsd-signature tsd-kind-icon">Attribute<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"DATATYPE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ENUM"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ASSOCIATION"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"COMPOSITION"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/334575f/src/model.ts#L3">model.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/model.ts#L3">model.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -110,7 +120,27 @@
 					<div class="tsd-signature tsd-kind-icon">Cardinality<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"NONE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ONE_TO_ONE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MANY_TO_ONE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ONE_TO_MANY"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MANY_TO_MANY"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/334575f/src/model.ts#L1">model.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/model.ts#L1">model.ts:1</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="serializedentity" class="tsd-anchor"></a>
+					<h3>Serialized<wbr>Entity</h3>
+					<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Entity<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_model_.serializedentityprops.html" class="tsd-signature-type">SerializedEntityProps</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">T</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/model.ts#L10">model.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="viewproperty" class="tsd-anchor"></a>
+					<h3>View<wbr>Property</h3>
+					<div class="tsd-signature tsd-kind-icon">View<wbr>Property<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/a92f728/src/model.ts#L66">model.ts:66</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -141,6 +171,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_model_.predefinedview.html" class="tsd-kind-icon">Predefined<wbr>View</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="../interfaces/_model_.entitieswithcount.html" class="tsd-kind-icon">Entities<wbr>With<wbr>Count</a>
 					</li>
@@ -160,13 +193,25 @@
 						<a href="../interfaces/_model_.permissioninfo.html" class="tsd-kind-icon">Permission<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_model_.serializedentityprops.html" class="tsd-kind-icon">Serialized<wbr>Entity<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_model_.userinfo.html" class="tsd-kind-icon">User<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_model_.view.html" class="tsd-kind-icon">View</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_model_.html#attributetype" class="tsd-kind-icon">Attribute<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_model_.html#cardinality" class="tsd-kind-icon">Cardinality</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_model_.html#serializedentity" class="tsd-kind-icon">Serialized<wbr>Entity</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="_model_.html#viewproperty" class="tsd-kind-icon">View<wbr>Property</a>
 					</li>
 				</ul>
 			</nav>

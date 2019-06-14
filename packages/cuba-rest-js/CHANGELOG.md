@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## 0.5.0
 - Added `SerializedEntity` type
 - Added generic type parameter for fetching methods
 ## 0.4.1

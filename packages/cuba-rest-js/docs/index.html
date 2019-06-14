@@ -69,28 +69,21 @@
 				<p>JavaScript library for web and Node.js which facilitates CUBA Platfotm&#39;s REST API usage.</p>
 				<h2 id="installation">Installation</h2>
 				<h3 id="npm">npm</h3>
-				<pre><code class="lang-bash">npm install @cuba-platform/rest --save
-</code></pre>
+				<pre><code class="language-bash">npm install @cuba-platform/rest --save</code></pre>
 				<p>Import as module  </p>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cuba = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cuba-platform/rest'</span>);
-</code></pre>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cuba = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cuba-platform/rest'</span>);</code></pre>
 				<p>Or using ES6 imports:</p>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'@cuba-platform/rest'</span>;
-</code></pre>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'@cuba-platform/rest'</span>;</code></pre>
 				<h3 id="bower">bower</h3>
-				<pre><code class="lang-bash">bower install cuba-platform/cuba-rest-js
-</code></pre>
-				<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./bower_components/cuba-rest-js/dist-browser/cuba.js"</span>&gt;</span><span class="undefined"></span>
-</code></pre>
+				<pre><code class="language-bash">bower install cuba-platform/cuba-rest-js</code></pre>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./bower_components/cuba-rest-js/dist-browser/cuba.js"</span>&gt;</span></code></pre>
 				<h2 id="dependencies-and-requirements">Dependencies and requirements</h2>
 				<p>Library has no external dependencies. It&#39;s assumed that <code>Promise</code> and <code>fetch</code> -compatible API are available
 				or polyfilled i.e. in node environment:</p>
-				<pre><code class="lang-bash">npm install node-fetch --save
-</code></pre>
-				<pre><code class="lang-javascript">fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
-</code></pre>
+				<pre><code class="language-bash">npm install node-fetch --save</code></pre>
+				<pre><code class="language-javascript">global.fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);</code></pre>
 				<h2 id="usage">Usage</h2>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'cuba-rest-js'</span>;
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'cuba-rest-js'</span>;
 
 <span class="hljs-keyword">const</span> app = cuba.initializeApp({
   <span class="hljs-attr">name</span>: <span class="hljs-string">'myApp'</span>,
@@ -103,40 +96,31 @@ app.getUserInfo().then(<span class="hljs-function">(<span class="hljs-params">d<
 
 <span class="hljs-comment">// retrieve app by name</span>
 
-<span class="hljs-keyword">const</span> myApp = cuba.getApp(<span class="hljs-string">'myApp'</span>);
-</code></pre>
+<span class="hljs-keyword">const</span> myApp = cuba.getApp(<span class="hljs-string">'myApp'</span>);</code></pre>
 				<p>or use if you want to manage instances yourself</p>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> myApp = <span class="hljs-keyword">new</span> CubaApp(<span class="hljs-string">"myApp"</span>, <span class="hljs-string">"http://localhost:8080/app/rest/"</span>)
-</code></pre>
-				<pre><code class="lang-javascript">myApp.loadEntities(<span class="hljs-string">'sec$User'</span>, {<span class="hljs-attr">view</span>: <span class="hljs-string">'_minimal'</span>, <span class="hljs-attr">sort</span>: <span class="hljs-string">'login'</span>}).then(<span class="hljs-function">(<span class="hljs-params">users</span>) =&gt;</span> {
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> myApp = <span class="hljs-keyword">new</span> CubaApp(<span class="hljs-string">"myApp"</span>, <span class="hljs-string">"http://localhost:8080/app/rest/"</span>)</code></pre>
+				<pre><code class="language-javascript">myApp.loadEntities(<span class="hljs-string">'sec$User'</span>, {<span class="hljs-attr">view</span>: <span class="hljs-string">'_minimal'</span>, <span class="hljs-attr">sort</span>: <span class="hljs-string">'login'</span>}).then(<span class="hljs-function">(<span class="hljs-params">users</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(users);
-});
-</code></pre>
+});</code></pre>
 				<p><a href="https://cuba-platform.github.io/cuba-rest-js/">Full API reference</a></p>
 				<h2 id="development">Development</h2>
 				<h3 id="tests">Tests</h3>
+				<p>In order to run integration tests you need Java to be <a href="https://doc.cuba-platform.com/manual-latest/setup.html">installed</a>.</p>
 				<h4 id="integration-tests">Integration tests</h4>
-				<pre><code class="lang-bash">npm run <span class="hljs-built_in">test</span>:integration
-</code></pre>
+				<pre><code class="language-bash">npm run <span class="hljs-built_in">test</span>:integration</code></pre>
 				<h4 id="running-manually">Running manually</h4>
 				<p>Start test CUBA app</p>
-				<pre><code class="lang-bash">npm run start-test-app
-</code></pre>
+				<pre><code class="language-bash">npm run start-test-app</code></pre>
 				<p>Run tests</p>
-				<pre><code class="lang-bash">npm <span class="hljs-built_in">test</span>
-</code></pre>
+				<pre><code class="language-bash">npm <span class="hljs-built_in">test</span></code></pre>
 				<p>Stop test app</p>
-				<pre><code class="lang-bash">npm run teardown-test-app
-</code></pre>
+				<pre><code class="language-bash">npm run teardown-test-app</code></pre>
 				<h3 id="build">Build</h3>
-				<pre><code class="lang-bash">npm run dist
-</code></pre>
+				<pre><code class="language-bash">npm run dist</code></pre>
 				<h3 id="lint">Lint</h3>
-				<pre><code class="lang-bash">npm run lint
-</code></pre>
+				<pre><code class="language-bash">npm run lint</code></pre>
 				<h3 id="generate-documentation">Generate documentation</h3>
-				<pre><code class="lang-bash">npm run generate-docs
-</code></pre>
+				<pre><code class="language-bash">npm run generate-docs</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
