@@ -9,7 +9,8 @@
       "DOM",
       "ES5",
       "ES2015.Promise",
-      "ES2015.Symbol"
+      "ES2015.Symbol",
+      "ES2015.Iterable"
     ]
   },
   "include": [
