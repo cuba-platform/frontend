@@ -5,12 +5,12 @@ import {Entity, ProjectModel} from "../common/model/cuba-model";
 import * as path from "path";
 
 const projectModel: ProjectModel = require('../../test/projectModel2.json');
-const modelPath =  require.resolve('../../.tmp/projectModel.json');
+const modelPath =  require.resolve('../../test/projectModel.json');
 const answers = require('../../test/answers.js');
 const tmpGenerationDir = path.join(process.cwd(), '.tmp');
 
 describe('generator', function () {
-  it('collectGenerators' , async function() {
+  it(collectClients.name , async function() {
     const generators = collectClients();
     assert(Array.isArray(generators));
     console.log(generators.reduce((p, gen) => p+= gen.name + '\n', ''));

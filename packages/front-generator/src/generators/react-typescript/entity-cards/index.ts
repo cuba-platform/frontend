@@ -75,8 +75,11 @@ export function entityCardsAnswersToModel(answers: EntityCardsAnswers, dirShift:
   }
 }
 
+const description = 'Read-only list of entities displayed as cards';
+
 export {
   EntityCardsGenerator as generator,
   polymerElementOptionsConfig as options,
-  entityCardsParams as params
+  entityCardsParams as params,
+  description
 }

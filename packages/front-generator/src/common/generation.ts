@@ -75,7 +75,8 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
 export interface GeneratorExports {
   generator: typeof BaseGenerator,
   options?: OptionsConfig,
-  params?: StudioTemplateProperty[]
+  params?: StudioTemplateProperty[],
+  description?: string;
 }
 
 export function readProjectModel(modelFilePath: string): ProjectModel {

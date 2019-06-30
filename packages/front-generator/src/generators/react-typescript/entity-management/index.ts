@@ -87,8 +87,11 @@ export function answersToManagementModel(answers: EntityManagementAnswers, dirSh
   }
 }
 
+const description = 'CRUD (list + editor) screens for specified entity';
+
 export {
   ReactEntityManagementGenerator as generator,
   polymerElementOptionsConfig as options,
-  entityManagementGeneratorParams as params
+  entityManagementGeneratorParams as params,
+  description
 };

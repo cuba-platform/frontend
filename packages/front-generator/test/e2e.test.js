@@ -13,6 +13,8 @@ const answers = require('./answers');
 
   console.log(answers);
 
+  await exec('node bin/gen-cuba-front list -s ./.tmp/generators.json');
+
   generationProcesses.push(runGenerator('polymer2:app', polymer2AppDir));
   generationProcesses.push(runGenerator('polymer2:blank-component', `${polymer2AppDir}/src/component`, answers.blankComponent, '../'));
   generationProcesses.push(runGenerator('polymer2:entity-management', `${polymer2AppDir}/src/entity-management`, answers.entityManagement, '../'));

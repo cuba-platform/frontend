@@ -76,8 +76,11 @@ export function blankComponentAnswersToModel(answers: BlankComponentAnswers, dir
   }
 }
 
+const description = 'Empty React class-based component';
+
 export {
   ReactComponentGenerator as generator,
   polymerElementOptionsConfig as options,
-  blankComponentParams as params
+  blankComponentParams as params,
+  description
 };

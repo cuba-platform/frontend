@@ -24,6 +24,7 @@ export interface ProvidedClientInfo {
 
 export interface GeneratorInfo {
   name: string;
+  description?: string;
   options?: OptionsConfig;
   params?: StudioTemplateProperty[]
 }
@@ -64,7 +65,8 @@ function collectGenerators(generatorsDir: string): GeneratorInfo[] {
       }
       const options = generatorExports.options;
       const params = generatorExports.params;
-      generators.push({name, options, params});
+      const description = generatorExports.description;
+      generators.push({name, options, params, description});
       return generators;
     } else {
       return generators;
