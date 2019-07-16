@@ -71,10 +71,6 @@ export interface ResponseError extends Error {
 
 export type ContentType = "text" | "json" | "blob" | "raw";
 
-/*
- * Temporary typings until AbortSignal gets landed to the TypeScript library
- */
-
 export interface FetchOptions extends RequestInit {
   handleAs?: ContentType;
 }
