@@ -1,5 +1,6 @@
 import {
   EntitiesWithCount,
+  EntityMessages,
   EnumInfo,
   MetaClassInfo,
   PermissionInfo,
@@ -92,11 +93,11 @@ export class CubaApp {
   private static USER_NAME_STORAGE_KEY = "cubaUserName";
   private static LOCALE_STORAGE_KEY = "cubaLocale";
 
-  public messagesCache: any[];
+  public messagesCache: EntityMessages;
   public enumsCache: EnumInfo[];
 
   private tokenExpiryListeners: Array<(() => {})> = [];
-  private messagesLoadingListeners: Array<((messages: any[]) => {})> = [];
+  private messagesLoadingListeners: Array<((messages: EntityMessages) => {})> = [];
   private enumsLoadingListeners: Array<((enums: any[]) => {})> = [];
   private localeChangeListeners: Array<((locale: string) => {})> = [];
 
@@ -282,8 +283,10 @@ export class CubaApp {
     return this.fetch('GET', 'v2/metadata/entities/' + entityName + '/views/' + viewName + '/', null,
       {handleAs: 'json', ...fetchOptions});
   }
-  public loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<any> {
-    const fetchRes = this.fetch<any>('GET', 'v2/messages/entities', null, {handleAs: 'json', ...fetchOptions});
+
+  public loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<EntityMessages> {
+    const fetchRes = this.fetch<EntityMessages>('GET', 'v2/messages/entities', null,
+      {handleAs: 'json', ...fetchOptions});
     fetchRes.then((messages) => {
       this.messagesCache = messages;
       this.messagesLoadingListeners.forEach((l) => l(messages));

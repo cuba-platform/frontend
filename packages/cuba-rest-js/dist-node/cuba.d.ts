@@ -1,4 +1,4 @@
-import { EntitiesWithCount, EnumInfo, MetaClassInfo, PermissionInfo, SerializedEntity, UserInfo, View } from "./model";
+import { EntitiesWithCount, EntityMessages, EnumInfo, MetaClassInfo, PermissionInfo, SerializedEntity, UserInfo, View } from "./model";
 import { EntityFilter } from "./filter";
 export * from './model';
 export * from './storage';
@@ -50,7 +50,7 @@ export declare class CubaApp {
     private static REST_TOKEN_STORAGE_KEY;
     private static USER_NAME_STORAGE_KEY;
     private static LOCALE_STORAGE_KEY;
-    messagesCache: any[];
+    messagesCache: EntityMessages;
     enumsCache: EnumInfo[];
     private tokenExpiryListeners;
     private messagesLoadingListeners;
@@ -89,7 +89,7 @@ export declare class CubaApp {
     loadEntityMetadata(entityName: string, fetchOptions?: FetchOptions): Promise<MetaClassInfo>;
     loadEntityViews(entityName: string, fetchOptions?: FetchOptions): Promise<View[]>;
     loadEntityView(entityName: string, viewName: string, fetchOptions?: FetchOptions): Promise<View>;
-    loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<any>;
+    loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<EntityMessages>;
     loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]>;
     getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]>;
     getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo>;
@@ -97,7 +97,7 @@ export declare class CubaApp {
     onLocaleChange(c: any): () => ((locale: string) => {})[];
     onTokenExpiry(c: any): () => (() => {})[];
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];
-    onMessagesLoaded(c: any): () => ((messages: any[]) => {})[];
+    onMessagesLoaded(c: any): () => ((messages: EntityMessages) => {})[];
     cleanup(): void;
     private isTokenExpiredResponse;
     private _getBasicAuthHeaders;

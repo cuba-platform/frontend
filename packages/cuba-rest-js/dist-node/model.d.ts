@@ -66,3 +66,6 @@ export declare enum PredefinedView {
     LOCAL = "_local",
     BASE = "_base"
 }
+export interface EntityMessages {
+    [messageKey: string]: string;
+}

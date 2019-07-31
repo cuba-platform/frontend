@@ -76,3 +76,7 @@ export enum PredefinedView {
   LOCAL = '_local',
   BASE = '_base', // Available since CUBA 6.7
 }
+
+export interface EntityMessages {
+  [messageKey: string]: string;
+}
