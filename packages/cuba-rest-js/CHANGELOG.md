@@ -1,4 +1,6 @@
 # Changelog
+## 0.5.1
+- Typings for entities messages
 ## 0.5.0
 - Added `SerializedEntity` type
 - Added generic type parameter for fetching methods
