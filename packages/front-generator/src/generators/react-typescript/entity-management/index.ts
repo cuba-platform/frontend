@@ -33,10 +33,6 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       this.destinationPath(className + '.tsx'), this.model
     );
     this.fs.copyTpl(
-      this.templatePath('EntityManagementStore.ts'),
-      this.destinationPath(className + 'Store.ts'), this.model
-    );
-    this.fs.copyTpl(
       this.templatePath('EntityManagementBrowser.tsx'),
       this.destinationPath(className + 'Browser.tsx'), this.model
     );

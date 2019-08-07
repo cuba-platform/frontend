@@ -32,14 +32,10 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
       this.templatePath('EntityCards.tsx'),
       this.destinationPath(this.model.className + '.tsx'), this.model
     );
-    this.fs.copyTpl(
-      this.templatePath('EntityCardsStore.ts'),
-      this.destinationPath(this.model.className + 'Store.ts'), this.model
-    );
 
     if (!addToMenu(this.fs, {
       componentFileName: this.model.className,
-      componentClassName: this.model.className + 'Page',
+      componentClassName: this.model.className,
       caption: this.model.className,
       dirShift: this.options.dirShift,
       destRoot: this.destinationRoot(),

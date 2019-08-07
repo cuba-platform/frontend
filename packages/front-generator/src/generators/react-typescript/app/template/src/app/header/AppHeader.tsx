@@ -1,21 +1,21 @@
 import {Button, Modal} from "antd";
 import * as React from "react";
-import {AppStateObserver, injectAppState} from "../AppState";
 import {observer} from "mobx-react";
 import './AppHeader.css';
 import logo from './logo.png';
+import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
 
-@injectAppState
+@injectMainStore
 @observer
-class AppHeader extends React.Component<AppStateObserver> {
+class AppHeader extends React.Component<MainStoreInjected> {
 
   render() {
-    const appState = this.props.appState!;
+    const appState = this.props.mainStore!;
 
     return (
       <div className="AppHeader">
         <div className="logo">
-          <img src={logo}/>
+          <img src={logo} alt={'Logo'}/>
         </div>
         <div className="user-info">
           <span>{appState.userName}</span>
@@ -34,7 +34,7 @@ class AppHeader extends React.Component<AppStateObserver> {
       okText: 'Logout',
       cancelText: 'Cancel',
       onOk: () => {
-        this.props.appState!.logout()
+        this.props.mainStore!.logout()
       }
     });
   }

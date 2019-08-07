@@ -1,12 +1,12 @@
 ## CUBA React front-end client
 
-#### Overview
+### Overview
 
 React client is alternative to Polymer UI which provides more opionated and front-end oriented
 development experience. While it requires better knowledge of modern front-end stack it allows to build 
 more complex and feature-rich apps as well as using bigger amount of front-end packages. You will need IDE with TypeScript support: [VSCode](https://code.visualstudio.com/), WebStorm or [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate Edition.
  
-#### Technologies
+### Technologies
 
 The client uses [TypeScript](http://www.typescriptlang.org/) language. 
 It is based on the following frameworks and libraries: 
@@ -15,7 +15,12 @@ It is based on the following frameworks and libraries:
 * [MobX](https://mobx.js.org/) - reactive state management;
 * [Ant Design](https://ant.design/docs/react/introduce) - UI components;
 * [React Router](https://reacttraining.com/react-router/) - routing;
+* [CUBA React](https://github.com/cuba-labs/cuba-react) - React components;
 * [CUBA REST JS](https://github.com/cuba-platform/cuba-rest-js) - interaction with СUBA generic REST API;
+
+### Getting started
+
+
 
 #### Hot deploy and dev server
 

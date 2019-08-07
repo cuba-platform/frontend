@@ -1,37 +1,36 @@
 import * as React from "react";
-import {inject, observer} from "mobx-react";
-import {Button, Card, Icon, Modal} from "antd";
-import {<%=className%>, <%=className%>StoreObserver} from "./<%=className%>";
-import {Browse<%=entity.className%>Part, <%=className%>Store} from "./<%=className%>Store";
+import {observer} from "mobx-react";
+import {Card, Icon, Modal} from "antd";
+import {<%=entity.className%>} from "<%= relDirShift %>cuba/entities/<%=entity.name%>";
 import {Link} from "react-router-dom";
-import {EntityProperty} from "<%= relDirShift %>app/common/EntityProperty";
+import {collection, EntityProperty} from "@cuba-platform/react";
+import {SerializedEntity} from "@cuba-platform/rest";
+import {<%=className%>} from "./<%=className%>";
 
-@inject(<%=className%>Store.NAME)
 @observer
-export class <%=className%>Browser extends React.Component<<%=className%>StoreObserver> {
+export class <%=className%>Browser extends React.Component {
 
-  showDeletionDialog = (e: Browse<%=entity.className%>Part) => {
+  dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=listView.name%>'});
+  fields = [<%listView.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
+
+  showDeletionDialog = (e: SerializedEntity<<%=entity.className%>>) => {
     Modal.confirm({
       title: `Are you sure you want to delete ${e._instanceName}?`,
       okText: 'Delete',
       cancelText: 'Cancel',
       onOk: () => {
-        return this.props.<%=nameLiteral%>Store!.deleteEntity(e);
+        return this.dataCollection.delete(e);
       }
     });
   };
 
   render() {
     const {
-      initializing,
-      isLoadingList,
-      entityList,
-      moreEntitiesAvailable,
-      isEmpty,
-      loadMore,
-    } = this.props.<%=nameLiteral%>Store!;
+      status,
+      items
+    } = this.dataCollection;
 
-    if (initializing) {
+    if (status === "LOADING") {
       return <Icon type='spin'/>
     }
 
@@ -42,9 +41,9 @@ export class <%=className%>Browser extends React.Component<<%=className%>StoreOb
             <Icon type='plus-circle' style={{fontSize: '24px'}}/>
           </Link>
         </div>
-        {isEmpty ?
+        {items == null || items.length === 0 ?
           <p>No items available</p> : null}
-        {entityList.map(e =>
+        {items.map(e =>
           <Card title={e._instanceName}
                 key={e.id}
                 style={{marginBottom: '12px'}}
@@ -56,22 +55,14 @@ export class <%=className%>Browser extends React.Component<<%=className%>StoreOb
                     <Icon type='edit'/>
                   </Link>
                 ]}>
-                {Browse<%=entity.className%>Part.PROPERTIES.map(p =>
-                  <EntityProperty entityName={Browse<%=entity.className%>Part.ENTITY_NAME}
+                {this.fields.map(p =>
+                  <EntityProperty entityName={<%=entity.className%>.NAME}
                                   propertyName={p}
                                   value={e[p]}
                                   key={p}/>
                 )}
           </Card>
         )}
-        {moreEntitiesAvailable ?
-          <Button htmlType='button'
-                  block={true}
-                  loading={isLoadingList}
-                  onClick={loadMore}>
-            Load More
-          </Button> : null
-        }
       </div>
     )
   }

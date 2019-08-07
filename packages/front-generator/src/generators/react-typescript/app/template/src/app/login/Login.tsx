@@ -3,14 +3,14 @@ import {ChangeEvent, FormEvent} from "react";
 import {Button, Form, Icon, Input, message} from "antd";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
-import {AppStateObserver, injectAppState} from "../AppState";
+import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
 
 import './Login.css';
 import logo from './logo.png';
 
-@injectAppState
+@injectMainStore
 @observer
-class Login extends React.Component<AppStateObserver> {
+class Login extends React.Component<MainStoreInjected> {
 
   @observable login: string;
   @observable password: string;
@@ -30,7 +30,7 @@ class Login extends React.Component<AppStateObserver> {
   doLogin = (e: FormEvent) => {
     e.preventDefault();
     this.performingLoginRequest = true;
-    this.props.appState!.login(this.login, this.password)
+    this.props.mainStore!.login(this.login, this.password)
       .then(action(() => {
         this.performingLoginRequest = false;
       }))

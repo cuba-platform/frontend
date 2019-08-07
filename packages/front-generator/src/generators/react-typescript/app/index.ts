@@ -76,6 +76,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.fs.copyTpl(this.templatePath('.env.development.local'), this.destinationPath('.env.development.local'), this.model);
     this.fs.copyTpl(this.templatePath('.package-lock.json'), this.destinationPath('package-lock.json'), this.model);
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
 
     if (this.cubaProjectModel) {
       generateEntities(this.cubaProjectModel, path.join(this.destinationRoot(), 'src/cuba'), this.fs);
