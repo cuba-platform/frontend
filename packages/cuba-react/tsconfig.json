@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": [ "es2017", "dom" ],
+    "module": "esnext",
+    "outDir": "dist-transpiled",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "declarationDir": "dist",
+    "sourceMap": true,
+    "inlineSources": true,
+    "experimentalDecorators": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

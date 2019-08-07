@@ -1,0 +1,36 @@
+{
+  "name": "@cuba-platform/react",
+  "version": "0.1.0-beta.1",
+  "description": "CUBA Platform utilities and components for React",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "peerDependencies": {
+    "@cuba-platform/rest": "^0.5.1",
+    "antd": "^3.20.6",
+    "mobx": "^4.13.0 || ^5.13.0",
+    "mobx-react": "^5.4.4",
+    "react": "^16.7.0"
+  },
+  "devDependencies": {
+    "@cuba-platform/rest": "^0.5.1",
+    "@types/react": "^16.7.18",
+    "antd": "^3.20.6",
+    "mobx": "^4.13.0",
+    "mobx-react": "^5.4.4",
+    "react": "^16.7.0",
+    "rollup": "~1.17.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "tslint": "^5.18.0",
+    "typescript": "~3.5.3"
+  },
+  "scripts": {
+    "compile": "tsc && rollup -c",
+    "clean": "rm -rf dist && rm -rf dist-transpiled"
+  },
+  "author": "CUBA Platform Team <info@cuba-platform.com>",
+  "license": "Apache-2.0"
+}
