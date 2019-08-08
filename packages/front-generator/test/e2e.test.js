@@ -5,7 +5,7 @@ const exec = promisify(require('child_process').exec);
 const answers = require('./answers');
 
 (async function () {
-  await rimraf('.tmp/*');
+  // await rimraf('.tmp/*');
 
   const generationProcesses = [];
 
@@ -47,7 +47,7 @@ const answers = require('./answers');
 })();
 
 function runGenerator(name, dest, answersJSONString, dirShift) {
-  const pathToModel = path.join(process.cwd(), 'test', 'projectModel.json');
+  const pathToModel = path.join(process.cwd(), 'test', 'projectModel2.json');
 
   let command = `node bin/gen-cuba-front ${name} --model ${pathToModel}`;
   if (dest) {

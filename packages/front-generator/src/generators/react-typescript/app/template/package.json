@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cuba-platform/rest": "^0.5.1",
     "@cuba-platform/react": "^0.1.0-beta.1",
+    "@cuba-platform/rest": "^0.5.1",
     "antd": "^3.20.7",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
