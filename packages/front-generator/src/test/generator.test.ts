@@ -1,19 +1,22 @@
 import {collectClients, generate} from "../init";
 import * as assert from "assert";
+
 import {createEntityClass} from "../common/model/entities-generation";
-import {Entity, ProjectModel} from "../common/model/cuba-model";
+import {Entity, Enum, ProjectModel} from "../common/model/cuba-model";
 import * as path from "path";
+import {createEnums} from "../common/model/enums-generation";
+import {renderTSNodes} from "../common/model/ts-helpers";
 
 const projectModel: ProjectModel = require('../../test/projectModel2.json');
-const modelPath =  require.resolve('../../test/projectModel.json');
-const answers = require('../../test/answers.js');
+const enumsModel: Enum[] = require('./enums-model-pice.json');
+const modelPath = require.resolve('../../test/projectModel.json');
 const tmpGenerationDir = path.join(process.cwd(), '.tmp');
 
 describe('generator', function () {
-  it(collectClients.name , async function() {
+  it(collectClients.name, async function () {
     const generators = collectClients();
     assert(Array.isArray(generators));
-    console.log(generators.reduce((p, gen) => p+= gen.name + '\n', ''));
+    console.log(generators.reduce((p, gen) => p + gen.name + '\n', ''));
   });
 
   it('generates Polymer client', function () {
@@ -24,7 +27,7 @@ describe('generator', function () {
     });
   });
 
-  it ('generates React client', function () {
+  it('generates React client', function () {
     return generate('react-typescript', 'app', {
       model: modelPath,
       dest: path.join(tmpGenerationDir, 'react-client'),
@@ -32,7 +35,7 @@ describe('generator', function () {
     });
   });
 
-  it ('generates SDK', function () {
+  it('generates SDK', function () {
     return generate('sdk', 'all', {
       model: modelPath,
       dest: path.join(tmpGenerationDir, 'sdk'),
@@ -41,9 +44,26 @@ describe('generator', function () {
   })
 });
 
-describe('generate TS entity', function() {
-  it(createEntityClass.name, function() {
+describe('generate TS entity', function () {
+  it(createEntityClass.name, function () {
     const classTsNode = createEntityClass((projectModel.entities as Entity[])[0]);
     assert(classTsNode != null);
   });
 });
+
+describe('generate TS enum', () => {
+  it(createEnums.name, () => {
+    let enumDeclarations = createEnums(enumsModel);
+    let content = renderTSNodes(enumDeclarations);
+    assert("enum CarType { SEDAN, HATCHBACK } enum EcoRank { EURO1, EURO2, EURO3 } " == drain(content));
+
+    enumDeclarations = [];
+    content = renderTSNodes(enumDeclarations);
+    assert("" == content)
+
+  });
+});
+
+function drain(result: string) {
+  return result.replace(/\n/g, ' ').replace(/\s{2,}/g, ' ');
+}
