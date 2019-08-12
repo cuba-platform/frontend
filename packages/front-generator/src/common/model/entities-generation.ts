@@ -4,9 +4,13 @@ import * as path from "path";
 import * as ts from "typescript";
 import {renderTSNodes} from "./ts-helpers";
 import {createEntityViewTypes} from "./entity-views-generation";
+import {createEnums} from "./enums-generation";
+import {EnumDeclaration} from "typescript";
 
 const ENTITIES_DIR = 'entities';
 const BASE_ENTITIES_DIR = 'base';
+const ENUMS_DIR = 'enums';
+const ENUMS_FILE = 'enums';
 
 export interface ProjectEntityInfo {
   entity: Entity;
@@ -45,6 +49,12 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
       renderTSNodes([...includes, classDeclaration, ...views])
     )
   }
+
+  const enums: EnumDeclaration[] = createEnums(projectModel.enums);
+  fs.write(
+    path.join(destDir, ENUMS_DIR, path.join(ENUMS_FILE + '.ts')),
+    renderTSNodes(enums)
+  )
 }
 
 

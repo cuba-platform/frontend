@@ -1,8 +1,8 @@
 const {promisify} = require('util');
-const path = require('path');
 const rimraf = promisify(require('rimraf'));
 const exec = promisify(require('child_process').exec);
 const answers = require('./answers');
+const {runGenerator} = require('./e2e-common');
 
 (async function () {
   await rimraf('.tmp/*');
@@ -46,20 +46,3 @@ const answers = require('./answers');
 
 })();
 
-function runGenerator(name, dest, answersJSONString, dirShift) {
-  const pathToModel = path.join(process.cwd(), 'test', 'projectModel.json');
-
-  let command = `node bin/gen-cuba-front ${name} --model ${pathToModel}`;
-  if (dest) {
-    command += ` --dest ${dest}`;
-  }
-  if (answersJSONString) {
-    const encodedAnswers = Buffer.from(answersJSONString).toString('base64');
-    command += ` --answers ${encodedAnswers}`;
-  }
-  if (dirShift) {
-    command += ` --dirShift ${dirShift}`
-  }
-  console.log(command);
-  return exec(command);
-}
