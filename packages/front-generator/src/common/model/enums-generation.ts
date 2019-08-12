@@ -13,7 +13,7 @@ export function createEnums(enums: Enum[]): EnumDeclaration[] {
 function getEnumMembers(values: EnumValue[]): EnumMember[] {
   const members: EnumMember[] = [];
   values.forEach(v => {
-    members.push(ts.createEnumMember(v.name));
+    members.push(ts.createEnumMember(v.name, ts.createStringLiteral(v.name)));
   });
   return members;
 }

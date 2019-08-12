@@ -51,16 +51,17 @@ describe('generate TS entity', function () {
   });
 });
 
-describe('generate TS enum', () => {
+describe('generate TS enums', () => {
   it(createEnums.name, () => {
     let enumDeclarations = createEnums(enumsModel);
     let content = renderTSNodes(enumDeclarations);
-    assert("enum CarType { SEDAN, HATCHBACK } enum EcoRank { EURO1, EURO2, EURO3 } " == drain(content));
+    const res = 'enum CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +
+      'enum EcoRank { EURO1 = "EURO1", EURO2 = "EURO2", EURO3 = "EURO3" } ';
+    assert(res == drain(content));
 
     enumDeclarations = [];
     content = renderTSNodes(enumDeclarations);
     assert("" == content)
-
   });
 });
 
