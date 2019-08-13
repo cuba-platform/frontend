@@ -55,8 +55,8 @@ describe('generate TS enums', () => {
   it(createEnums.name, () => {
     let enumDeclarations = createEnums(enumsModel);
     let content = renderTSNodes(enumDeclarations);
-    const res = 'enum CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +
-      'enum EcoRank { EURO1 = "EURO1", EURO2 = "EURO2", EURO3 = "EURO3" } ';
+    const res = 'export enum CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +
+      'export enum EcoRank { EURO1 = "EURO1", EURO2 = "EURO2", EURO3 = "EURO3" } ';
     assert(res == drain(content));
 
     enumDeclarations = [];

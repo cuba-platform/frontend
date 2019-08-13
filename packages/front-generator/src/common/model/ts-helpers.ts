@@ -1,6 +1,6 @@
 import * as ts from "typescript";
 
-export function renderTSNodes(nodes: ts.Node[]): string {
+export function renderTSNodes(nodes: ts.Node[], separator: string = '\n'): string {
   const resultFile = ts.createSourceFile(
     'temp.ts',
     '',
@@ -18,7 +18,7 @@ export function renderTSNodes(nodes: ts.Node[]): string {
       ts.EmitHint.Unspecified,
       node,
       resultFile,
-    ) + '\n';
+    ) + separator;
   });
 
   return content;

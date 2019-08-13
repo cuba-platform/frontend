@@ -5,7 +5,11 @@ import {EnumDeclaration, EnumMember} from "typescript";
 export function createEnums(enums: Enum[]): EnumDeclaration[] {
   const enDeclarations: EnumDeclaration[] = [];
   enums.forEach(e => enDeclarations.push(
-    ts.createEnumDeclaration(undefined, undefined, e.className, getEnumMembers(e.values))
+    ts.createEnumDeclaration(
+      undefined,
+      [ts.createToken(ts.SyntaxKind.ExportKeyword)],
+      e.className,
+      getEnumMembers(e.values))
   ));
   return enDeclarations;
 }

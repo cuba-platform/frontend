@@ -53,7 +53,7 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   const enums: EnumDeclaration[] = createEnums(projectModel.enums);
   fs.write(
     path.join(destDir, ENUMS_DIR, path.join(ENUMS_FILE + '.ts')),
-    renderTSNodes(enums)
+    renderTSNodes(enums, '\n\n')
   )
 }
 
