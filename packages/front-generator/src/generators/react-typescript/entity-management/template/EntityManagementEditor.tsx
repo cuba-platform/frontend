@@ -17,7 +17,7 @@ type Props = FormComponentProps & {
 @observer
 class <%=className%>Editor extends React.Component<Props> {
 
-  dataInstance = instance(<%=entity.className%>.NAME, {view: '<%=editView.name%>', loadImmediately: false});
+  dataInstance = instance<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=editView.name%>', loadImmediately: false});
   @observable
   updated = false;
   reactionDisposer: IReactionDisposer;
@@ -29,7 +29,7 @@ class <%=className%>Editor extends React.Component<Props> {
     this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
       .then(() => {
         message.success('Entity has been updated');
-        this.setState({updated: true});
+        this.updated = true;
       })
       .catch(() => {
         alert('Error')
@@ -79,6 +79,8 @@ class <%=className%>Editor extends React.Component<Props> {
   componentDidMount() {
     if (this.props.entityId !== <%=className%>.NEW_SUBPATH) {
       this.dataInstance.load(this.props.entityId);
+    } else {
+      this.dataInstance.setItem(new <%=entity.className%>());
     }
     this.reactionDisposer = reaction(
       () => {

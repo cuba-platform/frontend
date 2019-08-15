@@ -4,7 +4,7 @@
 
 React client is an alternative to [Generic UI](https://doc.cuba-platform.com/manual-latest/gui_framework.html) which 
 provides front-end oriented development experience. 
-It's more flexible in terms of layout customization and using UI libraries from vast JS ecosystem though
+It's more flexible in terms of layout customization and consuming UI libraries from vast JS ecosystem. However
 it requires better knowledge of modern front-end stack. 
  
 #### Technologies
@@ -58,10 +58,10 @@ app-name/
       App.tsx          <- App shell. Switches between Login form and internal application
     cuba/              <- CUBA Model
       entitites/       <- Project entities
-        base/          <- Entities from 
+        base/          <- Entities from addons and framework
 ```
 
-If client was generated using Studio it's placed in `modules/front` directory. 
+If client was generated using Studio it's placed in `modules/front` directory of main project. 
 
 ### Development
 
@@ -70,6 +70,7 @@ If client was generated using Studio it's placed in `modules/front` directory.
 Read [React documentation](https://reactjs.org/docs/components-and-props.html) on components.
 Create file with `.tsx` extension and place it in `src` directory. Here is an example of class based component:
 
+`Button.tsx`
 ```typescript jsx
 import React, { Component } from 'react';
 
@@ -115,6 +116,46 @@ See the [list of all environment](https://facebook.github.io/create-react-app/do
  available for configuration.
 
 See `src/config.ts` for full list of common application settings used in runtime.
+
+### Backend model
+
+`src/cuba` directory contains TypeScript representation of project's entities, views and facades to access REST services.
+Here is the layout of the directory:
+
+* `entities` - project entities and views;
+* `entities/base` - framework and addons entities;
+* `services.ts` - middleware services exposed to REST;
+* `queries.ts` - REST queries.
+
+Consider the `Role` entity class of CUBA Framework generated in typescript
+
+`src/cuba/entities/base/sec$Role.ts`
+```typescript
+export class Role extends StandardEntity {
+    static NAME = "sec$Role";
+    name?: string | null;
+    locName?: string | null;
+    description?: string | null;
+    type?: any | null;
+    defaultRole?: boolean | null;
+    permissions?: Permission[] | null;
+}
+```
+
+#### Synchronize project model
+
+In order to regenerate project model to conform changes in the backend you can use the following command:
+ 
+```bash
+$ npm run `update-model`
+```
+
+### Theming
+
+Ant Design provides abilities to [customize theme](https://ant.design/docs/react/customize-theme) using `less` and 
+overriding built-in variables.
+See the detailed [documentation](https://ant.design/docs/react/use-with-create-react-app#Customize-Theme) on Ant Design
+website.
 
 ### Security
 

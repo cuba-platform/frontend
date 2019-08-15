@@ -4,11 +4,13 @@ import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../c
 import * as path from "path";
 import {generateEntities} from "../../../common/model/entities-generation";
 import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../../common/studio/studio-integration";
+import {ownVersion} from "../../../cli";
 
 interface TemplateModel {
   title: string;
   basePath: string;
   project: ProjectInfo;
+  ownVersion: string;
 }
 
 interface Answers {
@@ -74,7 +76,6 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
     this.fs.copyTpl(this.templatePath('.env.production.local'), this.destinationPath('.env.production.local'), this.model);
     this.fs.copyTpl(this.templatePath('.env.development.local'), this.destinationPath('.env.development.local'), this.model);
-    this.fs.copyTpl(this.templatePath('.package-lock.json'), this.destinationPath('package-lock.json'), this.model);
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
 
@@ -92,6 +93,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
 
 function createModel(project: ProjectInfo): TemplateModel {
   return {
+    ownVersion,
     title: project.name,
     project: project,
     basePath: project.modulePrefix + '-front'

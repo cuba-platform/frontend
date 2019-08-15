@@ -18,9 +18,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "update-model": "gen-cuba-front sdk:all --dest src/cuba"
   },
   "devDependencies": {
+    "@cuba-platform/front-generator": "<%= ownVersion %>",
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",
