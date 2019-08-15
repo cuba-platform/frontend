@@ -50,7 +50,7 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     };
 
     const {importInfos, classDeclaration} = createEntityClass(ctx);
-    const includes = createIncludes(importInfos);
+    const includes = createIncludes(importInfos, entityImportInfo(entityInfo, ctx.isBaseProjectEntity));
 
     const views = createEntityViewTypes(entity, projectModel);
     fs.write(
@@ -244,7 +244,7 @@ function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationCont
 
   let importInfo = undefined;
 
-  if (refEntity && refEntity.entity && refEntity.entity.name != ctx.entity.name) importInfo = entityImportInfo(refEntity, ctx.isBaseProjectEntity);
+  if (refEntity && refEntity.entity) importInfo = entityImportInfo(refEntity, ctx.isBaseProjectEntity);
 
   if (enumDeclaration) {
     importInfo = {

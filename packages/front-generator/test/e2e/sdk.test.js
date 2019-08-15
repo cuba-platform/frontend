@@ -7,18 +7,13 @@ const assert = require('assert');
 const {runGenerator} = require('./../e2e-common');
 
 (async function () {
+
   await rimraf('.tmp/*');
-
-  const generationProcesses = [];
-
-  await exec('node bin/gen-cuba-front list -s ./.tmp/generators.json');
-
   const sdkAppDir = '.tmp/sdk';
-  generationProcesses.push(runGenerator('sdk:all', sdkAppDir));
 
-  Promise.all(generationProcesses)
+
+  runGenerator('sdk:all', sdkAppDir, undefined, undefined, 'projectModel2.json')
     .then(() => {
-
       const enumsFile = fs.readFileSync(path.join(sdkAppDir, 'enums/enums.ts'), 'utf8');
       const enumsExpectedFile = fs.readFileSync('test/e2e/results/enums/enums.ts', 'utf8');
       let filesCompareRes = enumsFile.localeCompare(enumsExpectedFile);
@@ -35,8 +30,9 @@ const {runGenerator} = require('./../e2e-common');
 
       //todo test when entity contains itself as member
 
-      //todo compile sdk after gen
-
+      // console.log('\ne2e:sdk: start compile sdk after generation');
+      // fs.writeFileSync(path.join(sdkAppDir, 'tsconfig.json'), '{}');
+      // exec(`cd ${sdkAppDir} && npx tsc`)
     })
     .catch((e) => {
       console.log(e);
