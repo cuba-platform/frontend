@@ -8,7 +8,8 @@ import {createEnums} from "../common/model/enums-generation";
 import {renderTSNodes} from "../common/model/ts-helpers";
 
 const projectModel: ProjectModel = require('../../test/projectModel2.json');
-const enumsModel: Enum[] = require('./enums-model-pice.json');
+const enumsModel: Enum[] = require('./enums-model.json');
+const enumsModelDuplicates: Enum[] = require('./enums-model--identical-names.json');
 const modelPath = require.resolve('../../test/projectModel.json');
 const tmpGenerationDir = path.join(process.cwd(), '.tmp');
 
@@ -53,15 +54,26 @@ describe('generate TS entity', function () {
 
 describe('generate TS enums', () => {
   it(createEnums.name, () => {
-    let enumDeclarations = createEnums(enumsModel);
-    let content = renderTSNodes(enumDeclarations);
+    let enums = createEnums(enumsModel);
+    let content = renderTSNodes(enums.map(e => e.node));
     const res = 'export enum CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +
       'export enum EcoRank { EURO1 = "EURO1", EURO2 = "EURO2", EURO3 = "EURO3" } ';
     assert(res == drain(content));
 
-    enumDeclarations = [];
-    content = renderTSNodes(enumDeclarations);
+    enums = [];
+    content = renderTSNodes(enums.map(e => e.node));
     assert("" == content)
+  });
+
+  it('should resolve enum duplicated names',  () => {
+    let enums = createEnums(enumsModelDuplicates);
+    let content = renderTSNodes(enums.map(e => e.node));
+
+    const expected = '' +
+      'export enum com_company_mpg_entity_CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +
+      'export enum com_company_mpg_entity2_CarType { SEDAN_V2 = "SEDAN_V2", HATCHBACK_V2 = "HATCHBACK_V2" } ' +
+      'export enum EcoRank { EURO1 = "EURO1", EURO2 = "EURO2", EURO3 = "EURO3" } ';
+    assert(expected == drain(content));
   });
 });
 

@@ -4,8 +4,7 @@ import * as path from "path";
 import * as ts from "typescript";
 import {renderTSNodes} from "./ts-helpers";
 import {createEntityViewTypes} from "./entity-views-generation";
-import {createEnums} from "./enums-generation";
-import {EnumDeclaration} from "typescript";
+import {createEnums, EnumInfo} from "./enums-generation";
 
 const ENTITIES_DIR = 'entities';
 const BASE_ENTITIES_DIR = 'base';
@@ -27,6 +26,7 @@ const entitiesMap = new Map<string, ProjectEntityInfo>();
 export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): void {
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
   const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
+  const enums: EnumInfo[] = createEnums(projectModel.enums);
 
   const addEntityToMap = (map: Map<string, ProjectEntityInfo>, isBaseProjectEntity = false) => (e: Entity) => {
     map.set(e.fqn, {
@@ -50,10 +50,9 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     )
   }
 
-  const enums: EnumDeclaration[] = createEnums(projectModel.enums);
   fs.write(
     path.join(destDir, ENUMS_DIR, path.join(ENUMS_FILE + '.ts')),
-    renderTSNodes(enums, '\n\n')
+    renderTSNodes(enums.map(en => en.node), '\n\n')
   )
 }
 

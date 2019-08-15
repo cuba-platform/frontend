@@ -22,13 +22,13 @@ const {runGenerator} = require('./../e2e-common');
       const enumsExpectedFile = fs.readFileSync('test/e2e/results/enums/enums.ts', 'utf8');
       let enumFilesCompareRes = enumsFile.localeCompare(enumsExpectedFile);
       console.log('e2e:sdk: compare generated enums.ts file with expected result located at ' +
-        'test/e2e/results/enums/enums.ts, result is', enumFilesCompareRes);
+        'test/e2e/results/enums/enums.ts, result is', enumFilesCompareRes, enumFilesCompareRes === 0 ? 'OK' : 'FAIL');
       assert(enumFilesCompareRes === 0);
     })
     .catch((e) => {
-    console.log(e);
-    process.exit(1);
-  });
+      console.log(e);
+      process.exit(1);
+    });
 
 })();
 
