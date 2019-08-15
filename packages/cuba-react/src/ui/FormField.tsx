@@ -2,15 +2,20 @@ import * as React from "react";
 import {Checkbox, DatePicker, Input, Select} from "antd";
 import {observer} from "mobx-react";
 import {injectMainStore, MainStoreInjected, PropertyType} from "../app/MainStore";
-import {EnumInfo, EnumValueInfo} from "@cuba-platform/rest"
-import {getPropertyInfo} from "../util/metadata";
+import {Cardinality, EnumInfo, EnumValueInfo} from "@cuba-platform/rest"
+import {getPropertyInfo, WithId} from "../util/metadata";
+import {DataCollectionStore} from "../data/Collection";
 
 type Props = MainStoreInjected & {
   entityName: string;
   propertyName: string;
+  optionsContainer?: DataCollectionStore<WithId>;
 }
 
-export const FormField = injectMainStore(observer(({entityName, propertyName, mainStore, ...rest}: Props) => {
+export const FormField = injectMainStore(observer((props: Props) => {
+
+  const {entityName, propertyName, optionsContainer, mainStore, ...rest} = props;
+
   if (mainStore == null || mainStore.metadata == null) {
     return <Input {...rest}/>;
   }
@@ -22,8 +27,10 @@ export const FormField = injectMainStore(observer(({entityName, propertyName, ma
     case 'ENUM':
       return <EnumField enumClass={propertyInfo.type} {...rest}/>;
     case 'ASSOCIATION':
+      const mode = getSelectMode(propertyInfo.cardinality);
+      return <Select mode={mode} {...rest}/>;
     case 'COMPOSITION':
-      return <Select/>;
+      return <Select {...rest}/>;
   }
   switch (propertyInfo.type as PropertyType) {
     case 'boolean':
@@ -51,3 +58,10 @@ export const EnumField = injectMainStore(observer(({enumClass, mainStore, ...res
     )}
   </Select>
 }));
+
+function getSelectMode(cardinality: Cardinality): "default" | "multiple" {
+  if (cardinality === "ONE_TO_MANY" || cardinality === "MANY_TO_MANY") {
+    return "multiple"
+  }
+  return "default";
+}

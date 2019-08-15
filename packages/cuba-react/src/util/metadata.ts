@@ -8,3 +8,6 @@ export function getPropertyInfo(metadata: MetaClassInfo[], entityName: string, p
     const propInfo = metaClass.properties.find(prop => prop.name === propertyName);
     return propInfo || null
 }
+
+
+export type WithId = {id?: string};

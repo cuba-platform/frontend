@@ -1,16 +1,16 @@
 import {action, computed, observable, runInAction, toJS} from "mobx";
-import {PredefinedView, SerializedEntity} from "@cuba-platform/rest";
+import {PredefinedView, SerializedEntityProps} from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore, PropertyType} from "../app/MainStore";
-import {getPropertyInfo} from "../util/metadata";
+import {getPropertyInfo, WithId} from "../util/metadata";
 
 
 export class DataInstanceStore<T> implements DataContainer {
 
-  @observable item?: SerializedEntity<T> & { id?: string };
+  @observable item?: T & Partial<SerializedEntityProps> & { id?: string };
   @observable status: DataContainerStatus = "CLEAN";
   @observable viewName: string;
 
@@ -20,7 +20,6 @@ export class DataInstanceStore<T> implements DataContainer {
               public readonly entityName: string,
               viewName: string = PredefinedView.MINIMAL) {
     this.viewName = viewName;
-    console.log(`withDataInstance$${entityName}`)
   }
 
   @action
@@ -45,25 +44,35 @@ export class DataInstanceStore<T> implements DataContainer {
   };
 
   @action
+  setItem(item: this["item"]) {
+    this.item = item;
+    this.status = "DONE";
+  }
+
+  @action
   update(entityPatch: Partial<T>): Promise<any> {
     Object.assign(this.item, entityPatch);
     return this.commit();
   }
 
   @action
-  commit = () => {
+  commit = (): Promise<void> => {
     if (this.item == null) {
       return Promise.reject();
     }
     this.status = 'LOADING';
     return getCubaREST()!.commitEntity(this.entityName, toJS(this.item!))
-      .then(() => {
+      .then((updatedEntity) => {
         runInAction(() => {
+          if (updatedEntity.id != null) {
+            this.item!.id = updatedEntity.id
+          }
           this.status = 'DONE';
         })
       })
-      .catch(() => {
+      .catch((e) => {
         this.status = 'ERROR';
+        throw e;
       })
   };
 
@@ -74,18 +83,46 @@ export class DataInstanceStore<T> implements DataContainer {
     }
     const entity: T = this.item ? toJS(this.item) : ({} as T);
     const entityFields: Partial<T> = (properties as Array<keyof T & string>).reduce<Partial<T>>(
-      (acc: Partial<T>, propertyName) => {
+      (fields: Partial<T>, propertyName) => {
         const propertyInfo = getPropertyInfo(toJS(metadata), this.entityName, propertyName);
         if (propertyInfo == null) {
-          acc[propertyName] = entity[propertyName];
-          return acc;
+          fields[propertyName] = entity[propertyName];
+          return fields;
         }
-        if (propertyInfo.type as PropertyType === "date") { // todo
-          acc[propertyName] = entity[propertyName];
-          return acc;
+
+        const type = propertyInfo.type as PropertyType;
+        const {cardinality} = propertyInfo;
+
+        if (propertyInfo.attributeType === "ASSOCIATION") {
+          if (entity[propertyName] == null) {
+            fields[propertyName] = entity[propertyName];
+            return fields;
+          }
+
+          if (cardinality === "MANY_TO_ONE" || cardinality === "ONE_TO_ONE") {
+            // @ts-ignore
+            fields[propertyName] = (entity[propertyName] as WithId).id!;
+            return fields;
+          }
+
+          if (cardinality === "ONE_TO_MANY" || cardinality === "MANY_TO_MANY") {
+            // @ts-ignore
+            const entityList = (entity[propertyName] as WithId[]);
+            // @ts-ignore
+            fields[propertyName] = entityList.reduce<string[]>((accumulator, nextEntity) => {
+              accumulator.push(nextEntity.id!);
+              return accumulator;
+            }, []);
+            return  fields;
+          }
+        }
+
+        if (type === "date") { // todo
+          fields[propertyName] = entity[propertyName];
+          return fields;
         } else {
-          acc[propertyName] = entity[propertyName];
-          return acc;
+          fields[propertyName] = entity[propertyName];
+          return fields;
         }
       },
       {}
