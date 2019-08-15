@@ -1,14 +1,14 @@
 import {collectClients, generate} from "../init";
 import * as assert from "assert";
 
-import {createEntityClass} from "../common/model/entities-generation";
-import {Entity, Enum, ProjectModel} from "../common/model/cuba-model";
+import {createEntityClass, ProjectEntityInfo} from "../common/model/entities-generation";
+import {Entity, Enum} from "../common/model/cuba-model";
 import * as path from "path";
 import {createEnums} from "../common/model/enums-generation";
 import {renderTSNodes} from "../common/model/ts-helpers";
 
-const projectModel: ProjectModel = require('../../test/projectModel2.json');
 const enumsModel: Enum[] = require('./enums-model.json');
+const entityModel: Entity = require('./entity-model.json');
 const enumsModelDuplicates: Enum[] = require('./enums-model--identical-names.json');
 const modelPath = require.resolve('../../test/projectModel.json');
 const tmpGenerationDir = path.join(process.cwd(), '.tmp');
@@ -47,8 +47,33 @@ describe('generator', function () {
 
 describe('generate TS entity', function () {
   it(createEntityClass.name, function () {
-    const classTsNode = createEntityClass((projectModel.entities as Entity[])[0]);
-    assert(classTsNode != null);
+    const entitiesMap = new Map<string, ProjectEntityInfo>();
+    entitiesMap.set('com.company.mpg.entity.Garage', {type: {className: 'Garage'}} as any);
+    entitiesMap.set('com.company.mpg.entity.TechnicalCertificate', {type: {className: 'TechnicalCertificate'}} as any);
+    entitiesMap.set('com.haulmont.cuba.core.entity.FileDescriptor', {type: {className: 'FileDescriptor'}} as any);
+
+    const classTsNode = createEntityClass(entityModel, entitiesMap);
+    const content = renderTSNodes([classTsNode.classDeclaration]);
+
+    const expected = `export class Car {
+    static NAME = "mpg$Car";
+    manufacturer?: string | null;
+    model?: string | null;
+    regNumber?: string | null;
+    purchaseDate?: any | null;
+    wheelOnRight?: boolean | null;
+    carType?: any | null;
+    ecoRank?: any | null;
+    garage?: Garage | null;
+    maxPassengers?: number | null;
+    price?: any | null;
+    mileage?: any | null;
+    technicalCertificate?: TechnicalCertificate | null;
+    photo?: FileDescriptor | null;
+}
+`;
+
+    assert(expected == content);
   });
 });
 
@@ -65,9 +90,9 @@ describe('generate TS enums', () => {
     assert("" == content)
   });
 
-  it('should resolve enum duplicated names',  () => {
-    let enums = createEnums(enumsModelDuplicates);
-    let content = renderTSNodes(enums.map(e => e.node));
+  it('should resolve enum duplicated names', () => {
+    const enums = createEnums(enumsModelDuplicates);
+    const content = renderTSNodes(enums.map(e => e.node));
 
     const expected = '' +
       'export enum com_company_mpg_entity_CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +

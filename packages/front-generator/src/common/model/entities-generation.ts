@@ -1,4 +1,4 @@
-import {Cardinality, Entity, EntityAttribute, Enum, getEntitiesArray, MappingType, ProjectModel} from "./cuba-model";
+import {Cardinality, Entity, EntityAttribute, getEntitiesArray, MappingType, ProjectModel} from "./cuba-model";
 import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
@@ -16,16 +16,11 @@ export interface ProjectEntityInfo {
   isBaseProjectEntity: boolean;
 }
 
-interface DatatypeInfo {
-  kind: 'enum' | 'entity'
-  datatype: ProjectEntityInfo | Enum;
-}
-
-const entitiesMap = new Map<string, ProjectEntityInfo>();
 
 export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): void {
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
   const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
+  const entitiesMap = new Map<string, ProjectEntityInfo>();
   const enums: EnumInfo[] = createEnums(projectModel.enums);
 
   const addEntityToMap = (map: Map<string, ProjectEntityInfo>, isBaseProjectEntity = false) => (e: Entity) => {
@@ -39,9 +34,9 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   baseProjectEntities.forEach(addEntityToMap(entitiesMap, true));
 
 
-  for (const [fqn, entityInfo] of entitiesMap) {
+  for (const [, entityInfo] of entitiesMap) {
     const {entity} = entityInfo;
-    const {refEntities, classDeclaration} = createEntityClass(entity);
+    const {refEntities, classDeclaration} = createEntityClass(entity, entitiesMap);
     const includes = createIncludes(entity, refEntities, entityInfo.isBaseProjectEntity);
     const views = createEntityViewTypes(entity, projectModel);
     fs.write(
@@ -57,18 +52,18 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
 }
 
 
-export function createEntityClass(entity: Entity): {
+export function createEntityClass(entity: Entity, entitiesMap: Map<string, ProjectEntityInfo>): {
   classDeclaration: ts.ClassDeclaration,
   refEntities: ProjectEntityInfo[]
 } {
 
-  const heritageInfo = createEntityClassHeritage(entity);
+  const heritageInfo = createEntityClassHeritage(entity, entitiesMap);
   const refEntities: ProjectEntityInfo[] = [];
   if (heritageInfo.parentEntity) {
     refEntities.push(heritageInfo.parentEntity)
   }
 
-  const classMembersInfo = createEntityClassMembers(entity);
+  const classMembersInfo = createEntityClassMembers(entity, entitiesMap);
   if (classMembersInfo.refEntities) {
     refEntities.push(...classMembersInfo.refEntities);
   }
@@ -89,7 +84,7 @@ export function createEntityClass(entity: Entity): {
   };
 }
 
-function createEntityClassHeritage(entity: Entity): {
+function createEntityClassHeritage(entity: Entity, entitiesMap: Map<string, ProjectEntityInfo>): {
   heritageClauses: ts.HeritageClause[]
   parentEntity?: ProjectEntityInfo
 } {
@@ -120,7 +115,7 @@ function createEntityClassHeritage(entity: Entity): {
   };
 }
 
-function createEntityClassMembers(entity: Entity): {
+function createEntityClassMembers(entity: Entity, entitiesMap: Map<string, ProjectEntityInfo>): {
   classMembers: ts.ClassElement[]
   refEntities: ProjectEntityInfo[]
 } {
@@ -145,7 +140,7 @@ function createEntityClassMembers(entity: Entity): {
   const refEntities: ProjectEntityInfo[] = [];
 
   const allClassMembers = [...basicClassMembers, ...entity.attributes.map(entityAttr => {
-    const attributeTypeInfo = createAttributeType(entityAttr);
+    const attributeTypeInfo = createAttributeType(entityAttr, entitiesMap);
     if (attributeTypeInfo.entity) {
       refEntities.push(attributeTypeInfo.entity);
     }
@@ -167,7 +162,7 @@ function createEntityClassMembers(entity: Entity): {
 }
 
 
-function createAttributeType(entityAttr: EntityAttribute): {
+function createAttributeType(entityAttr: EntityAttribute, entitiesMap: Map<string, ProjectEntityInfo>): {
   node: ts.TypeNode,
   entity?: ProjectEntityInfo
 } {
@@ -175,7 +170,11 @@ function createAttributeType(entityAttr: EntityAttribute): {
   let node: ts.TypeNode | undefined;
   let refEntity: ProjectEntityInfo | undefined;
 
-  if (entityAttr.mappingType === MappingType.DATATYPE) {
+  const {mappingType} = entityAttr;
+
+  // primitive
+
+  if (mappingType === MappingType.DATATYPE) {
     switch (entityAttr.type.fqn) {
       case 'java.lang.Boolean':
         node = ts.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
@@ -192,7 +191,9 @@ function createAttributeType(entityAttr: EntityAttribute): {
     }
   }
 
-  if (entityAttr.mappingType === MappingType.ASSOCIATION || entityAttr.mappingType === MappingType.COMPOSITION) {
+  //objects
+
+  if (mappingType === MappingType.ASSOCIATION || mappingType === MappingType.COMPOSITION) {
     refEntity = entitiesMap.get(entityAttr.type.fqn);
 
     if (refEntity) {
