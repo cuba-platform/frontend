@@ -1,6 +1,7 @@
 import {Enum, EnumValue} from "./cuba-model";
 import * as ts from "typescript";
 import {EnumDeclaration, EnumMember} from "typescript";
+import {fqnToName} from "../utils";
 
 export type EnumInfo = {
   fqn: string
@@ -31,9 +32,11 @@ export function createEnums(enums: Enum[]): EnumInfo[] {
     enDeclarations
       .filter(ed => ed.node.name.text === duplicateName)
       .forEach(ed => {
-        //todo util method
-        const newName = ed.fqn.replace(/\./g, '_');
-        ed.node = ts.createEnumDeclaration(undefined, [ts.createToken(ts.SyntaxKind.ExportKeyword)], newName, ed.node.members);
+        ed.node = ts.createEnumDeclaration(
+          undefined,
+          [ts.createToken(ts.SyntaxKind.ExportKeyword)],
+          fqnToName(ed.fqn),
+          ed.node.members);
       })
   });
 

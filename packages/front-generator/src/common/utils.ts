@@ -26,3 +26,11 @@ export function convertToUnixPath(input: string): string {
 
   return input.replace(/\\/g, '/');
 }
+
+/**
+ * Convert java class fully qualified name to compilable TS class name
+ * @param fqn java class fqn
+ */
+export function fqnToName(fqn: string): string {
+  return fqn.replace(/\./g, '_');
+}

@@ -1,4 +1,4 @@
-import {convertToUnixPath, elementNameToClass} from "../common/utils";
+import {convertToUnixPath, elementNameToClass, fqnToName} from "../common/utils";
 import * as assert from "assert";
 
 describe('utils', function () {
@@ -9,5 +9,12 @@ describe('utils', function () {
 
   it(convertToUnixPath.name, function() {
     assert.equal(convertToUnixPath('.\\some\\path'), './some/path');
-  })
+  });
+
+  it('should convert fqn name to valid TS class name ', function () {
+    assert.equal(fqnToName('com.company.mpg.entity.CarType'), 'com_company_mpg_entity_CarType');
+    assert.equal(fqnToName(''), '');
+  });
+
 });
+

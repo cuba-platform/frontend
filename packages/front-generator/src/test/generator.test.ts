@@ -6,6 +6,7 @@ import {Entity, Enum} from "../common/model/cuba-model";
 import * as path from "path";
 import {createEnums} from "../common/model/enums-generation";
 import {renderTSNodes} from "../common/model/ts-helpers";
+import {EnumDeclaration} from "typescript";
 
 const enumsModel: Enum[] = require('./enums-model.json');
 const entityModel: Entity = require('./entity-model.json');
@@ -52,7 +53,11 @@ describe('generate TS entity', function () {
     entitiesMap.set('com.company.mpg.entity.TechnicalCertificate', {type: {className: 'TechnicalCertificate'}} as any);
     entitiesMap.set('com.haulmont.cuba.core.entity.FileDescriptor', {type: {className: 'FileDescriptor'}} as any);
 
-    const classTsNode = createEntityClass(entityModel, entitiesMap);
+    const enumsMap = new Map<string, EnumDeclaration>();
+    enumsMap.set('com.company.mpg.entity.CarType', {name: 'CarType'} as any);
+    enumsMap.set('com.company.mpg.entity.EcoRank', {name: 'EcoRank'} as any);
+
+    const classTsNode = createEntityClass({entity: entityModel, entitiesMap, enumsMap, isBaseProjectEntity: false});
     const content = renderTSNodes([classTsNode.classDeclaration]);
 
     const expected = `export class Car {
@@ -62,8 +67,8 @@ describe('generate TS entity', function () {
     regNumber?: string | null;
     purchaseDate?: any | null;
     wheelOnRight?: boolean | null;
-    carType?: any | null;
-    ecoRank?: any | null;
+    carType?: CarType | null;
+    ecoRank?: EcoRank | null;
     garage?: Garage | null;
     maxPassengers?: number | null;
     price?: any | null;
@@ -72,7 +77,6 @@ describe('generate TS entity', function () {
     photo?: FileDescriptor | null;
 }
 `;
-
     assert(expected == content);
   });
 });
