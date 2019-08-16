@@ -2,7 +2,6 @@ import * as React from 'react';
 import './App.css';
 
 import {Icon, Layout, Menu} from "antd";
-import {AppStateObserver, injectAppState} from "./AppState";
 import {observer} from "mobx-react";
 import Login from "./login/Login";
 import Centered from "./common/Centered";
@@ -10,15 +9,16 @@ import AppHeader from "./header/AppHeader";
 import {NavLink, Route, Switch} from "react-router-dom";
 import HomePage from "./home/HomePage";
 import {mainRoutes} from "../routing";
+import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
 
-@injectAppState
+@injectMainStore
 @observer
-class App extends React.Component<AppStateObserver> {
+class App extends React.Component<MainStoreInjected> {
 
   render() {
 
-    const appState = this.props.appState!;
-    const {initialized, loginRequired} = appState;
+    const mainStore = this.props.mainStore!;
+    const {initialized, loginRequired} = mainStore;
 
     if (!initialized) {
       return (

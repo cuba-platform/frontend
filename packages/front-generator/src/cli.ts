@@ -5,7 +5,9 @@ import {extractAvailableOptions, pickOptions} from "./common/cli-options";
 
 const program: Command = require('commander');
 
-program.version(require('../package').version, '-v, --version')
+export const ownVersion = require('../package').version;
+
+program.version(ownVersion, '-v, --version')
   .usage('[command] [options]');
 
 const clients: GeneratedClientInfo[] = collectClients();

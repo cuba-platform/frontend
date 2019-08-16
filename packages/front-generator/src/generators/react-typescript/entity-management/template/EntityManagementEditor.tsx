@@ -1,38 +1,35 @@
 import * as React from "react";
 import {FormEvent} from "react";
 import {Button, Form, message} from "antd";
-import {inject, observer} from "mobx-react";
-import {Edit<%=entity.className%>Part, <%=className%>Store} from "./<%=className%>Store";
-import {<%=className%>, <%=className%>StoreObserver} from "./<%=className%>";
+import {observer} from "mobx-react";
+import {<%=className%>} from "./<%=className%>";
 import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
-import {IReactionDisposer, reaction} from "mobx";
-import {FormField} from "<%= relDirShift %>app/common/FormField";
-import {Msg} from "<%= relDirShift %>app/common/Msg";
-import {AppStateObserver} from "<%= relDirShift %>app/AppState";
+import {IReactionDisposer, observable, reaction} from "mobx";
+import {FormField, instance, Msg} from "@cuba-platform/react";
+import {<%=entity.className%>} from "<%= relDirShift %>cuba/entities/<%=entity.name%>";
 
-type Props = AppStateObserver & <%=className%>StoreObserver & FormComponentProps & {
+type Props = FormComponentProps & {
   entityId: string;
 };
 
-type State = {
-  updated?: boolean;
-}
 
-@inject(<%=className%>Store.NAME)
 @observer
-class <%=className%>Editor extends React.Component<Props, State> {
+class <%=className%>Editor extends React.Component<Props> {
 
-  private reactionDisposer: IReactionDisposer;
+  dataInstance = instance<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=editView.name%>', loadImmediately: false});
+  @observable
+  updated = false;
+  reactionDisposer: IReactionDisposer;
 
-  state: State = {};
+  fields = [<%editView.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    this.props.<%=nameLiteral%>Store!.updateEntity(this.props.form.getFieldsValue(Edit<%=entity.className%>Part.PROPERTIES))
+    this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
       .then(() => {
         message.success('Entity has been updated');
-        this.setState({updated: true});
+        this.updated = true;
       })
       .catch(() => {
         alert('Error')
@@ -41,22 +38,22 @@ class <%=className%>Editor extends React.Component<Props, State> {
 
   render() {
 
-    if (this.state.updated) {
+    if (this.updated) {
       return <Redirect to={<%=className%>.PATH}/>
     }
 
     const {getFieldDecorator} = this.props.form;
-    const {isCommittingEntity, isLoadingEntity} = this.props.<%=nameLiteral%>Store!;
+    const {status} = this.dataInstance;
 
     return (
       <Form onSubmit={this.handleSubmit}
             layout='vertical'>
-        {Edit<%=entity.className%>Part.PROPERTIES.map(propName =>
-          <Form.Item label={<Msg entityName={Edit<%=entity.className%>Part.ENTITY_NAME} propertyName={propName} />}
+        {this.fields.map(propName =>
+          <Form.Item label={<Msg entityName={<%=entity.className%>.NAME} propertyName={propName} />}
                      key={propName}
                      style={{marginBottom: '12px'}}>{
             getFieldDecorator(propName)(
-              <FormField entityName={Edit<%=entity.className%>Part.ENTITY_NAME}
+              <FormField entityName={<%=entity.className%>.NAME}
                          propertyName={propName}/>
             )}
           </Form.Item>
@@ -69,8 +66,8 @@ class <%=className%>Editor extends React.Component<Props, State> {
           </Link>
           <Button type="primary"
                   htmlType="submit"
-                  disabled={isCommittingEntity || isLoadingEntity}
-                  loading={isCommittingEntity}
+                  disabled={status !== "DONE"}
+                  loading={status === "LOADING"}
                   style={{marginLeft: '8px'}}>
             Submit
           </Button>
@@ -80,15 +77,17 @@ class <%=className%>Editor extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    if (this.props.entityId === <%=className%>.NEW_SUBPATH) {
-      this.props.<%=nameLiteral%>Store!.createEntity();
+    if (this.props.entityId !== <%=className%>.NEW_SUBPATH) {
+      this.dataInstance.load(this.props.entityId);
     } else {
-      this.props.<%=nameLiteral%>Store!.loadEntity(this.props.entityId);
+      this.dataInstance.setItem(new <%=entity.className%>());
     }
     this.reactionDisposer = reaction(
-      () => this.props.<%=nameLiteral%>Store!.fieldValues,
-      (fieldValues) => {
-        this.props.form.setFieldsValue(fieldValues);
+      () => {
+        return this.dataInstance.item
+      },
+      () => {
+        this.props.form.setFieldsValue(this.dataInstance.getFieldValues(this.fields));
       }
     )
   }
@@ -99,4 +98,4 @@ class <%=className%>Editor extends React.Component<Props, State> {
 
 }
 
-export default Form.create()(<%=className%>Editor);
+export default Form.create<Props>()(<%=className%>Editor);

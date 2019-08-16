@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './app/App';
 // import registerServiceWorker from './registerServiceWorker';
-import {Provider} from "mobx-react";
-import {AppState} from "./app/AppState";
+import {CubaAppProvider} from "@cuba-platform/react";
 
 import {HashRouter, Route} from "react-router-dom";
 import {initializeApp} from "@cuba-platform/rest";
@@ -18,16 +17,12 @@ export const cubaREST = initializeApp({
   storage: window.localStorage
 });
 
-const appState = new AppState();
-appState.initialize();
-
-
 ReactDOM.render(
-  <Provider appState={appState}>
+  <CubaAppProvider cubaREST={cubaREST}>
     <HashRouter>
       <Route component={App}/>
     </HashRouter>
-  </Provider>
+  </CubaAppProvider>
   ,
   document.getElementById('root') as HTMLElement
 );
