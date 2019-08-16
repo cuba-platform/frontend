@@ -2,7 +2,7 @@ const path = require('path');
 const {promisify} = require('util');
 const exec = promisify(require('child_process').exec);
 
-function runGenerator(name, dest, answersJSONString, dirShift, modelFile = 'projectModel.json') {
+function runGenerator(name, dest, answersJSONString, dirShift, modelFile = 'projectModel2.json') {
   const pathToModel = path.join(process.cwd(), 'test', modelFile);
 
   let command = `node bin/gen-cuba-front ${name} --model ${pathToModel}`;
