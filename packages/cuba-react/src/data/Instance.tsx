@@ -6,6 +6,7 @@ import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore, PropertyType} from "../app/MainStore";
 import {getPropertyInfo, WithId} from "../util/metadata";
+import moment from 'moment';
 
 
 export class DataInstanceStore<T> implements DataContainer {
@@ -76,14 +77,14 @@ export class DataInstanceStore<T> implements DataContainer {
       })
   };
 
-  getFieldValues(properties: string[]): Partial<T> {
+  getFieldValues(properties: string[]): Partial<{[prop in keyof T]: any}> {
     const {metadata} = this.mainStore;
     if (this.item == null || metadata == null) {
       return {};
     }
     const entity: T = this.item ? toJS(this.item) : ({} as T);
-    const entityFields: Partial<T> = (properties as Array<keyof T & string>).reduce<Partial<T>>(
-      (fields: Partial<T>, propertyName) => {
+    const entityFields = (properties as Array<keyof T & string>).reduce<Partial<{[prop in keyof T]: any}>>(
+      (fields: Partial<{[prop in keyof T]: any}>, propertyName) => {
         const propertyInfo = getPropertyInfo(toJS(metadata), this.entityName, propertyName);
         if (propertyInfo == null) {
           fields[propertyName] = entity[propertyName];
@@ -117,8 +118,8 @@ export class DataInstanceStore<T> implements DataContainer {
           }
         }
 
-        if (type === "date") { // todo
-          fields[propertyName] = entity[propertyName];
+        if (type === "date") {
+          fields[propertyName] = moment(entity[propertyName]);
           return fields;
         } else {
           fields[propertyName] = entity[propertyName];

@@ -17,6 +17,7 @@ export default {
     'antd',
     'mobx',
     'mobx-react',
+    'moment',
     'react',
     'react-dom',
     'react-router',
