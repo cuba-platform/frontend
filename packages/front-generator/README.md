@@ -4,7 +4,7 @@ The generator is `@cuba-platform/front-generator` npm package which
  * provides an ability to generate:
     * [Polymer 2 starter](https://doc.cuba-platform.com/manual-7.0/polymer_ui.html)
     * [React starter](src/generators/react-typescript/app/template/README.md)
-    * Framework agnostic TS SDK
+    * [Framework agnostic TS SDK](src/generators/sdk/README.md)
  * is used by [CUBA Studio](https://doc.cuba-platform.com/studio/) for [front module](https://doc.cuba-platform.com/manual-7.0/front_ui.html) creation
 
 ## Using via command line
