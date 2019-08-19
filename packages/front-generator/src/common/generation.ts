@@ -70,6 +70,10 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   _getParams(): StudioTemplateProperty[] {
     return [];
   }
+
+  abstract prepareModel(): void
+
+  abstract writing(): void
 }
 
 export interface GeneratorExports {

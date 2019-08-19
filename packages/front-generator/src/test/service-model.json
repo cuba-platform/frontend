@@ -1,0 +1,66 @@
+[
+  {
+    "name": "mpg_FavoriteService",
+    "methods": [
+      {
+        "name": "addFavorite",
+        "restInvocationAllowed": true,
+        "params": [
+          {
+            "name": "carId",
+            "type": "java.util.UUID",
+            "saveType": false
+          },
+          {
+            "name": "notes",
+            "type": "java.lang.String",
+            "saveType": false
+          }
+        ]
+      },
+      {
+        "name": "addFavorite",
+        "restInvocationAllowed": true,
+        "params": [
+          {
+            "name": "car",
+            "type": "com.company.mpg.entity.Car",
+            "saveType": false
+          },
+          {
+            "name": "notes",
+            "type": "java.lang.String",
+            "saveType": false
+          }
+        ]
+      },
+      {
+        "name": "addFavorite",
+        "restInvocationAllowed": true,
+        "params": [
+          {
+            "name": "favInfo",
+            "type": "com.company.mpg.service.FavInfo",
+            "saveType": false
+          }
+        ]
+      },
+      {
+        "name": "getFavorites",
+        "restInvocationAllowed": true,
+        "params": []
+      },
+      {
+        "name": "getFavoritesByType",
+        "restInvocationAllowed": true,
+        "params": [
+          {
+            "name": "carType",
+            "type": "com.company.mpg.entity.CarType",
+            "saveType": false
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -48,7 +48,7 @@ export async function generate(generatorName: string, subGeneratorName: string, 
 
   const {generator} = await import(path.join(__dirname, GENERATORS_DIR_NAME, generatorName, subGeneratorName));
   env.registerStub(generator, generator.name);
-  env.run(generator.name, options);
+  return env.run(generator.name, options);
 }
 
 function collectGenerators(generatorsDir: string): GeneratorInfo[] {

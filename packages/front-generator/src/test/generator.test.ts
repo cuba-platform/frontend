@@ -13,6 +13,9 @@ const entityModel: Entity = require('./entity-model.json');
 const enumsModelDuplicates: Enum[] = require('./enums-model--identical-names.json');
 const modelPath = require.resolve('../../test/projectModel.json');
 const tmpGenerationDir = path.join(process.cwd(), '.tmp');
+const {promisify} = require('util');
+const rimraf = promisify(require('rimraf'));
+const fs = require('fs');
 
 describe('generator', function () {
   it(collectClients.name, async function () {
@@ -38,11 +41,21 @@ describe('generator', function () {
   });
 
   it('generates SDK', function () {
-    return generate('sdk', 'all', {
-      model: modelPath,
-      dest: path.join(tmpGenerationDir, 'sdk'),
-      debug: true
-    });
+    const sdkDir = `${tmpGenerationDir}/sdk`;
+    return rimraf(`${sdkDir}/*`)
+      .then(() => {
+        return generate('sdk', 'all', {
+          model: modelPath,
+          dest: sdkDir,
+          debug: true
+        });
+      })
+      .then(() => {
+        assert.ok(fs.existsSync(`${sdkDir}/services.ts`));
+        assert.ok(fs.existsSync(`${sdkDir}/queries.ts`));
+        assert.ok(fs.existsSync(`${sdkDir}/enums/enums.ts`));
+        assert.ok(fs.existsSync(`${sdkDir}/entities/base`));
+      });
   })
 });
 

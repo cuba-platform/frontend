@@ -3,6 +3,7 @@ import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../c
 import * as path from "path";
 import {generateEntities} from "../../../common/model/entities-generation";
 import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../../common/studio/studio-integration";
+import {RestQuery, RestService} from "../../../common/model/cuba-model";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -17,7 +18,6 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
     this.sourceRoot(path.join(__dirname, 'template'));
   }
 
-  // noinspection JSUnusedGlobalSymbols
   async prompting() {
     if (this.options.model) {
       this.conflicter.force = true;
@@ -51,10 +51,10 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
     }
   }
 
-  // noinspection JSUnusedGlobalSymbols
   writing() {
     this.log(`Generating to ${this.destinationPath()}`);
-    this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.cubaProjectModel!);
+    this.generateServices(this.cubaProjectModel!.restServices);
+    this.generateQueries(this.cubaProjectModel!.restQueries);
     if (this.cubaProjectModel) {
       generateEntities(this.cubaProjectModel, path.join(this.destinationRoot()), this.fs);
     }
@@ -64,6 +64,15 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
   end() {
     this.log(`SDK been successfully generated into ${this.destinationRoot()}`);
   }
+
+  private generateQueries = (restQueries: RestQuery[]) => {
+    this.fs.copyTpl(this.templatePath('queries.ejs'), this.destinationPath('queries.ts'), {restQueries});
+  };
+
+  private generateServices = (restServices: RestService[]) => {
+    this.fs.copyTpl(this.templatePath('services.ejs'), this.destinationPath('services.ts'), {restServices});
+  };
+
 }
 
 
