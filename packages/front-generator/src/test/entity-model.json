@@ -1,0 +1,238 @@
+{
+  "name": "mpg$Car",
+  "className": "Car",
+  "packageName": "com.company.mpg.entity",
+  "dataStore": "_MAIN_",
+  "table": "MPG_CAR",
+  "parentClassName": "StandardEntity",
+  "discriminator": "",
+  "updatable": false,
+  "creatable": false,
+  "hasUuid": false,
+  "softDelete": false,
+  "versioned": false,
+  "reference": "com/company/mpg/entity/Car.java",
+  "parentPackage": "com.haulmont.cuba.core.entity",
+  "embeddable": false,
+  "persistentEntity": true,
+  "replaceParent": false,
+  "systemLevel": false,
+  "namePattern": "%s - %s|manufacturer,model",
+  "mappedSuperclass": false,
+  "fqn": "com.company.mpg.entity.Car",
+  "imported": false,
+  "attributes": [
+    {
+      "name": "manufacturer",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "MANUFACTURER",
+      "mandatory": true,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "model",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "MODEL",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "regNumber",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "REG_NUMBER",
+      "mandatory": false,
+      "unique": false,
+      "length": "5",
+      "transient": false
+    },
+    {
+      "name": "purchaseDate",
+      "type": {
+        "packageName": "java.util",
+        "className": "Date",
+        "fqn": "java.util.Date",
+        "label": "Date"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "PURCHASE_DATE",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false,
+      "temporalType": "DATE"
+    },
+    {
+      "name": "wheelOnRight",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Boolean",
+        "fqn": "java.lang.Boolean",
+        "label": "Boolean"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "WHEEL_ON_RIGHT",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "carType",
+      "type": {
+        "packageName": "com.company.mpg.entity",
+        "className": "CarType",
+        "fqn": "com.company.mpg.entity.CarType",
+        "label": "CarType"
+      },
+      "mappingType": "ENUM",
+      "readOnly": false,
+      "column": "CAR_TYPE",
+      "mandatory": true,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "ecoRank",
+      "type": {
+        "packageName": "com.company.mpg.entity",
+        "className": "EcoRank",
+        "fqn": "com.company.mpg.entity.EcoRank",
+        "label": "EcoRank"
+      },
+      "mappingType": "ENUM",
+      "readOnly": false,
+      "column": "ECO_RANK",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "garage",
+      "type": {
+        "packageName": "com.company.mpg.entity",
+        "className": "Garage",
+        "fqn": "com.company.mpg.entity.Garage",
+        "label": "Garage",
+        "entityName": "mpg$Garage"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "MANY_TO_ONE",
+      "readOnly": false,
+      "column": "GARAGE_ID",
+      "mandatory": false,
+      "unique": false,
+      "transient": false
+    },
+    {
+      "name": "maxPassengers",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Integer",
+        "fqn": "java.lang.Integer",
+        "label": "Integer"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "MAX_PASSENGERS",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "price",
+      "type": {
+        "packageName": "java.math",
+        "className": "BigDecimal",
+        "fqn": "java.math.BigDecimal",
+        "label": "BigDecimal"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "PRICE",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "mileage",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Double",
+        "fqn": "java.lang.Double",
+        "label": "Double"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "MILEAGE",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "technicalCertificate",
+      "type": {
+        "packageName": "com.company.mpg.entity",
+        "className": "TechnicalCertificate",
+        "fqn": "com.company.mpg.entity.TechnicalCertificate",
+        "label": "TechnicalCertificate",
+        "entityName": "mpg$TechnicalCertificate"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "ONE_TO_ONE",
+      "readOnly": false,
+      "column": "TECHNICAL_CERTIFICATE_ID",
+      "mandatory": false,
+      "unique": false,
+      "transient": false
+    },
+    {
+      "name": "photo",
+      "type": {
+        "packageName": "com.haulmont.cuba.core.entity",
+        "className": "FileDescriptor",
+        "fqn": "com.haulmont.cuba.core.entity.FileDescriptor",
+        "label": "FileDescriptor",
+        "entityName": "sys$FileDescriptor"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "MANY_TO_ONE",
+      "readOnly": false,
+      "column": "PHOTO_ID",
+      "mandatory": false,
+      "unique": false,
+      "transient": false
+    }
+  ]
+}

@@ -76,7 +76,21 @@ npm run watch
 npx gen-cuba-front
 ```
 
-Test
+## Testing
 ```bash
 npm test
+```
+
+## Integration tests
+Integration tests are used compiled version of front-generator. To apply your code changes you need to run ```npm run compile``` before testing.
+<br>
+Apps and sdk generated in ```./tmp``` directory.
+### Run all
+```bash
+npm run test:e2e
+```
+
+### SDK generation
+```bash
+npm run test:e2e:sdk
 ```

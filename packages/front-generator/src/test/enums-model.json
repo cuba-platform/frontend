@@ -1,0 +1,38 @@
+[
+  {
+    "className": "CarType",
+    "packageName": "com.company.mpg.entity",
+    "fqn": "com.company.mpg.entity.CarType",
+    "type": "String",
+    "values": [
+      {
+        "name": "SEDAN",
+        "id": "SEDAN"
+      },
+      {
+        "name": "HATCHBACK",
+        "id": "HATCHBACK"
+      }
+    ]
+  },
+  {
+    "className": "EcoRank",
+    "packageName": "com.company.mpg.entity",
+    "fqn": "com.company.mpg.entity.EcoRank",
+    "type": "Integer",
+    "values": [
+      {
+        "name": "EURO1",
+        "id": 1
+      },
+      {
+        "name": "EURO2",
+        "id": 2
+      },
+      {
+        "name": "EURO3",
+        "id": 3
+      }
+    ]
+  }
+]
