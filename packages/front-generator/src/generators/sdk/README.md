@@ -6,6 +6,43 @@ rest [services](https://doc.cuba-platform.com/manual-latest/rest_api_v2_services
 and [queries](https://doc.cuba-platform.com/manual-latest/rest_api_v2_queries_config.html) 
 as Typescript classes.
 
+## Entities
+
+### Non persistent entities
+CUBA Studio provides ability to add non-persistent entities in model. 
+Backend entity class should be annotated with ```com.haulmont.chile.core.annotations.MetaClass```, 
+and extended from ```com.haulmont.cuba.core.entity.BaseUuidEntity```. Class properties 
+annotated with ```com.haulmont.chile.core.annotations.MetaProperty``` will be included in generated model.
+
+#### Source
+```java
+package com.company;
+
+import com.haulmont.chile.core.annotations.MetaClass;
+import com.haulmont.chile.core.annotations.MetaProperty;
+import com.haulmont.cuba.core.entity.BaseUuidEntity;
+
+@MetaClass(name = "SampleUserInfo")
+public class SampleUserInfo extends BaseUuidEntity {
+
+    @MetaProperty
+    public String firstName;
+
+    @MetaProperty
+    public String lastName;
+    
+    }
+``` 
+
+#### Generated 
+```typescript
+export class SampleUserInfo {
+    static NAME = "SampleUserInfo";
+    firstName?: string | null;
+    lastName?: string | null;
+}
+```
+
 ## Enums
 As [mentioned here](https://www.cuba-platform.com/discuss/t/rest-v2-enums/1414) CUBA Rest module used 
 enum’s constant name as parameters and in returned objects. In this case SDK enums looks like
