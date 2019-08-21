@@ -49,17 +49,16 @@
         "name": "getFavorites",
         "restInvocationAllowed": true,
         "params": []
-      },
+      }
+    ]
+  },
+  {
+    "name": "mpg_TestService",
+    "methods": [
       {
-        "name": "getFavoritesByType",
+        "name": "getTestInfo",
         "restInvocationAllowed": true,
-        "params": [
-          {
-            "name": "carType",
-            "type": "com.company.mpg.entity.CarType",
-            "saveType": false
-          }
-        ]
+        "params": []
       }
     ]
   }

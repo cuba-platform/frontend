@@ -4,6 +4,7 @@ import * as path from "path";
 import {generateEntities} from "../../../common/model/entities-generation";
 import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../../common/studio/studio-integration";
 import {RestQuery, RestService} from "../../../common/model/cuba-model";
+import {generateServices} from "../../../common/services/services-generation";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -70,7 +71,8 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
   };
 
   private generateServices = (restServices: RestService[]) => {
-    this.fs.copyTpl(this.templatePath('services.ejs'), this.destinationPath('services.ts'), {restServices});
+    const content = generateServices(restServices);
+    this.fs.write(this.destinationPath('services.ts'), content);
   };
 
 }
