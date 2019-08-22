@@ -1,79 +1,99 @@
-import {RestService, RestServiceMethod} from "../model/cuba-model";
+import {RestService} from "../model/cuba-model";
 import * as ts from "typescript";
-import {ConciseBody, PropertyAssignment, SyntaxKind} from "typescript";
+import {
+  ArrowFunction,
+  ConciseBody,
+  Expression,
+  ParameterDeclaration,
+  PropertyAssignment,
+  TypeAliasDeclaration, VariableStatement
+} from "typescript";
 import {renderTSNodes} from "../model/ts-helpers";
-import {importDeclaration, param, str} from "../model/model-utils";
+import {exportModifier, importDeclaration, param, str} from "../model/model-utils";
+import {restServices} from "../../../test/e2e/generated/sdk/services";
+import {collectMethods, createMethodParamsType, createServiceCallParams} from "./method-params-type";
 
 const REST_SERVICES_VAR_NAME = 'restServices';
 const CUBA_APP_NAME = 'cubaApp';
 const CUBA_APP_TYPE = 'CubaApp';
 const CUBA_APP_MODULE_SPEC = '@cuba-platform/rest';
 
-export function generateServices(services: RestService[]): string {
-
-  //todo
-
-  const importDec = importDeclaration(`{${CUBA_APP_TYPE}}`, CUBA_APP_MODULE_SPEC);
-  return renderTSNodes([importDec, createServices(services)], '\n\n');
+export type CreateServiceResult = {
+  serviceNode: PropertyAssignment,
+  methodParamsTypes: TypeAliasDeclaration[]
 }
 
-export function createServices(services: RestService[]) {
-  const srvNodes: PropertyAssignment[] = [];
-  services.forEach(srv => srvNodes.push(createService(srv)));
+export function generateServices(services: RestService[]): string {
+  const importDec = importDeclaration(`{${CUBA_APP_TYPE}}`, CUBA_APP_MODULE_SPEC);
+  const servicesResult = createServices(services);
+  return renderTSNodes([importDec, ...servicesResult.paramTypes, servicesResult.servicesNode], '\n\n');
+}
 
-  const vd = ts.createVariableDeclaration(
+export function createServices(services: RestService[])
+  : { servicesNode: VariableStatement, paramTypes: TypeAliasDeclaration[] } {
+
+  const serviceAssignmentList: PropertyAssignment[] = [];
+  const paramTypes: TypeAliasDeclaration[] = [];
+
+  services.forEach(srv => {
+    const createServiceResult = createService(srv);
+    serviceAssignmentList.push(createServiceResult.serviceNode);
+    createServiceResult.methodParamsTypes.forEach(mpt => paramTypes.push(mpt));
+  });
+
+  const variableDeclaration = ts.createVariableDeclaration(
     REST_SERVICES_VAR_NAME,
     undefined,
-    ts.createObjectLiteral(srvNodes, true));
+    ts.createObjectLiteral(serviceAssignmentList, true));
 
-  return ts.createVariableStatement([
-    ts.createToken(ts.SyntaxKind.ExportKeyword)
-  ], [vd]);
+  const servicesNode = ts.createVariableStatement([exportModifier()], [variableDeclaration]);
+  return {servicesNode, paramTypes};
 }
 
-export function createService(restService: RestService): PropertyAssignment {
-  // //todo resolve methods with similar name
-  const props: PropertyAssignment[] = [];
+export function createService(service: RestService): CreateServiceResult {
 
-  restService.methods
-    .reduce((acc, currentValue) => {
-        return acc.find(a => a.name == currentValue.name) ? acc : [... acc, currentValue]
-      },
-      [] as RestServiceMethod[])
-    .forEach(method => {
+  const methodWithOverloadsList = collectMethods([service]);
+  const methodAssignments: PropertyAssignment[] = [];
+  const methodParamsTypes: TypeAliasDeclaration[] = [];
+  const serviceName = service.name;
 
-      const funcBody = ts.createBlock(
-        [
-          ts.createReturn(createInvokeServiceCall(restService.name, method.name))
-        ],
-        true);
+  methodWithOverloadsList.forEach(method => {
 
-      const arrowFuncNext: ConciseBody = ts.createArrowFunction(
-        undefined,
-        undefined,
-        [param('params', 'any')],
-        undefined,
-        ts.createToken(SyntaxKind.EqualsGreaterThanToken),
-        funcBody);
+    const hasParams = method.methods.some(m => m.params.length > 0);
 
-      const arrowFunc = ts.createArrowFunction(
-        undefined,
-        undefined,
-        [param(CUBA_APP_NAME, CUBA_APP_TYPE)],
-        undefined,
-        ts.createToken(SyntaxKind.EqualsGreaterThanToken),
-        arrowFuncNext);
+    const methodSubBody: ConciseBody = arrowFunc(
+      hasParams ? createServiceCallParams(method.methodName, serviceName) : [],
+      createInvokeServiceCall(serviceName, method.methodName, hasParams));
 
-      props.push(ts.createPropertyAssignment(method.name, arrowFunc))
-    });
+    const methodBody = arrowFunc(
+      [param(CUBA_APP_NAME, CUBA_APP_TYPE)],
+      methodSubBody);
 
-  return ts.createPropertyAssignment(
-    restService.name,
-    ts.createObjectLiteral(props, true));
+    methodAssignments.push(ts.createPropertyAssignment(method.methodName, methodBody));
+    if (hasParams) methodParamsTypes.push(createMethodParamsType(method.methods, serviceName));
+  });
+
+  const serviceNode = ts.createPropertyAssignment(
+    serviceName,
+    ts.createObjectLiteral(methodAssignments, true));
+
+  return {serviceNode, methodParamsTypes}
 }
 
-function createInvokeServiceCall(serviceName: string, methodName: string) {
-  const argumentsArray = [str(serviceName), str(methodName), ts.createIdentifier('params')];
-  return ts.createCall(ts.createIdentifier(`${CUBA_APP_NAME}.invokeService`), undefined, argumentsArray);
+function createInvokeServiceCall(serviceName: string, methodName: string, hasParams: boolean) {
+  const argumentsArray: Expression[] = [str(serviceName), str(methodName)];
+  argumentsArray.push(hasParams ? ts.createIdentifier('params') : ts.createIdentifier('{}'));
+
+  return ts.createBlock(
+    [ts.createReturn(
+      ts.createCall(
+        ts.createIdentifier(`${CUBA_APP_NAME}.invokeService`), undefined, argumentsArray))
+    ],
+    true);
 }
+
+function arrowFunc(parameters: ParameterDeclaration[], body: ConciseBody): ArrowFunction {
+  return ts.createArrowFunction(undefined, undefined, parameters, undefined, undefined, body);
+}
+
 

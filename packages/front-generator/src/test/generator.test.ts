@@ -2,17 +2,15 @@ import {collectClients, generate} from "../init";
 import * as assert from "assert";
 
 import {createEntityClass, ProjectEntityInfo} from "../common/model/entities-generation";
-import {Entity, Enum, RestService} from "../common/model/cuba-model";
+import {Entity, Enum} from "../common/model/cuba-model";
 import * as path from "path";
 import {createEnums} from "../common/model/enums-generation";
 import {renderTSNodes} from "../common/model/ts-helpers";
 import {EnumDeclaration} from "typescript";
-import {createService, generateServices} from "../common/services/services-generation";
 
 const enumsModel: Enum[] = require('./enums-model.json');
 const entityModel: Entity = require('./entity-model.json');
 const enumsModelDuplicates: Enum[] = require('./enums-model--identical-names.json');
-const servicesModel: RestService[] = require('./fixtures/service-model.json');
 
 const modelPath = require.resolve('../../test/projectModel.json');
 const tmpGenerationDir = path.join(process.cwd(), '.tmp');
@@ -122,48 +120,7 @@ describe('generate TS enums', () => {
   });
 });
 
-describe('generate TS REST service', () => {
-  it('should generate rest service TS assignment from CUBA model', function () {
-    const service = createService(servicesModel[0]);
-    const expected = '' +
-      `mpg_FavoriteService: {
-        addFavorite: (cubaApp: CubaApp) => (params: any) => {
-            return cubaApp.invokeService("mpg_FavoriteService", "addFavorite", params);
-        },
-        getFavorites: (cubaApp: CubaApp) => (params: any) => {
-            return cubaApp.invokeService("mpg_FavoriteService", "getFavorites", params);
-        }
-    }`;
-
-    const content = renderTSNodes([service]);
-    assertContent(content, expected);
-  });
-
-  it('should generate all rest services from CUBA model', function () {
-    const expected = '' +
-      `import {CubaApp} from "@cuba-platform/rest";
-      export var restServices = {
-          mpg_FavoriteService: {
-              addFavorite: (cubaApp: CubaApp) => (params: any) => {
-                  return cubaApp.invokeService("mpg_FavoriteService", "addFavorite", params);
-              },
-              getFavorites: (cubaApp: CubaApp) => (params: any) => {
-                  return cubaApp.invokeService("mpg_FavoriteService", "getFavorites", params);
-              }
-          },
-           mpg_TestService: {
-              getTestInfo: (cubaApp: CubaApp) => (params: any) => {
-                  return cubaApp.invokeService("mpg_TestService", "getTestInfo", params);
-              }
-          }
-      };`;
-
-    const content = generateServices(servicesModel);
-    assertContent(content, expected);
-  });
-});
-
-function assertContent(actual: string, expect: string) {
+export function assertContent(actual: string, expect: string) {
   assert.strictEqual(drain(actual), drain(expect));
 }
 
