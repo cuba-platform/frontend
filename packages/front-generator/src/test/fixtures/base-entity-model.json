@@ -1,0 +1,91 @@
+{
+  "name": "sys$Folder",
+  "className": "Folder",
+  "packageName": "com.haulmont.cuba.core.entity",
+  "dataStore": "_MAIN_",
+  "table": "SYS_FOLDER",
+  "parentClassName": "StandardEntity",
+  "discriminator": "F",
+  "updatable": false,
+  "creatable": false,
+  "hasUuid": false,
+  "softDelete": false,
+  "versioned": false,
+  "reference": "com/haulmont/cuba/core/entity/Folder.java",
+  "parentPackage": "com.haulmont.cuba.core.entity",
+  "embeddable": false,
+  "persistentEntity": true,
+  "replaceParent": false,
+  "systemLevel": true,
+  "mappedSuperclass": false,
+  "fqn": "com.haulmont.cuba.core.entity.Folder",
+  "imported": false,
+  "inheritanceType": "JOINED",
+  "attributes": [
+    {
+      "name": "parent",
+      "type": {
+        "packageName": "com.haulmont.cuba.core.entity",
+        "className": "Folder",
+        "fqn": "com.haulmont.cuba.core.entity.Folder",
+        "label": "Folder",
+        "entityName": "sys$Folder"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "MANY_TO_ONE",
+      "readOnly": false,
+      "column": "PARENT_ID",
+      "mandatory": false,
+      "unique": false,
+      "transient": false
+    },
+    {
+      "name": "name",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "NAME",
+      "mandatory": false,
+      "unique": false,
+      "length": "100",
+      "transient": false
+    },
+    {
+      "name": "sortOrder",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Integer",
+        "fqn": "java.lang.Integer",
+        "label": "Integer"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "SORT_ORDER",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "tabName",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "TAB_NAME",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    }
+  ]
+}

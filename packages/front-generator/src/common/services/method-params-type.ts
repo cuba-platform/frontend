@@ -1,7 +1,9 @@
-import {RestService, RestServiceMethod} from "../model/cuba-model";
-import {TypeAliasDeclaration, TypeElement, TypeNode} from "typescript";
+import {RestParam, RestService, RestServiceMethod} from "../model/cuba-model";
 import * as ts from "typescript";
-import {exportModifier, param} from "../model/model-utils";
+import {TypeAliasDeclaration, TypeElement, TypeNode} from "typescript";
+import {exportModifier, ModelContext, param} from "../model/model-utils";
+import {entityImportInfo, enumImportInfo, ImportInfo} from "../import-utils";
+import {ENTITIES_DIR} from "../common";
 
 /**
  * In model could be methods with same name, but distinct parameters set,
@@ -12,6 +14,8 @@ export type MethodWithOverloads = {
   methodName: string
   methods: RestServiceMethod[]
 }
+
+export type ParamTypeInfo = { typeNode: TypeNode, importInfo?: ImportInfo }
 
 export function collectMethods(services: RestService[]): MethodWithOverloads[] {
   const methodWithOverloadsList: MethodWithOverloads[] = [];
@@ -30,32 +34,39 @@ export function collectMethods(services: RestService[]): MethodWithOverloads[] {
   return methodWithOverloadsList;
 }
 
-export function createMethodParamsType(overloadMethods: RestServiceMethod[], namePrefix: string): TypeAliasDeclaration {
+export function createMethodParamsType(overloadMethods: RestServiceMethod[], namePrefix: string, ctx: ModelContext)
+  : {paramTypeNode: TypeAliasDeclaration, importInfos: ImportInfo[]} {
 
   const typeNodes: TypeNode[] = [];
+  const importInfos: ImportInfo[] = [];
 
   overloadMethods.forEach(method => {
     const members: TypeElement[] = [];
 
-    method.params.forEach(p =>
-      members.push(ts.createPropertySignature(
-        undefined,
-        p.name,
-        undefined,
-        //TODO params type
-        ts.createTypeReferenceNode('any', undefined),
-        undefined))
+    method.params.forEach(p => {
+        const {typeNode, importInfo} = parseParamType(p, ctx);
+        if (importInfo) importInfos.push(importInfo);
+
+        members.push(ts.createPropertySignature(
+          undefined,
+          p.name,
+          undefined,
+          typeNode,
+          undefined));
+      }
     );
 
     typeNodes.push(ts.createTypeLiteralNode(members));
   });
 
-  return  ts.createTypeAliasDeclaration(
+  const paramTypeNode = ts.createTypeAliasDeclaration(
     undefined,
     [exportModifier()],
     methodParamsTypeName(overloadMethods[0].name, namePrefix),
     undefined,
     ts.createUnionTypeNode(typeNodes));
+
+  return {paramTypeNode, importInfos};
 
 }
 
@@ -64,5 +75,43 @@ export function createServiceCallParams(methodName: string, paramNamePrefix: str
 }
 
 function methodParamsTypeName(methodName: string, namePrefix: string) {
-  return  `${namePrefix}_${methodName}_params`;
+  return `${namePrefix}_${methodName}_params`;
+}
+
+export function parseParamType(param: RestParam, ctx: ModelContext)
+  : ParamTypeInfo {
+
+  const typeEnum = ctx.enumsMap.get(param.type);
+  if (typeEnum) {
+    return {
+      typeNode: ts.createTypeReferenceNode(typeEnum.name.text, undefined),
+      importInfo: enumImportInfo(typeEnum)
+    }
+  }
+
+  const typeEntity = ctx.entitiesMap.get(param.type);
+  if (typeEntity) {
+    return {
+      typeNode: ts.createTypeReferenceNode(typeEntity.entity.className, undefined),
+      importInfo: entityImportInfo(typeEntity, ENTITIES_DIR)
+    }
+  }
+
+  let typeNode;
+  switch (param.type) {
+    case 'java.lang.Boolean':
+      typeNode = ts.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
+      break;
+    case 'java.lang.Integer':
+      typeNode = ts.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
+      break;
+    case 'java.util.UUID':
+    case 'java.lang.String':
+      typeNode = ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
+      break;
+    default:
+      typeNode = ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
+  }
+
+  return {typeNode, importInfo: undefined};
 }

@@ -61,6 +61,9 @@ describe('generator', function () {
 });
 
 describe('generate TS entity', function () {
+
+  //todo includes generation test
+
   it(createEntityClass.name, function () {
     const entitiesMap = new Map<string, ProjectEntityInfo>();
     entitiesMap.set('com.company.mpg.entity.Garage', {type: {className: 'Garage'}} as any);

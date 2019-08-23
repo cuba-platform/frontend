@@ -1,48 +1,28 @@
-import {Cardinality, Entity, EntityAttribute, getEntitiesArray, MappingType, ProjectModel} from "./cuba-model";
+import {Cardinality, Entity, EntityAttribute, MappingType, ProjectModel} from "./cuba-model";
 import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
 import {EnumDeclaration} from "typescript";
 import {renderTSNodes} from "./ts-helpers";
 import {createEntityViewTypes} from "./entity-views-generation";
-import {createEnums} from "./enums-generation";
-import {createIncludes, entityImportInfo, getEntityModuleName, ImportInfo} from "./import-utils";
-
-const ENTITIES_DIR = 'entities';
-export const BASE_ENTITIES_DIR = 'base';
-const ENUMS_DIR = 'enums';
-const ENUMS_FILE = 'enums';
+import {createIncludes, entityImportInfo, enumImportInfo, ImportInfo} from "../import-utils";
+import {collectModelContext, ModelContext} from "./model-utils";
+import {BASE_ENTITIES_DIR, ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "../common";
+import {getEntityModulePath} from "../utils";
 
 export interface ProjectEntityInfo {
   entity: Entity;
   isBaseProjectEntity: boolean;
 }
 
-export type ClassCreationContext = {
+export type ClassCreationContext = ModelContext & {
   entity: Entity
-  entitiesMap: Map<string, ProjectEntityInfo>
-  enumsMap: Map<string, EnumDeclaration>
   isBaseProjectEntity: boolean
 }
 
-export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): void {
-  const entities: Entity[] = getEntitiesArray(projectModel.entities);
-  const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
-  const entitiesMap = new Map<string, ProjectEntityInfo>();
 
-  const enumsMap = new Map<string, EnumDeclaration>();
-  createEnums(projectModel.enums).forEach(en => enumsMap.set(en.fqn, en.node));
-
-  const addEntityToMap = (map: Map<string, ProjectEntityInfo>, isBaseProjectEntity = false) => (e: Entity) => {
-    map.set(e.fqn, {
-      isBaseProjectEntity,
-      entity: e
-    })
-  };
-
-  entities.forEach(addEntityToMap(entitiesMap));
-  baseProjectEntities.forEach(addEntityToMap(entitiesMap, true));
-
+export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): ModelContext {
+  const {entitiesMap, enumsMap} = collectModelContext(projectModel);
   for (const [, entityInfo] of entitiesMap) {
     const {entity} = entityInfo;
     const ctx: ClassCreationContext = {
@@ -50,11 +30,13 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     };
 
     const {importInfos, classDeclaration} = createEntityClass(ctx);
-    const includes = createIncludes(importInfos, entityImportInfo(entityInfo, ctx.isBaseProjectEntity));
+    const includes = createIncludes(importInfos, createImportInfo(entityInfo, ctx.isBaseProjectEntity));
 
     const views = createEntityViewTypes(entity, projectModel);
+
+    const entityPath = !entityInfo.isBaseProjectEntity ? ENTITIES_DIR : path.join(ENTITIES_DIR, BASE_ENTITIES_DIR);
     fs.write(
-      path.join(destDir, !entityInfo.isBaseProjectEntity ? ENTITIES_DIR : path.join(ENTITIES_DIR, BASE_ENTITIES_DIR), getEntityModuleName(entity) + '.ts'),
+      path.join(destDir, entityPath, getEntityModulePath(entity) + '.ts'),
       renderTSNodes([...includes, classDeclaration, ...views])
     )
   }
@@ -62,7 +44,9 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
   fs.write(
     path.join(destDir, ENUMS_DIR, path.join(ENUMS_FILE + '.ts')),
     renderTSNodes([...enumsMap.values()], '\n\n')
-  )
+  );
+
+  return {entitiesMap, enumsMap};
 }
 
 export function createEntityClass(ctx: ClassCreationContext): {
@@ -73,7 +57,7 @@ export function createEntityClass(ctx: ClassCreationContext): {
   const heritageInfo = createEntityClassHeritage(ctx);
   const importInfos: ImportInfo[] = [];
   if (heritageInfo.parentEntity) {
-    importInfos.push(entityImportInfo(heritageInfo.parentEntity, ctx.isBaseProjectEntity))
+    importInfos.push(createImportInfo(heritageInfo.parentEntity, ctx.isBaseProjectEntity))
   }
 
   const classMembersInfo = createEntityClassMembers(ctx);
@@ -244,18 +228,25 @@ function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationCont
 
   let importInfo = undefined;
 
-  if (refEntity && refEntity.entity) importInfo = entityImportInfo(refEntity, ctx.isBaseProjectEntity);
+  if (refEntity && refEntity.entity) importInfo = createImportInfo(refEntity, ctx.isBaseProjectEntity);
 
-  if (enumDeclaration) {
-    importInfo = {
-      className: enumDeclaration.name.text,
-      importPath: ctx.isBaseProjectEntity ? path.join('..', '..', ENUMS_DIR, ENUMS_FILE) : path.join('..', ENUMS_DIR, ENUMS_FILE)
-    };
-  }
+  if (enumDeclaration) importInfo = enumImportInfo(enumDeclaration, ctx.isBaseProjectEntity ? '../..' : '..');
 
   return {
     node,
     importInfo
   };
+}
+
+function createImportInfo(importedEntity: ProjectEntityInfo, isCurrentEntityBase: boolean): ImportInfo {
+  if (isCurrentEntityBase && importedEntity.isBaseProjectEntity) {
+    //we don't need BASE prefix if current entity and imported base entity in same base/ directory
+    return {
+      importPath: './' + getEntityModulePath(importedEntity.entity),
+      className: importedEntity.entity.className
+    };
+  } else {
+    return entityImportInfo(importedEntity);
+  }
 }
 

@@ -6,12 +6,14 @@ import {
   Expression,
   ParameterDeclaration,
   PropertyAssignment,
-  TypeAliasDeclaration, VariableStatement
+  TypeAliasDeclaration,
+  VariableStatement
 } from "typescript";
 import {renderTSNodes} from "../model/ts-helpers";
-import {exportModifier, importDeclaration, param, str} from "../model/model-utils";
+import {exportModifier, importDeclaration, ModelContext, param, str} from "../model/model-utils";
 import {restServices} from "../../../test/e2e/generated/sdk/services";
 import {collectMethods, createMethodParamsType, createServiceCallParams} from "./method-params-type";
+import {createIncludes, ImportInfo} from "../import-utils";
 
 const REST_SERVICES_VAR_NAME = 'restServices';
 const CUBA_APP_NAME = 'cubaApp';
@@ -20,25 +22,31 @@ const CUBA_APP_MODULE_SPEC = '@cuba-platform/rest';
 
 export type CreateServiceResult = {
   serviceNode: PropertyAssignment,
-  methodParamsTypes: TypeAliasDeclaration[]
+  methodParamsTypes: TypeAliasDeclaration[],
+  imports: ImportInfo[]
 }
 
-export function generateServices(services: RestService[]): string {
+export function generateServices(services: RestService[], ctx: ModelContext): string {
   const importDec = importDeclaration(`{${CUBA_APP_TYPE}}`, CUBA_APP_MODULE_SPEC);
-  const servicesResult = createServices(services);
-  return renderTSNodes([importDec, ...servicesResult.paramTypes, servicesResult.servicesNode], '\n\n');
+  const servicesResult = createServices(services, ctx);
+  const includes = createIncludes(servicesResult.importInfos);
+  return renderTSNodes(
+    [importDec, ...includes, ...servicesResult.paramTypes, servicesResult.servicesNode],
+    '\n\n');
 }
 
-export function createServices(services: RestService[])
-  : { servicesNode: VariableStatement, paramTypes: TypeAliasDeclaration[] } {
+export function createServices(services: RestService[], ctx: ModelContext)
+  : { servicesNode: VariableStatement, paramTypes: TypeAliasDeclaration[], importInfos: ImportInfo[] } {
 
   const serviceAssignmentList: PropertyAssignment[] = [];
   const paramTypes: TypeAliasDeclaration[] = [];
+  const importInfos: ImportInfo[] = [];
 
   services.forEach(srv => {
-    const createServiceResult = createService(srv);
+    const createServiceResult = createService(srv, ctx);
     serviceAssignmentList.push(createServiceResult.serviceNode);
     createServiceResult.methodParamsTypes.forEach(mpt => paramTypes.push(mpt));
+    importInfos.push(...createServiceResult.imports);
   });
 
   const variableDeclaration = ts.createVariableDeclaration(
@@ -47,14 +55,15 @@ export function createServices(services: RestService[])
     ts.createObjectLiteral(serviceAssignmentList, true));
 
   const servicesNode = ts.createVariableStatement([exportModifier()], [variableDeclaration]);
-  return {servicesNode, paramTypes};
+  return {servicesNode, paramTypes, importInfos};
 }
 
-export function createService(service: RestService): CreateServiceResult {
+export function createService(service: RestService, ctx: ModelContext): CreateServiceResult {
 
   const methodWithOverloadsList = collectMethods([service]);
   const methodAssignments: PropertyAssignment[] = [];
   const methodParamsTypes: TypeAliasDeclaration[] = [];
+  const imports: ImportInfo[] = [];
   const serviceName = service.name;
 
   methodWithOverloadsList.forEach(method => {
@@ -70,14 +79,18 @@ export function createService(service: RestService): CreateServiceResult {
       methodSubBody);
 
     methodAssignments.push(ts.createPropertyAssignment(method.methodName, methodBody));
-    if (hasParams) methodParamsTypes.push(createMethodParamsType(method.methods, serviceName));
+    if (hasParams) {
+      const {paramTypeNode, importInfos} = createMethodParamsType(method.methods, serviceName, ctx);
+      imports.push(...importInfos);
+      methodParamsTypes.push(paramTypeNode);
+    }
   });
 
   const serviceNode = ts.createPropertyAssignment(
     serviceName,
     ts.createObjectLiteral(methodAssignments, true));
 
-  return {serviceNode, methodParamsTypes}
+  return {serviceNode, methodParamsTypes, imports};
 }
 
 function createInvokeServiceCall(serviceName: string, methodName: string, hasParams: boolean) {

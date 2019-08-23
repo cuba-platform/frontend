@@ -1,3 +1,6 @@
+import {Entity} from "./model/cuba-model";
+import * as path from "path";
+
 /**
  * @param {string} elementName my-app-custom
  * @returns {string} class name MyAppCustom
@@ -33,4 +36,9 @@ export function convertToUnixPath(input: string): string {
  */
 export function fqnToName(fqn: string): string {
   return fqn.replace(/\./g, '_');
+}
+
+export function getEntityModulePath(entity: Entity, prefix: string = ''): string {
+  const modulePath = entity.name ? entity.name : entity.className;
+  return path.join(prefix, modulePath);
 }
