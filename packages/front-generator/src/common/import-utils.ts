@@ -12,35 +12,40 @@ export type ImportInfo = {
 
 export function createIncludes(importInfos: ImportInfo[], current?: ImportInfo): ts.ImportDeclaration[] {
 
-  //todo join enum includes in one line
+  //filter unique and exclude current entity, group by importPath
+  const importByPathMap: Map<string, ImportInfo[]> = new Map();
+  importInfos
+    .filter(imp => !isImportEquals(imp, current))
+    .forEach(imp => {
+      const importByPath = importByPathMap.get(imp.importPath);
+      if (importByPath) {
+        if (!importByPath.some(i => isImportEquals(i, imp))) {
+          importByPath.push(imp);
+        }
+      } else {
+        importByPathMap.set(imp.importPath, [imp]);
+      }
+    });
 
-  //filter unique and exclude current entity
-  const uniqueImports: ImportInfo[] = importInfos.reduce((acc, val) => {
-    if (!isImportEquals(val, current) && !acc.some(ii => isImportEquals(ii, val))) {
-      acc.push(val);
-    }
-    return acc;
-  }, [] as ImportInfo[]);
+  return [...importByPathMap.entries()]
+    .map(([importPath, importInfos]) => {
 
+      const elements = importInfos.map(ii =>
+        ts.createImportSpecifier(undefined, ts.createIdentifier(ii.className)));
 
-  return uniqueImports
-    .map((importInfo: ImportInfo) => {
       return ts.createImportDeclaration(
         undefined,
         undefined,
         ts.createImportClause(
           undefined,
-          ts.createNamedImports([
-            ts.createImportSpecifier(undefined, ts.createIdentifier(importInfo.className))
-          ])
+          ts.createNamedImports(elements)
         ),
-        ts.createLiteral(importInfo.importPath
-        ),
+        ts.createLiteral(importPath),
       );
     });
 }
 
-export function entityImportInfo(importedEntity: ProjectEntityInfo,prefix: string = ''): ImportInfo {
+export function entityImportInfo(importedEntity: ProjectEntityInfo, prefix: string = ''): ImportInfo {
   const basePrefix = importedEntity.isBaseProjectEntity ? '' + BASE_ENTITIES_DIR : '';
   return {
     importPath: './' + getEntityModulePath(importedEntity.entity, path.join(prefix, basePrefix)),

@@ -218,7 +218,7 @@ function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationCont
   if (mappingType == MappingType.ENUM) {
     enumDeclaration = ctx.enumsMap.get(entityAttr.type.fqn);
     if (enumDeclaration) {
-      node = ts.createTypeReferenceNode(enumDeclaration.name, undefined);
+      node = ts.createTypeReferenceNode(enumDeclaration.name.text, undefined);
     }
   }
 

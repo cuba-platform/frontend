@@ -7,6 +7,7 @@ import * as path from "path";
 import {createEnums} from "../common/model/enums-generation";
 import {renderTSNodes} from "../common/model/ts-helpers";
 import {EnumDeclaration} from "typescript";
+import {createIncludes} from "../common/import-utils";
 
 const enumsModel: Enum[] = require('./enums-model.json');
 const entityModel: Entity = require('./entity-model.json');
@@ -62,23 +63,26 @@ describe('generator', function () {
 
 describe('generate TS entity', function () {
 
-  //todo includes generation test
-
   it(createEntityClass.name, function () {
-    const entitiesMap = new Map<string, ProjectEntityInfo>();
-    entitiesMap.set('com.company.mpg.entity.Garage', {type: {className: 'Garage'}} as any);
-    entitiesMap.set('com.company.mpg.entity.TechnicalCertificate', {type: {className: 'TechnicalCertificate'}} as any);
-    entitiesMap.set('com.haulmont.cuba.core.entity.FileDescriptor', {type: {className: 'FileDescriptor'}} as any);
+    const enMap = entitiesMap([
+      'com.company.mpg.entity.Garage',
+      'com.company.mpg.entity.TechnicalCertificate',
+      'com.haulmont.cuba.core.entity.FileDescriptor']);
 
     const enumsMap = new Map<string, EnumDeclaration>();
-    enumsMap.set('com.company.mpg.entity.CarType', {name: 'CarType'} as any);
-    enumsMap.set('com.company.mpg.entity.EcoRank', {name: 'EcoRank'} as any);
+    enumsMap.set('com.company.mpg.entity.CarType', {name: {text: 'CarType'}} as any);
+    enumsMap.set('com.company.mpg.entity.EcoRank', {name: {text: 'EcoRank'}} as any);
 
-    const classTsNode = createEntityClass({entity: entityModel, entitiesMap, enumsMap, isBaseProjectEntity: false});
-    const content = renderTSNodes([classTsNode.classDeclaration]);
+    const classTsNode = createEntityClass({
+      entity: entityModel,
+      entitiesMap: enMap,
+      enumsMap,
+      isBaseProjectEntity: false
+    });
+    let content = renderTSNodes([classTsNode.classDeclaration]);
 
-    const expected = '' +
-    `export class Car {
+    let expected = '' +
+      `export class Car {
       static NAME = "mpg$Car";
       manufacturer?: string | null;
       model?: string | null;
@@ -94,7 +98,17 @@ describe('generate TS entity', function () {
       technicalCertificate?: TechnicalCertificate | null;
       photo?: FileDescriptor | null;
     }`;
-    assertContent(expected, content);
+    assertContent(content, expected);
+
+    const includes = createIncludes(classTsNode.importInfos, undefined);
+    content = renderTSNodes(includes);
+    expected = '' +
+      `import { CarType, EcoRank } from "./../enums/enums";
+      import { Garage } from "./Garage";
+      import { TechnicalCertificate } from "./TechnicalCertificate";
+      import { FileDescriptor } from "./FileDescriptor";`;
+
+    assertContent(content, expected);
   });
 });
 
@@ -131,4 +145,16 @@ function drain(result: string) {
   return result.replace(/\n/g, ' ')
     .replace(/\s{2,}/g, ' ')
     .trim();
+}
+
+function entitiesMap(classNames: string[]): Map<string, ProjectEntityInfo> {
+  const entitiesMap = new Map<string, ProjectEntityInfo>();
+  classNames.forEach(cn => {
+    const shortName = cn.split('.').pop();
+    entitiesMap.set(cn, {
+      type: {className: cn},
+      entity: {className: shortName}
+    } as any);
+  });
+  return entitiesMap;
 }
