@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import {EnumDeclaration} from "typescript";
+import {EnumDeclaration, ImportDeclaration} from "typescript";
 import {ProjectEntityInfo} from "./model/entities-generation";
 import {BASE_ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "./common";
 import {getEntityModulePath} from "./utils";
@@ -29,20 +29,23 @@ export function createIncludes(importInfos: ImportInfo[], current?: ImportInfo):
 
   return [...importByPathMap.entries()]
     .map(([importPath, importInfos]) => {
-
-      const elements = importInfos.map(ii =>
-        ts.createImportSpecifier(undefined, ts.createIdentifier(ii.className)));
-
-      return ts.createImportDeclaration(
-        undefined,
-        undefined,
-        ts.createImportClause(
-          undefined,
-          ts.createNamedImports(elements)
-        ),
-        ts.createLiteral(importPath),
-      );
+      return importDeclaration(importInfos.map(ii => ii.className), importPath);
     });
+}
+
+export function importDeclaration(identifiers: string[], moduleSpec: string): ImportDeclaration {
+  const elements = identifiers.map(idn =>
+    ts.createImportSpecifier(undefined, ts.createIdentifier(idn)));
+
+  return ts.createImportDeclaration(
+    undefined,
+    undefined,
+    ts.createImportClause(
+      undefined,
+      ts.createNamedImports(elements)
+    ),
+    ts.createLiteral(moduleSpec),
+  );
 }
 
 export function entityImportInfo(importedEntity: ProjectEntityInfo, prefix: string = ''): ImportInfo {

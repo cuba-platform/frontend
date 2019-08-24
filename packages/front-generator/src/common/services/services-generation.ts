@@ -10,14 +10,16 @@ import {
   VariableStatement
 } from "typescript";
 import {renderTSNodes} from "../model/ts-helpers";
-import {exportModifier, importDeclaration, ModelContext, param, str} from "../model/model-utils";
+import {exportModifier, ModelContext, param, str} from "../model/model-utils";
 import {restServices} from "../../../test/e2e/generated/sdk/services";
 import {collectMethods, createMethodParamsType, createServiceCallParams} from "./method-params-type";
-import {createIncludes, ImportInfo} from "../import-utils";
+import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
 
 const REST_SERVICES_VAR_NAME = 'restServices';
 const CUBA_APP_NAME = 'cubaApp';
 const CUBA_APP_TYPE = 'CubaApp';
+const FETCH_OPTIONS_TYPE = 'FetchOptions';
+const FETCH_OPTIONS_NAME = 'fetchOpts';
 const CUBA_APP_MODULE_SPEC = '@cuba-platform/rest';
 
 export type CreateServiceResult = {
@@ -27,7 +29,7 @@ export type CreateServiceResult = {
 }
 
 export function generateServices(services: RestService[], ctx: ModelContext): string {
-  const importDec = importDeclaration(`{${CUBA_APP_TYPE}}`, CUBA_APP_MODULE_SPEC);
+  const importDec = importDeclaration([CUBA_APP_TYPE, FETCH_OPTIONS_TYPE], CUBA_APP_MODULE_SPEC);
   const servicesResult = createServices(services, ctx);
   const includes = createIncludes(servicesResult.importInfos);
   return renderTSNodes(
@@ -75,7 +77,7 @@ export function createService(service: RestService, ctx: ModelContext): CreateSe
       createInvokeServiceCall(serviceName, method.methodName, hasParams));
 
     const methodBody = arrowFunc(
-      [param(CUBA_APP_NAME, CUBA_APP_TYPE)],
+      [param(CUBA_APP_NAME, CUBA_APP_TYPE), param(FETCH_OPTIONS_NAME + '?', FETCH_OPTIONS_TYPE)],
       methodSubBody);
 
     methodAssignments.push(ts.createPropertyAssignment(method.methodName, methodBody));
@@ -96,6 +98,7 @@ export function createService(service: RestService, ctx: ModelContext): CreateSe
 function createInvokeServiceCall(serviceName: string, methodName: string, hasParams: boolean) {
   const argumentsArray: Expression[] = [str(serviceName), str(methodName)];
   argumentsArray.push(hasParams ? ts.createIdentifier('params') : ts.createIdentifier('{}'));
+  argumentsArray.push(ts.createIdentifier(FETCH_OPTIONS_NAME));
 
   return ts.createBlock(
     [ts.createReturn(

@@ -1,6 +1,5 @@
 import * as ts from "typescript";
-import {ImportDeclaration, ParameterDeclaration, StringLiteral} from "typescript";
-import {EnumDeclaration} from "typescript";
+import {EnumDeclaration, ParameterDeclaration, StringLiteral} from "typescript";
 import {ProjectEntityInfo} from "./entities-generation";
 import {Entity, getEntitiesArray, ProjectModel} from "./cuba-model";
 import {createEnums} from "./enums-generation";
@@ -37,14 +36,6 @@ export function param(name: string, typeName: string): ParameterDeclaration {
 
 export function str(text: string): StringLiteral {
   return ts.createStringLiteral(text);
-}
-
-export function importDeclaration(identifier: string, moduleSpec: string): ImportDeclaration {
-  return ts.createImportDeclaration(
-    undefined,
-    undefined,
-    ts.createImportClause(ts.createIdentifier(identifier), undefined),
-    ts.createStringLiteral(moduleSpec));
 }
 
 export function exportModifier() {

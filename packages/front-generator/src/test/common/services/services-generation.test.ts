@@ -25,11 +25,11 @@ describe('generate TS REST service', () => {
     const service = createService(restService, modelCtx());
     const expected = '' +
       `mpg_FavoriteService: {
-        addFavorite: (cubaApp: CubaApp) => (params: mpg_FavoriteService_addFavorite_params) => {
-            return cubaApp.invokeService("mpg_FavoriteService", "addFavorite", params);
+        addFavorite: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: mpg_FavoriteService_addFavorite_params) => {
+            return cubaApp.invokeService("mpg_FavoriteService", "addFavorite", params, fetchOpts);
         },
-        getFavorites: (cubaApp: CubaApp) => () => {
-            return cubaApp.invokeService("mpg_FavoriteService", "getFavorites", {});
+        getFavorites: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+            return cubaApp.invokeService("mpg_FavoriteService", "getFavorites", {}, fetchOpts);
         }
     }`;
 
@@ -56,7 +56,7 @@ describe('generate TS REST service', () => {
 
   it('should generate all rest services from CUBA model', function () {
     const expected = '' +
-      `import {CubaApp} from "@cuba-platform/rest";
+      `import { CubaApp, FetchOptions } from "@cuba-platform/rest";
       import { Car } from "./entities/mpg$Car";
       
       export type mpg_FavoriteService_addFavorite_params = {
@@ -71,16 +71,16 @@ describe('generate TS REST service', () => {
 
       export var restServices = {
           mpg_FavoriteService: {
-              addFavorite: (cubaApp: CubaApp) => (params: mpg_FavoriteService_addFavorite_params) => {
-                  return cubaApp.invokeService("mpg_FavoriteService", "addFavorite", params);
+              addFavorite: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: mpg_FavoriteService_addFavorite_params) => {
+                  return cubaApp.invokeService("mpg_FavoriteService", "addFavorite", params, fetchOpts);
               },
-              getFavorites: (cubaApp: CubaApp) => () => {
-                  return cubaApp.invokeService("mpg_FavoriteService", "getFavorites", {});
+              getFavorites: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+                  return cubaApp.invokeService("mpg_FavoriteService", "getFavorites", {}, fetchOpts);
               }
           },
           mpg_TestService: {
-              getTestInfo: (cubaApp: CubaApp) => () => {
-                  return cubaApp.invokeService("mpg_TestService", "getTestInfo", {});
+              getTestInfo: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+                  return cubaApp.invokeService("mpg_TestService", "getTestInfo", {}, fetchOpts);
               }
           }
       };`;
