@@ -1,7 +1,7 @@
-import {RestParam, RestService, RestServiceMethod} from "../model/cuba-model";
+import {RestParam, RestServiceMethod} from "../model/cuba-model";
 import * as ts from "typescript";
 import {TypeAliasDeclaration, TypeElement, TypeNode} from "typescript";
-import {exportModifier, ModelContext, param} from "../model/model-utils";
+import {exportModifier, ModelContext} from "../model/model-utils";
 import {entityImportInfo, enumImportInfo, ImportInfo} from "../import-utils";
 import {ENTITIES_DIR} from "../common";
 
@@ -10,32 +10,35 @@ import {ENTITIES_DIR} from "../common";
  * we need to resolve this by using parameters type union.
  */
 export type MethodWithOverloads = {
-  serviceName: string
   methodName: string
   methods: RestServiceMethod[]
 }
 
+export type MethodParamsType = {
+  paramTypeNode: TypeAliasDeclaration
+  importInfos: ImportInfo[]
+  name: string
+}
+
 export type ParamTypeInfo = { typeNode: TypeNode, importInfo?: ImportInfo }
 
-export function collectMethods(services: RestService[]): MethodWithOverloads[] {
+export function collectMethods(methods: RestServiceMethod[]): MethodWithOverloads[] {
   const methodWithOverloadsList: MethodWithOverloads[] = [];
-  services.forEach(s => {
-    s.methods.forEach(m => {
-      const mwo = methodWithOverloadsList.find(value => value.serviceName == s.name && value.methodName == m.name);
+  methods.forEach(m => {
+      const mwo = methodWithOverloadsList.find(value => value.methodName == m.name);
       if (mwo) {
-        //method with such name already exist - m is overload, add to methods
+        //method with such name already exist - m is overload, add to as overload method
         mwo.methods.push(m);
       } else {
         //no methods with such name - create new entry
-        methodWithOverloadsList.push({serviceName: s.name, methodName: m.name, methods: [m]});
+        methodWithOverloadsList.push({methodName: m.name, methods: [m]});
       }
-    })
-  });
+    });
   return methodWithOverloadsList;
 }
 
 export function createMethodParamsType(overloadMethods: RestServiceMethod[], namePrefix: string, ctx: ModelContext)
-  : {paramTypeNode: TypeAliasDeclaration, importInfos: ImportInfo[]} {
+  : MethodParamsType {
 
   const typeNodes: TypeNode[] = [];
   const importInfos: ImportInfo[] = [];
@@ -59,22 +62,25 @@ export function createMethodParamsType(overloadMethods: RestServiceMethod[], nam
     typeNodes.push(ts.createTypeLiteralNode(members));
   });
 
+  const name = methodParamsTypeName(overloadMethods[0].name, namePrefix);
   const paramTypeNode = ts.createTypeAliasDeclaration(
     undefined,
     [exportModifier()],
-    methodParamsTypeName(overloadMethods[0].name, namePrefix),
+    name,
     undefined,
     ts.createUnionTypeNode(typeNodes));
 
-  return {paramTypeNode, importInfos};
+
+  return {
+    paramTypeNode,
+    importInfos,
+    name
+  };
 
 }
 
-export function createServiceCallParams(methodName: string, paramNamePrefix: string) {
-  return [param('params', methodParamsTypeName(methodName, paramNamePrefix))];
-}
-
-function methodParamsTypeName(methodName: string, namePrefix: string) {
+//todo make private
+export function methodParamsTypeName(methodName: string, namePrefix: string) {
   return `${namePrefix}_${methodName}_params`;
 }
 

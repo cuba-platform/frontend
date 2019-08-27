@@ -1,0 +1,21 @@
+[
+  {
+    "name": "ecoCars",
+    "jpql": "select c from mpg$Car c where c.ecoRank = 3",
+    "entity": "mpg$Car",
+    "view": "_local",
+    "params": []
+  },
+  {
+    "name": "carsByType",
+    "jpql": "select c from mpg$Car c where c.carType = :carType",
+    "entity": "mpg$Car",
+    "view": "_local",
+    "params": [
+      {
+        "name": "carType",
+        "type": "java.lang.String"
+      }
+    ]
+  }
+]
