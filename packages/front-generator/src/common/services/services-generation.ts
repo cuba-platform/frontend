@@ -10,7 +10,7 @@ import {
   VariableStatement
 } from "typescript";
 import {renderTSNodes} from "../model/ts-helpers";
-import {exportModifier, ModelContext, param, str} from "../model/model-utils";
+import {exportModifier, idn, ModelContext, param, str} from "../model/model-utils";
 import {restServices} from "../../../test/e2e/generated/sdk/services";
 import {collectMethods, createMethodParamsType, MethodWithOverloads} from "./method-params-type";
 import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
@@ -18,7 +18,7 @@ import {CUBA_APP_MODULE_SPEC, CUBA_APP_NAME, CUBA_APP_TYPE, FETCH_OPTIONS_NAME, 
 
 const REST_SERVICES_VAR_NAME = 'restServices';
 
-export type CreateServiceResult = {
+export type CreateItemResult = {
   node: PropertyAssignment,
   methodParamsTypes: TypeAliasDeclaration[],
   imports: ImportInfo[]
@@ -33,31 +33,31 @@ export function generateServices(services: RestService[], ctx: ModelContext): st
     '\n\n');
 }
 
-export function createServices(services: RestService[], ctx: ModelContext)
+function createServices(services: RestService[], ctx: ModelContext)
   : { servicesNode: VariableStatement, paramTypes: TypeAliasDeclaration[], importInfos: ImportInfo[] } {
 
-  const serviceAssignmentList: PropertyAssignment[] = [];
+  const assignmentList: PropertyAssignment[] = [];
   const paramTypes: TypeAliasDeclaration[] = [];
   const importInfos: ImportInfo[] = [];
 
   services.forEach(srv => {
-    const createServiceResult = createService(srv, ctx);
-    serviceAssignmentList.push(createServiceResult.node);
-    createServiceResult.methodParamsTypes.forEach(mpt => paramTypes.push(mpt));
-    importInfos.push(...createServiceResult.imports);
+    const createItemResult = createService(srv, ctx);
+    assignmentList.push(createItemResult.node);
+    createItemResult.methodParamsTypes.forEach(mpt => paramTypes.push(mpt));
+    importInfos.push(...createItemResult.imports);
   });
 
   const variableDeclaration = ts.createVariableDeclaration(
     REST_SERVICES_VAR_NAME,
     undefined,
-    ts.createObjectLiteral(serviceAssignmentList, true));
+    ts.createObjectLiteral(assignmentList, true));
 
   const servicesNode = ts.createVariableStatement([exportModifier()], [variableDeclaration]);
   return {servicesNode, paramTypes, importInfos};
 }
 
 
-export function createService(service: RestService, ctx: ModelContext): CreateServiceResult {
+export function createService(service: RestService, ctx: ModelContext): CreateItemResult {
   const methodAssignments: PropertyAssignment[] = [];
   const methodParamsTypes: TypeAliasDeclaration[] = [];
   const imports: ImportInfo[] = [];
@@ -96,14 +96,13 @@ export function cubaAppCallFunc(method: string, paramTypeName: string | undefine
 
 function cubaAppMethodCall(methodName: string, signature: string[], withParams: boolean) {
   const argumentsArray: Expression[] = signature.map(s => str(s));
-  argumentsArray.push(withParams ? ts.createIdentifier('params') : ts.createIdentifier('{}'));
-  argumentsArray.push(ts.createIdentifier(FETCH_OPTIONS_NAME));
+  argumentsArray.push(withParams ? idn('params') : idn('{}'));
+  argumentsArray.push(idn(FETCH_OPTIONS_NAME));
 
   return ts.createBlock(
     [ts.createReturn(
       ts.createCall(
-        //todo rewrite with ts.createMethodCall
-        ts.createIdentifier(`${CUBA_APP_NAME}.${methodName}`), undefined, argumentsArray))
+        ts.createPropertyAccess(idn(CUBA_APP_NAME), idn(methodName)), undefined, argumentsArray))
     ],
     true);
 }

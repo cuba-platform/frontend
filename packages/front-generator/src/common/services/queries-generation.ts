@@ -1,14 +1,55 @@
 import {RestQuery} from "../model/cuba-model";
-import {ModelContext} from "../model/model-utils";
+import {exportModifier, ModelContext} from "../model/model-utils";
 import {createMethodParamsType} from "./method-params-type";
 import * as ts from "typescript";
 import {PropertyAssignment, TypeAliasDeclaration} from "typescript";
-import {ImportInfo} from "../import-utils";
-import {cubaAppCallFunc} from "./services-generation";
+import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
+import {CreateItemResult, cubaAppCallFunc} from "./services-generation";
+import {CUBA_APP_MODULE_SPEC, CUBA_APP_TYPE, FETCH_OPTIONS_TYPE} from "../common";
+import {renderTSNodes} from "../model/ts-helpers";
 
-// export function createQueries() {
-//   const queriesByEntity: Map<string, RestQuery[]> = new Map();
-// }
+const QUERIES_VAR_NAME = 'restQueries';
+
+export function generateQueries(restQueries: RestQuery[], ctx: ModelContext): string {
+  const importDec = importDeclaration([CUBA_APP_TYPE, FETCH_OPTIONS_TYPE], CUBA_APP_MODULE_SPEC);
+  const queriesResult = createQueries(restQueries, ctx);
+  const includes = createIncludes(queriesResult.importInfos);
+  return renderTSNodes(
+    [importDec, ...includes, ...queriesResult.methodParamTypes, queriesResult.node],
+    '\n\n');
+}
+
+function createQueries(restQueries: RestQuery[], ctx: ModelContext) {
+
+  const assignmentList: PropertyAssignment[] = [];
+  const methodParamTypes: TypeAliasDeclaration[] = [];
+  const importInfos: ImportInfo[] = [];
+
+  const queriesByEntity: Map<string, RestQuery[]> = new Map();
+  restQueries.forEach(q => {
+    const queriesOfEntity: RestQuery[] | undefined = queriesByEntity.get(q.entity);
+    if (queriesOfEntity) {
+      queriesOfEntity.push(q);
+    } else {
+      queriesByEntity.set(q.entity, [q]);
+    }
+  });
+
+  [...queriesByEntity.entries()].forEach(([entityName, queries]) => {
+    const createItemResult = createQuery(entityName, queries, ctx);
+    assignmentList.push(createItemResult.node);
+    createItemResult.methodParamsTypes.forEach(mpt => methodParamTypes.push(mpt));
+    importInfos.push(...createItemResult.imports);
+  });
+
+  const variableDeclaration = ts.createVariableDeclaration(
+    QUERIES_VAR_NAME,
+    undefined,
+    ts.createObjectLiteral(assignmentList, true));
+
+  const node = ts.createVariableStatement([exportModifier()], [variableDeclaration]);
+  return {node, methodParamTypes, importInfos};
+}
 
 /**
  * Call example:
@@ -21,7 +62,7 @@ import {cubaAppCallFunc} from "./services-generation";
  *        cubaApp.queryCount("mpg$Car", "carsByType", params, fetchOpts);
  *        cubaApp.queryWithCount("mpg$Car", "carsByType", params, fetchOpts);
  */
-export function createQuery(entityName: string, queries: RestQuery[], ctx: ModelContext) {
+export function createQuery(entityName: string, queries: RestQuery[], ctx: ModelContext): CreateItemResult {
   const methodAssignments: PropertyAssignment[] = [];
   const methodParamsTypes: TypeAliasDeclaration[] = [];
   const imports: ImportInfo[] = [];
@@ -33,7 +74,7 @@ export function createQuery(entityName: string, queries: RestQuery[], ctx: Model
 
   queries.forEach((query: RestQuery) => {
 
-    let paramTypeName : string | undefined = undefined;
+    let paramTypeName: string | undefined = undefined;
 
     //if has params - create special type for it
     if (query.params.length > 0) {
@@ -58,7 +99,9 @@ export function createQuery(entityName: string, queries: RestQuery[], ctx: Model
 
 function findClassName(entityName: string, ctx: ModelContext) {
   const entry = [...ctx.entitiesMap.entries()]
-    .find(([, projEntityInfo]) => { return projEntityInfo.entity.name == entityName; });
+    .find(([, projEntityInfo]) => {
+      return projEntityInfo.entity.name == entityName;
+    });
   return entry![1].entity.className;
 }
 

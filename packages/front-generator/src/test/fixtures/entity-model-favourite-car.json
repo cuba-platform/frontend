@@ -1,0 +1,76 @@
+{
+  "name": "mpg$FavoriteCar",
+  "className": "FavoriteCar",
+  "packageName": "com.company.mpg.entity",
+  "dataStore": "_MAIN_",
+  "table": "MPG_FAVORITE_CAR",
+  "parentClassName": "StandardEntity",
+  "discriminator": "",
+  "updatable": false,
+  "creatable": false,
+  "hasUuid": false,
+  "softDelete": false,
+  "versioned": false,
+  "reference": "com/company/mpg/entity/FavoriteCar.java",
+  "parentPackage": "com.haulmont.cuba.core.entity",
+  "embeddable": false,
+  "persistentEntity": true,
+  "replaceParent": false,
+  "systemLevel": false,
+  "namePattern": "%s|car",
+  "mappedSuperclass": false,
+  "fqn": "com.company.mpg.entity.FavoriteCar",
+  "imported": false,
+  "attributes": [
+    {
+      "name": "car",
+      "type": {
+        "packageName": "com.company.mpg.entity",
+        "className": "Car",
+        "fqn": "com.company.mpg.entity.Car",
+        "label": "Car",
+        "entityName": "mpg$Car"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "MANY_TO_ONE",
+      "readOnly": false,
+      "column": "CAR_ID",
+      "mandatory": true,
+      "unique": false,
+      "transient": false
+    },
+    {
+      "name": "user",
+      "type": {
+        "packageName": "com.haulmont.cuba.security.entity",
+        "className": "User",
+        "fqn": "com.haulmont.cuba.security.entity.User",
+        "label": "User",
+        "entityName": "sec$User"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "MANY_TO_ONE",
+      "readOnly": false,
+      "column": "USER_ID",
+      "mandatory": true,
+      "unique": false,
+      "transient": false
+    },
+    {
+      "name": "notes",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "NOTES",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    }
+  ]
+}

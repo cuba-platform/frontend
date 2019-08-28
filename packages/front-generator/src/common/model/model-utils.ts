@@ -41,3 +41,7 @@ export function str(text: string): StringLiteral {
 export function exportModifier() {
   return ts.createToken(ts.SyntaxKind.ExportKeyword);
 }
+
+export function idn(text: string) {
+  return ts.createIdentifier(text);
+}

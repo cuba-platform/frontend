@@ -8,6 +8,7 @@ import {createEnums} from "../common/model/enums-generation";
 import {renderTSNodes} from "../common/model/ts-helpers";
 import {EnumDeclaration} from "typescript";
 import {createIncludes} from "../common/import-utils";
+import {createTestProjectEntityInfo} from "./test-commons";
 
 const enumsModel: Enum[] = require('./enums-model.json');
 const entityModel: Entity = require('./entity-model.json');
@@ -65,9 +66,10 @@ describe('generate TS entity', function () {
 
   it(createEntityClass.name, function () {
     const enMap = entitiesMap([
-      'com.company.mpg.entity.Garage',
-      'com.company.mpg.entity.TechnicalCertificate',
-      'com.haulmont.cuba.core.entity.FileDescriptor']);
+        'com.company.mpg.entity.Garage',
+        'com.company.mpg.entity.TechnicalCertificate',
+      ],
+      ['com.haulmont.cuba.core.entity.FileDescriptor']);
 
     const enumsMap = new Map<string, EnumDeclaration>();
     enumsMap.set('com.company.mpg.entity.CarType', {name: {text: 'CarType'}} as any);
@@ -104,9 +106,9 @@ describe('generate TS entity', function () {
     content = renderTSNodes(includes);
     expected = '' +
       `import { CarType, EcoRank } from "./../enums/enums";
-      import { Garage } from "./Garage";
-      import { TechnicalCertificate } from "./TechnicalCertificate";
-      import { FileDescriptor } from "./FileDescriptor";`;
+      import { Garage } from "./mpg$Garage";
+      import { TechnicalCertificate } from "./mpg$TechnicalCertificate";
+      import { FileDescriptor } from "./sys$FileDescriptor";`;
 
     assertContent(content, expected);
   });
@@ -118,7 +120,7 @@ describe('generate TS enums', () => {
     let content = renderTSNodes(enums.map(e => e.node));
     const res = 'export enum CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +
       'export enum EcoRank { EURO1 = "EURO1", EURO2 = "EURO2", EURO3 = "EURO3" } ';
-    assertContent(content, res);
+    assertContent(content, res, false);
 
     enums = [];
     content = renderTSNodes(enums.map(e => e.node));
@@ -133,28 +135,30 @@ describe('generate TS enums', () => {
       'export enum com_company_mpg_entity_CarType { SEDAN = "SEDAN", HATCHBACK = "HATCHBACK" } ' +
       'export enum com_company_mpg_entity2_CarType { SEDAN_V2 = "SEDAN_V2", HATCHBACK_V2 = "HATCHBACK_V2" } ' +
       'export enum EcoRank { EURO1 = "EURO1", EURO2 = "EURO2", EURO3 = "EURO3" } ';
-    assertContent(expected, content);
+    assertContent(expected, content, false);
   });
 });
 
-export function assertContent(actual: string, expect: string) {
-  assert.strictEqual(drain(actual), drain(expect));
+export function assertContent(actual: string, expect: string, multiline: boolean = true) {
+  assert.strictEqual(drain(actual, multiline), drain(expect, multiline));
 }
 
-function drain(result: string) {
-  return result.replace(/\n/g, ' ')
-    .replace(/\s{2,}/g, ' ')
-    .trim();
+function drain(result: string, multiline: boolean = true) {
+  return multiline
+    ? result
+      .replace(/^\s*\n/gm, '')
+      .replace(/[ ]{2,}/g, ' ')
+      .replace(/\n /g, '\n')
+      .trim()
+    : result
+      .replace(/\n/g, ' ')
+      .replace(/ {2,}/g, ' ')
+      .trim()
 }
 
-function entitiesMap(classNames: string[]): Map<string, ProjectEntityInfo> {
+function entitiesMap(classNames: string[], baseClassNames: string[]): Map<string, ProjectEntityInfo> {
   const entitiesMap = new Map<string, ProjectEntityInfo>();
-  classNames.forEach(cn => {
-    const shortName = cn.split('.').pop();
-    entitiesMap.set(cn, {
-      type: {className: cn},
-      entity: {className: shortName}
-    } as any);
-  });
+  classNames.forEach(en => entitiesMap.set(en, createTestProjectEntityInfo(en)));
+  baseClassNames.forEach(en => entitiesMap.set(en, createTestProjectEntityInfo(en, true)));
   return entitiesMap;
 }

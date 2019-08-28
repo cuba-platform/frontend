@@ -1,0 +1,45 @@
+[
+  {
+    "name": "allCars",
+    "jpql": "select c from mpg$Car c",
+    "entity": "mpg$Car",
+    "view": "_local",
+    "params": []
+  },
+  {
+    "name": "ecoCars",
+    "jpql": "select c from mpg$Car c where c.ecoRank > ecoRank",
+    "entity": "mpg$Car",
+    "view": "_local",
+    "params": [
+      {
+        "name": "ecoRank",
+        "type": "java.lang.String"
+      }
+    ]
+  },
+  {
+    "name": "carsByType",
+    "jpql": "select c from mpg$Car c where c.carType = :carType",
+    "entity": "mpg$Car",
+    "view": "_local",
+    "params": [
+      {
+        "name": "carType",
+        "type": "java.lang.String"
+      }
+    ]
+  },
+  {
+    "name": "allCars",
+    "jpql": "select f from mpg$FavoriteCar f where f.car = :car",
+    "entity": "mpg$FavoriteCar",
+    "view": "_local",
+    "params": [
+      {
+        "name": "car",
+        "type": "com.company.mpg.entity.Car"
+      }
+    ]
+  }
+]
