@@ -14,13 +14,25 @@ describe('generate TS REST query', () => {
     const content = renderTSNodes([queryResult.node]);
     const expect = '' +
       `Car: {
-          ecoCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
-              return cubaApp.query("mpg$Car", "ecoCars", {}, fetchOpts);
-          },
-          carsByType: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: queries_Car_carsByType_params) => {
-              return cubaApp.query("mpg$Car", "carsByType", params, fetchOpts);
-          }
-      }`;
+        ecoCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+            return cubaApp.query("mpg$Car", "ecoCars", {}, fetchOpts);
+        },
+        ecoCarsCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+            return cubaApp.queryCount("mpg$Car", "ecoCars", {}, fetchOpts);
+        },
+        ecoCarsWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+            return cubaApp.queryWithCount("mpg$Car", "ecoCars", {}, fetchOpts);
+        },
+        carsByType: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: queries_Car_carsByType_params) => {
+            return cubaApp.query("mpg$Car", "carsByType", params, fetchOpts);
+        },
+        carsByTypeCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: queries_Car_carsByType_params) => {
+            return cubaApp.queryCount("mpg$Car", "carsByType", params, fetchOpts);
+        },
+        carsByTypeWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: queries_Car_carsByType_params) => {
+            return cubaApp.queryWithCount("mpg$Car", "carsByType", params, fetchOpts);
+        }
+    }`;
     assertContent(content, expect);
   });
 

@@ -79,11 +79,6 @@ export function createMethodParamsType(overloadMethods: RestServiceMethod[], nam
 
 }
 
-//todo make private
-export function methodParamsTypeName(methodName: string, namePrefix: string) {
-  return `${namePrefix}_${methodName}_params`;
-}
-
 export function parseParamType(param: RestParam, ctx: ModelContext)
   : ParamTypeInfo {
 
@@ -120,4 +115,8 @@ export function parseParamType(param: RestParam, ctx: ModelContext)
   }
 
   return {typeNode, importInfo: undefined};
+}
+
+function methodParamsTypeName(methodName: string, namePrefix: string) {
+  return `${namePrefix}_${methodName}_params`;
 }

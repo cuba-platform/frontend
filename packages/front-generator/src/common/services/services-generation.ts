@@ -12,7 +12,7 @@ import {
 import {renderTSNodes} from "../model/ts-helpers";
 import {exportModifier, ModelContext, param, str} from "../model/model-utils";
 import {restServices} from "../../../test/e2e/generated/sdk/services";
-import {collectMethods, createMethodParamsType, methodParamsTypeName, MethodWithOverloads} from "./method-params-type";
+import {collectMethods, createMethodParamsType, MethodWithOverloads} from "./method-params-type";
 import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
 import {CUBA_APP_MODULE_SPEC, CUBA_APP_NAME, CUBA_APP_TYPE, FETCH_OPTIONS_NAME, FETCH_OPTIONS_TYPE} from "../common";
 
@@ -65,36 +65,40 @@ export function createService(service: RestService, ctx: ModelContext): CreateSe
 
   collectMethods(service.methods).forEach((mwo: MethodWithOverloads) => {
 
-    const hasParams = mwo.methods.some(m => m.params.length > 0);
+    let paramTypeName : string | undefined = undefined;
 
-    const methodSubBody: ConciseBody = arrowFunc(
-      hasParams ? createServiceCallParams(mwo.methodName, serviceName) : [],
-      cubaAppMethodCall('invokeService', [serviceName, mwo.methodName], hasParams));
-
-    const methodBody = arrowFunc(
-      [param(CUBA_APP_NAME, CUBA_APP_TYPE), param(FETCH_OPTIONS_NAME + '?', FETCH_OPTIONS_TYPE)],
-      methodSubBody);
-
-    methodAssignments.push(ts.createPropertyAssignment(mwo.methodName, methodBody));
-    if (hasParams) {
-      const {paramTypeNode, importInfos} = createMethodParamsType(mwo.methods, serviceName, ctx);
+    //if any of overloads has params - create special type for it
+    if (mwo.methods.some(m => m.params.length > 0)) {
+      const {paramTypeNode, importInfos, name} = createMethodParamsType(mwo.methods, serviceName, ctx);
       imports.push(...importInfos);
       methodParamsTypes.push(paramTypeNode);
+      paramTypeName = name;
     }
+
+    const cubaCallFunc = cubaAppCallFunc('invokeService', paramTypeName, [serviceName, mwo.methodName]);
+    methodAssignments.push(ts.createPropertyAssignment(mwo.methodName, cubaCallFunc));
   });
 
-  const node = ts.createPropertyAssignment(
-    serviceName,
-    ts.createObjectLiteral(methodAssignments, true));
-
+  const node = ts.createPropertyAssignment(serviceName, ts.createObjectLiteral(methodAssignments, true));
   return {node, methodParamsTypes, imports};
 
 }
 
-export function cubaAppMethodCall(methodName: string, signature: string[], withParams: boolean) {
+export function cubaAppCallFunc(method: string, paramTypeName: string | undefined, cubaAppCallParams: string[]): ArrowFunction {
+  const methodSubBody: ConciseBody = arrowFunc(
+    paramTypeName ? [param('params', paramTypeName)] : [],
+    cubaAppMethodCall(method, cubaAppCallParams, paramTypeName != null));
+
+  return arrowFunc(
+    [param(CUBA_APP_NAME, CUBA_APP_TYPE), param(FETCH_OPTIONS_NAME + '?', FETCH_OPTIONS_TYPE)],
+    methodSubBody);
+}
+
+function cubaAppMethodCall(methodName: string, signature: string[], withParams: boolean) {
   const argumentsArray: Expression[] = signature.map(s => str(s));
   argumentsArray.push(withParams ? ts.createIdentifier('params') : ts.createIdentifier('{}'));
   argumentsArray.push(ts.createIdentifier(FETCH_OPTIONS_NAME));
+
   return ts.createBlock(
     [ts.createReturn(
       ts.createCall(
@@ -107,9 +111,3 @@ export function cubaAppMethodCall(methodName: string, signature: string[], withP
 export function arrowFunc(parameters: ParameterDeclaration[], body: ConciseBody): ArrowFunction {
   return ts.createArrowFunction(undefined, undefined, parameters, undefined, undefined, body);
 }
-
-export function createServiceCallParams(methodName: string, paramNamePrefix: string) {
-  return [param('params', methodParamsTypeName(methodName, paramNamePrefix))];
-}
-
-
