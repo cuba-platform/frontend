@@ -6,6 +6,7 @@ import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../.
 import {RestQuery, RestService} from "../../../common/model/cuba-model";
 import {generateServices} from "../../../common/services/services-generation";
 import {collectModelContext} from "../../../common/utils";
+import {generateQueries} from "../../../common/services/queries-generation";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -45,6 +46,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
 
   }
 
+  // noinspection JSUnusedGlobalSymbols
   async prepareModel() {
     if (!this.cubaProjectModel && this.answers) {
       const modelFilePath = path.join(process.cwd(), 'projectModel.json');
@@ -68,7 +70,8 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
   }
 
   private generateQueries = (restQueries: RestQuery[]) => {
-    this.fs.copyTpl(this.templatePath('queries.ejs'), this.destinationPath('queries.ts'), {restQueries});
+    const content = generateQueries(restQueries, collectModelContext(this.cubaProjectModel!));
+    this.fs.write(this.destinationPath('queries.ts'), content);
   };
 
   private generateServices = (restServices: RestService[]) => {
