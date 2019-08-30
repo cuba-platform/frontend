@@ -103,7 +103,7 @@ describe('generate TS entity', function () {
     const includes = createIncludes(classTsNode.importInfos, undefined);
     content = renderTSNodes(includes);
     expected = '' +
-      `import { CarType, EcoRank } from "./../enums/enums";
+      `import { CarType, EcoRank } from "../enums/enums";
       import { Garage } from "./Garage";
       import { TechnicalCertificate } from "./TechnicalCertificate";
       import { FileDescriptor } from "./FileDescriptor";`;

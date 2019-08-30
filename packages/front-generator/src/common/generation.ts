@@ -71,8 +71,6 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     return [];
   }
 
-  abstract prepareModel(): void
-
   abstract writing(): void
 }
 

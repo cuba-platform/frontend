@@ -59,7 +59,7 @@ export function entityImportInfo(importedEntity: ProjectEntityInfo, prefix: stri
 export function enumImportInfo(ed: EnumDeclaration, pathPrefix?: string) {
   return {
     className: ed.name.text,
-    importPath: './' + path.join(pathPrefix ? pathPrefix : '', `${ENUMS_DIR}/${ENUMS_FILE}`)
+    importPath: path.join(pathPrefix ? pathPrefix : '', `${ENUMS_DIR}/${ENUMS_FILE}`)
   };
 }
 

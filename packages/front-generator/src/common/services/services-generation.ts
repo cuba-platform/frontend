@@ -11,7 +11,6 @@ import {
 } from "typescript";
 import {renderTSNodes} from "../model/ts-helpers";
 import {exportModifier, ModelContext, param, str} from "../model/model-utils";
-import {restServices} from "../../../test/e2e/generated/sdk/services";
 import {collectMethods, createMethodParamsType, createServiceCallParams} from "./method-params-type";
 import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
 
