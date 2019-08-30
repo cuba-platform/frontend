@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 import {EnumDeclaration, ImportDeclaration} from "typescript";
 import {ProjectEntityInfo} from "./model/entities-generation";
-import {BASE_ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "./common";
+import {BASE_ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "./constants";
 import {getEntityModulePath} from "./utils";
 import * as path from "path";
 

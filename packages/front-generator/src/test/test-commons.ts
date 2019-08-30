@@ -1,6 +1,6 @@
-import {collectModelContext, ModelContext} from "../common/model/model-utils";
 import {Entity, Enum} from "../common/model/cuba-model";
 import {ProjectEntityInfo} from "../common/model/entities-generation";
+import {collectModelContext, ModelContext} from "../common/utils";
 
 const enumsModel: Enum[] = require('./enums-model.json');
 const entityModel: Entity = require('./entity-model.json');

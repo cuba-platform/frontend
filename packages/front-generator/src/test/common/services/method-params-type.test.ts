@@ -4,13 +4,13 @@ import {
   ParamTypeInfo,
   parseParamType
 } from "../../../common/services/method-params-type";
-import {renderTSNodes} from "../../../common/model/ts-helpers";
+import {renderTSNodes} from "../../../common/ts-helpers";
 import {assertContent} from "../../generator.test";
 import {modelCtx} from "../../test-commons";
 import {Entity, Enum, RestService} from "../../../common/model/cuba-model";
-import {collectModelContext} from "../../../common/model/model-utils";
 import {isImportEquals} from "../../../common/import-utils";
 import * as assert from "assert";
+import {collectModelContext} from "../../../common/utils";
 const servicesModel: RestService[] = require('./../../fixtures/service-model.json');
 
 const enumsModelWithDuplicates: Enum[] = require('../../enums-model--identical-names.json');

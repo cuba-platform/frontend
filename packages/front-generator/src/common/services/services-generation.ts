@@ -9,12 +9,12 @@ import {
   TypeAliasDeclaration,
   VariableStatement
 } from "typescript";
-import {renderTSNodes} from "../model/ts-helpers";
-import {exportModifier, idn, ModelContext, param, str} from "../model/model-utils";
-import {restServices} from "../../../test/e2e/generated/sdk/services";
+import {renderTSNodes} from "../ts-helpers";
 import {collectMethods, createMethodParamsType, MethodWithOverloads} from "./method-params-type";
 import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
-import {CUBA_APP_MODULE_SPEC, CUBA_APP_NAME, CUBA_APP_TYPE, FETCH_OPTIONS_NAME, FETCH_OPTIONS_TYPE} from "../common";
+import {CUBA_APP_MODULE_SPEC, CUBA_APP_NAME, CUBA_APP_TYPE, FETCH_OPTIONS_NAME, FETCH_OPTIONS_TYPE} from "../constants";
+import {exportModifier, idn, param, str} from "../ts-shorthands";
+import {ModelContext} from "../utils";
 
 const REST_SERVICES_VAR_NAME = 'restServices';
 

@@ -5,7 +5,7 @@ import {createEntityClass, ProjectEntityInfo} from "../common/model/entities-gen
 import {Entity, Enum} from "../common/model/cuba-model";
 import * as path from "path";
 import {createEnums} from "../common/model/enums-generation";
-import {renderTSNodes} from "../common/model/ts-helpers";
+import {renderTSNodes} from "../common/ts-helpers";
 import {EnumDeclaration} from "typescript";
 import {createIncludes} from "../common/import-utils";
 import {createTestProjectEntityInfo} from "./test-commons";

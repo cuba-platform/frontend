@@ -3,12 +3,11 @@ import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
 import {EnumDeclaration} from "typescript";
-import {renderTSNodes} from "./ts-helpers";
+import {renderTSNodes} from "../ts-helpers";
 import {createEntityViewTypes} from "./entity-views-generation";
 import {createIncludes, entityImportInfo, enumImportInfo, ImportInfo} from "../import-utils";
-import {collectModelContext, ModelContext} from "./model-utils";
-import {BASE_ENTITIES_DIR, ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "../common";
-import {getEntityModulePath} from "../utils";
+import {BASE_ENTITIES_DIR, ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "../constants";
+import {collectModelContext, getEntityModulePath, ModelContext} from "../utils";
 
 export interface ProjectEntityInfo {
   entity: Entity;

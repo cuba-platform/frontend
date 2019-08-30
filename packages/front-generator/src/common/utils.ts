@@ -1,5 +1,8 @@
-import {Entity} from "./model/cuba-model";
+import {Entity, getEntitiesArray, ProjectModel} from "./model/cuba-model";
 import * as path from "path";
+import {ProjectEntityInfo} from "./model/entities-generation";
+import {EnumDeclaration} from "typescript";
+import {createEnums} from "./model/enums-generation";
 
 /**
  * @param {string} elementName my-app-custom
@@ -41,4 +44,29 @@ export function fqnToName(fqn: string): string {
 export function getEntityModulePath(entity: Entity, prefix: string = ''): string {
   const modulePath = entity.name ? entity.name : entity.className;
   return path.join(prefix, modulePath);
+}
+
+export type ModelContext = {
+  entitiesMap: Map<string, ProjectEntityInfo>
+  enumsMap: Map<string, EnumDeclaration>
+}
+
+export function collectModelContext(projectModel: ProjectModel) {
+  const entities: Entity[] = getEntitiesArray(projectModel.entities);
+  const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
+
+  const entitiesMap = new Map<string, ProjectEntityInfo>();
+  const enumsMap = new Map<string, EnumDeclaration>();
+  createEnums(projectModel.enums).forEach(en => enumsMap.set(en.fqn, en.node));
+
+  const addEntityToMap = (map: Map<string, ProjectEntityInfo>, isBaseProjectEntity = false) => (e: Entity) => {
+    map.set(e.fqn, {
+      isBaseProjectEntity,
+      entity: e
+    })
+  };
+
+  entities.forEach(addEntityToMap(entitiesMap));
+  baseProjectEntities.forEach(addEntityToMap(entitiesMap, true));
+  return {entitiesMap, enumsMap}
 }

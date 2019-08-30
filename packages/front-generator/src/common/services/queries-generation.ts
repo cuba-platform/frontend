@@ -1,12 +1,13 @@
 import {RestQuery} from "../model/cuba-model";
-import {exportModifier, ModelContext} from "../model/model-utils";
 import {collectMethods, createMethodParamsType, MethodWithOverloads} from "./method-params-type";
 import * as ts from "typescript";
 import {PropertyAssignment, TypeAliasDeclaration} from "typescript";
 import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
 import {CreateItemResult, cubaAppCallFunc} from "./services-generation";
-import {CUBA_APP_MODULE_SPEC, CUBA_APP_TYPE, FETCH_OPTIONS_TYPE} from "../common";
-import {renderTSNodes} from "../model/ts-helpers";
+import {CUBA_APP_MODULE_SPEC, CUBA_APP_TYPE, FETCH_OPTIONS_TYPE} from "../constants";
+import {renderTSNodes} from "../ts-helpers";
+import {exportModifier} from "../ts-shorthands";
+import {ModelContext} from "../utils";
 
 const QUERIES_VAR_NAME = 'restQueries';
 

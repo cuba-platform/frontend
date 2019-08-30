@@ -1,5 +1,5 @@
 import {createService, generateServices} from "../../../common/services/services-generation";
-import {renderTSNodes} from "../../../common/model/ts-helpers";
+import {renderTSNodes} from "../../../common/ts-helpers";
 import {collectMethods} from "../../../common/services/method-params-type";
 import {RestService} from "../../../common/model/cuba-model";
 import {assertContent} from "../../generator.test";

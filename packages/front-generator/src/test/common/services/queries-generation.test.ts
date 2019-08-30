@@ -1,4 +1,4 @@
-import {renderTSNodes} from "../../../common/model/ts-helpers";
+import {renderTSNodes} from "../../../common/ts-helpers";
 import {RestQuery} from "../../../common/model/cuba-model";
 import {createTestProjectEntityInfo, modelCtx} from "../../test-commons";
 import {assertContent} from "../../generator.test";
