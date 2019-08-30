@@ -57,13 +57,13 @@ describe('should generate new type form method params, an imports for this type'
     param = {name: 'carType', type: 'com.company.mpg.entity.CarType'};
     paramTypeInfo = parseParamType(param, ctx);
     assertParamType(paramTypeInfo, 'com_company_mpg_entity_CarType',
-      'com_company_mpg_entity_CarType', 'enums/enums');
+      'com_company_mpg_entity_CarType', './enums/enums');
 
     ctx = modelCtx();
 
     param = {name: 'carType', type: 'com.company.mpg.entity.CarType'};
     paramTypeInfo = parseParamType(param, ctx);
-    assertParamType(paramTypeInfo, 'CarType', 'CarType', 'enums/enums');
+    assertParamType(paramTypeInfo, 'CarType', 'CarType', './enums/enums');
 
     param = {name: 'date', type: 'java.util.Date'};
     paramTypeInfo = parseParamType(param, ctx);
