@@ -1,6 +1,5 @@
 import { StandardEntity } from "./base/sys$StandardEntity";
-import { CarType } from "../enums/enums";
-import { EcoRank } from "../enums/enums";
+import { CarType, EcoRank } from "../enums/enums";
 import { Garage } from "./mpg$Garage";
 import { TechnicalCertificate } from "./mpg$TechnicalCertificate";
 import { FileDescriptor } from "./base/sys$FileDescriptor";
