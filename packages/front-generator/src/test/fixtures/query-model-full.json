@@ -8,7 +8,7 @@
   },
   {
     "name": "ecoCars",
-    "jpql": "select c from mpg$Car c where c.ecoRank > ecoRank",
+    "jpql": "select c from mpg$Car c where c.ecoRank > :ecoRank",
     "entity": "mpg$Car",
     "view": "_local",
     "params": [

@@ -6,6 +6,7 @@ import {createQuery, generateQueries} from "../../../common/services/queries-gen
 
 const queriesModelCar: RestQuery[] = require('../../fixtures/query-model-car.json');
 const queriesModelFull: RestQuery[] = require('../../fixtures/query-model-full.json');
+const queriesModelOverloads: RestQuery[] = require('../../fixtures/query-model-overloads.json');
 
 
 describe('generate TS REST query', () => {
@@ -102,6 +103,33 @@ describe('generate TS REST query', () => {
             return cubaApp.queryWithCount("mpg$Car", "carsByType", params, fetchOpts);
         }
     }`;
+    assertContent(content, expect);
+  });
+
+  it('should resolve queries overload', function () {
+    const content = generateQueries(queriesModelOverloads, modelCtx());
+    const expect = '' +
+      `import { CubaApp, FetchOptions } from "@cuba-platform/rest";
+      
+      export type queries_Car_ecoCars_params = {} | {
+          ecoRank: string;
+      } | {
+          model: string;
+      };
+      
+      export var restQueries = {
+          Car: {
+              ecoCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: queries_Car_ecoCars_params) => {
+                  return cubaApp.query("mpg$Car", "ecoCars", params, fetchOpts);
+              },
+              ecoCarsCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: queries_Car_ecoCars_params) => {
+                  return cubaApp.queryCount("mpg$Car", "ecoCars", params, fetchOpts);
+              },
+              ecoCarsWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (params: queries_Car_ecoCars_params) => {
+                  return cubaApp.queryWithCount("mpg$Car", "ecoCars", params, fetchOpts);
+              }
+          }
+      };`;
     assertContent(content, expect);
   });
 

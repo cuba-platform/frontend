@@ -1,6 +1,6 @@
 import {RestQuery} from "../model/cuba-model";
 import {exportModifier, ModelContext} from "../model/model-utils";
-import {createMethodParamsType} from "./method-params-type";
+import {collectMethods, createMethodParamsType, MethodWithOverloads} from "./method-params-type";
 import * as ts from "typescript";
 import {PropertyAssignment, TypeAliasDeclaration} from "typescript";
 import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
@@ -70,28 +70,28 @@ export function createQuery(entityName: string, queries: RestQuery[], ctx: Model
   const className = findClassName(entityName, ctx);
   const paramTypePrefix = 'queries_' + className;
 
-  //todo 'overload' query - queries with same name
-
-  queries.forEach((query: RestQuery) => {
+  //'overload' queries - queries with both same entity and name
+  collectMethods(queries).forEach((mwo: MethodWithOverloads) => {
 
     let paramTypeName: string | undefined = undefined;
 
-    //if has params - create special type for it
-    if (query.params.length > 0) {
-      const {paramTypeNode, importInfos, name} = createMethodParamsType([query], paramTypePrefix, ctx);
+    //if any of overloads has params - create special type for it
+    if (mwo.methods.some(m => m.params.length > 0)) {
+      const {paramTypeNode, importInfos, name} = createMethodParamsType(mwo.methods, paramTypePrefix, ctx);
       imports.push(...importInfos);
       methodParamsTypes.push(paramTypeNode);
       paramTypeName = name;
     }
 
     ['', 'Count', 'WithCount'].forEach(suffix => {
-      const cubaCallFunc = cubaAppCallFunc('query' + suffix, paramTypeName, [entityName, query.name]);
-      methodAssignments.push(ts.createPropertyAssignment(query.name + suffix, cubaCallFunc));
+      const qName = mwo.methodName;
+      const cubaCallFunc = cubaAppCallFunc('query' + suffix, paramTypeName, [entityName, qName]);
+      methodAssignments.push(ts.createPropertyAssignment(qName + suffix, cubaCallFunc));
     });
 
   });
 
-  //todo do we resolve entities with same names, or entity.name is unique in CUBA  ?
+  //todo do we need to resolve entities with same names, or entity.name is unique in CUBA  ?
 
   const node = ts.createPropertyAssignment(className, ts.createObjectLiteral(methodAssignments, true));
   return {node, methodParamsTypes, imports};
