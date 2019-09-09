@@ -4,8 +4,9 @@
 
 React client is an alternative to [Generic UI](https://doc.cuba-platform.com/manual-latest/gui_framework.html) which 
 provides front-end oriented development experience. 
-It's more flexible in terms of layout customization and consuming UI libraries from vast JS ecosystem. However
-it requires better knowledge of modern front-end stack. 
+It's more flexible in terms of layout customization and allows easily integrate
+ UI libraries and components from vast JavaScript ecosystem. 
+ However it requires better knowledge of modern front-end stack. 
  
 #### Technologies
 
@@ -35,11 +36,16 @@ required.
 There are two ways to create React client:
 
 1. As a standalone front-end app ([using command line interface](https://github.com/cuba-platform/front-generator/blob/master/README.md#using-via-command-line))
+```bash
+gen-cuba-front react-typescript
+```
+See the above link for step-by-step instruction. 
+
 2. As a module of CUBA application (using [CUBA Studio](https://doc.cuba-platform.com/studio/#modules))
 
 #### Project layout
 
-Here is the structure of the most important project files and directories:
+Here is the structure of the newly generated project:
 
 ```
 app-name/
@@ -56,9 +62,10 @@ app-name/
     app/
       App.css
       App.tsx          <- App shell. Switches between Login form and internal application
-    cuba/              <- CUBA Model
+    cuba/              <- CUBA Model see [backend model](#backend-model)
       entitites/       <- Project entities
         base/          <- Entities from addons and framework
+      enums/           <- Project enums
 ```
 
 If client was generated using Studio it's placed in `modules/front` directory of main project. 
@@ -67,19 +74,123 @@ If client was generated using Studio it's placed in `modules/front` directory of
 
 #### Creating React Components
 
-Read [React documentation](https://reactjs.org/docs/components-and-props.html) on components.
-Create file with `.tsx` extension and place it in `src` directory. Here is an example of class based component:
+We will briefly go through the basics of React here.
+It is highly recommended to read full [React documentation](https://reactjs.org/docs/getting-started.html).
+In React, like in many modern frameworks everything is a component. We use components to create reusable blocks of our application
+as well as particular pages and screens. 
 
-`Button.tsx`
+Let's create our first component: place file `Button.tsx` in `src` directory: 
+
 ```typescript jsx
 import React, { Component } from 'react';
 
 export class Button extends Component {
   render() {
-    // ...
+    <button>Click me</button>;
   }
 }
 ```
+
+Alternatively, you can create function component:
+
+```typescript jsx
+export function Button(props) {
+  return <button>{props.name}</button>;
+}
+```
+
+##### Observable state with MobX
+
+[MobX](https://mobx.js.org/intro/overview.html) is a library for reactive state management which allows to work with state 
+in a convenient and conscious way. 
+
+Consider the following example:
+
+```typescript jsx
+@observer 
+class Counter extends React.Component {
+
+  @observable
+  count = 0
+  
+  render() {
+    return (
+      <div>
+        Counter {this.count} <br />
+        <button onClick={this.handleInc}> + </button>
+        <button onClick={this.handleDec}> - </button>
+      </div>
+    )
+  }
+
+  handleInc = () => {
+    this.count++;
+  }
+
+  handleDec = () => {
+    this.count--;
+  }
+}
+```
+
+As soon as we decorate class or function component as [observer](https://mobx.js.org/refguide/observer-component.html) 
+it automatically subscribes to changes on any [observable](https://mobx.js.org/refguide/observable.html) value or object
+i.e. in the example above changing `count` property will result in automatic re-render of the component.
+
+### Routing
+
+Routing is based on well-known [React Router](https://reacttraining.com/react-router/web/guides/quick-start) library.
+The generated app has single point (`src/routing.ts`) to define screens which will be automatically placed
+in the main menu:
+
+```typescript jsx
+mainRoutes.push({
+  pathPattern: '/pets', // pattern may be used to consume some parameters, e.g.: /pets/:petId?
+  menuLink: '/pest',
+  component: PetBrowser, // component to be rendered, should be imported in `routes.ts`
+  caption: 'Pets' // Menu item caption
+});
+```
+
+The `src/App.tsx` contains `Switch` component which renders screen depending on the url path: 
+
+```typescript jsx
+  <Switch>
+    <Route exact={true} path="/" component={HomePage}/>
+    {mainRoutes.map((route) =>
+      <Route key={route.pathPattern} path={route.pathPattern} component={route.component}/>
+    )}
+  </Switch>
+```
+
+You can manually add `Route` to `Switch` component or customize the structure used in `routes.ts` for example in order to create 
+hierarchical menu.
+
+### Forms
+
+In order to facilitate data binding Ant Design's [Form](https://ant.design/components/form/) component and utilities
+are used in the app. 
+
+`getFieldDecorator` is useful higher order function allows to setup validation and binding, see the following example:
+
+```typescript jsx
+  <Form.Item label='name'>
+     getFieldDecorator('model', {
+       normalize: (value) => {
+         return value === '' ? null : value; // Normalize value so that empty string is converted to null
+       },
+       rules: [ // Allows to setup front-end validation rules
+         {required: true} 
+       ]
+     })(
+        <FormField entityName={Entity.NAME}
+                   propertyName='model'/>
+     )}
+  </Form.Item>
+```
+
+There is a `<FormField>` component of `@cuba-platform/react` which automatically creates correct UI component
+based on entity and property names. However it's possible to use any input component directly.
 
 #### Hot deploy and dev server
 
@@ -95,8 +206,10 @@ to run npm tooling:
 ```bash
 $ ./gradlew npm_run_start
 ``` 
+> There is a known [bug](https://github.com/srs/gradle-node-plugin/issues/339) in gradle node plugin which does not
+> kill JS development server on task interruption. 
 
-> Hot deploy from Studio (to development Tomcat) is not supported.
+> Hot deploy from Studio to the Tomcat is not supported.
 
 #### Build scripts
 
@@ -124,10 +237,11 @@ Here is the layout of the directory:
 
 * `entities` - project entities and views;
 * `entities/base` - framework and addons entities;
+* `enums` - project enums;
 * `services.ts` - middleware services exposed to REST;
 * `queries.ts` - REST queries.
 
-Consider the `Role` entity class of CUBA Framework generated in typescript
+Consider the `Role` entity class of CUBA Framework generated in typescript:
 
 `src/cuba/entities/base/sec$Role.ts`
 ```typescript
@@ -141,6 +255,18 @@ export class Role extends StandardEntity {
     permissions?: Permission[] | null;
 }
 ```
+
+* you can easily access entity name by static `NAME` property: `Role.NAME`,
+* class contains all properties of domain model entity including from class hierarchy,
+reference fields have corresponding types as well so that you can work with them in a type-safe manner:  
+
+```typescript
+function changeRole(role: Role) {
+  role.defaultRole = true;   // ok
+  role.defaultRole = 'foo';  // compilation fails  
+}
+```
+
 
 #### Synchronize project model
 
