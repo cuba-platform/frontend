@@ -7,7 +7,7 @@ import {collection, EntityProperty} from "@cuba-platform/react";
 @observer
 export class <%=className%> extends React.Component {
 
-  dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=view.name%>'});
+  dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=view.name%>', sort: '-updateTs'});
   fields = [<%view.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
 
   render() {

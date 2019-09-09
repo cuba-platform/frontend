@@ -10,7 +10,7 @@ import {<%=className%>} from "./<%=className%>";
 @observer
 export class <%=className%>Browser extends React.Component {
 
-  dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=listView.name%>'});
+  dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=listView.name%>', sort: '-updateTs'});
   fields = [<%listView.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
 
   showDeletionDialog = (e: SerializedEntity<<%=entity.className%>>) => {
