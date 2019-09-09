@@ -14,7 +14,7 @@ class AppHeader extends React.Component<MainStoreInjected> {
 
     return (
       <div className="AppHeader">
-        <div className="logo">
+        <div>
           <img src={logo} alt={'Logo'}/>
         </div>
         <div className="user-info">

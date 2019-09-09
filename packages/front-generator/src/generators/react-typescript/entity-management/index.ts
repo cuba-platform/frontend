@@ -6,6 +6,8 @@ import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
+import {EntityAttribute} from "../../../common/model/cuba-model";
+import {FieldModel, getFieldModel} from "../../polymer2/common/fields";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 
@@ -69,6 +71,15 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
 
 export function answersToManagementModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityManagementTemplateModel {
   const className = elementNameToClass(answers.managementComponentName);
+
+  const attributes: EntityAttribute[] = answers.editView.allProperties.reduce((attrArrMap:EntityAttribute[], prop) => {
+    const attr = answers.entity.attributes.find(ea => ea.name === prop.name);
+    if (attr) {
+      attrArrMap.push(attr);
+    }
+    return attrArrMap;
+  }, []);
+
   return {
     componentName: answers.managementComponentName,
     className: className,
@@ -79,7 +90,8 @@ export function answersToManagementModel(answers: EntityManagementAnswers, dirSh
     nameLiteral: unCapitalizeFirst(className),
     entity: answers.entity,
     listView: answers.listView,
-    editView: answers.editView
+    editView: answers.editView,
+    editAttributes: attributes
   }
 }
 

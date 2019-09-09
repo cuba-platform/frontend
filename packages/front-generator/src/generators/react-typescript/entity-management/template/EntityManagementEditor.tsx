@@ -1,6 +1,6 @@
 import * as React from "react";
 import {FormEvent} from "react";
-import {Button, Form, message} from "antd";
+import {Button, Card, Form, message} from "antd";
 import {observer} from "mobx-react";
 import {<%=className%>} from "./<%=className%>";
 import {FormComponentProps} from "antd/lib/form";
@@ -46,33 +46,35 @@ class <%=className%>Editor extends React.Component<Props> {
     const {status} = this.dataInstance;
 
     return (
-      <Form onSubmit={this.handleSubmit}
-            layout='vertical'>
-        {this.fields.map(propName =>
-          <Form.Item label={<Msg entityName={<%=entity.className%>.NAME} propertyName={propName} />}
-                     key={propName}
-                     style={{marginBottom: '12px'}}>{
-            getFieldDecorator(propName)(
-              <FormField entityName={<%=entity.className%>.NAME}
-                         propertyName={propName}/>
-            )}
+      <Card style={{margin:"0 auto", maxWidth: "1024px"}}>
+        <Form onSubmit={this.handleSubmit}
+              layout='vertical'>
+          <%editAttributes.forEach(attr => {%>
+          <Form.Item label={<Msg entityName={<%=entity.className%>.NAME} propertyName='<%=attr.name%>'/>}
+                    key='<%=attr.name%>'
+                    style={{marginBottom: '12px'}}>{
+              getFieldDecorator('<%=attr.name%>'<%if (attr.mandatory) {%>, {rules:[{required: true}]}<%}%>)(
+                <FormField entityName={<%=entity.className%>.NAME}
+                          propertyName='<%=attr.name%>'/>
+              )}
           </Form.Item>
-        )}
-        <Form.Item style={{textAlign: 'center'}}>
-          <Link to={<%=className%>.PATH}>
-            <Button htmlType="button">
-              Cancel
+          <%})%>
+          <Form.Item style={{textAlign: 'center'}}>
+            <Link to={<%=className%>.PATH}>
+              <Button htmlType="button">
+                Cancel
+              </Button>
+            </Link>
+            <Button type="primary"
+                    htmlType="submit"
+                    disabled={status !== "DONE" && status !== "ERROR"}
+                    loading={status === "LOADING"}
+                    style={{marginLeft: '8px'}}>
+              Submit
             </Button>
-          </Link>
-          <Button type="primary"
-                  htmlType="submit"
-                  disabled={status !== "DONE"}
-                  loading={status === "LOADING"}
-                  style={{marginLeft: '8px'}}>
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+          </Form.Item>
+        </Form>
+      </Card>
     );
   }
 

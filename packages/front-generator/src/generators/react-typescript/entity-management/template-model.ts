@@ -1,6 +1,6 @@
 import {CommonTemplateModel} from "../common/template-model";
 import {entityManagementListType} from "./params";
-import {Entity, View} from "../../../common/model/cuba-model";
+import {Entity, EntityAttribute, View} from "../../../common/model/cuba-model";
 
 export interface EntityManagementTemplateModel extends CommonTemplateModel {
   listComponentName: string;
@@ -9,5 +9,6 @@ export interface EntityManagementTemplateModel extends CommonTemplateModel {
   nameLiteral: string;
   entity: Entity,
   listView: View,
-  editView: View
+  editView: View,
+  editAttributes: EntityAttribute[]
 }

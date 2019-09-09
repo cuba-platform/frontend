@@ -1,6 +1,6 @@
 import * as React from "react";
 import {observer} from "mobx-react";
-import {Card, Icon, Modal} from "antd";
+import {Card, List, Icon, Modal} from "antd";
 import {<%=entity.className%>} from "<%= relDirShift %>cuba/entities/<%=entity.name%>";
 import {Link} from "react-router-dom";
 import {collection, EntityProperty} from "@cuba-platform/react";
@@ -43,6 +43,30 @@ export class <%=className%>Browser extends React.Component {
         </div>
         {items == null || items.length === 0 ?
           <p>No items available</p> : null}
+        <% if (listType === 'list') { %>
+         <List itemLayout="horizontal"
+            bordered
+            dataSource={items}
+            renderItem={item =>
+              <List.Item actions={[
+                  <Icon type='delete'
+                        key='delete'
+                        onClick={() => this.showDeletionDialog(item)}/>,
+                  <Link to={<%=className%>.PATH + '/' + item.id} key='edit'>
+                    <Icon type='edit'/>
+                  </Link>
+              ]}>
+                <div style={{flexGrow: 1}}>
+                {this.fields.map(p =>
+                  <EntityProperty entityName={<%=entity.className%>.NAME}
+                                  propertyName={p}
+                                  value={item[p]}
+                                  key={p}/>
+                )}
+                </div>
+              </List.Item>
+            }/>
+        <% } else { %>
         {items.map(e =>
           <Card title={e._instanceName}
                 key={e.id}
@@ -63,6 +87,7 @@ export class <%=className%>Browser extends React.Component {
                 )}
           </Card>
         )}
+        <% } %>
       </div>
     )
   }
