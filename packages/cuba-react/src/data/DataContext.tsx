@@ -24,7 +24,9 @@ class DataContext<T extends Containers> {
   @action
   save = () => {
     for (const containerName in this.containers) {
-      if (!this.containers.hasOwnProperty(containerName)) continue;
+      if (!this.containers.hasOwnProperty(containerName)) {
+        continue;
+      }
       const container = this.containers[containerName];
       container.changedItems.forEach((entity) => {
         getCubaREST()!.commitEntity(container.entityName, entity);
@@ -38,7 +40,9 @@ class DataContext<T extends Containers> {
       return false;
     }
     for (const containerName in this.containers) {
-      if (!this.containers.hasOwnProperty(containerName)) continue;
+      if (!this.containers.hasOwnProperty(containerName)) {
+        continue;
+      }
       if (this.containers[containerName].changedItems != null && this.containers[containerName].changedItems.length > 0) {
         return true;
       }

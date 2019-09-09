@@ -110,6 +110,7 @@ export class DataCollectionStore<T> implements DataContainer {
 export interface DataCollectionOptions {
   loadImmediately?: boolean,
   view?: string,
+  sort?: string,
   filter?: EntityFilter,
   trackChanges?: boolean
 }
@@ -120,19 +121,25 @@ export const defaultOpts: DataCollectionOptions = {
 
 function createStore<E>(entityName: string, opts: DataCollectionOptions): DataCollectionStore<E> {
   const dataCollection = new DataCollectionStore<E>(entityName, !!opts.trackChanges);
-  if (opts.view)
+  if (opts.view) {
     dataCollection.view = opts.view;
-  if (opts.filter)
+  }
+  if (opts.filter) {
     dataCollection.filter = opts.filter;
-  if (typeof opts.loadImmediately === 'undefined' || opts.loadImmediately)
+  }
+  if (opts.sort) {
+    dataCollection.sort = opts.sort;
+  }
+  if (typeof opts.loadImmediately === 'undefined' || opts.loadImmediately) {
     dataCollection.load();
+  }
   return dataCollection;
 }
 
 export const withDataCollection = (entityName: string, opts: DataCollectionOptions = defaultOpts) => <T extends IReactComponent>(target: T) => {
   return inject(() => {
     const dataCollection = createStore(entityName, opts);
-    return {dataCollection: dataCollection}
+    return {dataCollection}
   })(target);
 };
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import {injectMainStore, MainStoreInjected} from "../app/MainStore";
 import {observer} from "mobx-react";
+import {toJS} from "mobx";
 
 type Props = MainStoreInjected & {
   entityName: string;
@@ -23,13 +24,13 @@ const EntityPropertyFormattedValue = (props: Props) => {
       return null;
     }
     if (mainStore == null || mainStore.messages == null || !showLabel) {
-      return <div>{formatValue(value)}</div>;
+      return <div>{formatValue(toJS(value))}</div>;
     }
     const {messages} = mainStore;
     const label: string = messages[entityName + '.' + propertyName];
     return label != null
-      ? <div><strong>{label}:</strong> {formatValue(value)}</div>
-      : <div>{formatValue(value)}</div>
+      ? <div><strong>{label}:</strong> {formatValue(toJS(value))}</div>
+      : <div>{formatValue(toJS(value))}</div>
 };
 
 export const EntityProperty = injectMainStore(observer((props: Props) =>
@@ -43,6 +44,10 @@ function formatValue(value: any): string {
   if (valType === "object") {
     if (Object.prototype.hasOwnProperty.call(value, '_instanceName')) {
       return value._instanceName!;
+    }
+    if (Array.isArray(value)) {
+      const items = value.map(formatValue);
+      return items.join(", ");
     }
   }
   return JSON.stringify(value);

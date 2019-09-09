@@ -21,6 +21,7 @@
     "max-classes-per-file": false,
     "member-ordering": false,
     "variable-name": false,
-    "interface-over-type-literal": false
+    "interface-over-type-literal": false,
+    "no-unnecessary-initializer": false
   }
 }
