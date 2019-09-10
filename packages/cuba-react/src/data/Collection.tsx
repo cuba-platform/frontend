@@ -60,7 +60,7 @@ export class DataCollectionStore<T> implements DataContainer {
       throw new Error('Unable to delete entity without ID');
     }
     this.status = 'LOADING';
-    return getCubaREST()!.deleteEntity('mpg$Car', e.id)
+    return getCubaREST()!.deleteEntity(this.entityName, e.id)
       .then(action(() => {
         this.load();
         return true;
