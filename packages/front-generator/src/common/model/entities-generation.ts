@@ -40,7 +40,7 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
     )
   }
 
-  fs.write(
+  if (enumsMap.size > 0) fs.write(
     path.join(destDir, ENUMS_DIR, path.join(ENUMS_FILE + '.ts')),
     renderTSNodes([...enumsMap.values()], '\n\n')
   );
