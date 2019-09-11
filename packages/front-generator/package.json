@@ -30,13 +30,6 @@
     "yeoman-environment": "~2.4.0",
     "yeoman-generator": "~4.0.1"
   },
-  "bundleDependencies": [
-    "commander",
-    "typescript",
-    "through2",
-    "yeoman-environment",
-    "yeoman-generator"
-  ],
   "devDependencies": {
     "@types/ejs": "^2.5.1",
     "@types/mocha": "^2.2.48",
