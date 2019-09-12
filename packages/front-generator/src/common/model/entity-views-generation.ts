@@ -1,7 +1,7 @@
 import {Entity, EntityAttribute, ProjectModel, View} from "./cuba-model";
 import * as ts from "typescript";
 import {LiteralTypeNode} from "typescript";
-import {collectAttributesFromHierarchy} from "../utils";
+import {collectAttributesFromHierarchy} from "./cuba-model-utils";
 
 const VIEW_NAME_TYPE_SUFFIX = 'ViewName';
 const VIEW_NAME_TYPE_PARAMETER = 'V';

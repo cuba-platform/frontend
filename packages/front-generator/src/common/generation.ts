@@ -5,14 +5,14 @@ import {
   EntityInfo,
   RestQueryInfo,
   RestServiceMethodInfo,
-  RestServiceMethodModel,
   StudioTemplateProperty,
   StudioTemplatePropertyType,
   ViewInfo
 } from "./studio/studio-model";
 import {fromStudioProperties} from "./questions";
 import * as fs from "fs";
-import {Entity, ProjectModel} from "./model/cuba-model";
+import {ProjectModel} from "./model/cuba-model";
+import {findEntity, findQuery, findServiceMethod, findView} from "./model/cuba-model-utils";
 
 export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> extends Base {
 
@@ -86,51 +86,6 @@ export function readProjectModel(modelFilePath: string): ProjectModel {
     throw new Error('Specified model file does not exist');
   }
   return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
-}
-
-function findEntity(projectModel: ProjectModel, entityInfo: EntityInfo): Entity | undefined {
-  const entityName = entityInfo.name;
-  let entity: Entity | undefined;
-  if (Array.isArray(projectModel.entities)) {
-    entity = projectModel.entities.find(e => e.name === entityName);
-    if (entity != null) {
-      return entity;
-    }
-  } else {
-    if (projectModel.entities.hasOwnProperty(entityName)) {
-      return projectModel.entities[entityName];
-    }
-  }
-
-  if (projectModel.baseProjectEntities != null) {
-    if (Array.isArray(projectModel.baseProjectEntities)) {
-      entity = projectModel.baseProjectEntities.find(e => e.name === entityName);
-      if (entity != null) {
-        return entity;
-      }
-    } else {
-      return projectModel.baseProjectEntities[entityName];
-    }
-  }
-}
-
-function findView(projectModel: ProjectModel, view: ViewInfo) {
-  return projectModel.views.find(v => v.name === view.name && v.entity === view.entityName);
-}
-
-function findQuery(projectModel: ProjectModel, queryInfo: RestQueryInfo) {
-  return projectModel.restQueries.find(q => q.entity === queryInfo.entityName && q.name === queryInfo.name);
-}
-
-function findServiceMethod(projectModel: ProjectModel, methodInfo: RestServiceMethodInfo): RestServiceMethodModel | null {
-  const service = projectModel.restServices.find(s => s.name === methodInfo.serviceName);
-  if (service != null) {
-    const method = service.methods.find(m => m.name === methodInfo.methodName);
-    if (method != null) {
-      return {service, method};
-    }
-  }
-  return null;
 }
 
 function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplateProperty[], answers: any): T {

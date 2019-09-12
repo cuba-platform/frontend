@@ -6,8 +6,9 @@ import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
-import {EntityAttribute} from "../../../common/model/cuba-model";
+import {Entity, EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
 import {FieldModel, getFieldModel} from "../../polymer2/common/fields";
+import {collectAttributesFromHierarchy, findEntity} from "../../../common/model/cuba-model-utils";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 
@@ -27,7 +28,7 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
     if (!this.answers) {
       throw new Error('Answers not provided');
     }
-    this.model = answersToManagementModel(this.answers, this.options.dirShift);
+    this.model = answersToManagementModel(this.answers, this.cubaProjectModel!, this.options.dirShift);
     const {className} = this.model;
 
     this.fs.copyTpl(
@@ -69,11 +70,14 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
   }
 }
 
-export function answersToManagementModel(answers: EntityManagementAnswers, dirShift: string | undefined): EntityManagementTemplateModel {
+export function answersToManagementModel(answers: EntityManagementAnswers,
+                                         projectModel:ProjectModel,
+                                         dirShift: string | undefined): EntityManagementTemplateModel {
   const className = elementNameToClass(answers.managementComponentName);
+  const entity = answers.entity;
 
   const attributes: EntityAttribute[] = answers.editView.allProperties.reduce((attrArrMap:EntityAttribute[], prop) => {
-    const attr = answers.entity.attributes.find(ea => ea.name === prop.name);
+    const attr = collectAttributesFromHierarchy(entity, projectModel).find(ea => ea.name === prop.name);
     if (attr) {
       attrArrMap.push(attr);
     }
