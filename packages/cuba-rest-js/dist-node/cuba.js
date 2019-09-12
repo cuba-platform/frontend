@@ -159,6 +159,14 @@ var CubaApp = /** @class */ (function () {
         var data = __assign({}, options, { filter: entityFilter });
         return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, __assign({ handleAs: 'json' }, fetchOptions));
     };
+    CubaApp.prototype.searchEntitiesWithCount = function (entityName, entityFilter, options, fetchOptions) {
+        var count;
+        var optionsWithCount = __assign({}, options, { filter: entityFilter, returnCount: true });
+        return this.fetch('GET', 'v2/entities/' + entityName + '/search', optionsWithCount, __assign({ handleAs: 'raw' }, fetchOptions)).then(function (response) {
+            count = parseInt(response.headers.get('X-Total-Count'), 10);
+            return response.json();
+        }).then(function (result) { return ({ result: result, count: count }); });
+    };
     CubaApp.prototype.loadEntity = function (entityName, id, options, fetchOptions) {
         return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, __assign({ handleAs: 'json' }, fetchOptions));
     };

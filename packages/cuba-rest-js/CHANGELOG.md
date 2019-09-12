@@ -1,4 +1,6 @@
 # Changelog
+## 0.5.2
+- Added `searchEntitiesWithCount` method (issue [#10](https://github.com/cuba-platform/cuba-rest-js/issues/10))
 ## 0.5.1
 - Typings for entities messages
 ## 0.5.0

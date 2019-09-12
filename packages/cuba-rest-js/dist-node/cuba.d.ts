@@ -74,6 +74,7 @@ export declare class CubaApp {
     loadEntities<T>(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<Array<SerializedEntity<T>>>;
     loadEntitiesWithCount<T>(entityName: string, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>>;
     searchEntities<T>(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<Array<SerializedEntity<T>>>;
+    searchEntitiesWithCount<T>(entityName: string, entityFilter: EntityFilter, options?: EntitiesLoadOptions, fetchOptions?: FetchOptions): Promise<EntitiesWithCount<T>>;
     loadEntity<T>(entityName: string, id: any, options?: {
         view?: string;
     }, fetchOptions?: FetchOptions): Promise<SerializedEntity<T>>;
