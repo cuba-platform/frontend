@@ -203,6 +203,25 @@ export class CubaApp {
     return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, {handleAs: 'json', ...fetchOptions});
   }
 
+  public searchEntitiesWithCount<T>(
+    entityName: string,
+    entityFilter: EntityFilter,
+    options?: EntitiesLoadOptions,
+    fetchOptions?: FetchOptions
+  ): Promise<EntitiesWithCount<T>> {
+    let count;
+    const optionsWithCount = {...options, filter: entityFilter, returnCount: true};
+    return this.fetch(
+        'GET',
+        'v2/entities/' + entityName + '/search',
+        optionsWithCount,
+        { handleAs: 'raw', ...fetchOptions }
+      ).then((response: Response) => {
+        count = parseInt(response.headers.get('X-Total-Count'), 10);
+        return response.json();
+      }).then((result: Array<SerializedEntity<T>>) => ({result, count}));
+  }
+
   public loadEntity<T>(
     entityName: string,
     id,

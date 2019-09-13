@@ -178,33 +178,64 @@ describe('CubaApp', function () {
     })
   });
 
+  const simpleFilter = {
+    conditions: [{
+      property: 'name',
+      operator: 'contains',
+      value: 'adm'
+    }]
+  };
+
+  const groupConditionsFilter = {
+    conditions: [{
+      group: 'OR',
+      conditions: [{
+        property: 'name',
+        operator: 'contains',
+        value: 'adm'
+      }, {
+        property: 'active',
+        operator: '=',
+        value: true
+      }]
+    }]
+  };
+
   describe('.searchEntities()', function () {
     it('should search entities by a simple condition', function () {
-      const filter = {
-        conditions: [{
-          property: 'name',
-          operator: 'contains',
-          value: 'adm'
-        }]
-      };
-      return app.searchEntities('sec$User', filter);
+      return app.searchEntities('sec$User', simpleFilter);
     });
     it('should search group conditions', function () {
-      const filter = {
-        conditions: [{
-          group: 'OR',
-          conditions: [{
-            property: 'name',
-            operator: 'contains',
-            value: 'adm'
-          }, {
-            property: 'active',
-            operator: '=',
-            value: true
-          }]
-        }]
-      };
-      return app.searchEntities('sec$User', filter);
+      return app.searchEntities('sec$User', groupConditionsFilter);
+    })
+  });
+
+  describe('.searchEntitiesWithCount()', function () {
+    it('should search entities by a simple condition', function (done) {
+      app.searchEntitiesWithCount('sec$User', simpleFilter)
+        .then(function (resp) {
+          assert(Array.isArray(resp.result), '.result is not array');
+          assert(resp.result.length === 1, 'result array should contain 1 entities, contains ' + resp.result.length);
+          assert(resp.count === 1, 'count should be 1');
+          assert(resp.result[0]._instanceName != null);
+          done();
+        })
+        .catch(function (e) {
+          done(e)
+        });
+    });
+    it('should search group conditions', function (done) {
+      app.searchEntitiesWithCount('sec$User', groupConditionsFilter)
+        .then(function (resp) {
+          assert(Array.isArray(resp.result), '.result is not array');
+          assert(resp.result.length === 2, 'result array should contain 2 entities, contains ' + resp.result.length);
+          assert(resp.count === 2, 'count should be 2');
+          assert(resp.result[0]._instanceName != null);
+          done();
+        })
+        .catch(function (e) {
+          done(e)
+        });
     })
   });
 

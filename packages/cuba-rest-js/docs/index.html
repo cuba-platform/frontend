@@ -64,25 +64,37 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="cuba-rest-js">CUBA REST JS</h1>
+				<a href="#cuba-rest-js" id="cuba-rest-js" style="color: inherit; text-decoration: none;">
+					<h1>CUBA REST JS</h1>
+				</a>
 				<p><a href="https://travis-ci.org/cuba-platform/cuba-rest-js"><img src="https://travis-ci.org/cuba-platform/cuba-rest-js.svg?branch=master" alt="Build Status"></a></p>
 				<p>JavaScript library for web and Node.js which facilitates CUBA Platfotm&#39;s REST API usage.</p>
-				<h2 id="installation">Installation</h2>
-				<h3 id="npm">npm</h3>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<a href="#npm" id="npm" style="color: inherit; text-decoration: none;">
+					<h3>npm</h3>
+				</a>
 				<pre><code class="language-bash">npm install @cuba-platform/rest --save</code></pre>
 				<p>Import as module  </p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cuba = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cuba-platform/rest'</span>);</code></pre>
 				<p>Or using ES6 imports:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'@cuba-platform/rest'</span>;</code></pre>
-				<h3 id="bower">bower</h3>
+				<a href="#bower" id="bower" style="color: inherit; text-decoration: none;">
+					<h3>bower</h3>
+				</a>
 				<pre><code class="language-bash">bower install cuba-platform/cuba-rest-js</code></pre>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./bower_components/cuba-rest-js/dist-browser/cuba.js"</span>&gt;</span></code></pre>
-				<h2 id="dependencies-and-requirements">Dependencies and requirements</h2>
+				<a href="#dependencies-and-requirements" id="dependencies-and-requirements" style="color: inherit; text-decoration: none;">
+					<h2>Dependencies and requirements</h2>
+				</a>
 				<p>Library has no external dependencies. It&#39;s assumed that <code>Promise</code> and <code>fetch</code> -compatible API are available
 				or polyfilled i.e. in node environment:</p>
 				<pre><code class="language-bash">npm install node-fetch --save</code></pre>
 				<pre><code class="language-javascript">global.fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);</code></pre>
-				<h2 id="usage">Usage</h2>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
 				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuba <span class="hljs-keyword">from</span> <span class="hljs-string">'cuba-rest-js'</span>;
 
 <span class="hljs-keyword">const</span> app = cuba.initializeApp({
@@ -103,23 +115,37 @@ app.getUserInfo().then(<span class="hljs-function">(<span class="hljs-params">d<
   <span class="hljs-built_in">console</span>.log(users);
 });</code></pre>
 				<p><a href="https://cuba-platform.github.io/cuba-rest-js/">Full API reference</a></p>
-				<h2 id="development">Development</h2>
-				<h3 id="tests">Tests</h3>
+				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
+					<h2>Development</h2>
+				</a>
+				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
+					<h3>Tests</h3>
+				</a>
 				<p>In order to run integration tests you need Java to be <a href="https://doc.cuba-platform.com/manual-latest/setup.html">installed</a>.</p>
-				<h4 id="integration-tests">Integration tests</h4>
+				<a href="#integration-tests" id="integration-tests" style="color: inherit; text-decoration: none;">
+					<h4>Integration tests</h4>
+				</a>
 				<pre><code class="language-bash">npm run <span class="hljs-built_in">test</span>:integration</code></pre>
-				<h4 id="running-manually">Running manually</h4>
+				<a href="#running-manually" id="running-manually" style="color: inherit; text-decoration: none;">
+					<h4>Running manually</h4>
+				</a>
 				<p>Start test CUBA app</p>
 				<pre><code class="language-bash">npm run start-test-app</code></pre>
 				<p>Run tests</p>
 				<pre><code class="language-bash">npm <span class="hljs-built_in">test</span></code></pre>
 				<p>Stop test app</p>
 				<pre><code class="language-bash">npm run teardown-test-app</code></pre>
-				<h3 id="build">Build</h3>
+				<a href="#build" id="build" style="color: inherit; text-decoration: none;">
+					<h3>Build</h3>
+				</a>
 				<pre><code class="language-bash">npm run dist</code></pre>
-				<h3 id="lint">Lint</h3>
+				<a href="#lint" id="lint" style="color: inherit; text-decoration: none;">
+					<h3>Lint</h3>
+				</a>
 				<pre><code class="language-bash">npm run lint</code></pre>
-				<h3 id="generate-documentation">Generate documentation</h3>
+				<a href="#generate-documentation" id="generate-documentation" style="color: inherit; text-decoration: none;">
+					<h3>Generate documentation</h3>
+				</a>
 				<pre><code class="language-bash">npm run generate-docs</code></pre>
 			</div>
 		</div>
@@ -165,6 +191,7 @@ app.getUserInfo().then(<span class="hljs-function">(<span class="hljs-params">d<
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -213,7 +240,7 @@ app.getUserInfo().then(<span class="hljs-function">(<span class="hljs-params">d<
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
