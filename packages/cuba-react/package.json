@@ -9,14 +9,14 @@
     "dist/"
   ],
   "peerDependencies": {
-    "@cuba-platform/rest": "^0.5.1",
+    "@cuba-platform/rest": "^0.5.2",
     "antd": "^3.20.6",
     "mobx": "^4.13.0 || ^5.13.0",
     "mobx-react": "^5.4.4",
     "react": "^16.7.0"
   },
   "devDependencies": {
-    "@cuba-platform/rest": "^0.5.1",
+    "@cuba-platform/rest": "^0.5.2",
     "@types/react": "^16.7.18",
     "antd": "^3.20.6",
     "mobx": "^4.13.0",

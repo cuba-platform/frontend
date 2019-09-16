@@ -1,5 +1,11 @@
 import {action, computed, IObservableArray, observable, reaction, runInAction, toJS} from "mobx";
-import {EntitiesLoadOptions, EntityFilter, PredefinedView, SerializedEntity} from "@cuba-platform/rest";
+import {
+  EntitiesLoadOptions,
+  EntitiesWithCount,
+  EntityFilter,
+  PredefinedView,
+  SerializedEntity
+} from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
@@ -12,6 +18,9 @@ export class DataCollectionStore<T> implements DataContainer {
   @observable view: string;
   @observable sort?: string;
   @observable filter?: EntityFilter;
+  @observable limit?: number;
+  @observable offset?: number;
+  @observable count?: number;
 
   changedItems: IObservableArray<any> = observable([]);
 
@@ -41,9 +50,9 @@ export class DataCollectionStore<T> implements DataContainer {
     this.changedItems.clear();
     this.status = "LOADING";
     if (this.filter) {
-      this.handleLoading(getCubaREST()!.searchEntities<T>(this.entityName, this.filter, this.entitiesLoadOptions));
+      this.handleLoading(getCubaREST()!.searchEntitiesWithCount<T>(this.entityName, this.filter, this.entitiesLoadOptions));
     } else {
-      this.handleLoading(getCubaREST()!.loadEntities<T>(this.entityName, this.entitiesLoadOptions));
+      this.handleLoading(getCubaREST()!.loadEntitiesWithCount<T>(this.entityName, this.entitiesLoadOptions));
     }
   };
 
@@ -88,14 +97,21 @@ export class DataCollectionStore<T> implements DataContainer {
     if (this.sort) {
       loadOptions.sort = this.sort;
     }
+    if (this.limit !== null && this.limit !== undefined) {
+      loadOptions.limit = this.limit;
+    }
+    if (this.offset !== null && this.offset !== undefined) {
+      loadOptions.offset = this.offset;
+    }
     return loadOptions;
   }
 
-  private handleLoading(promise: Promise<any[]>) {
+  private handleLoading(promise: Promise<EntitiesWithCount<T>>) {
     promise
       .then((resp) => {
         runInAction(() => {
-          this.items = resp;
+          this.items = resp.result;
+          this.count = resp.count;
           this.status = 'DONE';
         })
       })
@@ -111,6 +127,8 @@ export interface DataCollectionOptions {
   loadImmediately?: boolean,
   view?: string,
   sort?: string,
+  limit?: number,
+  offset?: number,
   filter?: EntityFilter,
   trackChanges?: boolean
 }
@@ -129,6 +147,12 @@ function createStore<E>(entityName: string, opts: DataCollectionOptions): DataCo
   }
   if (opts.sort) {
     dataCollection.sort = opts.sort;
+  }
+  if (opts.limit !== null && opts.limit !== undefined) {
+    dataCollection.limit = opts.limit;
+  }
+  if (opts.offset !== null && opts.offset !== undefined) {
+    dataCollection.offset = opts.offset;
   }
   if (typeof opts.loadImmediately === 'undefined' || opts.loadImmediately) {
     dataCollection.load();
