@@ -1,10 +1,10 @@
 import {action, computed, observable, runInAction, toJS} from "mobx";
-import {PredefinedView, SerializedEntityProps} from "@cuba-platform/rest";
+import {PredefinedView, SerializedEntityProps, PropertyType} from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
-import {MainStore, PropertyType} from "../app/MainStore";
+import {MainStore} from "../app/MainStore";
 import {getPropertyInfo, WithId} from "../util/metadata";
 import moment from 'moment';
 

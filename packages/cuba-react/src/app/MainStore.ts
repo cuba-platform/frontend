@@ -2,9 +2,6 @@ import {action, autorun, computed, IObservableArray, observable} from "mobx";
 import {CubaApp, EntityMessages, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "@cuba-platform/rest";
 import {inject, IReactComponent, IWrappedComponent} from "mobx-react";
 
-// todo move to cuba-rest
-export type PropertyType = 'string' | 'int' | 'date' | 'dateTime' | 'boolean';
-
 export class MainStore {
 
   static NAME = 'mainStore';
