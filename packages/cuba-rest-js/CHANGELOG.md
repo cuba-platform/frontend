@@ -1,4 +1,6 @@
 # Changelog
+## 0.5.3
+- Moved `PropertyType` type from `cuba-labs/cuba-react`. Added types `double`, `decimal`, `time`. Issue [#12](https://github.com/cuba-platform/cuba-rest-js/issues/12). 
 ## 0.5.2
 - Added `searchEntitiesWithCount` method (issue [#10](https://github.com/cuba-platform/cuba-rest-js/issues/10))
 ## 0.5.1

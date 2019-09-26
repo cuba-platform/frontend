@@ -2,6 +2,8 @@ export type Cardinality = 'NONE' | 'ONE_TO_ONE' | 'MANY_TO_ONE' | 'ONE_TO_MANY' 
 
 export type AttributeType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION';
 
+export type PropertyType = 'string' | 'int' | 'double' | 'decimal' | 'date' | 'time' | 'dateTime' | 'boolean';
+
 export interface SerializedEntityProps {
   _entityName: string;
   _instanceName: string;
