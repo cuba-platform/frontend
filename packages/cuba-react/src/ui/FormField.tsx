@@ -1,8 +1,8 @@
 import * as React from "react";
 import {Checkbox, DatePicker, Input, Select} from "antd";
 import {observer} from "mobx-react";
-import {injectMainStore, MainStoreInjected, PropertyType} from "../app/MainStore";
-import {Cardinality, EnumInfo, EnumValueInfo} from "@cuba-platform/rest"
+import {injectMainStore, MainStoreInjected} from "../app/MainStore";
+import {Cardinality, EnumInfo, EnumValueInfo, PropertyType} from "@cuba-platform/rest"
 import {getPropertyInfo, WithId} from "../util/metadata";
 import {DataCollectionStore} from "../data/Collection";
 
