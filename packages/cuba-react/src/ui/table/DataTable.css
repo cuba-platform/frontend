@@ -1,0 +1,9 @@
+.data-table-clear-filters-btn {
+  margin-left: auto;
+}
+
+@media screen and (max-width: 575px) {
+  .data-table-clear-filters-btn {
+    margin-left: 0;
+  }
+}

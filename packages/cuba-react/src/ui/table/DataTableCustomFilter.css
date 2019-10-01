@@ -1,0 +1,26 @@
+.data-table-custom-filter {
+  max-width: 550px;
+  padding: 12px;
+}
+
+.data-table-custom-filter-form-item-group {
+  display: flex;
+}
+
+@media screen and (max-width: 575px) {
+  .data-table-custom-filter-form-item-group {
+    flex-direction: column;
+  }
+
+  .data-table-custom-filter-form-item .ant-time-picker,
+  .data-table-custom-filter-form-item .ant-calendar-picker,
+  .data-table-custom-filter-form-item .ant-input-number,
+  .data-table-custom-filter-form-item .ant-form-item-control,
+  .ant-row.ant-form-item.data-table-custom-filter-form-item {
+    width: 100%;
+  }
+
+  .ant-row.ant-form-item.data-table-custom-filter-form-item {
+    margin-right: 0;
+  }
+}

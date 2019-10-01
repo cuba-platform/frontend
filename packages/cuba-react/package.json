@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/react",
-  "version": "0.1.0-beta.6",
+  "version": "0.1.0-beta.7",
   "description": "CUBA Platform utilities and components for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -10,28 +10,37 @@
   ],
   "peerDependencies": {
     "@cuba-platform/rest": "^0.5.3",
-    "antd": "^3.20.6",
+    "antd": "^3.23.4",
     "mobx": "^4.13.0 || ^5.13.0",
     "mobx-react": "^5.4.4",
     "react": "^16.7.0"
   },
   "devDependencies": {
     "@cuba-platform/rest": "^0.5.3",
+    "@types/jest": "^24.0.18",
+    "@types/moment-timezone": "^0.5.12",
     "@types/react": "^16.7.18",
     "antd": "^3.20.6",
+    "copyfiles": "^2.1.1",
+    "jest": "^24.9.0",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
+    "moment-timezone": "^0.5.26",
     "react": "^16.7.0",
     "rollup": "~1.17.0",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "ts-jest": "^24.1.0",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
     "typescript": "~3.5.3"
   },
   "scripts": {
-    "compile": "tsc && rollup -c",
-    "clean": "rm -rf dist && rm -rf dist-transpiled"
+    "copycss": "copyfiles -u 1 './src/**/*.css' './dist-transpiled'",
+    "compile": "tsc && npm run copycss && rollup -c",
+    "clean": "rm -rf dist && rm -rf dist-transpiled",
+    "test": "jest"
   },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
   "license": "Apache-2.0",
