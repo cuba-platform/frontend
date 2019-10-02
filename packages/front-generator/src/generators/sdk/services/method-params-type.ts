@@ -1,10 +1,10 @@
-import {RestParam, RestServiceMethod} from "../model/cuba-model";
+import {RestParam, RestServiceMethod} from "../../../common/model/cuba-model";
 import * as ts from "typescript";
 import {TypeAliasDeclaration, TypeElement, TypeNode} from "typescript";
 import {entityImportInfo, enumImportInfo, ImportInfo} from "../import-utils";
-import {ENTITIES_DIR} from "../constants";
-import {exportModifier} from "../ts-shorthands";
-import {ModelContext} from "../utils";
+import {ENTITIES_DIR} from "../../../common/constants";
+import {exportModifier} from "../../../common/ts-shorthands";
+import {ModelContext} from "../model/model-utils";
 
 /**
  * In model could be methods with same name, but distinct parameters set,

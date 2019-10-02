@@ -1,12 +1,11 @@
-import {createService, generateServices} from "../../../common/services/services-generation";
-import {renderTSNodes} from "../../../common/ts-helpers";
-import {collectMethods} from "../../../common/services/method-params-type";
-import {RestService} from "../../../common/model/cuba-model";
-import {assertContent} from "../../generator.test";
+import {createService, generateServices} from "../../../../generators/sdk/services/services-generation";
+import {renderTSNodes} from "../../../../common/ts-helpers";
+import {collectMethods} from "../../../../generators/sdk/services/method-params-type";
+import {RestService} from "../../../../common/model/cuba-model";
 import * as assert from "assert";
-import {modelCtx} from "../../test-commons";
+import {assertContent, modelCtx} from "../../../test-commons";
 
-const servicesModel: RestService[] = require('./../../fixtures/service-model.json');
+const servicesModel: RestService[] = require('../../../fixtures/service-model.json');
 
 describe('generate TS REST service', () => {
   it('should generate rest service TS assignment from CUBA model', function () {

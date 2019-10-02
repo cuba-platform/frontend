@@ -6,6 +6,11 @@ rest [services](https://doc.cuba-platform.com/manual-latest/rest_api_v2_services
 and [queries](https://doc.cuba-platform.com/manual-latest/rest_api_v2_queries_config.html) 
 as Typescript classes.
 
+It's possible to generate the following configurations of sdk depending on your needs:
+
+```gen-cuba-front sdk:model``` generates entities and enums<br>
+```gen-cuba-front sdk:all``` generates all toolkit - entities, enums, queries and services<br>
+
 ## Entities
 
 ### Non persistent entities

@@ -12,6 +12,7 @@
     "custom_types/**/*.ts"
   ],
   "exclude": [
-    "src/**/template/**"
+    "src/**/template/**",
+    "src/test/generated/**"
   ]
 }

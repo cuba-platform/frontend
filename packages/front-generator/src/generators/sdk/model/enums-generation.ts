@@ -1,7 +1,7 @@
-import {Enum, EnumValue} from "./cuba-model";
+import {Enum, EnumValue} from "../../../common/model/cuba-model";
 import * as ts from "typescript";
 import {EnumDeclaration, EnumMember} from "typescript";
-import {fqnToName} from "../utils";
+import {fqnToName} from "../../../common/utils";
 
 export type EnumInfo = {
   fqn: string
@@ -9,6 +9,9 @@ export type EnumInfo = {
 }
 
 export function createEnums(enums: Enum[]): EnumInfo[] {
+
+  //todo sort before generation - model generation could change order and test fail
+
   const enDeclarations: EnumInfo[] = [];
   const duplicates: string[] = [];
 

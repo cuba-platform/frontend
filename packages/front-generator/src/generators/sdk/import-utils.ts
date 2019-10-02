@@ -1,8 +1,8 @@
 import * as ts from "typescript";
 import {EnumDeclaration, ImportDeclaration} from "typescript";
 import {ProjectEntityInfo} from "./model/entities-generation";
-import {BASE_ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "./constants";
-import {getEntityModulePath} from "./utils";
+import {BASE_ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "../../common/constants";
+import {getEntityModulePath} from "../../common/utils";
 import * as path from "path";
 
 export type ImportInfo = {
@@ -11,6 +11,8 @@ export type ImportInfo = {
 }
 
 export function createIncludes(importInfos: ImportInfo[], current?: ImportInfo): ts.ImportDeclaration[] {
+
+  //todo do not add space between each include line
 
   //filter unique and exclude current entity, group by importPath
   const importByPathMap: Map<string, ImportInfo[]> = new Map();

@@ -1,0 +1,14 @@
+{
+  "project": {
+    "name": "empty-prj",
+    "namespace": "emptyprj",
+    "modulePrefix": "app",
+    "modelPrefix": "app"
+  },
+  "entities": [],
+  "enums": [],
+  "baseProjectEntities": [],
+  "views": [],
+  "restQueries": [],
+  "restServices": []
+}

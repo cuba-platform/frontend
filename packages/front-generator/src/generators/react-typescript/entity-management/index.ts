@@ -6,9 +6,8 @@ import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
-import {Entity, EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
-import {FieldModel, getFieldModel} from "../../polymer2/common/fields";
-import {collectAttributesFromHierarchy, findEntity} from "../../../common/model/cuba-model-utils";
+import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
+import {collectAttributesFromHierarchy} from "../../../common/model/cuba-model-utils";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 

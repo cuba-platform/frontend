@@ -1,703 +1,12 @@
 {
   "project": {
-    "name": "model-playground",
-    "namespace": "mpg",
+    "name": "new-project",
+    "namespace": "newproject",
     "modulePrefix": "app",
     "modelPrefix": "app"
   },
-  "entities": [
-    {
-      "name": "MpgUserInfo",
-      "className": "MpgUserInfo",
-      "packageName": "com.company.mpg.entity",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": false,
-      "mappedSuperclass": false,
-      "fqn": "com.company.mpg.entity.MpgUserInfo",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
-        {
-          "name": "firstName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "lastName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "favouriteCars",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "Car",
-            "fqn": "com.company.mpg.entity.Car",
-            "label": "Car",
-            "entityName": "mpg$Car"
-          },
-          "mappingType": "ASSOCIATION",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
-      "name": "mpg$SparePart",
-      "className": "SparePart",
-      "packageName": "com.company.mpg.entity",
-      "dataStore": "_MAIN_",
-      "table": "MPG_SPARE_PART",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": true,
-      "replaceParent": false,
-      "systemLevel": false,
-      "namePattern": "%s|name",
-      "mappedSuperclass": false,
-      "fqn": "com.company.mpg.entity.SparePart",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "StandardEntity",
-      "attributes": [
-        {
-          "name": "name",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "NAME",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "spareParts",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "SparePart",
-            "fqn": "com.company.mpg.entity.SparePart",
-            "label": "SparePart",
-            "entityName": "mpg$SparePart"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "MANY_TO_ONE",
-          "readOnly": false,
-          "column": "SPARE_PARTS_ID",
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
-      "name": "mpg$Car",
-      "className": "Car",
-      "packageName": "com.company.mpg.entity",
-      "dataStore": "_MAIN_",
-      "table": "MPG_CAR",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": true,
-      "replaceParent": false,
-      "systemLevel": false,
-      "namePattern": "%s - %s|manufacturer,model",
-      "mappedSuperclass": false,
-      "fqn": "com.company.mpg.entity.Car",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "StandardEntity",
-      "attributes": [
-        {
-          "name": "manufacturer",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "MANUFACTURER",
-          "mandatory": true,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "model",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "MODEL",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "regNumber",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "REG_NUMBER",
-          "mandatory": false,
-          "unique": false,
-          "length": "5",
-          "transient": false
-        },
-        {
-          "name": "purchaseDate",
-          "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "Date"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "PURCHASE_DATE",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false,
-          "temporalType": "DATE"
-        },
-        {
-          "name": "manufactureDate",
-          "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "DateTime"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "MANUFACTURE_DATE",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false,
-          "temporalType": "TIMESTAMP"
-        },
-        {
-          "name": "wheelOnRight",
-          "type": {
-            "packageName": "java.lang",
-            "className": "Boolean",
-            "fqn": "java.lang.Boolean",
-            "label": "Boolean"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "WHEEL_ON_RIGHT",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "carType",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "CarType",
-            "fqn": "com.company.mpg.entity.CarType",
-            "label": "CarType"
-          },
-          "mappingType": "ENUM",
-          "readOnly": false,
-          "column": "CAR_TYPE",
-          "mandatory": true,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "ecoRank",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "EcoRank",
-            "fqn": "com.company.mpg.entity.EcoRank",
-            "label": "EcoRank"
-          },
-          "mappingType": "ENUM",
-          "readOnly": false,
-          "column": "ECO_RANK",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "garage",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "Garage",
-            "fqn": "com.company.mpg.entity.Garage",
-            "label": "Garage",
-            "entityName": "mpg$Garage"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "MANY_TO_ONE",
-          "readOnly": false,
-          "column": "GARAGE_ID",
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "maxPassengers",
-          "type": {
-            "packageName": "java.lang",
-            "className": "Integer",
-            "fqn": "java.lang.Integer",
-            "label": "Integer"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "MAX_PASSENGERS",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "price",
-          "type": {
-            "packageName": "java.math",
-            "className": "BigDecimal",
-            "fqn": "java.math.BigDecimal",
-            "label": "BigDecimal"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "PRICE",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "mileage",
-          "type": {
-            "packageName": "java.lang",
-            "className": "Double",
-            "fqn": "java.lang.Double",
-            "label": "Double"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "MILEAGE",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "technicalCertificate",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "TechnicalCertificate",
-            "fqn": "com.company.mpg.entity.TechnicalCertificate",
-            "label": "TechnicalCertificate",
-            "entityName": "mpg$TechnicalCertificate"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "ONE_TO_ONE",
-          "readOnly": false,
-          "column": "TECHNICAL_CERTIFICATE_ID",
-          "mandatory": false,
-          "unique": false,
-          "mappedBy": "",
-          "transient": false
-        },
-        {
-          "name": "photo",
-          "type": {
-            "packageName": "com.haulmont.cuba.core.entity",
-            "className": "FileDescriptor",
-            "fqn": "com.haulmont.cuba.core.entity.FileDescriptor",
-            "label": "FileDescriptor",
-            "entityName": "sys$FileDescriptor"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "MANY_TO_ONE",
-          "readOnly": false,
-          "column": "PHOTO_ID",
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
-      "name": "mpg$FavoriteCar",
-      "className": "FavoriteCar",
-      "packageName": "com.company.mpg.entity",
-      "dataStore": "_MAIN_",
-      "table": "MPG_FAVORITE_CAR",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": true,
-      "replaceParent": false,
-      "systemLevel": false,
-      "namePattern": "%s|car",
-      "mappedSuperclass": false,
-      "fqn": "com.company.mpg.entity.FavoriteCar",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "StandardEntity",
-      "attributes": [
-        {
-          "name": "car",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "Car",
-            "fqn": "com.company.mpg.entity.Car",
-            "label": "Car",
-            "entityName": "mpg$Car"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "MANY_TO_ONE",
-          "readOnly": false,
-          "column": "CAR_ID",
-          "mandatory": true,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "user",
-          "type": {
-            "packageName": "com.haulmont.cuba.security.entity",
-            "className": "User",
-            "fqn": "com.haulmont.cuba.security.entity.User",
-            "label": "User",
-            "entityName": "sec$User"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "MANY_TO_ONE",
-          "readOnly": false,
-          "column": "USER_ID",
-          "mandatory": true,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "notes",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "NOTES",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        }
-      ]
-    },
-    {
-      "name": "mpg$TechnicalCertificate",
-      "className": "TechnicalCertificate",
-      "packageName": "com.company.mpg.entity",
-      "dataStore": "_MAIN_",
-      "table": "MPG_TECHNICAL_CERTIFICATE",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": true,
-      "replaceParent": false,
-      "systemLevel": false,
-      "namePattern": "%s|certNumber",
-      "mappedSuperclass": false,
-      "fqn": "com.company.mpg.entity.TechnicalCertificate",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "StandardEntity",
-      "attributes": [
-        {
-          "name": "certNumber",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "CERT_NUMBER",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "car",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "Car",
-            "fqn": "com.company.mpg.entity.Car",
-            "label": "Car",
-            "entityName": "mpg$Car"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "ONE_TO_ONE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "mappedBy": "technicalCertificate",
-          "transient": false
-        }
-      ]
-    },
-    {
-      "name": "mpg$Garage",
-      "className": "Garage",
-      "packageName": "com.company.mpg.entity",
-      "dataStore": "_MAIN_",
-      "table": "MPG_GARAGE",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": true,
-      "replaceParent": false,
-      "systemLevel": false,
-      "namePattern": "%s|name",
-      "mappedSuperclass": false,
-      "fqn": "com.company.mpg.entity.Garage",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "StandardEntity",
-      "attributes": [
-        {
-          "name": "name",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "NAME",
-          "mandatory": true,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "capacity",
-          "type": {
-            "packageName": "java.lang",
-            "className": "Integer",
-            "fqn": "java.lang.Integer",
-            "label": "Integer"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "CAPACITY",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        }
-      ]
-    },
-    {
-      "name": "mpg$CarRent",
-      "className": "CarRent",
-      "packageName": "com.company.mpg.entity",
-      "dataStore": "_MAIN_",
-      "table": "MPG_CAR_RENT",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": true,
-      "replaceParent": false,
-      "systemLevel": false,
-      "mappedSuperclass": false,
-      "fqn": "com.company.mpg.entity.CarRent",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "StandardEntity",
-      "attributes": [
-        {
-          "name": "car",
-          "type": {
-            "packageName": "com.company.mpg.entity",
-            "className": "Car",
-            "fqn": "com.company.mpg.entity.Car",
-            "label": "Car",
-            "entityName": "mpg$Car"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "MANY_TO_ONE",
-          "readOnly": false,
-          "column": "CAR_ID",
-          "mandatory": true,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "fromDate",
-          "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "Date"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "FROM_DATE",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false,
-          "temporalType": "DATE"
-        },
-        {
-          "name": "fromTime",
-          "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "Time"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "FROM_TIME",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false,
-          "temporalType": "TIME"
-        },
-        {
-          "name": "fromDateTime",
-          "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "DateTime"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "FROM_DATE_TIME",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false,
-          "temporalType": "TIMESTAMP"
-        }
-      ]
-    }
-  ],
-  "enums": [
-     {
-      "className": "CarType",
-      "packageName": "com.company.mpg.entity",
-      "fqn": "com.company.mpg.entity.CarType",
-      "type": "String",
-      "values": [
-        {
-          "name": "SEDAN",
-          "id": "SEDAN"
-        },
-        {
-          "name": "HATCHBACK",
-          "id": "HATCHBACK"
-        }
-      ]
-    },
-    {
-      "className": "EcoRank",
-      "packageName": "com.company.mpg.entity",
-      "fqn": "com.company.mpg.entity.EcoRank",
-      "type": "Integer",
-      "values": [
-        {
-          "name": "EURO1",
-          "id": 1
-        },
-        {
-          "name": "EURO2",
-          "id": 2
-        },
-        {
-          "name": "EURO3",
-          "id": 3
-        }
-      ]
-    }
-  ],
+  "entities": [],
+  "enums": [],
   "baseProjectEntities": [
     {
       "name": "sys$InfoParamEntity",
@@ -2951,26 +2260,6 @@
       ]
     },
     {
-      "name": "sec$HeaderConditionDescriptor",
-      "className": "HeaderConditionDescriptor",
-      "packageName": "com.haulmont.cuba.gui.components.filter.descriptor",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
-      "parentClassName": "AbstractConditionDescriptor",
-      "attributes": []
-    },
-    {
       "name": "sec$PropertyConditionDescriptor",
       "className": "PropertyConditionDescriptor",
       "packageName": "com.haulmont.cuba.gui.components.filter.descriptor",
@@ -2985,6 +2274,26 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
+      "parentClassName": "AbstractConditionDescriptor",
+      "attributes": []
+    },
+    {
+      "name": "sec$HeaderConditionDescriptor",
+      "className": "HeaderConditionDescriptor",
+      "packageName": "com.haulmont.cuba.gui.components.filter.descriptor",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
@@ -6091,41 +5400,6 @@
       "attributes": []
     },
     {
-      "name": "sec$AbstractCondition",
-      "className": "AbstractCondition",
-      "packageName": "com.haulmont.cuba.gui.components.filter.condition",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
-        {
-          "name": "locCaption",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
       "name": "sec$Presentation",
       "className": "Presentation",
       "packageName": "com.haulmont.cuba.security.entity",
@@ -6428,22 +5702,6 @@
           "transient": false
         },
         {
-          "name": "entityInstanceName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "ENTITY_INSTANCE_NAME",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
           "name": "attributes",
           "type": {
             "packageName": "com.haulmont.cuba.security.entity",
@@ -6472,6 +5730,41 @@
           "mandatory": false,
           "unique": false,
           "length": "255",
+          "transient": false
+        }
+      ]
+    },
+    {
+      "name": "sec$AbstractCondition",
+      "className": "AbstractCondition",
+      "packageName": "com.haulmont.cuba.gui.components.filter.condition",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseUuidEntity",
+      "attributes": [
+        {
+          "name": "locCaption",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
           "transient": false
         }
       ]
@@ -7840,55 +7133,6 @@
       ]
     },
     {
-      "name": "sys$CategoryAttributeEnumValue",
-      "className": "CategoryAttributeEnumValue",
-      "packageName": "com.haulmont.cuba.core.entity",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
-        {
-          "name": "value",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "localizedValues",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
       "name": "sys$ScheduledTask",
       "className": "ScheduledTask",
       "packageName": "com.haulmont.cuba.core.entity",
@@ -8371,6 +7615,55 @@
           "mandatory": false,
           "unique": false,
           "transient": true
+        }
+      ]
+    },
+    {
+      "name": "sys$CategoryAttributeEnumValue",
+      "className": "CategoryAttributeEnumValue",
+      "packageName": "com.haulmont.cuba.core.entity",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseUuidEntity",
+      "attributes": [
+        {
+          "name": "value",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "localizedValues",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
         }
       ]
     },
@@ -9761,811 +9054,6 @@
     }
   ],
   "views": [
-    {
-      "name": "_minimal",
-      "entity": "MpgUserInfo",
-      "classFqn": "com.company.mpg.entity.MpgUserInfo",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "MpgUserInfo",
-      "classFqn": "com.company.mpg.entity.MpgUserInfo",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_base",
-      "entity": "MpgUserInfo",
-      "classFqn": "com.company.mpg.entity.MpgUserInfo",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_minimal",
-      "entity": "mpg$SparePart",
-      "classFqn": "com.company.mpg.entity.SparePart",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_local",
-      "entity": "mpg$SparePart",
-      "classFqn": "com.company.mpg.entity.SparePart",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_base",
-      "entity": "mpg$SparePart",
-      "classFqn": "com.company.mpg.entity.SparePart",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "sparePart-view",
-      "entity": "mpg$SparePart",
-      "classFqn": "com.company.mpg.entity.SparePart",
-      "parentName": "_local",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "spareParts",
-          "entity": "mpg$SparePart",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "name",
-          "lazy": false
-        },
-        {
-          "name": "spareParts",
-          "entity": "mpg$SparePart",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_minimal",
-      "entity": "mpg$Car",
-      "classFqn": "com.company.mpg.entity.Car",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "manufacturer",
-          "lazy": false
-        },
-        {
-          "name": "model",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "manufacturer",
-          "lazy": false
-        },
-        {
-          "name": "model",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_local",
-      "entity": "mpg$Car",
-      "classFqn": "com.company.mpg.entity.Car",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "manufacturer",
-          "lazy": false
-        },
-        {
-          "name": "model",
-          "lazy": false
-        },
-        {
-          "name": "regNumber",
-          "lazy": false
-        },
-        {
-          "name": "purchaseDate",
-          "lazy": false
-        },
-        {
-          "name": "manufactureDate",
-          "lazy": false
-        },
-        {
-          "name": "wheelOnRight",
-          "lazy": false
-        },
-        {
-          "name": "carType",
-          "lazy": false
-        },
-        {
-          "name": "ecoRank",
-          "lazy": false
-        },
-        {
-          "name": "maxPassengers",
-          "lazy": false
-        },
-        {
-          "name": "price",
-          "lazy": false
-        },
-        {
-          "name": "mileage",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "manufacturer",
-          "lazy": false
-        },
-        {
-          "name": "model",
-          "lazy": false
-        },
-        {
-          "name": "regNumber",
-          "lazy": false
-        },
-        {
-          "name": "purchaseDate",
-          "lazy": false
-        },
-        {
-          "name": "manufactureDate",
-          "lazy": false
-        },
-        {
-          "name": "wheelOnRight",
-          "lazy": false
-        },
-        {
-          "name": "carType",
-          "lazy": false
-        },
-        {
-          "name": "ecoRank",
-          "lazy": false
-        },
-        {
-          "name": "maxPassengers",
-          "lazy": false
-        },
-        {
-          "name": "price",
-          "lazy": false
-        },
-        {
-          "name": "mileage",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_base",
-      "entity": "mpg$Car",
-      "classFqn": "com.company.mpg.entity.Car",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "manufacturer",
-          "lazy": false
-        },
-        {
-          "name": "model",
-          "lazy": false
-        },
-        {
-          "name": "regNumber",
-          "lazy": false
-        },
-        {
-          "name": "purchaseDate",
-          "lazy": false
-        },
-        {
-          "name": "manufactureDate",
-          "lazy": false
-        },
-        {
-          "name": "wheelOnRight",
-          "lazy": false
-        },
-        {
-          "name": "carType",
-          "lazy": false
-        },
-        {
-          "name": "ecoRank",
-          "lazy": false
-        },
-        {
-          "name": "maxPassengers",
-          "lazy": false
-        },
-        {
-          "name": "price",
-          "lazy": false
-        },
-        {
-          "name": "mileage",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "manufacturer",
-          "lazy": false
-        },
-        {
-          "name": "model",
-          "lazy": false
-        },
-        {
-          "name": "regNumber",
-          "lazy": false
-        },
-        {
-          "name": "purchaseDate",
-          "lazy": false
-        },
-        {
-          "name": "manufactureDate",
-          "lazy": false
-        },
-        {
-          "name": "wheelOnRight",
-          "lazy": false
-        },
-        {
-          "name": "carType",
-          "lazy": false
-        },
-        {
-          "name": "ecoRank",
-          "lazy": false
-        },
-        {
-          "name": "maxPassengers",
-          "lazy": false
-        },
-        {
-          "name": "price",
-          "lazy": false
-        },
-        {
-          "name": "mileage",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "car-edit",
-      "entity": "mpg$Car",
-      "classFqn": "com.company.mpg.entity.Car",
-      "parentName": "_local",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "garage",
-          "entity": "mpg$Garage",
-          "lazy": false
-        },
-        {
-          "name": "technicalCertificate",
-          "entity": "mpg$TechnicalCertificate",
-          "lazy": false
-        },
-        {
-          "name": "photo",
-          "entity": "sys$FileDescriptor",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "manufacturer",
-          "lazy": false
-        },
-        {
-          "name": "model",
-          "lazy": false
-        },
-        {
-          "name": "regNumber",
-          "lazy": false
-        },
-        {
-          "name": "purchaseDate",
-          "lazy": false
-        },
-        {
-          "name": "manufactureDate",
-          "lazy": false
-        },
-        {
-          "name": "wheelOnRight",
-          "lazy": false
-        },
-        {
-          "name": "carType",
-          "lazy": false
-        },
-        {
-          "name": "ecoRank",
-          "lazy": false
-        },
-        {
-          "name": "maxPassengers",
-          "lazy": false
-        },
-        {
-          "name": "price",
-          "lazy": false
-        },
-        {
-          "name": "mileage",
-          "lazy": false
-        },
-        {
-          "name": "garage",
-          "entity": "mpg$Garage",
-          "lazy": false
-        },
-        {
-          "name": "technicalCertificate",
-          "entity": "mpg$TechnicalCertificate",
-          "lazy": false
-        },
-        {
-          "name": "photo",
-          "entity": "sys$FileDescriptor",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_minimal",
-      "entity": "mpg$FavoriteCar",
-      "classFqn": "com.company.mpg.entity.FavoriteCar",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_local",
-      "entity": "mpg$FavoriteCar",
-      "classFqn": "com.company.mpg.entity.FavoriteCar",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "notes",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "notes",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_base",
-      "entity": "mpg$FavoriteCar",
-      "classFqn": "com.company.mpg.entity.FavoriteCar",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        },
-        {
-          "name": "notes",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        },
-        {
-          "name": "notes",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "favoriteCar-view",
-      "entity": "mpg$FavoriteCar",
-      "classFqn": "com.company.mpg.entity.FavoriteCar",
-      "parentName": "_local",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        },
-        {
-          "name": "user",
-          "entity": "sec$User",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "notes",
-          "lazy": false
-        },
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        },
-        {
-          "name": "user",
-          "entity": "sec$User",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "favoriteCar-edit",
-      "entity": "mpg$FavoriteCar",
-      "classFqn": "com.company.mpg.entity.FavoriteCar",
-      "parentName": "_local",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        },
-        {
-          "name": "user",
-          "entity": "sec$User",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "notes",
-          "lazy": false
-        },
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        },
-        {
-          "name": "user",
-          "entity": "sec$User",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_minimal",
-      "entity": "mpg$TechnicalCertificate",
-      "classFqn": "com.company.mpg.entity.TechnicalCertificate",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "certNumber",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "certNumber",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_local",
-      "entity": "mpg$TechnicalCertificate",
-      "classFqn": "com.company.mpg.entity.TechnicalCertificate",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "certNumber",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "certNumber",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_base",
-      "entity": "mpg$TechnicalCertificate",
-      "classFqn": "com.company.mpg.entity.TechnicalCertificate",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "certNumber",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "certNumber",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_minimal",
-      "entity": "mpg$Garage",
-      "classFqn": "com.company.mpg.entity.Garage",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "name",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_local",
-      "entity": "mpg$Garage",
-      "classFqn": "com.company.mpg.entity.Garage",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "name",
-          "lazy": false
-        },
-        {
-          "name": "capacity",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "name",
-          "lazy": false
-        },
-        {
-          "name": "capacity",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_base",
-      "entity": "mpg$Garage",
-      "classFqn": "com.company.mpg.entity.Garage",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "name",
-          "lazy": false
-        },
-        {
-          "name": "capacity",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "name",
-          "lazy": false
-        },
-        {
-          "name": "capacity",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_minimal",
-      "entity": "mpg$CarRent",
-      "classFqn": "com.company.mpg.entity.CarRent",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "mpg$CarRent",
-      "classFqn": "com.company.mpg.entity.CarRent",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "fromDate",
-          "lazy": false
-        },
-        {
-          "name": "fromTime",
-          "lazy": false
-        },
-        {
-          "name": "fromDateTime",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "fromDate",
-          "lazy": false
-        },
-        {
-          "name": "fromTime",
-          "lazy": false
-        },
-        {
-          "name": "fromDateTime",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_base",
-      "entity": "mpg$CarRent",
-      "classFqn": "com.company.mpg.entity.CarRent",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "fromDate",
-          "lazy": false
-        },
-        {
-          "name": "fromTime",
-          "lazy": false
-        },
-        {
-          "name": "fromDateTime",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "fromDate",
-          "lazy": false
-        },
-        {
-          "name": "fromTime",
-          "lazy": false
-        },
-        {
-          "name": "fromDateTime",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "carRent-edit",
-      "entity": "mpg$CarRent",
-      "classFqn": "com.company.mpg.entity.CarRent",
-      "parentName": "_local",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "fromDate",
-          "lazy": false
-        },
-        {
-          "name": "fromTime",
-          "lazy": false
-        },
-        {
-          "name": "fromDateTime",
-          "lazy": false
-        },
-        {
-          "name": "car",
-          "entity": "mpg$Car",
-          "lazy": false
-        }
-      ]
-    },
     {
       "name": "_minimal",
       "entity": "sys$InfoParamEntity",
@@ -12894,8 +11382,8 @@
     },
     {
       "name": "_minimal",
-      "entity": "sec$HeaderConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
+      "entity": "sec$PropertyConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -12903,8 +11391,8 @@
     },
     {
       "name": "_local",
-      "entity": "sec$HeaderConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
+      "entity": "sec$PropertyConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -12912,8 +11400,8 @@
     },
     {
       "name": "_base",
-      "entity": "sec$HeaderConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
+      "entity": "sec$PropertyConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -12921,8 +11409,8 @@
     },
     {
       "name": "_minimal",
-      "entity": "sec$PropertyConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "entity": "sec$HeaderConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -12930,8 +11418,8 @@
     },
     {
       "name": "_local",
-      "entity": "sec$PropertyConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "entity": "sec$HeaderConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -12939,8 +11427,8 @@
     },
     {
       "name": "_base",
-      "entity": "sec$PropertyConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "entity": "sec$HeaderConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -16192,33 +14680,6 @@
     },
     {
       "name": "_minimal",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_base",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_minimal",
       "entity": "sec$Presentation",
       "classFqn": "com.haulmont.cuba.security.entity.Presentation",
       "overwrite": false,
@@ -16404,10 +14865,6 @@
           "lazy": false
         },
         {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
           "name": "changes",
           "lazy": false
         }
@@ -16423,10 +14880,6 @@
         },
         {
           "name": "entity",
-          "lazy": false
-        },
-        {
-          "name": "entityInstanceName",
           "lazy": false
         },
         {
@@ -16455,10 +14908,6 @@
           "lazy": false
         },
         {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
           "name": "changes",
           "lazy": false
         }
@@ -16474,10 +14923,6 @@
         },
         {
           "name": "entity",
-          "lazy": false
-        },
-        {
-          "name": "entityInstanceName",
           "lazy": false
         },
         {
@@ -16519,10 +14964,6 @@
           "lazy": false
         },
         {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
           "name": "changes",
           "lazy": false
         },
@@ -16537,6 +14978,33 @@
           "lazy": false
         }
       ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_local",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_base",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
     },
     {
       "name": "_minimal",
@@ -17321,25 +15789,6 @@
         },
         {
           "name": "changePasswordAtNextLogon",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "scheduling",
-      "entity": "sec$User",
-      "classFqn": "com.haulmont.cuba.security.entity.User",
-      "parentName": "_minimal",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": [
-        {
-          "name": "login",
-          "lazy": false
-        },
-        {
-          "name": "name",
           "lazy": false
         }
       ]
@@ -18541,463 +16990,463 @@
     },
     {
       "name": "_minimal",
-      "entity": "sys$CategoryAttributeEnumValue",
-      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
+      "entity": "sys$ScheduledTask",
+      "classFqn": "com.haulmont.cuba.core.entity.ScheduledTask",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [],
-      "allProperties": []
+      "properties": [
+        {
+          "name": "beanName",
+          "lazy": false
+        },
+        {
+          "name": "methodName",
+          "lazy": false
+        },
+        {
+          "name": "className",
+          "lazy": false
+        },
+        {
+          "name": "scriptName",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "beanName",
+          "lazy": false
+        },
+        {
+          "name": "methodName",
+          "lazy": false
+        },
+        {
+          "name": "className",
+          "lazy": false
+        },
+        {
+          "name": "scriptName",
+          "lazy": false
+        }
+      ]
     },
     {
       "name": "_local",
-      "entity": "sys$CategoryAttributeEnumValue",
-      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
+      "entity": "sys$ScheduledTask",
+      "classFqn": "com.haulmont.cuba.core.entity.ScheduledTask",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [],
-      "allProperties": []
+      "properties": [
+        {
+          "name": "definedBy",
+          "lazy": false
+        },
+        {
+          "name": "beanName",
+          "lazy": false
+        },
+        {
+          "name": "methodName",
+          "lazy": false
+        },
+        {
+          "name": "className",
+          "lazy": false
+        },
+        {
+          "name": "scriptName",
+          "lazy": false
+        },
+        {
+          "name": "userName",
+          "lazy": false
+        },
+        {
+          "name": "singleton",
+          "lazy": false
+        },
+        {
+          "name": "active",
+          "lazy": false
+        },
+        {
+          "name": "period",
+          "lazy": false
+        },
+        {
+          "name": "timeout",
+          "lazy": false
+        },
+        {
+          "name": "startDate",
+          "lazy": false
+        },
+        {
+          "name": "cron",
+          "lazy": false
+        },
+        {
+          "name": "schedulingType",
+          "lazy": false
+        },
+        {
+          "name": "timeFrame",
+          "lazy": false
+        },
+        {
+          "name": "startDelay",
+          "lazy": false
+        },
+        {
+          "name": "permittedServers",
+          "lazy": false
+        },
+        {
+          "name": "logStart",
+          "lazy": false
+        },
+        {
+          "name": "logFinish",
+          "lazy": false
+        },
+        {
+          "name": "lastStartTime",
+          "lazy": false
+        },
+        {
+          "name": "lastStartServer",
+          "lazy": false
+        },
+        {
+          "name": "methodParamsXml",
+          "lazy": false
+        },
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "methodParametersString",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "definedBy",
+          "lazy": false
+        },
+        {
+          "name": "beanName",
+          "lazy": false
+        },
+        {
+          "name": "methodName",
+          "lazy": false
+        },
+        {
+          "name": "className",
+          "lazy": false
+        },
+        {
+          "name": "scriptName",
+          "lazy": false
+        },
+        {
+          "name": "userName",
+          "lazy": false
+        },
+        {
+          "name": "singleton",
+          "lazy": false
+        },
+        {
+          "name": "active",
+          "lazy": false
+        },
+        {
+          "name": "period",
+          "lazy": false
+        },
+        {
+          "name": "timeout",
+          "lazy": false
+        },
+        {
+          "name": "startDate",
+          "lazy": false
+        },
+        {
+          "name": "cron",
+          "lazy": false
+        },
+        {
+          "name": "schedulingType",
+          "lazy": false
+        },
+        {
+          "name": "timeFrame",
+          "lazy": false
+        },
+        {
+          "name": "startDelay",
+          "lazy": false
+        },
+        {
+          "name": "permittedServers",
+          "lazy": false
+        },
+        {
+          "name": "logStart",
+          "lazy": false
+        },
+        {
+          "name": "logFinish",
+          "lazy": false
+        },
+        {
+          "name": "lastStartTime",
+          "lazy": false
+        },
+        {
+          "name": "lastStartServer",
+          "lazy": false
+        },
+        {
+          "name": "methodParamsXml",
+          "lazy": false
+        },
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "methodParametersString",
+          "lazy": false
+        }
+      ]
     },
     {
       "name": "_base",
-      "entity": "sys$CategoryAttributeEnumValue",
-      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
+      "entity": "sys$ScheduledTask",
+      "classFqn": "com.haulmont.cuba.core.entity.ScheduledTask",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [],
-      "allProperties": []
+      "properties": [
+        {
+          "name": "beanName",
+          "lazy": false
+        },
+        {
+          "name": "methodName",
+          "lazy": false
+        },
+        {
+          "name": "className",
+          "lazy": false
+        },
+        {
+          "name": "scriptName",
+          "lazy": false
+        },
+        {
+          "name": "definedBy",
+          "lazy": false
+        },
+        {
+          "name": "userName",
+          "lazy": false
+        },
+        {
+          "name": "singleton",
+          "lazy": false
+        },
+        {
+          "name": "active",
+          "lazy": false
+        },
+        {
+          "name": "period",
+          "lazy": false
+        },
+        {
+          "name": "timeout",
+          "lazy": false
+        },
+        {
+          "name": "startDate",
+          "lazy": false
+        },
+        {
+          "name": "cron",
+          "lazy": false
+        },
+        {
+          "name": "schedulingType",
+          "lazy": false
+        },
+        {
+          "name": "timeFrame",
+          "lazy": false
+        },
+        {
+          "name": "startDelay",
+          "lazy": false
+        },
+        {
+          "name": "permittedServers",
+          "lazy": false
+        },
+        {
+          "name": "logStart",
+          "lazy": false
+        },
+        {
+          "name": "logFinish",
+          "lazy": false
+        },
+        {
+          "name": "lastStartTime",
+          "lazy": false
+        },
+        {
+          "name": "lastStartServer",
+          "lazy": false
+        },
+        {
+          "name": "methodParamsXml",
+          "lazy": false
+        },
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "methodParametersString",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "beanName",
+          "lazy": false
+        },
+        {
+          "name": "methodName",
+          "lazy": false
+        },
+        {
+          "name": "className",
+          "lazy": false
+        },
+        {
+          "name": "scriptName",
+          "lazy": false
+        },
+        {
+          "name": "definedBy",
+          "lazy": false
+        },
+        {
+          "name": "userName",
+          "lazy": false
+        },
+        {
+          "name": "singleton",
+          "lazy": false
+        },
+        {
+          "name": "active",
+          "lazy": false
+        },
+        {
+          "name": "period",
+          "lazy": false
+        },
+        {
+          "name": "timeout",
+          "lazy": false
+        },
+        {
+          "name": "startDate",
+          "lazy": false
+        },
+        {
+          "name": "cron",
+          "lazy": false
+        },
+        {
+          "name": "schedulingType",
+          "lazy": false
+        },
+        {
+          "name": "timeFrame",
+          "lazy": false
+        },
+        {
+          "name": "startDelay",
+          "lazy": false
+        },
+        {
+          "name": "permittedServers",
+          "lazy": false
+        },
+        {
+          "name": "logStart",
+          "lazy": false
+        },
+        {
+          "name": "logFinish",
+          "lazy": false
+        },
+        {
+          "name": "lastStartTime",
+          "lazy": false
+        },
+        {
+          "name": "lastStartServer",
+          "lazy": false
+        },
+        {
+          "name": "methodParamsXml",
+          "lazy": false
+        },
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "methodParametersString",
+          "lazy": false
+        }
+      ]
     },
     {
       "name": "_minimal",
-      "entity": "sys$ScheduledTask",
-      "classFqn": "com.haulmont.cuba.core.entity.ScheduledTask",
+      "entity": "sys$CategoryAttributeEnumValue",
+      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [
-        {
-          "name": "beanName",
-          "lazy": false
-        },
-        {
-          "name": "methodName",
-          "lazy": false
-        },
-        {
-          "name": "className",
-          "lazy": false
-        },
-        {
-          "name": "scriptName",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "beanName",
-          "lazy": false
-        },
-        {
-          "name": "methodName",
-          "lazy": false
-        },
-        {
-          "name": "className",
-          "lazy": false
-        },
-        {
-          "name": "scriptName",
-          "lazy": false
-        }
-      ]
+      "properties": [],
+      "allProperties": []
     },
     {
       "name": "_local",
-      "entity": "sys$ScheduledTask",
-      "classFqn": "com.haulmont.cuba.core.entity.ScheduledTask",
+      "entity": "sys$CategoryAttributeEnumValue",
+      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [
-        {
-          "name": "definedBy",
-          "lazy": false
-        },
-        {
-          "name": "beanName",
-          "lazy": false
-        },
-        {
-          "name": "methodName",
-          "lazy": false
-        },
-        {
-          "name": "className",
-          "lazy": false
-        },
-        {
-          "name": "scriptName",
-          "lazy": false
-        },
-        {
-          "name": "userName",
-          "lazy": false
-        },
-        {
-          "name": "singleton",
-          "lazy": false
-        },
-        {
-          "name": "active",
-          "lazy": false
-        },
-        {
-          "name": "period",
-          "lazy": false
-        },
-        {
-          "name": "timeout",
-          "lazy": false
-        },
-        {
-          "name": "startDate",
-          "lazy": false
-        },
-        {
-          "name": "cron",
-          "lazy": false
-        },
-        {
-          "name": "schedulingType",
-          "lazy": false
-        },
-        {
-          "name": "timeFrame",
-          "lazy": false
-        },
-        {
-          "name": "startDelay",
-          "lazy": false
-        },
-        {
-          "name": "permittedServers",
-          "lazy": false
-        },
-        {
-          "name": "logStart",
-          "lazy": false
-        },
-        {
-          "name": "logFinish",
-          "lazy": false
-        },
-        {
-          "name": "lastStartTime",
-          "lazy": false
-        },
-        {
-          "name": "lastStartServer",
-          "lazy": false
-        },
-        {
-          "name": "methodParamsXml",
-          "lazy": false
-        },
-        {
-          "name": "description",
-          "lazy": false
-        },
-        {
-          "name": "methodParametersString",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "definedBy",
-          "lazy": false
-        },
-        {
-          "name": "beanName",
-          "lazy": false
-        },
-        {
-          "name": "methodName",
-          "lazy": false
-        },
-        {
-          "name": "className",
-          "lazy": false
-        },
-        {
-          "name": "scriptName",
-          "lazy": false
-        },
-        {
-          "name": "userName",
-          "lazy": false
-        },
-        {
-          "name": "singleton",
-          "lazy": false
-        },
-        {
-          "name": "active",
-          "lazy": false
-        },
-        {
-          "name": "period",
-          "lazy": false
-        },
-        {
-          "name": "timeout",
-          "lazy": false
-        },
-        {
-          "name": "startDate",
-          "lazy": false
-        },
-        {
-          "name": "cron",
-          "lazy": false
-        },
-        {
-          "name": "schedulingType",
-          "lazy": false
-        },
-        {
-          "name": "timeFrame",
-          "lazy": false
-        },
-        {
-          "name": "startDelay",
-          "lazy": false
-        },
-        {
-          "name": "permittedServers",
-          "lazy": false
-        },
-        {
-          "name": "logStart",
-          "lazy": false
-        },
-        {
-          "name": "logFinish",
-          "lazy": false
-        },
-        {
-          "name": "lastStartTime",
-          "lazy": false
-        },
-        {
-          "name": "lastStartServer",
-          "lazy": false
-        },
-        {
-          "name": "methodParamsXml",
-          "lazy": false
-        },
-        {
-          "name": "description",
-          "lazy": false
-        },
-        {
-          "name": "methodParametersString",
-          "lazy": false
-        }
-      ]
+      "properties": [],
+      "allProperties": []
     },
     {
       "name": "_base",
-      "entity": "sys$ScheduledTask",
-      "classFqn": "com.haulmont.cuba.core.entity.ScheduledTask",
+      "entity": "sys$CategoryAttributeEnumValue",
+      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [
-        {
-          "name": "beanName",
-          "lazy": false
-        },
-        {
-          "name": "methodName",
-          "lazy": false
-        },
-        {
-          "name": "className",
-          "lazy": false
-        },
-        {
-          "name": "scriptName",
-          "lazy": false
-        },
-        {
-          "name": "definedBy",
-          "lazy": false
-        },
-        {
-          "name": "userName",
-          "lazy": false
-        },
-        {
-          "name": "singleton",
-          "lazy": false
-        },
-        {
-          "name": "active",
-          "lazy": false
-        },
-        {
-          "name": "period",
-          "lazy": false
-        },
-        {
-          "name": "timeout",
-          "lazy": false
-        },
-        {
-          "name": "startDate",
-          "lazy": false
-        },
-        {
-          "name": "cron",
-          "lazy": false
-        },
-        {
-          "name": "schedulingType",
-          "lazy": false
-        },
-        {
-          "name": "timeFrame",
-          "lazy": false
-        },
-        {
-          "name": "startDelay",
-          "lazy": false
-        },
-        {
-          "name": "permittedServers",
-          "lazy": false
-        },
-        {
-          "name": "logStart",
-          "lazy": false
-        },
-        {
-          "name": "logFinish",
-          "lazy": false
-        },
-        {
-          "name": "lastStartTime",
-          "lazy": false
-        },
-        {
-          "name": "lastStartServer",
-          "lazy": false
-        },
-        {
-          "name": "methodParamsXml",
-          "lazy": false
-        },
-        {
-          "name": "description",
-          "lazy": false
-        },
-        {
-          "name": "methodParametersString",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "beanName",
-          "lazy": false
-        },
-        {
-          "name": "methodName",
-          "lazy": false
-        },
-        {
-          "name": "className",
-          "lazy": false
-        },
-        {
-          "name": "scriptName",
-          "lazy": false
-        },
-        {
-          "name": "definedBy",
-          "lazy": false
-        },
-        {
-          "name": "userName",
-          "lazy": false
-        },
-        {
-          "name": "singleton",
-          "lazy": false
-        },
-        {
-          "name": "active",
-          "lazy": false
-        },
-        {
-          "name": "period",
-          "lazy": false
-        },
-        {
-          "name": "timeout",
-          "lazy": false
-        },
-        {
-          "name": "startDate",
-          "lazy": false
-        },
-        {
-          "name": "cron",
-          "lazy": false
-        },
-        {
-          "name": "schedulingType",
-          "lazy": false
-        },
-        {
-          "name": "timeFrame",
-          "lazy": false
-        },
-        {
-          "name": "startDelay",
-          "lazy": false
-        },
-        {
-          "name": "permittedServers",
-          "lazy": false
-        },
-        {
-          "name": "logStart",
-          "lazy": false
-        },
-        {
-          "name": "logFinish",
-          "lazy": false
-        },
-        {
-          "name": "lastStartTime",
-          "lazy": false
-        },
-        {
-          "name": "lastStartServer",
-          "lazy": false
-        },
-        {
-          "name": "methodParamsXml",
-          "lazy": false
-        },
-        {
-          "name": "description",
-          "lazy": false
-        },
-        {
-          "name": "methodParametersString",
-          "lazy": false
-        }
-      ]
+      "properties": [],
+      "allProperties": []
     },
     {
       "name": "_minimal",
@@ -20309,134 +18758,6 @@
       ]
     }
   ],
-  "restQueries": [
-    {
-      "name": "allCars",
-      "jpql": "select c from mpg$Car c",
-      "entity": "mpg$Car",
-      "view": "_local",
-      "params": []
-    },
-    {
-      "name": "ecoCars",
-      "jpql": "select c from mpg$Car c where c.ecoRank = 3",
-      "entity": "mpg$Car",
-      "view": "_local",
-      "params": []
-    },
-    {
-      "name": "ecoCars",
-      "jpql": "select c from mpg$Car c where c.ecoRank > :ecoRank",
-      "entity": "mpg$Car",
-      "view": "_local",
-      "params": [
-        {
-          "name": "ecoRank",
-          "type": "java.lang.String"
-        }
-      ]
-    },
-    {
-      "name": "ecoCars",
-      "jpql": "select c from mpg$Car c where c.ecoRank = 3 and c.model like :model",
-      "entity": "mpg$Car",
-      "view": "_local",
-      "params": [
-        {
-          "name": "model",
-          "type": "java.lang.String"
-        }
-      ]
-    },
-    {
-      "name": "carsByType",
-      "jpql": "select c from mpg$Car c where c.carType = :carType",
-      "entity": "mpg$Car",
-      "view": "_local",
-      "params": [
-        {
-          "name": "carType",
-          "type": "java.lang.String"
-        }
-      ]
-    },
-    {
-      "name": "allCars",
-      "jpql": "select f from mpg$FavoriteCar f where f.car = :car",
-      "entity": "mpg$FavoriteCar",
-      "view": "_local",
-      "params": [
-        {
-          "name": "car",
-          "type": "com.company.mpg.entity.Car"
-        }
-      ]
-    }
-  ],
-  "restServices": [
-    {
-      "name": "mpg_FavoriteService",
-      "methods": [
-        {
-          "name": "addFavorite",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "carId",
-              "type": "java.util.UUID",
-              "saveType": false
-            },
-            {
-              "name": "notes",
-              "type": "java.lang.String",
-              "saveType": false
-            }
-          ]
-        },
-        {
-          "name": "addFavorite",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "car",
-              "type": "com.company.mpg.entity.Car",
-              "saveType": false
-            },
-            {
-              "name": "notes",
-              "type": "java.lang.String",
-              "saveType": false
-            }
-          ]
-        },
-        {
-          "name": "addFavorite",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "favInfo",
-              "type": "com.company.mpg.service.FavInfo",
-              "saveType": false
-            }
-          ]
-        },
-        {
-          "name": "getFavorites",
-          "restInvocationAllowed": true,
-          "params": []
-        },
-        {
-          "name": "getFavoritesByType",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "carType",
-              "type": "com.company.mpg.entity.CarType",
-              "saveType": false
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "restQueries": [],
+  "restServices": []
 }

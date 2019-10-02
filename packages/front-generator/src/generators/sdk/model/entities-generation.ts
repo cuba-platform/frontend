@@ -1,13 +1,14 @@
-import {Cardinality, Entity, EntityAttribute, MappingType, ProjectModel} from "./cuba-model";
+import {Cardinality, Entity, EntityAttribute, MappingType, ProjectModel} from "../../../common/model/cuba-model";
 import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
 import {EnumDeclaration} from "typescript";
-import {renderTSNodes} from "../ts-helpers";
+import {renderTSNodes} from "../../../common/ts-helpers";
 import {createEntityViewTypes} from "./entity-views-generation";
 import {createIncludes, entityImportInfo, enumImportInfo, ImportInfo} from "../import-utils";
-import {BASE_ENTITIES_DIR, ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "../constants";
-import {collectModelContext, getEntityModulePath, ModelContext} from "../utils";
+import {BASE_ENTITIES_DIR, ENTITIES_DIR, ENUMS_DIR, ENUMS_FILE} from "../../../common/constants";
+import {getEntityModulePath} from "../../../common/utils";
+import {collectModelContext, ModelContext} from "./model-utils";
 
 export interface ProjectEntityInfo {
   entity: Entity;

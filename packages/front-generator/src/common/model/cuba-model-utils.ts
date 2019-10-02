@@ -62,8 +62,9 @@ export function collectAttributesFromHierarchy(entity: Entity, projectModel: Pro
 
   let {parentClassName, parentPackage} = entity;
 
-  while (parentClassName && parentPackage && parentClassName.length > 0 && parentPackage.length > 0) {
-    const parentFqn = `${parentPackage}.${parentClassName}`;
+  let parentFqn = composeParentFqn(parentPackage, parentClassName);
+
+  while (parentFqn.length > 0) {
     const parent = allEntities.find(e => e.fqn === parentFqn);
     if (parent) {
       attrs = parent.attributes ? attrs.concat(parent.attributes) : attrs;
@@ -73,7 +74,14 @@ export function collectAttributesFromHierarchy(entity: Entity, projectModel: Pro
       parentPackage = '';
       parentClassName = '';
     }
+    parentFqn = composeParentFqn(parentPackage, parentClassName);
   }
 
   return attrs;
+}
+
+function composeParentFqn(parentPackage: string | undefined, parentClassName: string | undefined) : string {
+  if (!parentClassName || !parentPackage) return '';
+  if (parentPackage.length == 0 || parentClassName.length == 0) return '';
+  return `${parentPackage}.${parentClassName}`;
 }

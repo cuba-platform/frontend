@@ -1,7 +1,8 @@
 import * as path from "path";
 import {exportProjectModel, getOpenedCubaProjects} from "../common/studio/studio-integration";
 
-describe('studio-integration', function() {
+//todo move to integration tests, we need studio installed and run for them
+xdescribe('studio-integration', function() {
 
   it('exports model', function(done) {
     this.timeout(20000);

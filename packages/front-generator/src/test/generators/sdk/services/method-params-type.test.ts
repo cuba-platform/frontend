@@ -3,19 +3,18 @@ import {
   createMethodParamsType,
   ParamTypeInfo,
   parseParamType
-} from "../../../common/services/method-params-type";
-import {renderTSNodes} from "../../../common/ts-helpers";
-import {assertContent} from "../../generator.test";
-import {modelCtx} from "../../test-commons";
-import {Entity, Enum, RestService} from "../../../common/model/cuba-model";
-import {isImportEquals} from "../../../common/import-utils";
+} from "../../../../generators/sdk/services/method-params-type";
+import {renderTSNodes} from "../../../../common/ts-helpers";
+import {assertContent, modelCtx} from "../../../test-commons";
+import {Entity, Enum, RestService} from "../../../../common/model/cuba-model";
+import {isImportEquals} from "../../../../generators/sdk/import-utils";
 import * as assert from "assert";
-import {collectModelContext} from "../../../common/utils";
-const servicesModel: RestService[] = require('./../../fixtures/service-model.json');
+import {collectModelContext} from "../../../../generators/sdk/model/model-utils";
+const servicesModel: RestService[] = require('../../../fixtures/service-model.json');
 
-const enumsModelWithDuplicates: Enum[] = require('../../enums-model--identical-names.json');
-const entityModel: Entity = require('./../../entity-model.json');
-const baseEntityModel: Entity = require('../../fixtures/base-entity-model.json');
+const enumsModelWithDuplicates: Enum[] = require('../../../fixtures/enums-model--identical-names.json');
+const entityModel: Entity = require('../../../fixtures/entity-model.json');
+const baseEntityModel: Entity = require('../../../fixtures/base-entity-model.json');
 
 describe('should generate new type form method params, an imports for this type', () => {
   it('should generate rest method params type', function () {

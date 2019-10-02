@@ -2,6 +2,27 @@ sudo: false
 language: node_js
 node_js:
   - '8'
-script:
-  - npm run build
-  - npm run test:e2e
+before_script: npm run build
+
+matrix:
+  include:
+    - name: "Unit tests"
+      script: npm test
+
+    - name: "Test e2e:sdk"
+      script: npm run test:e2e:sdk
+
+    - name: "Test e2e:polymer2"
+      script: npm run test:e2e:polymer2
+
+    - name: "Test e2e:polymer2-ts"
+      script: npm run test:e2e:polymer2-ts
+
+    - name: "Test e2e:react:mpg"
+      script: npm run test:e2e:react:mpg
+
+    - name: "Test e2e:react:new-project"
+      script: npm run test:e2e:react:new-project
+
+    - name: "Test e2e:react:empty-model"
+      script: npm run test:e2e:react:empty-model

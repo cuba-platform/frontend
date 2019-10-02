@@ -2,44 +2,40 @@ const {promisify} = require('util');
 const path = require('path');
 const rimraf = promisify(require('rimraf'));
 const fs = require('fs');
-const assert = require('assert');
-const {runGenerator} = require('./../e2e-common');
+const {runGenerator, cmd, assertContent, init} = require('./e2e-common')('sdk');
 
-(async function () {
+const appDir = 'test/e2e/generated/sdk';
+const fixturesDir = 'test/e2e/fixtures/sdk';
 
-  await rimraf('.tmp/*');
-  const sdkAppDir = '.tmp/sdk';
-  const expectDir = 'test/e2e/expect';
 
-  runGenerator('sdk:all', sdkAppDir, undefined, undefined, 'projectModel2.json')
-    .then(() => {
-      const enumsFile = fs.readFileSync(path.join(sdkAppDir, 'enums/enums.ts'), 'utf8');
-      const enumsExpectedFile = fs.readFileSync(expectDir + '/enums/enums.ts', 'utf8');
-      let filesCompareRes = enumsFile.localeCompare(enumsExpectedFile);
+describe('test:e2e:sdk', () => {
 
-      console.log('e2e:sdk: compare generated enums.ts file with expected result located at ' +
-        expectDir + '/enums/enums.ts, result is', filesCompareRes, filesCompareRes === 0 ? 'OK' : 'FAIL');
-      assert(filesCompareRes === 0);
+  before(() => init());
 
-      const carEntityFile = fs.readFileSync(path.join(sdkAppDir, 'entities/mpg$Car.ts'), 'utf8');
-      const expected = fs.readFileSync(expectDir + '/entities/mpg$Car.ts', 'utf8');
-      filesCompareRes = expected.localeCompare(carEntityFile);
+  it('should generate sdk app', async function () {
 
-      console.log('e2e:sdk: compare generated mpg$Car.ts file with expected result located at ' +
-        expectDir + '/entities/mpg$Car.ts, result is', filesCompareRes, filesCompareRes === 0 ? 'OK' : 'FAIL');
-      assert(filesCompareRes === 0);
+    await rimraf(`${appDir}/*`);
+    await runGenerator('all', appDir);
 
-      //todo test when entity contains itself as member
+    console.log('e2e:sdk: start files comparison with expect gauges');
+    assertContent('enums/enums.ts', appDir);
+    assertContent('entities/mpg$Car.ts', appDir);
+    assertContent('entities/mpg$SparePart.ts', appDir);
+    assertContent('services.ts', appDir);
+    assertContent('queries.ts', appDir);
 
-      // console.log('\ne2e:sdk: start compile sdk after generation');
-      // const exec = promisify(require('child_process').exec);
-      // fs.writeFileSync(path.join(sdkAppDir, 'tsconfig.json'), '{}');
-      // exec(`cd ${sdkAppDir} && npx tsc`)
-    })
-    .catch((e) => {
-      console.log(e);
-      process.exit(1);
-    });
+    console.log('\ne2e:sdk: prepare to compile sdk');
+    fs.copyFileSync(path.join(fixturesDir, 'tsconfig.json'), path.join(appDir, 'tsconfig.json'));
 
-})();
+    await cmd(`cd ${appDir} && npm init -y && npm install typescript @cuba-platform/rest`,
+      `e2e:sdk: prepare to compile sdk - install packages, path: ${fs.realpathSync(appDir)}`,
+      `e2e:sdk: compile packages - DONE`);
 
+    await cmd(`cd ${appDir} && ./node_modules/.bin/tsc`,
+      `e2e:sdk: start compile sdk, path: ${fs.realpathSync(appDir)}`,
+      `e2e:sdk: compile sdk - DONE`);
+
+    console.log('e2e:sdk: sdk generation test - PASSED');
+
+  });
+});

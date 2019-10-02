@@ -9,6 +9,7 @@ export class Car extends StandardEntity {
     model?: string | null;
     regNumber?: string | null;
     purchaseDate?: any | null;
+    manufactureDate?: any | null;
     wheelOnRight?: boolean | null;
     carType?: CarType | null;
     ecoRank?: EcoRank | null;
@@ -20,4 +21,4 @@ export class Car extends StandardEntity {
     photo?: FileDescriptor | null;
 }
 export type CarViewName = "_minimal" | "_local" | "_base" | "car-edit";
-export type CarView<V extends CarViewName> = V extends "_minimal" ? Pick<Car, "manufacturer" | "model"> : V extends "_local" ? Pick<Car, "manufacturer" | "model" | "regNumber" | "purchaseDate" | "wheelOnRight" | "carType" | "ecoRank" | "maxPassengers" | "price" | "mileage"> : V extends "_base" ? Pick<Car, "manufacturer" | "model" | "regNumber" | "purchaseDate" | "wheelOnRight" | "carType" | "ecoRank" | "maxPassengers" | "price" | "mileage"> : V extends "car-edit" ? Pick<Car, "manufacturer" | "model" | "regNumber" | "purchaseDate" | "wheelOnRight" | "carType" | "ecoRank" | "maxPassengers" | "price" | "mileage" | "garage" | "technicalCertificate" | "photo"> : never;
+export type CarView<V extends CarViewName> = V extends "_minimal" ? Pick<Car, "manufacturer" | "model"> : V extends "_local" ? Pick<Car, "manufacturer" | "model" | "regNumber" | "purchaseDate" | "manufactureDate" | "wheelOnRight" | "carType" | "ecoRank" | "maxPassengers" | "price" | "mileage"> : V extends "_base" ? Pick<Car, "manufacturer" | "model" | "regNumber" | "purchaseDate" | "manufactureDate" | "wheelOnRight" | "carType" | "ecoRank" | "maxPassengers" | "price" | "mileage"> : V extends "car-edit" ? Pick<Car, "manufacturer" | "model" | "regNumber" | "purchaseDate" | "manufactureDate" | "wheelOnRight" | "carType" | "ecoRank" | "maxPassengers" | "price" | "mileage" | "garage" | "technicalCertificate" | "photo"> : never;

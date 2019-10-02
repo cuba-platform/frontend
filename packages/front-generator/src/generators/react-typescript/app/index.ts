@@ -2,9 +2,10 @@ import {ProjectInfo} from "../../../common/model/cuba-model";
 import {BaseGenerator, readProjectModel} from "../../../common/generation";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {generateEntities} from "../../../common/model/entities-generation";
+
 import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../../common/studio/studio-integration";
 import {ownVersion} from "../../../cli";
+import {SdkAllGenerator} from "../../sdk/sdk-generator";
 
 interface TemplateModel {
   title: string;
@@ -20,13 +21,15 @@ interface Answers {
 class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGenerationOptions> {
 
   conflicter!: { force: boolean }; //missing in typings
+  modelPath?: string;
 
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
     this.sourceRoot(path.join(__dirname, 'template'));
+    this.modelPath = this.options.model;
   }
 
-  // noinspection JSUnusedGlobalSymbols
+  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async prompting() {
     if (this.options.model) {
       this.conflicter.force = true;
@@ -52,18 +55,19 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
 
   }
 
+  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async prepareModel() {
     if (this.cubaProjectModel) {
       this.model = createModel(this.cubaProjectModel.project);
     } else if (this.answers) {
-      const modelFilePath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(this.answers.projectInfo.locationHash, modelFilePath);
-      this.cubaProjectModel = readProjectModel(modelFilePath);
+      this.modelPath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelPath);
+      this.cubaProjectModel = readProjectModel(this.modelPath);
       this.model = createModel(this.cubaProjectModel.project);
     }
   }
 
-  // noinspection JSUnusedGlobalSymbols
+  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   writing() {
     this.log(`Generating to ${this.destinationPath()}`);
 
@@ -78,11 +82,25 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.fs.copyTpl(this.templatePath('.env.development.local'), this.destinationPath('.env.development.local'), this.model);
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
+  }
 
-    if (this.cubaProjectModel) {
-      generateEntities(this.cubaProjectModel, path.join(this.destinationRoot(), 'src/cuba'), this.fs);
-    }
+  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
+  async generateSdk() {
+    const sdkDest = 'src/cuba';
+    this.log(`Generate sdk model and services to ${sdkDest}`);
 
+    const sdkOpts = {
+      model: this.modelPath,
+      dest: sdkDest
+    };
+
+    const generatorOpts = {
+      Generator: SdkAllGenerator,
+      path: require.resolve('../../sdk/sdk-generator')
+    };
+
+    //todo type not match
+    await this.composeWith(generatorOpts as any, sdkOpts);
   }
 
   end() {

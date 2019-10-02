@@ -1,12 +1,11 @@
-import {renderTSNodes} from "../../../common/ts-helpers";
-import {RestQuery} from "../../../common/model/cuba-model";
-import {createTestProjectEntityInfo, modelCtx} from "../../test-commons";
-import {assertContent} from "../../generator.test";
-import {createQuery, generateQueries} from "../../../common/services/queries-generation";
+import {renderTSNodes} from "../../../../common/ts-helpers";
+import {RestQuery} from "../../../../common/model/cuba-model";
+import {assertContent, createTestProjectEntityInfo, modelCtx} from "../../../test-commons";
+import {createQuery, generateQueries} from "../../../../generators/sdk/services/queries-generation";
 
-const queriesModelCar: RestQuery[] = require('../../fixtures/query-model-car.json');
-const queriesModelFull: RestQuery[] = require('../../fixtures/query-model-full.json');
-const queriesModelOverloads: RestQuery[] = require('../../fixtures/query-model-overloads.json');
+const queriesModelCar: RestQuery[] = require('../../../fixtures/query-model-car.json');
+const queriesModelFull: RestQuery[] = require('../../../fixtures/query-model-full.json');
+const queriesModelOverloads: RestQuery[] = require('../../../fixtures/query-model-overloads.json');
 
 
 describe('generate TS REST query', () => {
