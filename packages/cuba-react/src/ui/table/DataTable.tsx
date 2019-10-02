@@ -22,7 +22,7 @@ import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
 import {getPropertyInfo, WithId} from '../../util/metadata';
 import {DataCollectionStore} from '../../data/Collection';
 
-interface DataTableProps<E> extends MainStoreInjected {
+export interface DataTableProps<E> extends MainStoreInjected {
   dataCollection: DataCollectionStore<E>,
   fields: string[], // TODO remove once DataCollectionStore supports properties field
   onSelectedRowChange: (selectedRowKey: string | number | undefined) => void,
