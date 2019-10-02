@@ -1,5 +1,7 @@
 # CUBA Platform front-end and TypeScript SDK generator
 
+[![Build Status](https://travis-ci.org/cuba-platform/front-generator.svg?branch=master)](https://travis-ci.org/cuba-platform/front-generator)
+
 The generator is `@cuba-platform/front-generator` npm package which
  * provides an ability to generate:
     * [Polymer 2 starter](https://doc.cuba-platform.com/manual-7.0/polymer_ui.html)
