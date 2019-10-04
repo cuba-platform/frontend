@@ -36,6 +36,23 @@
     },
     "managementComponentName": "mpg-car-management2"
   },
+  "entityManagement3": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "editComponentName": "mpg-car-edit3",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "listComponentName": "mpg-car-list3",
+    "listType": "table",
+    "entity": {
+      "name": "mpg$Car"
+    },
+    "managementComponentName": "mpg-car-management3"
+  },
   "entityCards": {
     "entityView": {
       "name": "favoriteCar-view",

@@ -1,33 +1,102 @@
-import * as React from "react";
+import * as React from "react";<% if (listType === 'table') { %>
+import {observable} from 'mobx';<% } %>
 import {observer} from "mobx-react";
-<% if (listType === 'list') { %>
-import {List, Icon, Modal} from "antd";
-<% } else { %>
-import {Card, Icon, Modal} from "antd";
-<% } %>
+import {
+  Modal,<% if (listType === 'table') { %>
+  Button,<% } else if (listType === 'cards') { %>
+  Card, Icon, Spin,<% } else if (listType === 'list') { %>
+  List, Icon, Spin,<% } %>
+} from "antd";
 import {<%=entity.className%>} from "<%= relDirShift %>cuba/entities/<%=entity.name%>";
 import {Link} from "react-router-dom";
-import {collection, EntityProperty} from "@cuba-platform/react";
+import {
+  collection,<% if (listType === 'table') { %>
+  DataTable, injectMainStore, MainStoreInjected,<% } else { %>
+  EntityProperty,<% } %>
+} from "@cuba-platform/react";
 import {SerializedEntity} from "@cuba-platform/rest";
 import {<%=className%>} from "./<%=className%>";
-
-@observer
-export class <%=className%>Browser extends React.Component {
+<% if (listType === 'table') { %>
+@injectMainStore<% } %>
+@observer<% if (listType === 'table') { %>
+export class <%=className%>Browser extends React.Component<MainStoreInjected> {<% } else { %>
+export class <%=className%>Browser extends React.Component {<% } %>
 
   dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=listView.name%>', sort: '-updateTs'});
   fields = [<%listView.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
-
+<% if (listType === 'table') { %>
+  @observable selectedRowId: string | undefined;
+<% } %>
   showDeletionDialog = (e: SerializedEntity<<%=entity.className%>>) => {
     Modal.confirm({
       title: `Are you sure you want to delete ${e._instanceName}?`,
       okText: 'Delete',
       cancelText: 'Cancel',
-      onOk: () => {
+      onOk: () => {<% if (listType === 'table') { %>
+        this.selectedRowId = undefined;<% } %>
         return this.dataCollection.delete(e);
       }
     });
   };
+<% if (listType === 'table') { %>
+  render() {
+    const buttons = (
+      [
+        (<Link to={<%=className%>.PATH + '/' + <%=className%>.NEW_SUBPATH} key='create'>
+          <Button htmlType='button'
+                  style={{margin: '0 12px 12px 0'}}
+                  type='default'>
+            Create
+          </Button>
+        </Link>),
+        (<Link to={<%=className%>.PATH + '/' + this.selectedRowId} key='edit'>
+          <Button htmlType='button'
+                  style={{margin: '0 12px 12px 0'}}
+                  disabled={!this.selectedRowId}
+                  type='default'>
+            Edit
+          </Button>
+        </Link>),
+        (<Button htmlType='button'
+                 style={{margin: '0 12px 12px 0'}}
+                 disabled={!this.selectedRowId}
+                 onClick={this.deleteSelectedRow}
+                 key='remove'
+                 type='default'>
+          Remove
+        </Button>),
+      ]
+    );
 
+    return (
+      <DataTable dataCollection={this.dataCollection}
+                 fields={this.fields}
+                 onSelectedRowChange={this.onSelectedRowChange}
+                 buttons={buttons}
+                 defaultSort={'-updateTs'}
+      />
+    );
+  }
+
+  getRecordById(id: string): SerializedEntity<<%=entity.className%>> {
+    const record: SerializedEntity<<%=entity.className%>> | undefined =
+      this.dataCollection.items.find(record => record.id === id);
+
+    if (!record) {
+      throw new Error('Cannot find entity with id ' + id);
+    }
+
+    return record;
+  }
+
+  onSelectedRowChange = (selectedRowId: string) => {
+    this.selectedRowId = selectedRowId;
+  };
+
+  deleteSelectedRow = () => {
+    this.showDeletionDialog(this.getRecordById(this.selectedRowId!));
+  };  
+<% } else { %>
   render() {
     const {
       status,
@@ -35,7 +104,9 @@ export class <%=className%>Browser extends React.Component {
     } = this.dataCollection;
 
     if (status === "LOADING") {
-      return <Icon type='spin'/>
+      return (<div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
+        <Spin size='large'/>
+      </div>);
     }
 
     return (
@@ -95,4 +166,5 @@ export class <%=className%>Browser extends React.Component {
       </div>
     )
   }
+<% } %>
 }

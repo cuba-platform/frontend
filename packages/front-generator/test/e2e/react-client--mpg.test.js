@@ -35,6 +35,10 @@ describe('test:e2e:react:mpg', () => {
     await runGenerator('entity-management', `${MPG_APP_DIR}/src/app/entity-management2`,
       JSON.stringify(answers.entityManagement2), '../../');
 
+    //entity management with "listType": "table"
+    await runGenerator('entity-management', `${MPG_APP_DIR}/src/app/entity-management3`,
+      JSON.stringify(answers.entityManagement3), '../../');
+
     await installAndBuild('mpg-model', MPG_APP_DIR);
   });
 
