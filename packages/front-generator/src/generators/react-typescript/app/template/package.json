@@ -5,7 +5,7 @@
   "dependencies": {
     "@cuba-platform/react": "^0.1.0-beta.1",
     "@cuba-platform/rest": "^0.5.1",
-    "antd": "^3.20.7",
+    "antd": "^3.23.4",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
     "moment": "^2.23.0",

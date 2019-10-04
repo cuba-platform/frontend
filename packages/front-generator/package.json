@@ -16,12 +16,10 @@
     "coverage": "nyc npm run test",
     "test:e2e": "mocha 'test/e2e/*.test.js' -g 'test:e2e:polymer2|test:e2e:sdk|test:e2e:react' --timeout 0",
     "test:e2e:sdk": "mocha 'test/e2e/sdk.test.js'  -g 'test:e2e:sdk' --timeout 0",
-
     "test:e2e:react": "mocha 'test/e2e/react-client--*.test.js'  -g 'test:e2e:react' --timeout 0",
     "test:e2e:react:mpg": "mocha 'test/e2e/react-client--mpg.test.js'  -g 'test:e2e:react:mpg' --timeout 0",
     "test:e2e:react:empty-model": "mocha 'test/e2e/react-client--empty-model.test.js'  -g 'test:e2e:react:empty-model' --timeout 0",
     "test:e2e:react:new-project": "mocha 'test/e2e/react-client--new-project.test.js'  -g 'test:e2e:react:new-project' --timeout 0",
-
     "test:e2e:polymer2": "mocha 'test/e2e/polymer2.test.js'  -g 'test:e2e:polymer2' --timeout 0",
     "test:e2e:polymer2-ts": "mocha 'test/e2e/polymer2-ts.test.js'  -g 'test:e2e:polymer2-ts' --timeout 0",
     "prepublishOnly": "npm run build"
@@ -31,17 +29,18 @@
     "url": "https://github.com/cuba-platform/front-generator"
   },
   "dependencies": {
+    "@cuba-platform/react": "0.1.0-beta.7",
     "commander": "~2.13.0",
     "through2": "^2.0.5",
     "typescript": "3.4.1",
     "yeoman-environment": "~2.4.0",
-    "yeoman-generator": "~4.0.1"
+    "yeoman-generator": "^4.0.2"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^0.1.3",
     "@types/ejs": "^2.5.1",
     "@types/mocha": "^2.2.48",
-    "@types/node": "^9.6.17",
+    "@types/node": "^9.6.52",
     "@types/through2": "^2.0.33",
     "@types/yeoman-generator": "^2.0.3",
     "mocha": "^5.1.1",
@@ -63,7 +62,10 @@
       "src/generators/polymer2-typescript/**",
       "src/generators/app/template/**"
     ],
-    "reporter":["text", "html"],
+    "reporter": [
+      "text",
+      "html"
+    ],
     "check-coverage": true
   },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
