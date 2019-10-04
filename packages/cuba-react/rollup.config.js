@@ -1,4 +1,5 @@
 import resolve from 'rollup-plugin-node-resolve';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: 'dist-transpiled/index.js',
@@ -25,6 +26,9 @@ export default {
     'react-testing-library',
   ],
   plugins: [
-    resolve()
+    postcss({
+      extensions: ['.css']
+    }),
+    resolve(),
   ]
 };
