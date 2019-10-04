@@ -108,8 +108,7 @@ module.exports = function (generatorName, logFileSuffix) {
       `${logCaption} start compile react-client after generation  - npm install, path: ${fs.realpathSync(appDir)}`,
       `${logCaption} start compile react-client after generation - npm install - DONE`);
 
-    //todo get back CI=true after fix warning EntityManagementBrowser.tsx in #26
-    await cmd(`cd ${appDir} && CI='false' npm run build`,
+    await cmd(`cd ${appDir} && CI=true npm run build`,
       `${logCaption} start compile react-client after generation - npm run build, path: ${fs.realpathSync(appDir)}`,
       `${logCaption} start compile react-client after generation - npm run build - DONE\n-------------\n\n`);
 

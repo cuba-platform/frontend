@@ -27,8 +27,13 @@ describe('test:e2e:react:mpg', () => {
     await runGenerator('entity-cards', `${MPG_APP_DIR}/src/app/entity-cards`,
       JSON.stringify(answers.entityCards), '../../');
 
+    //entity management with "listType": "cards"
     await runGenerator('entity-management', `${MPG_APP_DIR}/src/app/entity-management`,
       JSON.stringify(answers.entityManagement), '../../');
+
+    //entity management with "listType": "list"
+    await runGenerator('entity-management', `${MPG_APP_DIR}/src/app/entity-management2`,
+      JSON.stringify(answers.entityManagement2), '../../');
 
     await installAndBuild('mpg-model', MPG_APP_DIR);
   });

@@ -7,17 +7,34 @@
       "name": "car-edit",
       "entityName": "mpg$Car"
     },
-    "editComponentName": "mpg-car-edit3",
+    "editComponentName": "mpg-car-edit",
     "listView": {
       "name": "car-edit",
       "entityName": "mpg$Car"
     },
-    "listComponentName": "mpg-car-list3",
+    "listComponentName": "mpg-car-list",
     "listType": "cards",
     "entity": {
       "name": "mpg$Car"
     },
-    "managementComponentName": "mpg-car-management3"
+    "managementComponentName": "mpg-car-management"
+  },
+  "entityManagement2": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "editComponentName": "mpg-car-edit2",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "listComponentName": "mpg-car-list2",
+    "listType": "list",
+    "entity": {
+      "name": "mpg$Car"
+    },
+    "managementComponentName": "mpg-car-management2"
   },
   "entityCards": {
     "entityView": {
