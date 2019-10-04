@@ -19,7 +19,7 @@ export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
     code: 'listType',
     caption: 'List type',
     propertyType: StudioTemplatePropertyType.OPTION,
-    defaultValue: "cards",
+    defaultValue: "Cards",
     required: true,
     options: ['table', 'cards', 'list']
   },
