@@ -192,6 +192,50 @@ are used in the app.
 There is a `<FormField>` component of `@cuba-platform/react` which automatically creates correct UI component
 based on entity and property names. However it's possible to use any input component directly.
 
+#### Data Table
+
+`<DataTable>` is used to present data in tabular form.
+
+![Cannot find image](https://raw.githubusercontent.com/cuba-platform/front-generator/master/etc/react/data-table-demo.gif)
+
+It uses Ant Design's [Table](https://ant.design/components/table/) under the hood and provides the following additional
+benefits:
+
+- out-of-the-box integration with `DataCollectionStore`
+- powerful filters   
+- support for action buttons (e.g. for CRUD operations)
+ 
+At the same time `<DataTable>` provides developer with a full access to underlying `Table` via its `tableProps` and `columnProps`
+properties (see below). 
+
+Example of using `<DataTable>`'s API:
+
+```html
+<DataTable dataCollection={this.dataCollection}
+           fields={this.fields}
+           onSelectedRowChange={this.onSelectedRowChange}
+           buttons={buttons}
+           defaultSort={'-updateTs'}
+           tableProps={{
+             bordered: true
+           }}
+           columnProps={{
+             align: 'right'
+           }}
+/>
+```
+
+- `dataCollection` - instance of `DataCollectionStore`
+- `fields` - array of entity property names
+- `onSelectedRowChange` - callback that takes the id of selected row, can be used together with `buttons` e.g. to facilitate CRUD operations
+- `buttons` - array of React elements representing controls that will be rendered above the table
+- `defaultSort` - name of the field to be sorted by. If the name is preceeding by the '+' character, then the sort order is ascending, 
+if by the '-' character then descending. If there is no special character before the property name, then ascending sort will be used.
+- `tableProps` - can be used to override any of the underlying [Table properties](https://ant.design/components/table/#Table)
+- `columnProps` - can be used to override any of the underlying [Column properties](https://ant.design/components/table/#Column).
+It shall be used instead of redefining `columns` in `tableProps` if the goal is to extend rather that fully replace the existing
+custom column-related functionality.
+
 #### Hot deploy and dev server
 
 In order to run development server use the following command:
