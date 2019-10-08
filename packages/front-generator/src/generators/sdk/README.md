@@ -1,21 +1,50 @@
-# SDK
+# TypeScript SDK
 
-Framework agnostic sdk generates CUBA data model  
+Framework-agnostic TypeScript SDK containing CUBA data model  
 ([entities and enums](https://doc.cuba-platform.com/manual-latest/data_model.html)), 
 rest [services](https://doc.cuba-platform.com/manual-latest/rest_api_v2_services_config.html) 
 and [queries](https://doc.cuba-platform.com/manual-latest/rest_api_v2_queries_config.html) 
-as Typescript classes.
+as TypeScript classes.
 
-It's possible to generate the following configurations of sdk depending on your needs:
+It's possible to generate the following configurations of sdk depending on your needs (see [usage instruction](https://github.com/cuba-platform/front-generator/#using-via-command-line)):
 
-```gen-cuba-front sdk:model``` generates entities and enums<br>
-```gen-cuba-front sdk:all``` generates all toolkit - entities, enums, queries and services<br>
+- ```gen-cuba-front sdk:model``` - generates entities and enums<br>
+- ```gen-cuba-front sdk:all``` - generates all toolkit - entities, enums, queries and services<br>
+
+SDK can be used for front-end clients and Node.js-based BFF (Backend for Frontend) development.
 
 ## Entities
 
-### Non persistent entities
-CUBA Studio provides ability to add non-persistent entities in model. 
-Backend entity class should be annotated with ```com.haulmont.chile.core.annotations.MetaClass```, 
+### Persistent entities
+
+Consider the `Role` entity class of CUBA Framework generated in TypeScript:
+
+`src/cuba/entities/base/sec$Role.ts`
+```typescript
+export class Role extends StandardEntity {
+    static NAME = "sec$Role";
+    name?: string | null;
+    locName?: string | null;
+    description?: string | null;
+    type?: any | null;
+    defaultRole?: boolean | null;
+    permissions?: Permission[] | null;
+}
+```
+
+* you can easily access entity name by static `NAME` property: `Role.NAME`,
+* class contains all properties of domain model entity including from class hierarchy,
+reference fields have corresponding types as well so that you can work with them in a type-safe manner:  
+
+```typescript
+function changeRole(role: Role) {
+  role.defaultRole = true;   // ok
+  role.defaultRole = 'foo';  // compilation fails  
+}
+```
+
+### Non-persistent entities
+CUBA Platform supports non-persistent entities in model.  Entity class should be annotated with ```com.haulmont.chile.core.annotations.MetaClass```, 
 and extended from ```com.haulmont.cuba.core.entity.BaseUuidEntity```. Class properties 
 annotated with ```com.haulmont.chile.core.annotations.MetaProperty``` will be included in generated model.
 
@@ -49,20 +78,17 @@ export class SampleUserInfo {
 ```
 
 ## Enums
-As [mentioned here](https://www.cuba-platform.com/discuss/t/rest-v2-enums/1414) CUBA Rest module used 
-enum’s constant name as parameters and in returned objects. In this case SDK enums looks like
+CUBA REST API module uses enum’s constant name in client-server communication. SDK contains generated string 
+enums e.g.: 
 ```typescript
 export enum CarType {
     SEDAN = "SEDAN",
     HATCHBACK = "HATCHBACK"
 }
 ```
-and backend enum name is used both in key and in value as string.
 
-If you, for some reason, need enum id and localized enum caption, 
-you can use CUBA rest method to load full enum info. 
-
-Method invocation example, that returns all enums
+In order to get enum id and localized caption, you can query full information about enums in runtime using `loadEnums` method
+of cuba-rest-js: 
 
 ```typescript
 import {EnumInfo, initializeApp} from "@cuba-platform/rest";
@@ -75,7 +101,7 @@ cubaREST.loadEnums()
 
 ```
 
-And result looks like
+Response example:
 
 ```json
 [{

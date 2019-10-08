@@ -35,13 +35,13 @@ required.
 
 There are two ways to create React client:
 
-1. As a standalone front-end app ([using command line interface](https://github.com/cuba-platform/front-generator/blob/master/README.md#using-via-command-line))
+1. As a module of CUBA application (using [CUBA Studio](https://doc.cuba-platform.com/studio/#modules)). 
+You will be able to create CRUD screens using STUDIO's UI.
+2. As a standalone front-end app ([using command line interface](https://github.com/cuba-platform/front-generator/blob/master/README.md#using-via-command-line))
 ```bash
 gen-cuba-front react-typescript
 ```
 See the above link for step-by-step instruction. 
-
-2. As a module of CUBA application (using [CUBA Studio](https://doc.cuba-platform.com/studio/#modules))
 
 #### Project layout
 
@@ -330,4 +330,4 @@ website.
 ### Security
 
 Since React client works via Generic REST API endpoints, main (CUBA) application should have properly configured Security 
-Roles and Access groups. See the corresponding chapter in REST API documentation.
+Roles and Access groups. See the [corresponding chapter](https://doc.cuba-platform.com/restapi-7.1/restapi.html#security) in REST API documentation.

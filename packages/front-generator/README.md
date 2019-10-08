@@ -4,9 +4,9 @@
 
 The generator is `@cuba-platform/front-generator` npm package which
  * provides an ability to generate:
-    * [Polymer 2 starter](https://doc.cuba-platform.com/manual-7.0/polymer_ui.html)
     * [React starter](src/generators/react-typescript/app/template/README.md)
     * [Framework agnostic TS SDK](src/generators/sdk/README.md)
+    * [Polymer 2 starter](https://doc.cuba-platform.com/manual-7.0/polymer_ui.html) (deprecated)
  * is used by [CUBA Studio](https://doc.cuba-platform.com/studio/) for [front module](https://doc.cuba-platform.com/manual-7.0/front_ui.html) creation
 
 ## Using via command line
@@ -35,11 +35,11 @@ npx @cuba-platform/front-generator
 
 ### Workflow
 
-In order to create some project-related stuff we need to pass project information to the generator. There are two types of ways of doing it
+In order to create some project-related stuff we need to pass project information to the generator. There are two approaches:
 
 #### Interactive
 
-Open your project in Intellij/CUBA Studio. Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA` . Tick the `Old Studio integration` checkbox:
+Open your project in CUBA Studio (Intellij-based). Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA` . Tick the `Old Studio integration` checkbox:
 
 ![GitHub Logo](etc/studio-integration.png)
 
