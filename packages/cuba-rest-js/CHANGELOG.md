@@ -1,4 +1,6 @@
 # Changelog
+## 0.6.0
+- Added `getFileUploadURL` and `getFile` methods (issue [#14](https://github.com/cuba-platform/cuba-rest-js/issues/14)) 
 ## 0.5.3
 - Moved `PropertyType` type from `cuba-labs/cuba-react`. Added types `double`, `decimal`, `time`. Issue [#12](https://github.com/cuba-platform/cuba-rest-js/issues/12). 
 ## 0.5.2

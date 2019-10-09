@@ -330,6 +330,14 @@ export class CubaApp {
     return this.fetch('GET', 'v2/userInfo', null, {handleAs: 'json', ...fetchOptions});
   }
 
+  public getFileUploadURL(): string {
+    return this.apiUrl + 'v2/files';
+  }
+
+  public getFile(id: string, fetchOptions?: FetchOptions): Promise<Blob> {
+    return this.fetch('GET', 'v2/files/' + id, null, {handleAs: 'blob', ...fetchOptions});
+  }
+
   public fetch<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T> {
     let url = this.apiUrl + path;
     const settings: FetchOptions = {

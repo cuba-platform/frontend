@@ -94,6 +94,8 @@ export declare class CubaApp {
     loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]>;
     getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]>;
     getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo>;
+    getFileUploadURL(): string;
+    getFile(id: string, fetchOptions?: FetchOptions): Promise<Blob>;
     fetch<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T>;
     onLocaleChange(c: any): () => ((locale: string) => {})[];
     onTokenExpiry(c: any): () => (() => {})[];
