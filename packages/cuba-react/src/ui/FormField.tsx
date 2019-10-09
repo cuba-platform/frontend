@@ -5,6 +5,7 @@ import {injectMainStore, MainStoreInjected} from "../app/MainStore";
 import {Cardinality, EnumInfo, EnumValueInfo, PropertyType} from "@cuba-platform/rest"
 import {getPropertyInfo, WithId} from "../util/metadata";
 import {DataCollectionStore} from "../data/Collection";
+import {FileUpload} from './FileUpload';
 
 type Props = MainStoreInjected & {
   entityName: string;
@@ -23,6 +24,11 @@ export const FormField = injectMainStore(observer((props: Props) => {
   if (propertyInfo == null) {
     return <Input {...rest}/>
   }
+
+  if (propertyInfo.type === 'sys$FileDescriptor' && (['ASSOCIATION', 'COMPOSITION'].includes(propertyInfo.attributeType))) {
+    return <FileUpload {...rest}/>;
+  }
+
   switch (propertyInfo.attributeType) {
     case 'ENUM':
       return <EnumField enumClass={propertyInfo.type} {...rest}/>;

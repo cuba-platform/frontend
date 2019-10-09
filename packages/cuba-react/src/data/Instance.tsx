@@ -5,7 +5,7 @@ import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore} from "../app/MainStore";
-import {getPropertyInfo, WithId} from "../util/metadata";
+import {getPropertyInfo, WithId, WithName} from "../util/metadata";
 import moment from 'moment';
 
 
@@ -101,8 +101,14 @@ export class DataInstanceStore<T> implements DataContainer {
           }
 
           if (cardinality === "MANY_TO_ONE" || cardinality === "ONE_TO_ONE") {
-            // @ts-ignore
-            fields[propertyName] = (entity[propertyName] as WithId).id!;
+            if (propertyInfo.type === 'sys$FileDescriptor') {
+              fields[propertyName] = {
+                id: (entity[propertyName] as WithId).id!,
+                name: (entity[propertyName] as WithName).name!,
+              };
+            } else {
+              fields[propertyName] = (entity[propertyName] as WithId).id!;
+            }
             return fields;
           }
 
