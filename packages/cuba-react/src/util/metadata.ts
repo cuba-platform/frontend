@@ -9,6 +9,13 @@ export function getPropertyInfo(metadata: MetaClassInfo[], entityName: string, p
     return propInfo || null
 }
 
+export function isFileProperty(propertyInfo: MetaPropertyInfo): boolean {
+  return (propertyInfo.type === 'sys$FileDescriptor') && isRelationProperty(propertyInfo);
+}
+
+export function isRelationProperty(propertyInfo: MetaPropertyInfo): boolean {
+  return (propertyInfo.attributeType === 'ASSOCIATION') || (propertyInfo.attributeType === 'COMPOSITION');
+}
 
 export type WithId = {id?: string};
 

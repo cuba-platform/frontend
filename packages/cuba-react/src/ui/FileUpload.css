@@ -1,3 +1,9 @@
+.file-upload-full-width-enabled span.ant-upload {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
 .file-upload-drop-area {
   background-color: #fafafa;
   border: 1px dashed darkgrey;

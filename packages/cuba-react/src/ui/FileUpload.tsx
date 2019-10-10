@@ -8,26 +8,33 @@ import {UploadProps} from 'antd/es/upload';
 import {UploadFile} from 'antd/es/upload/interface';
 import './FileUpload.css';
 
-interface Props {
-  value?: FileInfo,
-  onChange?: (arg: any) => void,
+export interface FileUploadProps {
+  value?: FileInfo, // coming from Ant Design form field decorator
+  onChange?: (arg: any) => void, // coming from Ant Design form field decorator
+  enableFullWidth?: boolean,
+  uploadProps?: UploadProps,
+  render?: (fileInfo: FileInfo | undefined) => React.ReactNode,
 }
 
-interface FileInfo {
+export interface FileInfo {
   id: string,
   name: string,
 }
 
 @observer
-export class FileUpload extends React.Component<Props> {
+export class FileUpload extends React.Component<FileUploadProps> {
 
   @observable
   fileList: UploadFile[] = [];
 
-  reactionDisposer!: IReactionDisposer;
+  reactionDisposers: IReactionDisposer[] = [];
+
+  static defaultProps = {
+    enableFullWidth: true
+  };
 
   componentDidMount(): void {
-    this.reactionDisposer = reaction(
+    this.reactionDisposers.push(reaction(
       () => this.props.value,
       () => {
         if (this.props.value) {
@@ -40,13 +47,11 @@ export class FileUpload extends React.Component<Props> {
           }];
         }
       }
-    );
+    ));
   }
 
   componentWillUnmount(): void {
-    if (this.reactionDisposer) {
-      this.reactionDisposer();
-    }
+    this.reactionDisposers.forEach(disposer => disposer());
   }
 
   handleChange = (info: UploadChangeParam): void => {
@@ -61,10 +66,12 @@ export class FileUpload extends React.Component<Props> {
     if (info.file.status === 'done') {
       fileList[0].uid = info.file.response.id;
       fileList[0].url = '#';
-      this.props.onChange!({
-        id: info.file.response.id,
-        name: info.file.response.name,
-      });
+      if (this.props.onChange) {
+        this.props.onChange({
+          id: info.file.response.id,
+          name: info.file.response.name,
+        });
+      }
     }
 
     this.fileList = [ ...fileList ];
@@ -75,7 +82,7 @@ export class FileUpload extends React.Component<Props> {
       let objectUrl: string = URL.createObjectURL(blob);
 
       const fileName: string = this.fileList[0].name;
-      if (fileName.match('.*(jpg|jpeg|gif|png)$')) {
+      if (isImageFile(fileName)) {
         // Open image in a new tab
         window.open(objectUrl);
       } else {
@@ -90,31 +97,31 @@ export class FileUpload extends React.Component<Props> {
     });
   };
 
-  handleRemove = (_file: UploadFile): boolean | void | Promise<boolean | void> => {
+  handleRemove = (_file: UploadFile) => {
     this.fileList = [];
-    this.props.onChange!(null);
+    if (this.props.onChange) {
+      this.props.onChange(null);
+    }
   };
 
   render() {
-    const uploadProps: UploadProps = {
+    const defaultUploadProps: UploadProps = {
       action: getCubaREST()!.getFileUploadURL(),
       headers: {'Authorization': 'Bearer ' + getCubaREST()!.restApiToken},
       fileList: this.fileList,
       onChange: this.handleChange,
       onPreview: this.handlePreview,
       onRemove: this.handleRemove,
+      className: this.props.enableFullWidth ? 'file-upload-full-width-enabled' : '',
     };
+
+    const uploadProps: UploadProps = { ...defaultUploadProps, ...this.props.uploadProps };
 
     return (
       <Upload
         { ...uploadProps }
-        style={{
-          display: 'table',
-          tableLayout: 'fixed',
-          width: '100%',
-        }}
       >
-        <FileUploadDropArea fileInfo={this.props.value}/>
+        { this.props.render ? this.props.render(this.props.value) : <FileUploadDropArea fileInfo={this.props.value}/> }
       </Upload>
     );
   };
@@ -139,4 +146,8 @@ function FileUploadDropArea(props: FileUploadDropAreaProps) {
         <div className='file-upload-drop-area__text-upload'>Click or drag file to this area to upload</div>
       </div>
     );
+}
+
+function isImageFile(fileName: string): boolean {
+  return !!fileName.match('.*(jpg|jpeg|gif|png)$');
 }

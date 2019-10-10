@@ -3,7 +3,7 @@ import {Checkbox, DatePicker, Input, Select} from "antd";
 import {observer} from "mobx-react";
 import {injectMainStore, MainStoreInjected} from "../app/MainStore";
 import {Cardinality, EnumInfo, EnumValueInfo, PropertyType} from "@cuba-platform/rest"
-import {getPropertyInfo, WithId} from "../util/metadata";
+import {getPropertyInfo, isFileProperty, WithId} from "../util/metadata";
 import {DataCollectionStore} from "../data/Collection";
 import {FileUpload} from './FileUpload';
 
@@ -25,7 +25,7 @@ export const FormField = injectMainStore(observer((props: Props) => {
     return <Input {...rest}/>
   }
 
-  if (propertyInfo.type === 'sys$FileDescriptor' && (['ASSOCIATION', 'COMPOSITION'].includes(propertyInfo.attributeType))) {
+  if (isFileProperty(propertyInfo)) {
     return <FileUpload {...rest}/>;
   }
 
