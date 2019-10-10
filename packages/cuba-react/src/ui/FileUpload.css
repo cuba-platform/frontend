@@ -1,0 +1,37 @@
+.file-upload-full-width-enabled span.ant-upload {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.file-upload-drop-area {
+  background-color: #fafafa;
+  border: 1px dashed darkgrey;
+  cursor: pointer;
+  display: table-cell;
+  padding: 12px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.file-upload-drop-area:hover {
+  border-color: #40a9ff;
+}
+
+.file-upload-drop-area__icon-upload {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.file-upload-drop-area__icon-replace {
+  margin-right: 8px;
+}
+
+.file-upload-drop-area__text-upload {
+  color: #262626;
+}
+
+.file-upload-drop-area__text-replace {
+  color: #595959;
+  font-size: 12px;
+}

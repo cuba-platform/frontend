@@ -9,5 +9,6 @@ export * from './ui/EntityProperty';
 export * from './ui/FormField';
 export * from './ui/Msg';
 export * from './ui/table/DataTable';
+export * from './ui/FileUpload';
 
 export * from './util/metadata';
