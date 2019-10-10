@@ -237,6 +237,12 @@ var CubaApp = /** @class */ (function () {
     CubaApp.prototype.getUserInfo = function (fetchOptions) {
         return this.fetch('GET', 'v2/userInfo', null, __assign({ handleAs: 'json' }, fetchOptions));
     };
+    CubaApp.prototype.getFileUploadURL = function () {
+        return this.apiUrl + 'v2/files';
+    };
+    CubaApp.prototype.getFile = function (id, fetchOptions) {
+        return this.fetch('GET', 'v2/files/' + id, null, __assign({ handleAs: 'blob' }, fetchOptions));
+    };
     CubaApp.prototype.fetch = function (method, path, data, fetchOptions) {
         var _this = this;
         var url = this.apiUrl + path;
