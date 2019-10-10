@@ -52,7 +52,17 @@ export class DataInstanceStore<T> implements DataContainer {
 
   @action
   update(entityPatch: Partial<T>): Promise<any> {
-    Object.assign(this.item, entityPatch);
+    const metadata = toJS(this.mainStore.metadata);
+    const normalizedPatch = {...entityPatch};
+    Object.entries(entityPatch).forEach(([key, value]) => {
+      const propInfo = getPropertyInfo(metadata!, this.entityName, key);
+      if (propInfo && propInfo.cardinality === "MANY_TO_ONE"
+            && typeof value === 'string') {
+        // @ts-ignore
+        normalizedPatch[key] = {id: value};
+      }
+    });
+    Object.assign(this.item, normalizedPatch);
     return this.commit();
   }
 

@@ -6,6 +6,7 @@ import {Cardinality, EnumInfo, EnumValueInfo, PropertyType} from "@cuba-platform
 import {getPropertyInfo, isFileProperty, WithId} from "../util/metadata";
 import {DataCollectionStore} from "../data/Collection";
 import {FileUpload} from './FileUpload';
+import {EntitySelectField} from "./EntitySelectField";
 
 type Props = MainStoreInjected & {
   entityName: string;
@@ -34,6 +35,9 @@ export const FormField = injectMainStore(observer((props: Props) => {
       return <EnumField enumClass={propertyInfo.type} {...rest}/>;
     case 'ASSOCIATION':
       const mode = getSelectMode(propertyInfo.cardinality);
+      if (optionsContainer) {
+        return <EntitySelectField {...{mode, optionsContainer}} {...rest}/>;
+      }
       return <Select mode={mode} {...rest}/>;
     case 'COMPOSITION':
       return <Select {...rest}/>;
