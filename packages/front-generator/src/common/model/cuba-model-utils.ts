@@ -1,4 +1,4 @@
-import {Entity, EntityAttribute, ProjectModel} from "./cuba-model";
+import {Cardinality, Entity, EntityAttribute, ProjectModel} from "./cuba-model";
 import {
   EntityInfo,
   RestQueryInfo,
@@ -7,8 +7,10 @@ import {
   ViewInfo
 } from "../studio/studio-model";
 
-export function findEntity(projectModel: ProjectModel, entityInfo: EntityInfo): Entity | undefined {
-  const entityName = entityInfo.name;
+export function findEntity(projectModel: ProjectModel, entityInfo: EntityInfo | string): Entity | undefined {
+  const entityName = typeof entityInfo === 'string'
+    ? entityInfo
+    : entityInfo.name;
   let entity: Entity | undefined;
   if (Array.isArray(projectModel.entities)) {
     entity = projectModel.entities.find(e => e.name === entityName);
@@ -80,7 +82,26 @@ export function collectAttributesFromHierarchy(entity: Entity, projectModel: Pro
   return attrs;
 }
 
-function composeParentFqn(parentPackage: string | undefined, parentClassName: string | undefined) : string {
+export function isToOneAttribute(attribute: EntityAttribute) {
+  return attribute.cardinality === Cardinality.MANY_TO_ONE || attribute.cardinality === Cardinality.ONE_TO_ONE;
+}
+
+// Quick check; does not ensure entity is among non-base project entities
+export function isBaseProjectEntity(entity: Entity, projectModel: ProjectModel) {
+
+  if (!projectModel.baseProjectEntities) return false;
+
+  const baseProjectEntities = Array.isArray(projectModel.baseProjectEntities)
+    ? projectModel.baseProjectEntities
+    : Object.values(projectModel.baseProjectEntities);
+
+  if (baseProjectEntities.find(bpe => bpe.name === entity.name)){
+    return true;
+  }
+  return false
+}
+
+function composeParentFqn(parentPackage: string | undefined, parentClassName: string | undefined): string {
   if (!parentClassName || !parentPackage) return '';
   if (parentPackage.length == 0 || parentClassName.length == 0) return '';
   return `${parentPackage}.${parentClassName}`;

@@ -1,14 +1,19 @@
-import {CommonTemplateModel} from "../common/template-model";
+import {CommonTemplateModel, EntityTemplateModel} from "../common/template-model";
 import {entityManagementListType} from "./params";
 import {Entity, EntityAttribute, View} from "../../../common/model/cuba-model";
+
+export interface EditRelations {
+  [propName: string]: EntityTemplateModel
+}
 
 export interface EntityManagementTemplateModel extends CommonTemplateModel {
   listComponentName: string;
   editComponentName: string;
   listType: entityManagementListType,
   nameLiteral: string;
-  entity: Entity,
+  entity: EntityTemplateModel,
   listView: View,
   editView: View,
-  editAttributes: EntityAttribute[]
+  editAttributes: EntityAttribute[],
+  editRelations: EditRelations
 }

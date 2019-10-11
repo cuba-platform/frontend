@@ -1,13 +1,14 @@
 import {BaseGenerator} from "../../../common/generation";
 import {EntityManagementAnswers, entityManagementGeneratorParams} from "./params";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
-import {EntityManagementTemplateModel} from "./template-model";
+import {EditRelations, EntityManagementTemplateModel} from "./template-model";
 import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
-import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
-import {collectAttributesFromHierarchy} from "../../../common/model/cuba-model-utils";
+import {EntityAttribute, MappingType, ProjectModel} from "../../../common/model/cuba-model";
+import {collectAttributesFromHierarchy, findEntity, isToOneAttribute} from "../../../common/model/cuba-model-utils";
+import {EntityTemplateModel, getEntityPath} from "../common/template-model";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 
@@ -73,9 +74,12 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
                                          projectModel:ProjectModel,
                                          dirShift: string | undefined): EntityManagementTemplateModel {
   const className = elementNameToClass(answers.managementComponentName);
-  const entity = answers.entity;
+  const entity: EntityTemplateModel = {
+    ...answers.entity,
+    path: getEntityPath(answers.entity, projectModel)
+  };
 
-  const attributes: EntityAttribute[] = answers.editView.allProperties.reduce((attrArrMap:EntityAttribute[], prop) => {
+  const attributesInView: EntityAttribute[] = answers.editView.allProperties.reduce((attrArrMap:EntityAttribute[], prop) => {
     const attr = collectAttributesFromHierarchy(entity, projectModel).find(ea => ea.name === prop.name);
     if (attr) {
       attrArrMap.push(attr);
@@ -91,11 +95,28 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
     editComponentName: answers.editComponentName,
     listType: answers.listType,
     nameLiteral: unCapitalizeFirst(className),
-    entity: answers.entity,
+    entity,
     listView: answers.listView,
     editView: answers.editView,
-    editAttributes: attributes
+    editAttributes: attributesInView,
+    editRelations: getRelations(projectModel, attributesInView)
   }
+}
+
+function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelations  {
+  return attributes.reduce<EditRelations>((relations, attribute) => {
+    if (attribute.type == null || attribute.mappingType !== MappingType.ASSOCIATION || !isToOneAttribute(attribute)) {
+      return relations;
+    }
+    const entity = findEntity(projectModel, attribute.type.entityName!);
+    if (entity) {
+      relations[attribute.name] = {
+        ...entity,
+        path: getEntityPath(entity, projectModel)
+      }
+    }
+    return relations;
+  }, {});
 }
 
 const description = 'CRUD (list + editor) screens for specified entity';

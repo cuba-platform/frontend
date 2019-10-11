@@ -6,8 +6,10 @@ import {<%=className%>} from "./<%=className%>";
 import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction} from "mobx";
-import {FormField, instance, Msg} from "@cuba-platform/react";
-import {<%=entity.className%>} from "<%= relDirShift %>cuba/entities/<%=entity.name%>";
+import {<%if (Object.keys(editRelations).length > 0) {%>collection, <%}%>FormField, instance, Msg} from "@cuba-platform/react";
+import {<%=entity.className%>} from "<%= relDirShift %><%=entity.path%>";
+<%Object.values(editRelations).forEach(entity => {%>import {<%=entity.className%>} from "<%= relDirShift %><%=entity.path%>";
+<%})%>
 
 type Props = FormComponentProps & {
   entityId: string;
@@ -18,6 +20,8 @@ type Props = FormComponentProps & {
 class <%=className%>Editor extends React.Component<Props> {
 
   dataInstance = instance<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=editView.name%>', loadImmediately: false});
+  <%Object.entries(editRelations).forEach(([attrName, entity]) => {%><%=attrName%>sDc = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '_minimal'});
+  <%})%>
   @observable
   updated = false;
   reactionDisposer: IReactionDisposer;
@@ -55,7 +59,9 @@ class <%=className%>Editor extends React.Component<Props> {
                     style={{marginBottom: '12px'}}>{
               getFieldDecorator('<%=attr.name%>'<%if (attr.mandatory) {%>, {rules:[{required: true}]}<%}%>)(
                 <FormField entityName={<%=entity.className%>.NAME}
-                          propertyName='<%=attr.name%>'/>
+                          propertyName='<%=attr.name%>'<%if (Object.keys(editRelations).includes(attr.name)) {%>
+                          optionsContainer={this.<%=attr.name%>sDc}
+                          <%}%>/>
               )}
           </Form.Item>
           <%})%>
