@@ -57,7 +57,7 @@ class <%=className%>Editor extends React.Component<Props> {
           <Form.Item label={<Msg entityName={<%=entity.className%>.NAME} propertyName='<%=attr.name%>'/>}
                     key='<%=attr.name%>'
                     style={{marginBottom: '12px'}}>{
-              getFieldDecorator('<%=attr.name%>'<%if (attr.mandatory) {%>, {rules:[{required: true}]}<%}%>)(
+              getFieldDecorator('<%=attr.name%>', {<%if (attr.mandatory) {%>rules:[{required: true}],<%}%><%if (attr.type && attr.type.fqn === 'java.lang.Boolean') {%>valuePropName:"checked"<%}%>})(
                 <FormField entityName={<%=entity.className%>.NAME}
                           propertyName='<%=attr.name%>'<%if (Object.keys(editRelations).includes(attr.name)) {%>
                           optionsContainer={this.<%=attr.name%>sDc}
