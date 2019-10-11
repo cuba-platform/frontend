@@ -17,6 +17,14 @@ export function isRelationProperty(propertyInfo: MetaPropertyInfo): boolean {
   return (propertyInfo.attributeType === 'ASSOCIATION') || (propertyInfo.attributeType === 'COMPOSITION');
 }
 
+export function isToOneRelation({cardinality}: MetaPropertyInfo): boolean {
+  return cardinality === "MANY_TO_ONE" || cardinality === "ONE_TO_ONE";
+}
+
+export function isToManyRelation({cardinality}: MetaPropertyInfo): boolean {
+  return cardinality === "ONE_TO_MANY" || cardinality === "MANY_TO_MANY";
+}
+
 export type WithId = {id?: string};
 
 export type WithName = {name?: string};

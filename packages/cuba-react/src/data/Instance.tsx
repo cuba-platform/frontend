@@ -5,7 +5,7 @@ import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore} from "../app/MainStore";
-import {getPropertyInfo, WithId, WithName} from "../util/metadata";
+import {getPropertyInfo, isToManyRelation, isToOneRelation, WithId, WithName} from "../util/metadata";
 import moment from 'moment';
 
 
@@ -56,7 +56,7 @@ export class DataInstanceStore<T> implements DataContainer {
     const normalizedPatch = {...entityPatch};
     Object.entries(entityPatch).forEach(([key, value]) => {
       const propInfo = getPropertyInfo(metadata!, this.entityName, key);
-      if (propInfo && propInfo.cardinality === "MANY_TO_ONE"
+      if (propInfo && isToOneRelation(propInfo)
             && typeof value === 'string') {
         // @ts-ignore
         normalizedPatch[key] = {id: value};
@@ -102,7 +102,6 @@ export class DataInstanceStore<T> implements DataContainer {
         }
 
         const type = propertyInfo.type as PropertyType;
-        const {cardinality} = propertyInfo;
 
         if (propertyInfo.attributeType === "ASSOCIATION") {
           if (entity[propertyName] == null) {
@@ -110,7 +109,7 @@ export class DataInstanceStore<T> implements DataContainer {
             return fields;
           }
 
-          if (cardinality === "MANY_TO_ONE" || cardinality === "ONE_TO_ONE") {
+          if (isToOneRelation(propertyInfo)) {
             if (propertyInfo.type === 'sys$FileDescriptor') {
               fields[propertyName] = {
                 id: (entity[propertyName] as WithId).id!,
@@ -122,7 +121,7 @@ export class DataInstanceStore<T> implements DataContainer {
             return fields;
           }
 
-          if (cardinality === "ONE_TO_MANY" || cardinality === "MANY_TO_MANY") {
+          if (isToManyRelation(propertyInfo)) {
             // @ts-ignore
             const entityList = (entity[propertyName] as WithId[]);
             // @ts-ignore
