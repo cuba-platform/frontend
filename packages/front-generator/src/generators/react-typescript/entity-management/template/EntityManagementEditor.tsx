@@ -30,14 +30,20 @@ class <%=className%>Editor extends React.Component<Props> {
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
-      .then(() => {
-        message.success('Entity has been updated');
-        this.updated = true;
-      })
-      .catch(() => {
-        alert('Error')
-      });
+    this.props.form.validateFields((err, values) => {
+      if (err) {
+        message.warn('Validation Error. Please check the data you entered.');
+        return;
+      }
+      this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
+        .then(() => {
+          message.success('Entity has been updated');
+          this.updated = true;
+        })
+        .catch(() => {
+          alert('Error')
+        });
+    });
   };
 
   render() {
