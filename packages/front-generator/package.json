@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "commander": "~2.13.0",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "through2": "^2.0.5",
     "typescript": "3.4.1",
     "yeoman-environment": "~2.4.0",

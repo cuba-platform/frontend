@@ -14,6 +14,7 @@ import * as fs from "fs";
 import {ProjectModel} from "./model/cuba-model";
 import {findEntity, findQuery, findServiceMethod, findView} from "./model/cuba-model-utils";
 import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from './studio/studio-integration';
+import * as AutocompletePrompt from 'inquirer-autocomplete-prompt';
 
 interface ProjectInfoAnswers {
   projectInfo: StudioProjectInfo;
@@ -33,6 +34,9 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     super(args, options);
     this._populateOptions(this._getAvailableOptions());
     this.destinationRoot(this._getDestRoot());
+    // @ts-ignore this.env.adapter is missing in the typings
+    this.env.adapter
+      .promptModule.registerPrompt('autocomplete',  AutocompletePrompt);
   }
 
   protected async _obtainCubaProjectModel() {

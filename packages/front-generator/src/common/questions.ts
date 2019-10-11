@@ -6,6 +6,7 @@ type Choice = string | {name: string, value: any, short?: string};
 
 interface Question extends YeomanQuestion {
   choices?: Choice[] | ((previousAnswers: Answers) => Choice[]), // Property is missing in yeoman typings
+  source?: (answers: Answers, input: string) => Promise<Choice[]>, // Added by autocomplete plugin
 }
 
 export const enum QuestionType {
@@ -16,17 +17,18 @@ export const enum QuestionType {
   expand = 'expand',
   checkbox = 'checkbox',
   password = 'password',
-  editor = 'editor'
+  editor = 'editor',
+  autocomplete = 'autocomplete'
 }
 
 
 const matching: {[key: string]: QuestionType} = {
   [StudioTemplatePropertyType.BOOLEAN]: QuestionType.confirm,
-  [StudioTemplatePropertyType.ENTITY]: QuestionType.list,
-  [StudioTemplatePropertyType.VIEW]: QuestionType.list,
+  [StudioTemplatePropertyType.ENTITY]: QuestionType.autocomplete,
+  [StudioTemplatePropertyType.VIEW]: QuestionType.autocomplete,
   [StudioTemplatePropertyType.STRING]: QuestionType.input,
   [StudioTemplatePropertyType.INTEGER]: QuestionType.input,
-  [StudioTemplatePropertyType.OPTION]: QuestionType.list,
+  [StudioTemplatePropertyType.OPTION]: QuestionType.autocomplete,
   [StudioTemplatePropertyType.MULTI_OPTION]: QuestionType.list,
   [StudioTemplatePropertyType.REST_QUERY]: QuestionType.list,
   [StudioTemplatePropertyType.REST_SERVICE_METHOD]: QuestionType.list,
@@ -82,6 +84,33 @@ export function fromStudioProperty(prop: StudioTemplateProperty, projectModel?: 
       }
       question.choices = prop.options;
       break;
+  }
+
+  if (question.type === QuestionType.autocomplete) {
+    if (!question.choices) {
+      throw new Error('Question choices are not defined');
+    }
+
+    question.source = (answers, input) => {
+      let choices: Choice[];
+      if (typeof(question.choices) === 'function') {
+        choices = question.choices(answers);
+      } else {
+        choices = [ ...question.choices! ];
+      }
+
+      if (input) {
+        return Promise.resolve(choices.filter(choice => {
+          if (typeof(choice) === 'string') {
+            return choice.indexOf(input) > -1;
+          } else {
+            return choice.name.indexOf(input) > -1;
+          }
+        }));
+      } else {
+        return Promise.resolve(choices);
+      }
+    };
   }
 
   return question;
