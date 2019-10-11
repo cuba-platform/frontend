@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cuba-platform/react": "^0.1.0-beta.1",
-    "@cuba-platform/rest": "^0.5.1",
+    "@cuba-platform/react": "^0.2.1",
+    "@cuba-platform/rest": "^0.6.0",
     "antd": "^3.23.4",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
@@ -22,7 +22,7 @@
     "update-model": "gen-cuba-front sdk:all --dest src/cuba"
   },
   "devDependencies": {
-    "@cuba-platform/front-generator": "<%= ownVersion %>",
+    "@cuba-platform/front-generator": "^2.0.0",
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",
