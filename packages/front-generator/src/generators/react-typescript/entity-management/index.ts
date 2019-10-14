@@ -19,7 +19,7 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
 
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
-    await this._promptOrParse();
+    await this._obtainAnswers();
   }
 
   // noinspection JSUnusedGlobalSymbols

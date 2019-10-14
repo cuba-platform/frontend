@@ -18,7 +18,7 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
     this.conflicter.force = true;
-    await this._promptOrParse();
+    await this._obtainAnswers();
   }
 
   // noinspection JSUnusedGlobalSymbols
