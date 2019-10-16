@@ -19,6 +19,13 @@ export function createEntityViewTypes(entity: Entity, projectModel: ProjectModel
   ];
 }
 
+/**
+ * E.g.
+ *
+ * ```typescript
+ * export type EntityViewName = "_minimal" | "_local" | "_base" | "entity-edit";
+ * ```
+ */
 function createViewNamesType(className: string, views: View[]): ts.TypeAliasDeclaration {
   return ts.createTypeAliasDeclaration(
     undefined,
@@ -40,7 +47,9 @@ function createViewNamesType(className: string, views: View[]): ts.TypeAliasDecl
  * todo - draw colon on new line
  * e.g.
  *
+ * ```typescript
  * export type EntityView<V extends EntityViewName> = V extends '_minimal' ? Pick<Entity, 'id', 'name'> : never
+ * ```
  *
  * @param className
  * @param views
@@ -80,7 +89,6 @@ function createEntityViewType(className: string, views: View[], allowedAttrs: En
 
 }
 
-
 /**
  * e.g.
  *
@@ -93,7 +101,12 @@ function createEntityViewType(className: string, views: View[], allowedAttrs: En
  */
 function createPickPropertiesType(className: string, view: View, allowedAttrs: EntityAttribute[]): ts.TypeReferenceNode {
 
-  const viewTypeNodes: LiteralTypeNode[] = view.allProperties
+  const viewProperties = [...view.allProperties];
+  if (!viewProperties.find(nameEqId) && allowedAttrs.find(nameEqId)) {
+    viewProperties.unshift({name: 'id'});
+  }
+
+  const viewTypeNodes: LiteralTypeNode[] = viewProperties
     .filter(viewProperty => allowedAttrs.some(attr => attr.name === viewProperty.name))
     .map(property =>
       ts.createLiteralTypeNode(
@@ -115,4 +128,8 @@ function findViews(name: string, projectModel: ProjectModel): View[] {
     return []
   }
   return projectModel.views.filter((view) => view.entity === name);
+}
+
+function nameEqId({name}: {name: string}) {
+  return name === 'id';
 }

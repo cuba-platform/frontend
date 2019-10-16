@@ -115,7 +115,7 @@ export interface ViewProperty {
   name: string;
   entity?: string;
   classFqn?: string;
-  lazy: boolean;
+  lazy?: boolean;
 }
 
 export const enum BuiltinView {

@@ -21,6 +21,7 @@ describe('test:e2e:react:mpg', () => {
     assertContent('enums/enums.ts', srcCubaDir);
     assertContent('entities/mpg$Car.ts', srcCubaDir);
     assertContent('entities/mpg$SparePart.ts', srcCubaDir);
+    assertContent('entities/MpgUserInfo.ts', srcCubaDir);
     assertContent('services.ts', srcCubaDir);
     assertContent('queries.ts', srcCubaDir);
 
