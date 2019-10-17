@@ -40,6 +40,6 @@ export function fqnToName(fqn: string): string {
 
 export function getEntityModulePath(entity: Entity, prefix: string = ''): string {
   const modulePath = entity.name ? entity.name : entity.className;
-  return path.join(prefix, modulePath);
+  return path.posix.join(prefix, modulePath);
 }
 

@@ -34,15 +34,15 @@ export function generateEntities(projectModel: ProjectModel, destDir: string, fs
 
     const views = createEntityViewTypes(entity, projectModel);
 
-    const entityPath = !entityInfo.isBaseProjectEntity ? ENTITIES_DIR : path.join(ENTITIES_DIR, BASE_ENTITIES_DIR);
+    const entityPath = !entityInfo.isBaseProjectEntity ? ENTITIES_DIR : path.posix.join(ENTITIES_DIR, BASE_ENTITIES_DIR);
     fs.write(
-      path.join(destDir, entityPath, getEntityModulePath(entity) + '.ts'),
+      path.posix.join(destDir, entityPath, getEntityModulePath(entity) + '.ts'),
       renderTSNodes([...includes, classDeclaration, ...views])
     )
   }
 
   if (enumsMap.size > 0) fs.write(
-    path.join(destDir, ENUMS_DIR, path.join(ENUMS_FILE + '.ts')),
+    path.posix.join(destDir, ENUMS_DIR, ENUMS_FILE + '.ts'),
     renderTSNodes([...enumsMap.values()], '\n\n')
   );
 

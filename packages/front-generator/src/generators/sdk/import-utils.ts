@@ -53,7 +53,7 @@ export function importDeclaration(identifiers: string[], moduleSpec: string): Im
 export function entityImportInfo(importedEntity: ProjectEntityInfo, prefix: string = ''): ImportInfo {
   const basePrefix = importedEntity.isBaseProjectEntity ? '' + BASE_ENTITIES_DIR : '';
   return {
-    importPath: normalizeImportPath(getEntityModulePath(importedEntity.entity, path.join(prefix, basePrefix))),
+    importPath: normalizeImportPath(getEntityModulePath(importedEntity.entity, path.posix.join(prefix, basePrefix))),
     className: importedEntity.entity.className
   };
 }
@@ -61,7 +61,7 @@ export function entityImportInfo(importedEntity: ProjectEntityInfo, prefix: stri
 export function enumImportInfo(ed: EnumDeclaration, pathPrefix?: string) {
   return {
     className: ed.name.text,
-    importPath: normalizeImportPath(path.join(pathPrefix ? pathPrefix : '', `${ENUMS_DIR}/${ENUMS_FILE}`))
+    importPath: normalizeImportPath(path.posix.join(pathPrefix ? pathPrefix : '', `${ENUMS_DIR}/${ENUMS_FILE}`))
   };
 }
 
