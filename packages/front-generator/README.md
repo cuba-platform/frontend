@@ -80,14 +80,14 @@ npx gen-cuba-front
 
 ## Testing
 
-###Test folders
+### Test folders
 
 /fixtures - initial data required for tests<br>
 /generated - result of generators work - apps and sdk will be stored here<br>
 /expected - files gauges used for comparison with generated code<br>
 
 
-###Run tests
+### Run tests
 ```bash
 npm test
 ```
