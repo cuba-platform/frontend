@@ -1,7 +1,7 @@
 const {promisify} = require('util');
 const rimraf = promisify(require('rimraf'));
 const {runGenerator, init} = require('./e2e-common')('polymer2');
-const answers = require('./fixtures/answers');
+const answers = require('./fixtures/polymer-client/answers');
 
 const appDir = 'test/e2e/generated/polymer2-app';
 

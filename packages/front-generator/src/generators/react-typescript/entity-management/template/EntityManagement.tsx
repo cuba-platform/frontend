@@ -1,8 +1,8 @@
 import * as React from "react";
 import {RouteComponentProps} from "react-router";
 import {observer} from "mobx-react";
-import <%=className%>Editor from "./<%=className%>Editor";
-import {<%=className%>Browser} from "./<%=className%>Browser";
+import <%=editComponentName%> from "./<%=editComponentName%>";
+import {<%=listComponentName%>} from "./<%=listComponentName%>";
 
 type Props = RouteComponentProps<{entityId?: string}>;
 
@@ -17,8 +17,8 @@ export class <%=className%> extends React.Component<Props> {
     return (
       <>
         {entityId
-          ? <<%=className%>Editor entityId={entityId}/>
-          : <<%=className%>Browser/>}
+          ? <<%=editComponentName%> entityId={entityId}/>
+          : <<%=listComponentName%>/>}
       </>
     )
   }

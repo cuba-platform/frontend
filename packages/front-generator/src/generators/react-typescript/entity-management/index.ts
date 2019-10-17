@@ -29,7 +29,7 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       throw new Error('Answers not provided');
     }
     this.model = answersToManagementModel(this.answers, this.cubaProjectModel!, this.options.dirShift);
-    const {className} = this.model;
+    const {className, listComponentName, editComponentName} = this.model;
 
     this.fs.copyTpl(
       this.templatePath('EntityManagement.tsx'),
@@ -37,11 +37,11 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
     );
     this.fs.copyTpl(
       this.templatePath('EntityManagementBrowser.tsx'),
-      this.destinationPath(className + 'Browser.tsx'), this.model
+      this.destinationPath(listComponentName + '.tsx'), this.model
     );
     this.fs.copyTpl(
       this.templatePath('EntityManagementEditor.tsx'),
-      this.destinationPath(className + 'Editor.tsx'), this.model
+      this.destinationPath(editComponentName + '.tsx'), this.model
     );
 
     if (!addToMenu(this.fs, {

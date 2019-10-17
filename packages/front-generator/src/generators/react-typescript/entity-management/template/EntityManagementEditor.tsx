@@ -17,7 +17,7 @@ type Props = FormComponentProps & {
 
 
 @observer
-class <%=className%>Editor extends React.Component<Props> {
+class <%=editComponentName%> extends React.Component<Props> {
 
   dataInstance = instance<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=editView.name%>', loadImmediately: false});
   <%Object.entries(editRelations).forEach(([attrName, entity]) => {%><%=attrName%>sDc = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '_minimal'});
@@ -112,4 +112,4 @@ class <%=className%>Editor extends React.Component<Props> {
 
 }
 
-export default Form.create<Props>()(<%=className%>Editor);
+export default Form.create<Props>()(<%=editComponentName%>);

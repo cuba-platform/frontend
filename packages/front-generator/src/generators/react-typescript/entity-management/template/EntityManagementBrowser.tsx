@@ -18,8 +18,8 @@ import {<%=className%>} from "./<%=className%>";
 <% if (listType === 'table') { %>
 @injectMainStore<% } %>
 @observer<% if (listType === 'table') { %>
-export class <%=className%>Browser extends React.Component<MainStoreInjected> {<% } else { %>
-export class <%=className%>Browser extends React.Component {<% } %>
+export class <%=listComponentName%> extends React.Component<MainStoreInjected> {<% } else { %>
+export class <%=listComponentName%> extends React.Component {<% } %>
 
   dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=listView.name%>', sort: '-updateTs'});
   fields = [<%listView.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];

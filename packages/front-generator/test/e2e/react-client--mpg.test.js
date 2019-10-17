@@ -2,7 +2,7 @@ const path = require('path');
 const {promisify} = require('util');
 const rimraf = promisify(require('rimraf'));
 const {runGenerator, assertContent, init, installAndBuild} = require('./e2e-common')('react-typescript', 'mpg');
-const answers = require('./fixtures/answers.json');
+const answers = require('./fixtures/react-client/answers.json');
 
 const MPG_APP_DIR = 'test/e2e/generated/react-client-mpg';
 
