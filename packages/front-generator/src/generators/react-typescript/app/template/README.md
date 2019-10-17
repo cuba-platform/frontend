@@ -23,15 +23,15 @@ The client is based on the following frameworks and libraries:
 You will need IDE with [TypeScript](http://www.typescriptlang.org/) support: [VSCode](https://code.visualstudio.com/), 
 WebStorm or [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate Edition.
 
-#### Supported browsers
+#### Supported Browsers
 
 The client supports all modern (evergreen) browsers. 
 In order to support IE 9,10,11 [additional configuration](https://facebook.github.io/create-react-app/docs/supported-browsers-features) 
 required.
 
-### Getting started
+### Getting Started
 
-#### Creating an app
+#### Creating an App
 
 There are two ways to create React client:
 
@@ -43,7 +43,7 @@ gen-cuba-front react-typescript
 ```
 See the above link for step-by-step instruction. 
 
-#### Project layout
+#### Project Layout
 
 Here is the structure of the newly generated project:
 
@@ -91,7 +91,7 @@ export class Button extends Component {
 }
 ```
 
-Alternatively, you can create function component:
+Alternatively, you can create the component using a function:
 
 ```typescript jsx
 export function Button(props) {
@@ -99,10 +99,9 @@ export function Button(props) {
 }
 ```
 
-##### Observable state with MobX
+##### Observable State with MobX
 
-[MobX](https://mobx.js.org/intro/overview.html) is a library for reactive state management which allows to work with state 
-in a convenient and conscious way. 
+[MobX](https://mobx.js.org/intro/overview.html) is a library for reactive state management which enables to work with state in a convenient and concise way. 
 
 Consider the following example:
 
@@ -133,14 +132,13 @@ class Counter extends React.Component {
 }
 ```
 
-As soon as we decorate class or function component as [observer](https://mobx.js.org/refguide/observer-component.html) 
-it automatically subscribes to changes on any [observable](https://mobx.js.org/refguide/observable.html) value or object
+As soon as we decorate a class or a function component as [observer](https://mobx.js.org/refguide/observer-component.html), it automatically subscribes to changes on any [observable](https://mobx.js.org/refguide/observable.html) value or object
 i.e. in the example above changing `count` property will result in automatic re-render of the component.
 
 ### Routing
 
 Routing is based on well-known [React Router](https://reacttraining.com/react-router/web/guides/quick-start) library.
-The generated app has single point (`src/routing.ts`) to define screens which will be automatically placed
+The generated app has a single point (`src/routing.ts`) to define screens which will be automatically placed
 in the main menu:
 
 ```typescript jsx
@@ -152,7 +150,7 @@ mainRoutes.push({
 });
 ```
 
-The `src/App.tsx` contains `Switch` component which renders screen depending on the url path: 
+The `src/App.tsx` contains `Switch` component which renders screen depending on the URL path: 
 
 ```typescript jsx
   <Switch>
@@ -168,10 +166,10 @@ hierarchical menu.
 
 ### Forms
 
-In order to facilitate data binding Ant Design's [Form](https://ant.design/components/form/) component and utilities
+In order to facilitate data binding, Ant Design's [Form](https://ant.design/components/form/) component and utilities
 are used in the app. 
 
-`getFieldDecorator` is useful higher order function allows to setup validation and binding, see the following example:
+`getFieldDecorator` is a useful higher order function which allows you to setup validation and binding. See the following example:
 
 ```typescript jsx
   <Form.Item label='name'>
@@ -179,7 +177,7 @@ are used in the app.
        normalize: (value) => {
          return value === '' ? null : value; // Normalize value so that empty string is converted to null
        },
-       rules: [ // Allows to setup front-end validation rules
+       rules: [ // Allows you to setup front-end validation rules
          {required: true} 
        ]
      })(
@@ -236,26 +234,26 @@ if by the '-' character then descending. If there is no special character before
 It shall be used instead of redefining `columns` in `tableProps` if the goal is to extend rather that fully replace the existing
 custom column-related functionality.
 
-#### Hot deploy and dev server
+#### Hot Deploy and Dev Server
 
-In order to run development server use the following command:
+In order to run development server, use the following command:
 
 ```bash
 $ npm run start
 ```
 
-If the client was generated via CUBA Studio (as a module of CUBA application) you can use gradle in order 
+If the client was generated via CUBA Studio (as a module of CUBA application) you can use Gradle in order 
 to run npm tooling:
 
 ```bash
 $ ./gradlew npm_run_start
 ``` 
-> There is a known [bug](https://github.com/srs/gradle-node-plugin/issues/339) in gradle node plugin which does not
+> There is a known [bug](https://github.com/srs/gradle-node-plugin/issues/339) in Gradle node plugin which does not
 > kill JS development server on task interruption. 
 
 > Hot deploy from Studio to the Tomcat is not supported.
 
-#### Build scripts
+#### Build Scripts
 
 `$ npm run build` command builds your app for production use. See `build` folder.
 
@@ -274,7 +272,7 @@ See the [list of all environment](https://facebook.github.io/create-react-app/do
 
 See `src/config.ts` for full list of common application settings used in runtime.
 
-### Backend model
+### Backend Model
 
 `src/cuba` directory contains TypeScript representation of project's entities, views and facades to access REST services.
 Here is the layout of the directory:
@@ -300,9 +298,9 @@ export class Role extends StandardEntity {
 }
 ```
 
-* you can easily access entity name by static `NAME` property: `Role.NAME`,
-* class contains all properties of domain model entity including from class hierarchy,
-reference fields have corresponding types as well so that you can work with them in a type-safe manner:  
+* You can easily access entity name by static `NAME` property: `Role.NAME`,
+* The class contains all properties of the domain model entity including ones from class hierarchy.
+Reference fields have corresponding types as well so that you can work with them in a type-safe manner:  
 
 ```typescript
 function changeRole(role: Role) {
@@ -312,7 +310,7 @@ function changeRole(role: Role) {
 ```
 
 
-#### Synchronize project model
+#### Synchronizing Project Model
 
 In order to regenerate project model to conform changes in the backend you can use the following command:
  
@@ -329,5 +327,5 @@ website.
 
 ### Security
 
-Since React client works via Generic REST API endpoints, main (CUBA) application should have properly configured Security 
+Since React client works via Generic REST API endpoints, the backend (CUBA) application should have properly configured Security 
 Roles and Access groups. See the [corresponding chapter](https://doc.cuba-platform.com/restapi-7.1/restapi.html#security) in REST API documentation.
