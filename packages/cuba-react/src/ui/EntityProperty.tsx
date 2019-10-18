@@ -24,7 +24,7 @@ const EntityPropertyFormattedValue = observer((props: Props) => {
     if (hideIfEmpty && value == null) {
       return null;
     }
-    if (props.mainStore!.messages == null || !showLabel) {
+    if (props.mainStore == null || props.mainStore!.messages == null || !showLabel) {
       return <div>{formatValue(toJS(value))}</div>;
     }
 

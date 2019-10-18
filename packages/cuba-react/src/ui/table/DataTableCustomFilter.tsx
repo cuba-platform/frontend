@@ -24,9 +24,11 @@ export interface DataTableCustomFilterProps extends FormComponentProps, MainStor
   entityName: string,
   entityProperty: string,
   filterProps: FilterDropdownProps,
-  operatorsByProperty: Record<string, ComparisonType>;
-  valuesByProperty: Record<string, any>;
-  ref: (instance: React.Component<DataTableCustomFilterProps>) => void,
+  operator: ComparisonType | undefined,
+  onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
+  value: any,
+  onValueChange: (value: any, propertyName: string) => void,
+  ref?: (instance: React.Component<DataTableCustomFilterProps>) => void,
 }
 
 export type ComparisonType = OperatorType | 'inInterval';
@@ -50,19 +52,19 @@ class DataTableCustomFilterComponent<E extends WithId>
   getFieldDecorator!: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
 
   set operator(operator: ComparisonType) {
-    this.props.operatorsByProperty[this.props.entityProperty] = operator;
+    this.props.onOperatorChange(operator, this.props.entityProperty);
   }
 
   get operator(): ComparisonType {
-    return this.props.operatorsByProperty[this.props.entityProperty] || this.getDefaultOperator();
+    return this.props.operator || this.getDefaultOperator();
   }
 
   set value(value: any) {
-    this.props.valuesByProperty[this.props.entityProperty] = value;
+    this.props.onValueChange(value, this.props.entityProperty);
   }
 
   get value(): any {
-    return this.props.valuesByProperty[this.props.entityProperty]
+    return this.props.value;
   }
 
   constructor(props: DataTableCustomFilterProps & WrappedComponentProps) {
@@ -140,7 +142,11 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @action
   resetFilter = (): void => {
-    this.value = null;
+    if (this.propertyInfoNN.type === 'boolean') {
+      this.value = 'true';
+    } else {
+      this.value = null;
+    }
 
     this.props.form.resetFields();
     this.operator = this.getDefaultOperator();

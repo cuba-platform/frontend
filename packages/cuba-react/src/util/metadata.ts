@@ -1,4 +1,4 @@
-import {EnumInfo, MetaClassInfo, MetaPropertyInfo} from "@cuba-platform/rest";
+import {EntityMessages, EnumInfo, MetaClassInfo, MetaPropertyInfo} from "@cuba-platform/rest";
 
 export function getPropertyInfo(metadata: MetaClassInfo[], entityName: string, propertyName: string): MetaPropertyInfo | null {
     const metaClass = metadata.find(mci => mci.entityName === entityName);
@@ -7,6 +7,28 @@ export function getPropertyInfo(metadata: MetaClassInfo[], entityName: string, p
     }
     const propInfo = metaClass.properties.find(prop => prop.name === propertyName);
     return propInfo || null
+}
+
+/**
+ * A non-nullable version of {@link getPropertyInfo}
+ *
+ * @param propertyName
+ * @param entityName
+ * @param metadata
+ *
+ * @throws `Error` when `propertyInfo` is `null`
+ */
+export function getPropertyInfoNN(propertyName: string, entityName: string, metadata: MetaClassInfo[]): MetaPropertyInfo {
+  const propertyInfo: MetaPropertyInfo | null = getPropertyInfo(
+    metadata,
+    entityName,
+    propertyName);
+
+  if (!propertyInfo) {
+    throw new Error('Cannot find MetaPropertyInfo for property ' + propertyName);
+  }
+
+  return propertyInfo;
 }
 
 export function getEnumCaption(enumValueName: string, propertyInfo: MetaPropertyInfo, enums: EnumInfo[]): string | undefined {
@@ -24,6 +46,18 @@ export function getEnumCaption(enumValueName: string, propertyInfo: MetaProperty
   }
 
   return enumValue.caption;
+}
+
+/**
+ *
+ * @param propertyName
+ * @param entityName
+ * @param messages
+ *
+ * @returns localized entity property caption
+ */
+export function getPropertyCaption(propertyName: string, entityName: string, messages: EntityMessages): string {
+  return messages[entityName + '.' + propertyName];
 }
 
 export function isFileProperty(propertyInfo: MetaPropertyInfo): boolean {
