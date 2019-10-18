@@ -1,3 +1,8 @@
 .main-layout {
   height: 100%;
 }
+
+.page-layout-narrow {
+  max-width: 1024px;
+  margin: auto;
+}

@@ -18,7 +18,7 @@ export class <%=className%> extends React.Component {
     }
 
     return (
-      <div>
+      <div className='page-layout-narrow'>
         {items.map(e =>
           <Card title={e._instanceName}
                 key={e.id}

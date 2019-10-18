@@ -56,7 +56,7 @@ class <%=editComponentName%> extends React.Component<Props> {
     const {status} = this.dataInstance;
 
     return (
-      <Card style={{margin:"0 auto", maxWidth: "1024px"}}>
+      <Card className='page-layout-narrow'>
         <Form onSubmit={this.handleSubmit}
               layout='vertical'>
           <%editAttributes.forEach(attr => {%>

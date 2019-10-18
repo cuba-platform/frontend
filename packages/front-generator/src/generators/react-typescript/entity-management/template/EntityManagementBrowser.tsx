@@ -44,7 +44,8 @@ export class <%=listComponentName%> extends React.Component {<% } %>
         (<Link to={<%=className%>.PATH + '/' + <%=className%>.NEW_SUBPATH} key='create'>
           <Button htmlType='button'
                   style={{margin: '0 12px 12px 0'}}
-                  type='default'>
+                  type='primary'
+                  icon="plus">
             Create
           </Button>
         </Link>),
@@ -109,17 +110,16 @@ export class <%=listComponentName%> extends React.Component {<% } %>
     }
 
     return (
-      <div>
+      <div <% if (listType !== 'table') {%>className='page-layout-narrow'<%}%>>
         <div style={{marginBottom: '12px'}}>
           <Link to={<%=className%>.PATH + '/' + <%=className%>.NEW_SUBPATH}>
             <Button htmlType='button'
-                    type='default'>
+                    type='primary'
+                    icon="plus">
                     Create
             </Button>
           </Link>
         </div>
-        {items == null || items.length === 0 ?
-          <p>No items available</p> : null}
         <% if (listType === 'list') { %>
          <List itemLayout="horizontal"
             bordered
@@ -144,6 +144,8 @@ export class <%=listComponentName%> extends React.Component {<% } %>
               </List.Item>
             }/>
         <% } else { %>
+        {items == null || items.length === 0 ?
+            <p>No data</p> : null}
         {items.map(e =>
           <Card title={e._instanceName}
                 key={e.id}
