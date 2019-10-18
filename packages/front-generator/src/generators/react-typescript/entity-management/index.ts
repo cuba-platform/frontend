@@ -105,7 +105,7 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
 
 function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelations  {
   return attributes.reduce<EditRelations>((relations, attribute) => {
-    if (attribute.type == null || attribute.mappingType !== MappingType.ASSOCIATION || !isToOneAttribute(attribute)) {
+    if (attribute.type == null || attribute.mappingType !== MappingType.ASSOCIATION) {
       return relations;
     }
     const entity = findEntity(projectModel, attribute.type.entityName!);
