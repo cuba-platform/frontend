@@ -35,10 +35,7 @@ export const FormField = injectMainStore(observer((props: Props) => {
       return <EnumField enumClass={propertyInfo.type} {...rest}/>;
     case 'ASSOCIATION':
       const mode = getSelectMode(propertyInfo.cardinality);
-      if (optionsContainer) {
-        return <EntitySelectField {...{mode, optionsContainer}} {...rest}/>;
-      }
-      return <Select mode={mode} {...rest}/>;
+      return <EntitySelectField {...{mode, optionsContainer}} {...rest}/>;
     case 'COMPOSITION':
       return <Select {...rest}/>;
   }

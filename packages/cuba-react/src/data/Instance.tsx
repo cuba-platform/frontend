@@ -61,6 +61,10 @@ export class DataInstanceStore<T> implements DataContainer {
         // @ts-ignore
         normalizedPatch[key] = {id: value};
       }
+      if (propInfo && isToManyRelation(propInfo) && Array.isArray(value)) {
+        // @ts-ignore
+        normalizedPatch[key] = value.map(id => ({id}));
+      }
     });
     Object.assign(this.item, normalizedPatch);
     return this.commit();
