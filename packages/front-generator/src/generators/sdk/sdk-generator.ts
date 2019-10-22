@@ -1,4 +1,4 @@
-import {BaseGenerator, readProjectModel} from "../../common/generation";
+import {BaseGenerator, readProjectModel} from "../../common/base-generator";
 import {CommonGenerationOptions} from "../../common/cli-options";
 import * as path from "path";
 import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../common/studio/studio-integration";

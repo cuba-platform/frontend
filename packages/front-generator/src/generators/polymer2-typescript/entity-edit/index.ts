@@ -1,7 +1,7 @@
 import {EntityEditAnswers, entityEditParams} from "../../polymer2/entity-edit/params";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {EntityEditTemplateModel} from "../../polymer2/entity-edit/template-model";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {entityEditAnswersToModel} from "../../polymer2/entity-edit";

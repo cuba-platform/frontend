@@ -3,7 +3,7 @@ import * as YeomanEnvironment from "yeoman-environment";
 import * as path from "path";
 import {OptionsConfig} from "./common/cli-options";
 import {StudioTemplateProperty} from "./common/studio/studio-model";
-import {GeneratorExports} from "./common/generation";
+import {GeneratorExports} from "./common/base-generator";
 
 const GENERATORS_DIR_NAME = 'generators';
 const GENERATOR_FILE_NAME = 'index.js';
@@ -29,7 +29,7 @@ export interface GeneratorInfo {
   params?: StudioTemplateProperty[]
 }
 
-export function collectClients(): GeneratedClientInfo[] {
+export function collectClients(generatorFileName?: string): GeneratedClientInfo[] {
   const clientsDirPath = path.join(__dirname, GENERATORS_DIR_NAME);
   return readdirSync(clientsDirPath).map((clientDirName): GeneratedClientInfo => {
     const info:ProvidedClientInfo = require(path.join(clientsDirPath, clientDirName, INFO_FILE_NAME));
@@ -38,7 +38,7 @@ export function collectClients(): GeneratedClientInfo[] {
       name: clientDirName,
       bower: info.bower,
       clientBaseTech: info.clientBaseTech,
-      generators: collectGenerators(path.join(clientsDirPath, clientDirName))
+      generators: collectGenerators(path.join(clientsDirPath, clientDirName), generatorFileName)
     }
   });
 }
@@ -51,14 +51,13 @@ export async function generate(generatorName: string, subGeneratorName: string, 
   return env.run(generator.name, options);
 }
 
-function collectGenerators(generatorsDir: string): GeneratorInfo[] {
+function collectGenerators(generatorsDir: string, genFileName?: string): GeneratorInfo[] {
   const dirs = readdirSync(generatorsDir);
   return dirs.reduce((generators: GeneratorInfo[], name: string) => {
 
+    genFileName = genFileName ? genFileName : GENERATOR_FILE_NAME;
     const generatorPath = path.join(generatorsDir, name);
-    if (existsSync(generatorPath)
-        && existsSync(path.join(generatorPath, GENERATOR_FILE_NAME))
-        && statSync(generatorPath).isDirectory()) {
+    if (existsSync(path.join(generatorPath, genFileName)) && statSync(generatorPath).isDirectory()) {
       const generatorExports: GeneratorExports = require(generatorPath);
       if (generatorExports.generator == null) {
         return generators;

@@ -1,4 +1,4 @@
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {EntityManagementAnswers, entityManagementGeneratorParams} from "./params";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {EntityManagementTemplateModel} from "./template-model";

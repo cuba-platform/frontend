@@ -2,7 +2,7 @@ import {entityCardsAnswersToModel} from "../../polymer2/entity-cards";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {EntityCardsAnswers, entityCardsParams} from "../../polymer2/entity-cards/params";
 import * as path from "path";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {EntityCardsTemplateModel} from "../../polymer2/entity-cards/template-model";
 import {TSPolymerElementModel} from "../common";

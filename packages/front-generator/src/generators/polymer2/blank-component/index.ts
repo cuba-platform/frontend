@@ -2,7 +2,7 @@ import * as path from "path";
 import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from "../../../common/cli-options";
 import {blankComponentParams} from "./params";
 import {Polymer2ComponentTemplateModel} from "./template-model";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass} from "../../../common/utils";
 

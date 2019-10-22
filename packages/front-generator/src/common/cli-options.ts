@@ -13,15 +13,19 @@ export function extractAvailableOptions(optionsConfig?: OptionsConfig): Commande
   if (!optionsConfig) {
     return [];
   }
-  return Object.keys(optionsConfig).map(optionFullName => {
-    const {type, alias, description} = optionsConfig[optionFullName];
-    const pattern = `-${alias}, --${optionFullName}${type === String ? ` [${optionFullName}]` : ''}`;
 
-    return {pattern, description}
+  const result: CommanderOptionInfo[] = [];
+  Object.keys(optionsConfig).forEach(optionFullName => {
+    const {type, alias, description} = optionsConfig[optionFullName];
+    if (alias) {
+      const pattern = `-${alias}, --${optionFullName}${type === String ? ` [${optionFullName}]` : ''}`;
+      description ? result.push({pattern, description}) : result.push({pattern});
+    }
   });
+  return result;
 }
 
-export function pickOptions(cmd: {[key:string]: any}, availableOptions?: OptionsConfig, ):{[key:string]: string|boolean} {
+export function pickOptions(cmd: {[key:string]: any}, availableOptions?: OptionsConfig):{[key:string]: string|boolean} {
   const passedOptions: { [key: string]: any } = {};
   if (availableOptions) {
     Object.keys(availableOptions).forEach(optionFullName => {

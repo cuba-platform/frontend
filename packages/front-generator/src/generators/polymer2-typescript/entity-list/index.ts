@@ -2,7 +2,7 @@ import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from 
 import {EntityListAnswers, entityListParams} from "../../polymer2/entity-list/params";
 import {EntityListTemplateModel} from "../../polymer2/entity-list/template-model";
 import * as path from "path";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {entityListAnswersToModel} from "../../polymer2/entity-list";
 import {TSPolymerElementModel} from "../common";

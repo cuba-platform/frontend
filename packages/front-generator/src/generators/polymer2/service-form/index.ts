@@ -1,4 +1,4 @@
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {ServiceFormAnswers, serviceFormParams} from "./params";
 import {ServiceFormTemplateModel} from "./template-model";

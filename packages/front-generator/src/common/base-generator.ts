@@ -30,7 +30,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
 
   protected cubaProjectModel?: ProjectModel;
 
-  constructor(args: string | string[], options: CommonGenerationOptions) {
+  protected constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
     this._populateOptions(this._getAvailableOptions());
     this.destinationRoot(this._getDestRoot());

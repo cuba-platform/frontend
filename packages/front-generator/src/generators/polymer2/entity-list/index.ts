@@ -1,5 +1,5 @@
 import {EntityListAnswers, entityListParams} from "./params";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {EntityListTemplateModel} from "./template-model";

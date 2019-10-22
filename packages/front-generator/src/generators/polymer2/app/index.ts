@@ -2,7 +2,7 @@ import {ProjectInfo} from "../../../common/model/cuba-model";
 import {Polymer2AppTemplateModel} from "./template-model";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {BaseGenerator, readProjectModel} from "../../../common/generation";
+import {BaseGenerator, readProjectModel} from "../../../common/base-generator";
 import {questions} from "./questions";
 import through2 = require("through2");
 

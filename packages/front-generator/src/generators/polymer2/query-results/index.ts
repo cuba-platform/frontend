@@ -1,4 +1,4 @@
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {QueryResultAnswers, queryResultParams} from "./params";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";

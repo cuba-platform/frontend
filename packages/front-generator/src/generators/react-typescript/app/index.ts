@@ -1,5 +1,5 @@
 import {ProjectInfo} from "../../../common/model/cuba-model";
-import {BaseGenerator, readProjectModel} from "../../../common/generation";
+import {BaseGenerator, readProjectModel} from "../../../common/base-generator";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 

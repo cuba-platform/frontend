@@ -3,7 +3,7 @@ import {blankComponentParams} from "../../polymer2/blank-component/params";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 import {Polymer2ComponentTemplateModel} from "../../polymer2/blank-component/template-model";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {TSPolymerElementModel} from "../common";
 

@@ -1,3 +1,4 @@
+/* istanbul ignore file */ //todo not sure how to test and cover this
 import {generate, collectClients, GeneratedClientInfo} from "./init";
 import {Command} from 'commander';
 import {exportList} from "./list";

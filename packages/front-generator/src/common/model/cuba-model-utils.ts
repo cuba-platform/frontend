@@ -54,7 +54,6 @@ export function findServiceMethod(projectModel: ProjectModel, methodInfo: RestSe
   return null;
 }
 
-//todo add assert in integration test with inheritor attrs (sec$User)
 export function collectAttributesFromHierarchy(entity: Entity, projectModel: ProjectModel): EntityAttribute[] {
   let attrs: EntityAttribute[] = entity.attributes;
 

@@ -1,5 +1,5 @@
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
-import {BaseGenerator} from "../../../common/generation";
+import {BaseGenerator} from "../../../common/base-generator";
 import {ServiceDataAnswers, serviceDataParams} from "./params";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {ServiceDataTemplateModel} from "./template-model";
