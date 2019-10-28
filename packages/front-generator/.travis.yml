@@ -7,7 +7,7 @@ before_script: npm run build
 matrix:
   include:
     - name: "Unit tests"
-      script: npm test
+      script: npm run coverage
 
     - name: "Test e2e:sdk"
       script: npm run test:e2e:sdk
