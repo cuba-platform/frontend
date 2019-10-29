@@ -15,6 +15,8 @@ import {ProjectModel} from "./model/cuba-model";
 import {findEntity, findQuery, findServiceMethod, findView} from "./model/cuba-model-utils";
 import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from './studio/studio-integration';
 import * as AutocompletePrompt from 'inquirer-autocomplete-prompt';
+import through2 = require('through2');
+import prettier = require('prettier');
 
 interface ProjectInfoAnswers {
   projectInfo: StudioProjectInfo;
@@ -37,6 +39,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     // @ts-ignore this.env.adapter is missing in the typings
     this.env.adapter
       .promptModule.registerPrompt('autocomplete',  AutocompletePrompt);
+    this.registerTransformStream(createFormatStream());
   }
 
   protected async _obtainCubaProjectModel() {
@@ -166,3 +169,17 @@ function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplatePrope
   });
   return refinedAnswers as T;
 }
+
+function createFormatStream() {
+  return through2.obj(function (file, enc, callback) {
+
+    if (file.path.endsWith('.ts')) {
+      const contents = Buffer.from(file.contents).toString('utf8');
+      file.contents = new Buffer(prettier.format(contents, {parser: "typescript"}));
+    }
+
+    this.push(file);
+    callback();
+  });
+}
+

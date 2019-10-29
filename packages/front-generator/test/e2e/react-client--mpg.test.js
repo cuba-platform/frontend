@@ -1,7 +1,7 @@
 const path = require('path');
 const {promisify} = require('util');
 const rimraf = promisify(require('rimraf'));
-const {runGenerator, assertContent, init, installAndBuild} = require('./e2e-common')('react-typescript', 'mpg');
+const {runGenerator, assertContent, init, installAndBuild, checkFormat} = require('./e2e-common')('react-typescript', 'mpg');
 const answers = require('./fixtures/react-client/answers.json');
 
 const MPG_APP_DIR = 'test/e2e/generated/react-client-mpg';
@@ -40,6 +40,7 @@ describe('test:e2e:react:mpg', () => {
     await runGenerator('entity-management', `${MPG_APP_DIR}/src/app/entity-management3`,
       JSON.stringify(answers.entityManagement3), '../../');
 
+    await checkFormat(MPG_APP_DIR);
     await installAndBuild('mpg-model', MPG_APP_DIR);
   });
 

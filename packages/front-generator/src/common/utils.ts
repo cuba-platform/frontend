@@ -32,6 +32,7 @@ export function convertToUnixPath(input: string): string {
 
 /**
  * Convert java class fully qualified name to compilable TS class name
+ *
  * @param fqn java class fqn
  */
 export function fqnToName(fqn: string): string {
@@ -42,4 +43,6 @@ export function getEntityModulePath(entity: Entity, prefix: string = ''): string
   const modulePath = entity.name ? entity.name : entity.className;
   return path.posix.join(prefix, modulePath);
 }
+
+
 

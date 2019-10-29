@@ -1,7 +1,7 @@
 const path = require('path');
 const {promisify} = require('util');
 const rimraf = promisify(require('rimraf'));
-const {installAndBuild, runGenerator, init} = require('./e2e-common')('react-typescript', 'new-project');
+const {installAndBuild, runGenerator, init, checkFormat} = require('./e2e-common')('react-typescript', 'new-project');
 const fs = require('fs');
 const assert = require('assert');
 
@@ -20,6 +20,7 @@ describe('test:e2e:react:new-project', () => {
     const srcCubaDir = path.join(NEW_PRJ_APP_DIR, 'src/cuba');
     assert.ok(!fs.existsSync(`${srcCubaDir}/enums/enums.ts`));
 
+    await checkFormat(NEW_PRJ_APP_DIR);
     await installAndBuild('new-project-model', NEW_PRJ_APP_DIR);
   });
 

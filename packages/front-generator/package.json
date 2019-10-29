@@ -7,7 +7,7 @@
     "gen-cuba-front": "bin/gen-cuba-front.js"
   },
   "engines": {
-    "node": ">=8.0"
+    "node": ">=10.17"
   },
   "scripts": {
     "build": "rimraf lib && tsc && node scripts/copy-templates.js",
@@ -29,8 +29,10 @@
     "url": "https://github.com/cuba-platform/front-generator"
   },
   "dependencies": {
+    "@types/prettier": "^1.18.3",
     "commander": "~2.13.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
+    "prettier": "1.18.2",
     "through2": "^2.0.5",
     "typescript": "3.4.1",
     "yeoman-environment": "~2.4.0",
@@ -41,7 +43,7 @@
     "@types/chai": "^4.2.3",
     "@types/ejs": "^2.5.1",
     "@types/mocha": "^2.2.48",
-    "@types/node": "^9.6.52",
+    "@types/node": "^10.17.0",
     "@types/nock": "^11.1.0",
     "@types/through2": "^2.0.33",
     "@types/yeoman-generator": "^2.0.3",

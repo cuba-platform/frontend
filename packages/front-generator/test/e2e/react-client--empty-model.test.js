@@ -1,7 +1,7 @@
 const path = require('path');
 const {promisify} = require('util');
 const rimraf = promisify(require('rimraf'));
-const {runGenerator, init, installAndBuild} = require('./e2e-common')('react-typescript', 'empty-model');
+const {runGenerator, init, installAndBuild, checkFormat} = require('./e2e-common')('react-typescript', 'empty-model');
 const fs = require('fs');
 const assert = require('assert');
 
@@ -23,6 +23,7 @@ describe('test:e2e:react:empty-model', () => {
     assert.ok(fs.existsSync(`${srcCubaDir}/queries.ts`));
     assert.ok(fs.existsSync(`${srcCubaDir}/services.ts`));
 
+    await checkFormat(EMPTY_APP_DIR);
     await installAndBuild('empty-model', EMPTY_APP_DIR);
   });
 });

@@ -1,12 +1,12 @@
 sudo: false
 language: node_js
 node_js:
-  - '8'
+  - '10.17'
 before_script: npm run build
 
 matrix:
   include:
-    - name: "Unit tests"
+    - name: "Unit tests and coverage"
       script: npm run coverage
 
     - name: "Test e2e:sdk"
