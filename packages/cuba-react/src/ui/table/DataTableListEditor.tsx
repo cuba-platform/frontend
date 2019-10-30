@@ -9,6 +9,7 @@ import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
 import {ReactNode} from 'react';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {LabeledValue} from 'antd/es/select';
+import {FormattedMessage} from 'react-intl';
 
 interface DataTableListEditorProps {
   onChange: (items: any) => void,
@@ -167,7 +168,9 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
           <Tag onClick={this.showInput}
              color='blue'
              style={{ borderStyle: 'dashed' }}>
-            <Icon type="plus" /> Add Item
+            <Icon type="plus" />
+            &nbsp;
+            <FormattedMessage id='cubaReact.dataTable.listEditor.addItem'/>
           </Tag>
         )}
       </div>
@@ -198,10 +201,8 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
           </div>
         );
       case DataTableListEditorType.NUMBER:
-        return (
-          <div>
-            // @ts-ignore
-            <InputNumber
+        // @ts-ignore
+        return (<div><InputNumber
               ref={this.trapFocus}
               type='text'
               size='small'

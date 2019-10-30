@@ -1,5 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
+import commonjs from 'rollup-plugin-commonjs';
+import json from 'rollup-plugin-json';
 
 export default {
   input: 'dist-transpiled/index.js',
@@ -20,6 +22,7 @@ export default {
     'mobx-react',
     'moment',
     'react',
+    'react-intl',
     'react-dom',
     'react-router',
     'react-router-dom',
@@ -30,5 +33,11 @@ export default {
       extensions: ['.css']
     }),
     resolve(),
+    commonjs({
+      namedExports: {
+        'invariant': ['default'],
+      }
+    }),
+    json(),
   ]
 };

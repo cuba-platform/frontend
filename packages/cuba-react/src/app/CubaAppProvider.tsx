@@ -2,6 +2,8 @@ import {CubaApp} from "@cuba-platform/rest";
 import * as React from "react";
 import {MainStore} from "./MainStore";
 import {Provider} from "mobx-react";
+import {Locale} from 'antd/es/locale-provider';
+import { I18nProvider } from "../i18n/I18nProvider";
 
 let cubaAppContext: React.Context<CubaAppContextValue>;
 let globalCubaREST: CubaApp;
@@ -21,10 +23,12 @@ export function getMainStore(): MainStore {
 
 export interface CubaAppProviderProps {
   cubaREST: CubaApp;
+  messagesMapping: Record<string, Record<string, string> | undefined>;
+  antdLocaleMapping: Record<string, Locale | undefined>;
   children: React.ReactNode | React.ReactNode[] | null;
 }
 
-export const CubaAppProvider: React.FC<CubaAppProviderProps> = ({cubaREST, children}) => {
+export const CubaAppProvider: React.FC<CubaAppProviderProps> = ({cubaREST, messagesMapping, antdLocaleMapping, children}) => {
   const CubaAppContext = getContext();
   return (
     <CubaAppContext.Consumer>
@@ -42,7 +46,9 @@ export const CubaAppProvider: React.FC<CubaAppProviderProps> = ({cubaREST, child
         return (
           <CubaAppContext.Provider value={context}>
             <Provider mainStore={mainStore}>
-              {children}
+              <I18nProvider messagesMapping={messagesMapping} antdLocaleMapping={antdLocaleMapping} mainStore={mainStore}>
+                {children}
+              </I18nProvider>
             </Provider>
           </CubaAppContext.Provider>
         );

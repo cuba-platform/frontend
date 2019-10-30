@@ -12,3 +12,6 @@ export * from './ui/table/DataTable';
 export * from './ui/FileUpload';
 
 export * from './util/metadata';
+
+export * from './i18n/I18nProvider';
+export * from './i18n/validation';

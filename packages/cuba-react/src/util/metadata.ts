@@ -1,4 +1,4 @@
-import {MetaClassInfo, MetaPropertyInfo} from "@cuba-platform/rest";
+import {EnumInfo, MetaClassInfo, MetaPropertyInfo} from "@cuba-platform/rest";
 
 export function getPropertyInfo(metadata: MetaClassInfo[], entityName: string, propertyName: string): MetaPropertyInfo | null {
     const metaClass = metadata.find(mci => mci.entityName === entityName);
@@ -7,6 +7,23 @@ export function getPropertyInfo(metadata: MetaClassInfo[], entityName: string, p
     }
     const propInfo = metaClass.properties.find(prop => prop.name === propertyName);
     return propInfo || null
+}
+
+export function getEnumCaption(enumValueName: string, propertyInfo: MetaPropertyInfo, enums: EnumInfo[]): string | undefined {
+  const enumInfo = enums.find(enumInfo => enumInfo.name === propertyInfo.type);
+
+  if (!enumInfo) {
+    return undefined;
+  }
+
+  const enumValue = enumInfo.values
+    .find(enumValue => enumValue.name === enumValueName);
+
+  if (!enumValue) {
+    return undefined;
+  }
+
+  return enumValue.caption;
 }
 
 export function isFileProperty(propertyInfo: MetaPropertyInfo): boolean {
