@@ -9,17 +9,17 @@ import {
 import {<%=entity.className%>} from "<%= relDirShift %><%=entity.path%>";
 import {Link} from "react-router-dom";
 import {
-  collection,<% if (listType === 'table') { %>
-  DataTable, injectMainStore, MainStoreInjected,<% } else { %>
+  collection, injectMainStore, MainStoreInjected,<% if (listType === 'table') { %>
+  DataTable,<% } else { %>
   EntityProperty,<% } %>
 } from "@cuba-platform/react";
 import {SerializedEntity} from "@cuba-platform/rest";
 import {<%=className%>} from "./<%=className%>";
-<% if (listType === 'table') { %>
-@injectMainStore<% } %>
-@observer<% if (listType === 'table') { %>
-export class <%=listComponentName%> extends React.Component<MainStoreInjected> {<% } else { %>
-export class <%=listComponentName%> extends React.Component {<% } %>
+import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+
+@injectMainStore
+@observer
+class <%=listComponentName%>Component extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
   dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=listView.name%>', sort: '-updateTs'});
   fields = [<%listView.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
@@ -28,9 +28,12 @@ export class <%=listComponentName%> extends React.Component {<% } %>
 <% } %>
   showDeletionDialog = (e: SerializedEntity<<%=entity.className%>>) => {
     Modal.confirm({
-      title: `Are you sure you want to delete ${e._instanceName}?`,
-      okText: 'Delete',
-      cancelText: 'Cancel',
+      title: this.props.intl.formatMessage(
+        {id: 'management.browser.delete.areYouSure'},
+        {instanceName: e._instanceName}
+      ),
+      okText: this.props.intl.formatMessage({id: 'management.browser.delete.ok'}),
+      cancelText: this.props.intl.formatMessage({id:'management.browser.delete.cancel'}),
       onOk: () => {<% if (listType === 'table') { %>
         this.selectedRowId = undefined;<% } %>
         return this.dataCollection.delete(e);
@@ -45,8 +48,8 @@ export class <%=listComponentName%> extends React.Component {<% } %>
           <Button htmlType='button'
                   style={{margin: '0 12px 12px 0'}}
                   type='primary'
-                  icon="plus">
-            Create
+                  icon='plus'>
+            <span><FormattedMessage id='management.browser.create'/></span>
           </Button>
         </Link>),
         (<Link to={<%=className%>.PATH + '/' + this.selectedRowId} key='edit'>
@@ -54,7 +57,7 @@ export class <%=listComponentName%> extends React.Component {<% } %>
                   style={{margin: '0 12px 12px 0'}}
                   disabled={!this.selectedRowId}
                   type='default'>
-            Edit
+            <FormattedMessage id='management.browser.edit'/>
           </Button>
         </Link>),
         (<Button htmlType='button'
@@ -63,7 +66,7 @@ export class <%=listComponentName%> extends React.Component {<% } %>
                  onClick={this.deleteSelectedRow}
                  key='remove'
                  type='default'>
-          Remove
+          <FormattedMessage id='management.browser.remove'/>
         </Button>),
       ]
     );
@@ -115,8 +118,8 @@ export class <%=listComponentName%> extends React.Component {<% } %>
           <Link to={<%=className%>.PATH + '/' + <%=className%>.NEW_SUBPATH}>
             <Button htmlType='button'
                     type='primary'
-                    icon="plus">
-                    Create
+                    icon='plus'>
+              <span><FormattedMessage id='management.browser.create'/></span>
             </Button>
           </Link>
         </div>
@@ -145,7 +148,7 @@ export class <%=listComponentName%> extends React.Component {<% } %>
             }/>
         <% } else { %>
         {items == null || items.length === 0 ?
-            <p>No data</p> : null}
+          <p><FormattedMessage id='management.browser.noItems'/></p> : null}
         {items.map(e =>
           <Card title={e._instanceName}
                 key={e.id}
@@ -172,3 +175,7 @@ export class <%=listComponentName%> extends React.Component {<% } %>
   }
 <% } %>
 }
+
+const <%=listComponentName%> = injectIntl(<%=listComponentName%>Component);
+
+export default <%=listComponentName%>;

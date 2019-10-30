@@ -6,18 +6,22 @@ import {<%=className%>} from "./<%=className%>";
 import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction} from "mobx";
-import {<%if (Object.keys(editRelations).length > 0) {%>collection, <%}%>FormField, instance, Msg} from "@cuba-platform/react";
+import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+import {<%if (Object.keys(editRelations).length > 0) {%>collection, <%}%>FormField, instance, Msg, withLocalizedForm} from "@cuba-platform/react";
+import "<%= relDirShift %>app/App.css";
 import {<%=entity.className%>} from "<%= relDirShift %><%=entity.path%>";
 <%Object.values(editRelations).forEach(entity => {%>import {<%=entity.className%>} from "<%= relDirShift %><%=entity.path%>";
 <%})%>
 
-type Props = FormComponentProps & {
+type Props = FormComponentProps & EditorProps;
+
+type EditorProps = {
   entityId: string;
 };
 
 
 @observer
-class <%=editComponentName%> extends React.Component<Props> {
+class <%=editComponentName%>Component extends React.Component<Props & WrappedComponentProps> {
 
   dataInstance = instance<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=editView.name%>', loadImmediately: false});
   <%Object.entries(editRelations).forEach(([attrName, entity]) => {%><%=attrName%>sDc = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '_minimal'});
@@ -32,16 +36,16 @@ class <%=editComponentName%> extends React.Component<Props> {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (err) {
-        message.warn('Validation Error. Please check the data you entered.');
+        message.warn(this.props.intl.formatMessage({id: 'management.editor.validationError'}));
         return;
       }
       this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
         .then(() => {
-          message.success('Entity has been updated');
+          message.success(this.props.intl.formatMessage({id: 'management.editor.success'}));
           this.updated = true;
         })
         .catch(() => {
-          alert('Error')
+          alert(this.props.intl.formatMessage({id: 'management.editor.error'}));
         });
     });
   };
@@ -74,7 +78,7 @@ class <%=editComponentName%> extends React.Component<Props> {
           <Form.Item style={{textAlign: 'center'}}>
             <Link to={<%=className%>.PATH}>
               <Button htmlType="button">
-                Cancel
+                <FormattedMessage id='management.editor.cancel'/>
               </Button>
             </Link>
             <Button type="primary"
@@ -82,7 +86,7 @@ class <%=editComponentName%> extends React.Component<Props> {
                     disabled={status !== "DONE" && status !== "ERROR"}
                     loading={status === "LOADING"}
                     style={{marginLeft: '8px'}}>
-              Submit
+              <FormattedMessage id='management.editor.submit'/>
             </Button>
           </Form.Item>
         </Form>
@@ -112,4 +116,6 @@ class <%=editComponentName%> extends React.Component<Props> {
 
 }
 
-export default Form.create<Props>()(<%=editComponentName%>);
+export default (
+  injectIntl(withLocalizedForm<EditorProps>(<%=editComponentName%>Component))
+);

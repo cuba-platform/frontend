@@ -4,13 +4,14 @@ import {Button, Form, Icon, Input, message} from "antd";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
 import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
-
 import './Login.css';
 import logo from './logo.png';
+import {LanguageSwitcher} from '../../i18n/LanguageSwitcher';
+import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 @injectMainStore
 @observer
-class Login extends React.Component<MainStoreInjected> {
+class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
   @observable login: string;
   @observable password: string;
@@ -36,27 +37,27 @@ class Login extends React.Component<MainStoreInjected> {
       }))
       .catch(action(() => {
         this.performingLoginRequest = false;
-        message.error('login failed');
+        message.error(this.props.intl.formatMessage({id: 'login.failed'}));
       }));
   };
 
   render() {
     return(
       <div className='Login'>
-        <img src={logo} alt='logo' className='logo'/>
+        <img src={logo} alt={this.props.intl.formatMessage({id: 'common.alt.logo'})} className='logo'/>
         <div className='login-title'>
           <%= title %>
         </div>
         <Form layout='vertical' onSubmit={this.doLogin}>
           <Form.Item>
-            <Input placeholder='Login'
+            <Input placeholder={this.props.intl.formatMessage({id: 'login.placeholder.login'})}
                    onChange={this.changeLogin}
                    value={this.login}
                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>}
                    size='large'/>
           </Form.Item>
           <Form.Item>
-            <Input placeholder='Password'
+            <Input placeholder={this.props.intl.formatMessage({id: 'login.placeholder.password'})}
                    onChange={this.changePassword}
                    value={this.password}
                    type='password'
@@ -64,12 +65,17 @@ class Login extends React.Component<MainStoreInjected> {
                    size='large'/>
           </Form.Item>
           <Form.Item>
+            <div style={{float: 'right'}}>
+              <LanguageSwitcher className='language-switcher-login' />
+            </div>
+          </Form.Item>
+          <Form.Item>
             <Button type='primary'
                     htmlType='submit'
                     size='large'
                     block={true}
                     loading={this.performingLoginRequest}>
-              Submit
+              <FormattedMessage id='login.loginBtn'/>
             </Button>
           </Form.Item>
         </Form>
@@ -78,4 +84,4 @@ class Login extends React.Component<MainStoreInjected> {
   }
 }
 
-export default Login;
+export default injectIntl(Login);

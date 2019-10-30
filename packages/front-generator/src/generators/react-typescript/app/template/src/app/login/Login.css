@@ -16,3 +16,7 @@
   margin-bottom: 24px;
   font-size: 20px;
 }
+
+.language-switcher-login .ant-select-selection {
+  border: none;
+}

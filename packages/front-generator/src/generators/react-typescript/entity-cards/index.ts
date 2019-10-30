@@ -6,6 +6,7 @@ import * as path from "path";
 import {EntityCardsTemplateModel} from "./template-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
+import {writeI18nMessages} from '../common/i18n';
 
 
 class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCardsTemplateModel, PolymerElementOptions> {
@@ -32,6 +33,8 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
       this.templatePath('EntityCards.tsx'),
       this.destinationPath(this.model.className + '.tsx'), this.model
     );
+
+    writeI18nMessages(this.fs, this.model.className, this.options.dirShift);
 
     if (!addToMenu(this.fs, {
       componentFileName: this.model.className,

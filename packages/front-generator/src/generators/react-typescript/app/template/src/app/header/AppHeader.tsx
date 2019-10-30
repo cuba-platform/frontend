@@ -4,10 +4,12 @@ import {observer} from "mobx-react";
 import './AppHeader.css';
 import logo from './logo.png';
 import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
+import {LanguageSwitcher} from '../../i18n/LanguageSwitcher';
+import {injectIntl, WrappedComponentProps} from 'react-intl';
 
 @injectMainStore
 @observer
-class AppHeader extends React.Component<MainStoreInjected> {
+class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
   render() {
     const appState = this.props.mainStore!;
@@ -15,9 +17,10 @@ class AppHeader extends React.Component<MainStoreInjected> {
     return (
       <div className="AppHeader">
         <div>
-          <img src={logo} alt={'Logo'}/>
+          <img src={logo} alt={this.props.intl.formatMessage({id: 'common.alt.logo'})}/>
         </div>
         <div className="user-info">
+          <LanguageSwitcher className='language-switcher-header'/>
           <span>{appState.userName}</span>
           <Button ghost={true}
                   icon='logout'
@@ -30,9 +33,9 @@ class AppHeader extends React.Component<MainStoreInjected> {
 
   showLogoutConfirm = () => {
     Modal.confirm({
-      title: 'Are you sure you want to logout?',
-      okText: 'Logout',
-      cancelText: 'Cancel',
+      title: this.props.intl.formatMessage({id: 'header.logout.areYouSure'}),
+      okText: this.props.intl.formatMessage({id: 'header.logout.ok'}),
+      cancelText: this.props.intl.formatMessage({id: 'header.logout.cancel'}),
       onOk: () => {
         this.props.mainStore!.logout()
       }
@@ -41,4 +44,4 @@ class AppHeader extends React.Component<MainStoreInjected> {
 
 }
 
-export default AppHeader;
+export default injectIntl(AppHeader);

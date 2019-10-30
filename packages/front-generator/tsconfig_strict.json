@@ -3,6 +3,7 @@
     "target": "es2015",
     "module": "commonjs",
     "outDir": "./lib",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
     "noUnusedLocals": true,

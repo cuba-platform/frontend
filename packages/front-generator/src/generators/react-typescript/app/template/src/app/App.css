@@ -6,3 +6,8 @@
   max-width: 1024px;
   margin: auto;
 }
+
+.page-layout-narrow.ant-card {
+  max-width: 1024px;
+  margin: auto;
+}

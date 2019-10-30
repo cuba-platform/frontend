@@ -2,7 +2,7 @@ import * as React from "react";
 import {RouteComponentProps} from "react-router";
 import {observer} from "mobx-react";
 import <%=editComponentName%> from "./<%=editComponentName%>";
-import {<%=listComponentName%>} from "./<%=listComponentName%>";
+import <%=listComponentName%> from "./<%=listComponentName%>";
 
 type Props = RouteComponentProps<{entityId?: string}>;
 

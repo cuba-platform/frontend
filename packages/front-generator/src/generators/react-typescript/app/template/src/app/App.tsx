@@ -10,6 +10,8 @@ import {NavLink, Route, Switch} from "react-router-dom";
 import HomePage from "./home/HomePage";
 import {mainRoutes} from "../routing";
 import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
+import {CenteredLoader} from './CenteredLoader';
+import {FormattedMessage} from 'react-intl';
 
 @injectMainStore
 @observer
@@ -18,13 +20,11 @@ class App extends React.Component<MainStoreInjected> {
   render() {
 
     const mainStore = this.props.mainStore!;
-    const {initialized, loginRequired} = mainStore;
+    const {initialized, locale, loginRequired} = mainStore;
 
-    if (!initialized) {
+    if (!initialized || !locale) {
       return (
-        <Centered>
-          <Icon type="loading" style={{fontSize: 24}} spin={true}/>
-        </Centered>
+        <CenteredLoader/>
       )
     }
 
@@ -49,11 +49,15 @@ class App extends React.Component<MainStoreInjected> {
             <Menu mode="inline"
                   style={{height: '100%', borderRight: 0}}>
               <Menu.Item key="1">
-                <NavLink to={'/'}><Icon type="home"/>Home</NavLink>
+                <NavLink to={'/'}><Icon type="home"/>
+                  <FormattedMessage id='router.home' />
+                </NavLink>
               </Menu.Item>
               {mainRoutes.map((route) =>
                 <Menu.Item key={route.menuLink}>
-                  <NavLink to={route.menuLink}><Icon type="bars"/>{route.caption}</NavLink>
+                  <NavLink to={route.menuLink}><Icon type="bars"/>
+                    <FormattedMessage id={'router.' + route.caption} />
+                  </NavLink>
                 </Menu.Item>
               )}
             </Menu>

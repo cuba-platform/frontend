@@ -10,6 +10,8 @@ import {CUBA_APP_URL} from "./config";
 
 import 'antd/dist/antd.css';
 import './index.css';
+import {antdLocaleMapping, messagesMapping} from './i18n/i18nMappings';
+import 'moment/locale/ru';
 
 export const cubaREST = initializeApp({
   name: '<%=project.namespace%>',
@@ -18,7 +20,7 @@ export const cubaREST = initializeApp({
 });
 
 ReactDOM.render(
-  <CubaAppProvider cubaREST={cubaREST}>
+  <CubaAppProvider cubaREST={cubaREST} messagesMapping={messagesMapping} antdLocaleMapping={antdLocaleMapping}>
     <HashRouter>
       <Route component={App}/>
     </HashRouter>

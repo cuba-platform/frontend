@@ -234,6 +234,35 @@ if by the '-' character then descending. If there is no special character before
 It shall be used instead of redefining `columns` in `tableProps` if the goal is to extend rather that fully replace the existing
 custom column-related functionality.
 
+#### i18n
+
+i18n is powered by [react-intl](https://github.com/formatjs/react-intl) library.
+
+Out of the box React client supports `en` and `ru` locales.
+
+##### To add new localized content
+
+- Add new messages to `src/i18n/{locale}.json` files
+- Refer to them from your code using standard `react-intl` components or API (see [documentation](https://github.com/formatjs/react-intl/blob/master/docs/README.md))
+ 
+##### To override existing messages
+
+Simply replace existing messages in `src/i18n/{locale}.json` files.
+This way you can override messages in client app, `cuba-react` components and some of the messages in `antd` components. 
+
+##### Adding support for new locales
+
+- Add a corresponding `{locale}.json` message pack. 
+Note that it shall contain messages for `cuba-react` components (keys starting with `cuba-react`) 
+and `antd` `Form` validation messages (keys starting with `antd.form.validation`)
+- Create a mapping between locale and message pack by modifying `messagesMapping` in `src/i18n/i18nMappings.ts`
+- Create a mapping between locale and `antd/es/locale-provider/Locale` object by modifying `antdLocaleMapping` in `src/i18n/i18nMappings.ts`.
+> This is required because most of the messages in `antd` components are translated by telling `antd` to use one of the predefined locales.
+> An extensive list of locales supported by `antd` can be found [here](https://ant.design/docs/react/i18n).
+- Add import of corresponding [moment](https://github.com/moment/moment) locale to `index.tsx`, e.g. `import 'moment/locale/ru';`
+> This is required because some of `antd` components use localized messages from `moment`.
+- Add means of switching to the new locale. E.g. if you are using the default `LanguageSwitcher` - add an additional locale option into it.
+
 #### Hot Deploy and Dev Server
 
 In order to run development server, use the following command:

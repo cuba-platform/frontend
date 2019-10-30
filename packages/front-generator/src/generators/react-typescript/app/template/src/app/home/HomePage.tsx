@@ -1,11 +1,12 @@
 import * as React from "react";
+import {FormattedMessage} from 'react-intl';
 
 class HomePage extends React.Component {
 
   render() {
     return(
       <div>
-        Welcome to <%=title%>!
+        <FormattedMessage id='home.welcome'/> <%=title%>!
       </div>
     )
   }
