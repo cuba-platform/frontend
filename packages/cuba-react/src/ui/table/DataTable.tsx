@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {Button, Checkbox, Icon, Spin, Table} from 'antd';
+import {Button, Icon, Spin, Table} from 'antd';
 import {
   ColumnFilterItem,
   ColumnProps,
@@ -16,11 +16,13 @@ import {
   MetaPropertyInfo,
 } from '@cuba-platform/rest';
 import {observer} from 'mobx-react';
-import CustomFilter, {ComparisonType, DataTableCustomFilterProps} from './DataTableCustomFilter';
+import {DataTableCustomFilter as CustomFilter, ComparisonType, DataTableCustomFilterProps} from './DataTableCustomFilter';
 import './DataTable.css';
 import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
 import {getPropertyInfo, WithId} from '../../util/metadata';
 import {DataCollectionStore} from '../../data/Collection';
+import {DataTableCell} from './DataTableCell';
+import {FormattedMessage} from 'react-intl';
 
 export interface DataTableProps<E> extends MainStoreInjected {
   dataCollection: DataCollectionStore<E>,
@@ -234,7 +236,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
                 onClick={this.clearFilters}
                 type='link'>
           <Icon type='filter' />
-          <span>Clear filters</span>
+          <span><FormattedMessage id='cubaReact.dataTable.clearAllFilters'/></span>
         </Button>
       );
     } else {
@@ -273,20 +275,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
         filteredValue: (this.filters && this.filters[property])
           ? this.filters[property].slice() // Turn ObservableArray into plain array
           : null,
-        render: (text: string | number | boolean) => {
-          if (propertyInfo.type === 'boolean') {
-            return (
-              <Checkbox
-                checked={text as boolean}
-                disabled={true}
-              />
-            );
-          } else {
-            return (
-              <div>{text}</div>
-            );
-          }
-        }
+        render: this.renderCell.bind(this, propertyInfo)
       };
 
       if (this.getPropertyInfoNN(property).attributeType !== 'ENUM') {
@@ -296,11 +285,15 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
         };
       }
 
-      const columnProps = { ...defaultColumnProps, ...this.props.columnProps };
-
-      return columnProps;
+      return { ...defaultColumnProps, ...this.props.columnProps };
     });
   };
+
+  renderCell = (propertyInfo: MetaPropertyInfo, text: any) => DataTableCell({
+    text: text,
+    propertyInfo: propertyInfo,
+    mainStore: this.props.mainStore!
+  });
 
   generateFilters(propertyName: string): ColumnFilterItem[] {
     const propertyInfo: MetaPropertyInfo = this.getPropertyInfoNN(propertyName);

@@ -7,6 +7,7 @@ import {observer} from 'mobx-react';
 import {UploadProps} from 'antd/es/upload';
 import {UploadFile} from 'antd/es/upload/interface';
 import './FileUpload.css';
+import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 export interface FileUploadProps {
   value?: FileInfo, // coming from Ant Design form field decorator
@@ -22,7 +23,7 @@ export interface FileInfo {
 }
 
 @observer
-export class FileUpload extends React.Component<FileUploadProps> {
+class FileUploadComponent extends React.Component<FileUploadProps & WrappedComponentProps> {
 
   @observable
   fileList: UploadFile[] = [];
@@ -60,7 +61,7 @@ export class FileUpload extends React.Component<FileUploadProps> {
     fileList = fileList.slice(-1); // Limit to a single file
 
     if (info.file.status === 'error') {
-      message.error('File upload failed');
+      message.error(this.props.intl.formatMessage({id: 'cubaReact.fileUpload.uploadFailed'}));
     }
 
     if (info.file.status === 'done') {
@@ -112,6 +113,11 @@ export class FileUpload extends React.Component<FileUploadProps> {
       onChange: this.handleChange,
       onPreview: this.handlePreview,
       onRemove: this.handleRemove,
+      showUploadList: {
+        showDownloadIcon: false,
+        showPreviewIcon: true,
+        showRemoveIcon: true,
+      },
       className: this.props.enableFullWidth ? 'file-upload-full-width-enabled' : '',
     };
 
@@ -137,13 +143,17 @@ function FileUploadDropArea(props: FileUploadDropAreaProps) {
     ? (
       <div className='file-upload-drop-area'>
         <Icon className='file-upload-drop-area__icon-replace' type='upload' />
-        <span className='file-upload-drop-area__text-replace'>Upload a different file by clicking or dragging file to this area</span>
+        <span className='file-upload-drop-area__text-replace'>
+          <FormattedMessage id='cubaReact.fileUpload.replace'/>
+        </span>
       </div>
     )
     : (
       <div className='file-upload-drop-area'>
         <Icon className='file-upload-drop-area__icon-upload' type='upload' />
-        <div className='file-upload-drop-area__text-upload'>Click or drag file to this area to upload</div>
+        <div className='file-upload-drop-area__text-upload'>
+          <FormattedMessage id='cubaReact.fileUpload.upload'/>
+        </div>
       </div>
     );
 }
@@ -151,3 +161,10 @@ function FileUploadDropArea(props: FileUploadDropAreaProps) {
 function isImageFile(fileName: string): boolean {
   return !!fileName.match('.*(jpg|jpeg|gif|png)$');
 }
+
+const fileUpload =
+  injectIntl(
+    FileUploadComponent
+  );
+
+export {fileUpload as FileUpload};

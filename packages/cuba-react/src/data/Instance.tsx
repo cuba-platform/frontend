@@ -137,7 +137,7 @@ export class DataInstanceStore<T> implements DataContainer {
           }
         }
 
-        if (type === "date") {
+        if (isTemporalType(type)) {
           fields[propertyName] = moment(entity[propertyName]);
           return fields;
         } else {
@@ -199,4 +199,8 @@ export class Instance<E> extends React.Component<DataInstanceProps<E>> {
     const {item, status, load, commit} = this.store;
     return {...{item, status, load, commit}};
   }
+}
+
+function isTemporalType(type: string): boolean {
+  return ["date", "time", "dateTime"].indexOf(type) > -1;
 }

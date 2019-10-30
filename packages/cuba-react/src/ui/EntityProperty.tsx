@@ -2,6 +2,8 @@ import * as React from "react";
 import {injectMainStore, MainStoreInjected} from "../app/MainStore";
 import {observer} from "mobx-react";
 import {toJS} from "mobx";
+import {getEnumCaption, getPropertyInfo} from '../util/metadata';
+import {MetaPropertyInfo} from '@cuba-platform/rest';
 
 type Props = MainStoreInjected & {
   entityName: string;
@@ -11,27 +13,40 @@ type Props = MainStoreInjected & {
   value: any;
 }
 
-const EntityPropertyFormattedValue = (props: Props) => {
+const EntityPropertyFormattedValue = observer((props: Props) => {
     const {
       entityName,
       propertyName,
       value,
-      mainStore,
       showLabel = true,
       hideIfEmpty = true,
     } = props;
     if (hideIfEmpty && value == null) {
       return null;
     }
-    if (mainStore == null || mainStore.messages == null || !showLabel) {
+    if (props.mainStore!.messages == null || !showLabel) {
       return <div>{formatValue(toJS(value))}</div>;
     }
-    const {messages} = mainStore;
-    const label: string = messages[entityName + '.' + propertyName];
+
+    const label: string = props.mainStore!.messages![entityName + '.' + propertyName];
+
+    const propertyInfo: MetaPropertyInfo | null = getPropertyInfo(
+      props.mainStore!.metadata!,
+      entityName,
+      propertyName);
+
+    if (!propertyInfo) {
+      throw new Error('Cannot find MetaPropertyInfo for property ' + propertyName);
+    }
+
+    const displayValue = propertyInfo.attributeType === 'ENUM'
+      ? getEnumCaption(value, propertyInfo, props.mainStore!.enums!)
+      : toJS(value);
+
     return label != null
-      ? <div><strong>{label}:</strong> {formatValue(toJS(value))}</div>
-      : <div>{formatValue(toJS(value))}</div>
-};
+      ? <div><strong>{label}:</strong> {formatValue(displayValue)}</div>
+      : <div>{formatValue(displayValue)}</div>
+});
 
 export const EntityProperty = injectMainStore(observer((props: Props) =>
     <EntityPropertyFormattedValue {...props}/>));

@@ -4,6 +4,7 @@ import * as React from 'react';
 import {action, observable} from 'mobx';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {ReactNode} from 'react';
+import {injectIntl, WrappedComponentProps} from 'react-intl';
 
 interface DataTableListEditorDateTimePickerProps {
   id: string;
@@ -13,7 +14,7 @@ interface DataTableListEditorDateTimePickerProps {
   onInputConfirm: () => void;
 }
 
-export class DataTableListEditorDateTimePicker extends React.Component<DataTableListEditorDateTimePickerProps> {
+class DataTableListEditorDateTimePickerComponent extends React.Component<DataTableListEditorDateTimePickerProps & WrappedComponentProps> {
   @observable.ref moment!: Moment;
 
   @action
@@ -35,14 +36,14 @@ export class DataTableListEditorDateTimePicker extends React.Component<DataTable
     return (
       <div style={{whiteSpace: 'nowrap'}} className={'data-table-custom-filter-form-item-group'}>
         <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-          {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: 'Required field'}] })(
+          {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
             <DatePicker placeholder='YYYY-MM-DD'
                         onChange={this.onMomentChange}
             />
           )}
         </Form.Item>
         <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-          {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: 'Required field'}] })(
+          {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
             <TimePicker placeholder='HH:mm:ss'
                         defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
                         onChange={this.onMomentChange}
@@ -61,3 +62,10 @@ export class DataTableListEditorDateTimePicker extends React.Component<DataTable
     );
   }
 }
+
+const dataTableListEditorDateTimePicker =
+    injectIntl(
+      DataTableListEditorDateTimePickerComponent
+    );
+
+export {dataTableListEditorDateTimePicker as DataTableListEditorDateTimePicker};

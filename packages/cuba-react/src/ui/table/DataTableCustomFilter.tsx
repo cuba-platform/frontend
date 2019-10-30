@@ -13,6 +13,7 @@ import {getCubaREST} from '../../app/CubaAppProvider';
 import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
 import {getPropertyInfo, WithId} from '../../util/metadata';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
+import {injectIntl, WrappedComponentProps, FormattedMessage} from 'react-intl';
 
 export interface CaptionValuePair {
   caption: string;
@@ -39,12 +40,12 @@ enum OperatorGroup {
 
 @injectMainStore
 @observer
-class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableCustomFilterProps> {
+class DataTableCustomFilterComponent<E extends WithId>
+  extends React.Component<DataTableCustomFilterProps & WrappedComponentProps> {
 
   @observable nestedEntityOptions: CaptionValuePair[] = [];
   @observable loading = true;
 
-  readonly VALIDATION_REQUIRED_MSG = 'Required field'; // TODO i18n
   // tslint:disable-next-line:ban-types
   getFieldDecorator!: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
 
@@ -64,7 +65,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
     return this.props.valuesByProperty[this.props.entityProperty]
   }
 
-  constructor(props: DataTableCustomFilterProps) {
+  constructor(props: DataTableCustomFilterProps & WrappedComponentProps) {
     super(props);
 
     this.setDefaultYesNoDropdown();
@@ -92,7 +93,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
         )
         .catch(
           () => {
-            message.error('Failed to load nested entities list');
+            message.error(this.props.intl.formatMessage({id: 'cubaReact.dataTable.failedToLoadNestedEntities'}));
             this.loading = false;
           }
         );
@@ -144,6 +145,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
     this.props.form.resetFields();
     this.operator = this.getDefaultOperator();
 
+    // @ts-ignore
     this.props.filterProps.clearFilters!(this.props.filterProps.selectedKeys!);
     this.props.filterProps.confirm!();
   };
@@ -209,7 +211,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
     if (this.loading) {
       return (
         <Spin
-          tip='Loading...'
+          tip={this.props.intl.formatMessage({id: 'cubaReact.dataTable.loading'})}
           style={{margin: '12px'}}
         />
       );
@@ -243,13 +245,13 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
             <Button htmlType='submit'
                 style={{marginRight: '12px'}}
                 type='link'>
-              OK
+              <FormattedMessage id='cubaReact.dataTable.ok'/>
             </Button>
             <Button className='entity-filter-ui__element'
                 htmlType='button'
                 type='link'
                 onClick={this.resetFilter}>
-              Reset
+              <FormattedMessage id='cubaReact.dataTable.reset'/>
             </Button>
           </div>
         </div>
@@ -300,7 +302,6 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
   }
 
   getOperatorCaption = (operator: ComparisonType): string => {
-    // TODO Mock. Where to get localized captions for operators?
     switch (operator) {
       case '=':
       case '>':
@@ -310,21 +311,14 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
       case '<>':
         return operator;
       case 'startsWith':
-        return 'starts with'; // TODO mock
       case 'endsWith':
-        return 'ends with'; // TODO mock
       case 'contains':
-        return 'contains'; // TODO mock
       case 'doesNotContain':
-        return "doesn't contain"; // TODO mock
       case 'in':
-        return 'in'; // TODO mock
       case 'notIn':
-        return 'not in'; // TODO mock
       case 'notEmpty':
-        return 'is set'; // TODO mock
       case 'inInterval':
-        return 'in interval'; // TODO mock
+        return this.props.intl.formatMessage({ id: 'cubaReact.dataTable.operator.' + operator });
       default:
         throw new Error(`Unexpected ComparisonType ${operator}`);
     }
@@ -460,12 +454,11 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
     }
   }
 
-  // TODO i18n for validation messages for all form elements
   @computed
   get textInputField(): ReactNode {
     return (
       <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.VALIDATION_REQUIRED_MSG}] })(
+        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <Input onChange={this.onTextInputChange}/>
         )}
       </Form.Item>
@@ -476,7 +469,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
   get numberInputField(): ReactNode {
     return (
       <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.VALIDATION_REQUIRED_MSG}] })(
+        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <InputNumber onChange={this.setValue}/>
         )}
       </Form.Item>
@@ -487,7 +480,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
   get selectField(): ReactNode {
     return (
       <Form.Item className={'data-table-custom-filter-form-item'}>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, {initialValue: null, rules: [{required: true, message: this.VALIDATION_REQUIRED_MSG}]})(
+        {this.getFieldDecorator(`${this.props.entityProperty}.input`, {initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}]})(
           <Select dropdownMatchSelectWidth={false}
               style={{ minWidth: '60px' }}
               onSelect={this.setValue}>
@@ -509,7 +502,6 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
     })
   }
 
-  // TODO get localized captions
   @computed
   get yesNoSelectField(): ReactNode {
     return (
@@ -518,8 +510,12 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
           <Select dropdownMatchSelectWidth={false}
               style={{ minWidth: '60px' }}
               onSelect={this.setValue}>
-            <Select.Option value='true'>Yes</Select.Option>
-            <Select.Option value='false'>No</Select.Option>
+            <Select.Option value='true'>
+              <FormattedMessage id='cubaReact.dataTable.yes'/>
+            </Select.Option>
+            <Select.Option value='false'>
+              <FormattedMessage id='cubaReact.dataTable.no'/>
+            </Select.Option>
           </Select>
         )}
       </Form.Item>
@@ -556,7 +552,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
   get datePickerField(): ReactNode {
     return (
       <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.VALIDATION_REQUIRED_MSG}] })(
+        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <DatePicker placeholder='YYYY-MM-DD' onChange={this.onDatePickerChange}/>
         )}
       </Form.Item>
@@ -567,7 +563,7 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
   get timePickerField(): ReactNode {
     return (
       <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.VALIDATION_REQUIRED_MSG}] })(
+        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <TimePicker placeholder='HH:mm:ss'
                 defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
                 onChange={this.onTimePickerChange}/>
@@ -582,12 +578,12 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
       <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
         <div className={'data-table-custom-filter-form-item-group'}>
           <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-            {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.VALIDATION_REQUIRED_MSG}] })(
+            {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
               <DatePicker placeholder='YYYY-MM-DD'/>
             )}
           </Form.Item>
           <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-            {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.VALIDATION_REQUIRED_MSG}] })(
+            {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
               <TimePicker placeholder='HH:mm:ss'
                     defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
                     onChange={this.onDateTimePickerChange}/>
@@ -599,8 +595,6 @@ class DataTableCustomFilter<E extends WithId> extends React.Component<DataTableC
   }
 
 }
-
-export default Form.create<DataTableCustomFilterProps>()(DataTableCustomFilter);
 
 function determineOperatorGroup(operator: ComparisonType): OperatorGroup {
   switch (operator) {
@@ -656,5 +650,14 @@ function getAvailableOperators(propertyInfo: MetaPropertyInfo): ComparisonType[]
 
 function isComplexOperator(operator: ComparisonType): boolean {
   const complexOperators: string[] = ['in', 'notIn', 'inInterval'];
-  return complexOperators.includes(operator);
+  return complexOperators.indexOf(operator) > -1;
 }
+
+const dataTableCustomFilter =
+  Form.create<DataTableCustomFilterProps>()(
+    injectIntl(
+      DataTableCustomFilterComponent
+    )
+  );
+
+export {dataTableCustomFilter as DataTableCustomFilter};
