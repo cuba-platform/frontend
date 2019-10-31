@@ -173,7 +173,7 @@ function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplatePrope
 function createFormatStream() {
   return through2.obj(function (file, enc, callback) {
 
-    if (file.path.endsWith('.ts')) {
+    if (file.path.endsWith('.ts') || file.path.endsWith('.tsx')) {
       const contents = Buffer.from(file.contents).toString('utf8');
       file.contents = new Buffer(prettier.format(contents, {parser: "typescript"}));
     }
