@@ -2,7 +2,8 @@ import {EntityInfo, StudioTemplateProperty, StudioTemplatePropertyType, ViewInfo
 import {Answers, Question as YeomanQuestion} from "yeoman-generator";
 import {getEntitiesArray, ProjectModel} from './model/cuba-model';
 
-type Choice = string | {name: string, value: any, short?: string};
+export type ObjectChoice = {name: string, value: any, short?: string};
+export type Choice = string | ObjectChoice;
 
 interface Question extends YeomanQuestion {
   choices?: Choice[] | ((previousAnswers: Answers) => Choice[]), // Property is missing in yeoman typings

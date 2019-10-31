@@ -13,16 +13,31 @@ export function writeI18nMessages(
   const existingMessagesEn = fs.readJSON(i18nMessagesPathEn);
   const existingMessagesRu = fs.readJSON(i18nMessagesPathRu);
 
-  const resultMessagesEn = {
-    ...enJson,
+  const {enOut, ruOut} = mergeI18nMessages(existingMessagesEn, enJson, existingMessagesRu, ruJson, className);
+
+  fs.writeJSON(i18nMessagesPathEn, enOut);
+  fs.writeJSON(i18nMessagesPathRu, ruOut);
+}
+
+export function mergeI18nMessages(
+  enExisting: Record<string, string>,
+  enTemplate: Record<string, string>,
+  ruExisting: Record<string, string>,
+  ruTemplate: Record<string, string>,
+  className: string
+): {
+  enOut: Record<string, string>, ruOut: Record<string, string>
+} {
+  const enOut = {
+    ...enTemplate,
     [`router.${className}`]: className,
-    ...existingMessagesEn
-  };
-  const resultMessagesRu = {
-    ...ruJson,
-    ...existingMessagesRu
+    ...enExisting
   };
 
-  fs.writeJSON(i18nMessagesPathEn, resultMessagesEn);
-  fs.writeJSON(i18nMessagesPathRu, resultMessagesRu);
+  const ruOut = {
+    ...ruTemplate,
+    ...ruExisting
+  };
+
+  return {enOut, ruOut};
 }

@@ -3,7 +3,17 @@
     "name": "model-playground",
     "namespace": "mpg",
     "modulePrefix": "app",
-    "modelPrefix": "app"
+    "modelPrefix": "app",
+    "locales": [
+      {
+        "code": "en",
+        "caption": "English"
+      },
+      {
+        "code": "ru",
+        "caption": "Russian"
+      }
+    ]
   },
   "entities": [
     {
