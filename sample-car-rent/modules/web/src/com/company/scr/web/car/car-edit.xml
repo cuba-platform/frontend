@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editCaption"
+        class="com.company.scr.web.car.CarEdit"
+        datasource="carDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.company.scr.web.car">
+    <dsContext>
+        <datasource id="carDs"
+                    class="com.company.scr.entity.Car"
+                    view="car-edit"/>
+        <collectionDatasource id="garagesDs"
+                              class="com.company.scr.entity.Garage"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from scr$Garage e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="carDs">
+            <column width="250px">
+                <field id="manufacturer"/>
+                <field id="regNumber"/>
+                <field id="purchaseDate"/>
+                <field id="wheelOnRight"/>
+                <field id="carType"/>
+                <field id="ecoRank"/>
+                <field id="garage"
+                       datasource="carDs"
+                       optionsDatasource="garagesDs"/>
+                <field id="model"/>
+                <field id="price"/>
+                <field id="mileage"/>
+                <field id="technicalCertificate"/>
+                <field id="photo"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

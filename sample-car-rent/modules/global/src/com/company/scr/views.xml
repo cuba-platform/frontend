@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="com.company.scr.entity.Car"
+          extends="_local"
+          name="car-edit">
+        <property name="garage"
+                  view="_minimal"/>
+        <property name="technicalCertificate"
+                  view="_minimal"/>
+        <property name="photo"
+                  view="_minimal"/>
+    </view>
+    <view class="com.company.scr.entity.FavoriteCar"
+          extends="_local"
+          name="favoriteCar-view">
+        <property name="car"
+                  view="_minimal"/>
+        <property name="user"
+                  view="_minimal"/>
+    </view>
+    <view class="com.company.scr.entity.FavoriteCar"
+          extends="_local"
+          name="favoriteCar-edit">
+        <property name="car"
+                  view="_minimal"/>
+        <property name="user"
+                  view="_minimal"/>
+    </view>
+    <view class="com.company.scr.entity.CarRent"
+          extends="_local"
+          name="carRent-edit">
+        <property name="car"
+                  view="_minimal"/>
+    </view>
+    <view entity="scr$SparePart" name="sparePart-view" extends="_local">
+        <property name="spareParts" view="_minimal"/>
+    </view>
+</views>

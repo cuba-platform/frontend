@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
+    <include file="com/company/scr/screens.xml"/>
+    <screen id="scr$Car.browse"
+            template="com/company/scr/web/car/car-browse.xml"/>
+    <screen id="scr$Car.edit"
+            template="com/company/scr/web/car/car-edit.xml"/>
+    <screen id="scr$Garage.browse"
+            template="com/company/scr/web/garage/garage-browse.xml"/>
+    <screen id="scr$Garage.edit"
+            template="com/company/scr/web/garage/garage-edit.xml"/>
+    <screen id="scr$FavoriteCar.browse"
+            template="com/company/scr/web/favoritecar/favorite-car-browse.xml"/>
+    <screen id="scr$CarRent.browse"
+            template="com/company/scr/web/carrent/car-rent-browse.xml"/>
+    <screen id="scr$TechnicalCertificate.browse"
+            template="com/company/scr/web/technicalcertificate/technical-certificate-browse.xml"/>
+</screen-config>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2.xsd">
+
+    <service name="scr_FavoriteService">
+        <method name="addFavorite">
+            <param name="carId" type="java.util.UUID"/>
+            <param name="notes" type="java.lang.String"/>
+        </method>
+
+        <method name="addFavorite">
+            <param name="car" type="com.company.scr.entity.Car"/>
+            <param name="notes" type="java.lang.String"/>
+        </method>
+
+        <method name="addFavorite">
+            <param name="favInfo" type="com.company.scr.service.FavoriteService.FavInfo"/>
+        </method>
+
+        <method name="getFavorites"/>
+
+        <method name="getFavoritesByType">
+            <param name="carType" type="com.company.scr.entity.CarType"/>
+        </method>
+    </service>
+
+</services>

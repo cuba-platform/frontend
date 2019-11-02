@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="com.company.scr.web.technicalcertificate.TechnicalCertificateBrowse"
+        focusComponent="technicalCertificatesTable"
+        lookupComponent="technicalCertificatesTable"
+        messagesPack="com.company.scr.web.technicalcertificate">
+    <dsContext>
+        <datasource id="technicalCertificateDs"
+                    class="com.company.scr.entity.TechnicalCertificate"
+                    view="_local"/>
+        <groupDatasource id="technicalCertificatesDs"
+                         class="com.company.scr.entity.TechnicalCertificate"
+                         view="_local">
+            <query>
+                <![CDATA[select e from scr$TechnicalCertificate e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <actions>
+        <action id="save"
+                caption="mainMsg://actions.Ok"
+                icon="icons/ok.png"
+                invoke="save"
+                shortcut="CTRL-ENTER"/>
+        <action id="cancel"
+                caption="mainMsg://actions.Cancel"
+                icon="icons/cancel.png"
+                invoke="cancel"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <split id="split"
+               height="100%"
+               orientation="horizontal"
+               reversePosition="true"
+               width="100%">
+            <vbox id="lookupBox"
+                  expand="technicalCertificatesTable"
+                  height="100%"
+                  margin="false,true,false,false"
+                  spacing="true">
+                <filter id="filter"
+                        applyTo="technicalCertificatesTable"
+                        datasource="technicalCertificatesDs">
+                    <properties include=".*"/>
+                </filter>
+                <groupTable id="technicalCertificatesTable"
+                            width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="certNumber"/>
+                    </columns>
+                    <rows datasource="technicalCertificatesDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="technicalCertificatesTable.create"/>
+                        <button id="editBtn"
+                                action="technicalCertificatesTable.edit"/>
+                        <button id="removeBtn"
+                                action="technicalCertificatesTable.remove"/>
+                    </buttonsPanel>
+                </groupTable>
+            </vbox>
+            <vbox id="editBox"
+                  expand="fieldGroupBox"
+                  height="100%"
+                  margin="false,false,false,true"
+                  spacing="true">
+                <vbox id="fieldGroupBox">
+                    <fieldGroup id="fieldGroup"
+                                datasource="technicalCertificateDs">
+                        <column width="250px">
+                            <field id="certNumber"/>
+                        </column>
+                    </fieldGroup>
+                </vbox>
+                <hbox id="actionsPane"
+                      spacing="true"
+                      visible="false">
+                    <button id="saveBtn"
+                            action="save"/>
+                    <button id="cancelBtn"
+                            action="cancel"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>
