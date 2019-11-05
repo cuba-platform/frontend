@@ -1,23 +1,57 @@
 {
   "blankComponent": {
-    "componentName": "my-component"
+    "componentName": "BlankComponent"
   },
   "entityManagement": {
     "editView": {
       "name": "car-edit",
       "entityName": "mpg$Car"
     },
-    "editComponentName": "mpg-car-edit3",
+    "editComponentName": "CarEdit",
     "listView": {
       "name": "car-edit",
       "entityName": "mpg$Car"
     },
-    "listComponentName": "mpg-car-list3",
+    "listComponentName": "CarCards",
     "listType": "cards",
     "entity": {
       "name": "mpg$Car"
     },
-    "managementComponentName": "mpg-car-management3"
+    "managementComponentName": "CarManagement"
+  },
+  "entityManagement2": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "editComponentName": "CarEdit2",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "listComponentName": "CarList",
+    "listType": "list",
+    "entity": {
+      "name": "mpg$Car"
+    },
+    "managementComponentName": "CarManagement2"
+  },
+  "entityManagement3": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "editComponentName": "CarEdit3",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "listComponentName": "CarTable",
+    "listType": "table",
+    "entity": {
+      "name": "mpg$Car"
+    },
+    "managementComponentName": "CarManagement3"
   },
   "entityCards": {
     "entityView": {

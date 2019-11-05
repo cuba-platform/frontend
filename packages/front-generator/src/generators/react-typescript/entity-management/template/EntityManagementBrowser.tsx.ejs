@@ -1,32 +1,49 @@
-import * as React from "react";<% if (listType === 'table') { %>
-import {observable} from 'mobx';<% } %>
+import * as React from "react";
+
+<% if (listType === 'table') { %>
+  import {observable} from 'mobx';
+<% } %>
 import {observer} from "mobx-react";
-import {
-  Modal, Button,<% if (listType === 'cards') { %>
-  Card, Icon, Spin,<% } else if (listType === 'list') { %>
-  List, Icon, Spin,<% } %>
+
+import {Modal, Button,
+<% if (listType === 'cards') { %>
+  Card, Icon, Spin,
+<% } else if (listType === 'list') { %>
+  List, Icon, Spin,
+<% } %>
 } from "antd";
-import {<%=entity.className%>} from "<%= relDirShift %><%=entity.path%>";
+
+import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
 import {Link} from "react-router-dom";
-import {
-  collection, injectMainStore, MainStoreInjected,<% if (listType === 'table') { %>
-  DataTable,<% } else { %>
-  EntityProperty,<% } %>
+
+import {collection, injectMainStore, MainStoreInjected,
+<% if (listType === 'table') { %>
+  DataTable,
+<% } else { %>
+  EntityProperty,
+<% } %>
 } from "@cuba-platform/react";
+
 import {SerializedEntity} from "@cuba-platform/rest";
-import {<%=className%>} from "./<%=className%>";
+import {<%= className %>} from "./<%= className %>";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 @injectMainStore
 @observer
-class <%=listComponentName%>Component extends React.Component<MainStoreInjected & WrappedComponentProps> {
+class <%= listComponentName %>Component extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
-  dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=listView.name%>', sort: '-updateTs'});
-  fields = [<%listView.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
-<% if (listType === 'table') { %>
-  @observable selectedRowId: string | undefined;
-<% } %>
-  showDeletionDialog = (e: SerializedEntity<<%=entity.className%>>) => {
+  dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= listView.name %>', sort: '-updateTs'});
+
+  fields = [
+  <% listView.allProperties.forEach(p => { %>
+    '<%= p.name %>',
+  <% }) %>
+  ];
+
+  <% if (listType === 'table') { %>
+    @observable selectedRowId: string | undefined;
+  <% } %>
+  showDeletionDialog = (e: SerializedEntity<<%= entity.className %>>) => {
     Modal.confirm({
       title: this.props.intl.formatMessage(
         {id: 'management.browser.delete.areYouSure'},
@@ -34,17 +51,21 @@ class <%=listComponentName%>Component extends React.Component<MainStoreInjected 
       ),
       okText: this.props.intl.formatMessage({id: 'management.browser.delete.ok'}),
       cancelText: this.props.intl.formatMessage({id:'management.browser.delete.cancel'}),
-      onOk: () => {<% if (listType === 'table') { %>
-        this.selectedRowId = undefined;<% } %>
+      onOk: () => {
+      <% if (listType === 'table') { %>
+        this.selectedRowId = undefined;
+      <% } %>
         return this.dataCollection.delete(e);
       }
     });
   };
+
+  <% /* TABLE COMPONENT*/ %>
 <% if (listType === 'table') { %>
   render() {
     const buttons = (
       [
-        (<Link to={<%=className%>.PATH + '/' + <%=className%>.NEW_SUBPATH} key='create'>
+        (<Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH} key='create'>
           <Button htmlType='button'
                   style={{margin: '0 12px 12px 0'}}
                   type='primary'
@@ -52,7 +73,7 @@ class <%=listComponentName%>Component extends React.Component<MainStoreInjected 
             <span><FormattedMessage id='management.browser.create'/></span>
           </Button>
         </Link>),
-        (<Link to={<%=className%>.PATH + '/' + this.selectedRowId} key='edit'>
+        (<Link to={<%= className %>.PATH + '/' + this.selectedRowId} key='edit'>
           <Button htmlType='button'
                   style={{margin: '0 12px 12px 0'}}
                   disabled={!this.selectedRowId}
@@ -81,9 +102,9 @@ class <%=listComponentName%>Component extends React.Component<MainStoreInjected 
     );
   }
 
-  getRecordById(id: string): SerializedEntity<<%=entity.className%>> {
-    const record: SerializedEntity<<%=entity.className%>> | undefined =
-      this.dataCollection.items.find(record => record.id === id);
+  getRecordById(id: string): SerializedEntity<<%= entity.className %>> {
+    const record: SerializedEntity<<%= entity.className %>> | undefined =
+    this.dataCollection.items.find(record => record.id === id);
 
     if (!record) {
       throw new Error('Cannot find entity with id ' + id);
@@ -98,7 +119,9 @@ class <%=listComponentName%>Component extends React.Component<MainStoreInjected 
 
   deleteSelectedRow = () => {
     this.showDeletionDialog(this.getRecordById(this.selectedRowId!));
-  };  
+  };
+
+  <% /* CARD\LIST COMPONENT*/ %>
 <% } else { %>
   render() {
     const {
@@ -113,9 +136,9 @@ class <%=listComponentName%>Component extends React.Component<MainStoreInjected 
     }
 
     return (
-      <div <% if (listType !== 'table') {%>className='page-layout-narrow'<%}%>>
+      <div <% if (listType !== 'table') { %>className='page-layout-narrow'<% } %>>
         <div style={{marginBottom: '12px'}}>
-          <Link to={<%=className%>.PATH + '/' + <%=className%>.NEW_SUBPATH}>
+          <Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH}>
             <Button htmlType='button'
                     type='primary'
                     icon='plus'>
@@ -123,30 +146,35 @@ class <%=listComponentName%>Component extends React.Component<MainStoreInjected 
             </Button>
           </Link>
         </div>
-        <% if (listType === 'list') { %>
-         <List itemLayout="horizontal"
-            bordered
-            dataSource={items}
-            renderItem={item =>
-              <List.Item actions={[
-                  <Icon type='delete'
-                        key='delete'
-                        onClick={() => this.showDeletionDialog(item)}/>,
-                  <Link to={<%=className%>.PATH + '/' + item.id} key='edit'>
-                    <Icon type='edit'/>
-                  </Link>
-              ]}>
-                <div style={{flexGrow: 1}}>
-                {this.fields.map(p =>
-                  <EntityProperty entityName={<%=entity.className%>.NAME}
-                                  propertyName={p}
-                                  value={item[p]}
-                                  key={p}/>
-                )}
-                </div>
-              </List.Item>
+
+<%/* LIST */%>
+    <% if (listType === 'list') { %>
+
+        <List itemLayout="horizontal"
+              bordered
+              dataSource={items}
+              renderItem={item =>
+                <List.Item actions={[
+                    <Icon type='delete'
+                          key='delete'
+                          onClick={() => this.showDeletionDialog(item)}/>,
+                    <Link to={<%= className %>.PATH + '/' + item.id} key='edit'>
+                      <Icon type='edit'/>
+                    </Link>
+                ]}>
+                  <div style={{flexGrow: 1}}>
+                  {this.fields.map(p =>
+                    <EntityProperty entityName={<%= entity.className %>.NAME}
+                                    propertyName={p}
+                                    value={item[p]}
+                                    key={p}/>
+                  )}
+                  </div>
+                </List.Item>
             }/>
-        <% } else { %>
+
+<%/* CARD */%>
+    <% } else { %>
         {items == null || items.length === 0 ?
           <p><FormattedMessage id='management.browser.noItems'/></p> : null}
         {items.map(e =>
@@ -157,12 +185,12 @@ class <%=listComponentName%>Component extends React.Component<MainStoreInjected 
                   <Icon type='delete'
                         key='delete'
                         onClick={() => this.showDeletionDialog(e)}/>,
-                  <Link to={<%=className%>.PATH + '/' + e.id} key='edit'>
+                  <Link to={<%= className %>.PATH + '/' + e.id} key='edit'>
                     <Icon type='edit'/>
                   </Link>
                 ]}>
                 {this.fields.map(p =>
-                  <EntityProperty entityName={<%=entity.className%>.NAME}
+                  <EntityProperty entityName={<%= entity.className %>.NAME}
                                   propertyName={p}
                                   value={e[p]}
                                   key={p}/>

@@ -30,8 +30,8 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
     }
     this.model = entityCardsAnswersToModel(this.answers, this.options.dirShift);
     this.fs.copyTpl(
-      this.templatePath('EntityCards.tsx'),
-      this.destinationPath(this.model.className + '.tsx'), this.model
+      this.templatePath('EntityCards.tsx.ejs'),
+      this.destinationPath(this.model.className + '.tsx.ejs'), this.model
     );
 
     writeI18nMessages(this.fs, this.model.className, this.options.dirShift);

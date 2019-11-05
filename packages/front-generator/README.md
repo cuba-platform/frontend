@@ -77,6 +77,15 @@ Run locally
 npm run watch
 npx gen-cuba-front
 ```
+###Code Generation Templates
+We are using ```template``` folder inside generator to create templates from which the code will be generated. 
+Templates processed via [EJS](https://ejs.co/). 
+<br>
+Template files could be any type, 
+but for increase code readability for complex files there is ability to add ```.ejs``` suffix to template name.
+During file processing suffix will be removed. 
+This mean files ```EntityManagementEditor.tsx.ejs``` and ```EntityManagementEditor.tsx``` both will be processed to file
+```EntityManagementEditor.tsx``` and the only on different is how it will be highlighted in IDE. 
 
 ## Testing
 

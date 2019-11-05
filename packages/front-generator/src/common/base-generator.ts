@@ -39,7 +39,8 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     // @ts-ignore this.env.adapter is missing in the typings
     this.env.adapter
       .promptModule.registerPrompt('autocomplete',  AutocompletePrompt);
-    this.registerTransformStream(createFormatStream());
+    this.registerTransformStream(createEjsRenameTransform());
+    this.registerTransformStream(createFormatTransform());
   }
 
   protected async _obtainCubaProjectModel() {
@@ -170,12 +171,31 @@ function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplatePrope
   return refinedAnswers as T;
 }
 
-function createFormatStream() {
+/**
+ * Transform stream for remove .ejs extension from files. We are using this extension to improve code
+ * highlight in editor
+ */
+function createEjsRenameTransform() {
+    return through2.obj(function (file, enc, callback) {
+
+      file.basename = file.basename
+        .replace(/.ts.ejs$/, '.ts')
+        .replace(/.tsx.ejs$/, '.tsx');
+
+      this.push(file);
+      callback();
+    });
+}
+
+/**
+ * Prettier formatting transform stream for .ts and .tsx files
+ */
+function createFormatTransform() {
   return through2.obj(function (file, enc, callback) {
 
     if (file.path.endsWith('.ts') || file.path.endsWith('.tsx')) {
       const contents = Buffer.from(file.contents).toString('utf8');
-      file.contents = new Buffer(prettier.format(contents, {parser: "typescript"}));
+      file.contents = Buffer.from(prettier.format(contents, {parser: "typescript"}));
     }
 
     this.push(file);

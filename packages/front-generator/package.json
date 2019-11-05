@@ -67,17 +67,17 @@
       "src/test/**",
       "src/generators/polymer2/**",
       "src/generators/polymer2-typescript/**",
-      "src/generators/app/template/**"
+      "src/generators/*/*/template/**"
     ],
     "reporter": [
       "text",
       "html"
     ],
     "check-coverage": true,
-    "statements": 72,
-    "branches": 62,
-    "functions": 75,
-    "lines": 78
+    "statements": 83,
+    "branches": 75,
+    "functions": 90,
+    "lines": 90
   },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
   "license": "Apache-2.0"

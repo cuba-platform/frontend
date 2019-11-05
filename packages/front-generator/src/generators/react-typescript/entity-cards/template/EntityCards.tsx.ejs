@@ -1,14 +1,17 @@
 import * as React from "react";
 import {observer} from "mobx-react";
-import {<%=entity.className%>} from "<%= relDirShift %>cuba/entities/<%=entity.name%>";
+import {<%= entity.className %>} from "<%= relDirShift %>cuba/entities/<%= entity.name %>";
 import {Card, Icon} from "antd";
 import {collection, EntityProperty} from "@cuba-platform/react";
 
 @observer
-export class <%=className%> extends React.Component {
+export class <%= className %> extends React.Component {
 
-  dataCollection = collection<<%=entity.className%>>(<%=entity.className%>.NAME, {view: '<%=view.name%>', sort: '-updateTs'});
-  fields = [<%view.allProperties.forEach(p => {%>'<%=p.name%>',<%})%>];
+  dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%=view.name%>', sort: '-updateTs'});
+  fields = [<% view.allProperties.forEach(p => { %>
+    '<%= p.name %>',
+    <% }) %>
+    ];
 
   render() {
   const {status, items} = this.dataCollection;
@@ -24,7 +27,7 @@ export class <%=className%> extends React.Component {
                 key={e.id}
                 style={{marginBottom: '12px'}}>
             {this.fields.map(p =>
-              <EntityProperty entityName={<%=entity.className%>.NAME}
+              <EntityProperty entityName={<%= entity.className %>.NAME}
                               propertyName={p}
                               value={e[p]}
                               key={p}/>
