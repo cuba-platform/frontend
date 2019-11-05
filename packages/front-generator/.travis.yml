@@ -21,6 +21,11 @@ matrix:
     - name: "Test e2e:react:mpg"
       script: npm run test:e2e:react:mpg
 
+    - name: "Test e2e:react:mpg os: windows"
+      os:
+        - windows
+      script: npx mocha 'test\e2e\react-client--mpg.test.js'  -g 'test:e2e:react:mpg' --timeout 0
+
     - name: "Test e2e:react:new-project"
       script: npm run test:e2e:react:new-project
 

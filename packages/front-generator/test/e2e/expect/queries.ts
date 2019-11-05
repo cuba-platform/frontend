@@ -1,19 +1,24 @@
 import { CubaApp, FetchOptions } from "@cuba-platform/rest";
+
 import { Car } from "./entities/mpg$Car";
+
 export type queries_Car_ecoCars_params =
   | {}
   | {
-  ecoRank: string;
-}
+      ecoRank: string;
+    }
   | {
-  model: string;
-};
+      model: string;
+    };
+
 export type queries_Car_carsByType_params = {
   carType: string;
 };
+
 export type queries_FavoriteCar_allCars_params = {
   car: Car;
 };
+
 export var restQueries = {
   Car: {
     allCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {

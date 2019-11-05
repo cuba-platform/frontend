@@ -1,21 +1,26 @@
 import { CubaApp, FetchOptions } from "@cuba-platform/rest";
+
 import { Car } from "./entities/mpg$Car";
+
 import { CarType } from "./enums/enums";
+
 export type mpg_FavoriteService_addFavorite_params =
   | {
-  carId: string;
-  notes: string;
-}
+      carId: string;
+      notes: string;
+    }
   | {
-  car: Car;
-  notes: string;
-}
+      car: Car;
+      notes: string;
+    }
   | {
-  favInfo: any;
-};
+      favInfo: any;
+    };
+
 export type mpg_FavoriteService_getFavoritesByType_params = {
   carType: CarType;
 };
+
 export var restServices = {
   mpg_FavoriteService: {
     addFavorite: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (

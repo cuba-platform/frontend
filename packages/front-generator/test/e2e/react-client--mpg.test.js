@@ -1,9 +1,12 @@
 const path = require('path');
 const {promisify} = require('util');
 const rimraf = promisify(require('rimraf'));
-const {runGenerator, assertContent, init, installAndBuild, checkFormat} = require('./e2e-common')('react-typescript', 'mpg');
-const answers = require('./fixtures/react-client/answers.json');
 
+const {
+  runGenerator, assertContent, init, installAndBuild, checkFormat, runTests
+} = require('./e2e-common')('react-typescript', 'mpg');
+
+const answers = require('./fixtures/react-client/answers.json');
 const MPG_APP_DIR = 'test/e2e/generated/react-client-mpg';
 
 describe('test:e2e:react:mpg', () => {
@@ -42,6 +45,8 @@ describe('test:e2e:react:mpg', () => {
 
     await checkFormat(MPG_APP_DIR);
     await installAndBuild('mpg-model', MPG_APP_DIR);
+
+    await runTests(MPG_APP_DIR);
   });
 
 });

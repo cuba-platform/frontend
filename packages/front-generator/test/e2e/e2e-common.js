@@ -3,6 +3,7 @@ const assert = require('assert');
 const {promisify} = require('util');
 const exec = promisify(require('child_process').exec);
 const fs = require('fs');
+const prettier = require('prettier');
 
 const EXPECT_DIR = path.join('test', 'e2e', 'expect');
 const GENERATED_DIR = path.join('test', 'e2e', 'generated');
@@ -75,44 +76,32 @@ module.exports = function (generatorName, logFileSuffix) {
     logInfo(comment);
   }
 
-  function assertContent(filePath, moduleDir, multiline = true) {
-
+  function assertContent(filePath, moduleDir) {
     const expectFilePath = path.join(EXPECT_DIR, filePath);
     const actualFilePath = path.join(moduleDir, filePath);
 
-    const content = fs.readFileSync(actualFilePath, 'utf8');
-    const expect = fs.readFileSync(expectFilePath, 'utf8');
+    const expected =
+      prettier.format(fs.readFileSync(expectFilePath, 'utf8'), {parser: "typescript"})
+        .replace(/\r\n/g, '\n'); //normalise cross platform 'end of line'
 
-    assert.strictEqual(drain(content, multiline), drain(expect, multiline));
+    assert.strictEqual(fs.readFileSync(actualFilePath, 'utf8'), expected);
     logInfo(`e2e: assert file ${actualFilePath} with expect gauge ${expectFilePath} - PASSED`);
   }
-
-  function drain(content, multiline = true) {
-    const result = multiline
-      ? content
-        .replace(/^\s+/gm, '') //spaces at the line start, and empty lines
-      : content
-        .replace(/\n/g, ' ');  //multiline false - join in one line
-
-    return result
-      .replace(/\s{2,}/g, ' ') //two or more spaces with one space
-      .trim();
-  }
-
 
   async function installAndBuild(suffix, appDir) {
     const logCaption = `e2e:react-client:${suffix}:`;
     console.log(`${logCaption} generation complete, start compilation`);
 
     await cmd(`cd ${appDir} && npm install`,
-      `${logCaption} start compile react-client after generation  - npm install, path: ${fs.realpathSync(appDir)}`,
-      `${logCaption} start compile react-client after generation - npm install - DONE`);
+      `${logCaption} start install packages for react-client after generation  - npm install, path: ${fs.realpathSync(appDir)}`,
+      `${logCaption} install packages for react-client - DONE`);
 
-    await cmd(`cd ${appDir} && CI=true npm run build`,
-      `${logCaption} start compile react-client after generation - npm run build, path: ${fs.realpathSync(appDir)}`,
-      `${logCaption} start compile react-client after generation - npm run build - DONE\n-------------\n\n`);
+    const buildCommand = addEnvVars('npm run build');
+    await cmd(`cd ${appDir} && ${buildCommand}`,
+      `${logCaption} start compile react-client after generation - '${buildCommand}', path: ${fs.realpathSync(appDir)}`,
+      `${logCaption} compile react-client after generation - DONE`);
 
-    console.log(`${logCaption} react app generation test - PASSED`);
+    console.log(`${logCaption} compilation - PASSED`);
   }
 
   async function checkFormat(appDir) {
@@ -125,12 +114,30 @@ module.exports = function (generatorName, logFileSuffix) {
       `${generatorName}:${logFileSuffix}: check formatting - DONE`);
   }
 
+  async function runTests(appDir) {
+    const logCaption = `${generatorName}:${logFileSuffix}`;
+    console.log(`${logCaption} going to run test`);
+
+    const testCommand = addEnvVars('npm test');
+    await cmd(`cd ${appDir} && ${testCommand}`,
+      `${logCaption} going to run test - '${testCommand}', path: ${fs.realpathSync(appDir)}`,
+      `${logCaption} run unit tests - DONE`);
+
+    console.log(`${logCaption} run unit tests - PASSED`);
+  }
+
+  //todo make cross-platform
+  function addEnvVars(cmd) { //CI env var not needed on win
+    return (process.platform === 'linux' ? 'CI=true ' : '') + cmd;
+  }
+
   return {
     runGenerator: runGenerator,
     assertContent: assertContent,
     cmd: cmd,
     init: init,
     installAndBuild: installAndBuild,
-    checkFormat: checkFormat
+    checkFormat: checkFormat,
+    runTests: runTests
   };
 };
