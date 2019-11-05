@@ -17,7 +17,7 @@
     "test:e2e": "mocha 'test/e2e/*.test.js' -g 'test:e2e:polymer2|test:e2e:sdk|test:e2e:react' --timeout 0",
     "test:e2e:sdk": "mocha 'test/e2e/sdk.test.js'  -g 'test:e2e:sdk' --timeout 0",
     "test:e2e:react": "mocha 'test/e2e/react-client--*.test.js'  -g 'test:e2e:react' --timeout 0",
-    "test:e2e:react:mpg": "mocha 'test/e2e/react-client--mpg.test.js'  -g 'test:e2e:react:mpg' --timeout 0",
+    "test:e2e:react:scr": "mocha 'test/e2e/react-client--scr.test.js'  -g 'test:e2e:react:scr' --timeout 0",
     "test:e2e:react:empty-model": "mocha 'test/e2e/react-client--empty-model.test.js'  -g 'test:e2e:react:empty-model' --timeout 0",
     "test:e2e:react:new-project": "mocha 'test/e2e/react-client--new-project.test.js'  -g 'test:e2e:react:new-project' --timeout 0",
     "test:e2e:polymer2": "mocha 'test/e2e/polymer2.test.js'  -g 'test:e2e:polymer2' --timeout 0",

@@ -1,6 +1,6 @@
 import { StandardEntity } from "./base/sys$StandardEntity";
 export class SparePart extends StandardEntity {
-  static NAME = "mpg$SparePart";
+  static NAME = "scr$SparePart";
   name?: string | null;
   spareParts?: SparePart | null;
 }

@@ -5,102 +5,102 @@
   "entityManagement": {
     "editView": {
       "name": "car-edit",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "editComponentName": "mpg-car-edit",
+    "editComponentName": "scr-car-edit",
     "listView": {
       "name": "car-edit",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "listComponentName": "mpg-car-list",
+    "listComponentName": "scr-car-list",
     "listType": "cards",
     "entity": {
-      "name": "mpg$Car"
+      "name": "scr$Car"
     },
-    "managementComponentName": "mpg-car-management"
+    "managementComponentName": "scr-car-management"
   },
   "entityManagement2": {
     "editView": {
       "name": "car-edit",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "editComponentName": "mpg-car-edit2",
+    "editComponentName": "scr-car-edit2",
     "listView": {
       "name": "car-edit",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "listComponentName": "mpg-car-list2",
+    "listComponentName": "scr-car-list2",
     "listType": "list",
     "entity": {
-      "name": "mpg$Car"
+      "name": "scr$Car"
     },
-    "managementComponentName": "mpg-car-management2"
+    "managementComponentName": "scr-car-management2"
   },
   "entityManagement3": {
     "editView": {
       "name": "car-edit",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "editComponentName": "mpg-car-edit3",
+    "editComponentName": "scr-car-edit3",
     "listView": {
       "name": "car-edit",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "listComponentName": "mpg-car-list3",
+    "listComponentName": "scr-car-list3",
     "listType": "table",
     "entity": {
-      "name": "mpg$Car"
+      "name": "scr$Car"
     },
-    "managementComponentName": "mpg-car-management3"
+    "managementComponentName": "scr-car-management3"
   },
   "entityCards": {
     "entityView": {
       "name": "favoriteCar-view",
-      "entityName": "mpg$FavoriteCar"
+      "entityName": "scr$FavoriteCar"
     },
-    "componentName": "mpg-favorite-car-cards",
+    "componentName": "scr-favorite-car-cards",
     "entity": {
-      "name": "mpg$FavoriteCar"
+      "name": "scr$FavoriteCar"
     }
   },
   "entityList": {
     "entityView": {
       "name": "_local",
-      "entityName": "mpg$Garage"
+      "entityName": "scr$Garage"
     },
-    "componentName": "mpg-garage-list",
+    "componentName": "scr-garage-list",
     "entity": {
-      "name": "mpg$Garage"
+      "name": "scr$Garage"
     }
   },
   "entityEdit": {
     "editView": {
       "name": "car-edit",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "editComponentName": "mpg-car-edit",
+    "editComponentName": "scr-car-edit",
     "entity": {
-      "name": "mpg$Car"
+      "name": "scr$Car"
     }
   },
   "queryResults": {
     "query": {
       "name": "carsByType",
-      "entityName": "mpg$Car"
+      "entityName": "scr$Car"
     },
-    "componentName": "mpg-cars-by-type-list"
+    "componentName": "scr-cars-by-type-list"
   },
   "serviceForm": {
-    "componentName": "mpg-add-favorite-form",
+    "componentName": "scr-add-favorite-form",
     "serviceMethod": {
-      "serviceName": "mpg_FavoriteService",
+      "serviceName": "scr_FavoriteService",
       "methodName": "addFavorite"
     }
   },
   "serviceData": {
-    "componentName": "mpg-add-favorite-data",
+    "componentName": "scr-add-favorite-data",
     "serviceMethod": {
-      "serviceName": "mpg_FavoriteService",
+      "serviceName": "scr_FavoriteService",
       "methodName": "addFavorite"
     }
   }

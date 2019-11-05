@@ -18,13 +18,13 @@ matrix:
     - name: "Test e2e:polymer2-ts"
       script: npm run test:e2e:polymer2-ts
 
-    - name: "Test e2e:react:mpg"
-      script: npm run test:e2e:react:mpg
+    - name: "Test e2e:react:scr"
+      script: npm run test:e2e:react:scr
 
-    - name: "Test e2e:react:mpg os: windows"
+    - name: "Test e2e:react:scr os: windows"
       os:
         - windows
-      script: npx mocha 'test\e2e\react-client--mpg.test.js'  -g 'test:e2e:react:mpg' --timeout 0
+      script: npx mocha 'test\e2e\react-client--scr.test.js'  -g 'test:e2e:react:scr' --timeout 0
 
     - name: "Test e2e:react:new-project"
       script: npm run test:e2e:react:new-project

@@ -1,10 +1,10 @@
 import { StandardEntity } from "./base/sys$StandardEntity";
 import { CarType, EcoRank } from "../enums/enums";
-import { Garage } from "./mpg$Garage";
-import { TechnicalCertificate } from "./mpg$TechnicalCertificate";
+import { Garage } from "./scr$Garage";
+import { TechnicalCertificate } from "./scr$TechnicalCertificate";
 import { FileDescriptor } from "./base/sys$FileDescriptor";
 export class Car extends StandardEntity {
-  static NAME = "mpg$Car";
+  static NAME = "scr$Car";
   manufacturer?: string | null;
   model?: string | null;
   regNumber?: string | null;

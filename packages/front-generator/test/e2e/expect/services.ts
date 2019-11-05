@@ -1,33 +1,33 @@
 import { CubaApp, FetchOptions } from "@cuba-platform/rest";
 
-import { Car } from "./entities/mpg$Car";
+import { Car } from "./entities/scr$Car";
 
 import { CarType } from "./enums/enums";
 
-export type mpg_FavoriteService_addFavorite_params =
-  | {
-      carId: string;
-      notes: string;
-    }
+export type scr_FavoriteService_addFavorite_params =
   | {
       car: Car;
       notes: string;
     }
   | {
       favInfo: any;
+    }
+  | {
+      carId: string;
+      notes: string;
     };
 
-export type mpg_FavoriteService_getFavoritesByType_params = {
+export type scr_FavoriteService_getFavoritesByType_params = {
   carType: CarType;
 };
 
 export var restServices = {
-  mpg_FavoriteService: {
+  scr_FavoriteService: {
     addFavorite: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
-      params: mpg_FavoriteService_addFavorite_params
+      params: scr_FavoriteService_addFavorite_params
     ) => {
       return cubaApp.invokeService(
-        "mpg_FavoriteService",
+        "scr_FavoriteService",
         "addFavorite",
         params,
         fetchOpts
@@ -35,17 +35,17 @@ export var restServices = {
     },
     getFavorites: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
       return cubaApp.invokeService(
-        "mpg_FavoriteService",
+        "scr_FavoriteService",
         "getFavorites",
         {},
         fetchOpts
       );
     },
     getFavoritesByType: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
-      params: mpg_FavoriteService_getFavoritesByType_params
+      params: scr_FavoriteService_getFavoritesByType_params
     ) => {
       return cubaApp.invokeService(
-        "mpg_FavoriteService",
+        "scr_FavoriteService",
         "getFavoritesByType",
         params,
         fetchOpts

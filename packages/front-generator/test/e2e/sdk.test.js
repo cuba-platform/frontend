@@ -2,7 +2,7 @@ const {promisify} = require('util');
 const path = require('path');
 const rimraf = promisify(require('rimraf'));
 const fs = require('fs');
-const {runGenerator, cmd, assertContent, init, checkFormat} = require('./e2e-common')('sdk', 'mpg');
+const {runGenerator, cmd, assertContent, init, checkFormat} = require('./e2e-common')('sdk', 'scr');
 
 const appDir = 'test/e2e/generated/sdk';
 const fixturesDir = 'test/e2e/fixtures/sdk';
@@ -18,8 +18,8 @@ describe('test:e2e:sdk', () => {
 
     console.log('e2e:sdk: start files comparison with expect gauges');
     assertContent('enums/enums.ts', appDir);
-    assertContent('entities/mpg$Car.ts', appDir);
-    assertContent('entities/mpg$SparePart.ts', appDir);
+    assertContent('entities/scr$Car.ts', appDir);
+    assertContent('entities/scr$SparePart.ts', appDir);
     assertContent('services.ts', appDir);
     assertContent('queries.ts', appDir);
 

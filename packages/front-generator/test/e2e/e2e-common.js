@@ -36,8 +36,8 @@ module.exports = function (generatorName, logFileSuffix) {
   }
 
   //todo problems with projectModel path
-  function runGenerator(moduleName, dest, answersJSONString, dirShift, modelFile = 'projectModel2.json') {
-    const pathToModel = path.join(process.cwd(), 'test', modelFile);
+  function runGenerator(moduleName, dest, answersJSONString, dirShift, modelFile = 'projectModel-scr.json') {
+    const pathToModel = path.join(process.cwd(), 'test/e2e/fixtures', modelFile);
 
     let command = `node bin/gen-cuba-front ${generatorName}:${moduleName} --model ${pathToModel}`;
     if (dest) {
