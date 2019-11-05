@@ -7,3 +7,7 @@
     margin-left: 0;
   }
 }
+
+.data-table-hide-selection-column .ant-table-selection-column {
+  display: none;
+}

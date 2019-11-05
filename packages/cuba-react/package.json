@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/react",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "CUBA Platform utilities and components for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

@@ -34,10 +34,13 @@ export interface ColumnWithCustomFilterConfig {
 }
 
 /**
+ * @remarks
  * It is possible to create a vanilla antd `Table` and customize some of its columns
- * with `DataTable`'s custom filters using helper functions.
- * In the following example we will create a `Table` with two simple columns and one using our custom filtering.
-
+ * with `DataTable`'s custom filters using this helper function.
+ *
+ * @param config
+ *
+ * @example
  * ```typescript jsx
  *  import * as React from "react";
  *  import {action, observable} from 'mobx';
@@ -120,8 +123,6 @@ export interface ColumnWithCustomFilterConfig {
  *
  *  export default CarTable;
  *  ```
- *
- * @param config
  */
 export function generateColumnWithCustomFilter<EntityType>(config: ColumnWithCustomFilterConfig): ColumnProps<EntityType> {
   const {
