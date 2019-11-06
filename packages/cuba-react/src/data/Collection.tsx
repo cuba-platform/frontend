@@ -36,7 +36,7 @@ export class DataCollectionStore<T> implements DataContainer {
 
     if (this.trackChanges) {
       reaction(
-        () => (this.items.length),
+        () => [this.items, this.items.length],
         () => {
           this.changedItems.push(this.items)
         }
@@ -46,7 +46,6 @@ export class DataCollectionStore<T> implements DataContainer {
 
   @action
   load = () => {
-    this.items = [];
     this.changedItems.clear();
     this.status = "LOADING";
     if (this.filter) {
