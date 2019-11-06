@@ -111,7 +111,6 @@ class CarTableComponent extends React.Component<
         onRowSelectionChange={this.handleRowSelectionChange}
         hideSelectionColumn={true}
         buttons={buttons}
-        defaultSort={"-updateTs"}
       />
     );
   }
