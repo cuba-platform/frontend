@@ -41,7 +41,7 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
   ];
 
   <% if (listType === 'table') { %>
-    @observable selectedRowId: string | undefined;
+    @observable selectedRowKey: string | undefined;
   <% } %>
   showDeletionDialog = (e: SerializedEntity<<%= entity.className %>>) => {
     Modal.confirm({
@@ -53,7 +53,7 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
       cancelText: this.props.intl.formatMessage({id:'management.browser.delete.cancel'}),
       onOk: () => {
       <% if (listType === 'table') { %>
-        this.selectedRowId = undefined;
+        this.selectedRowKey = undefined;
       <% } %>
         return this.dataCollection.delete(e);
       }
@@ -73,17 +73,17 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
             <span><FormattedMessage id='management.browser.create'/></span>
           </Button>
         </Link>),
-        (<Link to={<%= className %>.PATH + '/' + this.selectedRowId} key='edit'>
+        (<Link to={<%= className %>.PATH + '/' + this.selectedRowKey} key='edit'>
           <Button htmlType='button'
                   style={{margin: '0 12px 12px 0'}}
-                  disabled={!this.selectedRowId}
+                  disabled={!this.selectedRowKey}
                   type='default'>
             <FormattedMessage id='management.browser.edit'/>
           </Button>
         </Link>),
         (<Button htmlType='button'
                  style={{margin: '0 12px 12px 0'}}
-                 disabled={!this.selectedRowId}
+                 disabled={!this.selectedRowKey}
                  onClick={this.deleteSelectedRow}
                  key='remove'
                  type='default'>
@@ -95,7 +95,8 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
     return (
       <DataTable dataCollection={this.dataCollection}
                  fields={this.fields}
-                 onSelectedRowChange={this.onSelectedRowChange}
+                 onRowSelectionChange={this.handleRowSelectionChange}
+                 hideSelectionColumn={true}
                  buttons={buttons}
                  defaultSort={'-updateTs'}
       />
@@ -113,12 +114,12 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
     return record;
   }
 
-  onSelectedRowChange = (selectedRowId: string) => {
-    this.selectedRowId = selectedRowId;
+  handleRowSelectionChange = (selectedRowKeys: string[]) => {
+    this.selectedRowKey = selectedRowKeys[0];
   };
 
   deleteSelectedRow = () => {
-    this.showDeletionDialog(this.getRecordById(this.selectedRowId!));
+    this.showDeletionDialog(this.getRecordById(this.selectedRowKey!));
   };
 
   <% /* CARD\LIST COMPONENT*/ %>

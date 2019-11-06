@@ -44,7 +44,7 @@ class CarTableComponent extends React.Component<
     "photo"
   ];
 
-  @observable selectedRowId: string | undefined;
+  @observable selectedRowKey: string | undefined;
 
   showDeletionDialog = (e: SerializedEntity<Car>) => {
     Modal.confirm({
@@ -59,7 +59,7 @@ class CarTableComponent extends React.Component<
         id: "management.browser.delete.cancel"
       }),
       onOk: () => {
-        this.selectedRowId = undefined;
+        this.selectedRowKey = undefined;
         return this.dataCollection.delete(e);
       }
     });
@@ -82,11 +82,11 @@ class CarTableComponent extends React.Component<
           </span>
         </Button>
       </Link>,
-      <Link to={CarManagement3.PATH + "/" + this.selectedRowId} key="edit">
+      <Link to={CarManagement3.PATH + "/" + this.selectedRowKey} key="edit">
         <Button
           htmlType="button"
           style={{ margin: "0 12px 12px 0" }}
-          disabled={!this.selectedRowId}
+          disabled={!this.selectedRowKey}
           type="default"
         >
           <FormattedMessage id="management.browser.edit" />
@@ -95,7 +95,7 @@ class CarTableComponent extends React.Component<
       <Button
         htmlType="button"
         style={{ margin: "0 12px 12px 0" }}
-        disabled={!this.selectedRowId}
+        disabled={!this.selectedRowKey}
         onClick={this.deleteSelectedRow}
         key="remove"
         type="default"
@@ -108,7 +108,8 @@ class CarTableComponent extends React.Component<
       <DataTable
         dataCollection={this.dataCollection}
         fields={this.fields}
-        onSelectedRowChange={this.onSelectedRowChange}
+        onRowSelectionChange={this.handleRowSelectionChange}
+        hideSelectionColumn={true}
         buttons={buttons}
         defaultSort={"-updateTs"}
       />
@@ -127,12 +128,12 @@ class CarTableComponent extends React.Component<
     return record;
   }
 
-  onSelectedRowChange = (selectedRowId: string) => {
-    this.selectedRowId = selectedRowId;
+  handleRowSelectionChange = (selectedRowKeys: string[]) => {
+    this.selectedRowKey = selectedRowKeys[0];
   };
 
   deleteSelectedRow = () => {
-    this.showDeletionDialog(this.getRecordById(this.selectedRowId!));
+    this.showDeletionDialog(this.getRecordById(this.selectedRowKey!));
   };
 }
 
