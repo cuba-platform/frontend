@@ -34,7 +34,6 @@ export interface DataTableProps<E> extends MainStoreInjected {
    */
   canSelectRowByClick?: boolean,
   buttons?: JSX.Element[],
-  defaultSort: string,
   tableProps?: TableProps<E>,
   columnProps?: ColumnProps<E>,
 }
@@ -51,6 +50,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   firstLoad: boolean = true;
   customFilters: Map<string, React.Component<DataTableCustomFilterProps>> =
     new Map<string, React.Component<DataTableCustomFilterProps>>();
+  defaultSort: string | undefined;
 
   constructor(props: DataTableProps<E>) {
     super(props);
@@ -58,6 +58,8 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     if (this.props.dataCollection.filter) {
       this.tableFilters = entityFilterToTableFilters(this.props.dataCollection.filter);
     }
+
+    this.defaultSort = this.props.dataCollection.sort;
   }
 
   static defaultProps = {
@@ -158,7 +160,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       pagination,
       filters: tableFilters,
       sorter,
-      defaultSort: this.props.defaultSort,
+      defaultSort: this.defaultSort,
       fields: this.props.fields,
       mainStore: this.props.mainStore!,
       dataCollection: this.props.dataCollection

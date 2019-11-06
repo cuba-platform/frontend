@@ -340,7 +340,7 @@ export function setFilters<E>(
  * if by the '-' character then descending. If there is no special character before the property name, then ascending sort will be used.
  * @param dataCollection
  */
-export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string, dataCollection: DataCollectionStore<E>) {
+export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | undefined, dataCollection: DataCollectionStore<E>) {
   if (sorter && sorter.order) {
     const sortOrderPrefix: string = (sorter.order === 'descend') ? '-' : '+';
 
@@ -380,7 +380,7 @@ export interface TableChangeDTO<E> {
   pagination: PaginationConfig,
   filters: Record<string, string[]>,
   sorter: SorterResult<E>,
-  defaultSort: string,
+  defaultSort: string | undefined,
   fields: string[],
   mainStore: MainStore,
   dataCollection: DataCollectionStore<E>,
