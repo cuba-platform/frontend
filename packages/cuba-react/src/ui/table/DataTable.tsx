@@ -14,12 +14,20 @@ import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
 import {getPropertyInfoNN, WithId} from '../../util/metadata';
 import {DataCollectionStore} from '../../data/Collection';
 import {FormattedMessage} from 'react-intl';
-import {entityFilterToTableFilters, generateColumnWithCustomFilter, handleTableChange} from './DataTableHelpers';
+import {entityFilterToTableFilters, generateDataColumn, handleTableChange} from './DataTableHelpers';
 import {assertNever} from '../../util/errorHandling';
 
 export interface DataTableProps<E> extends MainStoreInjected {
   dataCollection: DataCollectionStore<E>,
   fields: string[], // TODO remove once DataCollectionStore supports properties field
+  /**
+   * Default: filters will be enabled on all columns
+   */
+  enableFiltersOnColumns?: string[],
+  /**
+   * Default: `false`
+   */
+  hideClearFilters?: boolean,
   onRowSelectionChange?: (selectedRowKeys: string[]) => void,
   /**
    * Default: `single`.
@@ -66,6 +74,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     rowSelectionMode: 'single',
     canSelectRowByClick: true,
     hideSelectionColumn: false,
+    hideClearFilters: false,
   };
 
   componentDidMount(): void {
@@ -298,7 +307,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       <>
         <div style={{display: 'flex', flexWrap: 'wrap'}}>
           {this.props.buttons}
-          {this.clearFiltersButton}
+          {this.props.hideClearFilters ? null : this.clearFiltersButton}
         </div>
         <Table { ...tableProps } className={this.props.hideSelectionColumn ? 'data-table-hide-selection-column' : ''} />
       </>
@@ -327,9 +336,10 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   @computed
   get generateColumnProps(): Array<ColumnProps<E>> {
     return this.props.fields.map((property) => {
-      const generatedColumnProps = generateColumnWithCustomFilter<E>({
+      const generatedColumnProps = generateDataColumn<E>({
         propertyName: property,
         entityName: this.props.dataCollection.entityName,
+        enableFilter: this.enableFilterForColumn(property),
         filters: this.tableFilters,
         operator: this.operatorsByProperty.get(property),
         onOperatorChange: this.handleFilterOperatorChange,
@@ -343,6 +353,12 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       return { ...generatedColumnProps, ...this.props.columnProps };
     });
   };
+
+  enableFilterForColumn(propertyName: string) {
+    return this.props.enableFiltersOnColumns
+      ? this.props.enableFiltersOnColumns.indexOf(propertyName) > -1
+      : true;
+  }
 
   constructRowKey(record: E & WithId): string {
     return record.id!;

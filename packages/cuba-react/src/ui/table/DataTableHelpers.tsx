@@ -20,9 +20,10 @@ import { toJS } from 'mobx';
  *
  * `customFilterRef` provides access to custom filter's `Form`, which can be used e.g. to clear the forms when clearing all filters.
  */
-export interface ColumnWithCustomFilterConfig {
+export interface DataColumnConfig {
   propertyName: string,
   entityName: string,
+  enableFilter: boolean,
   filters: Record<string, any> | undefined,
   operator: ComparisonType | undefined,
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
@@ -49,7 +50,7 @@ export interface ColumnWithCustomFilterConfig {
  *  import {Car} from "../../cuba/entities/mpg$Car";
  *  import {
  *   collection, injectMainStore, MainStoreInjected,
- *   generateColumnWithCustomFilter, ComparisonType, handleTableChange,
+ *   generateDataColumn, ComparisonType, handleTableChange,
  * } from "@cuba-platform/react";
  *  import {injectIntl, WrappedComponentProps} from 'react-intl';
  *  import {PaginationConfig} from 'antd/es/pagination';
@@ -96,7 +97,7 @@ export interface ColumnWithCustomFilterConfig {
  *         columns={[
  *           { title: 'Purchase Date', dataIndex: 'purchaseDate', key: 'purchaseDate', render: (text: any) => <b>{text}</b> },
  *           { title: 'Price', dataIndex: 'price', key: 'price' },
- *           generateColumnWithCustomFilter({
+ *           generateDataColumn({
  *             propertyName: 'regNumber',
  *             entityName: this.dataCollection.entityName,
  *             filters: this.filters,
@@ -124,10 +125,11 @@ export interface ColumnWithCustomFilterConfig {
  *  export default CarTable;
  *  ```
  */
-export function generateColumnWithCustomFilter<EntityType>(config: ColumnWithCustomFilterConfig): ColumnProps<EntityType> {
+export function generateDataColumn<EntityType>(config: DataColumnConfig): ColumnProps<EntityType> {
   const {
     propertyName,
     entityName,
+    enableFilter,
     filters,
     operator,
     onOperatorChange,
@@ -163,34 +165,40 @@ export function generateColumnWithCustomFilter<EntityType>(config: ColumnWithCus
     dataIndex,
     sorter: enableSorter,
     key: propertyName as string,
-    // According to the typings this field expects any[] | undefined
-    // However, in reality undefined makes the filter icon to be highlighted.
-    // If we want the icon to not be highlighted we need to pass null instead.
-    // @ts-ignore
-    filteredValue: (filters && filters[propertyName])
-      ? toJS(filters[propertyName])
-      : null,
     render: text => renderCell(propertyInfo, text, mainStore)
   };
 
-  if (propertyInfo.attributeType === 'ENUM') {
+  if (enableFilter) {
     defaultColumnProps = {
-      filters: generateEnumFilter(propertyInfo, mainStore),
-      ...defaultColumnProps
+      ...defaultColumnProps,
+      // According to the typings this field expects any[] | undefined
+      // However, in reality undefined makes the filter icon to be highlighted.
+      // If we want the icon to not be highlighted we need to pass null instead.
+      // @ts-ignore
+      filteredValue: (filters && filters[propertyName])
+        ? toJS(filters[propertyName])
+        : null,
     };
-  } else {
-    defaultColumnProps = {
-      filterDropdown: generateCustomFilterDropdown(
-        propertyName as string,
-        entityName,
-        operator,
-        onOperatorChange,
-        value,
-        onValueChange,
-        customFilterRef,
-      ),
-      ...defaultColumnProps
-    };
+
+    if (propertyInfo.attributeType === 'ENUM') {
+      defaultColumnProps = {
+        filters: generateEnumFilter(propertyInfo, mainStore),
+        ...defaultColumnProps
+      };
+    } else {
+      defaultColumnProps = {
+        filterDropdown: generateCustomFilterDropdown(
+          propertyName as string,
+          entityName,
+          operator,
+          onOperatorChange,
+          value,
+          onValueChange,
+          customFilterRef,
+        ),
+        ...defaultColumnProps
+      };
+    }
   }
 
   return defaultColumnProps;
