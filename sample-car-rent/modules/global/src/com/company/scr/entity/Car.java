@@ -8,8 +8,7 @@ import com.haulmont.cuba.core.global.DeletePolicy;
 import com.haulmont.cuba.core.global.validation.groups.RestApiChecks;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -28,13 +27,16 @@ public class Car extends StandardEntity {
     protected String model;
 
     @Size(min = 0, max = 5)
+    @Pattern(regexp = "[a-zA-Z]{2}\\d{3}")
     @Column(name = "REG_NUMBER", length = 5)
     protected String regNumber;
 
+    @PastOrPresent
     @Temporal(TemporalType.DATE)
     @Column(name = "PURCHASE_DATE")
     protected Date purchaseDate;
 
+    @PastOrPresent
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "MANUFACTURE_DATE")
     protected Date manufactureDate;
@@ -52,12 +54,17 @@ public class Car extends StandardEntity {
     @JoinColumn(name = "GARAGE_ID")
     protected Garage garage;
 
+    @Digits(fraction = 0, integer = 10)
     @Column(name = "MAX_PASSENGERS")
     protected Integer maxPassengers;
 
+    @Positive
+    @Digits(fraction = 4, integer = 10)
     @Column(name = "PRICE")
     protected BigDecimal price;
 
+    @PositiveOrZero
+    @Digits(fraction = 0, integer = 10)
     @Column(name = "MILEAGE")
     protected Double mileage;
 
