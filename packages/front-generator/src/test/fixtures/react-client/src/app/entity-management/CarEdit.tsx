@@ -85,12 +85,96 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
           );
           this.updated = true;
         })
-        .catch(() => {
-          alert(
-            this.props.intl.formatMessage({ id: "management.editor.error" })
-          );
+        .catch((e: any) => {
+          if (e.response && typeof e.response.json === "function") {
+            e.response.json().then((response: any) => {
+              this.clearErrorsFromPreviousSubmission();
+              const constraintViolations: Map<
+                string,
+                string[]
+                > = this.checkConstraintViolations(response);
+              if (constraintViolations.size > 0) {
+                this.props.form.setFields(
+                  this.constraintViolationsToFormFields(constraintViolations)
+                );
+                message.warn(
+                  this.props.intl.formatMessage({
+                    id: "management.editor.validationError"
+                  })
+                );
+              } else {
+                message.error(
+                  this.props.intl.formatMessage({
+                    id: "management.editor.error"
+                  })
+                );
+              }
+            });
+          } else {
+            message.error(
+              this.props.intl.formatMessage({ id: "management.editor.error" })
+            );
+          }
         });
     });
+  };
+
+  clearErrorsFromPreviousSubmission = () => {
+    const currentValues: {
+      [field: string]: any;
+    } = this.props.form.getFieldsValue();
+    const fields = {};
+    Object.keys(currentValues).forEach((fieldName: string) => {
+      const value = currentValues[fieldName];
+      fields[fieldName] = { value };
+    });
+    this.props.form.setFields(fields);
+  };
+
+  checkConstraintViolations = (response: any): Map<string, string[]> => {
+    const constraintViolations: Map<string, string[]> = new Map<
+      string,
+      string[]
+      >();
+
+    if (response instanceof Array) {
+      response.forEach((item: any) => {
+        if (item.message && item.path) {
+          const fieldName: string = item.path;
+
+          if (constraintViolations.has(fieldName)) {
+            constraintViolations.get(fieldName)!.push(item.message);
+          } else {
+            constraintViolations.set(fieldName, [item.message]);
+          }
+        }
+      });
+    }
+
+    return constraintViolations;
+  };
+
+  constraintViolationsToFormFields = (
+    constraintViolations: Map<string, string[]>
+  ): {
+    [fieldName: string]: { value: any; errors: Error[] };
+  } => {
+    const fields = {};
+
+    constraintViolations.forEach(
+      (errorMessages: string[], fieldName: string) => {
+        const combinedErrorMessages: string = errorMessages.reduce(
+          (accumulator: string, current: string) => `${accumulator}, ${current}`
+        );
+
+        fields[fieldName] = {
+          value: this.props.form.getFieldValue(fieldName),
+          errors: [new Error(combinedErrorMessages)]
+        };
+      }
+    );
+
+    return fields;
   };
 
   render() {
@@ -302,4 +386,17 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   }
 }
 
-export default injectIntl(withLocalizedForm<EditorProps>(CarEditComponent));
+export default injectIntl(
+  withLocalizedForm<EditorProps>({
+    onValuesChange: (props: any, changedValues: any) => {
+      // Reset server-side errors when field is edited
+      Object.keys(changedValues).forEach((fieldName: string) => {
+        props.form.setFields({
+          [fieldName]: {
+            value: changedValues[fieldName]
+          }
+        });
+      });
+    }
+  })(CarEditComponent)
+);
