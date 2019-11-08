@@ -125,7 +125,7 @@ configure(coreModule) {
         dbName = 'scr'
     }
 
-    task stopDb(type: CubaHsqlStart) {
+    task stopDb(type: CubaHsqlStop) {
         dbName = 'scr'
     }
 }
