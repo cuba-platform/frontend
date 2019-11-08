@@ -2,14 +2,18 @@ import {IntlShape, WrappedComponentProps} from 'react-intl';
 import { Form } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import * as React from 'react';
+import {FormCreateOption} from 'antd/lib/form';
 
-export function withLocalizedForm<P>(Component: React.ComponentType) {
-  return (props: P & WrappedComponentProps) => {
-    const ComponentWithForm = Form.create<P & WrappedComponentProps & FormComponentProps>({
-      validateMessages: createAntdFormValidationMessages(props.intl)
-    })(Component);
+export function withLocalizedForm<P>(options?: FormCreateOption<P>) {
+  return (Component: React.ComponentType) => {
+    return (props: P & WrappedComponentProps) => {
+      const ComponentWithForm = Form.create<P & WrappedComponentProps & FormComponentProps>({
+        validateMessages: createAntdFormValidationMessages(props.intl),
+        ...options
+      })(Component);
 
-    return <ComponentWithForm {...props as unknown as P & WrappedComponentProps & FormComponentProps } />;
+      return <ComponentWithForm {...props as unknown as P & WrappedComponentProps & FormComponentProps } />;
+    };
   };
 }
 
