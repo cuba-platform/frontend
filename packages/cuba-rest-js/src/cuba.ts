@@ -421,6 +421,10 @@ export class CubaApp {
     this.storage.clear();
   }
 
+  public setSessionLocale(): Promise<void> {
+    return this.fetch('PUT', 'v2/user-session/locale');
+  }
+
   private isTokenExpiredResponse(resp: Response): boolean {
     return resp && resp.status === 401;
     // && resp.responseJSON

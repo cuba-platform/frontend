@@ -317,6 +317,9 @@ var CubaApp = /** @class */ (function () {
     CubaApp.prototype.cleanup = function () {
         this.storage.clear();
     };
+    CubaApp.prototype.setSessionLocale = function () {
+        return this.fetch('PUT', 'v2/user-session/locale');
+    };
     CubaApp.prototype.isTokenExpiredResponse = function (resp) {
         return resp && resp.status === 401;
         // && resp.responseJSON

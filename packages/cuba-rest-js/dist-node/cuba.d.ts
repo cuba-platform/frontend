@@ -102,6 +102,7 @@ export declare class CubaApp {
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];
     onMessagesLoaded(c: any): () => ((messages: EntityMessages) => {})[];
     cleanup(): void;
+    setSessionLocale(): Promise<void>;
     private isTokenExpiredResponse;
     private _getBasicAuthHeaders;
     private checkStatus;

@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/rest",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
   "main": "dist-node/cuba.js",
   "typings": "dist-node/cuba.d.ts",

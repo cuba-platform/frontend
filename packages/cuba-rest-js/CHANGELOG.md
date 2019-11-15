@@ -1,4 +1,6 @@
 # Changelog
+## 0.7.0
+- Added `setSessionLocale` (issue [cuba-platform/front-generator#34](https://github.com/cuba-platform/front-generator/issues/34))
 ## 0.6.0
 - Added `getFileUploadURL` and `getFile` methods (issue [#14](https://github.com/cuba-platform/cuba-rest-js/issues/14)) 
 ## 0.5.3
