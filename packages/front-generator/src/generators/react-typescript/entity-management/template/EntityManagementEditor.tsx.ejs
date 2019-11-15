@@ -7,12 +7,18 @@ import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
-
+import {
 <% if (Object.keys(editRelations).length > 0) { %>
-  import {collection, FormField, instance, Msg, withLocalizedForm} from "@cuba-platform/react";
-<% } else { %>
-  import {FormField, instance, Msg, withLocalizedForm} from "@cuba-platform/react";
+  collection,
 <% } %>
+  FormField,
+  instance,
+  Msg,
+  withLocalizedForm,
+  checkConstraintViolations,
+  clearErrorsFromPreviousSubmission,
+  constraintViolationsToFormFields,
+} from "@cuba-platform/react";
 
 import "<%= relDirShift %>app/App.css";
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
@@ -62,10 +68,10 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
         .catch((e: any) => {
           if (e.response && typeof e.response.json === 'function') {
             e.response.json().then((response: any) => {
-              this.clearErrorsFromPreviousSubmission();
-              const constraintViolations: Map<string, string[]> = this.checkConstraintViolations(response);
+              clearErrorsFromPreviousSubmission(this.props.form);
+              const constraintViolations: Map<string, string[]> = checkConstraintViolations(response);
               if (constraintViolations.size > 0) {
-                this.props.form.setFields(this.constraintViolationsToFormFields(constraintViolations));
+                this.props.form.setFields(constraintViolationsToFormFields(constraintViolations, this.props.form));
                 message.warn(this.props.intl.formatMessage({id: "management.editor.validationError"}));
               } else {
                 message.error(this.props.intl.formatMessage({id: "management.editor.error"}));
@@ -76,54 +82,6 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
           }
         });
     });
-  };
-
-  clearErrorsFromPreviousSubmission = () => {
-    const currentValues: {[field: string]: any} = this.props.form.getFieldsValue();
-    const fields = {};
-    Object.keys(currentValues).forEach((fieldName: string) => {
-      const value = currentValues[fieldName];
-      fields[fieldName] = { value };
-    });
-    this.props.form.setFields(fields);
-  };
-
-  checkConstraintViolations = (response: any): Map<string, string[]> => {
-    const constraintViolations: Map<string, string[]> = new Map<string, string[]>();
-
-    if (response instanceof Array) {
-      response.forEach((item: any) => {
-        if (item.message && item.path) {
-          const fieldName: string = item.path;
-
-          if (constraintViolations.has(fieldName)) {
-            constraintViolations.get(fieldName)!.push(item.message);
-          } else {
-            constraintViolations.set(fieldName, [item.message]);
-          }
-        }
-      });
-    }
-
-    return constraintViolations;
-  };
-
-  constraintViolationsToFormFields = (constraintViolations: Map<string, string[]>): {
-    [fieldName: string]: { value: any, errors: Error[] }
-  } => {
-    const fields = {};
-
-    constraintViolations.forEach((errorMessages: string[], fieldName: string) => {
-      const combinedErrorMessages: string =
-        errorMessages.reduce((accumulator: string, current: string) => `${accumulator}, ${current}`);
-
-      fields[fieldName] = {
-        value: this.props.form.getFieldValue(fieldName),
-        errors: [new Error(combinedErrorMessages)]
-      }
-    });
-
-    return fields;
   };
 
   render() {
