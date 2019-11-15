@@ -6,6 +6,7 @@ Sample CUBA project with non trivial model, which used as base for tests in
 ### Users
 admin/admin<br>
 mechanic/1
+manager/2
 
 ## Development
 ### Create Init Script With Data Already Added in App
