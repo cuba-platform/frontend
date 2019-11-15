@@ -94,6 +94,15 @@ export class MainStore {
       this.loadEnums();
       this.loadMessages();
     }
+
+    if (this.initialized && this.authenticated) {
+      this.setSessionLocale();
+    }
+  };
+
+  setSessionLocale = () => {
+    // noinspection JSIgnoredPromiseFromCall
+    this.cubaREST.setSessionLocale();
   };
 
   @computed get loginRequired(): boolean {
