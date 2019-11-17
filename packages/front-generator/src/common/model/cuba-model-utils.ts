@@ -1,4 +1,4 @@
-import {Cardinality, Entity, EntityAttribute, ProjectModel} from "./cuba-model";
+import {Entity, EntityAttribute, ProjectModel} from "./cuba-model";
 import {
   EntityInfo,
   RestQueryInfo,
@@ -79,10 +79,6 @@ export function collectAttributesFromHierarchy(entity: Entity, projectModel: Pro
   }
 
   return attrs;
-}
-
-export function isToOneAttribute(attribute: EntityAttribute) {
-  return attribute.cardinality === Cardinality.MANY_TO_ONE || attribute.cardinality === Cardinality.ONE_TO_ONE;
 }
 
 // Quick check; does not ensure entity is among non-base project entities

@@ -1,4 +1,4 @@
-import {Cardinality, Entity, EntityAttribute, MappingType, ProjectModel} from "../../../common/model/cuba-model";
+import {Entity, EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
 import * as Generator from "yeoman-generator";
 import * as path from "path";
 import * as ts from "typescript";
@@ -174,7 +174,7 @@ function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationCont
 
   // primitive
 
-  if (mappingType === MappingType.DATATYPE) {
+  if (mappingType === 'DATATYPE') {
     switch (entityAttr.type.fqn) {
       case 'java.lang.Boolean':
         node = ts.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
@@ -193,19 +193,19 @@ function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationCont
 
   //objects
 
-  if (mappingType === MappingType.ASSOCIATION || mappingType === MappingType.COMPOSITION) {
+  if (mappingType === 'ASSOCIATION' || mappingType === 'COMPOSITION') {
     refEntity = ctx.entitiesMap.get(entityAttr.type.fqn);
 
     if (refEntity) {
       switch (entityAttr.cardinality) {
-        case Cardinality.MANY_TO_MANY:
-        case Cardinality.ONE_TO_MANY:
+        case 'MANY_TO_MANY':
+        case 'ONE_TO_MANY':
           node = ts.createArrayTypeNode(
             ts.createTypeReferenceNode(entityAttr.type.className, undefined)
           );
           break;
-        case Cardinality.ONE_TO_ONE:
-        case Cardinality.MANY_TO_ONE:
+        case 'ONE_TO_ONE':
+        case 'MANY_TO_ONE':
         default:
           node = ts.createTypeReferenceNode(entityAttr.type.className, undefined);
           break;
@@ -215,7 +215,7 @@ function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationCont
 
   //enums
 
-  if (mappingType == MappingType.ENUM) {
+  if (mappingType == 'ENUM') {
     enumDeclaration = ctx.enumsMap.get(entityAttr.type.fqn);
     if (enumDeclaration) {
       node = ts.createTypeReferenceNode(enumDeclaration.name.text, undefined);

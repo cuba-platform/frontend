@@ -6,12 +6,12 @@ import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
-import {EntityAttribute, MappingType, ProjectModel} from "../../../common/model/cuba-model";
-import {collectAttributesFromHierarchy, findEntity, isToOneAttribute} from "../../../common/model/cuba-model-utils";
+import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
+import {collectAttributesFromHierarchy, findEntity} from "../../../common/model/cuba-model-utils";
 import {EntityTemplateModel, getEntityPath} from "../common/template-model";
 import * as entityManagementEn from "./entity-management-en.json";
 import * as entityManagementRu from "./entity-management-ru.json";
-import { writeI18nMessages } from "../common/i18n";
+import {writeI18nMessages} from "../common/i18n";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 
@@ -111,7 +111,7 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
 
 function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelations  {
   return attributes.reduce<EditRelations>((relations, attribute) => {
-    if (attribute.type == null || attribute.mappingType !== MappingType.ASSOCIATION) {
+    if (attribute.type == null || attribute.mappingType !== 'ASSOCIATION') {
       return relations;
     }
     const entity = findEntity(projectModel, attribute.type.entityName!);

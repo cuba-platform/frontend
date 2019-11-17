@@ -15,11 +15,7 @@ export interface ProjectInfo {
   locales: Locale[];
 }
 
-export const enum InheritanceType {
-  SINGLE_TABLE = 'SINGLE_TABLE',
-  TABLE_PER_CLASS = 'TABLE_PER_CLASS',
-  JOINED = 'JOINED'
-}
+export type InheritanceType = 'SINGLE_TABLE' | 'TABLE_PER_CLASS' | 'JOINED'
 
 export interface Entity {
   name?: string;
@@ -65,26 +61,11 @@ export interface Enum extends Datatype {
   values: EnumValue[]
 }
 
-export const enum MappingType {
-  DATATYPE = 'DATATYPE',
-  ENUM = 'ENUM',
-  ASSOCIATION = 'ASSOCIATION',
-  COMPOSITION = 'COMPOSITION',
-  EMBEDDED = 'EMBEDDED'
-}
+export type MappingType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION' | 'EMBEDDED'
 
-export const enum TemporalType {
-  DATE = 'DATE',
-  TIME = 'TIME',
-  TIMESTAMP = 'TIMESTAMP'
-}
+export type TemporalType = 'DATE' | 'TIME' | 'TIMESTAMP'
 
-export const enum Cardinality {
-  ONE_TO_ONE = 'ONE_TO_ONE',
-  ONE_TO_MANY = 'ONE_TO_MANY',
-  MANY_TO_ONE = 'MANY_TO_ONE',
-  MANY_TO_MANY = 'MANY_TO_MANY'
-}
+export type Cardinality = 'ONE_TO_ONE' | 'ONE_TO_MANY' | 'MANY_TO_ONE' | 'MANY_TO_MANY'
 
 export interface EntityAttribute {
   name: string;
@@ -118,11 +99,7 @@ export interface ViewProperty {
   lazy?: boolean;
 }
 
-export const enum BuiltinView {
-  LOCAL = '_local',
-  MINIMAL = '_minimal',
-  BASE = '_base',
-}
+export type BuiltinView = '_local' | '_minimal' | '_base'
 
 export interface Locale {
   code: string;

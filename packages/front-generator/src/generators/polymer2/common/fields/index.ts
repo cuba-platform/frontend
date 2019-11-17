@@ -1,10 +1,4 @@
-import {
-  Cardinality,
-  EntityAttribute,
-  FILE_DESCRIPTOR_FQN,
-  MappingType,
-  TemporalType
-} from "../../../../common/model/cuba-model";
+import {EntityAttribute, FILE_DESCRIPTOR_FQN} from "../../../../common/model/cuba-model";
 import {render} from 'ejs';
 import * as fs from "fs";
 import * as path from "path";
@@ -78,7 +72,7 @@ export const fieldDependencies = {
 };
 
 export const getFieldType = (attribute: EntityAttribute): PolymerUIFieldType => {
-  if (attribute.mappingType === MappingType.ENUM) {
+  if (attribute.mappingType === 'ENUM') {
     return PolymerUIFieldType.ENUM;
   }
   if (isFile(attribute)) {
@@ -87,7 +81,7 @@ export const getFieldType = (attribute: EntityAttribute): PolymerUIFieldType => 
   if (isToOneRelation(attribute)) {
     return PolymerUIFieldType.LOOKUP;
   }
-  if (attribute.mappingType === MappingType.DATATYPE) {
+  if (attribute.mappingType === 'DATATYPE') {
     if (isAttributeTypeOf(attribute, 'java.lang.Boolean')) {
       return PolymerUIFieldType.BOOLEAN;
     }
@@ -101,11 +95,11 @@ export const getFieldType = (attribute: EntityAttribute): PolymerUIFieldType => 
       return PolymerUIFieldType.TEXT;
     }
     if (isAttributeTypeOf(attribute, 'java.util.Date') && attribute.temporalType != null) {
-      if (attribute.temporalType === TemporalType.DATE)
+      if (attribute.temporalType === 'DATE')
         return PolymerUIFieldType.DATE;
-      if (attribute.temporalType == TemporalType.TIMESTAMP)
+      if (attribute.temporalType == 'TIMESTAMP')
         return PolymerUIFieldType.DATE_TIME;
-      if (attribute.temporalType == TemporalType.TIME)
+      if (attribute.temporalType == 'TIME')
         return PolymerUIFieldType.TIME;
     }
   }
@@ -133,8 +127,7 @@ export const getFieldModel = (attribute: EntityAttribute): FieldModel | EnumFiel
 };
 
 export const getFieldHtml = (model: FieldModel): string => {
-  const html = render(fs.readFileSync(path.join(__dirname, 'template', model.type + 'Field.html'), 'utf8'), model);
-  return html;
+  return render(fs.readFileSync(path.join(__dirname, 'template', model.type + 'Field.html'), 'utf8'), model);
 };
 
 function isFile(attribute: EntityAttribute): boolean {
@@ -143,8 +136,8 @@ function isFile(attribute: EntityAttribute): boolean {
 }
 
 function isToOneRelation(attribute: EntityAttribute): boolean {
-  return (attribute.mappingType === MappingType.ASSOCIATION || attribute.mappingType === MappingType.COMPOSITION)
-    && (attribute.cardinality === Cardinality.MANY_TO_ONE || attribute.cardinality === Cardinality.ONE_TO_ONE);
+  return (attribute.mappingType === 'ASSOCIATION' || attribute.mappingType === 'COMPOSITION')
+    && (attribute.cardinality === 'MANY_TO_ONE' || attribute.cardinality === 'ONE_TO_ONE');
 }
 
 // todo extensions inheritance
