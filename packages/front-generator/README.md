@@ -13,7 +13,9 @@ The generator is `@cuba-platform/front-generator` npm package which
 
 ### Prerequisites
 
-Install [Node.js](https://nodejs.org/en/download/) 10.15+ and npm 6+ (usually comes with node). Install [CUBA Studio](https://doc.cuba-platform.com/studio/#installation).
+Install [Node.js](https://nodejs.org/en/download/) 10.15+ and npm 6+ (usually comes with node). 
+
+Install [CUBA Studio](https://doc.cuba-platform.com/studio/#installation).
 
 Install the generator using the npm package manager: 
 
@@ -77,7 +79,7 @@ Run locally
 npm run watch
 npx gen-cuba-front
 ```
-###Code Generation Templates
+### Code Generation Templates
 We are using ```template``` folder inside generator to create templates from which the code will be generated. 
 Templates processed via [EJS](https://ejs.co/). 
 <br>
