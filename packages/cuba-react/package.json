@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/react",
-  "version": "0.3.1-dev.3",
+  "version": "0.3.1-dev.4",
   "description": "CUBA Platform utilities and components for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -17,7 +17,7 @@
     "react-intl": "^3.3.2"
   },
   "devDependencies": {
-    "@cuba-platform/rest": "^0.7.0",
+    "@cuba-platform/rest": "0.7.0-dev.1",
     "@types/jest": "^24.0.18",
     "@types/moment-timezone": "^0.5.12",
     "@types/react": "^16.7.18",
