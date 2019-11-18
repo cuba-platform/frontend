@@ -16,7 +16,10 @@ import {
   FormField,
   instance,
   Msg,
-  withLocalizedForm
+  withLocalizedForm,
+  checkConstraintViolations,
+  clearErrorsFromPreviousSubmission,
+  constraintViolationsToFormFields
 } from "@cuba-platform/react";
 import "app/App.css";
 import { Car } from "cuba/entities/mpg$Car";
@@ -88,14 +91,17 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
         .catch((e: any) => {
           if (e.response && typeof e.response.json === "function") {
             e.response.json().then((response: any) => {
-              this.clearErrorsFromPreviousSubmission();
+              clearErrorsFromPreviousSubmission(this.props.form);
               const constraintViolations: Map<
                 string,
                 string[]
-                > = this.checkConstraintViolations(response);
+                > = checkConstraintViolations(response);
               if (constraintViolations.size > 0) {
                 this.props.form.setFields(
-                  this.constraintViolationsToFormFields(constraintViolations)
+                  constraintViolationsToFormFields(
+                    constraintViolations,
+                    this.props.form
+                  )
                 );
                 message.warn(
                   this.props.intl.formatMessage({
@@ -117,64 +123,6 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
           }
         });
     });
-  };
-
-  clearErrorsFromPreviousSubmission = () => {
-    const currentValues: {
-      [field: string]: any;
-    } = this.props.form.getFieldsValue();
-    const fields = {};
-    Object.keys(currentValues).forEach((fieldName: string) => {
-      const value = currentValues[fieldName];
-      fields[fieldName] = { value };
-    });
-    this.props.form.setFields(fields);
-  };
-
-  checkConstraintViolations = (response: any): Map<string, string[]> => {
-    const constraintViolations: Map<string, string[]> = new Map<
-      string,
-      string[]
-      >();
-
-    if (response instanceof Array) {
-      response.forEach((item: any) => {
-        if (item.message && item.path) {
-          const fieldName: string = item.path;
-
-          if (constraintViolations.has(fieldName)) {
-            constraintViolations.get(fieldName)!.push(item.message);
-          } else {
-            constraintViolations.set(fieldName, [item.message]);
-          }
-        }
-      });
-    }
-
-    return constraintViolations;
-  };
-
-  constraintViolationsToFormFields = (
-    constraintViolations: Map<string, string[]>
-  ): {
-    [fieldName: string]: { value: any; errors: Error[] };
-  } => {
-    const fields = {};
-
-    constraintViolations.forEach(
-      (errorMessages: string[], fieldName: string) => {
-        const combinedErrorMessages: string = errorMessages.reduce(
-          (accumulator: string, current: string) => `${accumulator}, ${current}`
-        );
-
-        fields[fieldName] = {
-          value: this.props.form.getFieldValue(fieldName),
-          errors: [new Error(combinedErrorMessages)]
-        };
-      }
-    );
-
-    return fields;
   };
 
   render() {
