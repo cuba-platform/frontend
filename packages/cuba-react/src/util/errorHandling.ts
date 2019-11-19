@@ -15,11 +15,11 @@ export function assertNever(argumentName: string, argument: never): never {
 }
 
 /**
- * Clears antd form from previous server validation errors
+ * Clears errors in antd form fields
  *
  * @param form
  */
-export function clearErrorsFromPreviousSubmission<V>(form: WrappedFormUtils<V>): void {
+export function clearFieldErrors<V>(form: WrappedFormUtils<V>): void {
   const currentValues: {[field: string]: any} = form.getFieldsValue();
   const fields: Record<string, any> = {};
   Object.keys(currentValues).forEach((fieldName: string) => {
@@ -29,44 +29,54 @@ export function clearErrorsFromPreviousSubmission<V>(form: WrappedFormUtils<V>):
   form.setFields(fields);
 }
 
+export type ServerValidationErrors = {
+  globalErrors: string[],
+  fieldErrors: Map<string, string[]>,
+};
+
 /**
- * Checks whether server response contains bean validation constraint violations info
+ * Extracts validation errors info from server response
  *
  * @param response
  */
-export function checkConstraintViolations(response: any): Map<string, string[]> {
-  const constraintViolations: Map<string, string[]> = new Map<string, string[]>();
+export function extractServerValidationErrors(response: any): ServerValidationErrors {
+  const fieldErrors: Map<string, string[]> = new Map<string, string[]>();
+  const globalErrors: string[] = [];
 
   if (response instanceof Array) {
-    response.forEach((item: any) => {
-      if (item.message && item.path) {
-        const fieldName: string = item.path;
+    response.forEach((error: any) => {
+      if (error.message) {
+        const fieldName: string = error.path;
 
-        if (constraintViolations.has(fieldName)) {
-          constraintViolations.get(fieldName)!.push(item.message);
+        if (fieldName && fieldName.length > 0) {
+          if (fieldErrors.has(fieldName)) {
+            fieldErrors.get(fieldName)!.push(error.message);
+          } else {
+            fieldErrors.set(fieldName, [error.message]);
+          }
         } else {
-          constraintViolations.set(fieldName, [item.message]);
+          globalErrors.push(error.message);
         }
       }
     });
   }
 
-  return constraintViolations;
+  return { globalErrors, fieldErrors };
 }
 
 /**
- * Sets antd form errors based on bean validation constraint violations info
+ * Constructs antd form fields object containing given errors
  *
- * @param constraintViolations
+ * @param fieldErrors
  * @param form
  */
-export function constraintViolationsToFormFields<V>(
-  constraintViolations: Map<string, string[]>,
+export function constructFieldsWithErrors<V>(
+  fieldErrors: Map<string, string[]>,
   form: WrappedFormUtils<V>
 ): Record<string, { value: any, errors: Error[] }> {
   const fields: Record<string, any> = {};
 
-  constraintViolations.forEach((errorMessages: string[], fieldName: string) => {
+  fieldErrors.forEach((errorMessages: string[], fieldName: string) => {
     const combinedErrorMessages: string =
       errorMessages.reduce((accumulator: string, current: string) => `${accumulator}, ${current}`);
 
