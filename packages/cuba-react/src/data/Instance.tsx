@@ -15,6 +15,7 @@ import {
   WithName
 } from "../util/metadata";
 import moment from 'moment';
+import {defaultDateFormat, defaultDateTimeFormat, defaultTimeFormat} from '../util/formats';
 
 
 export class DataInstanceStore<T> implements DataContainer {
@@ -72,16 +73,13 @@ export class DataInstanceStore<T> implements DataContainer {
         normalizedPatch[key] = value.map(id => ({id}));
       }
       if (propInfo && isDateProperty(propInfo) && moment.isMoment(value)) {
-        const expectedFormat = 'YYYY-MM-DD';
-        normalizedPatch[key] = value.format(expectedFormat);
+        normalizedPatch[key] = value.format(defaultDateFormat);
       }
       if (propInfo && isTimeProperty(propInfo) && moment.isMoment(value)) {
-        const expectedFormat = 'HH:mm:ss';
-        normalizedPatch[key] = value.format(expectedFormat);
+        normalizedPatch[key] = value.format(defaultTimeFormat);
       }
       if (propInfo && isDateTimeProperty(propInfo) && moment.isMoment(value)) {
-        const expectedFormat = 'YYYY-MM-DD HH:mm:ss.SSS';
-        normalizedPatch[key] = value.format(expectedFormat);
+        normalizedPatch[key] = value.format(defaultDateTimeFormat);
       }
     });
     Object.assign(this.item, normalizedPatch);
