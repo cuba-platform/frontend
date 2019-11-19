@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Checkbox, DatePicker, Input, Select} from "antd";
+import {Checkbox, DatePicker, Input, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
 import {injectMainStore, MainStoreInjected} from "../app/MainStore";
 import {Cardinality, EnumInfo, EnumValueInfo, PropertyType} from "@cuba-platform/rest"
@@ -46,6 +46,8 @@ export const FormField = injectMainStore(observer((props: Props) => {
       return <DatePicker {...rest}/>;
     case 'dateTime':
       return <DatePicker showTime={true} {...rest}/>;
+    case 'time':
+      return <TimePicker {...rest}/>
   }
   return <Input {...rest}/>;
 }));
