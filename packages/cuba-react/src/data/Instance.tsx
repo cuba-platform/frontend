@@ -5,7 +5,15 @@ import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore} from "../app/MainStore";
-import {getPropertyInfo, isToManyRelation, isToOneRelation, WithId, WithName} from "../util/metadata";
+import {
+  getPropertyInfo,
+  isDateProperty, isDateTimeProperty,
+  isTimeProperty,
+  isToManyRelation,
+  isToOneRelation,
+  WithId,
+  WithName
+} from "../util/metadata";
 import moment from 'moment';
 
 
@@ -53,17 +61,27 @@ export class DataInstanceStore<T> implements DataContainer {
   @action
   update(entityPatch: Partial<T>): Promise<any> {
     const metadata = toJS(this.mainStore.metadata);
-    const normalizedPatch = {...entityPatch};
+    const normalizedPatch: Record<string, any> = {...entityPatch};
     Object.entries(entityPatch).forEach(([key, value]) => {
       const propInfo = getPropertyInfo(metadata!, this.entityName, key);
       if (propInfo && isToOneRelation(propInfo)
             && typeof value === 'string') {
-        // @ts-ignore
         normalizedPatch[key] = {id: value};
       }
       if (propInfo && isToManyRelation(propInfo) && Array.isArray(value)) {
-        // @ts-ignore
         normalizedPatch[key] = value.map(id => ({id}));
+      }
+      if (propInfo && isDateProperty(propInfo) && moment.isMoment(value)) {
+        const expectedFormat = 'YYYY-MM-DD';
+        normalizedPatch[key] = value.format(expectedFormat);
+      }
+      if (propInfo && isTimeProperty(propInfo) && moment.isMoment(value)) {
+        const expectedFormat = 'HH:mm:ss';
+        normalizedPatch[key] = value.format(expectedFormat);
+      }
+      if (propInfo && isDateTimeProperty(propInfo) && moment.isMoment(value)) {
+        const expectedFormat = 'YYYY-MM-DD HH:mm:ss.SSS';
+        normalizedPatch[key] = value.format(expectedFormat);
       }
     });
     Object.assign(this.item, normalizedPatch);

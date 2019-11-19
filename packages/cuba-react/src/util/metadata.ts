@@ -64,6 +64,18 @@ export function isFileProperty(propertyInfo: MetaPropertyInfo): boolean {
   return (propertyInfo.type === 'sys$FileDescriptor') && isRelationProperty(propertyInfo);
 }
 
+export function isDateProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'date';
+}
+
+export function isTimeProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'time';
+}
+
+export function isDateTimeProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'dateTime';
+}
+
 export function isRelationProperty(propertyInfo: MetaPropertyInfo): boolean {
   return (propertyInfo.attributeType === 'ASSOCIATION') || (propertyInfo.attributeType === 'COMPOSITION');
 }
