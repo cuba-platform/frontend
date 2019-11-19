@@ -1,5 +1,7 @@
 package com.company.scr.entity;
 
+import com.company.scr.entity.constraints.PurchasedAfterManufactured;
+import com.company.scr.entity.constraints.ReliabilityPolicyCompliant;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -12,10 +14,11 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@PurchasedAfterManufactured
+@ReliabilityPolicyCompliant
 @NamePattern("%s - %s|manufacturer,model")
 @Table(name = "SCR_CAR")
 @Entity(name = "scr$Car")
-
 public class Car extends StandardEntity {
     private static final long serialVersionUID = 3318729131272219623L;
 
