@@ -1,11 +1,11 @@
 import * as React from "react";
 import {FormEvent} from "react";
-import {Button, Card, Form, message} from "antd";
+import {Alert, Button, Card, Form, message} from "antd";
 import {observer} from "mobx-react";
 import {<%= className %>} from "./<%= className %>";
 import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
-import {IReactionDisposer, observable, reaction} from "mobx";
+import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {
 <% if (Object.keys(editRelations).length > 0) { %>
@@ -15,9 +15,10 @@ import {
   instance,
   Msg,
   withLocalizedForm,
-  checkConstraintViolations,
-  clearErrorsFromPreviousSubmission,
-  constraintViolationsToFormFields,
+  extractServerValidationErrors,
+  constructFieldsWithErrors,
+  clearFieldErrors,
+  MultilineText
 } from "@cuba-platform/react";
 
 import "<%= relDirShift %>app/App.css";
@@ -53,11 +54,14 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
   <% }) %>
   ];
 
+  @observable
+  globalErrors: string[] = [];
+
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (err) {
-        message.warn(this.props.intl.formatMessage({id: 'management.editor.validationError'}));
+        message.error(this.props.intl.formatMessage({id: 'management.editor.validationError'}));
         return;
       }
       this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
@@ -66,19 +70,25 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
           this.updated = true;
         })
         .catch((e: any) => {
-          if (e.response && typeof e.response.json === 'function') {
+          if (e.response && typeof e.response.json === "function") {
             e.response.json().then((response: any) => {
-              clearErrorsFromPreviousSubmission(this.props.form);
-              const constraintViolations: Map<string, string[]> = checkConstraintViolations(response);
-              if (constraintViolations.size > 0) {
-                this.props.form.setFields(constraintViolationsToFormFields(constraintViolations, this.props.form));
-                message.warn(this.props.intl.formatMessage({id: "management.editor.validationError"}));
+              clearFieldErrors(this.props.form);
+              const { globalErrors, fieldErrors } = extractServerValidationErrors(response);
+              this.globalErrors = globalErrors;
+              if (fieldErrors.size > 0) {
+                this.props.form.setFields(constructFieldsWithErrors(fieldErrors, this.props.form));
+              }
+
+              if (fieldErrors.size > 0 || globalErrors.length > 0) {
+                message.error(this.props.intl.formatMessage({id: "management.editor.validationError"}));
               } else {
                 message.error(this.props.intl.formatMessage({id: "management.editor.error"}));
               }
             });
           } else {
-            message.error(this.props.intl.formatMessage({id: "management.editor.error"}));
+            message.error(
+              this.props.intl.formatMessage({ id: "management.editor.error" })
+            );
           }
         });
     });
@@ -119,6 +129,15 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
             )}
           </Form.Item>
           <% }) %>
+
+          {this.globalErrors.length > 0 && (
+            <Alert
+              message={<MultilineText lines={toJS(this.globalErrors)} />}
+              type="error"
+              style={{ marginBottom: "24px" }}
+            />
+          )}
+
           <Form.Item style={{textAlign: 'center'}}>
             <Link to={<%= className %>.PATH}>
               <Button htmlType="button">
