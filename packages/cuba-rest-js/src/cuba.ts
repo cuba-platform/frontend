@@ -3,7 +3,7 @@ import {
   EntityMessages,
   EnumInfo,
   MetaClassInfo,
-  PermissionInfo,
+  PermissionInfo, RolesInfo,
   SerializedEntity,
   UserInfo,
   View
@@ -324,6 +324,10 @@ export class CubaApp {
 
   public getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]> {
     return this.fetch('GET', 'v2/permissions', null, {handleAs: 'json', ...fetchOptions});
+  }
+
+  public getRoles(fetchOptions?: FetchOptions): Promise<RolesInfo> {
+    return this.fetch('GET', 'v2/roles', null, {handleAs: 'json', ...fetchOptions});
   }
 
   public getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo> {

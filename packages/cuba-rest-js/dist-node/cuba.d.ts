@@ -1,4 +1,4 @@
-import { EntitiesWithCount, EntityMessages, EnumInfo, MetaClassInfo, PermissionInfo, SerializedEntity, UserInfo, View } from "./model";
+import { EntitiesWithCount, EntityMessages, EnumInfo, MetaClassInfo, PermissionInfo, RolesInfo, SerializedEntity, UserInfo, View } from "./model";
 import { EntityFilter } from "./filter";
 export * from './model';
 export * from './storage';
@@ -93,6 +93,7 @@ export declare class CubaApp {
     loadEntitiesMessages(fetchOptions?: FetchOptions): Promise<EntityMessages>;
     loadEnums(fetchOptions?: FetchOptions): Promise<EnumInfo[]>;
     getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]>;
+    getRoles(fetchOptions?: FetchOptions): Promise<RolesInfo>;
     getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo>;
     getFileUploadURL(): string;
     getFile(id: string, fetchOptions?: FetchOptions): Promise<Blob>;

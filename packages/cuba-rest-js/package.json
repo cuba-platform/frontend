@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/rest",
-  "version": "0.7.0-dev.1",
+  "version": "0.7.0-dev.2",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
   "main": "dist-node/cuba.js",
   "typings": "dist-node/cuba.d.ts",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "browserify": "^16.2.3",
+    "chai": "^4.2.0",
     "mocha": "~5.0.5",
     "node-fetch": "^2.6.0",
     "nyc": "~14.1.1",
@@ -33,6 +34,13 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "statements": 79,
+    "branches": 74,
+    "functions": 69,
+    "lines": 82
   },
   "author": "Vlad Minaev <minaev@haulmont.com>",
   "license": "Apache-2.0",

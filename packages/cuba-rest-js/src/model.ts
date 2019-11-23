@@ -47,11 +47,42 @@ export interface UserInfo {
   locale: string;
 }
 
+export type EntityOperationType = 'create' | 'read' | 'update' | 'delete';
+
+export enum PermissionType {
+  SCREEN = 'SCREEN',
+  ENTITY_OP = 'ENTITY_OP',
+  ENTITY_ATTR = 'ENTITY_ATTR',
+  SPECIFIC = 'SPECIFIC',
+  UI = 'UI'
+}
+
+export type BasePermissionValue = 'DENY' | 'ALLOW';
+export type EntityAttrPermissionValue = 'DENY' | 'VIEW' | 'MODIFY';
+export type UiPermissionValue = 'HIDE' | 'READ_ONLY' | 'SHOW';
+
 export interface PermissionInfo {
-  type: string;
+  type: PermissionType;
   target: string;
-  value: string;
+  value: BasePermissionValue | EntityAttrPermissionValue | UiPermissionValue;
   intValue: number;
+}
+
+export enum RoleType {
+  STANDARD = 'STANDARD',
+  SUPER = 'SUPER',
+  READONLY = 'READONLY',
+  DENYING = 'DENYING',
+  STRICTLY_DENYING = 'STRICTLY_DENYING'
+}
+
+export interface RoleInfo {
+  roleType: RoleType | null;
+}
+
+export interface RolesInfo {
+  permissions: PermissionInfo[];
+  roles: RoleInfo[];
 }
 
 export interface EnumValueInfo {
