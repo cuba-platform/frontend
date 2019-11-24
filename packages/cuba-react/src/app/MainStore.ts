@@ -1,7 +1,8 @@
 import {action, autorun, computed, IObservableArray, observable} from "mobx";
-import {CubaApp, EntityMessages, EnumInfo, MetaClassInfo, PermissionInfo, UserInfo} from "@cuba-platform/rest";
+import {CubaApp, EntityMessages, EnumInfo, MetaClassInfo, UserInfo} from "@cuba-platform/rest";
 import {inject, IReactComponent, IWrappedComponent} from "mobx-react";
 import * as moment from 'moment';
+import {Security} from './Security';
 
 export class MainStore {
 
@@ -13,21 +14,21 @@ export class MainStore {
   @observable userName?: string;
   @observable locale?: string;
 
-  @observable permissions?: IObservableArray<PermissionInfo>;
-  permissionsRequestCount = 0;
   @observable metadata?: IObservableArray<MetaClassInfo>;
   metadataRequestCount = 0;
   @observable messages?: EntityMessages;
   messagesRequestCount = 0;
   @observable enums?: IObservableArray<EnumInfo>;
   enumsRequestCount = 0;
+  security: Security;
 
   constructor(private cubaREST: CubaApp) {
     this.cubaREST.onLocaleChange(this.handleLocaleChange);
+    this.security = new Security(this.cubaREST);
 
     autorun(() => {
       if (this.initialized && (this.authenticated || this.usingAnonymously)) {
-        this.loadPermissions();
+        this.security.loadPermissions();
         this.loadEnums();
         this.loadMetadata();
         this.loadMessages();
@@ -35,16 +36,6 @@ export class MainStore {
     })
   }
 
-  @action
-  loadPermissions() {
-    const requestId = ++this.permissionsRequestCount;
-    this.cubaREST.getPermissions()
-      .then(action((perms: PermissionInfo[]) => {
-        if (requestId === this.permissionsRequestCount) {
-          this.permissions = observable(perms);
-        }
-      }));
-  }
 
   @action
   loadEnums() {
@@ -108,6 +99,7 @@ export class MainStore {
   @computed get loginRequired(): boolean {
     return !this.authenticated && !this.usingAnonymously;
   }
+
 
   @action
   login(login: string, password: string) {

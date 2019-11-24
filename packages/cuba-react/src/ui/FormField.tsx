@@ -9,9 +9,10 @@ import {FileUpload} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
 
 type Props = MainStoreInjected & {
-  entityName: string;
-  propertyName: string;
-  optionsContainer?: DataCollectionStore<WithId>;
+  entityName: string
+  propertyName: string
+  disabled?: boolean
+  optionsContainer?: DataCollectionStore<WithId>
 }
 
 export const FormField = injectMainStore(observer((props: Props) => {

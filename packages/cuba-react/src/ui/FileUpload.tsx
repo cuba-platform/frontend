@@ -13,6 +13,7 @@ export interface FileUploadProps {
   value?: FileInfo, // coming from Ant Design form field decorator
   onChange?: (arg: any) => void, // coming from Ant Design form field decorator
   enableFullWidth?: boolean,
+  disabled?: boolean,
   uploadProps?: UploadProps,
   render?: (fileInfo: FileInfo | undefined) => React.ReactNode,
 }
@@ -80,7 +81,7 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
 
   handlePreview = (_file: UploadFile): void => {
     getCubaREST()!.getFile(this.fileList[0].uid).then((blob: Blob) => {
-      let objectUrl: string = URL.createObjectURL(blob);
+      const objectUrl: string = URL.createObjectURL(blob);
 
       const fileName: string = this.fileList[0].name;
       if (isImageFile(fileName)) {
@@ -113,6 +114,7 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
       onChange: this.handleChange,
       onPreview: this.handlePreview,
       onRemove: this.handleRemove,
+      disabled: this.props.disabled,
       showUploadList: {
         showDownloadIcon: false,
         showPreviewIcon: true,
