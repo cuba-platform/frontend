@@ -117,7 +117,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     const { status } = this.dataInstance;
 
     return (
-      <Card className="page-layout-narrow">
+      <Card className="narrow-layout">
         <Form onSubmit={this.handleSubmit} layout="vertical">
           <Field
             entityName={Car.NAME}

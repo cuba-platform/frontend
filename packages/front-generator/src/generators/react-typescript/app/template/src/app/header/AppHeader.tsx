@@ -15,14 +15,15 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
     const appState = this.props.mainStore!;
 
     return (
-      <div className="AppHeader">
+      <div className="app-header">
         <div>
           <img src={logo} alt={this.props.intl.formatMessage({id: 'common.alt.logo'})}/>
         </div>
-        <div className="user-info">
-          <LanguageSwitcher className='language-switcher-header'/>
-          <span>{appState.userName}</span>
-          <Button ghost={true}
+        <div className="user-panel">
+          <LanguageSwitcher className='panelelement language-switcher -header'/>
+          <span className="panelelement">{appState.userName}</span>
+          <Button className="panelelement"
+                  ghost={true}
                   icon='logout'
                   style={{border: 0}}
                   onClick={this.showLogoutConfirm}/>

@@ -8,7 +8,8 @@ import { HashRouter, Route } from "react-router-dom";
 import { initializeApp } from "@cuba-platform/rest";
 import { CUBA_APP_URL } from "./config";
 
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
+import "@cuba-platform/react/dist/index.min.css";
 import "./index.css";
 import { antdLocaleMapping, messagesMapping } from "./i18n/i18nMappings";
 import "moment/locale/ru";

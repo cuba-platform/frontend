@@ -20,7 +20,7 @@ export class MpgFavoriteCarCards extends React.Component {
     }
 
     return (
-      <div className="page-layout-narrow">
+      <div className="narrow-layout">
         {items.map(e => (
           <Card
             title={e._instanceName}

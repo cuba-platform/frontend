@@ -1,19 +1,9 @@
-.AppHeader {
+.app-header {
   display: flex;
   justify-content: space-between;
   color: #CCCCCC;
 }
 
-.AppHeader .user-info > * {
+.user-panel > .panelelement {
   margin: 6px;
-}
-
-.language-switcher-header .ant-select-selection {
-  background: none;
-  border: none;
-  color: #CCCCCC;
-}
-
-.language-switcher-header .ant-select-arrow {
-  color: #CCCCCC;
 }

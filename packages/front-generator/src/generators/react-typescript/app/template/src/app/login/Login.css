@@ -1,4 +1,4 @@
-.Login {
+.login-form {
   border-radius: 4px;
   background: #fff;
   padding: 32px 32px 0;
@@ -6,17 +6,13 @@
   box-shadow: 0 0 50px 0 rgba(0,0,0,0.2);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 12px;
-}
-
-.login-title {
+.login-form > .title {
   text-align: center;
   margin-bottom: 24px;
   font-size: 20px;
 }
 
-.language-switcher-login .ant-select-selection {
-  border: none;
+.login-form > .logo {
+  display: block;
+  margin: 0 auto 12px;
 }

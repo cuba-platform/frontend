@@ -2,12 +2,12 @@
   height: 100%;
 }
 
-.page-layout-narrow {
+.narrow-layout {
   max-width: 1024px;
   margin: auto;
 }
 
-.page-layout-narrow.ant-card {
+.narrow-layout.ant-card {
   max-width: 1024px;
   margin: auto;
 }

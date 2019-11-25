@@ -80,7 +80,7 @@ class CarCardsComponent extends React.Component<
     }
 
     return (
-      <div className="page-layout-narrow">
+      <div className="narrow-layout">
         <div style={{ marginBottom: "12px" }}>
           <Link to={CarManagement.PATH + "/" + CarManagement.NEW_SUBPATH}>
             <Button htmlType="button" type="primary" icon="plus">

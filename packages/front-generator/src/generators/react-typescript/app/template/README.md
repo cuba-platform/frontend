@@ -454,10 +454,59 @@ $ npm run `update-model`
 
 ### Theming
 
-Ant Design provides abilities to [customize theme](https://ant.design/docs/react/customize-theme) using `less` and 
-overriding built-in variables.
-See the detailed [documentation](https://ant.design/docs/react/use-with-create-react-app#Customize-Theme) on Ant Design
-website.
+Ant Design provides a possibility to [customize theme](https://ant.design/docs/react/customize-theme) using `less` and 
+overriding built-in variables. You can also use these variables in your own code.
+
+In order to do so, you will need to make some modifications to the generated app.
+
+> NOTE: you will have to enable deprecated inline Javascript in `less` as `antd` makes heavy use of it.
+> [Reasons for deprecation.](http://lesscss.org/usage/#less-options-strict-units)
+
+- Install the required dependencies. Note that we are using [react-app-rewired](https://github.com/timarney/react-app-rewired) to modify the webpack config without having to `eject`.  
+```shell script
+npm i react-app-rewired less less-loader customize-cra babel-plugin-import --save-dev
+```
+- Create `config-overrides.js` file in the app root. The file shall look like this. 
+```typescript
+const {addLessLoader, override, fixBabelImports} = require("customize-cra");
+const path = require('path');
+
+module.exports = override(
+  fixBabelImports('import', {
+      libraryName: 'antd',
+      libraryDirectory: 'es',
+      style: true,
+  }),
+  addLessLoader({
+    javascriptEnabled: true,
+    modifyVars: {
+      'overrideTheme': `true; @import "${path.resolve(__dirname, './src/theme.less')}";`,
+    },
+  }),
+);
+```
+Now you can place your overrides in `src/theme.less`:
+```less
+@primary-color: #1DA57A;
+``` 
+
+You can use `antd` variables in your code like this:
+```less
+@import "~antd/es/style/themes/default";
+
+body {
+  background: @list-header-background;
+}
+```
+
+References:
+ - detailed [documentation](https://ant.design/docs/react/use-with-create-react-app#Customize-Theme) on Ant Design
+website
+
+#### CSS Methodology
+
+Both client and CUBA React follow [RSCSS methodology](http://rscss.io).
+Additionally we adopt Base Rules from [SMACSS methodology](http://smacss.com/book/type-base).
 
 ### Security
 

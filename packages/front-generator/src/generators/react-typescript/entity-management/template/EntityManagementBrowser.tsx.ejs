@@ -136,7 +136,7 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
     }
 
     return (
-      <div <% if (listType !== 'table') { %>className='page-layout-narrow'<% } %>>
+      <div <% if (listType !== 'table') { %>className='narrow-layout'<% } %>>
         <div style={{marginBottom: '12px'}}>
           <Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH}>
             <Button htmlType='button'

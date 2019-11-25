@@ -43,9 +43,9 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
   render() {
     return(
-      <div className='Login'>
+      <div className='login-form'>
         <img src={logo} alt={this.props.intl.formatMessage({id: 'common.alt.logo'})} className='logo'/>
-        <div className='login-title'>
+        <div className='title'>
           <%= title %>
         </div>
         <Form layout='vertical' onSubmit={this.doLogin}>
@@ -66,7 +66,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
           </Form.Item>
           <Form.Item>
             <div style={{float: 'right'}}>
-              <LanguageSwitcher className='language-switcher-login' />
+              <LanguageSwitcher className='language-switcher' />
             </div>
           </Form.Item>
           <Form.Item>
