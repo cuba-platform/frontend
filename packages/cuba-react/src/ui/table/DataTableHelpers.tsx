@@ -157,7 +157,7 @@ export function generateDataColumn<EntityType>(config: DataColumnConfig): Column
   let defaultColumnProps: ColumnProps<EntityType> = {
     title: (
       <div
-        style={{whiteSpace: 'nowrap', maxWidth: '120px', overflow: 'hidden', textOverflow: 'clip'}}
+        className='cuba-data-table-header-cell'
         title={localizedPropertyCaption}>
           {localizedPropertyCaption}
         </div>

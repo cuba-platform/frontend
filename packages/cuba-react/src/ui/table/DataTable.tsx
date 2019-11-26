@@ -9,7 +9,7 @@ import {
 import {action, computed, IReactionDisposer, observable, reaction, toJS} from 'mobx';
 import {observer} from 'mobx-react';
 import {ComparisonType, DataTableCustomFilterProps} from './DataTableCustomFilter';
-import './DataTable.css';
+import './DataTable.less';
 import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
 import {getPropertyInfoNN, WithId} from '../../util/metadata';
 import {DataCollectionStore} from '../../data/Collection';
@@ -266,9 +266,11 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       && !!this.props.mainStore.enums;
 
     if (!isMainStoreAvailable || (status === "LOADING" && this.firstLoad)) {
-      return (<div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-        <Spin size='large'/>
-      </div>);
+      return (
+        <div className='cuba-data-table-loader'>
+          <Spin size='large'/>
+        </div>
+      );
     }
 
     this.firstLoad = false;
@@ -304,13 +306,13 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     const tableProps = { ...defaultTableProps, ...this.props.tableProps };
 
     return (
-      <>
-        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+      <div className='cuba-data-table'>
+        <div className='buttons'>
           {this.props.buttons}
           {this.props.hideClearFilters ? null : this.clearFiltersButton}
         </div>
-        <Table { ...tableProps } className={this.props.hideSelectionColumn ? 'data-table-hide-selection-column' : ''} />
-      </>
+        <Table { ...tableProps } className={this.props.hideSelectionColumn ? '_cuba-hide-selection-column' : ''} />
+      </div>
     );
   }
 
@@ -321,7 +323,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       && this.props.dataCollection.filter.conditions.length > 0) {
       return (
         <Button htmlType='button'
-                className={'data-table-clear-filters-btn'}
+                className='cuba-data-table-clear-filters'
                 onClick={this.clearFilters}
                 type='link'>
           <Icon type='filter' />

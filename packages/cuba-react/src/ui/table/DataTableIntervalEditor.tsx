@@ -5,7 +5,8 @@ import {Checkbox, Form, InputNumber, Radio, Select} from 'antd';
 import {RadioChangeEvent} from 'antd/es/radio';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {determineLastNextXInterval, determinePredefinedInterval} from './DataTableIntervalFunctions';
-import './DataTableCustomFilter.css';
+import './DataTableIntervalEditor.less';
+import './DataTableFilterControlLayout.less';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
@@ -79,8 +80,7 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
 
   render() {
     return (
-      <div className={'data-table-custom-filter-form-item-group'}
-           style={{padding: '6px', marginTop: '6px', border: 'dotted 1px lightgray'}}>
+      <div className='cuba-filter-controls-layout'>
         {this.modeSelect}
         {(this.mode === 'predefined') ? this.predefinedIntervals : this.intervalInput}
       </div>
@@ -90,34 +90,35 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   @computed
   get modeSelect(): ReactNode {
     return (
-      <div style={{display: 'flex', flexDirection: 'column'}} className={'data-table-custom-filter-form-item'}>
-        <Radio.Group onChange={this.onModeChanged}
-                    value={this.mode}>
-          <Radio style={{display: 'block'}} value={'last'}>
-            <FormattedMessage id='cubaReact.dataTable.intervalEditor.last'/>
-          </Radio>
-          <Radio style={{display: 'block'}} value={'next'}>
-            <FormattedMessage id='cubaReact.dataTable.intervalEditor.next'/>
-          </Radio>
-          <Radio style={{display: 'block'}} value={'predefined'}>
-            <FormattedMessage id='cubaReact.dataTable.intervalEditor.predefined'/>
-          </Radio>
-        </Radio.Group>
-      </div>
+      <Radio.Group
+          className='cuba-interval-mode-select'
+          onChange={this.onModeChanged}
+          value={this.mode}>
+        <Radio value={'last'}>
+          <FormattedMessage id='cubaReact.dataTable.intervalEditor.last'/>
+        </Radio>
+        <Radio value={'next'}>
+          <FormattedMessage id='cubaReact.dataTable.intervalEditor.next'/>
+        </Radio>
+        <Radio value={'predefined'}>
+          <FormattedMessage id='cubaReact.dataTable.intervalEditor.predefined'/>
+        </Radio>
+      </Radio.Group>
     );
   }
 
   @computed
   get predefinedIntervals(): ReactNode {
     return (
-      <Form.Item className={'data-table-custom-filter-form-item'}>
+      <Form.Item className='filtercontrol'>
         {this.props.getFieldDecorator(`${this.props.id}.predefined`, {
           initialValue: this.option,
           rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}],
         })(
           <Select onChange={this.onPredefinedIntervalOptionChanged}
                   dropdownMatchSelectWidth={false}
-                  style={{minWidth: '100px'}}>
+                  className='cuba-interval-predefined-select'
+          >
             <Select.Option value={'today'}>
               <FormattedMessage id='cubaReact.dataTable.intervalEditor.today' />
             </Select.Option>
@@ -145,8 +146,8 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   @computed
   get intervalInput(): ReactNode {
     return (
-      <div className={'data-table-custom-filter-form-item-group'}>
-        <Form.Item key={`${this.props.id}.wrap.number`} className={'data-table-custom-filter-form-item'}>
+      <div className='cuba-filter-controls-layout'>
+        <Form.Item key={`${this.props.id}.wrap.number`} className='filtercontrol'>
           {this.props.getFieldDecorator(`${this.props.id}.number`, {
             initialValue: this.numberOfUnits,
             rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}],
@@ -154,7 +155,7 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
             <InputNumber onChange={this.onIntervalNumberChanged}/>
           )}
         </Form.Item>
-        <Form.Item key={`${this.props.id}.wrap.unit`} className={'data-table-custom-filter-form-item'}>
+        <Form.Item key={`${this.props.id}.wrap.unit`} className='filtercontrol'>
           <Select defaultValue={this.timeUnit}
                   onChange={this.onIntervalUnitChanged}
                   dropdownMatchSelectWidth={false}>
@@ -172,9 +173,9 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
             </Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item key={`${this.props.id}.wrap.includeCurrent`} className={'data-table-custom-filter-form-item'}>
+        <Form.Item key={`${this.props.id}.wrap.includeCurrent`} className='filtercontrol'>
           <Checkbox onChange={this.onIncludeCurrentChanged}
-                    style={{whiteSpace: 'nowrap'}}
+                    className='cuba-interval-include-current'
                     defaultChecked={this.includeCurrent}>
             <FormattedMessage id='cubaReact.dataTable.intervalEditor.includingCurrent' />
           </Checkbox>

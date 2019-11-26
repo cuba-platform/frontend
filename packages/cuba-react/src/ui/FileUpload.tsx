@@ -6,7 +6,7 @@ import {IReactionDisposer, observable, reaction} from 'mobx';
 import {observer} from 'mobx-react';
 import {UploadProps} from 'antd/es/upload';
 import {UploadFile} from 'antd/es/upload/interface';
-import './FileUpload.css';
+import './FileUpload.less';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 export interface FileUploadProps {
@@ -120,7 +120,7 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
         showPreviewIcon: true,
         showRemoveIcon: true,
       },
-      className: this.props.enableFullWidth ? 'file-upload-full-width-enabled' : '',
+      className: this.props.enableFullWidth ? '_cuba-file-upload-full-width-enabled' : '',
     };
 
     const uploadProps: UploadProps = { ...defaultUploadProps, ...this.props.uploadProps };
@@ -143,17 +143,17 @@ interface FileUploadDropAreaProps {
 function FileUploadDropArea(props: FileUploadDropAreaProps) {
   return props.fileInfo
     ? (
-      <div className='file-upload-drop-area'>
-        <Icon className='file-upload-drop-area__icon-replace' type='upload' />
-        <span className='file-upload-drop-area__text-replace'>
+      <div className='cuba-file-drop-area'>
+        <Icon className='replaceicon' type='upload' />
+        <span className='replacetext'>
           <FormattedMessage id='cubaReact.fileUpload.replace'/>
         </span>
       </div>
     )
     : (
-      <div className='file-upload-drop-area'>
-        <Icon className='file-upload-drop-area__icon-upload' type='upload' />
-        <div className='file-upload-drop-area__text-upload'>
+      <div className='cuba-file-drop-area'>
+        <Icon className='uploadicon' type='upload' />
+        <div className='uploadtext'>
           <FormattedMessage id='cubaReact.fileUpload.upload'/>
         </div>
       </div>

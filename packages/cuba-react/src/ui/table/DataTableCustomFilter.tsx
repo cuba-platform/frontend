@@ -8,7 +8,8 @@ import {action, computed, observable} from 'mobx';
 import moment, {Moment} from 'moment';
 import {DataTableListEditor} from './DataTableListEditor';
 import {DataTableIntervalEditor} from './DataTableIntervalEditor';
-import './DataTableCustomFilter.css';
+import './DataTableCustomFilter.less';
+import './DataTableFilterControlLayout.less';
 import {getCubaREST} from '../../app/CubaAppProvider';
 import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
 import {getPropertyInfo, WithId} from '../../util/metadata';
@@ -218,20 +219,20 @@ class DataTableCustomFilterComponent<E extends WithId>
       return (
         <Spin
           tip={this.props.intl.formatMessage({id: 'cubaReact.dataTable.loading'})}
-          style={{margin: '12px'}}
+          className='cuba-table-filter-loader'
         />
       );
     }
 
     return (
       <Form layout='inline' onSubmit={this.handleSubmit}>
-        <div>
-          <div className={'data-table-custom-filter'}>
-            <div className={'data-table-custom-filter-form-item-group'}>
-              <Form.Item style={{whiteSpace: 'nowrap'}} className={'data-table-custom-filter-form-item'}>
+        <div className='cuba-table-filter'>
+          <div className='settings'>
+            <div className='cuba-filter-controls-layout'>
+              <Form.Item className='filtercontrol -property-caption'>
                 {this.propertyCaption}
               </Form.Item>
-              <Form.Item className={'data-table-custom-filter-form-item'}>
+              <Form.Item className='filtercontrol'>
                 {this.getFieldDecorator(
                   `${this.props.entityProperty}.operatorsDropdown`,
                   {initialValue: this.getDefaultOperator()})(
@@ -246,14 +247,13 @@ class DataTableCustomFilterComponent<E extends WithId>
             </div>
             {this.complexFilterEditor}
           </div>
-          <Divider style={{margin: '0'}} />
-          <div style={{display: 'flex', justifyContent: 'left'}}>
+          <Divider className='divider' />
+          <div className='footer'>
             <Button htmlType='submit'
-                style={{marginRight: '12px'}}
                 type='link'>
               <FormattedMessage id='cubaReact.dataTable.ok'/>
             </Button>
-            <Button className='entity-filter-ui__element'
+            <Button
                 htmlType='button'
                 type='link'
                 onClick={this.resetFilter}>
@@ -463,7 +463,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get textInputField(): ReactNode {
     return (
-      <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+      <Form.Item hasFeedback={true} className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <Input onChange={this.onTextInputChange}/>
         )}
@@ -474,7 +474,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get numberInputField(): ReactNode {
     return (
-      <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+      <Form.Item hasFeedback={true} className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <InputNumber onChange={this.setValue}/>
         )}
@@ -485,10 +485,10 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get selectField(): ReactNode {
     return (
-      <Form.Item className={'data-table-custom-filter-form-item'}>
+      <Form.Item className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, {initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}]})(
           <Select dropdownMatchSelectWidth={false}
-              style={{ minWidth: '60px' }}
+              className='cuba-filter-select'
               onSelect={this.setValue}>
             {this.selectFieldOptions}
           </Select>
@@ -511,11 +511,11 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get yesNoSelectField(): ReactNode {
     return (
-      <Form.Item className={'data-table-custom-filter-form-item'}>
+      <Form.Item className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, {initialValue: 'true', rules: [{required: true}]})(
           <Select dropdownMatchSelectWidth={false}
-              style={{ minWidth: '60px' }}
-              onSelect={this.setValue}>
+                  className='cuba-filter-select'
+                  onSelect={this.setValue}>
             <Select.Option value='true'>
               <FormattedMessage id='cubaReact.dataTable.yes'/>
             </Select.Option>
@@ -531,7 +531,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get listEditor(): ReactNode {
     return (
-      <Form.Item className={'data-table-custom-filter-form-item'} style={{marginRight: 0}}>
+      <Form.Item className='filtercontrol -complex-editor'>
         <DataTableListEditor onChange={(value: any) => this.value = value}
                              id={this.props.entityProperty}
                              propertyInfo={this.propertyInfoNN}
@@ -545,7 +545,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get intervalEditor(): ReactNode {
     return (
-      <Form.Item className={'data-table-custom-filter-form-item'} style={{marginRight: 0}}>
+      <Form.Item className='filtercontrol -complex-editor'>
         <DataTableIntervalEditor onChange={(value: any) => this.value = value}
                                  id={this.props.entityProperty}
                                  getFieldDecorator={this.props.form.getFieldDecorator}
@@ -557,7 +557,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get datePickerField(): ReactNode {
     return (
-      <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+      <Form.Item hasFeedback={true} className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <DatePicker placeholder='YYYY-MM-DD' onChange={this.onDatePickerChange}/>
         )}
@@ -568,7 +568,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get timePickerField(): ReactNode {
     return (
-      <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+      <Form.Item hasFeedback={true} className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <TimePicker placeholder='HH:mm:ss'
                 defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
@@ -581,14 +581,14 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get dateTimePickerField(): ReactNode {
     return (
-      <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
-        <div className={'data-table-custom-filter-form-item-group'}>
-          <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+      <Form.Item hasFeedback={true} className='filtercontrol'>
+        <div className='cuba-filter-controls-layout'>
+          <Form.Item hasFeedback={true} className='filtercontrol'>
             {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
               <DatePicker placeholder='YYYY-MM-DD'/>
             )}
           </Form.Item>
-          <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+          <Form.Item hasFeedback={true} className='filtercontrol'>
             {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
               <TimePicker placeholder='HH:mm:ss'
                     defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}

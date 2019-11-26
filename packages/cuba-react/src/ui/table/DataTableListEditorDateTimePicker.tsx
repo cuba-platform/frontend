@@ -34,15 +34,15 @@ class DataTableListEditorDateTimePickerComponent extends React.Component<DataTab
 
   render() {
     return (
-      <div style={{whiteSpace: 'nowrap'}} className={'data-table-custom-filter-form-item-group'}>
-        <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+      <div className='cuba-filter-controls-layout -no-wrap'>
+        <Form.Item hasFeedback={true} className='filtercontrol'>
           {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
             <DatePicker placeholder='YYYY-MM-DD'
                         onChange={this.onMomentChange}
             />
           )}
         </Form.Item>
-        <Form.Item hasFeedback={true} className={'data-table-custom-filter-form-item'}>
+        <Form.Item hasFeedback={true} className='filtercontrol'>
           {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
             <TimePicker placeholder='HH:mm:ss'
                         defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
@@ -50,7 +50,7 @@ class DataTableListEditorDateTimePickerComponent extends React.Component<DataTab
             />
           )}
         </Form.Item>
-        <Form.Item className={'data-table-custom-filter-form-item'}>
+        <Form.Item className='filtercontrol'>
           <Button htmlType='button'
                   disabled={!this.moment}
                   onClick={this.onConfirm}

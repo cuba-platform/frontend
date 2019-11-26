@@ -160,14 +160,15 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
           })
         }
         {this.inputVisible && (
-          <Form.Item className={'data-table-custom-filter-form-item'}>
+          <Form.Item className='filtercontrol'>
             {this.input}
           </Form.Item>
         )}
         {!this.inputVisible && (
           <Tag onClick={this.showInput}
              color='blue'
-             style={{ borderStyle: 'dashed' }}>
+             className='cuba-list-editor-input'
+          >
             <Icon type="plus" />
             &nbsp;
             <FormattedMessage id='cubaReact.dataTable.listEditor.addItem'/>
@@ -244,7 +245,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         return (
           <div>
             <Select dropdownMatchSelectWidth={false}
-                style={{ minWidth: '60px' }}
+                className='cuba-filter-select'
                 onSelect={this.onSelect}>
               {this.selectFieldOptions}
             </Select>
