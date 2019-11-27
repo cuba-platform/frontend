@@ -23,6 +23,14 @@ export interface AppConfig {
     restClientSecret?: string;
     defaultLocale?: string;
     storage?: Storage;
+    /**
+     * REST API version number. Used by feature detection mechanism. If `apiVersion` is not provided
+     * during construction, it will be determined lazily (the first time feature detection is required) by
+     * requesting a version endpoint. In either case, `apiVersion` is not updated automatically after it has been
+     * initially acquired. If there is a need for such update (i.e. if client app shall become aware that a new version of
+     * REST API has been deployed without browser refresh) {@link refreshApiVersion} method can be used.
+     */
+    apiVersion?: string;
 }
 export interface ResponseError extends Error {
     response?: any;
@@ -47,6 +55,8 @@ export declare class CubaApp {
     restClientSecret: string;
     defaultLocale: string;
     private storage;
+    apiVersion?: any;
+    static NOT_SUPPORTED_BY_API_VERSION: string;
     private static REST_TOKEN_STORAGE_KEY;
     private static USER_NAME_STORAGE_KEY;
     private static LOCALE_STORAGE_KEY;
@@ -56,7 +66,7 @@ export declare class CubaApp {
     private messagesLoadingListeners;
     private enumsLoadingListeners;
     private localeChangeListeners;
-    constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string, storage?: Storage);
+    constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string, storage?: Storage, apiVersion?: any);
     restApiToken: string;
     locale: string;
     /**
@@ -103,7 +113,25 @@ export declare class CubaApp {
     onEnumsLoaded(c: any): () => ((enums: any[]) => {})[];
     onMessagesLoaded(c: any): () => ((messages: EntityMessages) => {})[];
     cleanup(): void;
+    /**
+     * @since 7.2.0
+     */
     setSessionLocale(): Promise<void>;
+    /**
+     * Returns REST API version number without performing side effects
+     *
+     * @returns REST API version number
+     */
+    getApiVersion(fetchOptions?: FetchOptions): Promise<string>;
+    /**
+     * Updates stored REST API version number (which is used in feature detection mechanism)
+     * with a value acquired by requesting version endpoint, and returns an updated value.
+     *
+     * @returns REST API version number
+     */
+    refreshApiVersion(): Promise<string>;
+    private requestIfSupported;
+    private isFeatureSupported;
     private isTokenExpiredResponse;
     private _getBasicAuthHeaders;
     private checkStatus;
@@ -112,3 +140,4 @@ export declare class CubaApp {
 export declare function getBasicAuthHeaders(client: string, secret: string, locale?: string): {
     [header: string]: string;
 };
+export declare function matchesVersion(versionToTest: string, versionToMatch: string): boolean;
