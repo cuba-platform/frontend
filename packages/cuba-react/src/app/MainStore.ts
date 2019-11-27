@@ -92,8 +92,14 @@ export class MainStore {
   };
 
   setSessionLocale = () => {
-    // noinspection JSIgnoredPromiseFromCall
-    this.cubaREST.setSessionLocale();
+    this.cubaREST.setSessionLocale().catch((reason) => {
+      if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
+        throw new Error('Relogin is required in order for bean validation messages to use correct locale. ' +
+              'Upgrade to REST API 7.2.0 or higher to be able to change locale without relogin.');
+      } else {
+        throw new Error('Failed to set session locale');
+      }
+    });
   };
 
   @computed get loginRequired(): boolean {
