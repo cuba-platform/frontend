@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/rest",
-  "version": "0.7.0-dev.2",
+  "version": "0.7.0-dev.3",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
   "main": "dist-node/cuba.js",
   "typings": "dist-node/cuba.d.ts",
@@ -26,6 +26,7 @@
     "mocha": "~5.0.5",
     "node-fetch": "^2.6.0",
     "nyc": "~14.1.1",
+    "semver": "^6.3.0",
     "tslint": "~5.17.0",
     "typescript": "3.5.2"
   },

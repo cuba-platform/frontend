@@ -39,6 +39,31 @@ describe('cuba', function () {
 
 });
 
+describe('.matchesVersion()', function () {
+  it('should compare versions correctly', async function () {
+    const matchesVersion = cuba.matchesVersion;
+    assert( matchesVersion('7.2.0', '7.2.0'));
+    assert( matchesVersion('7.2.1', '7.2.0'));
+    assert( matchesVersion('7.3.0', '7.2.0'));
+    assert( matchesVersion('8.2.0', '7.2.0'));
+    assert( matchesVersion('7.2-SNAPSHOT', '7.2.0'));
+
+    assert(!matchesVersion('7.2.0', '7.2.1'));
+    assert(!matchesVersion('7.2.0', '7.3.0'));
+    assert(!matchesVersion('7.2.0', '8.2.0'));
+    assert(!matchesVersion('7.2-SNAPSHOT', '7.2.1'));
+    assert(!matchesVersion('7.2-SNAPSHOT', '7.3.0'));
+    assert(!matchesVersion('0', '7.2.0'));
+    assert(!matchesVersion(undefined, '7.2.0'));
+    assert(!matchesVersion(null, '7.2.0'));
+    assert(!matchesVersion('A string that cannot be converted to a semver', '7.2.0'));
+
+    assert.throws(() => matchesVersion('7.2.0', undefined));
+    assert.throws(() => matchesVersion('7.2.0', null));
+    assert.throws(() => matchesVersion('7.2.0', 'A string that cannot be converted to a semver'));
+  })
+});
+
 describe('CubaApp', function () {
 
   let app;

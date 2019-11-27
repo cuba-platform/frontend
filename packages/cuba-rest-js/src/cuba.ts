@@ -11,6 +11,7 @@ import {
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
 import {base64encode, encodeGetParams} from "./util";
+import * as semver from "semver";
 
 export * from './model';
 export * from './storage';
@@ -28,7 +29,7 @@ export function initializeApp(config: AppConfig = {}): CubaApp {
     throw new Error("Cuba app is already initialized");
   }
   const cubaApp = new CubaApp(config.name, config.apiUrl, config.restClientId, config.restClientSecret,
-    config.defaultLocale, config.storage);
+    config.defaultLocale, config.storage, config.apiVersion);
   apps.push(cubaApp);
   return cubaApp;
 }
@@ -64,6 +65,14 @@ export interface AppConfig {
   restClientSecret?: string;
   defaultLocale?: string;
   storage?: Storage;
+  /**
+   * REST API version number. Used by feature detection mechanism. If `apiVersion` is not provided
+   * during construction, it will be determined lazily (the first time feature detection is required) by
+   * requesting a version endpoint. In either case, `apiVersion` is not updated automatically after it has been
+   * initially acquired. If there is a need for such update (i.e. if client app shall become aware that a new version of
+   * REST API has been deployed without browser refresh) {@link refreshApiVersion} method can be used.
+   */
+  apiVersion?: string;
 }
 
 export interface ResponseError extends Error {
@@ -89,6 +98,8 @@ export interface LoginOptions {
 
 export class CubaApp {
 
+  public static NOT_SUPPORTED_BY_API_VERSION = 'Not supported by current REST API version';
+
   private static REST_TOKEN_STORAGE_KEY = "cubaAccessToken";
   private static USER_NAME_STORAGE_KEY = "cubaUserName";
   private static LOCALE_STORAGE_KEY = "cubaLocale";
@@ -106,7 +117,8 @@ export class CubaApp {
               public restClientId = "client",
               public restClientSecret = "secret",
               public defaultLocale = "en",
-              private storage: Storage = new DefaultStorage()) {
+              private storage: Storage = new DefaultStorage(),
+              public apiVersion?) {
   }
 
   get restApiToken(): string {
@@ -425,8 +437,56 @@ export class CubaApp {
     this.storage.clear();
   }
 
+  /**
+   * @since 7.2.0
+   */
   public setSessionLocale(): Promise<void> {
-    return this.fetch('PUT', 'v2/user-session/locale');
+    return this.requestIfSupported('7.2.0', () => this.fetch('PUT', 'v2/user-session/locale'));
+  }
+
+  /**
+   * Returns REST API version number without performing side effects
+   *
+   * @returns REST API version number
+   */
+  public getApiVersion(fetchOptions?: FetchOptions): Promise<string> {
+    return this.fetch('GET', 'v2/version', null, {handleAs: 'text', ...fetchOptions});
+  }
+
+  /**
+   * Updates stored REST API version number (which is used in feature detection mechanism)
+   * with a value acquired by requesting version endpoint, and returns an updated value.
+   *
+   * @returns REST API version number
+   */
+  public refreshApiVersion(): Promise<string> {
+    return this.getApiVersion().then((version) => {
+      this.apiVersion = version;
+      return this.apiVersion;
+    }).catch((err) => {
+      if (err && err.response && err.response.status === 404) {
+        // REST API doesn't have a version endpoint
+        this.apiVersion = '0';
+        return this.apiVersion;
+      } else {
+        throw err;
+      }
+    });
+  }
+
+  private async requestIfSupported<T>(minVersion: string, requestCallback: () => Promise<unknown>): Promise<any> {
+    if (await this.isFeatureSupported(minVersion)) {
+      return requestCallback();
+    } else {
+      return Promise.reject(CubaApp.NOT_SUPPORTED_BY_API_VERSION);
+    }
+  }
+
+  private async isFeatureSupported(minVersion: string): Promise<boolean> {
+    if (!this.apiVersion) {
+      await this.refreshApiVersion();
+    }
+    return matchesVersion(this.apiVersion, minVersion);
   }
 
   private isTokenExpiredResponse(resp: Response): boolean {
@@ -460,4 +520,21 @@ export function getBasicAuthHeaders(client: string, secret: string, locale = 'en
     "Authorization": "Basic " + base64encode(client + ':' + secret),
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
   };
+}
+
+export function matchesVersion(versionToTest: string, versionToMatch: string): boolean {
+  const semverToTest = semver.coerce(versionToTest);
+  if (!semverToTest) {
+    // versionToTest cannot be converted to semver
+    return false;
+  }
+
+  const semverToMatch = semver.coerce(versionToMatch);
+  if (!semverToMatch) {
+    // versionToMatch cannot be converted to semver
+    throw new Error(
+      `Cannot determine required REST API version: value ${versionToMatch} cannot be converted to semver`);
+  }
+
+  return semver.gte(semverToTest, semverToMatch);
 }
