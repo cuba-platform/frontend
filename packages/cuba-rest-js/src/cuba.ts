@@ -68,7 +68,7 @@ export interface AppConfig {
   /**
    * REST API version number. Used by feature detection mechanism. If `apiVersion` is not provided
    * during construction, it will be determined lazily (the first time feature detection is required) by
-   * requesting a version endpoint. In either case, `apiVersion` is not updated automatically after it has been
+   * making a request to a version endpoint. In either case, `apiVersion` is not updated automatically after it has been
    * initially acquired. If there is a need for such update (i.e. if client app shall become aware that a new version of
    * REST API has been deployed without browser refresh) {@link refreshApiVersion} method can be used.
    */
@@ -438,7 +438,7 @@ export class CubaApp {
   }
 
   /**
-   * @since 7.2.0
+   * @since CUBA REST JS 0.7.0, Generic REST API 7.2.0
    */
   public setSessionLocale(): Promise<void> {
     return this.requestIfSupported('7.2.0', () => this.fetch('PUT', 'v2/user-session/locale'));
@@ -455,7 +455,7 @@ export class CubaApp {
 
   /**
    * Updates stored REST API version number (which is used in feature detection mechanism)
-   * with a value acquired by requesting version endpoint, and returns an updated value.
+   * with a value acquired by making a request to a version endpoint, and returns an updated value.
    *
    * @returns REST API version number
    */
@@ -465,7 +465,10 @@ export class CubaApp {
       return this.apiVersion;
     }).catch((err) => {
       if (err && err.response && err.response.status === 404) {
-        // REST API doesn't have a version endpoint
+        // REST API doesn't have a version endpoint.
+        // It means that version is less than 7.2.0 where feature detection was first introduced.
+        // Return version as '0' so that comparison with a required version always result
+        // in actual version being less than required version.
         this.apiVersion = '0';
         return this.apiVersion;
       } else {
