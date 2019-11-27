@@ -1,7 +1,8 @@
 
 buildscript {
-    ext.cubaVersion = '7.0.3'
-    repositories {
+    ext.cubaVersion = '7.2-SNAPSHOT'
+    repositories { 
+        mavenLocal()
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
             credentials {
@@ -41,10 +42,11 @@ cuba {
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
+    appComponent('com.haulmont.addon.restapi:restapi-global:7.2-SNAPSHOT')
 
 }
 
-def hsql = 'org.hsqldb:hsqldb:2.2.9'
+def hsql = 'org.hsqldb:hsqldb:2.4.1'
 
 configure([globalModule, coreModule, guiModule, webModule]) {
     apply(plugin: 'java')
@@ -199,10 +201,6 @@ configure(webModule) {
     }
 }
 
-
-
-
-
 task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf" ) {
     delete("$cuba.tomcat.dir/shared")
     delete("$cuba.tomcat.dir/webapps/${modulePrefix}-core" )
@@ -216,8 +214,17 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy" , ":${modulePref
                 socket(server: 'localhost', port: '8787')
             }
         }
-        start.execute()
     }
+}
+restart.finalizedBy start
+
+task startAndWaitForInitialization(
+  dependsOn: ['start'],
+  description: 'Starts local Tomcat and waits until the app is initialized'
+) {
+  ant.waitfor(maxwait: 10, maxwaitunit: 'second', checkevery: 1, checkeveryunit: 'second') {
+    http(url: 'http://localhost:8080/app/rest/health')
+  }
 }
 
 task restartAndWaitForInitialization(dependsOn: ['stop', ":${modulePrefix}-core:deploy" , ":${modulePrefix}-web:deploy" ], description: 'Redeploys application,' +
@@ -228,12 +235,9 @@ task restartAndWaitForInitialization(dependsOn: ['stop', ":${modulePrefix}-core:
                 socket(server: 'localhost', port: '8787')
             }
         }
-        start.execute()
-        ant.waitfor(maxwait: 10, maxwaitunit: 'second', checkevery: 1, checkeveryunit: 'second') {
-            http(url: 'http://localhost:8080/app/rest/health')
-        }
     }
 }
+restartAndWaitForInitialization.finalizedBy startAndWaitForInitialization
 
 
 apply from: 'extra.gradle'

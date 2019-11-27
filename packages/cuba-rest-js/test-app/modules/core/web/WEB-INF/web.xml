@@ -17,7 +17,7 @@
     <!--Application components-->
     <context-param>
         <param-name>appComponents</param-name>
-        <param-value>com.haulmont.cuba</param-value>
+        <param-value>com.haulmont.cuba com.haulmont.addon.restapi</param-value>
     </context-param>
     <listener>
         <listener-class>com.haulmont.cuba.core.sys.AppContextLoader</listener-class>
