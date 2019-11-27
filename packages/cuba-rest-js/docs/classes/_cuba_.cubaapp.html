@@ -91,6 +91,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#apiurl" class="tsd-kind-icon">api<wbr>Url</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#apiversion" class="tsd-kind-icon">api<wbr>Version</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#enumscache" class="tsd-kind-icon">enums<wbr>Cache</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_cuba_.cubaapp.html#enumsloadinglisteners" class="tsd-kind-icon">enums<wbr>Loading<wbr>Listeners</a></li>
@@ -103,6 +104,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_cuba_.cubaapp.html#storage" class="tsd-kind-icon">storage</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_cuba_.cubaapp.html#tokenexpirylisteners" class="tsd-kind-icon">token<wbr>Expiry<wbr>Listeners</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_cuba_.cubaapp.html#locale_storage_key" class="tsd-kind-icon">LOCALE_<wbr>STORAGE_<wbr>KEY</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_cuba_.cubaapp.html#not_supported_by_api_version" class="tsd-kind-icon">NOT_<wbr>SUPPORTED_<wbr>BY_<wbr>API_<wbr>VERSION</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_cuba_.cubaapp.html#rest_token_storage_key" class="tsd-kind-icon">REST_<wbr>TOKEN_<wbr>STORAGE_<wbr>KEY</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_cuba_.cubaapp.html#user_name_storage_key" class="tsd-kind-icon">USER_<wbr>NAME_<wbr>STORAGE_<wbr>KEY</a></li>
 							</ul>
@@ -124,11 +126,14 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#commitentity" class="tsd-kind-icon">commit<wbr>Entity</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#deleteentity" class="tsd-kind-icon">delete<wbr>Entity</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#fetch" class="tsd-kind-icon">fetch</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#getapiversion" class="tsd-kind-icon">get<wbr>Api<wbr>Version</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#getfile" class="tsd-kind-icon">get<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#getfileuploadurl" class="tsd-kind-icon">get<wbr>File<wbr>UploadURL</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#getpermissions" class="tsd-kind-icon">get<wbr>Permissions</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#getroles" class="tsd-kind-icon">get<wbr>Roles</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#getuserinfo" class="tsd-kind-icon">get<wbr>User<wbr>Info</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#invokeservice" class="tsd-kind-icon">invoke<wbr>Service</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_cuba_.cubaapp.html#isfeaturesupported" class="tsd-kind-icon">is<wbr>Feature<wbr>Supported</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_cuba_.cubaapp.html#istokenexpiredresponse" class="tsd-kind-icon">is<wbr>Token<wbr>Expired<wbr>Response</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#loadentities" class="tsd-kind-icon">load<wbr>Entities</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#loadentitiesmessages" class="tsd-kind-icon">load<wbr>Entities<wbr>Messages</a></li>
@@ -148,6 +153,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#query" class="tsd-kind-icon">query</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#querycount" class="tsd-kind-icon">query<wbr>Count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#querywithcount" class="tsd-kind-icon">query<wbr>With<wbr>Count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#refreshapiversion" class="tsd-kind-icon">refresh<wbr>Api<wbr>Version</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private"><a href="_cuba_.cubaapp.html#requestifsupported" class="tsd-kind-icon">request<wbr>IfSupported</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_cuba_.cubaapp.html#revoketoken" class="tsd-kind-icon">revoke<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#searchentities" class="tsd-kind-icon">search<wbr>Entities</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_cuba_.cubaapp.html#searchentitieswithcount" class="tsd-kind-icon">search<wbr>Entities<wbr>With<wbr>Count</a></li>
@@ -163,13 +170,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Cuba<wbr>App<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, apiUrl<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, restClientId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, restClientSecret<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, defaultLocale<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, storage<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Storage</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_cuba_.cubaapp.html" class="tsd-signature-type">CubaApp</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Cuba<wbr>App<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, apiUrl<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, restClientId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, restClientSecret<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, defaultLocale<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, storage<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Storage</span>, apiVersion<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_cuba_.cubaapp.html" class="tsd-signature-type">CubaApp</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L102">cuba.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L113">cuba.ts:113</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -192,6 +199,9 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> storage: <span class="tsd-signature-type">Storage</span><span class="tsd-signature-symbol"> =&nbsp;new DefaultStorage()</span></h5>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> apiVersion: <span class="tsd-signature-type">any</span></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_cuba_.cubaapp.html" class="tsd-signature-type">CubaApp</a></h4>
 						</li>
@@ -206,7 +216,17 @@
 					<div class="tsd-signature tsd-kind-icon">api<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L105">cuba.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L116">cuba.ts:116</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="apiversion" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> api<wbr>Version</h3>
+					<div class="tsd-signature tsd-kind-icon">api<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L121">cuba.ts:121</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -216,7 +236,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L108">cuba.ts:108</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L119">cuba.ts:119</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -226,7 +246,7 @@
 					<div class="tsd-signature tsd-kind-icon">enums<wbr>Cache<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_model_.enuminfo.html" class="tsd-signature-type">EnumInfo</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L97">cuba.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L108">cuba.ts:108</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -236,7 +256,7 @@
 					<div class="tsd-signature tsd-kind-icon">enums<wbr>Loading<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L101">cuba.ts:101</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L112">cuba.ts:112</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +266,7 @@
 					<div class="tsd-signature tsd-kind-icon">locale<wbr>Change<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L102">cuba.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L113">cuba.ts:113</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,7 +276,7 @@
 					<div class="tsd-signature tsd-kind-icon">messages<wbr>Cache<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_model_.entitymessages.html" class="tsd-signature-type">EntityMessages</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L96">cuba.ts:96</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L107">cuba.ts:107</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -266,7 +286,7 @@
 					<div class="tsd-signature tsd-kind-icon">messages<wbr>Loading<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L100">cuba.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L111">cuba.ts:111</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -276,7 +296,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L104">cuba.ts:104</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L115">cuba.ts:115</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -286,7 +306,7 @@
 					<div class="tsd-signature tsd-kind-icon">rest<wbr>Client<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L106">cuba.ts:106</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L117">cuba.ts:117</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -296,7 +316,7 @@
 					<div class="tsd-signature tsd-kind-icon">rest<wbr>Client<wbr>Secret<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L107">cuba.ts:107</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L118">cuba.ts:118</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -306,7 +326,7 @@
 					<div class="tsd-signature tsd-kind-icon">storage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Storage</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L109">cuba.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L120">cuba.ts:120</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -316,7 +336,7 @@
 					<div class="tsd-signature tsd-kind-icon">token<wbr>Expiry<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L99">cuba.ts:99</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L110">cuba.ts:110</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -326,7 +346,17 @@
 					<div class="tsd-signature tsd-kind-icon">LOCALE_<wbr>STORAGE_<wbr>KEY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;cubaLocale&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L94">cuba.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L105">cuba.ts:105</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="not_supported_by_api_version" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> NOT_<wbr>SUPPORTED_<wbr>BY_<wbr>API_<wbr>VERSION</h3>
+					<div class="tsd-signature tsd-kind-icon">NOT_<wbr>SUPPORTED_<wbr>BY_<wbr>API_<wbr>VERSION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;Not supported by current REST API version&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L101">cuba.ts:101</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -336,7 +366,7 @@
 					<div class="tsd-signature tsd-kind-icon">REST_<wbr>TOKEN_<wbr>STORAGE_<wbr>KEY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;cubaAccessToken&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L92">cuba.ts:92</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L103">cuba.ts:103</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -346,7 +376,7 @@
 					<div class="tsd-signature tsd-kind-icon">USER_<wbr>NAME_<wbr>STORAGE_<wbr>KEY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;cubaUserName&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L93">cuba.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L104">cuba.ts:104</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -364,7 +394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L120">cuba.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L132">cuba.ts:132</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -372,7 +402,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L125">cuba.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L137">cuba.ts:137</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -396,7 +426,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L112">cuba.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L124">cuba.ts:124</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -404,7 +434,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L116">cuba.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L128">cuba.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -430,7 +460,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L434">cuba.ts:434</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L498">cuba.ts:498</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
@@ -452,7 +482,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L438">cuba.ts:438</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L502">cuba.ts:502</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -475,7 +505,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L420">cuba.ts:420</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L436">cuba.ts:436</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -492,7 +522,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L446">cuba.ts:446</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L510">cuba.ts:510</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -509,7 +539,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L238">cuba.ts:238</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L250">cuba.ts:250</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -544,7 +574,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L234">cuba.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L246">cuba.ts:246</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -573,7 +603,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L341">cuba.ts:341</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L357">cuba.ts:357</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -602,6 +632,35 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getapiversion" class="tsd-anchor"></a>
+					<h3>get<wbr>Api<wbr>Version</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Api<wbr>Version<span class="tsd-signature-symbol">(</span>fetchOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_cuba_.fetchoptions.html" class="tsd-signature-type">FetchOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L452">cuba.ts:452</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns REST API version number without performing side effects</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fetchOptions: <a href="../interfaces/_cuba_.fetchoptions.html" class="tsd-signature-type">FetchOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>REST API version number</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getfile" class="tsd-anchor"></a>
 					<h3>get<wbr>File</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -611,7 +670,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L337">cuba.ts:337</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L353">cuba.ts:353</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -637,7 +696,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L333">cuba.ts:333</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L349">cuba.ts:349</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -654,7 +713,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L325">cuba.ts:325</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L337">cuba.ts:337</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -668,6 +727,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getroles" class="tsd-anchor"></a>
+					<h3>get<wbr>Roles</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Roles<span class="tsd-signature-symbol">(</span>fetchOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_cuba_.fetchoptions.html" class="tsd-signature-type">FetchOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_model_.rolesinfo.html" class="tsd-signature-type">RolesInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L341">cuba.ts:341</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fetchOptions: <a href="../interfaces/_cuba_.fetchoptions.html" class="tsd-signature-type">FetchOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_model_.rolesinfo.html" class="tsd-signature-type">RolesInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getuserinfo" class="tsd-anchor"></a>
 					<h3>get<wbr>User<wbr>Info</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -677,7 +759,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L329">cuba.ts:329</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L345">cuba.ts:345</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -700,7 +782,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L252">cuba.ts:252</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L264">cuba.ts:264</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -729,6 +811,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="isfeaturesupported" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> is<wbr>Feature<wbr>Supported</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Feature<wbr>Supported<span class="tsd-signature-symbol">(</span>minVersion<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L485">cuba.ts:485</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>minVersion: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
 					<a name="istokenexpiredresponse" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> is<wbr>Token<wbr>Expired<wbr>Response</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
@@ -738,7 +843,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L428">cuba.ts:428</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L492">cuba.ts:492</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -761,7 +866,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L174">cuba.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L186">cuba.ts:186</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -796,7 +901,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L306">cuba.ts:306</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L318">cuba.ts:318</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -819,7 +924,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L182">cuba.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L194">cuba.ts:194</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -854,7 +959,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L225">cuba.ts:225</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L237">cuba.ts:237</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -897,7 +1002,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L292">cuba.ts:292</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L304">cuba.ts:304</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -923,7 +1028,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L301">cuba.ts:301</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L313">cuba.ts:313</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -952,7 +1057,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L296">cuba.ts:296</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L308">cuba.ts:308</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -978,7 +1083,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L316">cuba.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L328">cuba.ts:328</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1001,7 +1106,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L288">cuba.ts:288</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L300">cuba.ts:300</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1024,7 +1129,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L137">cuba.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L149">cuba.ts:149</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1064,7 +1169,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L160">cuba.ts:160</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L172">cuba.ts:172</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1081,7 +1186,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L410">cuba.ts:410</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L426">cuba.ts:426</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1104,7 +1209,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L400">cuba.ts:400</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L416">cuba.ts:416</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1127,7 +1232,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L415">cuba.ts:415</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L431">cuba.ts:431</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1150,7 +1255,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L405">cuba.ts:405</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L421">cuba.ts:421</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1173,7 +1278,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L262">cuba.ts:262</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L274">cuba.ts:274</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1211,7 +1316,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L284">cuba.ts:284</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L296">cuba.ts:296</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1243,7 +1348,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L271">cuba.ts:271</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L283">cuba.ts:283</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1272,6 +1377,74 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="refreshapiversion" class="tsd-anchor"></a>
+					<h3>refresh<wbr>Api<wbr>Version</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">refresh<wbr>Api<wbr>Version<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L462">cuba.ts:462</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates stored REST API version number (which is used in feature detection mechanism)
+									with a value acquired by requesting version endpoint, and returns an updated value.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>REST API version number</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
+					<a name="requestifsupported" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> request<wbr>IfSupported</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">request<wbr>IfSupported&lt;T&gt;<span class="tsd-signature-symbol">(</span>minVersion<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestCallback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L477">cuba.ts:477</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>minVersion: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>requestCallback: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="revoketoken" class="tsd-anchor"></a>
 					<h3>revoke<wbr>Token</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1281,7 +1454,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L164">cuba.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L176">cuba.ts:176</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1304,7 +1477,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L196">cuba.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L208">cuba.ts:208</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1342,7 +1515,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L206">cuba.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L218">cuba.ts:218</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1380,9 +1553,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/408af1a/src/cuba.ts#L424">cuba.ts:424</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/cuba-rest-js/blob/1264a2c/src/cuba.ts#L443">cuba.ts:443</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>since</dt>
+									<dd><p>7.2.0</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -1405,6 +1585,9 @@
 						<a href="../modules/_model_.html">"model"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_security_.html">"security"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_storage_.html">"storage"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -1424,6 +1607,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_cuba_.cubaapp.html#apiurl" class="tsd-kind-icon">api<wbr>Url</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_cuba_.cubaapp.html#apiversion" class="tsd-kind-icon">api<wbr>Version</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_cuba_.cubaapp.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a>
@@ -1461,6 +1647,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
 								<a href="_cuba_.cubaapp.html#locale_storage_key" class="tsd-kind-icon">LOCALE_<wbr>STORAGE_<wbr>KEY</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_cuba_.cubaapp.html#not_supported_by_api_version" class="tsd-kind-icon">NOT_<wbr>SUPPORTED_<wbr>BY_<wbr>API_<wbr>VERSION</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
 								<a href="_cuba_.cubaapp.html#rest_token_storage_key" class="tsd-kind-icon">REST_<wbr>TOKEN_<wbr>STORAGE_<wbr>KEY</a>
 							</li>
@@ -1495,6 +1684,9 @@
 								<a href="_cuba_.cubaapp.html#fetch" class="tsd-kind-icon">fetch</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_cuba_.cubaapp.html#getapiversion" class="tsd-kind-icon">get<wbr>Api<wbr>Version</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_cuba_.cubaapp.html#getfile" class="tsd-kind-icon">get<wbr>File</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -1504,10 +1696,16 @@
 								<a href="_cuba_.cubaapp.html#getpermissions" class="tsd-kind-icon">get<wbr>Permissions</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_cuba_.cubaapp.html#getroles" class="tsd-kind-icon">get<wbr>Roles</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_cuba_.cubaapp.html#getuserinfo" class="tsd-kind-icon">get<wbr>User<wbr>Info</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="_cuba_.cubaapp.html#invokeservice" class="tsd-kind-icon">invoke<wbr>Service</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_cuba_.cubaapp.html#isfeaturesupported" class="tsd-kind-icon">is<wbr>Feature<wbr>Supported</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_cuba_.cubaapp.html#istokenexpiredresponse" class="tsd-kind-icon">is<wbr>Token<wbr>Expired<wbr>Response</a>
@@ -1567,6 +1765,12 @@
 								<a href="_cuba_.cubaapp.html#querywithcount" class="tsd-kind-icon">query<wbr>With<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_cuba_.cubaapp.html#refreshapiversion" class="tsd-kind-icon">refresh<wbr>Api<wbr>Version</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
+								<a href="_cuba_.cubaapp.html#requestifsupported" class="tsd-kind-icon">request<wbr>IfSupported</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_cuba_.cubaapp.html#revoketoken" class="tsd-kind-icon">revoke<wbr>Token</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
@@ -1611,6 +1815,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_cuba_.html#initializeapp" class="tsd-kind-icon">initialize<wbr>App</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_cuba_.html#matchesversion" class="tsd-kind-icon">matches<wbr>Version</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_cuba_.html#removeapp" class="tsd-kind-icon">remove<wbr>App</a>
