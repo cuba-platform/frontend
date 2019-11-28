@@ -212,5 +212,23 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy" , ":${modulePref
     }
 }
 
+task waitAppStarted(description: 'Verify that application started') {
+    doLast {
+        ant.waitfor(maxwait: 20, maxwaitunit: 'second', checkevery: 1, checkeveryunit: 'second') {
+            http(url: 'http://localhost:8080/app/rest/health')
+        }
+
+        ant.fail(message: 'App not started, no response from http://localhost:8080/app/rest/health') {
+            condition {
+                not {
+                    http(url: 'http://localhost:8080/app/rest/health')
+                }
+            }
+        }
+
+        println 'App started'
+    }
+}
+
 
 apply from: 'extra.gradle'
