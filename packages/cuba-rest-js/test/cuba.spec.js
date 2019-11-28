@@ -69,6 +69,7 @@ describe('CubaApp', function () {
   let app;
 
   before(function () {
+    this.timeout(20000);
     app = new cuba.CubaApp('', apiUrl);
     return app.login('admin', 'admin');
   });
@@ -127,10 +128,12 @@ describe('CubaApp', function () {
       };
 
       app.commitEntity('sec$Role', role)
-        .then(function (entity) {
-          assert.strictEqual(entity.name, role.name);
-          assert(entity.id != null);
-          done()
+        .then(function (createdEntity) {
+          app.loadEntity('sec$Role', createdEntity.id).then((entity) => {
+            assert.strictEqual(entity.name, role.name);
+            assert(entity.id != null);
+            done();
+          });
         })
         .catch(function (e) {
           done(e);
@@ -143,9 +146,11 @@ describe('CubaApp', function () {
         description: 'Updated role description'
       };
       app.commitEntity('sec$Role', admRole)
-        .then(function (updatedRole) {
-          assert(updatedRole.description === admRole.description);
-          done();
+        .then(function () {
+          app.loadEntity('sec$Role', admRole.id).then((updatedRole) => {
+            assert(updatedRole.description === admRole.description);
+            done();
+          });
         })
         .catch(function (e) {
           done(e);
