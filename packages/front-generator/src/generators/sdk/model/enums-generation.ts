@@ -10,12 +10,12 @@ export type EnumInfo = {
 
 export function createEnums(enums: Enum[]): EnumInfo[] {
 
-  //todo sort before generation - model generation could change order and test fail
-
   const enDeclarations: EnumInfo[] = [];
   const duplicates: string[] = [];
 
-  enums.forEach(e => {
+  enums
+    .sort((a, b) => a.fqn.localeCompare(b.fqn))
+    .forEach(e => {
 
     const className = e.className;
 

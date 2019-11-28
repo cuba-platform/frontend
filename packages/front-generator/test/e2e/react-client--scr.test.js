@@ -44,6 +44,7 @@ describe('test:e2e:react:scr', () => {
       JSON.stringify(answers.entityManagement3), '../../');
 
     await checkFormat(SCR_APP_DIR);
+
     await installAndBuild('scr-model', SCR_APP_DIR);
 
     await runTests(SCR_APP_DIR);

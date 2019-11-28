@@ -7,13 +7,15 @@ import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+
 import {
 <% if (Object.keys(editRelations).length > 0) { %>
   collection,
 <% } %>
-  FormField,
+<% if (editAttributes.length > 0) { %>
+  Field,
+<% } %>
   instance,
-  Msg,
   withLocalizedForm,
   extractServerValidationErrors,
   constructFieldsWithErrors,
@@ -100,35 +102,34 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
       return <Redirect to={<%= className %>.PATH}/>
     }
 
-    const {getFieldDecorator} = this.props.form;
     const {status} = this.dataInstance;
 
     return (
       <Card className='page-layout-narrow'>
         <Form onSubmit={this.handleSubmit}
               layout='vertical'>
-          <% editAttributes.forEach(attr => { %>
-          <Form.Item label={<Msg entityName={<%= entity.className %>.NAME} propertyName='<%= attr.name %>'/>}
-                    key='<%= attr.name %>'
-                    style={{marginBottom: '12px'}}>{
 
-            getFieldDecorator('<%= attr.name %>', {
-                <% if (attr.mandatory) { %>
-                  rules:[{required: true}],
-                <% } %>
-                <% if (attr.type && attr.type.fqn === 'java.lang.Boolean') { %>
-                  valuePropName:"checked"
-                <% } %>}
-            )(
-                <FormField entityName={<%= entity.className %>.NAME}
-                           propertyName='<%= attr.name %>'
-                        <% if (Object.keys(editRelations).includes(attr.name)) { %>
-                           optionsContainer={this.<%= attr.name %>sDc}
-                        <% } %>
-                />
-            )}
-          </Form.Item>
+          <% editAttributes.forEach(attr => { %>
+            <Field entityName={<%= entity.className %>.NAME}
+                   propertyName="<%= attr.name %>"
+                   form={ this.props.form }
+                   formItemOpts={ {style: {marginBottom: "12px"} } }
+
+              <% if (Object.keys(editRelations).includes(attr.name)) { %>
+                   optionsContainer={this.<%= attr.name %>sDc}
+              <% } %>
+
+                   getFieldDecoratorOpts={{
+            <% if (attr.mandatory) { %>
+                   rules: [{required: true}],
+              <% } %>
+            <% if (attr.type && attr.type.fqn === 'java.lang.Boolean') { %>
+                   valuePropName: "checked",
+              <% } %>
+                   }}
+            /> <%# end Field %>
           <% }) %>
+
 
           {this.globalErrors.length > 0 && (
             <Alert

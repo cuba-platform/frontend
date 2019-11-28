@@ -2,6 +2,8 @@ import {Entity, Enum} from "../common/model/cuba-model";
 import {ProjectEntityInfo} from "../generators/sdk/model/entities-generation";
 import * as assert from "assert";
 import {collectModelContext, ModelContext} from "../generators/sdk/model/model-utils";
+import * as fs from "fs";
+import prettier = require('prettier');
 
 const enumsModel: Enum[] = require('./fixtures/enums-model.json');
 const entityModel: Entity = require('./fixtures/entity-model.json');
@@ -32,4 +34,9 @@ function drain(content: string, multiline: boolean = true) {
   return result
     .replace(/\s{2,}/g, ' ') //two or more spaces with one space
     .trim();
+}
+
+export function format(file: string) {
+  const formatted = prettier.format(fs.readFileSync(file, 'utf8'), {parser: "typescript"});
+  fs.writeFileSync(file, formatted, 'utf8');
 }

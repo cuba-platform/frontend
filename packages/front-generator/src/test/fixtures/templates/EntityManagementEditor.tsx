@@ -11,6 +11,7 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+
 import {
   collection,
   Field,
@@ -21,50 +22,32 @@ import {
   clearFieldErrors,
   MultilineText
 } from "@cuba-platform/react";
-import "app/App.css";
-import { Car } from "cuba/entities/mpg$Car";
-import { Garage } from "cuba/entities/mpg$Garage";
-import { TechnicalCertificate } from "cuba/entities/mpg$TechnicalCertificate";
-import { FileDescriptor } from "cuba/entities/base/sys$FileDescriptor";
+
+import "../../app/App.css";
+import { Car } from "../../cuba/entities/scr$Car";
+
+import { Garage } from "../../cuba/entities/scr$Garage";
+
 type Props = FormComponentProps & EditorProps;
+
 type EditorProps = {
   entityId: string;
 };
+
 @observer
 class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   dataInstance = instance<Car>(Car.NAME, {
     view: "car-edit",
     loadImmediately: false
   });
+
   garagesDc = collection<Garage>(Garage.NAME, { view: "_minimal" });
-  technicalCertificatesDc = collection<TechnicalCertificate>(
-    TechnicalCertificate.NAME,
-    { view: "_minimal" }
-  );
-  photosDc = collection<FileDescriptor>(FileDescriptor.NAME, {
-    view: "_minimal"
-  });
 
   @observable
   updated = false;
   reactionDisposer: IReactionDisposer;
 
-  fields = [
-    "manufacturer",
-    "model",
-    "regNumber",
-    "purchaseDate",
-    "manufactureDate",
-    "wheelOnRight",
-    "carType",
-    "ecoRank",
-    "maxPassengers",
-    "price",
-    "mileage",
-    "garage",
-    "technicalCertificate",
-    "photo"
-  ];
+  fields = ["manufacturer", "model", "wheelOnRight", "garage"];
 
   @observable
   globalErrors: string[] = [];
@@ -96,9 +79,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
                 globalErrors,
                 fieldErrors
               } = extractServerValidationErrors(response);
-
               this.globalErrors = globalErrors;
-
               if (fieldErrors.size > 0) {
                 this.props.form.setFields(
                   constructFieldsWithErrors(fieldErrors, this.props.form)
@@ -147,6 +128,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               rules: [{ required: true }]
             }}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="model"
@@ -154,27 +136,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
-          <Field
-            entityName={Car.NAME}
-            propertyName="regNumber"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="purchaseDate"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="manufactureDate"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
-          />
+
           <Field
             entityName={Car.NAME}
             propertyName="wheelOnRight"
@@ -184,65 +146,13 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               valuePropName: "checked"
             }}
           />
-          <Field
-            entityName={Car.NAME}
-            propertyName="carType"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{
-              rules: [{ required: true }]
-            }}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="ecoRank"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="maxPassengers"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="price"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="mileage"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
-          />
+
           <Field
             entityName={Car.NAME}
             propertyName="garage"
             form={this.props.form}
             formItemOpts={{ style: { marginBottom: "12px" } }}
             optionsContainer={this.garagesDc}
-            getFieldDecoratorOpts={{}}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="technicalCertificate"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            optionsContainer={this.technicalCertificatesDc}
-            getFieldDecoratorOpts={{}}
-          />
-          <Field
-            entityName={Car.NAME}
-            propertyName="photo"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            optionsContainer={this.photosDc}
             getFieldDecoratorOpts={{}}
           />
 
