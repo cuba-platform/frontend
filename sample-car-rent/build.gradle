@@ -214,7 +214,7 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy" , ":${modulePref
 
 task waitAppStarted(description: 'Verify that application started') {
     doLast {
-        ant.waitfor(maxwait: 20, maxwaitunit: 'second', checkevery: 1, checkeveryunit: 'second') {
+        ant.waitfor(maxwait: 60, maxwaitunit: 'second', checkevery: 1, checkeveryunit: 'second') {
             http(url: 'http://localhost:8080/app/rest/health')
         }
 
