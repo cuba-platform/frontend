@@ -40,13 +40,15 @@
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
+    "typedoc": "^0.15.3",
     "typescript": "~3.5.3"
   },
   "scripts": {
     "copyless": "copyfiles -u 1 './src/**/*.less'",
     "compile": "npm run clean && tsc && npm run copyless -- './dist-transpiled' && rollup -c && npm run copyless -- './dist'",
     "clean": "rm -rf dist && rm -rf dist-transpiled",
-    "test": "jest"
+    "test": "jest",
+    "generate-docs": "typedoc --module commonjs --out docs src --ignoreCompilerErrors && node create-nojekyll.js"
   },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
   "license": "Apache-2.0",
