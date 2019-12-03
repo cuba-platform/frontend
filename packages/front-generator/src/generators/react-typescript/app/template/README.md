@@ -1,6 +1,6 @@
 # React front-end client for CUBA Platform 
 
-This project was generated with [@cuba-platform/front-generator](https://github.com/cuba-platform/front-generator).
+This project was generated with [@cuba-platform/front-generator](../../../../../README.md).
 
 Install dependencies:
 
@@ -18,4 +18,4 @@ This will launch a dev server and allow you to access your app at `localhost:300
 
 ### Learn more
 
-React client documentation is available [here](https://github.com/cuba-platform/front-generator/tree/master#react-client).
+React client documentation is available [here](../../../../../README.md#react-client).

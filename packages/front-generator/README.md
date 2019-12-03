@@ -67,7 +67,7 @@ required.
 
 ## Getting started
 
-We recommend using an IDE with [TypeScript](http://www.typescriptlang.org/) support: [VSCode](https://code.visualstudio.com/), 
+We recommend using an IDE with [TypeScript](http://www.typescriptlang.org/) support: [VSCode](https://code.visualstudio.com/),
 WebStorm or [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate Edition.
 
 Steps will vary depending on whether you are using the generator from CUBA Studio or as a standalone CLI tool. 
@@ -246,15 +246,15 @@ Generates:
 Browser screen is available in one of the following flavors (we call it list types):
 - list
 
-![List browser example](https://raw.githubusercontent.com/cuba-platform/front-generator/master/etc/react/browser-list.png)
+![List browser example](etc/react/browser-list.png)
 
 - cards
 
-![Cards browser example](https://raw.githubusercontent.com/cuba-platform/front-generator/master/etc/react/browser-cards.png)
+![Cards browser example](etc/react/browser-cards.png)
 
 - table
 
-![Data table showcase](https://raw.githubusercontent.com/cuba-platform/front-generator/master/etc/react/data-table-demo.gif)
+![Data table showcase](etc/react/data-table-demo.gif)
 
 `answers` format:
 
@@ -609,7 +609,7 @@ petTypesDc = collection<PetType>(PetType.NAME, {view: '_minimal', sort: 'name'})
 
 `<DataTable>` is used to present data in tabular form.
 
-![Data table showcase](https://raw.githubusercontent.com/cuba-platform/front-generator/master/etc/react/data-table-demo.gif)
+![Data table showcase](etc/react/data-table-demo.gif)
 
 It uses Ant Design's [Table](https://ant.design/components/table/) under the hood and provides the following additional
 benefits:
@@ -889,7 +889,7 @@ as TypeScript classes.
 The SDK is framework-agnostic, meaning that in addition to using it with our React client, you can use it with any
 TypeScript-compatible framework such as Angular of Vue.  
 
-It's possible to generate the following configurations of SDK depending on your needs (see [usage instruction](https://github.com/cuba-platform/front-generator/#using-via-command-line)):
+It's possible to generate the following configurations of SDK depending on your needs (see [usage instruction](#using-via-command-line)):
 
 - ```gen-cuba-front sdk:model``` - generates entities and enums<br>
 - ```gen-cuba-front sdk:all``` - generates all toolkit - entities, enums, queries and services<br>
