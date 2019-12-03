@@ -14,7 +14,7 @@
     "compile": "tsc",
     "types:browser": "tsc --declarationDir dist-browser --emitDeclarationOnly true",
     "dist": "npm run compile && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js",
-    "generate-docs": "typedoc --module commonjs --out docs src"
+    "generate-docs": "typedoc --module commonjs --out docs src && node create-nojekyll.js"
   },
   "repository": {
     "type": "git",
