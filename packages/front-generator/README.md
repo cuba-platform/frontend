@@ -30,6 +30,7 @@
 - [TypeScript SDK](#typescript-sdk)
     - [Entities](#react-client-entities)
     - [Enums](#react-client-enums)
+- [REST API](#rest-api)
 - [Development](#development)
     - [Code generation templates](#react-client-templates)
     - [Testing](#react-client-testing)
@@ -649,6 +650,10 @@ if by the '-' character then descending. If there is no special character before
 It shall be used instead of redefining `columns` in `tableProps` if the goal is to extend rather that fully replace the existing
 custom column-related functionality.
 
+##### API reference
+
+API reference for CUBA React components can be found [here](http://cuba-platform.github.io/cuba-react/).
+
 <a name="react-client-routing"/>
 
 ### Routing
@@ -1007,6 +1012,15 @@ Response example:
     ]
   }]
 ```
+
+<a name="rest-api"/>
+
+## REST API
+
+Generated front-end clients use [Generic REST API](https://doc.cuba-platform.com/restapi-7.1/).
+
+[CUBA REST JS](https://github.com/cuba-platform/cuba-rest-js) library is used to communicate with Generic REST API.
+Documentation and API reference can be found [here](https://cuba-platform.github.io/cuba-rest-js/).
 
 <a name="development"/>
 
