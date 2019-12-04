@@ -9,15 +9,11 @@ const apiUrl = 'http://localhost:8080/app/rest/';
 
 describe('cuba', function () {
 
-  afterEach(function () {
-    cuba.removeApp();
-  });
-
-
   describe('.initializeApp()', function () {
     it('simple initialization', function () {
       const app = cuba.initializeApp();
       assert.strictEqual(typeof app, 'object');
+      cuba.removeApp();
     });
     it('initialization with the same name fails', function (done) {
       try {
@@ -27,16 +23,57 @@ describe('cuba', function () {
       } catch (e) {
         done()
       }
+      cuba.removeApp();
     });
+    it('initialization with same explicit name fails', function(done) {
+      assert.throws(function() {
+        cuba.initializeApp({name: 'app2'});
+        cuba.initializeApp({name: 'app2'});
+        done('initialized twice');
+      }, Error);
+      done();
+    });
+    it('initialization with explicit parameters', function(done) {
+      const app = cuba.initializeApp({
+        apiUrl: apiUrl,
+        name: 'AppCreatedWithExplicitParams',
+        restClientId: 'client',
+        restClientSecret: 'secret',
+        defaultLocale: 'en',
+        storage: {
+          clear: () => {
+            done();
+          }
+        }
+      });
+      assert.strictEqual(typeof app, 'object');
+      cuba.removeApp('AppCreatedWithExplicitParams');
+    })
   });
 
   describe('.getApp()', function () {
     it('initialize and retrieve - default config', function () {
       let app = cuba.initializeApp();
       assert.strictEqual(app, cuba.getApp());
+      cuba.removeApp();
     });
   });
 
+  describe('.removeApp()', function() {
+    it('throws when trying to get non-existent app', function (done) {
+      assert.throws(function() {
+        cuba.removeApp('Non-existent app name');
+      }, Error);
+      done();
+    });
+  });
+
+  describe('.getBasicAuthHeaders()', function() {
+    it('uses default locale if not passed explicitly', function() {
+      const headers = cuba.getBasicAuthHeaders('client', 'secret');
+      assert.equal(headers['Accept-Language'], 'en');
+    });
+  });
 });
 
 describe('.matchesVersion()', function () {
@@ -69,7 +106,6 @@ describe('CubaApp', function () {
   let app;
 
   before(function () {
-    this.timeout(20000);
     app = new cuba.CubaApp('', apiUrl);
     return app.login('admin', 'admin');
   });
@@ -83,6 +119,16 @@ describe('CubaApp', function () {
         })
         .catch(() => {
           done()
+        });
+    });
+    it('should not work with empty credentials', function(done) {
+      const newApp = new cuba.CubaApp('', apiUrl);
+      newApp.login(null, null)
+        .then(() => {
+          done('works with empty credentials');
+        })
+        .catch(() => {
+          done();
         });
     });
     it('should work with right credentials', function () {
@@ -291,6 +337,12 @@ describe('CubaApp', function () {
     it('should invoke service without params and void result', function () {
       return app.invokeService('restmock_DummyService', 'voidNoParams');
     });
+    it('should invoke service with params', function() {
+      return app.invokeService('restmock_DummyService', 'voidWithParams', {
+        stringParam: 'stringParam',
+        intParam: 42
+      });
+    });
     it('should not fail if null passed as params', function () {
       return app.invokeService('restmock_DummyService', 'voidNoParams', null);
     })
@@ -310,4 +362,75 @@ describe('CubaApp', function () {
     })
   });
 
+  describe('.setSessionLocale()', function () {
+    it('should set session locale', function () {
+      return app.setSessionLocale();
+    });
+  });
+
+  describe('.getApiVersion()', function () {
+    it('should get API version', async function () {
+      const version = await app.getApiVersion();
+      assert(version);
+      assert(version.length);
+      assert(version.length > 0);
+    });
+  });
+
+  describe('.refreshApiVersion()', function () {
+    it('should refresh API version', async function () {
+      const version = await app.refreshApiVersion();
+      assert.equal(version, app.apiVersion);
+    })
+  });
+
+  describe('.onLocaleChange()', function() {
+    it('invokes a callback on locale change', function(done) {
+      const callback = () => done();
+      app.onLocaleChange(callback);
+      app.locale = 'en';
+    });
+  });
+
+});
+
+describe('CubaApp version <7.2.0', function () {
+
+  let app;
+  const initApiVersion = '5.5.5';
+
+  before(function () {
+    this.timeout(20000);
+    app = new cuba.CubaApp('', apiUrl, undefined, undefined, undefined, undefined, initApiVersion);
+    return app.login('admin', 'admin');
+  });
+
+  describe('.setSessionLocal()', function(done) {
+    it('should fail if version doesn\'t match', function(done) {
+      app.setSessionLocale()
+        .then(() => {
+          done('did not fail');
+        })
+        .catch(reason => {
+          assert(reason === cuba.CubaApp.NOT_SUPPORTED_BY_API_VERSION);
+          done();
+        });
+    });
+  });
+
+});
+
+describe('CubaApp not logged in', function() {
+  describe('.setSessionLocal()', function() {
+    it('should fail if not logged in', function(done) {
+      const app = new cuba.CubaApp('', apiUrl);
+      app.setSessionLocale()
+        .then(() => {
+          done('did not fail');
+        })
+        .catch(reason => {
+          done();
+        })
+    });
+  });
 });

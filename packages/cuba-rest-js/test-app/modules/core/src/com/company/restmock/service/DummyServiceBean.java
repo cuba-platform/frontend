@@ -9,4 +9,8 @@ public class DummyServiceBean implements DummyService {
     public void voidNoParams() {
     }
 
+    @Override
+    public void voidWithParams(String stringParam, int intParam) {
+    }
+
 }

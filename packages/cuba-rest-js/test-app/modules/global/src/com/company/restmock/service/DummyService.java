@@ -6,5 +6,6 @@ public interface DummyService {
 
     void voidNoParams();
 
+    void voidWithParams(String stringParam, int intParam);
 
 }
