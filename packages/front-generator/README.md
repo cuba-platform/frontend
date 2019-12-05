@@ -1,38 +1,38 @@
-# CUBA Platform front-end and TypeScript SDK generator
+# CUBA Platform Front-end and TypeScript SDK Generator
 
 [![Build Status](https://travis-ci.org/cuba-platform/front-generator.svg?branch=master)](https://travis-ci.org/cuba-platform/front-generator)
 
-## Table of contents
+## Table of Contents
 
 [comment]: <> (Run `npm run doc:toc` to update the table of contents. Do not alter comments around it.)
 [comment]: <> (TOC-start)
 - [Overview](#overview)
-- [Getting started](#getting-started)
-    - [Getting started with CUBA Studio](#getting-started-studio)
-    - [Getting started with CLI](#getting-started-cli)
+- [Getting Started](#getting-started)
+    - [Getting Started Using CUBA Studio](#getting-started-studio)
+    - [Getting Started Using CLI](#getting-started-cli)
 - [Generator CLI](#generator)
-    - [Commands description](#generator-commands-description)
-- [React client](#react-client)
-    - [Overview of React client](#react-client-overview)
-    - [Creating React components](#react-client-creating-components)
-    - [Observable state with MobX](#react-client-mobx)
-    - [CUBA React components](#react-client-cuba-react)
+    - [Commands Description](#generator-commands-description)
+- [React Client](#react-client)
+    - [Overview of React Client](#react-client-overview)
+    - [Creating React Components](#react-client-creating-components)
+    - [Observable State with MobX](#react-client-mobx)
+    - [CUBA React Components](#react-client-cuba-react)
     - [Routing](#react-client-routing)
     - [Forms](#react-client-forms)
-    - [i18n](#react-client-i18n)
-    - [Customizing theme](#react-client-theme)
-    - [Backend model](#react-client-backend-model)
-    - [Synchronizing project model](#react-client-sync)
+    - [I18n](#react-client-i18n)
+    - [Customizing Theme](#react-client-theme)
+    - [Backend Model](#react-client-backend-model)
+    - [Synchronizing Project Model](#react-client-sync)
     - [Security](#react-client-security)
-    - [Building the client](#react-client-build)
+    - [Building the Client](#react-client-build)
     - [Configuration](#react-client-configuration)
-- [Polymer-based client (DEPRECATED)](#polymer-client)
+- [Polymer-based Client (Deprecated)](#polymer-client)
 - [TypeScript SDK](#typescript-sdk)
     - [Entities](#react-client-entities)
     - [Enums](#react-client-enums)
 - [REST API](#rest-api)
-- [Development](#development)
-    - [Code generation templates](#react-client-templates)
+- [Contributing](#contributing)
+    - [Code Generation Templates](#react-client-templates)
     - [Testing](#react-client-testing)
 
 [comment]: <> (TOC-end)
@@ -55,7 +55,7 @@ It's more flexible in terms of layout customization and allows easy integration 
 UI libraries and components from vast JavaScript ecosystem. 
 However, it requires better knowledge of modern front-end stack.
 
-The generator is used by [CUBA Studio](https://doc.cuba-platform.com/studio/) for [front module](https://doc.cuba-platform.com/manual-7.0/front_ui.html) creation.
+The generator is used by [CUBA Studio](https://doc.cuba-platform.com/studio/) for [front module](https://doc.cuba-platform.com/manual-latest/front_ui.html) creation.
 Alternatively it can be used as a standalone CLI tool.
 
 ##### Supported Browsers
@@ -66,7 +66,7 @@ required.
 
 <a name="getting-started"/>
 
-## Getting started
+## Getting Started
 
 We recommend using an IDE with [TypeScript](http://www.typescriptlang.org/) support: [VSCode](https://code.visualstudio.com/),
 WebStorm or [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate Edition.
@@ -75,20 +75,20 @@ Steps will vary depending on whether you are using the generator from CUBA Studi
 
 <a name="getting-started-studio"/>
 
-### Getting started with CUBA Studio
+### Getting Started Using CUBA Studio
 
 #### Installation
 
 Install [CUBA Studio](https://doc.cuba-platform.com/studio/#installation).
 
-#### Generating a client from Studio
+#### Generating a Client from Studio
 
 You can generate a client as [a module of CUBA application](https://doc.cuba-platform.com/studio/#modules). 
 You will be able to create CRUD screens using CUBA Studio UI.
 
 <a name="getting-started-cli"/>
 
-### Getting started with CLI
+### Getting Started Using CLI
 
 #### Installation
 
@@ -100,7 +100,7 @@ Install the generator using npm package manager:
 npm install -g @cuba-platform/front-generator
 ```
 
-Now you can use it via command line:
+Use the generator by running the following command in command line:
 
 ```bash
 gen-cuba-front
@@ -112,12 +112,12 @@ Alternatively, you can run the generator without installation using [npx](https:
 npx @cuba-platform/front-generator
 ```
 
-#### Generating a client from CLI
+#### Generating a Client Using CLI
 
 In order to generate a starter app, we need to feed the generator with project metadata (what entities do we have, etc.). 
 There are two ways of doing that.
 
-##### Passing project metadata from CUBA Studio
+##### Passing Project Metadata from CUBA Studio
 
 - Open your project in CUBA Studio. 
 - Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA`. 
@@ -137,13 +137,11 @@ Generator will prompt you to select one of the currently opened CUBA projects.
 
 ![Interactive project selection](etc/interactive-projects.png)
 
-##### Passing project metadata manually
+##### Passing Project Metadata Manually
 
-Alternatively, you can export the project model manually. 
-In CUBA Studio main menu select `CUBA > Advanced > Export project model`. 
-Studio will generate `projectModel.json` file.
+You can export the project model manually. Select `CUBA > Advanced > Export project model` in the main menu. Studio will generate `projectModel.json` file.
 
-Use `--model` cli option to specify a destination to a project model file:
+Use `--model` command line option to specify location of the project model file:
 
 ```bash
 gen-cuba-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json
@@ -195,9 +193,7 @@ Run `gen-cuba-front <command> --help` to see the list of available options.
 
 Most commands use interactive prompts to capture necessary inputs such as which entity you want to use,
 which [view](https://doc.cuba-platform.com/manual-latest/views.html), etc.
-Alternatively, `answers` command line parameter can be used to provide these inputs.
-`answers` is a base64-encoded JSON string. See [descriptions of individual commands](#generator-commands-description)
-for details on what shall be put inside this JSON.   
+Alternatively, `answers` command line parameter can be used to provide these inputs. You may want to use it if you want to automate the generation. `answers` is a base64-encoded JSON string. See [descriptions of individual commands](#generator-commands-description) for details on what shall be put inside this JSON.   
 
 Example of using `answers`:
 
@@ -211,7 +207,7 @@ gen-cuba-front react-typescript:entity-management \
 
 <a name="generator-commands-description"/>
 
-### Commands description
+### Commands Description
 
 ##### react-typescript:app
 
@@ -361,13 +357,13 @@ Generates SDK model only.
 
 <a name="react-client"/>
 
-## React client
+## React Client
 
 <a name="react-client-overview"/>
 
-### Overview of React client
+### Overview of React Client
 
-#### Running the client
+#### Running the Client
 
 You can run the client by executing the following command:
 
@@ -402,7 +398,7 @@ The client is based on the following frameworks and libraries:
 * [CUBA REST JS](https://github.com/cuba-platform/cuba-rest-js) - interaction with СUBA generic REST API;
 * [Create React App](https://facebook.github.io/create-react-app/) - build scripts and configuration;
 
-#### Project structure
+#### Project Structure
 
 Here is the structure of the newly generated project:
 
@@ -431,7 +427,7 @@ If the client was generated using Studio it's placed in `modules/front` director
 
 <a name="react-client-creating-components"/>
 
-### Creating React components
+### Creating React Components
 
 It is highly recommended to read full [React documentation](https://reactjs.org/docs/getting-started.html).
 In React, like in many modern frameworks everything is a component. 
@@ -459,7 +455,7 @@ export function Button(props) {
 
 <a name="react-client-mobx"/>
 
-### Observable state with MobX
+### Observable State with MobX
 
 [MobX](https://mobx.js.org/intro/overview.html) is a library for reactive state management which enables to work with 
 state in a convenient and concise way. 
@@ -497,7 +493,7 @@ As soon as we decorate a class or a function component as [observer](https://mob
 
 <a name="react-client-cuba-react"/>
 
-### CUBA React components
+### CUBA React Components
 
 ##### MainStore
 
@@ -650,7 +646,7 @@ if by the '-' character then descending. If there is no special character before
 It shall be used instead of redefining `columns` in `tableProps` if the goal is to extend rather that fully replace the existing
 custom column-related functionality.
 
-##### API reference
+##### API Reference
 
 API reference for CUBA React components can be found [here](http://cuba-platform.github.io/cuba-react/).
 
@@ -712,23 +708,23 @@ are used in the app.
 
 <a name="react-client-i18n"/>
 
-### i18n
+### I18n
 
 i18n is powered by [react-intl](https://github.com/formatjs/react-intl) library.
 
 Out of the box React client supports `en` and `ru` locales.
 
-##### To add new localized content
+##### Adding New Localized Content
 
 - Add new messages to `src/i18n/{locale}.json` files
 - Refer to them from your code using standard `react-intl` components or API (see [documentation](https://github.com/formatjs/react-intl/blob/master/docs/README.md))
  
-##### To override existing messages
+##### Overriding Existing Messages
 
 Simply replace existing messages in `src/i18n/{locale}.json` files.
 This way you can override messages in client app, `cuba-react` components and some of the messages in `antd` components. 
 
-##### Adding support for new locales
+##### Adding Support for New Locales
 
 - Add a corresponding `{locale}.json` message pack. 
 Note that it shall contain messages for `cuba-react` components (keys starting with `cuba-react`)
@@ -743,7 +739,7 @@ and `antd` `Form` validation messages (keys starting with `antd.form.validation`
 
 <a name="react-client-theme"/>
 
-### Customizing theme
+### Customizing Theme
 
 Ant Design provides a possibility to [customize theme](https://ant.design/docs/react/customize-theme) using `less` and
 overriding built-in variables. You can also use these variables in your own code.
@@ -798,7 +794,7 @@ Additionally, we adopt Base Rules from [SMACSS methodology](http://smacss.com/bo
 
 <a name="react-client-backend-model"/>
 
-### Backend model
+### Backend Model
 
 `src/cuba` directory contains TypeScript representation of project's entities, views and facades to access REST services.
 See more details in [TypeScript SDK](#typescript-sdk) section.
@@ -838,7 +834,7 @@ function changeRole(role: Role) {
 
 <a name="react-client-sync"/>
 
-### Synchronizing project model
+### Synchronizing Project Model
 
 In order to regenerate project model to conform changes in the backend you can use the following command:
  
@@ -855,7 +851,7 @@ Roles and Access groups. See the [corresponding chapter](https://doc.cuba-platfo
 
 <a name="react-client-build"/>
 
-### Building the client
+### Building the Client
 
 `$ npm run build` command builds your app for production use. See `build` folder.
 
@@ -877,9 +873,9 @@ See `src/config.ts` for full list of common application settings used in runtime
 
 <a name="polymer-client"/>
 
-## Polymer-based client (DEPRECATED)
+## Polymer-based Client (Deprecated)
 
-Documentation can be found [here](https://doc.cuba-platform.com/manual-7.0/polymer_ui.html).
+Documentation can be found [here](https://doc.cuba-platform.com/manual-latest/polymer_ui.html).
 
 <a name="typescript-sdk"/>
 
@@ -905,7 +901,7 @@ SDK can be used for front-end clients and Node.js-based BFF (Backend for Fronten
 
 ### Entities
 
-##### Persistent entities
+##### Persistent Entities
 
 Consider the `Role` entity class of CUBA Framework generated in TypeScript:
 
@@ -933,7 +929,7 @@ function changeRole(role: Role) {
 }
 ```
 
-##### Non-persistent entities
+##### Non-persistent Entities
 CUBA Platform supports non-persistent entities in model.  Entity class should be annotated with ```com.haulmont.chile.core.annotations.MetaClass```, 
 and extended from ```com.haulmont.cuba.core.entity.BaseUuidEntity```. Class properties
 annotated with ```com.haulmont.chile.core.annotations.MetaProperty``` will be included in generated model.
@@ -1017,59 +1013,55 @@ Response example:
 
 ## REST API
 
-Generated front-end clients use [Generic REST API](https://doc.cuba-platform.com/restapi-7.1/).
+Generated front-end clients use [Generic REST API](https://doc.cuba-platform.com/restapi-7.1/). The detailed documentation on the API endpoints is published at [http://files.cuba-platform.com/swagger/7.1](http://files.cuba-platform.com/swagger/7.1).
 
 [CUBA REST JS](https://github.com/cuba-platform/cuba-rest-js) library is used to communicate with Generic REST API.
 Documentation and API reference can be found [here](https://cuba-platform.github.io/cuba-rest-js/).
 
-<a name="development"/>
+<a name="contributing"/>
 
-## Development
-
-Run locally
-```bash
-npm run watch
-npx gen-cuba-front
-```
+## Contributing
 
 <a name="react-client-templates"/>
 
-### Code generation templates
-We are using ```template``` folder inside generator to create templates from which the code will be generated. 
-Templates are processed via [EJS](https://ejs.co/). 
+### Code Generation Templates
+The ```template``` folder inside generator is used to create templates from which the code will be generated. 
+Templates are processed using [EJS](https://ejs.co/). 
 <br>
 Template files could be any type,
-but for better code readability in complex files there is an ability to add ```.ejs``` suffix to a template name.
+but to increase code readability for complex files there is an ability to add ```.ejs``` suffix to a template name.
 During the file processing the suffix will be removed. 
-This mean files ```EntityManagementEditor.tsx.ejs``` and ```EntityManagementEditor.tsx``` both will be processed to file
-```EntityManagementEditor.tsx``` and the only difference is how it will be highlighted in IDE. 
+It means that files ```EntityManagementEditor.tsx.ejs``` and ```EntityManagementEditor.tsx``` both will be processed to file
+```EntityManagementEditor.tsx``` and the only difference is how they will be highlighted in IDE. 
 
 <a name="react-client-testing"/>
 
 ### Testing
 
-#### Test folders
+This section explains how to test the generator.
 
-/fixtures - initial data required for tests<br>
-/generated - result of generators work - apps and sdk will be stored here<br>
-/expected - files gauges used for comparison with generated code<br>
+#### Test Folders
 
-#### Unit tests
+`/fixtures` - initial data required for tests.<br>
+`/generated` - result of generators work - apps and SDK will be stored here.<br>
+`/expected` - files gauges used for comparison with generated code.<br>
+
+#### Unit Tests
 ```bash
 npm test
 ```
 
-#### Integration tests
-Integration tests are used compiled version of front-generator. To apply your code changes you need to run ```npm run build``` before testing.
+#### Integration Tests
+Integration tests use compiled version of front-generator. To apply your code changes you need to run ```npm run build``` before testing.
 <br>
-Apps and sdk generated in ```./test/e2e/generated``` directory.
+Generated Apps and SDK are placed into ```./test/e2e/generated``` directory.
 
-##### Run all e2e tests
+##### Run All E2E Tests
 ```bash
 npm run test:e2e
 ```
 
-##### Generators e2e tests
+##### E2E Tests for Generators
 SDK
 ```bash
 npm run test:e2e:sdk

@@ -1,3 +1,3 @@
-# Typescript SDK
+# TypeScript SDK
 
-Documentation is available [here](../../../README.md#typescript-sdk).
+Documentation is available [here](https://github.com/cuba-platform/front-generator#typescript-sdk).

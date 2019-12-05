@@ -57,7 +57,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       const projectModelAnswers: ProjectInfoAnswers = await this.prompt([{
         name: 'projectInfo',
         type: 'list',
-        message: 'Please select CUBA project you want use for generation',
+        message: 'Please select CUBA project you want to use for generation',
         choices: openedCubaProjects.map(p => ({
           name: `${p.name} [${p.path}]`,
           value: p
