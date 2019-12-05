@@ -400,7 +400,6 @@ describe('CubaApp version <7.2.0', function () {
   const initApiVersion = '5.5.5';
 
   before(function () {
-    this.timeout(20000);
     app = new cuba.CubaApp('', apiUrl, undefined, undefined, undefined, undefined, initApiVersion);
     return app.login('admin', 'admin');
   });

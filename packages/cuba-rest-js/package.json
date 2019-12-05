@@ -8,7 +8,7 @@
     "lint": "tslint -c tslint.json src/**/*.ts",
     "start-test-app": "cd test-app && ./gradlew clean && ./gradlew setupTomcat && ./gradlew startDb && ./gradlew createDb && ./gradlew restartAndWaitForInitialization",
     "teardown-test-app": "cd test-app && ./gradlew stop && ./gradlew stopDb",
-    "test:integration": "npm run start-test-app && nyc mocha -t 20000 && npm run teardown-test-app",
+    "test:integration": "npm run start-test-app && nyc mocha -t 30000 && npm run teardown-test-app",
     "test": "nyc mocha",
     "prepare-browser-test": "browserify test/cuba.test.js > test/cuba-browser.test.js",
     "compile": "tsc",
