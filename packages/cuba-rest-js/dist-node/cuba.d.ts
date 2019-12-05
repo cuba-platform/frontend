@@ -26,7 +26,7 @@ export interface AppConfig {
     /**
      * REST API version number. Used by feature detection mechanism. If `apiVersion` is not provided
      * during construction, it will be determined lazily (the first time feature detection is required) by
-     * requesting a version endpoint. In either case, `apiVersion` is not updated automatically after it has been
+     * making a request to a version endpoint. In either case, `apiVersion` is not updated automatically after it has been
      * initially acquired. If there is a need for such update (i.e. if client app shall become aware that a new version of
      * REST API has been deployed without browser refresh) {@link refreshApiVersion} method can be used.
      */
@@ -114,7 +114,7 @@ export declare class CubaApp {
     onMessagesLoaded(c: any): () => ((messages: EntityMessages) => {})[];
     cleanup(): void;
     /**
-     * @since 7.2.0
+     * @since CUBA REST JS 0.7.0, Generic REST API 7.2.0
      */
     setSessionLocale(): Promise<void>;
     /**
@@ -125,7 +125,7 @@ export declare class CubaApp {
     getApiVersion(fetchOptions?: FetchOptions): Promise<string>;
     /**
      * Updates stored REST API version number (which is used in feature detection mechanism)
-     * with a value acquired by requesting version endpoint, and returns an updated value.
+     * with a value acquired by making a request to a version endpoint, and returns an updated value.
      *
      * @returns REST API version number
      */

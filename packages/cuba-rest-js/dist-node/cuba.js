@@ -357,7 +357,7 @@ var CubaApp = /** @class */ (function () {
         this.storage.clear();
     };
     /**
-     * @since 7.2.0
+     * @since CUBA REST JS 0.7.0, Generic REST API 7.2.0
      */
     CubaApp.prototype.setSessionLocale = function () {
         var _this = this;
@@ -373,7 +373,7 @@ var CubaApp = /** @class */ (function () {
     };
     /**
      * Updates stored REST API version number (which is used in feature detection mechanism)
-     * with a value acquired by requesting version endpoint, and returns an updated value.
+     * with a value acquired by making a request to a version endpoint, and returns an updated value.
      *
      * @returns REST API version number
      */
@@ -384,7 +384,10 @@ var CubaApp = /** @class */ (function () {
             return _this.apiVersion;
         }).catch(function (err) {
             if (err && err.response && err.response.status === 404) {
-                // REST API doesn't have a version endpoint
+                // REST API doesn't have a version endpoint.
+                // It means that version is less than 7.2.0 where feature detection was first introduced.
+                // Return version as '0' so that comparison with a required version always result
+                // in actual version being less than required version.
                 _this.apiVersion = '0';
                 return _this.apiVersion;
             }
