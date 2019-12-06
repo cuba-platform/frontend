@@ -51,7 +51,6 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var storage_1 = require("./storage");
 var util_1 = require("./util");
-var semver = require("semver");
 __export(require("./model"));
 __export(require("./storage"));
 var apps = [];
@@ -423,7 +422,7 @@ var CubaApp = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         _a.label = 2;
-                    case 2: return [2 /*return*/, matchesVersion(this.apiVersion, minVersion)];
+                    case 2: return [2 /*return*/, util_1.matchesVersion(this.apiVersion, minVersion)];
                 }
             });
         });
@@ -464,17 +463,3 @@ function getBasicAuthHeaders(client, secret, locale) {
     };
 }
 exports.getBasicAuthHeaders = getBasicAuthHeaders;
-function matchesVersion(versionToTest, versionToMatch) {
-    var semverToTest = semver.coerce(versionToTest);
-    if (!semverToTest) {
-        // versionToTest cannot be converted to semver
-        return false;
-    }
-    var semverToMatch = semver.coerce(versionToMatch);
-    if (!semverToMatch) {
-        // versionToMatch cannot be converted to semver
-        throw new Error("Cannot determine required REST API version: value " + versionToMatch + " cannot be converted to semver");
-    }
-    return semver.gte(semverToTest, semverToMatch);
-}
-exports.matchesVersion = matchesVersion;

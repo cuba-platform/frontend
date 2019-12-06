@@ -140,4 +140,3 @@ export declare class CubaApp {
 export declare function getBasicAuthHeaders(client: string, secret: string, locale?: string): {
     [header: string]: string;
 };
-export declare function matchesVersion(versionToTest: string, versionToMatch: string): boolean;

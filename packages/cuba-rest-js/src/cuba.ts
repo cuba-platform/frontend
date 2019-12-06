@@ -10,8 +10,7 @@ import {
 } from "./model";
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
-import {base64encode, encodeGetParams} from "./util";
-import * as semver from "semver";
+import {base64encode, encodeGetParams, matchesVersion} from "./util";
 
 export * from './model';
 export * from './storage';
@@ -523,21 +522,4 @@ export function getBasicAuthHeaders(client: string, secret: string, locale = 'en
     "Authorization": "Basic " + base64encode(client + ':' + secret),
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
   };
-}
-
-export function matchesVersion(versionToTest: string, versionToMatch: string): boolean {
-  const semverToTest = semver.coerce(versionToTest);
-  if (!semverToTest) {
-    // versionToTest cannot be converted to semver
-    return false;
-  }
-
-  const semverToMatch = semver.coerce(versionToMatch);
-  if (!semverToMatch) {
-    // versionToMatch cannot be converted to semver
-    throw new Error(
-      `Cannot determine required REST API version: value ${versionToMatch} cannot be converted to semver`);
-  }
-
-  return semver.gte(semverToTest, semverToMatch);
 }
