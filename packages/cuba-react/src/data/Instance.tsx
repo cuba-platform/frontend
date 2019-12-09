@@ -154,7 +154,11 @@ export class DataInstanceStore<T> implements DataContainer {
         }
 
         if (isTemporalType(type)) {
-          fields[propertyName] = moment(entity[propertyName]);
+          if (entity[propertyName] == null) {
+            fields[propertyName] = null;
+          } else {
+            fields[propertyName] = moment(entity[propertyName]);
+          }
           return fields;
         } else {
           fields[propertyName] = entity[propertyName];
