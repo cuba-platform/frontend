@@ -15,5 +15,5 @@ export interface ConditionsGroup {
 export interface Condition {
   property: string;
   operator: OperatorType;
-  value: string;
+  value: string | number | string[] | number[] | null;
 }
