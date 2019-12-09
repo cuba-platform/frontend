@@ -29,12 +29,12 @@ public class ReliabilityPolicyCompliantValidator implements ConstraintValidator<
             return true;
         }
 
-        return car.getManufactureDate().after(getDateThreshold()) || car.getMileage() < mileageTreshold;
+        return !(car.getManufactureDate().before(getDateThreshold()) && car.getMileage() < mileageTreshold);
     }
 
     private Date getDateThreshold() {
         Calendar c = new GregorianCalendar();
-        c.add(Calendar.YEAR, 10);
+        c.add(Calendar.YEAR, -10);
         return c.getTime();
     }
 }
