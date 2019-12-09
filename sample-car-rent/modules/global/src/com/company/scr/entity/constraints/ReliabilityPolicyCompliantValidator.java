@@ -1,6 +1,8 @@
 package com.company.scr.entity.constraints;
 
 import com.company.scr.entity.Car;
+import com.haulmont.cuba.core.global.AppBeans;
+import com.haulmont.cuba.core.global.EntityStates;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -18,7 +20,12 @@ public class ReliabilityPolicyCompliantValidator implements ConstraintValidator<
 
     @Override
     public boolean isValid(Car car, ConstraintValidatorContext context) {
-        if (car.getManufactureDate() == null || car.getMileage() == null) {
+        EntityStates entityStates = AppBeans.get("cuba_EntityStates");
+
+        if (!entityStates.isLoaded(car, "manufactureDate")
+                || !entityStates.isLoaded(car, "mileage")
+                || car.getManufactureDate() == null
+                || car.getMileage() == null) {
             return true;
         }
 
