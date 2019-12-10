@@ -154,7 +154,6 @@ class DataTableCustomFilterComponent<E extends WithId>
 
     // @ts-ignore
     this.props.filterProps.clearFilters!(this.props.filterProps.selectedKeys!);
-    this.props.filterProps.confirm!();
   };
 
   @action
