@@ -2,7 +2,7 @@ import * as React from "react";
 import {Checkbox, DatePicker, Input, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
 import {injectMainStore, MainStoreInjected} from "../app/MainStore";
-import {Cardinality, EnumInfo, EnumValueInfo, PropertyType} from "@cuba-platform/rest"
+import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType} from "@cuba-platform/rest"
 import {getPropertyInfo, isFileProperty, WithId} from "../util/metadata";
 import {DataCollectionStore} from "../data/Collection";
 import {FileUpload} from './FileUpload';
@@ -33,12 +33,12 @@ export const FormField = injectMainStore(observer((props: Props) => {
 
   switch (propertyInfo.attributeType) {
     case 'ENUM':
-      return <EnumField enumClass={propertyInfo.type} {...rest}/>;
+      return <EnumField enumClass={propertyInfo.type} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'ASSOCIATION':
       const mode = getSelectMode(propertyInfo.cardinality);
-      return <EntitySelectField {...{mode, optionsContainer}} {...rest}/>;
+      return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
-      return <Select {...rest}/>;
+      return <Select {...rest} allowClear={getAllowClear(propertyInfo)} />;
   }
   switch (propertyInfo.type as PropertyType) {
     case 'boolean':
@@ -62,7 +62,7 @@ export const EnumField = injectMainStore(observer(({enumClass, mainStore, ...res
       enumValues = enumInfo.values;
     }
   }
-  return <Select {...rest}>
+  return <Select {...rest} >
     {enumValues.map(enumValue =>
       <Select.Option key={enumValue.name} value={enumValue.name}>{enumValue.caption}</Select.Option>
     )}
@@ -74,4 +74,8 @@ function getSelectMode(cardinality: Cardinality): "default" | "multiple" {
     return "multiple"
   }
   return "default";
+}
+
+function getAllowClear(propertyInfo: MetaPropertyInfo): boolean {
+  return !propertyInfo.mandatory;
 }

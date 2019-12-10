@@ -5,7 +5,8 @@ import {DataCollectionStore} from "../data/Collection";
 import {WithId} from "../util/metadata";
 
 export interface EntitySelectFieldProps {
-  optionsContainer?: DataCollectionStore<WithId>
+  optionsContainer?: DataCollectionStore<WithId>,
+  allowClear?: boolean,
 }
 
 export const EntitySelectField = observer((props: EntitySelectFieldProps) => {

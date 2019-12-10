@@ -81,7 +81,7 @@ export class DataInstanceStore<T> implements DataContainer {
       if (propInfo && isDateTimeProperty(propInfo) && moment.isMoment(value)) {
         normalizedPatch[key] = value.format(defaultDateTimeFormat);
       }
-      if (value === '') {
+      if (value === '' || value == null) {
         normalizedPatch[key] = null;
       }
     });
