@@ -132,6 +132,15 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
+  handleInputNumberChange = (value: any): void => {
+    const num: number = Number(value);
+    if (!isNaN(num)) {
+      this.inputModel.value = num;
+      this.inputModel.caption = String(num);
+    }
+  };
+
+  @action
   handleInputConfirm = (): void => {
     if (this.inputModel
         && this.inputModel.value
@@ -208,7 +217,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
               type='text'
               size='small'
               value={this.inputModel.value as number | undefined}
-              onChange={this.handleInputChange}
+              onChange={this.handleInputNumberChange}
               onBlur={this.onInputBlurOrEnter}
               onPressEnter={this.onInputBlurOrEnter}
             />
