@@ -1,0 +1,15 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.19.0"
+  },
+  "scripts": {
+    "build-client-libs": "lerna run dist --scope @cuba-platform/rest && lerna run compile --scope @cuba-platform/react",
+    "pack-client-libs": "lerna exec --scope @cuba-platform/re* npm pack",
+    "build-generator": "lerna run --scope @cuba-platform/front-generator build",
+    "gen-client-scr": "npm run build-generator && lerna run --scope @cuba-platform/front-generator gen-client-scr",
+    "update-client-libs": "node scripts/update-client-libs.js",
+    "bootstrap-client-app": "npm run build-client-libs && npm run pack-client-libs && npm run gen-client-scr && npm run update-client-libs"
+  }
+}
