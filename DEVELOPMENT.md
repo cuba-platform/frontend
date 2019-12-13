@@ -1,10 +1,10 @@
-Monorepo for CUBA frontend packages, see
+# Development
+
+This is a monorepo for the following npm packages:
 
 * [front-generator](/packages/front-generator)
 * [cuba-rest-js](/packages/cuba-rest-js)
 * [cuba-react](packages/cuba-react)
-
-# Development
 
 ## Dependencies of Generated App
 

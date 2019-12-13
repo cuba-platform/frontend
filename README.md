@@ -1,4 +1,4 @@
-# CUBA Platform Front-end and TypeScript SDK Generator
+# CUBA Platform Frontend Generator
 
 [![Build Status](https://travis-ci.org/cuba-platform/front-generator.svg?branch=master)](https://travis-ci.org/cuba-platform/front-generator)
 
@@ -31,9 +31,6 @@
     - [Entities](#react-client-entities)
     - [Enums](#react-client-enums)
 - [REST API](#rest-api)
-- [Contributing](#contributing)
-    - [Code Generation Templates](#react-client-templates)
-    - [Testing](#react-client-testing)
 
 [comment]: <> (TOC-end)
 
@@ -123,7 +120,7 @@ There are two ways of doing that.
 - Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA`. 
 - Tick the `Old Studio integration` checkbox:
                                   
-![GitHub Logo](etc/studio-integration.png)
+![GitHub Logo](packages/front-generator/etc/studio-integration.png)
 
 Now generator will be able to automatically detect CUBA projects opened in Studio.
 
@@ -135,7 +132,7 @@ gen-cuba-front react-typescript:app
 
 Generator will prompt you to select one of the currently opened CUBA projects.
 
-![Interactive project selection](etc/interactive-projects.png)
+![Interactive project selection](packages/front-generator/etc/interactive-projects.png)
 
 ##### Passing Project Metadata Manually
 
@@ -243,15 +240,15 @@ Generates:
 Browser screen is available in one of the following flavors (we call it list types):
 - list
 
-![List browser example](etc/react/browser-list.png)
+![List browser example](packages/front-generator/etc/react/browser-list.png)
 
 - cards
 
-![Cards browser example](etc/react/browser-cards.png)
+![Cards browser example](packages/front-generator/etc/react/browser-cards.png)
 
 - table
 
-![Data table showcase](etc/react/data-table-demo.gif)
+![Data table showcase](packages/front-generator/etc/react/data-table-demo.gif)
 
 `answers` format:
 
@@ -606,7 +603,7 @@ petTypesDc = collection<PetType>(PetType.NAME, {view: '_minimal', sort: 'name'})
 
 `<DataTable>` is used to present data in tabular form.
 
-![Data table showcase](etc/react/data-table-demo.gif)
+![Data table showcase](packages/front-generator/etc/react/data-table-demo.gif)
 
 It uses Ant Design's [Table](https://ant.design/components/table/) under the hood and provides the following additional
 benefits:
@@ -1042,62 +1039,3 @@ Generated front-end clients use [Generic REST API](https://doc.cuba-platform.com
 Documentation and API reference can be found [here](https://cuba-platform.github.io/cuba-rest-js/).
 
 <a name="contributing"/>
-
-## Contributing
-
-<a name="react-client-templates"/>
-
-### Code Generation Templates
-The ```template``` folder inside generator is used to create templates from which the code will be generated. 
-Templates are processed using [EJS](https://ejs.co/). 
-<br>
-Template files could be any type,
-but to increase code readability for complex files there is an ability to add ```.ejs``` suffix to a template name.
-During the file processing the suffix will be removed. 
-It means that files ```EntityManagementEditor.tsx.ejs``` and ```EntityManagementEditor.tsx``` both will be processed to file
-```EntityManagementEditor.tsx``` and the only difference is how they will be highlighted in IDE. 
-
-<a name="react-client-testing"/>
-
-### Testing
-
-This section explains how to test the generator.
-
-#### Test Folders
-
-`/fixtures` - initial data required for tests.<br>
-`/generated` - result of generators work - apps and SDK will be stored here.<br>
-`/expected` - files gauges used for comparison with generated code.<br>
-
-#### Unit Tests
-```bash
-npm test
-```
-
-#### Integration Tests
-Integration tests use compiled version of front-generator. To apply your code changes you need to run ```npm run build``` before testing.
-<br>
-Generated Apps and SDK are placed into ```./test/e2e/generated``` directory.
-
-##### Run All E2E Tests
-```bash
-npm run test:e2e
-```
-
-##### E2E Tests for Generators
-SDK
-```bash
-npm run test:e2e:sdk
-```
-React client
-```bash
-npm run test:e2e:react
-```
-Polymer 2
-```bash
-test:e2e:polymer2
-```
-Polymer 2 typescript
-```bash
-test:e2e:polymer2-ts
-```
