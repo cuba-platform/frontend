@@ -11,5 +11,6 @@
     "gen-client-scr": "npm run build-generator && lerna run --scope @cuba-platform/front-generator gen-client-scr",
     "update-client-libs": "node scripts/update-client-libs.js",
     "bootstrap-client-app": "npm run build-client-libs && npm run pack-client-libs && npm run gen-client-scr && npm run update-client-libs"
-  }
+  },
+  "license": "Apache-2.0"
 }
