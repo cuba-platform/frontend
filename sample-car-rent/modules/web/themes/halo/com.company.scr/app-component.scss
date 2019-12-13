@@ -1,0 +1,5 @@
+@import "halo-ext";
+
+@mixin com_company_scr {
+  @include com_company_scr-halo-ext;
+}

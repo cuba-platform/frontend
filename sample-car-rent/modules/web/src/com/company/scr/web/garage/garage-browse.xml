@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.company.scr.web.garage.GarageBrowse"
+        focusComponent="garagesTable"
+        lookupComponent="garagesTable"
+        messagesPack="com.company.scr.web.garage">
+    <dsContext>
+        <collectionDatasource id="garagesDs"
+                              class="com.company.scr.entity.Garage"
+                              view="_local">
+            <query>
+                <![CDATA[select e from scr$Garage e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="garagesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="garagesTable"
+                datasource="garagesDs">
+            <properties include=".*"/>
+        </filter>
+        <table id="garagesTable"
+               width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="capacity"/>
+            </columns>
+            <rows datasource="garagesDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="garagesTable.create"/>
+                <button id="editBtn"
+                        action="garagesTable.edit"/>
+                <button id="removeBtn"
+                        action="garagesTable.remove"/>
+            </buttonsPanel>
+        </table>
+    </layout>
+</window>

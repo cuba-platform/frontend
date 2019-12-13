@@ -1,0 +1,35 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CUBA JS SDK demo</title>
+  <script src="../../dist-browser/cuba.js"></script>
+</head>
+<body>
+
+<form id="loginForm">
+  <input type="text" name="login" placeholder="Login">
+  <input type="password" name="password" placeholder="Password">
+  <button>Login</button>
+</form>
+
+<script>
+  (function() {
+    var app = cuba.initializeApp({apiUrl: 'http://localhost:8080/app/rest/'});
+    var loginInput = document.querySelector('#loginForm input[name=login]');
+    var passwordInput = document.querySelector('#loginForm input[name=password]');
+
+    document.querySelector('#loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      app.login(loginInput.value, passwordInput.value).then(
+        function() {
+          alert('Login successful');
+        },
+        function() {
+          alert('Login failed');
+        });
+    })
+  })();
+</script>
+
+</body>
+</html>

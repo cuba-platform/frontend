@@ -1,0 +1,7 @@
+.idea
+.local-storage
+node_modules
+npm-debug.log
+.nyc_output
+coverage
+.gradle

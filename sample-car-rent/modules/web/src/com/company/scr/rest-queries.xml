@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<queries xmlns="http://schemas.haulmont.com/cuba/rest-queries.xsd">
+
+    <query name="allCars" entity="scr$Car" view="_local">
+        <jpql>select c from scr$Car c</jpql>
+    </query>
+
+    <query name="ecoCars" entity="scr$Car" view="_local">
+        <jpql>select c from scr$Car c where c.ecoRank = 3</jpql>
+    </query>
+
+    <query name="ecoCars" entity="scr$Car" view="_local">
+        <jpql>select c from scr$Car c where c.ecoRank > :ecoRank</jpql>
+        <params>
+            <param name="ecoRank" type="java.lang.String"/>
+        </params>
+    </query>
+
+    <query name="ecoCars" entity="scr$Car" view="_local">
+        <jpql>select c from scr$Car c where c.ecoRank = 3 and c.model like :model</jpql>
+        <params>
+            <param name="model" type="java.lang.String"/>
+        </params>
+    </query>
+
+    <query name="carsByType" entity="scr$Car" view="_local">
+        <jpql>select c from scr$Car c where c.carType = :carType</jpql>
+        <params>
+            <param name="carType" type="java.lang.String"/>
+        </params>
+    </query>
+
+    <query name="allCars" entity="scr$FavoriteCar" view="_local">
+        <jpql>select f from scr$FavoriteCar f where f.car = :car</jpql>
+        <params>
+            <param name="car" type="com.company.scr.entity.Car"/>
+        </params>
+    </query>
+
+</queries>

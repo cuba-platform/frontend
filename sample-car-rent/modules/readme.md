@@ -1,0 +1,1 @@
+`master` branch should not contain `polymer-client` module

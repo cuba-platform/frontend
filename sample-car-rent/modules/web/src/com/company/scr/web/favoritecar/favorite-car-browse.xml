@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="com.company.scr.web.favoritecar.FavoriteCarBrowse"
+        focusComponent="favoriteCarsTable"
+        lookupComponent="favoriteCarsTable"
+        messagesPack="com.company.scr.web.favoritecar">
+    <dsContext>
+        <datasource id="favoriteCarDs"
+                    class="com.company.scr.entity.FavoriteCar"
+                    view="favoriteCar-edit"/>
+        <groupDatasource id="favoriteCarsDs"
+                         class="com.company.scr.entity.FavoriteCar"
+                         view="favoriteCar-view">
+            <query>
+                <![CDATA[select e from scr$FavoriteCar e]]>
+            </query>
+        </groupDatasource>
+        <collectionDatasource id="carsDs"
+                              class="com.company.scr.entity.Car"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from scr$Car e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <actions>
+        <action id="save"
+                caption="mainMsg://actions.Ok"
+                icon="icons/ok.png"
+                invoke="save"
+                shortcut="CTRL-ENTER"/>
+        <action id="cancel"
+                caption="mainMsg://actions.Cancel"
+                icon="icons/cancel.png"
+                invoke="cancel"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <split id="split"
+               height="100%"
+               orientation="horizontal"
+               reversePosition="true"
+               width="100%">
+            <vbox id="lookupBox"
+                  expand="favoriteCarsTable"
+                  height="100%"
+                  margin="false,true,false,false"
+                  spacing="true">
+                <filter id="filter"
+                        applyTo="favoriteCarsTable"
+                        datasource="favoriteCarsDs">
+                    <properties include=".*"/>
+                </filter>
+                <table id="favoriteCarsTable"
+                            width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="user"/>
+                        <column id="car"/>
+                        <column id="notes"/>
+                    </columns>
+                    <rows datasource="favoriteCarsDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="favoriteCarsTable.create"/>
+                        <button id="editBtn"
+                                action="favoriteCarsTable.edit"/>
+                        <button id="removeBtn"
+                                action="favoriteCarsTable.remove"/>
+                    </buttonsPanel>
+                </table>
+            </vbox>
+            <vbox id="editBox"
+                  expand="fieldGroupBox"
+                  height="100%"
+                  margin="false,false,false,true"
+                  spacing="true">
+                <vbox id="fieldGroupBox">
+                    <fieldGroup id="fieldGroup"
+                                datasource="favoriteCarDs">
+                        <column width="250px">
+                            <field id="car"
+                                   optionsDatasource="carsDs"/>
+                            <field id="user"/>
+                            <field id="notes"/>
+                        </column>
+                    </fieldGroup>
+                </vbox>
+                <hbox id="actionsPane"
+                      spacing="true"
+                      visible="false">
+                    <button id="saveBtn"
+                            action="save"/>
+                    <button id="cancelBtn"
+                            action="cancel"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

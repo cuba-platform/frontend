@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.company.scr.web.car.CarBrowse"
+        focusComponent="carsTable"
+        lookupComponent="carsTable"
+        messagesPack="com.company.scr.web.car">
+    <dsContext>
+        <collectionDatasource id="carsDs"
+                              class="com.company.scr.entity.Car"
+                              view="_local">
+            <query>
+                <![CDATA[select e from scr$Car e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="carsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="carsTable"
+                datasource="carsDs">
+            <properties include=".*"/>
+        </filter>
+        <table id="carsTable"
+               width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="manufacturer"/>
+                <column id="regNumber"/>
+                <column id="purchaseDate"/>
+                <column id="wheelOnRight"/>
+                <column id="carType"/>
+                <column id="ecoRank"/>
+                <column id="model"/>
+                <column id="price"/>
+                <column id="mileage"/>
+            </columns>
+            <rows datasource="carsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="carsTable.create"/>
+                <button id="editBtn"
+                        action="carsTable.edit"/>
+                <button id="removeBtn"
+                        action="carsTable.remove"/>
+            </buttonsPanel>
+        </table>
+    </layout>
+</window>

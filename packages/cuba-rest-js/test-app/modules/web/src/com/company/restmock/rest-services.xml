@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services.xsd">
+    <service name="restmock_DummyService">
+        <method name="voidNoParams"/>
+        <method name="voidWithParams">
+          <param name="stringParam" type="java.lang.String"/>
+          <param name="intParam" type="int"/>
+        </method>
+    </service>
+</services>

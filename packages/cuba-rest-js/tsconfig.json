@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "noEmitOnError": true,
+    "removeComments": false,
+    "declaration": true,
+    "outDir": "dist-node",
+    "lib": [
+      "DOM",
+      "ES5",
+      "ES2015.Promise",
+      "ES2015.Symbol",
+      "ES2015.Iterable"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="com.company.scr.web.carrent.CarRentBrowse"
+        focusComponent="carRentsTable"
+        lookupComponent="carRentsTable"
+        messagesPack="com.company.scr.web.carrent">
+    <dsContext>
+        <datasource id="carRentDs"
+                    class="com.company.scr.entity.CarRent"
+                    view="carRent-edit"/>
+        <groupDatasource id="carRentsDs"
+                         class="com.company.scr.entity.CarRent"
+                         view="_local">
+            <query>
+                <![CDATA[select e from scr$CarRent e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <actions>
+        <action id="save"
+                caption="mainMsg://actions.Ok"
+                icon="icons/ok.png"
+                invoke="save"
+                shortcut="CTRL-ENTER"/>
+        <action id="cancel"
+                caption="mainMsg://actions.Cancel"
+                icon="icons/cancel.png"
+                invoke="cancel"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <split id="split"
+               height="100%"
+               orientation="horizontal"
+               reversePosition="true"
+               width="100%">
+            <vbox id="lookupBox"
+                  expand="carRentsTable"
+                  height="100%"
+                  margin="false,true,false,false"
+                  spacing="true">
+                <filter id="filter"
+                        applyTo="carRentsTable"
+                        datasource="carRentsDs">
+                    <properties include=".*"/>
+                </filter>
+                <groupTable id="carRentsTable"
+                            width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="fromDate"/>
+                        <column id="fromTime"/>
+                        <column id="fromDateTime"/>
+                    </columns>
+                    <rows datasource="carRentsDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="carRentsTable.create"/>
+                        <button id="editBtn"
+                                action="carRentsTable.edit"/>
+                        <button id="removeBtn"
+                                action="carRentsTable.remove"/>
+                    </buttonsPanel>
+                </groupTable>
+            </vbox>
+            <vbox id="editBox"
+                  expand="fieldGroupBox"
+                  height="100%"
+                  margin="false,false,false,true"
+                  spacing="true">
+                <vbox id="fieldGroupBox">
+                    <fieldGroup id="fieldGroup"
+                                datasource="carRentDs">
+                        <column width="250px">
+                            <field id="car"/>
+                            <field id="fromDate"/>
+                            <field id="fromTime"/>
+                            <field id="fromDateTime"/>
+                        </column>
+                    </fieldGroup>
+                </vbox>
+                <hbox id="actionsPane"
+                      spacing="true"
+                      visible="false">
+                    <button id="saveBtn"
+                            action="save"/>
+                    <button id="cancelBtn"
+                            action="cancel"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

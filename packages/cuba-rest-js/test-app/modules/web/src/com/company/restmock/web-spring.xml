@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:gui="http://schemas.haulmont.com/cuba/spring/cuba-gui.xsd">
+    <!-- Annotation-based beans -->
+    <context:component-scan base-package="com.company.restmock"/>
+    <bean class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector"
+                  ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="restmock_DummyService"
+                       value="com.company.restmock.service.DummyService"/>
+            </map>
+        </property>
+    </bean>
+    <gui:screens base-packages="com.company.restmock.web"/>
+</beans>

@@ -1,0 +1,36 @@
+@import "~antd/es/style/themes/default";
+
+.cuba-data-table {
+  > .buttons {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.cuba-data-table-clear-filters {
+  margin-left: auto;
+}
+
+.cuba-data-table-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cuba-data-table-header-cell {
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+._cuba-hide-selection-column .ant-table-selection-column {
+  display: none;
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .cuba-data-table-clear-filters {
+    margin-left: 0;
+  }
+}
