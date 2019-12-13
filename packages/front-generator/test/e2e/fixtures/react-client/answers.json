@@ -58,7 +58,7 @@
       "name": "favoriteCar-view",
       "entityName": "scr$FavoriteCar"
     },
-    "componentName": "FavoriteCards",
+    "componentName": "FavoriteCars",
     "entity": {
       "name": "scr$FavoriteCar"
     }

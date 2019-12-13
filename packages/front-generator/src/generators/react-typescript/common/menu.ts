@@ -56,7 +56,7 @@ const addRoute = (routingContents: string,
 `import {${componentClassName}} from '${componentPath}';
 ${routingContents}
 
-mainRoutes.push({
+menuItems.push({
   pathPattern: '${pathPattern}',
   menuLink: '${menuLink}',
   component: ${componentClassName},
