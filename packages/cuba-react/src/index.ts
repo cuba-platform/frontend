@@ -1,5 +1,6 @@
 export * from './app/CubaAppProvider';
 export * from './app/MainStore';
+export * from './app/MenuConfig';
 
 export * from './data/DataContext';
 export * from './data/Collection';
