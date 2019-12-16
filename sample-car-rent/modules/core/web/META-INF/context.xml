@@ -1,18 +1,27 @@
 <Context>
 
     <!-- Database connection -->
-    <Resource
-      name="jdbc/CubaDS"
-      type="javax.sql.DataSource"
-      maxTotal="20"
-      maxIdle="2"
-      maxWaitMillis="5000"
-      driverClassName="org.hsqldb.jdbc.JDBCDriver"
-      url="jdbc:hsqldb:hsql://localhost/scr"
-      username="sa"
-      password=""/>
 
     <!-- Switch off session serialization -->
     <Manager pathname=""/>
+    <!--<Resource driverClassName="org.hsqldb.jdbc.JDBCDriver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password=""
+          type="javax.sql.DataSource"
+          url="jdbc:hsqldb:hsql://localhost/scr"
+          username="sa"/>-->
+    <!--Data store '_MAIN_' connection-->
+    <Resource driverClassName="org.postgresql.Driver"
+              maxIdle="2"
+              maxTotal="20"
+              maxWaitMillis="5000"
+              name="jdbc/CubaDS"
+              password="cuba"
+              type="javax.sql.DataSource"
+              url="jdbc:postgresql://localhost/scr"
+              username="cuba"/>
 
 </Context>
