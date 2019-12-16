@@ -6,6 +6,11 @@ This is a monorepo for the following npm packages:
 * [cuba-rest-js](/packages/cuba-rest-js)
 * [cuba-react](packages/cuba-react)
 
+
+## Bootstrap
+
+```lerna boostrap```
+
 ## Dependencies of Generated App
 
 To update versions of @cuba-platform/rest and @cuba-platform/react in generated app [react-app-scr](react-app-scr)
@@ -14,7 +19,13 @@ To update versions of @cuba-platform/rest and @cuba-platform/react in generated 
 and [packages/cuba-react/package.json](packages/cuba-react/package.json)
 
 * bootstrap client app - compile and pack dependencies, generate client app 
-```npm run bootstrap-client-app```
+```npm run bootstrap-react-app```
 
-* start app (assumed that backend already running)
-```cd react-client-scr && npm start```
+* start backend
+`npm run start-cuba-app`
+
+* start app
+`npm run start-react-app`
+
+* all-in-one command:
+`npm run start-react-all`
