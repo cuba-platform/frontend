@@ -11,9 +11,9 @@
     "gen-client-scr": "npm run build-generator && lerna run --scope @cuba-platform/front-generator gen-client-scr",
     "update-client-libs": "node scripts/update-client-libs.js",
     "bootstrap-react-app": "npm run build-client-libs && npm run pack-client-libs && npm run gen-client-scr && npm run update-client-libs",
-    "start-cuba-app": "cd ./sample-car-rent && ./gradlew setupTomcat createDb deploy start",
+    "bootstrap-cuba-app": "cd ./sample-car-rent && ./gradlew setupTomcat createDb deploy start",
     "start-react-app": "cd ./react-client-scr && npm run start",
-    "start-react-all": "npm run bootstrap-react-app && npm run start-cuba-app && npm run start-react-app"
+    "react-all": "npm run bootstrap-react-app && npm run start-cuba-app && npm run start-react-app"
   },
   "license": "Apache-2.0"
 }
