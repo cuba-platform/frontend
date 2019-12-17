@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.19.0"
+    "lerna": "^3.19.0",
+    "rimraf": "^3.0.0"
   },
   "scripts": {
     "build-client-libs": "lerna run dist --scope @cuba-platform/rest && lerna run compile --scope @cuba-platform/react",
@@ -13,7 +14,10 @@
     "bootstrap-react-app": "npm run build-client-libs && npm run pack-client-libs && npm run gen-client-scr && npm run update-client-libs",
     "bootstrap-cuba-app": "cd ./sample-car-rent && ./gradlew setupTomcat createDb deploy start",
     "start-react-app": "cd ./react-client-scr && npm run start",
-    "react-all": "npm run bootstrap-react-app && npm run start-cuba-app && npm run start-react-app"
+    "react-all": "npm run bootstrap-react-app && npm run start-cuba-app && npm run start-react-app",
+    "docs": "npm run docs:api-reference && npm run docs:toc",
+    "docs:toc": "node update-readme-toc.js",
+    "docs:api-reference": "rimraf docs && lerna run generate-docs"
   },
   "license": "Apache-2.0",
   "author": "CUBA Platform Team <info@cuba-platform.com>"

@@ -23,7 +23,6 @@
     "test:e2e:polymer2": "mocha 'test/e2e/polymer2.test.js'  -g 'test:e2e:polymer2' --timeout 0",
     "test:e2e:polymer2-ts": "mocha 'test/e2e/polymer2-ts.test.js'  -g 'test:e2e:polymer2-ts' --timeout 0",
     "gen-client-scr": "node test/e2e/gen-client-scr.js",
-    "doc:toc": "node update-readme-toc.js",
     "prepublishOnly": "npm run build"
   },
   "repository": {
