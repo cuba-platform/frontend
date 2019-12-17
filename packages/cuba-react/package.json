@@ -50,6 +50,10 @@
     "test": "jest",
     "generate-docs": "typedoc --module commonjs --out docs src --ignoreCompilerErrors && node create-nojekyll.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react"
+  },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
   "license": "Apache-2.0",
   "dependencies": {

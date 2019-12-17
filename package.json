@@ -15,5 +15,6 @@
     "start-react-app": "cd ./react-client-scr && npm run start",
     "react-all": "npm run bootstrap-react-app && npm run start-cuba-app && npm run start-react-app"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "author": "CUBA Platform Team <info@cuba-platform.com>"
 }
