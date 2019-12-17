@@ -22,10 +22,10 @@ and [packages/cuba-react/package.json](packages/cuba-react/package.json)
 ```npm run bootstrap-react-app```
 
 * start backend
-`npm run start-cuba-app`
+`npm run bootstrap-cuba-app`
 
 * start app
 `npm run start-react-app`
 
 * all-in-one command:
-`npm run start-react-all`
+`npm run react-all`
