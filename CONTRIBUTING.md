@@ -56,3 +56,9 @@ Polymer 2 typescript
 ```bash
 test:e2e:polymer2-ts
 ```
+
+<a name="commits"/>
+
+### Making a Commit
+
+Use `npm run commit` instead of `git commit`. This will launch [Commitizen CLI](https://github.com/commitizen/cz-cli). This tool will walk you through creating a conventional commit message. Conventional commits allow generating changelogs and simplify managing of semantic versioning.
