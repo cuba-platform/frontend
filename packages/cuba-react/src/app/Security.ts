@@ -1,7 +1,6 @@
 import {action, IObservableArray, observable, ObservableMap} from 'mobx';
 import {CubaApp, EntityAttrPermissionValue, PermissionInfo, RoleInfo, RolesInfo} from '@cuba-platform/rest';
 import {getAttributePermission} from '@cuba-platform/rest/dist-node/security';
-import {matchesVersion} from '@cuba-platform/rest/dist-node/util';
 
 export class Security {
 
@@ -16,7 +15,7 @@ export class Security {
   getAttributePermission = (entityName: string, attributeName: string): EntityAttrPermissionValue => {
 
     // do not check permissions if roles not set (rest api version prev 7.2)
-     if (!this.roles) return 'MODIFY';
+    if (!this.roles) return 'MODIFY';
 
     const attrFqn = `${entityName}:${attributeName}`;
 
@@ -28,28 +27,30 @@ export class Security {
     return perm;
   };
 
-  @action
-  async loadPermissions() {
-
-    await this.cubaREST.refreshApiVersion();
-
+  @action loadPermissions() {
     const requestId = ++this.permissionsRequestCount;
 
-    if (matchesVersion(this.cubaREST.apiVersion, '7.2')) {
-      const rolesInfo: RolesInfo = await this.cubaREST.getRoles();
-      if (requestId === this.permissionsRequestCount) {
-        this.permissions = observable(rolesInfo.permissions);
-        this.roles = observable(rolesInfo.roles);
-        this.attrPermissionCache.clear();
-      }
-
-    } else {
-      const permissions: PermissionInfo[] = await this.cubaREST.getPermissions();
-      if (requestId === this.permissionsRequestCount) {
-        this.permissions = observable(permissions);
-      }
-    }
-
+    this.cubaREST.getRoles()
+      .then(action((rolesInfo: RolesInfo) => {
+        if (requestId === this.permissionsRequestCount) {
+          this.permissions = observable(rolesInfo.permissions);
+          this.roles = observable(rolesInfo.roles);
+          this.attrPermissionCache.clear();
+        }
+      }))
+      .catch(reason => {
+        // support rest api version < 7.2
+        if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
+          this.cubaREST.getPermissions()
+            .then(action((perms: PermissionInfo[]) => {
+              if (requestId === this.permissionsRequestCount) {
+                this.permissions = observable(perms);
+              }
+            }));
+        } else {
+          throw reason;
+        }
+      });
   }
 
 }
