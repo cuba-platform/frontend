@@ -17,7 +17,7 @@
     - [Creating React Components](#react-client-creating-components)
     - [Observable State with MobX](#react-client-mobx)
     - [CUBA React Components](#react-client-cuba-react)
-    - [Routing](#react-client-routing)
+    - [Routing and Menu](#react-client-routing)
     - [Forms](#react-client-forms)
     - [I18n](#react-client-i18n)
     - [Customizing Theme](#react-client-theme)
@@ -120,7 +120,7 @@ There are two ways of doing that.
 - Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA`. 
 - Tick the `Old Studio integration` checkbox:
                                   
-![GitHub Logo](packages/front-generator/etc/studio-integration.png)
+![Enabling Studio integration](packages/front-generator/etc/studio-integration.png)
 
 Now generator will be able to automatically detect CUBA projects opened in Studio.
 
@@ -391,8 +391,8 @@ The client is based on the following frameworks and libraries:
 * [MobX](https://mobx.js.org/) - reactive state management;
 * [Ant Design](https://ant.design/docs/react/introduce) - UI components;
 * [React Router](https://reacttraining.com/react-router/) - routing;
-* [CUBA React](https://github.com/cuba-labs/cuba-react) - CUBA React components and utilities;
-* [CUBA REST JS](https://github.com/cuba-platform/cuba-rest-js) - interaction with СUBA generic REST API;
+* [CUBA React](packages/cuba-react) - CUBA React components and utilities;
+* [CUBA REST JS](packages/cuba-rest-js) - interaction with СUBA generic REST API;
 * [Create React App](https://facebook.github.io/create-react-app/) - build scripts and configuration;
 
 #### Project Structure
@@ -645,7 +645,7 @@ custom column-related functionality.
 
 ##### API Reference
 
-API reference for CUBA React components can be found [here](http://cuba-platform.github.io/cuba-react/).
+API reference for CUBA React components can be found [here](http://cuba-platform.github.io/frontend/docs/cuba-react).
 
 <a name="react-client-routing"/>
 
@@ -1035,7 +1035,5 @@ Response example:
 
 Generated front-end clients use [Generic REST API](https://doc.cuba-platform.com/restapi-7.1/). The detailed documentation on the API endpoints is published at [http://files.cuba-platform.com/swagger/7.1](http://files.cuba-platform.com/swagger/7.1).
 
-[CUBA REST JS](https://github.com/cuba-platform/cuba-rest-js) library is used to communicate with Generic REST API.
-Documentation and API reference can be found [here](https://cuba-platform.github.io/cuba-rest-js/).
-
-<a name="contributing"/>
+[CUBA REST JS](packages/cuba-rest-js) library is used to communicate with Generic REST API.
+Documentation and API reference can be found [here](https://cuba-platform.github.io/frontend/docs/cuba-rest-js).

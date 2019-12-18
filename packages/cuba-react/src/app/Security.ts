@@ -13,6 +13,10 @@ export class Security {
   }
 
   getAttributePermission = (entityName: string, attributeName: string): EntityAttrPermissionValue => {
+
+    // do not check permissions if roles not set (rest api version prev 7.2)
+    if (!this.roles) return 'MODIFY';
+
     const attrFqn = `${entityName}:${attributeName}`;
 
     let perm = this.attrPermissionCache.get(attrFqn);
@@ -23,10 +27,9 @@ export class Security {
     return perm;
   };
 
-  @action
-  loadPermissions() {
+  @action loadPermissions() {
     const requestId = ++this.permissionsRequestCount;
-    // todo Will fail on current and previous versions of REST API. Should be changed once cuba-platform/cuba-rest-js#20 is supported
+
     this.cubaREST.getRoles()
       .then(action((rolesInfo: RolesInfo) => {
         if (requestId === this.permissionsRequestCount) {
@@ -34,7 +37,20 @@ export class Security {
           this.roles = observable(rolesInfo.roles);
           this.attrPermissionCache.clear();
         }
-      }));
+      }))
+      .catch(reason => {
+        // support rest api version < 7.2
+        if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
+          this.cubaREST.getPermissions()
+            .then(action((perms: PermissionInfo[]) => {
+              if (requestId === this.permissionsRequestCount) {
+                this.permissions = observable(perms);
+              }
+            }));
+        } else {
+          throw reason;
+        }
+      });
   }
 
 }

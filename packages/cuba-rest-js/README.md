@@ -72,7 +72,7 @@ myApp.loadEntities('sec$User', {view: '_minimal', sort: 'login'}).then((users) =
 });
 ```
 
-[Full API reference](https://cuba-platform.github.io/cuba-rest-js/)
+[Full API reference](https://cuba-platform.github.io/frontend/docs/cuba-rest-js/)
 
 ## Development
 
@@ -104,9 +104,4 @@ npm run dist
 ### Lint
 ```bash
 npm run lint
-```
-
-### Generate documentation
-```bash
-npm run generate-docs
 ```
