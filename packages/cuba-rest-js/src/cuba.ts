@@ -338,7 +338,9 @@ export class CubaApp {
   }
 
   public getRoles(fetchOptions?: FetchOptions): Promise<RolesInfo> {
-    return this.fetch('GET', 'v2/roles', null, {handleAs: 'json', ...fetchOptions});
+    return this.requestIfSupported(
+      '7.2',
+      () => this.fetch('GET', 'v2/roles', null, {handleAs: 'json', ...fetchOptions}));
   }
 
   public getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo> {

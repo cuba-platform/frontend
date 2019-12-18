@@ -271,7 +271,8 @@ var CubaApp = /** @class */ (function () {
         return this.fetch('GET', 'v2/permissions', null, __assign({ handleAs: 'json' }, fetchOptions));
     };
     CubaApp.prototype.getRoles = function (fetchOptions) {
-        return this.fetch('GET', 'v2/roles', null, __assign({ handleAs: 'json' }, fetchOptions));
+        var _this = this;
+        return this.requestIfSupported('7.2', function () { return _this.fetch('GET', 'v2/roles', null, __assign({ handleAs: 'json' }, fetchOptions)); });
     };
     CubaApp.prototype.getUserInfo = function (fetchOptions) {
         return this.fetch('GET', 'v2/userInfo', null, __assign({ handleAs: 'json' }, fetchOptions));
