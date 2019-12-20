@@ -64,6 +64,12 @@ public class FavoriteServiceBean implements FavoriteService {
         return dataManager.loadList(lc);
     }
 
+    @Override
+    public void refreshCache() {
+        // method without params and return types for cuba-rest-js test
+        System.out.println("FavoriteServiceBean.refreshCache");
+    }
+
     private FavoriteCar _addFavorite(Car car, String notes) {
         FavoriteCar favoriteCar = metadata.create(FavoriteCar.class);
 

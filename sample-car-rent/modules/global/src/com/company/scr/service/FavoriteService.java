@@ -22,6 +22,8 @@ public interface FavoriteService {
 
     List<FavoriteCar> getFavoritesByType(CarType carType);
 
+    void refreshCache();
+
     class FavInfo {
 
         private Car car;

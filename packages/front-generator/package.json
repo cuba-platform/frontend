@@ -15,14 +15,13 @@
     "test": "mocha",
     "coverage": "nyc npm run test",
     "test:e2e": "mocha 'test/e2e/*.test.js' -g 'test:e2e:polymer2|test:e2e:sdk|test:e2e:react' --timeout 0",
-    "test:e2e:sdk": "mocha 'test/e2e/sdk.test.js'  -g 'test:e2e:sdk' --timeout 0",
-    "test:e2e:react": "mocha 'test/e2e/react-client--*.test.js'  -g 'test:e2e:react' --timeout 0",
-    "test:e2e:react:scr": "mocha 'test/e2e/react-client--scr.test.js'  -g 'test:e2e:react:scr' --timeout 0",
-    "test:e2e:react:empty-model": "mocha 'test/e2e/react-client--empty-model.test.js'  -g 'test:e2e:react:empty-model' --timeout 0",
-    "test:e2e:react:new-project": "mocha 'test/e2e/react-client--new-project.test.js'  -g 'test:e2e:react:new-project' --timeout 0",
-    "test:e2e:polymer2": "mocha 'test/e2e/polymer2.test.js'  -g 'test:e2e:polymer2' --timeout 0",
-    "test:e2e:polymer2-ts": "mocha 'test/e2e/polymer2-ts.test.js'  -g 'test:e2e:polymer2-ts' --timeout 0",
-    "gen-client-scr": "node test/e2e/gen-client-scr.js",
+    "test:e2e:sdk": "mocha 'test/e2e/sdk.test.js' -g 'test:e2e:sdk' --timeout 0",
+    "test:e2e:react": "mocha 'test/e2e/react-client--*.test.js' -g 'test:e2e:react' --timeout 0",
+    "test:e2e:react:scr": "mocha 'test/e2e/react-client--scr.test.js' -g 'test:e2e:react:scr' --timeout 0",
+    "test:e2e:react:empty-model": "mocha 'test/e2e/react-client--empty-model.test.js' -g 'test:e2e:react:empty-model' --timeout 0",
+    "test:e2e:react:new-project": "mocha 'test/e2e/react-client--new-project.test.js' -g 'test:e2e:react:new-project' --timeout 0",
+    "test:e2e:polymer2": "mocha 'test/e2e/polymer2.test.js' -g 'test:e2e:polymer2' --timeout 0",
+    "test:e2e:polymer2-ts": "mocha 'test/e2e/polymer2-ts.test.js' -g 'test:e2e:polymer2-ts' --timeout 0",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -56,29 +55,6 @@
     "source-map-support": "^0.5.6",
     "ts-node": "^4.1.0",
     "vinyl-fs": "^3.0.3"
-  },
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "skip-full": true,
-    "all": true,
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "src/test/**",
-      "src/generators/polymer2/**",
-      "src/generators/polymer2-typescript/**",
-      "src/generators/*/*/template/**"
-    ],
-    "reporter": [
-      "text",
-      "html"
-    ],
-    "check-coverage": true,
-    "statements": 83,
-    "branches": 75,
-    "functions": 90,
-    "lines": 90
   },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
   "license": "Apache-2.0"

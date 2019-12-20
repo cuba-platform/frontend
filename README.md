@@ -1,6 +1,6 @@
 # CUBA Platform Frontend Generator
 
-[![Build Status](https://travis-ci.org/cuba-platform/front-generator.svg?branch=master)](https://travis-ci.org/cuba-platform/front-generator)
+[![Build Status](https://travis-ci.org/cuba-platform/frontend.svg?branch=master)](https://travis-ci.org/cuba-platform/frontend)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Table of Contents

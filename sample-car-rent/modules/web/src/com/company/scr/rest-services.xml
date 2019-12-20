@@ -22,6 +22,8 @@
         <method name="getFavoritesByType">
             <param name="carType" type="com.company.scr.entity.CarType"/>
         </method>
+
+        <method name="refreshCache"/>
     </service>
 
 </services>

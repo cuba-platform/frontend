@@ -1,0 +1,19 @@
+# coverage check config
+
+extends: "@istanbuljs/nyc-config-typescript"
+check-coverage: true
+skip-full: true
+
+# do not check coverage in this folders
+# polymer apps is deprecated and will be removed in future releases
+exclude: [
+  "src/test/**",
+  "src/generators/*/*/template/**",
+  "src/generators/polymer2/**",
+  "src/generators/polymer2-typescript/**"
+]
+
+statements: 90
+branches: 75
+functions: 90
+lines: 90

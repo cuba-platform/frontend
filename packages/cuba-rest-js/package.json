@@ -6,10 +6,7 @@
   "typings": "dist-node/cuba.d.ts",
   "scripts": {
     "lint": "tslint -c tslint.json src/**/*.ts",
-    "start-test-app": "cd test-app && ./gradlew clean && ./gradlew setupTomcat && ./gradlew startDb && ./gradlew createDb && ./gradlew restartAndWaitForInitialization",
-    "teardown-test-app": "cd test-app && ./gradlew stop && ./gradlew stopDb",
-    "test:integration": "npm run start-test-app && nyc mocha -t 30000 && npm run teardown-test-app",
-    "test": "nyc mocha",
+    "coverage": "nyc mocha -t 30000",
     "prepare-browser-test": "browserify test/cuba.test.js > test/cuba-browser.test.js",
     "compile": "tsc",
     "types:browser": "tsc --declarationDir dist-browser --emitDeclarationOnly true",
@@ -24,7 +21,7 @@
   "devDependencies": {
     "browserify": "^16.2.3",
     "chai": "^4.2.0",
-    "mocha": "~5.0.5",
+    "mocha": "^5.1.1",
     "node-fetch": "^2.6.0",
     "nyc": "~14.1.1",
     "tslint": "~5.17.0",
@@ -38,10 +35,10 @@
   },
   "nyc": {
     "check-coverage": true,
-    "statements": 79,
-    "branches": 74,
-    "functions": 69,
-    "lines": 82
+    "statements": 80,
+    "branches": 77,
+    "functions": 77,
+    "lines": 85
   },
   "author": "Vlad Minaev <minaev@haulmont.com>",
   "license": "Apache-2.0",

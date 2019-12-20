@@ -1,0 +1,107 @@
+{
+  "blankComponent": {
+    "componentName": "my-component"
+  },
+  "entityManagement": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "scr$Car"
+    },
+    "editComponentName": "CarEdit",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "scr$Car"
+    },
+    "listComponentName": "CarCards",
+    "listType": "cards",
+    "entity": {
+      "name": "scr$Car"
+    },
+    "managementComponentName": "CarManagement"
+  },
+  "entityManagement2": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "scr$Car"
+    },
+    "editComponentName": "CarEdit2",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "scr$Car"
+    },
+    "listComponentName": "CarList",
+    "listType": "list",
+    "entity": {
+      "name": "scr$Car"
+    },
+    "managementComponentName": "CarManagement2"
+  },
+  "entityManagement3": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "scr$Car"
+    },
+    "editComponentName": "CarEdit3",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "scr$Car"
+    },
+    "listComponentName": "CarTable",
+    "listType": "table",
+    "entity": {
+      "name": "scr$Car"
+    },
+    "managementComponentName": "CarManagement3"
+  },
+  "entityCards": {
+    "entityView": {
+      "name": "favoriteCar-view",
+      "entityName": "scr$FavoriteCar"
+    },
+    "componentName": "FavoriteCars",
+    "entity": {
+      "name": "scr$FavoriteCar"
+    }
+  },
+  "entityList": {
+    "entityView": {
+      "name": "_local",
+      "entityName": "scr$Garage"
+    },
+    "componentName": "scr-garage-list",
+    "entity": {
+      "name": "scr$Garage"
+    }
+  },
+  "entityEdit": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "scr$Car"
+    },
+    "editComponentName": "scr-car-edit",
+    "entity": {
+      "name": "scr$Car"
+    }
+  },
+  "queryResults": {
+    "query": {
+      "name": "carsByType",
+      "entityName": "scr$Car"
+    },
+    "componentName": "scr-cars-by-type-list"
+  },
+  "serviceForm": {
+    "componentName": "scr-add-favorite-form",
+    "serviceMethod": {
+      "serviceName": "scr_FavoriteService",
+      "methodName": "addFavorite"
+    }
+  },
+  "serviceData": {
+    "componentName": "scr-add-favorite-data",
+    "serviceMethod": {
+      "serviceName": "scr_FavoriteService",
+      "methodName": "addFavorite"
+    }
+  }
+}

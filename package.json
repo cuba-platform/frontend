@@ -9,19 +9,19 @@
     "semantic-release": "^15.13.31"
   },
   "scripts": {
+    "lerna": "lerna",
     "commit": "node_modules/commitizen/bin/git-cz",
-    "build-client-libs": "lerna run dist --scope @cuba-platform/rest && lerna run compile --scope @cuba-platform/react",
-    "pack-client-libs": "lerna exec --scope @cuba-platform/re* npm pack",
-    "build-generator": "lerna run --scope @cuba-platform/front-generator build",
-    "gen-client-scr": "npm run build-generator && lerna run --scope @cuba-platform/front-generator gen-client-scr",
-    "update-client-libs": "node scripts/update-client-libs.js",
-    "bootstrap-react-app": "npm run build-client-libs && npm run pack-client-libs && npm run gen-client-scr && npm run update-client-libs",
-    "bootstrap-cuba-app": "cd ./sample-car-rent && ./gradlew setupTomcat createDb deploy start",
-    "start-react-app": "cd ./react-client-scr && npm run start",
-    "react-all": "npm run bootstrap-react-app && npm run bootstrap-cuba-app && npm run start-react-app",
+    "pack-client-libs": "lerna run prepublishOnly && lerna exec --scope @cuba-platform/re* 'npm pack -q'",
+    "update-client-libs": "npm run pack-client-libs && node scripts/update-client-libs.js",
+    "bootstrap-react-app": "node scripts/generate-react-client-scr.js && npm run update-client-libs",
+    "bootstrap-cuba-app": "sample-car-rent/gradlew -p sample-car-rent setupTomcat createDb",
+    "start-react-app": "npm run start --prefix react-client-scr",
+    "start-cuba-app": "sample-car-rent/gradlew -p sample-car-rent assemble deploy start",
+    "react-all": "npm run bootstrap-react-app && npm run bootstrap-cuba-app && npm run start-cuba-app && npm run start-react-app",
     "docs": "npm run docs:api-reference && npm run docs:toc",
     "docs:toc": "node update-readme-toc.js",
-    "docs:api-reference": "rimraf docs && lerna run generate-docs"
+    "docs:api-reference": "rimraf docs && lerna run generate-docs",
+    "test-pup": "npm test --prefix test-pup"
   },
   "config": {
     "commitizen": {

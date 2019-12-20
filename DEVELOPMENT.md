@@ -19,13 +19,27 @@ To update versions of @cuba-platform/rest and @cuba-platform/react in generated 
 and [packages/cuba-react/package.json](packages/cuba-react/package.json)
 
 * bootstrap client app - compile and pack dependencies, generate client app 
-```npm run bootstrap-react-app```
+```bash
+npm run bootstrap-react-app
+```
 
-* start backend
-`npm run bootstrap-cuba-app`
+* bootstrap and start backend
+```bash
+npm run bootstrap-cuba-app && npm run start-cuba-app
+```
 
 * start app
-`npm run start-react-app`
+```bash
+npm run start-react-app
+```
 
 * all-in-one command:
-`npm run react-all`
+```bash
+npm run react-all
+```
+
+## Rebuild and install dependencies during development
+```bash
+npm run update-client-libs
+```
+
