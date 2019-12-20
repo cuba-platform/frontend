@@ -48,7 +48,8 @@
     "compile": "npm run clean && tsc && npm run copyless -- './dist-transpiled' && rollup -c && npm run copyless -- './dist'",
     "clean": "rm -rf dist && rm -rf dist-transpiled",
     "test": "jest",
-    "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-react src"
+    "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-react src",
+    "prepublishOnly": "npm run compile"
   },
   "repository": {
     "type": "git",
