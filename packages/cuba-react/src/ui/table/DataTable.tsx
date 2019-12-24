@@ -14,8 +14,14 @@ import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
 import {getPropertyInfoNN, WithId} from '../../util/metadata';
 import {DataCollectionStore} from '../../data/Collection';
 import {FormattedMessage} from 'react-intl';
-import {entityFilterToTableFilters, generateDataColumn, handleTableChange} from './DataTableHelpers';
+import {
+  entityFilterToTableFilters,
+  generateDataColumn,
+  handleTableChange,
+  isPreservedCondition
+} from './DataTableHelpers';
 import {assertNever} from '../../util/errorHandling';
+import {Condition, ConditionsGroup} from "@cuba-platform/rest";
 
 export interface DataTableProps<E> extends MainStoreInjected {
   dataCollection: DataCollectionStore<E>,
@@ -64,7 +70,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     super(props);
 
     if (this.props.dataCollection.filter) {
-      this.tableFilters = entityFilterToTableFilters(this.props.dataCollection.filter);
+      this.tableFilters = entityFilterToTableFilters(this.props.dataCollection.filter, this.props.fields);
     }
 
     this.defaultSort = this.props.dataCollection.sort;
@@ -229,7 +235,6 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   clearFilters = (): void => {
     this.tableFilters = {};
     this.operatorsByProperty.clear();
-
     this.valuesByProperty.clear();
     this.props.fields.forEach((field: string) => {
       const propertyInfo = getPropertyInfoNN(field, this.props.dataCollection.entityName, this.props.mainStore!.metadata!);
@@ -242,7 +247,18 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       // @ts-ignore
       customFilter.resetFields(); // Reset Ant Form in CustomFilter
     });
-    this.props.dataCollection.filter = undefined;
+
+    if (this.props.dataCollection.filter) {
+      const preservedConditions: Array<Condition | ConditionsGroup> = this.props.dataCollection.filter.conditions.filter(condition => {
+        return isPreservedCondition(condition, this.props.fields);
+      });
+
+      if (preservedConditions.length > 0) {
+        this.props.dataCollection.filter.conditions = preservedConditions;
+      } else {
+        this.props.dataCollection.filter = undefined;
+      }
+    }
     this.props.dataCollection.load();
   };
 
@@ -318,9 +334,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
 
   @computed
   get clearFiltersButton(): ReactNode {
-    if (this.props.dataCollection.filter
-      && this.props.dataCollection.filter.conditions
-      && this.props.dataCollection.filter.conditions.length > 0) {
+    if (this.isClearFiltersShown()) {
       return (
         <Button htmlType='button'
                 className='cuba-data-table-clear-filters'
@@ -333,6 +347,14 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     } else {
       return null;
     }
+  }
+
+  isClearFiltersShown(): boolean {
+    return this.props.dataCollection.filter != null
+      && this.props.dataCollection.filter.conditions != null
+      && this.props.dataCollection.filter.conditions.some(condition => {
+        return !isPreservedCondition(condition, this.props.fields);
+      });
   }
 
   @computed
