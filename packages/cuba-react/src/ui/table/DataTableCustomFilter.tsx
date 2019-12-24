@@ -125,6 +125,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @action
   handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
+    e.stopPropagation();
 
     this.props.form.validateFields((err) => {
        if (!err) {
