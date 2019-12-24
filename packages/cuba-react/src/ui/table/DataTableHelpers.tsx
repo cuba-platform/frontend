@@ -2,7 +2,7 @@ import {ColumnFilterItem, ColumnProps, FilterDropdownProps, PaginationConfig, So
 import React from 'react';
 import {getPropertyCaption, getPropertyInfoNN} from '../../util/metadata';
 import { MainStore } from '../../app/MainStore';
-import {Condition, EntityFilter, EnumInfo, EnumValueInfo, MetaPropertyInfo} from '@cuba-platform/rest';
+import {Condition, ConditionsGroup, EntityFilter, EnumInfo, EnumValueInfo, MetaPropertyInfo} from '@cuba-platform/rest';
 import {DataTableCell} from './DataTableCell';
 import {
   ComparisonType,
@@ -293,6 +293,18 @@ export function setFilters<E>(
 ) {
   let entityFilter: EntityFilter | undefined = undefined;
 
+  if (dataCollection.filter && dataCollection.filter.conditions && dataCollection.filter.conditions.length > 0) {
+    const preservedConditions: Array<Condition | ConditionsGroup> = dataCollection.filter.conditions.filter(condition => {
+      return isPreservedCondition(condition, fields);
+    });
+
+    if (preservedConditions.length > 0) {
+      entityFilter = {
+        conditions: preservedConditions
+      };
+    }
+  }
+
   if (tableFilters) {
     fields.forEach((propertyName: string) => {
       if (tableFilters.hasOwnProperty(propertyName) && tableFilters[propertyName] && tableFilters[propertyName].length > 0) {
@@ -422,20 +434,45 @@ export function handleTableChange<E>(tableChangeDTO: TableChangeDTO<E>) {
  * Useful e.g. to set the initial state of table filters when the table is loaded with a predefined EntityFilter.
  *
  * @param entityFilter
+ * @param fields allows to check the `entityFilter.conditions` against the list of displayed fields and ensure that only
+ * the conditions related to the displayed fields are included in the result
  */
-export function entityFilterToTableFilters(entityFilter: EntityFilter): Record<string, any> {
+export function entityFilterToTableFilters(entityFilter: EntityFilter, fields?: string[]): Record<string, any> {
   const tableFilters: Record<string, any> = {};
 
   entityFilter.conditions.forEach(condition => {
-    if ('conditions' in condition) {
-      throw new Error('EntityFilter with ConditionsGroup cannot be converted to table filters');
+    if (isConditionsGroup(condition)) {
+      // ConditionsGroup cannot be represented in / changed via the table UI
+      return;
     }
     condition = condition as Condition;
-    tableFilters[condition.property] = [JSON.stringify({
-      operator: condition.operator,
-      value: condition.value
-    })];
+
+    // TODO @deprecated We might want to make `fields` parameter mandatory in the next major version
+    if (!fields || fields.indexOf(condition.property)) {
+      tableFilters[condition.property] = [JSON.stringify({
+        operator: condition.operator,
+        value: condition.value
+      })];
+    }
   });
 
   return tableFilters;
+}
+
+export function isConditionsGroup(conditionOrConditionsGroup: Condition | ConditionsGroup): boolean {
+  return 'conditions' in conditionOrConditionsGroup;
+}
+
+/**
+ * Determines whether a condition shall be preserved in `DataCollectionStore` when clearing table filters.
+ *
+ * @remarks
+ * Preserved conditions include `ConditionGroup`s and conditions on fields that are not displayed in the table.
+ * Effectively they act as invisible filters that cannot be disabled.
+ *
+ * @param condition
+ * @param fields
+ */
+export function isPreservedCondition(condition: Condition | ConditionsGroup, fields: string[]): boolean {
+  return isConditionsGroup(condition) || fields.indexOf((condition as Condition).property) === -1;
 }
