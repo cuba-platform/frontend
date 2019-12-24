@@ -623,7 +623,6 @@ Example of using `<DataTable>`'s API:
            fields={this.fields}
            onSelectedRowChange={this.onSelectedRowChange}
            buttons={buttons}
-           defaultSort={'-updateTs'}
            tableProps={{
              bordered: true
            }}
@@ -637,8 +636,6 @@ Example of using `<DataTable>`'s API:
 - `fields` - array of entity property names
 - `onSelectedRowChange` - callback that takes the id of selected row, can be used together with `buttons` e.g. to facilitate CRUD operations
 - `buttons` - array of React elements representing controls that will be rendered above the table
-- `defaultSort` - name of the field to be sorted by. If the name is preceeding by the '+' character, then the sort order is ascending,
-if by the '-' character then descending. If there is no special character before the property name, then ascending sort will be used.
 - `tableProps` - can be used to override any of the underlying [Table properties](https://ant.design/components/table/#Table)
 - `columnProps` - can be used to override any of the underlying [Column properties](https://ant.design/components/table/#Column).
 It shall be used instead of redefining `columns` in `tableProps` if the goal is to extend rather that fully replace the existing
