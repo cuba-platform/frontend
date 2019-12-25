@@ -143,7 +143,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   @action
   handleInputConfirm = (): void => {
     if (this.inputModel
-        && this.inputModel.value
+        && this.inputModel.value != null
         && this.items.findIndex((item => item.value === this.inputModel.value)) === -1) {
       this.items = [...this.items, { ...this.inputModel }];
       this.inputModel.value = undefined;
@@ -163,7 +163,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
       <div>
         {
           this.items.map((item: CaptionValuePair) => {
-            return item.value
+            return item.value != null
               ? <ListItemTag item={item} onClose={this.handleClose} key={item.value}/>
               : null;
           })
