@@ -44,6 +44,8 @@ class AppComponent extends React.Component<
       );
     }
 
+    const menuIdx = 1;
+
     return (
       <Layout className="main-layout">
         <Layout.Header>
@@ -57,13 +59,14 @@ class AppComponent extends React.Component<
             style={{ background: "#fff" }}
           >
             <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
-              <Menu.Item key="1">
+              <Menu.Item key={menuIdx}>
                 <NavLink to={"/"}>
                   <Icon type="home" />
                   <FormattedMessage id="router.home" />
                 </NavLink>
               </Menu.Item>
-              {menuItems.map(item => menuItem(item, this.props.intl))}
+              {menuItems.map((item, idx) =>
+                menuItem(item, '' + (idx + 1 + menuIdx), this.props.intl))}
             </Menu>
           </Layout.Sider>
           <Layout style={{ padding: "24px 24px 24px" }}>
@@ -86,7 +89,7 @@ class AppComponent extends React.Component<
   }
 }
 
-function menuItem(item: RouteItem | SubMenu, intl: IntlFormatters) {
+function menuItem(item: RouteItem | SubMenu, keyString: string, intl: IntlFormatters) {
 
   // Sub Menu
 
@@ -94,11 +97,13 @@ function menuItem(item: RouteItem | SubMenu, intl: IntlFormatters) {
     //recursively walk through sub menus
     return (
       <Menu.SubMenu
+        key={keyString}
         title={intl.formatMessage({
           id: "router." + item.caption
         })}
       >
-        {(item as SubMenu).items.map(ro => menuItem(ro, intl))}
+        {(item as SubMenu).items
+          .map((ri, index) => menuItem(ri, keyString + '-' + (index + 1), intl))}
       </Menu.SubMenu>
     );
   }
@@ -108,7 +113,7 @@ function menuItem(item: RouteItem | SubMenu, intl: IntlFormatters) {
   const { menuLink } = item as RouteItem;
 
   return (
-    <Menu.Item key={menuLink}>
+    <Menu.Item key={keyString}>
       <NavLink to={menuLink}>
         <Icon type="bars" />
         <FormattedMessage id={"router." + item.caption} />
