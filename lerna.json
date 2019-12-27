@@ -1,6 +1,6 @@
 {
   "packages": [
-    "packages/*"
+    "packages/*", "test-pup"
   ],
   "version": "independent"
 }

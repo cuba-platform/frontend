@@ -50,14 +50,16 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
         </div>
         <Form layout='vertical' onSubmit={this.doLogin}>
           <Form.Item>
-            <Input placeholder={this.props.intl.formatMessage({id: 'login.placeholder.login'})}
+            <Input id='input_login'
+                   placeholder={this.props.intl.formatMessage({id: 'login.placeholder.login'})}
                    onChange={this.changeLogin}
                    value={this.login}
                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>}
                    size='large'/>
           </Form.Item>
           <Form.Item>
-            <Input placeholder={this.props.intl.formatMessage({id: 'login.placeholder.password'})}
+            <Input id='input_password'
+                   placeholder={this.props.intl.formatMessage({id: 'login.placeholder.password'})}
                    onChange={this.changePassword}
                    value={this.password}
                    type='password'
