@@ -71,7 +71,8 @@ required.
 ## Getting Started
 
 We recommend using an IDE with [TypeScript](http://www.typescriptlang.org/) support: [VSCode](https://code.visualstudio.com/),
-WebStorm or [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate Edition.
+[WebStorm](https://www.jetbrains.com/webstorm/) 
+or [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate Edition.
 
 Steps will vary depending on whether you are using the generator from CUBA Studio or as a standalone CLI tool. 
 
