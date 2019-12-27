@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.7.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@0.7.1...@cuba-platform/rest@0.7.2) (2019-12-27)
+
+
+### Bug Fixes
+
+* **Menu:** SubMenu has no key prop console warning ([c793906](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/c7939064cdca2f49e3fe3dc0316c533b3367f729)), closes [#42](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/issues/42)
+
+
+
+
+
 # Changelog
 ## 0.7.0
 - Added `setSessionLocale` (issue [cuba-platform/front-generator#34](https://github.com/cuba-platform/front-generator/issues/34))
