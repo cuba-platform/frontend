@@ -28,6 +28,9 @@ before_script: |
 
 jobs:
   include:
+    - name: "Lint commits"
+      script: commitlint-travis
+
     - name: "Unit tests and coverage"
       # setup cuba postgres user; build and run backend app
       before_install: node scripts/ci-bootstrap-backend.js
