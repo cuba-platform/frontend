@@ -2,8 +2,12 @@
   "name": "root",
   "private": true,
   "devDependencies": {
+    "@commitlint/cli": "^8.3.4",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/travis-cli": "^8.3.4",
     "commitizen": "^4.0.3",
     "cz-lerna-changelog": "^2.0.2",
+    "husky": "^4.0.6",
     "lerna": "^3.19.0",
     "rimraf": "^3.0.0",
     "semantic-release": "^15.13.31"
@@ -26,6 +30,11 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "license": "Apache-2.0",
