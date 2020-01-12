@@ -41,6 +41,7 @@ export interface CommonGenerationOptions {
   dest?: string;
   model?: string;
   answers?: string;
+  verbose?: boolean;
 }
 
 export const commonGenerationOptionsConfig: OptionsConfig = {
@@ -53,6 +54,11 @@ export const commonGenerationOptionsConfig: OptionsConfig = {
     alias: 'm',
     description: 'specify path to project model, if given no interactive prompt will be invoked',
     type: String
+  },
+  verbose: {
+    alias: 'vb',
+    description: 'log out additional info about generation process',
+    type: Boolean
   }
 };
 
