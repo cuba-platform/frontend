@@ -5,6 +5,7 @@ import {expect} from "chai";
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../common/studio/studio-model";
 import {Entity} from "../../common/model/cuba-model";
 import YeomanEnvironment = require("yeoman-environment");
+import * as Generator from "yeoman-generator";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -65,23 +66,42 @@ class TestGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> 
     return generatorParams;
   }
 
+  async _obtainAnswers() {
+    await super._obtainAnswers();
+  }
+
+  prompt(questions: Generator.Questions): Promise<Answers> {
+    // mock prompt answers
+    return Promise.resolve({projectInfo: 'projectInfo'} as any);
+  }
+
   writing() {}
 }
 
+const opts = {
+  dest: '.',
+  env: new YeomanEnvironment,
+  resolved: '.',
+  model,
+};
+
 describe('BaseGenerator', function () {
   it('should prompt or parse', async function () {
-    const opts = {
-      dest: '.',
-      env: new YeomanEnvironment,
-      resolved: '.',
-      model,
-      answers: Buffer.from(JSON.stringify(answers)).toString('base64')
-    };
 
-    const gen = new TestGenerator([], opts);
+    const gen = new TestGenerator([], {
+      ...opts,
+      answers: Buffer.from(JSON.stringify(answers)).toString('base64')
+    });
 
     expect(gen.answers).is.undefined;
     await gen._promptOrParse();
     expect(gen.answers).not.empty;
+  });
+
+  it('should obtain answers', async function () {
+    const gen = new TestGenerator([], opts);
+    expect(gen.answers).is.undefined;
+    await gen._obtainAnswers();
+    expect(gen.answers!.projectInfo).eq('projectInfo');
   });
 });
