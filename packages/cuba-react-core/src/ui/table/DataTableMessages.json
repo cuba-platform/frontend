@@ -1,0 +1,76 @@
+{
+  "en": {
+    "cubaReact.dataTable.clearAllFilters": "Clear filters",
+    "cubaReact.dataTable.requiredField": "Required field",
+    "cubaReact.dataTable.failedToLoadNestedEntities": "Failed to load nested entities list",
+    "cubaReact.dataTable.loading": "Loading...",
+
+    "cubaReact.dataTable.operator.startsWith": "starts with",
+    "cubaReact.dataTable.operator.endsWith": "ends with",
+    "cubaReact.dataTable.operator.contains": "contains",
+    "cubaReact.dataTable.operator.doesNotContain": "doesn't contain",
+    "cubaReact.dataTable.operator.in": "in",
+    "cubaReact.dataTable.operator.notIn": "not in",
+    "cubaReact.dataTable.operator.notEmpty": "is set",
+    "cubaReact.dataTable.operator.inInterval": "in interval",
+
+    "cubaReact.dataTable.yes": "Yes",
+    "cubaReact.dataTable.no": "No",
+    "cubaReact.dataTable.ok": "OK",
+    "cubaReact.dataTable.reset": "Reset",
+
+    "cubaReact.dataTable.intervalEditor.last": "Last",
+    "cubaReact.dataTable.intervalEditor.next": "Next",
+    "cubaReact.dataTable.intervalEditor.predefined": "Predefined",
+    "cubaReact.dataTable.intervalEditor.today": "Today",
+    "cubaReact.dataTable.intervalEditor.yesterday": "Yesterday",
+    "cubaReact.dataTable.intervalEditor.tomorrow": "Tomorrow",
+    "cubaReact.dataTable.intervalEditor.lastMonth": "Last month",
+    "cubaReact.dataTable.intervalEditor.thisMonth": "This month",
+    "cubaReact.dataTable.intervalEditor.nextMonth": "Next month",
+    "cubaReact.dataTable.intervalEditor.days": "Days",
+    "cubaReact.dataTable.intervalEditor.hours": "Hours",
+    "cubaReact.dataTable.intervalEditor.minutes": "Minutes",
+    "cubaReact.dataTable.intervalEditor.months": "Months",
+    "cubaReact.dataTable.intervalEditor.includingCurrent": "including current",
+
+    "cubaReact.dataTable.listEditor.addItem": "Add Item"
+  },
+  "ru": {
+    "cubaReact.dataTable.clearAllFilters": "Очистить фильтры",
+    "cubaReact.dataTable.requiredField": "Обязательное поле",
+    "cubaReact.dataTable.failedToLoadNestedEntities": "Не удалось загрузить вложенные сущности",
+    "cubaReact.dataTable.loading": "Загрузка...",
+
+    "cubaReact.dataTable.operator.startsWith": "начинается с",
+    "cubaReact.dataTable.operator.endsWith": "заканчивается на",
+    "cubaReact.dataTable.operator.contains": "содержит",
+    "cubaReact.dataTable.operator.doesNotContain": "не содержит",
+    "cubaReact.dataTable.operator.in": "в списке",
+    "cubaReact.dataTable.operator.notIn": "не в списке",
+    "cubaReact.dataTable.operator.notEmpty": "установлен",
+    "cubaReact.dataTable.operator.inInterval": "в интервале",
+
+    "cubaReact.dataTable.yes": "Да",
+    "cubaReact.dataTable.no": "Нет",
+    "cubaReact.dataTable.ok": "ОК",
+    "cubaReact.dataTable.reset": "Сбросить",
+
+    "cubaReact.dataTable.intervalEditor.last": "Предыдущие",
+    "cubaReact.dataTable.intervalEditor.next": "Следующие",
+    "cubaReact.dataTable.intervalEditor.predefined": "Предопределенный",
+    "cubaReact.dataTable.intervalEditor.today": "Сегодня",
+    "cubaReact.dataTable.intervalEditor.yesterday": "Вчера",
+    "cubaReact.dataTable.intervalEditor.tomorrow": "Завтра",
+    "cubaReact.dataTable.intervalEditor.lastMonth": "Предыдущий месяц",
+    "cubaReact.dataTable.intervalEditor.thisMonth": "Текущий месяц",
+    "cubaReact.dataTable.intervalEditor.nextMonth": "Следующий месяц",
+    "cubaReact.dataTable.intervalEditor.days": "Дней",
+    "cubaReact.dataTable.intervalEditor.hours": "Часов",
+    "cubaReact.dataTable.intervalEditor.minutes": "Минут",
+    "cubaReact.dataTable.intervalEditor.months": "Месяцев",
+    "cubaReact.dataTable.intervalEditor.includingCurrent": "включая текущий",
+
+    "cubaReact.dataTable.listEditor.addItem": "Добавить"
+  }
+}

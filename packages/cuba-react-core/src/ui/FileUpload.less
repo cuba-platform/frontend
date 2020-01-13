@@ -1,0 +1,40 @@
+@import '~antd/es/style/themes/default';
+@import '../style/palette';
+
+._cuba-file-upload-full-width-enabled span.ant-upload {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.cuba-file-drop-area {
+  background-color: @mono-tint-90;
+  border: dashed @border-width-base @mono-tint-30;
+  cursor: pointer;
+  display: table-cell;
+  padding: @padding-sm;
+  text-align: center;
+  transition: all @animation-duration-base;
+
+  &:hover {
+    border-color: @primary-color;
+  }
+
+  > .uploadicon {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+
+  > .replaceicon {
+    margin-right: 8px;
+  }
+
+  > .uploadtext {
+    color: @mono-shade-70;
+  }
+
+  > .replacetext {
+    color: @mono-shade-30;
+    font-size: @font-size-sm;
+  }
+}
