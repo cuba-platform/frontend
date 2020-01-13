@@ -6,6 +6,9 @@ module.exports = {
       'DataTable'
     ]],
     'scope-case': [0],
-    'references-empty': [1, 'never']
+    'references-empty': [1, 'never'],
+    'type-enum': [2, 'always', [
+      ''
+    ]]
   }
 };
