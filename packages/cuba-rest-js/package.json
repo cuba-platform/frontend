@@ -37,7 +37,7 @@
     "check-coverage": true,
     "statements": 80,
     "branches": 77,
-    "functions": 77,
+    "functions": 76,
     "lines": 85
   },
   "author": "Vlad Minaev <minaev@haulmont.com>",
