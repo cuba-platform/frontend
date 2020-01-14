@@ -1,15 +1,15 @@
 import * as React from "react";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
-import { Modal, Button } from "antd";
-import { Car } from "cuba/entities/mpg$Car";
 import { Link } from "react-router-dom";
+import { observable } from "mobx";
+import { Modal, Button } from "antd";
 import {
   collection,
   injectMainStore,
   MainStoreInjected,
   DataTable
 } from "@cuba-platform/react";
+import { Car } from "cuba/entities/mpg$Car";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement3 } from "./CarManagement3";
 import {

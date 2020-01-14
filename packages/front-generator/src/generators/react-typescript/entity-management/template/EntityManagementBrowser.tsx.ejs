@@ -1,9 +1,10 @@
 import * as React from "react";
+import {observer} from "mobx-react";
+import {Link} from "react-router-dom";
 
-<% if (listType === 'table') { %>
+<% if (listType === 'table') { -%>
   import {observable} from 'mobx';
 <% } %>
-import {observer} from "mobx-react";
 
 import {Modal, Button,
 <% if (listType === 'cards') { %>
@@ -13,9 +14,6 @@ import {Modal, Button,
 <% } %>
 } from "antd";
 
-import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {Link} from "react-router-dom";
-
 import {collection, injectMainStore, MainStoreInjected,
 <% if (listType === 'table') { %>
   DataTable,
@@ -24,6 +22,7 @@ import {collection, injectMainStore, MainStoreInjected,
 <% } %>
 } from "@cuba-platform/react";
 
+import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
 import {SerializedEntity} from "@cuba-platform/rest";
 import {<%= className %>} from "./<%= className %>";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
