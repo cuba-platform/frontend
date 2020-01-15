@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DataTable | @cuba-platform/react</title>
+	<title>DataTable | @cuba-platform/react - v0.4.2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cuba-platform/react</a>
+					<a href="../index.html" class="title">@cuba-platform/react - v0.4.2</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -155,6 +155,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_ui_table_datatable_.datatable.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_ui_table_datatable_.datatable.html#handlefilteroperatorchange" class="tsd-kind-icon">handle<wbr>Filter<wbr>Operator<wbr>Change</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_ui_table_datatable_.datatable.html#handlefiltervaluechange" class="tsd-kind-icon">handle<wbr>Filter<wbr>Value<wbr>Change</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_ui_table_datatable_.datatable.html#isclearfiltersshown" class="tsd-kind-icon">is<wbr>Clear<wbr>Filters<wbr>Shown</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_ui_table_datatable_.datatable.html#isrowselectionenabled" class="tsd-kind-icon">is<wbr>Row<wbr>Selection<wbr>Enabled</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_ui_table_datatable_.datatable.html#onchange" class="tsd-kind-icon">on<wbr>Change</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_ui_table_datatable_.datatable.html#onrow" class="tsd-kind-icon">on<wbr>Row</a></li>
@@ -189,7 +190,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L61">src/ui/table/DataTable.tsx:61</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L67">src/ui/table/DataTable.tsx:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -212,22 +213,23 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.context</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:433</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:447</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>If using the new style context, re-declare this in your class to be the
-							<code>React.ContextType</code> of your <code>static contextType</code>.</p>
+								<code>React.ContextType</code> of your <code>static contextType</code>.
+							Should be used with type annotation or static contextType.</p>
 						</div>
 						<pre><code class="language-ts"><span class="hljs-keyword">static</span> contextType = MyContext
-context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
+<span class="hljs-comment">// For TS pre-3.7:</span>
+context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;
+<span class="hljs-comment">// For TS 3.7 and above:</span>
+<span class="hljs-keyword">declare</span> context: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
 						<dl class="tsd-comment-tags">
-							<dt>deprecated</dt>
-							<dd><p>if used without a type annotation, or without static contextType</p>
-							</dd>
 							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
+							<dd><p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -238,7 +240,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">custom<wbr>Filters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_ui_table_datatablecustomfilter_.datatablecustomfilterprops.html" class="tsd-signature-type">DataTableCustomFilterProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map&lt;string, React.Component&lt;DataTableCustomFilterProps&gt;&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L59">src/ui/table/DataTable.tsx:59</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L65">src/ui/table/DataTable.tsx:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -248,7 +250,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L61">src/ui/table/DataTable.tsx:61</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L67">src/ui/table/DataTable.tsx:67</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -258,7 +260,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">disposers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IReactionDisposer</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L57">src/ui/table/DataTable.tsx:57</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L63">src/ui/table/DataTable.tsx:63</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -268,7 +270,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">first<wbr>Load<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L58">src/ui/table/DataTable.tsx:58</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L64">src/ui/table/DataTable.tsx:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -278,7 +280,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">operators<wbr>ByProperty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../modules/_ui_table_datatablecustomfilter_.html#comparisontype" class="tsd-signature-type">ComparisonType</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L54">src/ui/table/DataTable.tsx:54</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L60">src/ui/table/DataTable.tsx:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -289,7 +291,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.props</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:458</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:472</li>
 						</ul>
 					</aside>
 				</section>
@@ -300,7 +302,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.refs</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:464</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:478</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -325,7 +327,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">selected<wbr>Row<wbr>Keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L52">src/ui/table/DataTable.tsx:52</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L58">src/ui/table/DataTable.tsx:58</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -336,7 +338,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.state</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:459</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:473</li>
 						</ul>
 					</aside>
 				</section>
@@ -346,7 +348,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">table<wbr>Filters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L53">src/ui/table/DataTable.tsx:53</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L59">src/ui/table/DataTable.tsx:59</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -356,7 +358,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">values<wbr>ByProperty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L55">src/ui/table/DataTable.tsx:55</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L61">src/ui/table/DataTable.tsx:61</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -367,7 +369,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.contextType</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:418</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:429</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -405,7 +407,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L320">src/ui/table/DataTable.tsx:320</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L336">src/ui/table/DataTable.tsx:336</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
@@ -422,7 +424,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L339">src/ui/table/DataTable.tsx:339</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L361">src/ui/table/DataTable.tsx:361</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ColumnProps</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -439,7 +441,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L148">src/ui/table/DataTable.tsx:148</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L154">src/ui/table/DataTable.tsx:154</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PaginationConfig</span></h4>
@@ -460,7 +462,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:646</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:660</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -498,7 +500,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:678</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:692</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -547,7 +549,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:706</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:720</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -596,7 +598,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L229">src/ui/table/DataTable.tsx:229</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L235">src/ui/table/DataTable.tsx:235</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -614,7 +616,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:575</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:589</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -647,7 +649,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L80">src/ui/table/DataTable.tsx:80</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L86">src/ui/table/DataTable.tsx:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -665,7 +667,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.componentDidUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:617</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:631</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -701,7 +703,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:632</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:646</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -738,7 +740,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:661</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:675</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -786,7 +788,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L119">src/ui/table/DataTable.tsx:119</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L125">src/ui/table/DataTable.tsx:125</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -804,7 +806,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:691</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:705</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -852,7 +854,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L365">src/ui/table/DataTable.tsx:365</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L387">src/ui/table/DataTable.tsx:387</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -875,7 +877,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L359">src/ui/table/DataTable.tsx:359</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L381">src/ui/table/DataTable.tsx:381</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -892,20 +894,20 @@ class Foo extends React.Component {
 					<a name="forceupdate" class="tsd-anchor"></a>
 					<h3>force<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callBack<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.forceUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:450</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:464</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callBack: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -923,7 +925,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:611</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:625</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -961,7 +963,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L156">src/ui/table/DataTable.tsx:156</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L162">src/ui/table/DataTable.tsx:162</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -987,7 +989,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L161">src/ui/table/DataTable.tsx:161</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L167">src/ui/table/DataTable.tsx:167</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1004,6 +1006,23 @@ class Foo extends React.Component {
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="isclearfiltersshown" class="tsd-anchor"></a>
+					<h3>is<wbr>Clear<wbr>Filters<wbr>Shown</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Clear<wbr>Filters<wbr>Shown<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L352">src/ui/table/DataTable.tsx:352</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="isrowselectionenabled" class="tsd-anchor"></a>
 					<h3>is<wbr>Row<wbr>Selection<wbr>Enabled</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1013,7 +1032,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L140">src/ui/table/DataTable.tsx:140</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L146">src/ui/table/DataTable.tsx:146</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -1030,7 +1049,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L166">src/ui/table/DataTable.tsx:166</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L172">src/ui/table/DataTable.tsx:172</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1059,7 +1078,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L220">src/ui/table/DataTable.tsx:220</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L226">src/ui/table/DataTable.tsx:226</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1082,7 +1101,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L180">src/ui/table/DataTable.tsx:180</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L186">src/ui/table/DataTable.tsx:186</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1105,7 +1124,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L123">src/ui/table/DataTable.tsx:123</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L129">src/ui/table/DataTable.tsx:129</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1122,7 +1141,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L213">src/ui/table/DataTable.tsx:213</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L219">src/ui/table/DataTable.tsx:219</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1146,7 +1165,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L260">src/ui/table/DataTable.tsx:260</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L276">src/ui/table/DataTable.tsx:276</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -1163,7 +1182,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L249">src/ui/table/DataTable.tsx:249</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L265">src/ui/table/DataTable.tsx:265</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RowSelectionType</span></h4>
@@ -1181,7 +1200,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from Component.setState</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:445</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:459</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1214,7 +1233,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:565</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:579</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1252,7 +1271,7 @@ class Foo extends React.Component {
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L73">src/ui/table/DataTable.tsx:73</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L79">src/ui/table/DataTable.tsx:79</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -1261,7 +1280,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">can<wbr>Select<wbr>Row<wbr>ByClick<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L75">src/ui/table/DataTable.tsx:75</a></li>
+								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L81">src/ui/table/DataTable.tsx:81</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1271,7 +1290,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">hide<wbr>Clear<wbr>Filters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L77">src/ui/table/DataTable.tsx:77</a></li>
+								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L83">src/ui/table/DataTable.tsx:83</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1281,7 +1300,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">hide<wbr>Selection<wbr>Column<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L76">src/ui/table/DataTable.tsx:76</a></li>
+								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L82">src/ui/table/DataTable.tsx:82</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1291,7 +1310,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">row<wbr>Selection<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;single&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTable.tsx#L74">src/ui/table/DataTable.tsx:74</a></li>
+								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTable.tsx#L80">src/ui/table/DataTable.tsx:80</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1417,6 +1436,9 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_ui_table_datatable_.datatable.html#handlefiltervaluechange" class="tsd-kind-icon">handle<wbr>Filter<wbr>Value<wbr>Change</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_ui_table_datatable_.datatable.html#isclearfiltersshown" class="tsd-kind-icon">is<wbr>Clear<wbr>Filters<wbr>Shown</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_ui_table_datatable_.datatable.html#isrowselectionenabled" class="tsd-kind-icon">is<wbr>Row<wbr>Selection<wbr>Enabled</a>
