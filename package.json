@@ -9,6 +9,7 @@
     "cz-lerna-changelog": "^2.0.2",
     "husky": "^4.0.6",
     "lerna": "^3.19.0",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "semantic-release": "^15.13.31"
   },
@@ -29,6 +30,7 @@
     "docs": "npm run docs:api-reference && npm run docs:toc",
     "docs:toc": "node update-readme-toc.js",
     "docs:api-reference": "rimraf docs && lerna run generate-docs",
+    "validate-react-app": "prettier --check react-client-scr/**/*.ts && CI=true npm test --prefix react-client-scr",
     "test-pup": "npm test --prefix test-pup",
     "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits"
   },
