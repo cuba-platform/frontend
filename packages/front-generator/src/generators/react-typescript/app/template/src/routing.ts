@@ -1,4 +1,4 @@
-import {getMenuItems} from "@cuba-platform/react";
+import {getMenuItems} from "@cuba-platform/react-core";
 
 export const menuItems = getMenuItems();
 

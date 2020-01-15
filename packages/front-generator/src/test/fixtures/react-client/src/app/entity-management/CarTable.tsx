@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import {
   collection,
   injectMainStore,
-  MainStoreInjected,
-  DataTable
-} from "@cuba-platform/react";
+  MainStoreInjected
+} from "@cuba-platform/react-core";
+import { DataTable } from "@cuba-platform/react-ui";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement3 } from "./CarManagement3";
 import {

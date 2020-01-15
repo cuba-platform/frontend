@@ -1,7 +1,6 @@
 import {action, autorun, computed, IObservableArray, observable} from "mobx";
 import {CubaApp, EntityMessages, EnumInfo, MetaClassInfo, UserInfo} from "@cuba-platform/rest";
 import {inject, IReactComponent, IWrappedComponent} from "mobx-react";
-import * as moment from 'moment';
 import {Security} from './Security';
 
 export class MainStore {
@@ -77,9 +76,6 @@ export class MainStore {
   @action
   handleLocaleChange = (locale: string) => {
     this.locale = locale;
-
-    // We need to set locale for moment since antd uses moment's localized messages in e.g. Calendar or DatePicker
-    moment.locale(locale);
 
     if (this.initialized && (this.authenticated || this.usingAnonymously)) {
       this.loadEnums();

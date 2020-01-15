@@ -3,7 +3,7 @@ import * as React from "react";
 import {observer} from "mobx-react";
 import './AppHeader.css';
 import logo from './logo.png';
-import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
+import {injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
 import {LanguageSwitcher} from '../../i18n/LanguageSwitcher';
 import {injectIntl, WrappedComponentProps} from 'react-intl';
 

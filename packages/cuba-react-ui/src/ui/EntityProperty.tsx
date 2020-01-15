@@ -1,9 +1,8 @@
 import * as React from "react";
-import {injectMainStore, MainStoreInjected} from "../app/MainStore";
 import {observer} from "mobx-react";
 import {toJS} from "mobx";
-import {getEnumCaption, getPropertyInfo} from '../util/metadata';
 import {MetaPropertyInfo} from '@cuba-platform/rest';
+import {getEnumCaption, getPropertyInfo, injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
 
 type Props = MainStoreInjected & {
   entityName: string;

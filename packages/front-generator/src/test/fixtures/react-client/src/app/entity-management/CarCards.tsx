@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import {
   collection,
   injectMainStore,
-  MainStoreInjected,
-  EntityProperty
-} from "@cuba-platform/react";
+  MainStoreInjected
+} from "@cuba-platform/react-core";
+import { EntityProperty } from "@cuba-platform/react-ui";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement } from "./CarManagement";
 import {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {observer} from 'mobx-react';
-import {injectMainStore, MainStoreInjected} from "../../app/MainStore";
 import {EntityAttrPermissionValue} from '@cuba-platform/rest';
+import { MainStoreInjected, injectMainStore } from "@cuba-platform/react-core";
 
 type Props = MainStoreInjected & {
   entityName: string

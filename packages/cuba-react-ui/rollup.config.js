@@ -19,6 +19,7 @@ export default {
   ],
   external: [
     '@cuba-platform/rest',
+    '@cuba-platform/react-core',
     'antd',
     'mobx',
     'mobx-react',

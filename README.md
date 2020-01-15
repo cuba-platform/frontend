@@ -17,7 +17,8 @@
     - [Overview of React Client](#react-client-overview)
     - [Creating React Components](#react-client-creating-components)
     - [Observable State with MobX](#react-client-mobx)
-    - [CUBA React Components](#react-client-cuba-react)
+    - [CUBA React Core Components](#react-client-cuba-react-core)
+    - [CUBA React UI Components](#react-client-cuba-react-ui)
     - [Routing and Menu](#react-client-routing)
     - [Forms](#react-client-forms)
     - [I18n](#react-client-i18n)
@@ -392,7 +393,8 @@ The client is based on the following frameworks and libraries:
 * [MobX](https://mobx.js.org/) - reactive state management;
 * [Ant Design](https://ant.design/docs/react/introduce) - UI components;
 * [React Router](https://reacttraining.com/react-router/) - routing;
-* [CUBA React](packages/cuba-react) - CUBA React components and utilities;
+* [CUBA React Core](packages/cuba-react-core) - CUBA React core components and utilities;
+* [CUBA React UI](packages/cuba-react-ui) - CUBA React UI components and utilities;
 * [CUBA REST JS](packages/cuba-rest-js) - interaction with СUBA generic REST API;
 * [Create React App](https://facebook.github.io/create-react-app/) - build scripts and configuration;
 
@@ -489,9 +491,9 @@ class Counter extends React.Component {
 
 As soon as we decorate a class or a function component as [observer](https://mobx.js.org/refguide/observer-component.html), it automatically subscribes to changes on any [observable](https://mobx.js.org/refguide/observable.html) value or object i.e. in the example above changing `count` property will result in automatic re-render of the component.
 
-<a name="react-client-cuba-react"/>
+<a name="react-client-cuba-react-core"/>
 
-### CUBA React Components
+### CUBA React Core Components
 
 ##### MainStore
 
@@ -576,6 +578,14 @@ dataInstance.item.name = 'New Name';
 dataInstance.commit()
 ```
 
+##### API Reference
+
+API reference for CUBA React Core components can be found [here](http://cuba-platform.github.io/frontend/docs/cuba-react-core).
+
+<a name="react-client-cuba-react-ui"/>
+
+### CUBA React UI Components
+
 ##### EntityProperty
 `<EntityProperty>` component is aimed to display a value of some Entity's property. It automatically applies formatting according to the type of property and adds a corresponding label from global message pack (defined on the backend)
 ```typescript
@@ -643,7 +653,7 @@ custom column-related functionality.
 
 ##### API Reference
 
-API reference for CUBA React components can be found [here](http://cuba-platform.github.io/frontend/docs/cuba-react).
+API reference for CUBA React UI components can be found [here](http://cuba-platform.github.io/frontend/docs/cuba-react-ui).
 
 <a name="react-client-routing"/>
 
@@ -740,12 +750,12 @@ Out of the box React client supports `en` and `ru` locales.
 ##### Overriding Existing Messages
 
 Simply replace existing messages in `src/i18n/{locale}.json` files.
-This way you can override messages in client app, `cuba-react` components and some of the messages in `antd` components. 
+This way you can override messages in client app, [CUBA React UI](packages/cuba-react-ui) components and some of the messages in `antd` components. 
 
 ##### Adding Support for New Locales
 
 - Add a corresponding `{locale}.json` message pack. 
-Note that it shall contain messages for `cuba-react` components (keys starting with `cuba-react`)
+Note that it shall contain messages for [CUBA React UI](packages/cuba-react-ui) components (keys starting with `cuba-react`)
 and `antd` `Form` validation messages (keys starting with `antd.form.validation`)
 - Create a mapping between locale and message pack by modifying `messagesMapping` in `src/i18n/i18nMappings.ts`
 - Create a mapping between locale and `antd/es/locale-provider/Locale` object by modifying `antdLocaleMapping` in `src/i18n/i18nMappings.ts`.
@@ -807,7 +817,7 @@ website
 
 ##### CSS Methodology
 
-Both client and CUBA React follow [RSCSS methodology](http://rscss.io).
+Both client and [CUBA React UI](packages/cuba-react-ui) follow [RSCSS methodology](http://rscss.io).
 Additionally, we adopt Base Rules from [SMACSS methodology](http://smacss.com/book/type-base).
 
 <a name="react-client-backend-model"/>

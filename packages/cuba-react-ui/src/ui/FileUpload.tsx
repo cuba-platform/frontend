@@ -1,6 +1,5 @@
 import {Icon, message, Upload} from 'antd';
 import * as React from 'react';
-import {getCubaREST} from '../app/CubaAppProvider';
 import {UploadChangeParam} from 'antd/lib/upload';
 import {IReactionDisposer, observable, reaction} from 'mobx';
 import {observer} from 'mobx-react';
@@ -8,6 +7,7 @@ import {UploadProps} from 'antd/es/upload';
 import {UploadFile} from 'antd/es/upload/interface';
 import './FileUpload.less';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+import { getCubaREST } from '@cuba-platform/react-core';
 
 export interface FileUploadProps {
   value?: FileInfo, // coming from Ant Design form field decorator

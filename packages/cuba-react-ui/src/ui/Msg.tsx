@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 import * as React from "react";
-import {MainStoreInjected, injectMainStore} from "../app/MainStore";
+import { MainStoreInjected, injectMainStore } from "@cuba-platform/react-core";
 
 type Props = MainStoreInjected & {
   entityName: string;
