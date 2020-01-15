@@ -114,18 +114,6 @@ module.exports = function (generatorName, logFileSuffix) {
       `${generatorName}:${logFileSuffix}: check formatting - DONE`);
   }
 
-  async function runTests(appDir) {
-    const logCaption = `${generatorName}:${logFileSuffix}`;
-    console.log(`${logCaption} going to run test`);
-
-    const testCommand = addEnvVars('npm test');
-    await cmd(`cd ${appDir} && ${testCommand}`,
-      `${logCaption} going to run test - '${testCommand}', path: ${fs.realpathSync(appDir)}`,
-      `${logCaption} run unit tests - DONE`);
-
-    console.log(`${logCaption} run unit tests - PASSED`);
-  }
-
   //todo make cross-platform
   function addEnvVars(cmd) { //CI env var not needed on win
     return (process.platform === 'linux' ? 'CI=true ' : '') + cmd;
@@ -138,6 +126,5 @@ module.exports = function (generatorName, logFileSuffix) {
     init: init,
     installAndBuild: installAndBuild,
     checkFormat: checkFormat,
-    runTests: runTests
   };
 };
