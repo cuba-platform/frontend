@@ -11,16 +11,15 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+import { collection, instance } from "@cuba-platform/react-core";
 import {
-  collection,
   Field,
-  instance,
   withLocalizedForm,
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
   MultilineText
-} from "@cuba-platform/react";
+} from "@cuba-platform/react-ui";
 import "app/App.css";
 import { Car } from "cuba/entities/mpg$Car";
 import { Garage } from "cuba/entities/mpg$Garage";

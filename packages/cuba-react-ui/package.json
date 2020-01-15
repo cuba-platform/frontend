@@ -9,7 +9,8 @@
     "dist/"
   ],
   "peerDependencies": {
-    "@cuba-platform/rest": "^0.7.0",
+    "@cuba-platform/react-core": "^0.1.0",
+    "@cuba-platform/rest": "^0.7.2",
     "antd": "^3.23.4",
     "mobx": "^4.13.0 || ^5.13.0",
     "mobx-react": "^5.4.4",
@@ -17,6 +18,7 @@
     "react-intl": "^3.3.2"
   },
   "devDependencies": {
+    "@cuba-platform/react-core": "^0.1.0",
     "@cuba-platform/rest": "^0.7.2",
     "@types/jest": "^24.0.18",
     "@types/moment-timezone": "^0.5.12",
@@ -25,7 +27,6 @@
     "autoprefixer": "^9.7.2",
     "copyfiles": "^2.1.1",
     "jest": "^24.9.0",
-    "less": "^3.10.3",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
     "moment-timezone": "^0.5.26",
@@ -41,19 +42,19 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
     "typedoc": "^0.15.3",
-    "typescript": "~3.5.3"
+    "typescript": "~3.7.4"
   },
   "scripts": {
     "copyless": "copyfiles -u 1 './src/**/*.less'",
     "compile": "npm run clean && tsc && npm run copyless -- './dist-transpiled' && rollup -c && npm run copyless -- './dist'",
     "clean": "rm -rf dist && rm -rf dist-transpiled",
     "test": "jest",
-    "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-react src",
+    "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-react-ui src",
     "prepublishOnly": "npm run compile"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react"
+    "url": "https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui"
   },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
   "license": "Apache-2.0",

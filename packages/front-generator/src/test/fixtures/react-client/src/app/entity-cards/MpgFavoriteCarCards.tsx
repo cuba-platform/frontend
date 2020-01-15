@@ -2,7 +2,8 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { FavoriteCar } from "cuba/entities/mpg$FavoriteCar";
 import { Card, Icon } from "antd";
-import { collection, EntityProperty } from "@cuba-platform/react";
+import { collection } from "@cuba-platform/react-core";
+import { EntityProperty } from "@cuba-platform/react-ui";
 
 @observer
 export class MpgFavoriteCarCards extends React.Component {

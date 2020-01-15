@@ -1,7 +1,7 @@
-# CUBA React
+# CUBA React UI
 
-Contains components and utilities for CUBA Platform React client.
+Contains UI components and utilities for CUBA Platform React client.
 
-Documentation can be found [here](https://github.com/cuba-platform/frontend#react-client-cuba-react).
+Documentation can be found [here](https://github.com/cuba-platform/frontend#react-client-cuba-react-ui).
 
-API reference can be found [here](https://cuba-platform.github.io/frontend/docs/cuba-react/).
+API reference can be found [here](https://cuba-platform.github.io/frontend/docs/cuba-react-ui/).

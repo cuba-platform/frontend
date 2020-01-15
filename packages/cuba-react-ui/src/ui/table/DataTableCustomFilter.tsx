@@ -10,11 +10,9 @@ import {DataTableListEditor} from './DataTableListEditor';
 import {DataTableIntervalEditor} from './DataTableIntervalEditor';
 import './DataTableCustomFilter.less';
 import './DataTableFilterControlLayout.less';
-import {getCubaREST} from '../../app/CubaAppProvider';
-import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
-import {getPropertyInfo, WithId} from '../../util/metadata';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {injectIntl, WrappedComponentProps, FormattedMessage} from 'react-intl';
+import {MainStoreInjected, injectMainStore, WithId, getCubaREST, getPropertyInfo} from "@cuba-platform/react-core";
 
 export interface CaptionValuePair {
   caption: string;

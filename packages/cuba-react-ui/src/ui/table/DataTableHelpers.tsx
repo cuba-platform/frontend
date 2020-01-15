@@ -1,7 +1,5 @@
 import {ColumnFilterItem, ColumnProps, FilterDropdownProps, PaginationConfig, SorterResult} from 'antd/es/table';
 import React from 'react';
-import {getPropertyCaption, getPropertyInfoNN} from '../../util/metadata';
-import { MainStore } from '../../app/MainStore';
 import {Condition, ConditionsGroup, EntityFilter, EnumInfo, EnumValueInfo, MetaPropertyInfo} from '@cuba-platform/rest';
 import {DataTableCell} from './DataTableCell';
 import {
@@ -9,8 +7,8 @@ import {
   DataTableCustomFilter as CustomFilter,
   DataTableCustomFilterProps
 } from './DataTableCustomFilter';
-import {DataCollectionStore} from '../..';
 import { toJS } from 'mobx';
+import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
 
 /**
  * `filters` is an object received in antd `Table`'s `onChange` callback, it is a mapping between column names and currently applied filters.

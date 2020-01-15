@@ -1,12 +1,10 @@
 import * as React from "react";
 import {Checkbox, DatePicker, Input, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
-import {injectMainStore, MainStoreInjected} from "../app/MainStore";
 import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType} from "@cuba-platform/rest"
-import {getPropertyInfo, isFileProperty, WithId} from "../util/metadata";
-import {DataCollectionStore} from "../data/Collection";
 import {FileUpload} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
+import {MainStoreInjected, DataCollectionStore, WithId, injectMainStore, getPropertyInfo, isFileProperty} from "@cuba-platform/react-core";
 
 type Props = MainStoreInjected & {
   entityName: string

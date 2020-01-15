@@ -2,4 +2,4 @@
 node_modules
 dist
 dist-transpiled
-cuba-platform-react-*.tgz
+cuba-platform-react-core-*.tgz

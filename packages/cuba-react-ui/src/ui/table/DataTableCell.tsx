@@ -1,8 +1,7 @@
 import {Checkbox} from 'antd';
 import React, {ReactNode} from 'react';
-import {MainStore, MainStoreInjected} from '../../app/MainStore';
 import {MetaPropertyInfo} from '@cuba-platform/rest';
-import {getEnumCaption} from '../../util/metadata';
+import { MainStoreInjected, MainStore, getEnumCaption } from '@cuba-platform/react-core';
 
 type DataTableCellProps = MainStoreInjected & {
   text: any,

@@ -12,16 +12,19 @@ import {
 <% if (Object.keys(editRelations).length > 0) { %>
   collection,
 <% } %>
+  instance,
+} from "@cuba-platform/react-core";
+
+import {
 <% if (editAttributes.length > 0) { %>
   Field,
 <% } %>
-  instance,
   withLocalizedForm,
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
   MultilineText
-} from "@cuba-platform/react";
+} from "@cuba-platform/react-ui";
 
 import "<%= relDirShift %>app/App.css";
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";

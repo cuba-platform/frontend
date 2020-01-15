@@ -14,7 +14,7 @@ import {
   MainStoreInjected,
   RouteItem,
   SubMenu
-} from "@cuba-platform/react";
+} from "@cuba-platform/react-core";
 import { CenteredLoader } from "./CenteredLoader";
 import {
   FormattedMessage,

@@ -10,9 +10,6 @@ import {action, computed, IReactionDisposer, observable, reaction, toJS} from 'm
 import {observer} from 'mobx-react';
 import {ComparisonType, DataTableCustomFilterProps} from './DataTableCustomFilter';
 import './DataTable.less';
-import {injectMainStore, MainStoreInjected, } from '../../app/MainStore';
-import {getPropertyInfoNN, WithId} from '../../util/metadata';
-import {DataCollectionStore} from '../../data/Collection';
 import {FormattedMessage} from 'react-intl';
 import {
   entityFilterToTableFilters,
@@ -20,8 +17,15 @@ import {
   handleTableChange,
   isPreservedCondition
 } from './DataTableHelpers';
-import {assertNever} from '../../util/errorHandling';
 import {Condition, ConditionsGroup} from "@cuba-platform/rest";
+import {
+  MainStoreInjected,
+  DataCollectionStore,
+  injectMainStore,
+  assertNever,
+  getPropertyInfoNN,
+  WithId
+} from '@cuba-platform/react-core';
 
 export interface DataTableProps<E> extends MainStoreInjected {
   dataCollection: DataCollectionStore<E>,
