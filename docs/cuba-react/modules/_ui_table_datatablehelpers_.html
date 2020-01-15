@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;ui/table/DataTableHelpers&quot; | @cuba-platform/react</title>
+	<title>&quot;ui/table/DataTableHelpers&quot; | @cuba-platform/react - v0.4.2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cuba-platform/react</a>
+					<a href="../index.html" class="title">@cuba-platform/react - v0.4.2</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -85,6 +85,8 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_ui_table_datatablehelpers_.html#generatedatacolumn" class="tsd-kind-icon">generate<wbr>Data<wbr>Column</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#generateenumfilter" class="tsd-kind-icon">generate<wbr>Enum<wbr>Filter</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_ui_table_datatablehelpers_.html#handletablechange" class="tsd-kind-icon">handle<wbr>Table<wbr>Change</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#isconditionsgroup" class="tsd-kind-icon">is<wbr>Conditions<wbr>Group</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#ispreservedcondition" class="tsd-kind-icon">is<wbr>Preserved<wbr>Condition</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#rendercell" class="tsd-kind-icon">render<wbr>Cell</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_ui_table_datatablehelpers_.html#setfilters" class="tsd-kind-icon">set<wbr>Filters</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_ui_table_datatablehelpers_.html#setpagination" class="tsd-kind-icon">set<wbr>Pagination</a></li>
@@ -100,13 +102,13 @@
 					<a name="entityfiltertotablefilters" class="tsd-anchor"></a>
 					<h3>entity<wbr>Filter<wbr>ToTable<wbr>Filters</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">entity<wbr>Filter<wbr>ToTable<wbr>Filters<span class="tsd-signature-symbol">(</span>entityFilter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EntityFilter</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">entity<wbr>Filter<wbr>ToTable<wbr>Filters<span class="tsd-signature-symbol">(</span>entityFilter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EntityFilter</span>, fields<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L426">src/ui/table/DataTableHelpers.tsx:426</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L439">src/ui/table/DataTableHelpers.tsx:439</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -119,7 +121,12 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>entityFilter: <span class="tsd-signature-type">EntityFilter</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fields: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
+										<p>allows to check the <code>entityFilter.conditions</code> against the list of displayed fields and ensure that only
+										the conditions related to the displayed fields are included in the result</p>
 									</div>
 								</li>
 							</ul>
@@ -137,7 +144,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L241">src/ui/table/DataTableHelpers.tsx:241</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L240">src/ui/table/DataTableHelpers.tsx:240</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -242,7 +249,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L128">src/ui/table/DataTableHelpers.tsx:128</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L128">src/ui/table/DataTableHelpers.tsx:128</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -363,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L213">src/ui/table/DataTableHelpers.tsx:213</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L212">src/ui/table/DataTableHelpers.tsx:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -396,7 +403,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L402">src/ui/table/DataTableHelpers.tsx:402</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L413">src/ui/table/DataTableHelpers.tsx:413</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -423,6 +430,68 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="isconditionsgroup" class="tsd-anchor"></a>
+					<h3>is<wbr>Conditions<wbr>Group</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Conditions<wbr>Group<span class="tsd-signature-symbol">(</span>conditionOrConditionsGroup<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Condition</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ConditionsGroup</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L461">src/ui/table/DataTableHelpers.tsx:461</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>conditionOrConditionsGroup: <span class="tsd-signature-type">Condition</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ConditionsGroup</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="ispreservedcondition" class="tsd-anchor"></a>
+					<h3>is<wbr>Preserved<wbr>Condition</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Preserved<wbr>Condition<span class="tsd-signature-symbol">(</span>condition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Condition</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ConditionsGroup</span>, fields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L475">src/ui/table/DataTableHelpers.tsx:475</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether a condition shall be preserved in <code>DataCollectionStore</code> when clearing table filters.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>Preserved conditions include <code>ConditionGroup</code>s and conditions on fields that are not displayed in the table.
+										Effectively they act as invisible filters that cannot be disabled.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>condition: <span class="tsd-signature-type">Condition</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ConditionsGroup</span></h5>
+								</li>
+								<li>
+									<h5>fields: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="rendercell" class="tsd-anchor"></a>
 					<h3>render<wbr>Cell</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
@@ -432,7 +501,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L272">src/ui/table/DataTableHelpers.tsx:272</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L271">src/ui/table/DataTableHelpers.tsx:271</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -487,7 +556,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L288">src/ui/table/DataTableHelpers.tsx:288</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L287">src/ui/table/DataTableHelpers.tsx:287</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -532,7 +601,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L373">src/ui/table/DataTableHelpers.tsx:373</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L384">src/ui/table/DataTableHelpers.tsx:384</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -568,7 +637,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/c75038b/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L351">src/ui/table/DataTableHelpers.tsx:351</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ba499c7/packages/cuba-react/src/ui/table/DataTableHelpers.tsx#L362">src/ui/table/DataTableHelpers.tsx:362</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -639,6 +708,12 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_ui_table_datatablehelpers_.html#handletablechange" class="tsd-kind-icon">handle<wbr>Table<wbr>Change</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_ui_table_datatablehelpers_.html#isconditionsgroup" class="tsd-kind-icon">is<wbr>Conditions<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_ui_table_datatablehelpers_.html#ispreservedcondition" class="tsd-kind-icon">is<wbr>Preserved<wbr>Condition</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_ui_table_datatablehelpers_.html#rendercell" class="tsd-kind-icon">render<wbr>Cell</a>
