@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import { Modal, Button } from "antd";
 import { Car } from "cuba/entities/mpg$Car";
 import { Link } from "react-router-dom";
+import { Spinner } from "../common/Spinner";
 import {
   collection,
   injectMainStore,
@@ -66,6 +67,9 @@ class CarTableComponent extends React.Component<
   };
 
   render() {
+    const { mainStore } = this.props;
+    if (!mainStore || !mainStore.ready) return <Spinner />;
+
     const buttons = [
       <Link
         to={CarManagement3.PATH + "/" + CarManagement3.NEW_SUBPATH}

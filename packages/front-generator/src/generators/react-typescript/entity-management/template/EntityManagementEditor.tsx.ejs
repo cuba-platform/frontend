@@ -7,12 +7,13 @@ import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+import {Spinner} from "../common/Spinner";
 
 import {
 <% if (Object.keys(editRelations).length > 0) { %>
   collection,
 <% } %>
-  instance,
+  instance, MainStoreInjected, injectMainStore
 } from "@cuba-platform/react-core";
 
 import {
@@ -33,13 +34,13 @@ import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
   import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
 <% }) %>
 
-type Props = FormComponentProps & EditorProps;
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
 };
 
-
+@injectMainStore
 @observer
 class <%= editComponentName %>Component extends React.Component<Props & WrappedComponentProps> {
 
@@ -106,6 +107,8 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
     }
 
     const {status} = this.dataInstance;
+    const { mainStore } = this.props;
+    if (!mainStore || !mainStore.ready) return <Spinner/>;
 
     return (
       <Card className='narrow-layout'>

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { observer } from "mobx-react";
-import { Modal, Button, List, Icon, Spin } from "antd";
+import { Modal, Button, List, Icon } from "antd";
 import { Car } from "cuba/entities/mpg$Car";
 import { Link } from "react-router-dom";
+import { Spinner } from "../common/Spinner";
 import {
   collection,
   injectMainStore,
@@ -63,20 +64,9 @@ class CarListComponent extends React.Component<
 
   render() {
     const { status, items } = this.dataCollection;
-
-    if (status === "LOADING") {
-      return (
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)"
-          }}
-        >
-          <Spin size="large" />
-        </div>
-      );
+    const { mainStore } = this.props;
+    if (status === "LOADING" || !mainStore || !mainStore.ready) {
+      return <Spinner />;
     }
 
     return (

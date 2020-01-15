@@ -106,6 +106,9 @@ export class MainStore {
     return !this.authenticated && !this.usingAnonymously;
   }
 
+  @computed get ready(): boolean {
+    return !!this.messages && !!this.metadata && !!this.enums && !!this.security.permissions;
+  }
 
   @action
   login(login: string, password: string) {
