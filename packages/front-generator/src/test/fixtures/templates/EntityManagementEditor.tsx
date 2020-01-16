@@ -11,8 +11,14 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+import { Spinner } from "../common/Spinner";
 
-import { collection, instance } from "@cuba-platform/react-core";
+import {
+  collection,
+  instance,
+  MainStoreInjected,
+  injectMainStore
+} from "@cuba-platform/react-core";
 
 import {
   Field,
@@ -28,12 +34,13 @@ import { Car } from "../../cuba/entities/scr$Car";
 
 import { Garage } from "../../cuba/entities/scr$Garage";
 
-type Props = FormComponentProps & EditorProps;
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
 };
 
+@injectMainStore
 @observer
 class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   dataInstance = instance<Car>(Car.NAME, {
@@ -115,6 +122,8 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     }
 
     const { status } = this.dataInstance;
+    const { mainStore } = this.props;
+    if (!mainStore || !mainStore.ready) return <Spinner />;
 
     return (
       <Card className="narrow-layout">
