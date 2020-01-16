@@ -81,6 +81,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       unrefinedAnswers = JSON.parse(answersBuffer);
     } else {
       unrefinedAnswers = await this.prompt(fromStudioProperties(this._getParams(), this.cubaProjectModel)) as A;
+      this.options.verbose && this.log('Component config:\n' + JSON.stringify(unrefinedAnswers));
     }
     this.answers = refineAnswers<A>(this.cubaProjectModel!, this._getParams(), unrefinedAnswers);
   }
