@@ -103,6 +103,10 @@ class DataTableCustomFilterComponent<E extends WithId>
     }
   }
 
+  get errorContext(): string {
+    return `[DataTableCustomFilter, entity: ${this.props.entityName}, property: ${this.props.entityProperty}]`;
+  }
+
   @computed get propertyCaption(): string {
     return this.props.mainStore!.messages![this.props.entityName + '.' + this.props.entityProperty];
   }
@@ -114,7 +118,7 @@ class DataTableCustomFilterComponent<E extends WithId>
       this.props.entityProperty);
 
     if (!propertyInfo) {
-      throw new Error('Cannot find MetaPropertyInfo for property ' + this.props.entityProperty);
+      throw new Error(`${this.errorContext} Cannot find MetaPropertyInfo`);
     }
 
     return propertyInfo;
@@ -126,17 +130,17 @@ class DataTableCustomFilterComponent<E extends WithId>
     e.stopPropagation();
 
     this.props.form.validateFields((err) => {
-       if (!err) {
-         this.props.filterProps.setSelectedKeys!(
-           [
-             JSON.stringify({
-               operator: this.operator,
-               value: this.value
-             })
-           ]
-         );
-         this.props.filterProps.confirm!();
-       }
+      if (!err) {
+        this.props.filterProps.setSelectedKeys!(
+          [
+            JSON.stringify({
+              operator: this.operator,
+              value: this.value
+            })
+          ]
+        );
+        this.props.filterProps.confirm!();
+      }
     });
   };
 
@@ -248,13 +252,13 @@ class DataTableCustomFilterComponent<E extends WithId>
           <Divider className='divider' />
           <div className='footer'>
             <Button htmlType='submit'
-                type='link'>
+                    type='link'>
               <FormattedMessage id='cubaReact.dataTable.ok'/>
             </Button>
             <Button
-                htmlType='button'
-                type='link'
-                onClick={this.resetFilter}>
+              htmlType='button'
+              type='link'
+              onClick={this.resetFilter}>
               <FormattedMessage id='cubaReact.dataTable.reset'/>
             </Button>
           </div>
@@ -287,7 +291,7 @@ class DataTableCustomFilterComponent<E extends WithId>
       case 'string':
         return 'contains';
       default:
-        throw new Error(`Unexpected property type ${propertyInfo.type}`)
+        throw new Error(`${this.errorContext} Unexpected property type ${propertyInfo.type} when trying to get the default condition operator`)
     }
   }
 
@@ -299,7 +303,7 @@ class DataTableCustomFilterComponent<E extends WithId>
 
     return availableOperators.map((operator: ComparisonType) => {
       return <Select.Option key={`${this.props.entityProperty}.${operator}`}
-               value={operator}>
+                            value={operator}>
         {this.getOperatorCaption(operator)}
       </Select.Option>;
     });
@@ -324,7 +328,7 @@ class DataTableCustomFilterComponent<E extends WithId>
       case 'inInterval':
         return this.props.intl.formatMessage({ id: 'cubaReact.dataTable.operator.' + operator });
       default:
-        throw new Error(`Unexpected ComparisonType ${operator}`);
+        throw new Error(`${this.errorContext} Unexpected condition operator ${operator} when trying to get operator caption`);
     }
   };
 
@@ -336,6 +340,10 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get complexFilterEditor(): ReactNode {
     return isComplexOperator(this.operator) ? this.conditionInput : null;
+  }
+
+  cannotDetermineConditionInput(propertyType: string): string {
+    return `${this.errorContext} Unexpected combination of property type ${propertyType} and condition operator ${this.operator} when trying to determine the condition input field type`;
   }
 
   @computed
@@ -379,7 +387,7 @@ class DataTableCustomFilterComponent<E extends WithId>
           case 'inInterval':
             return this.intervalEditor;
         }
-        throw new Error(`Unexpected combination of property type ${propertyInfo.type} and condition operator ${this.operator}`);
+        throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
       case 'date':
         switch (this.operator) {
@@ -398,7 +406,7 @@ class DataTableCustomFilterComponent<E extends WithId>
           case 'inInterval':
             return this.intervalEditor;
         }
-        throw new Error(`Unexpected combination of property type ${propertyInfo.type} and condition operator ${this.operator}`);
+        throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
       case 'time':
         switch (this.operator) {
@@ -415,7 +423,7 @@ class DataTableCustomFilterComponent<E extends WithId>
           case 'notEmpty':
             return this.yesNoSelectField;
         }
-        throw new Error(`Unexpected combination of property type ${propertyInfo.type} and condition operator ${this.operator}`);
+        throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
       case 'int':
       case 'double':
@@ -434,7 +442,7 @@ class DataTableCustomFilterComponent<E extends WithId>
           case 'notEmpty':
             return this.yesNoSelectField;
         }
-        throw new Error(`Unexpected combination of property type ${propertyInfo.type} and condition operator ${this.operator}`);
+        throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
       case 'string':
         switch (this.operator) {
@@ -451,10 +459,10 @@ class DataTableCustomFilterComponent<E extends WithId>
           case 'notEmpty':
             return this.yesNoSelectField;
         }
-        throw new Error(`Unexpected combination of property type ${propertyInfo.type} and condition operator ${this.operator}`);
+        throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
       default:
-        throw new Error(`Unexpected combination of property type ${propertyInfo.type} and condition operator ${this.operator}`);
+        throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
     }
   }
 
@@ -486,8 +494,8 @@ class DataTableCustomFilterComponent<E extends WithId>
       <Form.Item className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, {initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}]})(
           <Select dropdownMatchSelectWidth={false}
-              className='cuba-filter-select'
-              onSelect={this.setValue}>
+                  className='cuba-filter-select'
+                  onSelect={this.setValue}>
             {this.selectFieldOptions}
           </Select>
         )}
@@ -569,8 +577,8 @@ class DataTableCustomFilterComponent<E extends WithId>
       <Form.Item hasFeedback={true} className='filtercontrol'>
         {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
           <TimePicker placeholder='HH:mm:ss'
-                defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                onChange={this.onTimePickerChange}/>
+                      defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                      onChange={this.onTimePickerChange}/>
         )}
       </Form.Item>
     );
@@ -589,8 +597,8 @@ class DataTableCustomFilterComponent<E extends WithId>
           <Form.Item hasFeedback={true} className='filtercontrol'>
             {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
               <TimePicker placeholder='HH:mm:ss'
-                    defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                    onChange={this.onDateTimePickerChange}/>
+                          defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                          onChange={this.onDateTimePickerChange}/>
             )}
           </Form.Item>
         </div>
@@ -621,7 +629,7 @@ function determineOperatorGroup(operator: ComparisonType): OperatorGroup {
     case 'inInterval':
       return OperatorGroup.INTERVAL_VALUE;
     default:
-      throw new Error(`Unexpected ComparisonType ${operator}`);
+      throw new Error(`Could not determine condition operator group: unexpected operator ${operator}`);
   }
 }
 
@@ -648,7 +656,7 @@ function getAvailableOperators(propertyInfo: MetaPropertyInfo): ComparisonType[]
     case 'string':
       return ['contains', '=', 'in', 'notIn', '<>', 'doesNotContain', 'notEmpty', 'startsWith', 'endsWith'];
     default:
-      throw new Error(`Unexpected property type ${propertyInfo.type}`)
+      throw new Error(`Could not determine available condition operators for property ${propertyInfo.name} with attribute type ${propertyInfo.attributeType} and type ${propertyInfo.type}`);
   }
 }
 

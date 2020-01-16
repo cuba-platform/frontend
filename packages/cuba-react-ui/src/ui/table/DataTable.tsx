@@ -29,7 +29,10 @@ import {
 
 export interface DataTableProps<E> extends MainStoreInjected {
   dataCollection: DataCollectionStore<E>,
-  fields: string[], // TODO remove once DataCollectionStore supports properties field
+  /**
+   * @deprecated use `columnDefinitions` instead. If used together, `columnDefinitions` will take precedence.
+   */
+  fields?: string[],
   /**
    * Default: filters will be enabled on all columns
    */
@@ -53,12 +56,27 @@ export interface DataTableProps<E> extends MainStoreInjected {
   canSelectRowByClick?: boolean,
   buttons?: JSX.Element[],
   tableProps?: TableProps<E>,
+  /**
+   * @deprecated use `columnDefinitions` instead. If used together, `columnDefinitions` will take precedence.
+   */
   columnProps?: ColumnProps<E>,
+  /**
+   * You need to use either `columnDefinitions` or `fields` for the `DataTable` to work
+   */
+  columnDefinitions?: Array<string | ColumnDefinition<E>>
+}
+
+export interface ColumnDefinition<E> {
+  field?: string,
+  columnProps: ColumnProps<E>
 }
 
 @injectMainStore
 @observer
 export class DataTable<E> extends React.Component<DataTableProps<E>> {
+
+  static readonly NO_COLUMN_DEF_ERROR = 'You need to provide either columnDefinitions or fields prop';
+
   @observable selectedRowKeys: string[] = [];
   @observable.ref tableFilters: Record<string, any> = {};
   @observable operatorsByProperty: Map<string, ComparisonType> = new Map();
@@ -74,7 +92,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     super(props);
 
     if (this.props.dataCollection.filter) {
-      this.tableFilters = entityFilterToTableFilters(this.props.dataCollection.filter, this.props.fields);
+      this.tableFilters = entityFilterToTableFilters(this.props.dataCollection.filter, this.fields);
     }
 
     this.defaultSort = this.props.dataCollection.sort;
@@ -133,7 +151,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   onRowSelectionChange = () => {
     switch (this.props.rowSelectionMode) {
       case undefined:
-        throw new Error(`rowSelectionMode is not expected to be ${this.props.rowSelectionMode} at this point`);
+        throw new Error(`${this.errorContext} rowSelectionMode is not expected to be ${this.props.rowSelectionMode} at this point`);
       case 'none':
         return;
       case 'multi':
@@ -151,7 +169,28 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     if (this.props.rowSelectionMode) {
       return ['single', 'multi'].indexOf(this.props.rowSelectionMode) > -1;
     } else {
-      throw new Error(`rowSelectionMode is expected to be defined at this point`);
+      throw new Error(`${this.errorContext} rowSelectionMode is expected to be defined at this point`);
+    }
+  }
+
+  get errorContext(): string {
+    return `[DataTable, entity: ${this.props.dataCollection.entityName}]`;
+  }
+
+  @computed get fields(): string[] {
+    if (this.props.columnDefinitions != null) {
+      return this.props.columnDefinitions.reduce((accumulatedFields: string[], columnDefinition: string | ColumnDefinition<E>) => {
+        if (typeof columnDefinition === 'string') {
+          accumulatedFields.push(columnDefinition);
+        } else if (typeof (columnDefinition.field === 'string')) {
+          accumulatedFields.push(columnDefinition.field!);
+        }
+        return accumulatedFields;
+      }, []);
+    } else if (this.props.fields != null) {
+      return this.props.fields;
+    } else {
+      throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
     }
   }
 
@@ -180,7 +219,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       filters: tableFilters,
       sorter,
       defaultSort: this.defaultSort,
-      fields: this.props.fields,
+      fields: this.fields,
       mainStore: this.props.mainStore!,
       dataCollection: this.props.dataCollection
     });
@@ -240,7 +279,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     this.tableFilters = {};
     this.operatorsByProperty.clear();
     this.valuesByProperty.clear();
-    this.props.fields.forEach((field: string) => {
+    this.fields.forEach((field: string) => {
       const propertyInfo = getPropertyInfoNN(field, this.props.dataCollection.entityName, this.props.mainStore!.metadata!);
       if (propertyInfo.type === 'boolean') {
         this.valuesByProperty.set(field, 'true');
@@ -254,7 +293,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
 
     if (this.props.dataCollection.filter) {
       const preservedConditions: Array<Condition | ConditionsGroup> = this.props.dataCollection.filter.conditions.filter(condition => {
-        return isPreservedCondition(condition, this.props.fields);
+        return isPreservedCondition(condition, this.fields);
       });
 
       if (preservedConditions.length > 0) {
@@ -273,7 +312,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       case 'single':
         return 'radio';
       default:
-        throw new Error(`rowSelectionMode is not expected to be ${this.props.rowSelectionMode} at this point`);
+        throw new Error(`${this.errorContext} rowSelectionMode is not expected to be ${this.props.rowSelectionMode} at this point`);
     }
   }
 
@@ -357,28 +396,51 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     return this.props.dataCollection.filter != null
       && this.props.dataCollection.filter.conditions != null
       && this.props.dataCollection.filter.conditions.some(condition => {
-        return !isPreservedCondition(condition, this.props.fields);
+        return !isPreservedCondition(condition, this.fields);
       });
   }
 
   @computed
   get generateColumnProps(): Array<ColumnProps<E>> {
-    return this.props.fields.map((property) => {
-      const generatedColumnProps = generateDataColumn<E>({
-        propertyName: property,
-        entityName: this.props.dataCollection.entityName,
-        enableFilter: this.enableFilterForColumn(property),
-        filters: this.tableFilters,
-        operator: this.operatorsByProperty.get(property),
-        onOperatorChange: this.handleFilterOperatorChange,
-        value: this.valuesByProperty.get(property),
-        onValueChange: this.handleFilterValueChange,
-        enableSorter: true,
-        mainStore: this.props.mainStore!,
-        customFilterRef: (instance: any) => this.customFilters.set(property, instance)
-      });
+    const source = this.props.columnDefinitions ? this.props.columnDefinitions : this.props.fields;
 
-      return { ...generatedColumnProps, ...this.props.columnProps };
+    if (source == null) {
+      throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
+    }
+
+    return source.map((columnDef: string | ColumnDefinition<E>) => {
+      const propertyName = typeof columnDef === 'string' ? columnDef : columnDef.field;
+      const columnSettings = (columnDef as ColumnDefinition<E>).columnProps;
+
+      if (propertyName != null) {
+        // Column is bound to an entity property
+
+        const generatedColumnProps = generateDataColumn<E>({
+          propertyName,
+          entityName: this.props.dataCollection.entityName,
+          enableFilter: this.enableFilterForColumn(propertyName),
+          filters: this.tableFilters,
+          operator: this.operatorsByProperty.get(propertyName),
+          onOperatorChange: this.handleFilterOperatorChange,
+          value: this.valuesByProperty.get(propertyName),
+          onValueChange: this.handleFilterValueChange,
+          enableSorter: true,
+          mainStore: this.props.mainStore!,
+          customFilterRef: (instance: any) => this.customFilters.set(propertyName, instance)
+        });
+
+        return {
+          ...generatedColumnProps,
+          ...this.props.columnProps, // First we add customizations from columnProps TODO @deprecated
+          ...(columnSettings ? columnSettings : []) // Then we add customizations from columnDefinitions
+        };
+      } else if (columnSettings != null) {
+        // Column is not be bound to an entity property. It is a column fully constructed by client.
+        // E.g. it can be a calculated column or an action column.
+        return columnSettings;
+      } else {
+        throw new Error(`${this.errorContext} Neither field name nor columnProps were provided`);
+      }
     });
   };
 
