@@ -1,6 +1,6 @@
 import {CommonTemplateModel, EntityTemplateModel} from "../common/template-model";
 import {entityManagementListType} from "./params";
-import {Entity, EntityAttribute, View} from "../../../common/model/cuba-model";
+import {EntityAttribute, View} from "../../../common/model/cuba-model";
 
 export interface EditRelations {
   [propName: string]: EntityTemplateModel
