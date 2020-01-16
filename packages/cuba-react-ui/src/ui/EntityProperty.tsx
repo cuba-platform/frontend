@@ -19,12 +19,19 @@ const EntityPropertyFormattedValue = observer((props: Props) => {
       value,
       showLabel = true,
       hideIfEmpty = true,
+      mainStore,
     } = props;
+
     if (hideIfEmpty && value == null) {
       return null;
     }
     if (props.mainStore == null || props.mainStore!.messages == null || !showLabel) {
       return <div>{formatValue(toJS(value))}</div>;
+    }
+
+    // store not ready yet
+    if (!mainStore || !mainStore.messages || !mainStore.metadata || !mainStore.enums) {
+      return null;
     }
 
     const label: string = props.mainStore!.messages![entityName + '.' + propertyName];
