@@ -102,7 +102,6 @@ export class MainStore {
     return !this.authenticated && !this.usingAnonymously;
   }
 
-
   @action
   login(login: string, password: string) {
     return this.cubaREST.login(login, password).then(action(() => {

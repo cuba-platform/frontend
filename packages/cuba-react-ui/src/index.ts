@@ -7,6 +7,7 @@ export * from './ui/table/DataTableHelpers';
 export * from './ui/table/DataTableCustomFilter';
 export * from './ui/FileUpload';
 export * from './ui/MultilineText';
+export * from './ui/Spinner';
 
 export * from './util/errorHandling';
 

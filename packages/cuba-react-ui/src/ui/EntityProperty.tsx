@@ -25,7 +25,7 @@ const EntityPropertyFormattedValue = observer((props: Props) => {
   if (hideIfEmpty && value == null) {
     return null;
   }
-  if (props.mainStore == null || props.mainStore!.messages == null || !showLabel) {
+  if (!showLabel) {
     return <div>{formatValue(toJS(value))}</div>;
   }
 
@@ -34,19 +34,20 @@ const EntityPropertyFormattedValue = observer((props: Props) => {
     return null;
   }
 
-  const label: string = props.mainStore!.messages![entityName + '.' + propertyName];
+  const propertyFullName = entityName + '.' + propertyName;
+  const label: string = mainStore.messages[propertyFullName];
 
   const propertyInfo: MetaPropertyInfo | null = getPropertyInfo(
-    props.mainStore!.metadata!,
+    mainStore.metadata,
     entityName,
     propertyName);
 
   if (!propertyInfo) {
-    throw new Error('Cannot find MetaPropertyInfo for property ' + propertyName);
+    throw new Error('Cannot find MetaPropertyInfo for property ' + propertyFullName);
   }
 
   const displayValue = propertyInfo.attributeType === 'ENUM'
-    ? getEnumCaption(value, propertyInfo, props.mainStore!.enums!)
+    ? getEnumCaption(value, propertyInfo, mainStore.enums)
     : toJS(value);
 
   return label != null
