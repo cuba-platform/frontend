@@ -24,8 +24,8 @@ import {
 } from "@cuba-platform/react-ui";
 
 import "../../app/App.css";
-import { Car } from "../../cuba/entities/scr$Car";
 
+import { Car } from "../../cuba/entities/scr$Car";
 import { Garage } from "../../cuba/entities/scr$Garage";
 
 type Props = FormComponentProps & EditorProps;

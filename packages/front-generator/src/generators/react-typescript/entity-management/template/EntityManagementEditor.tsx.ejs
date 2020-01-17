@@ -27,10 +27,9 @@ import {
 } from "@cuba-platform/react-ui";
 
 import "<%= relDirShift %>app/App.css";
-import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
 
-<% Object.values(editRelations).forEach(entity => { %>
-  import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
+<% relationImports.forEach(relationImport =>{ -%>
+  import {<%= relationImport.className %>} from "<%= relDirShift %><%= relationImport.path %>";
 <% }) %>
 
 type Props = FormComponentProps & EditorProps;
