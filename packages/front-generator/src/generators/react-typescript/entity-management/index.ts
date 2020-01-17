@@ -1,7 +1,7 @@
 import {BaseGenerator} from "../../../common/base-generator";
 import {EntityManagementAnswers, entityManagementGeneratorParams} from "./params";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
-import {EditRelations, EntityManagementTemplateModel} from "./template-model";
+import {EditRelations, EntityManagementTemplateModel, RelationImport} from "./template-model";
 import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
@@ -93,6 +93,8 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
     return attrArrMap;
   }, []);
 
+  const relations = getRelations(projectModel, attributesInView);
+
   return {
     componentName: answers.managementComponentName,
     className: className,
@@ -105,11 +107,26 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
     listView: answers.listView,
     editView: answers.editView,
     editAttributes: attributesInView,
-    editRelations: getRelations(projectModel, attributesInView)
+    editRelations: relations,
+    relationImports: getRelationImports(relations, entity)
   }
 }
 
-function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelations  {
+export function getRelationImports(relations: EditRelations, entity: EntityTemplateModel): RelationImport[] {
+  const entities: EntityTemplateModel[] = Object.values(relations);
+  entities.unshift(entity);
+  return entities
+    // todo - need to think about className collision here (same className with different path)
+    .reduce( // remove identical Imports (className and path both match)
+      (acc, relationImport) => {
+        if (!acc.some(ri => ri.className == relationImport.className && ri.path == relationImport.path)) {
+          acc.push(relationImport);
+        }
+        return acc;
+      } , [] as RelationImport[])
+}
+
+export function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelations  {
   return attributes.reduce<EditRelations>((relations, attribute) => {
     if (attribute.type == null || attribute.mappingType !== 'ASSOCIATION') {
       return relations;

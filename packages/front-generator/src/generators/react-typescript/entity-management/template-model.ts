@@ -6,6 +6,11 @@ export interface EditRelations {
   [propName: string]: EntityTemplateModel
 }
 
+export interface RelationImport {
+  className: string
+  path: string
+}
+
 export interface EntityManagementTemplateModel extends CommonTemplateModel {
   listComponentName: string;
   editComponentName: string;
@@ -15,5 +20,6 @@ export interface EntityManagementTemplateModel extends CommonTemplateModel {
   listView: View,
   editView: View,
   editAttributes: EntityAttribute[],
-  editRelations: EditRelations
+  editRelations: EditRelations,
+  relationImports: RelationImport[]
 }
