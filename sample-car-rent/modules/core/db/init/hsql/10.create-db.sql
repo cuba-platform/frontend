@@ -117,7 +117,7 @@ create table SCR_SPARE_PART (
     LOCAL_DATE_TIME timestamp,
     OFFSET_DATE_TIME timestamp with time zone,
     OFFSET_TIME time with time zone,
-    BYTE_ARRAY bytea,
+    BYTE_ARRAY blob,
     --
     primary key (ID)
 )^
