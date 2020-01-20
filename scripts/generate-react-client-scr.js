@@ -49,6 +49,21 @@ const generateReactClientScr = async () => {
     `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
     ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/entity-management3` +
     ` --answers ${encodeAnswers(answers.entityManagement3)}`);
+
+  await exec('' +
+    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
+    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/spare-parts1` +
+    ` --answers ${encodeAnswers(answers.spareParts1)}`);
+
+  await exec('' +
+    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
+    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/spare-parts2` +
+    ` --answers ${encodeAnswers(answers.spareParts2)}`);
+
+  await exec('' +
+    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
+    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/spare-parts3` +
+    ` --answers ${encodeAnswers(answers.spareParts3)}`);
   
   console.log('react client scr generation - DONE')
 };
