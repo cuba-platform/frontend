@@ -110,6 +110,14 @@ create table SCR_SPARE_PART (
     --
     NAME varchar(255),
     SPARE_PARTS_ID uuid,
+    PART_ID uuid,
+    CURRENT_STOCK bigint,
+    LOCAL_DATE date,
+    LOCAL_TIME time,
+    LOCAL_DATE_TIME timestamp,
+    OFFSET_DATE_TIME timestamp with time zone,
+    OFFSET_TIME time with time zone,
+    BYTE_ARRAY bytea,
     --
     primary key (ID)
 )^

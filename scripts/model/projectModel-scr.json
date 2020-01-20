@@ -656,6 +656,134 @@
           "mandatory": false,
           "unique": false,
           "transient": false
+        },
+        {
+          "name": "partId",
+          "type": {
+            "packageName": "java.util",
+            "className": "UUID",
+            "fqn": "java.util.UUID",
+            "label": "UUID"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "PART_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "currentStock",
+          "type": {
+            "packageName": "java.lang",
+            "className": "Long",
+            "fqn": "java.lang.Long",
+            "label": "Long"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CURRENT_STOCK",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "localDate",
+          "type": {
+            "packageName": "java.time",
+            "className": "LocalDate",
+            "fqn": "java.time.LocalDate",
+            "label": "localDate"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "LOCAL_DATE",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "localTime",
+          "type": {
+            "packageName": "java.time",
+            "className": "LocalTime",
+            "fqn": "java.time.LocalTime",
+            "label": "localTime"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "LOCAL_TIME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "localDateTime",
+          "type": {
+            "packageName": "java.time",
+            "className": "LocalDateTime",
+            "fqn": "java.time.LocalDateTime",
+            "label": "localDateTime"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "LOCAL_DATE_TIME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "offsetDateTime",
+          "type": {
+            "packageName": "java.time",
+            "className": "OffsetDateTime",
+            "fqn": "java.time.OffsetDateTime",
+            "label": "offsetDateTime"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "OFFSET_DATE_TIME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "offsetTime",
+          "type": {
+            "packageName": "java.time",
+            "className": "OffsetTime",
+            "fqn": "java.time.OffsetTime",
+            "label": "offsetTime"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "OFFSET_TIME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "byteArray",
+          "type": {
+            "packageName": "",
+            "className": "byte[]",
+            "fqn": "byte[]",
+            "label": "ByteArray"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "BYTE_ARRAY",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -4665,6 +4793,22 @@
           "unique": false,
           "length": "32",
           "transient": false
+        },
+        {
+          "name": "createTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -6125,41 +6269,6 @@
       "attributes": []
     },
     {
-      "name": "sec$AbstractCondition",
-      "className": "AbstractCondition",
-      "packageName": "com.haulmont.cuba.gui.components.filter.condition",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
-        {
-          "name": "locCaption",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
       "name": "sec$Presentation",
       "className": "Presentation",
       "packageName": "com.haulmont.cuba.security.entity",
@@ -6504,6 +6613,55 @@
           "mandatory": false,
           "unique": false,
           "length": "255",
+          "transient": false
+        },
+        {
+          "name": "displayedEntityName",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
+        }
+      ]
+    },
+    {
+      "name": "sec$AbstractCondition",
+      "className": "AbstractCondition",
+      "packageName": "com.haulmont.cuba.gui.components.filter.condition",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseUuidEntity",
+      "attributes": [
+        {
+          "name": "locCaption",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
           "transient": false
         }
       ]
@@ -9766,6 +9924,22 @@
           "mandatory": true,
           "unique": false,
           "transient": false
+        },
+        {
+          "name": "roleName",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "ROLE_NAME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -10907,11 +11081,75 @@
         {
           "name": "name",
           "lazy": false
+        },
+        {
+          "name": "partId",
+          "lazy": false
+        },
+        {
+          "name": "currentStock",
+          "lazy": false
+        },
+        {
+          "name": "localDate",
+          "lazy": false
+        },
+        {
+          "name": "localTime",
+          "lazy": false
+        },
+        {
+          "name": "localDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetTime",
+          "lazy": false
+        },
+        {
+          "name": "byteArray",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "partId",
+          "lazy": false
+        },
+        {
+          "name": "currentStock",
+          "lazy": false
+        },
+        {
+          "name": "localDate",
+          "lazy": false
+        },
+        {
+          "name": "localTime",
+          "lazy": false
+        },
+        {
+          "name": "localDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetTime",
+          "lazy": false
+        },
+        {
+          "name": "byteArray",
           "lazy": false
         }
       ]
@@ -10926,11 +11164,75 @@
         {
           "name": "name",
           "lazy": false
+        },
+        {
+          "name": "partId",
+          "lazy": false
+        },
+        {
+          "name": "currentStock",
+          "lazy": false
+        },
+        {
+          "name": "localDate",
+          "lazy": false
+        },
+        {
+          "name": "localTime",
+          "lazy": false
+        },
+        {
+          "name": "localDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetTime",
+          "lazy": false
+        },
+        {
+          "name": "byteArray",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "partId",
+          "lazy": false
+        },
+        {
+          "name": "currentStock",
+          "lazy": false
+        },
+        {
+          "name": "localDate",
+          "lazy": false
+        },
+        {
+          "name": "localTime",
+          "lazy": false
+        },
+        {
+          "name": "localDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetTime",
+          "lazy": false
+        },
+        {
+          "name": "byteArray",
           "lazy": false
         }
       ]
@@ -10952,6 +11254,38 @@
       "allProperties": [
         {
           "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "partId",
+          "lazy": false
+        },
+        {
+          "name": "currentStock",
+          "lazy": false
+        },
+        {
+          "name": "localDate",
+          "lazy": false
+        },
+        {
+          "name": "localTime",
+          "lazy": false
+        },
+        {
+          "name": "localDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetTime",
+          "lazy": false
+        },
+        {
+          "name": "byteArray",
           "lazy": false
         },
         {
@@ -15448,11 +15782,19 @@
         {
           "name": "token",
           "lazy": false
+        },
+        {
+          "name": "createTs",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "token",
+          "lazy": false
+        },
+        {
+          "name": "createTs",
           "lazy": false
         }
       ]
@@ -15467,11 +15809,19 @@
         {
           "name": "token",
           "lazy": false
+        },
+        {
+          "name": "createTs",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "token",
+          "lazy": false
+        },
+        {
+          "name": "createTs",
           "lazy": false
         }
       ]
@@ -16529,6 +16879,24 @@
         {
           "name": "bodyContentType",
           "lazy": false
+        },
+        {
+          "name": "contentText",
+          "lazy": false
+        },
+        {
+          "name": "contentTextFile",
+          "entity": "sys$FileDescriptor",
+          "lazy": false
+        },
+        {
+          "name": "headers",
+          "lazy": false
+        },
+        {
+          "name": "attachments",
+          "entity": "sys$SendingAttachment",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -16582,6 +16950,24 @@
         },
         {
           "name": "bodyContentType",
+          "lazy": false
+        },
+        {
+          "name": "contentText",
+          "lazy": false
+        },
+        {
+          "name": "contentTextFile",
+          "entity": "sys$FileDescriptor",
+          "lazy": false
+        },
+        {
+          "name": "headers",
+          "lazy": false
+        },
+        {
+          "name": "attachments",
+          "entity": "sys$SendingAttachment",
           "lazy": false
         }
       ]
@@ -16949,33 +17335,6 @@
     },
     {
       "name": "_minimal",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_base",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_minimal",
       "entity": "sec$Presentation",
       "classFqn": "com.haulmont.cuba.security.entity.Presentation",
       "overwrite": false,
@@ -17167,6 +17526,10 @@
         {
           "name": "changes",
           "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -17188,6 +17551,10 @@
         },
         {
           "name": "changes",
+          "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
           "lazy": false
         }
       ]
@@ -17218,6 +17585,10 @@
         {
           "name": "changes",
           "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -17239,6 +17610,10 @@
         },
         {
           "name": "changes",
+          "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
           "lazy": false
         }
       ]
@@ -17284,6 +17659,10 @@
           "lazy": false
         },
         {
+          "name": "displayedEntityName",
+          "lazy": false
+        },
+        {
           "name": "user",
           "entity": "sec$User",
           "lazy": false
@@ -17294,6 +17673,33 @@
           "lazy": false
         }
       ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_local",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_base",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
     },
     {
       "name": "_minimal",
@@ -20732,8 +21138,18 @@
       "classFqn": "com.haulmont.cuba.security.entity.UserRole",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [],
-      "allProperties": []
+      "properties": [
+        {
+          "name": "roleName",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "roleName",
+          "lazy": false
+        }
+      ]
     },
     {
       "name": "_base",
@@ -20741,8 +21157,18 @@
       "classFqn": "com.haulmont.cuba.security.entity.UserRole",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [],
-      "allProperties": []
+      "properties": [
+        {
+          "name": "roleName",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "roleName",
+          "lazy": false
+        }
+      ]
     },
     {
       "name": "user.edit",
@@ -20755,12 +21181,20 @@
           "name": "role",
           "entity": "sec$Role",
           "lazy": false
+        },
+        {
+          "name": "roleName",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "role",
           "entity": "sec$Role",
+          "lazy": false
+        },
+        {
+          "name": "roleName",
           "lazy": false
         }
       ]
@@ -21296,64 +21730,5 @@
       ]
     }
   ],
-  "restServices": [
-    {
-      "name": "scr_FavoriteService",
-      "methods": [
-        {
-          "name": "addFavorite",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "car",
-              "type": "com.company.scr.entity.Car"
-            },
-            {
-              "name": "notes",
-              "type": "java.lang.String"
-            }
-          ]
-        },
-        {
-          "name": "getFavorites",
-          "restInvocationAllowed": true,
-          "params": []
-        },
-        {
-          "name": "addFavorite",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "favInfo",
-              "type": "com.company.scr.service.FavoriteService.FavInfo"
-            }
-          ]
-        },
-        {
-          "name": "addFavorite",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "carId",
-              "type": "java.util.UUID"
-            },
-            {
-              "name": "notes",
-              "type": "java.lang.String"
-            }
-          ]
-        },
-        {
-          "name": "getFavoritesByType",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "carType",
-              "type": "com.company.scr.entity.CarType"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "restServices": []
 }
