@@ -53,6 +53,57 @@
     },
     "managementComponentName": "CarManagement3"
   },
+  "spareParts1": {
+    "editView": {
+      "name": "_local",
+      "entityName": "scr$SparePart"
+    },
+    "listView": {
+      "name": "_local",
+      "entityName": "scr$SparePart"
+    },
+    "editComponentName": "SparePartEdit1",
+    "listComponentName": "SparePartTable1",
+    "listType": "cards",
+    "entity": {
+      "name": "scr$SparePart"
+    },
+    "managementComponentName": "SparePartManagement1"
+  },
+  "spareParts2": {
+    "editView": {
+      "name": "_local",
+      "entityName": "scr$SparePart"
+    },
+    "listView": {
+      "name": "_local",
+      "entityName": "scr$SparePart"
+    },
+    "editComponentName": "SparePartEdit2",
+    "listComponentName": "SparePartTable2",
+    "listType": "list",
+    "entity": {
+      "name": "scr$SparePart"
+    },
+    "managementComponentName": "SparePartManagement2"
+  },
+  "spareParts3": {
+    "editView": {
+      "name": "_local",
+      "entityName": "scr$SparePart"
+    },
+    "listView": {
+      "name": "_local",
+      "entityName": "scr$SparePart"
+    },
+    "editComponentName": "SparePartEdit3",
+    "listComponentName": "SparePartTable3",
+    "listType": "table",
+    "entity": {
+      "name": "scr$SparePart"
+    },
+    "managementComponentName": "SparePartManagement3"
+  },
   "entityCards": {
     "entityView": {
       "name": "favoriteCar-view",
