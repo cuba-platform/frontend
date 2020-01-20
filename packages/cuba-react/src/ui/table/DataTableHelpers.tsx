@@ -167,7 +167,7 @@ export function generateDataColumn<EntityType>(config: DataColumnConfig): Column
     render: text => renderCell(propertyInfo, text, mainStore)
   };
 
-  if (enableFilter) {
+  if (enableFilter && isPropertyTypeSupported(propertyInfo)) {
     defaultColumnProps = {
       ...defaultColumnProps,
       // According to the typings this field expects any[] | undefined
@@ -474,4 +474,12 @@ export function isConditionsGroup(conditionOrConditionsGroup: Condition | Condit
  */
 export function isPreservedCondition(condition: Condition | ConditionsGroup, fields: string[]): boolean {
   return isConditionsGroup(condition) || fields.indexOf((condition as Condition).property) === -1;
+}
+
+export function isPropertyTypeSupported(propertyInfo: MetaPropertyInfo): boolean {
+  const supportedAttributeTypes: string[] = ['ENUM', 'ASSOCIATION', 'COMPOSITION'];
+  const supportedTypes: string[] = ['string', 'int', 'double', 'decimal', 'date', 'time', 'dateTime', 'boolean'];
+
+  return supportedAttributeTypes.indexOf(propertyInfo.attributeType) > -1
+    || supportedTypes.indexOf(propertyInfo.type) > -1;
 }
