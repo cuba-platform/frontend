@@ -6,6 +6,8 @@ import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
 
 import javax.persistence.*;
+import java.time.*;
+import java.util.UUID;
 
 @NamePattern("%s|name")
 @Table(name = "SCR_SPARE_PART")
@@ -20,6 +22,94 @@ public class SparePart extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SPARE_PARTS_ID")
     protected SparePart spareParts;
+
+    @Column(name = "PART_ID")
+    protected UUID partId;
+
+    @Column(name = "CURRENT_STOCK")
+    protected Long currentStock;
+
+    @Column(name = "LOCAL_DATE")
+    protected LocalDate localDate;
+
+    @Column(name = "LOCAL_TIME")
+    protected LocalTime localTime;
+
+    @Column(name = "LOCAL_DATE_TIME")
+    protected LocalDateTime localDateTime;
+
+    @Column(name = "OFFSET_DATE_TIME")
+    protected OffsetDateTime offsetDateTime;
+
+    @Column(name = "OFFSET_TIME")
+    protected OffsetTime offsetTime;
+
+    @Column(name = "BYTE_ARRAY")
+    protected byte[] byteArray;
+
+    public byte[] getByteArray() {
+        return byteArray;
+    }
+
+    public void setByteArray(byte[] byteArray) {
+        this.byteArray = byteArray;
+    }
+
+    public OffsetTime getOffsetTime() {
+        return offsetTime;
+    }
+
+    public void setOffsetTime(OffsetTime offsetTime) {
+        this.offsetTime = offsetTime;
+    }
+
+    public OffsetDateTime getOffsetDateTime() {
+        return offsetDateTime;
+    }
+
+    public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
+        this.offsetDateTime = offsetDateTime;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public LocalTime getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(LocalTime localTime) {
+        this.localTime = localTime;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    public Long getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(Long currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public UUID getPartId() {
+        return partId;
+    }
+
+    public void setPartId(UUID partId) {
+        this.partId = partId;
+    }
 
     public SparePart getSpareParts() {
         return spareParts;
