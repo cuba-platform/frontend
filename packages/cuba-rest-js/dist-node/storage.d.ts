@@ -3,7 +3,7 @@
  */
 export declare class DefaultStorage implements Storage {
     private items;
-    readonly length: number;
+    get length(): number;
     clear(): void;
     getItem(key: string): string | any;
     /**

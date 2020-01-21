@@ -67,8 +67,10 @@ export declare class CubaApp {
     private enumsLoadingListeners;
     private localeChangeListeners;
     constructor(name?: string, apiUrl?: string, restClientId?: string, restClientSecret?: string, defaultLocale?: string, storage?: Storage, apiVersion?: any);
-    restApiToken: string;
-    locale: string;
+    get restApiToken(): string;
+    set restApiToken(token: string);
+    get locale(): string;
+    set locale(locale: string);
     /**
      * Logs in user and stores token in provided storage.
      * @param {string} login
