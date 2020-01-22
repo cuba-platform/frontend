@@ -6,8 +6,14 @@
   <data>
     <instance id="sparePartDc"
               class="com.company.scr.entity.SparePart"
-              view="_local">
+    >
+      <view extends="_local">
+        <property name="compositionO2O" view="_minimal"/>
+        <property name="compositionO2M" view="_minimal"/>
+      </view>
       <loader/>
+      <instance id="compositionO2ODc" property="compositionO2O"/>
+      <collection id="compositionO2MDc" property="compositionO2M"/>
     </instance>
   </data>
   <dialogMode height="600"
@@ -23,8 +29,24 @@
         <dateField id="localDateTimeField" property="localDateTime"/>
         <dateField id="offsetDateTimeField" property="offsetDateTime"/>
         <timeField id="offsetTimeField" property="offsetTime"/>
+        <pickerField property="compositionO2O"/>
       </column>
     </form>
+    <table id="compositionTable" height="300px" width="100%" dataContainer="compositionO2MDc">
+      <actions>
+        <action id="create" type="create"/>
+        <action id="edit" type="edit"/>
+        <action id="remove" type="remove"/>
+      </actions>
+      <buttonsPanel alwaysVisible="true">
+        <button id="compositionTableCreateBtn" action="compositionTable.create"/>
+        <button id="compositionTableEditBtn" action="compositionTable.edit"/>
+        <button id="compositionTableRemoveBtn" action="compositionTable.remove"/>
+      </buttonsPanel>
+      <columns>
+        <column id="name"/>
+      </columns>
+    </table>
     <hbox id="editActions" spacing="true">
       <button action="windowCommitAndClose"/>
       <button action="windowClose"/>
