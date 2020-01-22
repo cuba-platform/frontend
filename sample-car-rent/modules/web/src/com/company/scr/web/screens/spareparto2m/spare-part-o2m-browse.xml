@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="sparePartO2MsTable"
+        messagesPack="com.company.scr.web.screens.spareparto2m">
+    <data readOnly="true">
+        <collection id="sparePartO2MsDc"
+                    class="com.company.scr.entity.SparePartO2M"
+                    view="_local">
+            <loader id="sparePartO2MsDl">
+                <query>
+                    <![CDATA[select e from scr_SparePartO2M e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="sparePartO2MsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="sparePartO2MsTable"
+                dataLoader="sparePartO2MsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="sparePartO2MsTable"
+                    width="100%"
+                    dataContainer="sparePartO2MsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="sparePartO2MsTable.create"/>
+                <button id="editBtn" action="sparePartO2MsTable.edit"/>
+                <button id="removeBtn" action="sparePartO2MsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,12 +1,16 @@
 package com.company.scr.entity;
 
+import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.List;
 import java.util.UUID;
 
 @NamePattern("%s|name")
@@ -46,6 +50,33 @@ public class SparePart extends StandardEntity {
 
     @Column(name = "BYTE_ARRAY")
     protected byte[] byteArray;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPOSITION_O2O_ID")
+    protected SparePartO2O compositionO2O;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "sparePart")
+    protected List<SparePartO2M> compositionO2M;
+
+    public List<SparePartO2M> getCompositionO2M() {
+        return compositionO2M;
+    }
+
+    public void setCompositionO2M(List<SparePartO2M> compositionO2M) {
+        this.compositionO2M = compositionO2M;
+    }
+
+    public SparePartO2O getCompositionO2O() {
+        return compositionO2O;
+    }
+
+    public void setCompositionO2O(SparePartO2O compositionO2O) {
+        this.compositionO2O = compositionO2O;
+    }
 
     public byte[] getByteArray() {
         return byteArray;
