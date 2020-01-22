@@ -126,7 +126,7 @@ export class DataInstanceStore<T> implements DataContainer {
 
         const type = propertyInfo.type as PropertyType;
 
-        if (propertyInfo.attributeType === "ASSOCIATION") {
+        if (propertyInfo.attributeType === "ASSOCIATION" || propertyInfo.attributeType === "COMPOSITION") {
           if (entity[propertyName] == null) {
             fields[propertyName] = entity[propertyName];
             return fields;
