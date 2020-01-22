@@ -6,7 +6,7 @@ describe('app-start', () => {
 
   it('should check that app started', async () => {
     await page.goto('http://localhost:3000/#/');
-    await expect(page.title()).resolves.toMatch('scr');
+    await expect(page.title()).resolves.toMatch('sample-car-rent');
   });
 
   it('should login in generated app', async () => {
@@ -20,6 +20,6 @@ describe('app-start', () => {
 
     await page.waitFor('main > div');
     const name = await page.$eval('main > div', el => el.innerHTML);
-    await expect(name).toMatch('Welcome to scr!');
+    await expect(name).toMatch('Welcome to sample-car-rent!');
   });
 });
