@@ -1,6 +1,6 @@
 {
   "project": {
-    "name": "scr",
+    "name": "sample-car-rent",
     "namespace": "scr",
     "modulePrefix": "app",
     "modelPrefix": "app"
@@ -784,6 +784,138 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "compositionO2O",
+          "type": {
+            "packageName": "com.company.scr.entity",
+            "className": "SparePartO2O",
+            "fqn": "com.company.scr.entity.SparePartO2O",
+            "label": "SparePartO2O",
+            "entityName": "scr_SparePartO2O"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "column": "COMPOSITION_O2O_ID",
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "",
+          "transient": false
+        },
+        {
+          "name": "compositionO2M",
+          "type": {
+            "packageName": "com.company.scr.entity",
+            "className": "SparePartO2M",
+            "fqn": "com.company.scr.entity.SparePartO2M",
+            "label": "SparePartO2M",
+            "entityName": "scr_SparePartO2M"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_MANY",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "sparePart",
+          "transient": false
+        }
+      ]
+    },
+    {
+      "name": "scr_SparePartO2O",
+      "className": "SparePartO2O",
+      "packageName": "com.company.scr.entity",
+      "dataStore": "_MAIN_",
+      "table": "SCR_SPARE_PART_O2O",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": false,
+      "namePattern": "%s|name",
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.SparePartO2O",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "StandardEntity",
+      "attributes": [
+        {
+          "name": "name",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "NAME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        }
+      ]
+    },
+    {
+      "name": "scr_SparePartO2M",
+      "className": "SparePartO2M",
+      "packageName": "com.company.scr.entity",
+      "dataStore": "_MAIN_",
+      "table": "SCR_SPARE_PART_O2M",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": false,
+      "namePattern": "%s|name",
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.SparePartO2M",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "StandardEntity",
+      "attributes": [
+        {
+          "name": "name",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "NAME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "sparePart",
+          "type": {
+            "packageName": "com.company.scr.entity",
+            "className": "SparePart",
+            "fqn": "com.company.scr.entity.SparePart",
+            "label": "SparePart",
+            "entityName": "scr$SparePart"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "MANY_TO_ONE",
+          "readOnly": false,
+          "column": "SPARE_PART_ID",
+          "mandatory": false,
+          "unique": false,
+          "transient": false
         }
       ]
     },
@@ -1016,6 +1148,22 @@
           "mandatory": false,
           "unique": false,
           "length": "50",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -1959,6 +2107,22 @@
           "unique": false,
           "mappedBy": "group",
           "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -2088,6 +2252,22 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -2193,6 +2373,150 @@
           "transient": false
         },
         {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "securityScope",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SECURITY_SCOPE",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "defaultScreenAccess",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "Access",
+            "fqn": "com.haulmont.cuba.security.entity.Access",
+            "label": "Access"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "DEFAULT_SCREEN_ACCESS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "defaultEntityCreateAccess",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "Access",
+            "fqn": "com.haulmont.cuba.security.entity.Access",
+            "label": "Access"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "DEFAULT_ENTITY_CREATE_ACCESS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "defaultEntityReadAccess",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "Access",
+            "fqn": "com.haulmont.cuba.security.entity.Access",
+            "label": "Access"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "DEFAULT_ENTITY_READ_ACCESS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "defaultEntityUpdateAccess",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "Access",
+            "fqn": "com.haulmont.cuba.security.entity.Access",
+            "label": "Access"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "DEFAULT_ENTITY_UPDATE_ACCESS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "defaultEntityDeleteAccess",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "Access",
+            "fqn": "com.haulmont.cuba.security.entity.Access",
+            "label": "Access"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "DEFAULT_ENTITY_DELETE_ACCESS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "defaultEntityAttributeAccess",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "EntityAttrAccess",
+            "fqn": "com.haulmont.cuba.security.entity.EntityAttrAccess",
+            "label": "EntityAttrAccess"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "DEFAULT_ENTITY_ATTR_ACCESS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "defaultSpecificAccess",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "Access",
+            "fqn": "com.haulmont.cuba.security.entity.Access",
+            "label": "Access"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "DEFAULT_SPECIFIC_ACCESS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
           "name": "permissions",
           "type": {
             "packageName": "com.haulmont.cuba.security.entity",
@@ -2208,6 +2532,20 @@
           "unique": false,
           "mappedBy": "role",
           "transient": false
+        },
+        {
+          "name": "locSecurityScope",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
         }
       ]
     },
@@ -2261,6 +2599,22 @@
           "mandatory": false,
           "unique": false,
           "length": "50",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -2766,6 +3120,22 @@
           "mandatory": false,
           "unique": false,
           "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -2988,26 +3358,6 @@
       ]
     },
     {
-      "name": "sec$HeaderConditionDescriptor",
-      "className": "HeaderConditionDescriptor",
-      "packageName": "com.haulmont.cuba.gui.components.filter.descriptor",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
-      "parentClassName": "AbstractConditionDescriptor",
-      "attributes": []
-    },
-    {
       "name": "sec$PropertyConditionDescriptor",
       "className": "PropertyConditionDescriptor",
       "packageName": "com.haulmont.cuba.gui.components.filter.descriptor",
@@ -3022,6 +3372,26 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
+      "parentClassName": "AbstractConditionDescriptor",
+      "attributes": []
+    },
+    {
+      "name": "sec$HeaderConditionDescriptor",
+      "className": "HeaderConditionDescriptor",
+      "packageName": "com.haulmont.cuba.gui.components.filter.descriptor",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
@@ -3607,6 +3977,22 @@
           "mandatory": false,
           "unique": false,
           "length": "50",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5635,6 +6021,22 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -5902,6 +6304,22 @@
           "transient": false
         },
         {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
           "name": "bodyContentType",
           "type": {
             "packageName": "java.lang",
@@ -6074,6 +6492,22 @@
           "mandatory": false,
           "unique": false,
           "length": "50",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -6269,6 +6703,252 @@
       "attributes": []
     },
     {
+      "name": "sec$AbstractCondition",
+      "className": "AbstractCondition",
+      "packageName": "com.haulmont.cuba.gui.components.filter.condition",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseUuidEntity",
+      "attributes": [
+        {
+          "name": "locCaption",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        }
+      ]
+    },
+    {
+      "name": "sec$EntityLog",
+      "className": "EntityLogItem",
+      "packageName": "com.haulmont.cuba.security.entity",
+      "table": "SEC_ENTITY_LOG",
+      "updatable": false,
+      "creatable": true,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.security.entity.EntityLogItem",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseUuidEntity",
+      "attributes": [
+        {
+          "name": "createTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "createdBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "eventTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "EVENT_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "user",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "User",
+            "fqn": "com.haulmont.cuba.security.entity.User",
+            "label": "User",
+            "entityName": "sec$User"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "MANY_TO_ONE",
+          "readOnly": false,
+          "column": "USER_ID",
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "type",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity.EntityLogItem",
+            "className": "Type",
+            "fqn": "com.haulmont.cuba.security.entity.EntityLogItem.Type",
+            "label": "Type"
+          },
+          "mappingType": "ENUM",
+          "readOnly": false,
+          "column": "CHANGE_TYPE",
+          "mandatory": false,
+          "unique": false,
+          "length": "1",
+          "transient": false
+        },
+        {
+          "name": "entity",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "ENTITY",
+          "mandatory": false,
+          "unique": false,
+          "length": "100",
+          "transient": false
+        },
+        {
+          "name": "entityRef",
+          "type": {
+            "packageName": "com.haulmont.cuba.core.entity",
+            "className": "ReferenceToEntity",
+            "fqn": "com.haulmont.cuba.core.entity.ReferenceToEntity",
+            "label": "ReferenceToEntity",
+            "entityName": "sys$ReferenceToEntity"
+          },
+          "mappingType": "EMBEDDED",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "entityInstanceName",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "ENTITY_INSTANCE_NAME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "attributes",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "EntityLogAttr",
+            "fqn": "com.haulmont.cuba.security.entity.EntityLogAttr",
+            "label": "EntityLogAttr",
+            "entityName": "sec$EntityLogAttr"
+          },
+          "mappingType": "ASSOCIATION",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
+        },
+        {
+          "name": "changes",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CHANGES",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "displayedEntityName",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
+        }
+      ]
+    },
+    {
       "name": "sec$Presentation",
       "className": "Presentation",
       "packageName": "com.haulmont.cuba.security.entity",
@@ -6433,235 +7113,21 @@
           "unique": false,
           "length": "50",
           "transient": false
-        }
-      ]
-    },
-    {
-      "name": "sec$EntityLog",
-      "className": "EntityLogItem",
-      "packageName": "com.haulmont.cuba.security.entity",
-      "table": "SEC_ENTITY_LOG",
-      "updatable": false,
-      "creatable": true,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": true,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.security.entity.EntityLogItem",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
+        },
         {
-          "name": "createTs",
+          "name": "sysTenantId",
           "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "Date"
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
-          "column": "CREATE_TS",
+          "column": "SYS_TENANT_ID",
           "mandatory": false,
           "unique": false,
           "length": "255",
-          "transient": false
-        },
-        {
-          "name": "createdBy",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "CREATED_BY",
-          "mandatory": false,
-          "unique": false,
-          "length": "50",
-          "transient": false
-        },
-        {
-          "name": "eventTs",
-          "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "Date"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "EVENT_TS",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "user",
-          "type": {
-            "packageName": "com.haulmont.cuba.security.entity",
-            "className": "User",
-            "fqn": "com.haulmont.cuba.security.entity.User",
-            "label": "User",
-            "entityName": "sec$User"
-          },
-          "mappingType": "ASSOCIATION",
-          "cardinality": "MANY_TO_ONE",
-          "readOnly": false,
-          "column": "USER_ID",
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "type",
-          "type": {
-            "packageName": "com.haulmont.cuba.security.entity.EntityLogItem",
-            "className": "Type",
-            "fqn": "com.haulmont.cuba.security.entity.EntityLogItem.Type",
-            "label": "Type"
-          },
-          "mappingType": "ENUM",
-          "readOnly": false,
-          "column": "CHANGE_TYPE",
-          "mandatory": false,
-          "unique": false,
-          "length": "1",
-          "transient": false
-        },
-        {
-          "name": "entity",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "ENTITY",
-          "mandatory": false,
-          "unique": false,
-          "length": "100",
-          "transient": false
-        },
-        {
-          "name": "entityRef",
-          "type": {
-            "packageName": "com.haulmont.cuba.core.entity",
-            "className": "ReferenceToEntity",
-            "fqn": "com.haulmont.cuba.core.entity.ReferenceToEntity",
-            "label": "ReferenceToEntity",
-            "entityName": "sys$ReferenceToEntity"
-          },
-          "mappingType": "EMBEDDED",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "entityInstanceName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "ENTITY_INSTANCE_NAME",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "attributes",
-          "type": {
-            "packageName": "com.haulmont.cuba.security.entity",
-            "className": "EntityLogAttr",
-            "fqn": "com.haulmont.cuba.security.entity.EntityLogAttr",
-            "label": "EntityLogAttr",
-            "entityName": "sec$EntityLogAttr"
-          },
-          "mappingType": "ASSOCIATION",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": true
-        },
-        {
-          "name": "changes",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "column": "CHANGES",
-          "mandatory": false,
-          "unique": false,
-          "length": "255",
-          "transient": false
-        },
-        {
-          "name": "displayedEntityName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": true,
-          "mandatory": false,
-          "unique": false,
-          "transient": true
-        }
-      ]
-    },
-    {
-      "name": "sec$AbstractCondition",
-      "className": "AbstractCondition",
-      "packageName": "com.haulmont.cuba.gui.components.filter.condition",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
-        {
-          "name": "locCaption",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
           "transient": false
         }
       ]
@@ -6945,6 +7411,22 @@
           "transient": false
         },
         {
+          "name": "groupNames",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "GROUP_NAMES",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
           "name": "userRoles",
           "type": {
             "packageName": "com.haulmont.cuba.security.entity",
@@ -6992,6 +7474,22 @@
           "mandatory": false,
           "unique": false,
           "length": "200",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -7194,6 +7692,22 @@
           "mappingType": "DATATYPE",
           "readOnly": false,
           "column": "CREATE_DATE",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
           "mandatory": false,
           "unique": false,
           "length": "255",
@@ -7703,6 +8217,22 @@
           "unique": false,
           "length": "50",
           "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -7881,6 +8411,20 @@
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseGenericIdEntity",
       "attributes": [
+        {
+          "name": "id",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": true,
+          "unique": false,
+          "transient": false
+        },
         {
           "name": "minInt",
           "type": {
@@ -8283,55 +8827,6 @@
       ]
     },
     {
-      "name": "sys$CategoryAttributeEnumValue",
-      "className": "CategoryAttributeEnumValue",
-      "packageName": "com.haulmont.cuba.core.entity",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
-        {
-          "name": "value",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "localizedValues",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
       "name": "sys$ScheduledTask",
       "className": "ScheduledTask",
       "packageName": "com.haulmont.cuba.core.entity",
@@ -8459,6 +8954,22 @@
           "mappingType": "ENUM",
           "readOnly": false,
           "column": "DEFINED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
           "mandatory": false,
           "unique": false,
           "length": "255",
@@ -8817,6 +9328,55 @@
       ]
     },
     {
+      "name": "sys$CategoryAttributeEnumValue",
+      "className": "CategoryAttributeEnumValue",
+      "packageName": "com.haulmont.cuba.core.entity",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseUuidEntity",
+      "attributes": [
+        {
+          "name": "value",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "localizedValues",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        }
+      ]
+    },
+    {
       "name": "sys$AbstractNotPersistentEntity",
       "className": "AbstractNotPersistentEntity",
       "packageName": "com.haulmont.cuba.core.entity",
@@ -8843,84 +9403,6 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": true
-        }
-      ]
-    },
-    {
-      "name": "sys$LockInfo",
-      "className": "LockInfo",
-      "packageName": "com.haulmont.cuba.core.global",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": true,
-      "mappedSuperclass": false,
-      "fqn": "com.haulmont.cuba.core.global.LockInfo",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "attributes": [
-        {
-          "name": "entityId",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": true,
-          "mandatory": false,
-          "unique": false,
-          "transient": true
-        },
-        {
-          "name": "entityName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": true,
-          "mandatory": false,
-          "unique": false,
-          "transient": true
-        },
-        {
-          "name": "since",
-          "type": {
-            "packageName": "java.util",
-            "className": "Date",
-            "fqn": "java.util.Date",
-            "label": "Date"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": true,
-          "mandatory": false,
-          "unique": false,
-          "transient": true
-        },
-        {
-          "name": "user",
-          "type": {
-            "packageName": "com.haulmont.cuba.security.entity",
-            "className": "User",
-            "fqn": "com.haulmont.cuba.security.entity.User",
-            "label": "User",
-            "entityName": "sec$User"
-          },
-          "mappingType": "ASSOCIATION",
-          "readOnly": true,
           "mandatory": false,
           "unique": false,
           "transient": true
@@ -9047,6 +9529,84 @@
       ]
     },
     {
+      "name": "sys$LockInfo",
+      "className": "LockInfo",
+      "packageName": "com.haulmont.cuba.core.global",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.core.global.LockInfo",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseUuidEntity",
+      "attributes": [
+        {
+          "name": "entityId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
+        },
+        {
+          "name": "entityName",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
+        },
+        {
+          "name": "since",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
+        },
+        {
+          "name": "user",
+          "type": {
+            "packageName": "com.haulmont.cuba.security.entity",
+            "className": "User",
+            "fqn": "com.haulmont.cuba.security.entity.User",
+            "label": "User",
+            "entityName": "sec$User"
+          },
+          "mappingType": "ASSOCIATION",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
+        }
+      ]
+    },
+    {
       "name": "sys$BaseIntIdentityIdEntity",
       "className": "BaseIntIdentityIdEntity",
       "packageName": "com.haulmont.cuba.core.entity",
@@ -9080,6 +9640,98 @@
           "unique": false,
           "length": "255",
           "transient": false
+        }
+      ]
+    },
+    {
+      "name": "sys$AttributeLocaleData",
+      "className": "AttributeLocaleData",
+      "packageName": "com.haulmont.cuba.core.entity",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": true,
+      "namePattern": "%s %s|name,languageWithCode",
+      "mappedSuperclass": false,
+      "fqn": "com.haulmont.cuba.core.entity.AttributeLocaleData",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "StandardEntity",
+      "attributes": [
+        {
+          "name": "name",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "description",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "locale",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "language",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": true,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "languageWithCode",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": true,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
         }
       ]
     },
@@ -9193,6 +9845,20 @@
             "className": "Boolean",
             "fqn": "java.lang.Boolean",
             "label": "Boolean"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
@@ -9667,6 +10333,22 @@
           "length": "255",
           "transient": false,
           "temporalType": "DATE"
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -9868,6 +10550,22 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -10026,6 +10724,22 @@
           "column": "GROUP_ID",
           "mandatory": false,
           "unique": false,
+          "transient": false
+        },
+        {
+          "name": "sysTenantId",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SYS_TENANT_ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11296,6 +12010,188 @@
       ]
     },
     {
+      "name": "sparePart-front-edit",
+      "entity": "scr$SparePart",
+      "classFqn": "com.company.scr.entity.SparePart",
+      "parentName": "_local",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "compositionO2O",
+          "entity": "scr_SparePartO2O",
+          "lazy": false
+        },
+        {
+          "name": "compositionO2M",
+          "entity": "scr_SparePartO2M",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "partId",
+          "lazy": false
+        },
+        {
+          "name": "currentStock",
+          "lazy": false
+        },
+        {
+          "name": "localDate",
+          "lazy": false
+        },
+        {
+          "name": "localTime",
+          "lazy": false
+        },
+        {
+          "name": "localDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetDateTime",
+          "lazy": false
+        },
+        {
+          "name": "offsetTime",
+          "lazy": false
+        },
+        {
+          "name": "byteArray",
+          "lazy": false
+        },
+        {
+          "name": "compositionO2O",
+          "entity": "scr_SparePartO2O",
+          "lazy": false
+        },
+        {
+          "name": "compositionO2M",
+          "entity": "scr_SparePartO2M",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "scr_SparePartO2O",
+      "classFqn": "com.company.scr.entity.SparePartO2O",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "scr_SparePartO2O",
+      "classFqn": "com.company.scr.entity.SparePartO2O",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_base",
+      "entity": "scr_SparePartO2O",
+      "classFqn": "com.company.scr.entity.SparePartO2O",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "scr_SparePartO2M",
+      "classFqn": "com.company.scr.entity.SparePartO2M",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "scr_SparePartO2M",
+      "classFqn": "com.company.scr.entity.SparePartO2M",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_base",
+      "entity": "scr_SparePartO2M",
+      "classFqn": "com.company.scr.entity.SparePartO2M",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
       "name": "_minimal",
       "entity": "scr$User",
       "classFqn": "com.company.scr.entity.ScrUser",
@@ -11394,7 +12290,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ],
@@ -11464,7 +12368,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -11541,7 +12453,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ],
@@ -11611,8 +12531,16 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ]
     },
@@ -11707,6 +12635,10 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "server",
           "lazy": false
         },
@@ -11728,6 +12660,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "server",
           "lazy": false
@@ -11758,6 +12694,10 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "server",
           "lazy": false
         },
@@ -11779,6 +12719,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "server",
           "lazy": false
@@ -12133,6 +13077,10 @@
         {
           "name": "tabName",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -12162,6 +13110,10 @@
         },
         {
           "name": "tabName",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -12199,6 +13151,10 @@
         {
           "name": "tabName",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -12229,6 +13185,10 @@
         {
           "name": "tabName",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ]
     },
@@ -12529,11 +13489,19 @@
         {
           "name": "name",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -12548,11 +13516,19 @@
         {
           "name": "name",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -12725,6 +13701,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "parent",
           "entity": "sec$Group",
           "lazy": false
@@ -12822,6 +13802,10 @@
         {
           "name": "tabName",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -12835,6 +13819,10 @@
         },
         {
           "name": "tabName",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -12857,6 +13845,10 @@
         {
           "name": "tabName",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -12870,6 +13862,10 @@
         },
         {
           "name": "tabName",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -12927,6 +13923,46 @@
         {
           "name": "defaultRole",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "securityScope",
+          "lazy": false
+        },
+        {
+          "name": "defaultScreenAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityCreateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityReadAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityUpdateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityDeleteAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityAttributeAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultSpecificAccess",
+          "lazy": false
+        },
+        {
+          "name": "locSecurityScope",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -12948,6 +13984,46 @@
         },
         {
           "name": "defaultRole",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "securityScope",
+          "lazy": false
+        },
+        {
+          "name": "defaultScreenAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityCreateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityReadAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityUpdateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityDeleteAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityAttributeAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultSpecificAccess",
+          "lazy": false
+        },
+        {
+          "name": "locSecurityScope",
           "lazy": false
         }
       ]
@@ -12978,6 +14054,46 @@
         {
           "name": "defaultRole",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "securityScope",
+          "lazy": false
+        },
+        {
+          "name": "defaultScreenAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityCreateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityReadAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityUpdateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityDeleteAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityAttributeAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultSpecificAccess",
+          "lazy": false
+        },
+        {
+          "name": "locSecurityScope",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -12999,6 +14115,46 @@
         },
         {
           "name": "defaultRole",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "securityScope",
+          "lazy": false
+        },
+        {
+          "name": "defaultScreenAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityCreateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityReadAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityUpdateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityDeleteAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityAttributeAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultSpecificAccess",
+          "lazy": false
+        },
+        {
+          "name": "locSecurityScope",
           "lazy": false
         }
       ]
@@ -13104,6 +14260,46 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "securityScope",
+          "lazy": false
+        },
+        {
+          "name": "defaultScreenAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityCreateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityReadAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityUpdateAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityDeleteAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultEntityAttributeAccess",
+          "lazy": false
+        },
+        {
+          "name": "defaultSpecificAccess",
+          "lazy": false
+        },
+        {
+          "name": "locSecurityScope",
+          "lazy": false
+        },
+        {
           "name": "permissions",
           "entity": "sec$Permission",
           "lazy": false
@@ -13180,11 +14376,19 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "level",
           "lazy": false
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "level",
           "lazy": false
@@ -13199,11 +14403,19 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "level",
           "lazy": false
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "level",
           "lazy": false
@@ -13342,6 +14554,10 @@
         {
           "name": "isActive",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -13379,6 +14595,10 @@
         },
         {
           "name": "isActive",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -13425,6 +14645,10 @@
         {
           "name": "isActive",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -13462,6 +14686,10 @@
         },
         {
           "name": "isActive",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -13817,8 +15045,8 @@
     },
     {
       "name": "_minimal",
-      "entity": "sec$HeaderConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
+      "entity": "sec$PropertyConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -13826,8 +15054,8 @@
     },
     {
       "name": "_local",
-      "entity": "sec$HeaderConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
+      "entity": "sec$PropertyConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -13835,8 +15063,8 @@
     },
     {
       "name": "_base",
-      "entity": "sec$HeaderConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
+      "entity": "sec$PropertyConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -13844,8 +15072,8 @@
     },
     {
       "name": "_minimal",
-      "entity": "sec$PropertyConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "entity": "sec$HeaderConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -13853,8 +15081,8 @@
     },
     {
       "name": "_local",
-      "entity": "sec$PropertyConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "entity": "sec$HeaderConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -13862,8 +15090,8 @@
     },
     {
       "name": "_base",
-      "entity": "sec$PropertyConditionDescriptor",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
+      "entity": "sec$HeaderConditionDescriptor",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -14068,6 +15296,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "filterComponentId",
           "lazy": false
         },
@@ -14103,6 +15335,10 @@
         },
         {
           "name": "tabName",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -14151,6 +15387,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "filterComponentId",
           "lazy": false
         },
@@ -14189,6 +15429,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "filterComponentId",
           "lazy": false
         },
@@ -14313,6 +15557,10 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "viewXml",
           "lazy": false
         },
@@ -14338,6 +15586,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "viewXml",
           "lazy": false
@@ -14372,6 +15624,10 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "viewXml",
           "lazy": false
         },
@@ -14397,6 +15653,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "viewXml",
           "lazy": false
@@ -14442,6 +15702,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "viewXml",
           "lazy": false
@@ -16429,6 +17693,10 @@
         {
           "name": "globalDefault",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -16450,6 +17718,10 @@
         },
         {
           "name": "globalDefault",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -16480,6 +17752,10 @@
         {
           "name": "globalDefault",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -16501,6 +17777,10 @@
         },
         {
           "name": "globalDefault",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -16635,6 +17915,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "bodyContentType",
           "lazy": false
         }
@@ -16690,6 +17974,10 @@
         },
         {
           "name": "headers",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -16758,6 +18046,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "bodyContentType",
           "lazy": false
         }
@@ -16813,6 +18105,10 @@
         },
         {
           "name": "headers",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -17077,6 +18373,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "bodyContentType",
           "lazy": false
         },
@@ -17165,6 +18465,10 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "caption",
           "lazy": false
         },
@@ -17178,6 +18482,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "caption",
           "lazy": false
@@ -17200,6 +18508,10 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "caption",
           "lazy": false
         },
@@ -17213,6 +18525,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
         {
           "name": "caption",
           "lazy": false
@@ -17252,6 +18568,10 @@
       ],
       "allProperties": [
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "caption",
           "lazy": false
         },
@@ -17335,6 +18655,236 @@
     },
     {
       "name": "_minimal",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_local",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_base",
+      "entity": "sec$AbstractCondition",
+      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_minimal",
+      "entity": "sec$EntityLog",
+      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_local",
+      "entity": "sec$EntityLog",
+      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "eventTs",
+          "lazy": false
+        },
+        {
+          "name": "type",
+          "lazy": false
+        },
+        {
+          "name": "entity",
+          "lazy": false
+        },
+        {
+          "name": "entityInstanceName",
+          "lazy": false
+        },
+        {
+          "name": "changes",
+          "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "eventTs",
+          "lazy": false
+        },
+        {
+          "name": "type",
+          "lazy": false
+        },
+        {
+          "name": "entity",
+          "lazy": false
+        },
+        {
+          "name": "entityInstanceName",
+          "lazy": false
+        },
+        {
+          "name": "changes",
+          "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_base",
+      "entity": "sec$EntityLog",
+      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "eventTs",
+          "lazy": false
+        },
+        {
+          "name": "type",
+          "lazy": false
+        },
+        {
+          "name": "entity",
+          "lazy": false
+        },
+        {
+          "name": "entityInstanceName",
+          "lazy": false
+        },
+        {
+          "name": "changes",
+          "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "eventTs",
+          "lazy": false
+        },
+        {
+          "name": "type",
+          "lazy": false
+        },
+        {
+          "name": "entity",
+          "lazy": false
+        },
+        {
+          "name": "entityInstanceName",
+          "lazy": false
+        },
+        {
+          "name": "changes",
+          "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "logView",
+      "entity": "sec$EntityLog",
+      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
+      "parentName": "_local",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "user",
+          "entity": "sec$User",
+          "lazy": false
+        },
+        {
+          "name": "entityRef",
+          "entity": "sys$ReferenceToEntity",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
+          "name": "eventTs",
+          "lazy": false
+        },
+        {
+          "name": "type",
+          "lazy": false
+        },
+        {
+          "name": "entity",
+          "lazy": false
+        },
+        {
+          "name": "entityInstanceName",
+          "lazy": false
+        },
+        {
+          "name": "changes",
+          "lazy": false
+        },
+        {
+          "name": "displayedEntityName",
+          "lazy": false
+        },
+        {
+          "name": "user",
+          "entity": "sec$User",
+          "lazy": false
+        },
+        {
+          "name": "entityRef",
+          "entity": "sys$ReferenceToEntity",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
       "entity": "sec$Presentation",
       "classFqn": "com.haulmont.cuba.security.entity.Presentation",
       "overwrite": false,
@@ -17374,6 +18924,10 @@
         {
           "name": "autoSave",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -17391,6 +18945,10 @@
         },
         {
           "name": "autoSave",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -17417,6 +18975,10 @@
         {
           "name": "autoSave",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -17434,6 +18996,10 @@
         },
         {
           "name": "autoSave",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -17493,216 +19059,6 @@
     },
     {
       "name": "_minimal",
-      "entity": "sec$EntityLog",
-      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "sec$EntityLog",
-      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "eventTs",
-          "lazy": false
-        },
-        {
-          "name": "type",
-          "lazy": false
-        },
-        {
-          "name": "entity",
-          "lazy": false
-        },
-        {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
-          "name": "changes",
-          "lazy": false
-        },
-        {
-          "name": "displayedEntityName",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "eventTs",
-          "lazy": false
-        },
-        {
-          "name": "type",
-          "lazy": false
-        },
-        {
-          "name": "entity",
-          "lazy": false
-        },
-        {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
-          "name": "changes",
-          "lazy": false
-        },
-        {
-          "name": "displayedEntityName",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_base",
-      "entity": "sec$EntityLog",
-      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "eventTs",
-          "lazy": false
-        },
-        {
-          "name": "type",
-          "lazy": false
-        },
-        {
-          "name": "entity",
-          "lazy": false
-        },
-        {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
-          "name": "changes",
-          "lazy": false
-        },
-        {
-          "name": "displayedEntityName",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "eventTs",
-          "lazy": false
-        },
-        {
-          "name": "type",
-          "lazy": false
-        },
-        {
-          "name": "entity",
-          "lazy": false
-        },
-        {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
-          "name": "changes",
-          "lazy": false
-        },
-        {
-          "name": "displayedEntityName",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "logView",
-      "entity": "sec$EntityLog",
-      "classFqn": "com.haulmont.cuba.security.entity.EntityLogItem",
-      "parentName": "_local",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [
-        {
-          "name": "user",
-          "entity": "sec$User",
-          "lazy": false
-        },
-        {
-          "name": "entityRef",
-          "entity": "sys$ReferenceToEntity",
-          "lazy": false
-        }
-      ],
-      "allProperties": [
-        {
-          "name": "eventTs",
-          "lazy": false
-        },
-        {
-          "name": "type",
-          "lazy": false
-        },
-        {
-          "name": "entity",
-          "lazy": false
-        },
-        {
-          "name": "entityInstanceName",
-          "lazy": false
-        },
-        {
-          "name": "changes",
-          "lazy": false
-        },
-        {
-          "name": "displayedEntityName",
-          "lazy": false
-        },
-        {
-          "name": "user",
-          "entity": "sec$User",
-          "lazy": false
-        },
-        {
-          "name": "entityRef",
-          "entity": "sys$ReferenceToEntity",
-          "lazy": false
-        }
-      ]
-    },
-    {
-      "name": "_minimal",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_base",
-      "entity": "sec$AbstractCondition",
-      "classFqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_minimal",
       "entity": "sec$User",
       "classFqn": "com.haulmont.cuba.security.entity.User",
       "overwrite": false,
@@ -17796,7 +19152,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ],
@@ -17862,7 +19226,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -17935,7 +19307,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ],
@@ -18001,7 +19381,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -18111,7 +19499,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -18243,7 +19639,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -18390,7 +19794,15 @@
           "lazy": false
         },
         {
+          "name": "groupNames",
+          "lazy": false
+        },
+        {
           "name": "ipMask",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -18732,6 +20144,10 @@
         {
           "name": "createDate",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -18749,6 +20165,10 @@
         },
         {
           "name": "createDate",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -18775,6 +20195,10 @@
         {
           "name": "size",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -18792,6 +20216,10 @@
         },
         {
           "name": "size",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -18930,6 +20358,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "filterComponentId",
           "lazy": false
         },
@@ -18965,6 +20397,10 @@
         },
         {
           "name": "tabName",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -19013,6 +20449,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "filterComponentId",
           "lazy": false
         },
@@ -19048,6 +20488,10 @@
         },
         {
           "name": "tabName",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -19146,6 +20590,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "filterComponentId",
           "lazy": false
         },
@@ -19267,6 +20715,10 @@
         {
           "name": "encoding",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -19288,6 +20740,10 @@
         },
         {
           "name": "encoding",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -19318,6 +20774,10 @@
         {
           "name": "encoding",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -19339,6 +20799,10 @@
         },
         {
           "name": "encoding",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -19411,6 +20875,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "contentFile",
           "entity": "sys$FileDescriptor",
           "lazy": false
@@ -19449,6 +20917,10 @@
         },
         {
           "name": "encoding",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -19743,33 +21215,6 @@
     },
     {
       "name": "_minimal",
-      "entity": "sys$CategoryAttributeEnumValue",
-      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "sys$CategoryAttributeEnumValue",
-      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_base",
-      "entity": "sys$CategoryAttributeEnumValue",
-      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_minimal",
       "entity": "sys$ScheduledTask",
       "classFqn": "com.haulmont.cuba.core.entity.ScheduledTask",
       "overwrite": false,
@@ -19820,6 +21265,10 @@
       "properties": [
         {
           "name": "definedBy",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -19914,6 +21363,10 @@
       "allProperties": [
         {
           "name": "definedBy",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -20034,6 +21487,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "userName",
           "lazy": false
         },
@@ -20128,6 +21585,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "userName",
           "lazy": false
         },
@@ -20203,8 +21664,8 @@
     },
     {
       "name": "_minimal",
-      "entity": "sys$AbstractNotPersistentEntity",
-      "classFqn": "com.haulmont.cuba.core.entity.AbstractNotPersistentEntity",
+      "entity": "sys$CategoryAttributeEnumValue",
+      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -20212,8 +21673,8 @@
     },
     {
       "name": "_local",
-      "entity": "sys$AbstractNotPersistentEntity",
-      "classFqn": "com.haulmont.cuba.core.entity.AbstractNotPersistentEntity",
+      "entity": "sys$CategoryAttributeEnumValue",
+      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -20221,8 +21682,8 @@
     },
     {
       "name": "_base",
-      "entity": "sys$AbstractNotPersistentEntity",
-      "classFqn": "com.haulmont.cuba.core.entity.AbstractNotPersistentEntity",
+      "entity": "sys$CategoryAttributeEnumValue",
+      "classFqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -20230,8 +21691,8 @@
     },
     {
       "name": "_minimal",
-      "entity": "sys$LockInfo",
-      "classFqn": "com.haulmont.cuba.core.global.LockInfo",
+      "entity": "sys$AbstractNotPersistentEntity",
+      "classFqn": "com.haulmont.cuba.core.entity.AbstractNotPersistentEntity",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -20239,8 +21700,8 @@
     },
     {
       "name": "_local",
-      "entity": "sys$LockInfo",
-      "classFqn": "com.haulmont.cuba.core.global.LockInfo",
+      "entity": "sys$AbstractNotPersistentEntity",
+      "classFqn": "com.haulmont.cuba.core.entity.AbstractNotPersistentEntity",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -20248,8 +21709,8 @@
     },
     {
       "name": "_base",
-      "entity": "sys$LockInfo",
-      "classFqn": "com.haulmont.cuba.core.global.LockInfo",
+      "entity": "sys$AbstractNotPersistentEntity",
+      "classFqn": "com.haulmont.cuba.core.entity.AbstractNotPersistentEntity",
       "overwrite": false,
       "systemProperties": false,
       "properties": [],
@@ -20284,6 +21745,33 @@
     },
     {
       "name": "_minimal",
+      "entity": "sys$LockInfo",
+      "classFqn": "com.haulmont.cuba.core.global.LockInfo",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_local",
+      "entity": "sys$LockInfo",
+      "classFqn": "com.haulmont.cuba.core.global.LockInfo",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_base",
+      "entity": "sys$LockInfo",
+      "classFqn": "com.haulmont.cuba.core.global.LockInfo",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_minimal",
       "entity": "sys$BaseIntIdentityIdEntity",
       "classFqn": "com.haulmont.cuba.core.entity.BaseIntIdentityIdEntity",
       "overwrite": false,
@@ -20308,6 +21796,69 @@
       "systemProperties": false,
       "properties": [],
       "allProperties": []
+    },
+    {
+      "name": "_minimal",
+      "entity": "sys$AttributeLocaleData",
+      "classFqn": "com.haulmont.cuba.core.entity.AttributeLocaleData",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "languageWithCode",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "languageWithCode",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "sys$AttributeLocaleData",
+      "classFqn": "com.haulmont.cuba.core.entity.AttributeLocaleData",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_base",
+      "entity": "sys$AttributeLocaleData",
+      "classFqn": "com.haulmont.cuba.core.entity.AttributeLocaleData",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "languageWithCode",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "languageWithCode",
+          "lazy": false
+        }
+      ]
     },
     {
       "name": "_minimal",
@@ -20735,6 +22286,10 @@
         {
           "name": "endDate",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -20744,6 +22299,10 @@
         },
         {
           "name": "endDate",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -20762,6 +22321,10 @@
         {
           "name": "endDate",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -20771,6 +22334,10 @@
         },
         {
           "name": "endDate",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -20931,6 +22498,10 @@
         {
           "name": "server",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -20968,6 +22539,10 @@
         },
         {
           "name": "server",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -21014,6 +22589,10 @@
         {
           "name": "server",
           "lazy": false
+        },
+        {
+          "name": "sysTenantId",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -21051,6 +22630,10 @@
         },
         {
           "name": "server",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         }
       ]
@@ -21109,6 +22692,10 @@
         },
         {
           "name": "server",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -21259,6 +22846,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "datatypeCaption",
           "lazy": false
         }
@@ -21274,6 +22865,10 @@
         },
         {
           "name": "datatype",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -21302,6 +22897,10 @@
           "lazy": false
         },
         {
+          "name": "sysTenantId",
+          "lazy": false
+        },
+        {
           "name": "datatypeCaption",
           "lazy": false
         }
@@ -21317,6 +22916,10 @@
         },
         {
           "name": "datatype",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -21350,6 +22953,10 @@
         },
         {
           "name": "datatype",
+          "lazy": false
+        },
+        {
+          "name": "sysTenantId",
           "lazy": false
         },
         {
@@ -21730,5 +23337,69 @@
       ]
     }
   ],
-  "restServices": []
+  "restServices": [
+    {
+      "name": "scr_FavoriteService",
+      "methods": [
+        {
+          "name": "refreshCache",
+          "restInvocationAllowed": true,
+          "params": []
+        },
+        {
+          "name": "addFavorite",
+          "restInvocationAllowed": true,
+          "params": [
+            {
+              "name": "car",
+              "type": "com.company.scr.entity.Car"
+            },
+            {
+              "name": "notes",
+              "type": "java.lang.String"
+            }
+          ]
+        },
+        {
+          "name": "getFavorites",
+          "restInvocationAllowed": true,
+          "params": []
+        },
+        {
+          "name": "addFavorite",
+          "restInvocationAllowed": true,
+          "params": [
+            {
+              "name": "favInfo",
+              "type": "com.company.scr.service.FavoriteService.FavInfo"
+            }
+          ]
+        },
+        {
+          "name": "addFavorite",
+          "restInvocationAllowed": true,
+          "params": [
+            {
+              "name": "carId",
+              "type": "java.util.UUID"
+            },
+            {
+              "name": "notes",
+              "type": "java.lang.String"
+            }
+          ]
+        },
+        {
+          "name": "getFavoritesByType",
+          "restInvocationAllowed": true,
+          "params": [
+            {
+              "name": "carType",
+              "type": "com.company.scr.entity.CarType"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
