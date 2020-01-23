@@ -24,3 +24,7 @@ create index IDX_SCR_SPARE_PART_SPARE_PARTS on SCR_SPARE_PART (SPARE_PARTS_ID)^
 alter table SCR_SPARE_PART_O2M add constraint FK_SCR_SPARE_PART_O2M_SPARE_PART foreign key (SPARE_PART_ID) references SCR_SPARE_PART(ID)^
 create index IDX_SCR_SPARE_PART_O2M_SPARE_PART on SCR_SPARE_PART_O2M (SPARE_PART_ID)^
 -- end SCR_SPARE_PART_O2M
+-- begin SCR_GARAGE_USER_LINK
+alter table SCR_GARAGE_USER_LINK add constraint FK_GARUSE_GARAGE foreign key (GARAGE_ID) references SCR_GARAGE(ID);
+alter table SCR_GARAGE_USER_LINK add constraint FK_GARUSE_USER foreign key (USER_ID) references SEC_USER(ID);
+-- end SCR_GARAGE_USER_LINK

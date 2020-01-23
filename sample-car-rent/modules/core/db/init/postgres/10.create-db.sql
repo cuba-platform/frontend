@@ -73,7 +73,11 @@ create table SCR_GARAGE (
     DELETED_BY varchar(50),
     --
     NAME varchar(255) not null,
+    ADDRESS varchar(255),
     CAPACITY integer,
+    VAN_ENTRY boolean,
+    WORKING_HOURS_FROM time,
+    WORKING_HOURS_TO time,
     --
     primary key (ID)
 )^
@@ -123,6 +127,13 @@ create table SCR_SPARE_PART (
     primary key (ID)
 )^
 -- end SCR_SPARE_PART
+-- begin SCR_GARAGE_USER_LINK
+create table SCR_GARAGE_USER_LINK (
+    GARAGE_ID uuid,
+    USER_ID uuid,
+    primary key (GARAGE_ID, USER_ID)
+)^
+-- end SCR_GARAGE_USER_LINK
 -- begin SEC_USER
 alter table SEC_USER add column PHONE varchar(255) ^
 alter table SEC_USER add column DTYPE varchar(100) ^
