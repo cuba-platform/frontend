@@ -29,7 +29,8 @@
     "docs": "npm run docs:api-reference && npm run docs:toc",
     "docs:toc": "node update-readme-toc.js",
     "docs:api-reference": "rimraf docs && lerna run generate-docs",
-    "test-pup": "npm test --prefix test-pup"
+    "test-pup": "npm test --prefix test-pup",
+    "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits"
   },
   "config": {
     "commitizen": {

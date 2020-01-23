@@ -55,7 +55,7 @@
   },
   "spareParts1": {
     "editView": {
-      "name": "_local",
+      "name": "sparePart-front-edit",
       "entityName": "scr$SparePart"
     },
     "listView": {
@@ -72,7 +72,7 @@
   },
   "spareParts2": {
     "editView": {
-      "name": "_local",
+      "name": "sparePart-front-edit",
       "entityName": "scr$SparePart"
     },
     "listView": {
@@ -89,7 +89,7 @@
   },
   "spareParts3": {
     "editView": {
-      "name": "_local",
+      "name": "sparePart-front-edit",
       "entityName": "scr$SparePart"
     },
     "listView": {

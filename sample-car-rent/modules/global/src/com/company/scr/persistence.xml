@@ -10,5 +10,7 @@
         <class>com.company.scr.entity.TechnicalCertificate</class>
         <class>com.company.scr.entity.SparePart</class>
         <class>com.company.scr.entity.ScrUser</class>
+        <class>com.company.scr.entity.SparePartO2O</class>
+        <class>com.company.scr.entity.SparePartO2M</class>
     </persistence-unit>
 </persistence>

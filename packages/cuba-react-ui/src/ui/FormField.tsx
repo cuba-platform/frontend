@@ -36,7 +36,7 @@ export const FormField = injectMainStore(observer((props: Props) => {
       const mode = getSelectMode(propertyInfo.cardinality);
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
-      return <Select {...rest} allowClear={getAllowClear(propertyInfo)} />;
+      return <EntitySelectField {...rest} allowClear={getAllowClear(propertyInfo)} />;
   }
   switch (propertyInfo.type as PropertyType) {
     case 'boolean':
