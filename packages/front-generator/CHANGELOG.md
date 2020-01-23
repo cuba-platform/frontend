@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.5](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@2.4.4...@cuba-platform/front-generator@2.4.5) (2020-01-23)
+
+
+### Bug Fixes
+
+* **React:** revert package-lock.json ([3119653](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/3119653d10a5cfb743fd3e7a2787873a4e6c894d)), closes [#81](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/81)
+
+
+
+
+
 ## [2.4.4](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@2.4.3...@cuba-platform/front-generator@2.4.4) (2020-01-23)
 
 **Note:** Version bump only for package @cuba-platform/front-generator
