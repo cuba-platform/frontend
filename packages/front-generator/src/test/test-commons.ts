@@ -4,6 +4,7 @@ import * as assert from "assert";
 import {collectModelContext, ModelContext} from "../generators/sdk/model/model-utils";
 import * as fs from "fs";
 import prettier = require('prettier');
+import * as path from "path";
 
 const enumsModel: Enum[] = require('./fixtures/enums-model.json');
 const entityModel: Entity = require('./fixtures/entity-model.json');
@@ -39,4 +40,19 @@ function drain(content: string, multiline: boolean = true) {
 export function format(file: string) {
   const formatted = prettier.format(fs.readFileSync(file, 'utf8'), {parser: "typescript"});
   fs.writeFileSync(file, formatted, 'utf8');
+}
+
+export function opts(dir: string, answers: any, modelPath: string) {
+  return {
+    model: modelPath,
+    dest: dir,
+    debug: true,
+    answers: Buffer.from(JSON.stringify(answers)).toString('base64')
+  }
+}
+
+export function assertFiles(filePath: string, clientDir: string, fixturesDir: string) {
+  const actual = fs.readFileSync(path.join(clientDir, filePath), 'utf8');
+  const expect = fs.readFileSync(path.join(fixturesDir, filePath), 'utf8');
+  assertContent(actual, expect);
 }

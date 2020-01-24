@@ -31,6 +31,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   conflicter!: { force: boolean }; //patch missing in typings
 
   protected cubaProjectModel?: ProjectModel;
+  protected modelFilePath?: string;
 
   protected constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
@@ -64,9 +65,9 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
         }))
       }]) as ProjectInfoAnswers;
 
-      const modelFilePath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(projectModelAnswers.projectInfo.locationHash, modelFilePath);
-      this.cubaProjectModel = readProjectModel(modelFilePath);
+      this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(projectModelAnswers.projectInfo.locationHash, this.modelFilePath);
+      this.cubaProjectModel = readProjectModel(this.modelFilePath);
     }
   }
 

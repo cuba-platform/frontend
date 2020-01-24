@@ -87,7 +87,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async generateSdk() {
     const sdkDest = 'src/cuba';
-    this.log(`Generate sdk model and services to ${sdkDest}`);
+    this.log(`Generate SDK model and services to ${sdkDest}`);
 
     const sdkOpts = {
       model: this.modelPath,
