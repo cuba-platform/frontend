@@ -125,9 +125,9 @@ export class MainStore {
     return Promise.resolve();
   }
 
-  initialize() {
+  initialize(): Promise<void> {
     this.locale = this.cubaREST.locale;
-    this.cubaREST.getUserInfo()
+    return this.cubaREST.getUserInfo()
       .then(action((userInfo: UserInfo) => {
         if (this.cubaREST.restApiToken == null) {
           this.usingAnonymously = true;

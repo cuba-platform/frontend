@@ -22,9 +22,16 @@ export function getMainStore(): MainStore {
 export interface CubaAppProviderProps {
   cubaREST: CubaApp;
   children: React.ReactNode | React.ReactNode[] | null;
+  restApiTokenPromise?: Promise<string|undefined>;
 }
 
-export const CubaAppProvider: React.FC<CubaAppProviderProps> = ({cubaREST, children}) => {
+export const CubaAppProvider: React.FC<CubaAppProviderProps> = (
+  {
+    cubaREST,
+    children,
+    restApiTokenPromise = Promise.resolve(undefined)
+  }
+) => {
   const CubaAppContext = getContext();
   return (
     <CubaAppContext.Consumer>
@@ -32,7 +39,12 @@ export const CubaAppProvider: React.FC<CubaAppProviderProps> = ({cubaREST, child
         if (cubaREST && context.cubaREST !== cubaREST) {
           globalCubaREST = cubaREST;
           mainStore = new MainStore(cubaREST);
-          mainStore.initialize();
+          restApiTokenPromise.then((restApiToken) => {
+            if (restApiToken != null) {
+              cubaREST.restApiToken = restApiToken;
+            }
+            mainStore.initialize();
+          });
           context = Object.assign({}, context, {cubaREST});
         }
 
