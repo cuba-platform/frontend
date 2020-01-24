@@ -1,13 +1,14 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import { Modal, Button, Card, Icon, Spin } from "antd";
+import { computed } from "mobx";
+import { Modal, Button, Card, Icon } from "antd";
 import {
   collection,
   injectMainStore,
   MainStoreInjected
 } from "@cuba-platform/react-core";
-import { EntityProperty } from "@cuba-platform/react-ui";
+import { EntityProperty, Spinner } from "@cuba-platform/react-ui";
 import { Car } from "cuba/entities/mpg$Car";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement } from "./CarManagement";
@@ -61,22 +62,21 @@ class CarCardsComponent extends React.Component<
     });
   };
 
+  @computed private get dataLoaded() {
+    const { mainStore } = this.props;
+    return (
+      mainStore &&
+      !!mainStore.messages &&
+      !!mainStore.metadata &&
+      !!mainStore.enums &&
+      !!mainStore.security.permissions
+    );
+  }
+
   render() {
     const { status, items } = this.dataCollection;
-
-    if (status === "LOADING") {
-      return (
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)"
-          }}
-        >
-          <Spin size="large" />
-        </div>
-      );
+    if (status === "LOADING" || !this.dataLoaded) {
+      return <Spinner />;
     }
 
     return (

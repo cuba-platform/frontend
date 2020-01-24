@@ -11,10 +11,11 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -184,7 +185,7 @@ var CubaApp = /** @class */ (function () {
     };
     CubaApp.prototype.loadEntitiesWithCount = function (entityName, options, fetchOptions) {
         var count;
-        var optionsWithCount = __assign({}, options, { returnCount: true });
+        var optionsWithCount = __assign(__assign({}, options), { returnCount: true });
         return this.fetch('GET', "v2/entities/" + entityName, optionsWithCount, __assign({ handleAs: 'raw' }, fetchOptions))
             .then(function (response) {
             count = parseInt(response.headers.get('X-Total-Count'), 10);
@@ -192,12 +193,12 @@ var CubaApp = /** @class */ (function () {
         }).then(function (result) { return ({ result: result, count: count }); });
     };
     CubaApp.prototype.searchEntities = function (entityName, entityFilter, options, fetchOptions) {
-        var data = __assign({}, options, { filter: entityFilter });
+        var data = __assign(__assign({}, options), { filter: entityFilter });
         return this.fetch('GET', 'v2/entities/' + entityName + '/search', data, __assign({ handleAs: 'json' }, fetchOptions));
     };
     CubaApp.prototype.searchEntitiesWithCount = function (entityName, entityFilter, options, fetchOptions) {
         var count;
-        var optionsWithCount = __assign({}, options, { filter: entityFilter, returnCount: true });
+        var optionsWithCount = __assign(__assign({}, options), { filter: entityFilter, returnCount: true });
         return this.fetch('GET', 'v2/entities/' + entityName + '/search', optionsWithCount, __assign({ handleAs: 'raw' }, fetchOptions)).then(function (response) {
             count = parseInt(response.headers.get('X-Total-Count'), 10);
             return response.json();
@@ -226,7 +227,7 @@ var CubaApp = /** @class */ (function () {
     };
     CubaApp.prototype.queryWithCount = function (entityName, queryName, params, fetchOptions) {
         var count;
-        var paramsWithCount = __assign({}, params, { returnCount: true });
+        var paramsWithCount = __assign(__assign({}, params), { returnCount: true });
         return this.fetch('GET', "v2/queries/" + entityName + "/" + queryName, paramsWithCount, __assign({ handleAs: 'raw' }, fetchOptions))
             .then(function (response) {
             count = parseInt(response.headers.get('X-Total-Count'), 10);

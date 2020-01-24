@@ -5,14 +5,19 @@ import { observer } from "mobx-react";
 import { CarManagement } from "./CarManagement";
 import { FormComponentProps } from "antd/lib/form";
 import { Link, Redirect } from "react-router-dom";
-import { IReactionDisposer, observable, reaction, toJS } from "mobx";
+import { IReactionDisposer, observable, reaction, toJS, computed } from "mobx";
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
 
-import { collection, instance } from "@cuba-platform/react-core";
+import {
+  collection,
+  instance,
+  MainStoreInjected,
+  injectMainStore
+} from "@cuba-platform/react-core";
 
 import {
   Field,
@@ -20,7 +25,8 @@ import {
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
-  MultilineText
+  MultilineText,
+  Spinner
 } from "@cuba-platform/react-ui";
 
 import "../../app/App.css";
@@ -28,12 +34,13 @@ import "../../app/App.css";
 import { Car } from "../../cuba/entities/scr$Car";
 import { Garage } from "../../cuba/entities/scr$Garage";
 
-type Props = FormComponentProps & EditorProps;
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
 };
 
+@injectMainStore
 @observer
 class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   dataInstance = instance<Car>(Car.NAME, {
@@ -115,6 +122,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     }
 
     const { status } = this.dataInstance;
+    if (!this.dataLoaded) return <Spinner />;
 
     return (
       <Card className="narrow-layout">
@@ -205,6 +213,17 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
 
   componentWillUnmount() {
     this.reactionDisposer();
+  }
+
+  @computed private get dataLoaded() {
+    const { mainStore } = this.props;
+    return (
+      mainStore &&
+      !!mainStore.messages &&
+      !!mainStore.metadata &&
+      !!mainStore.enums &&
+      !!mainStore.security.permissions
+    );
   }
 }
 

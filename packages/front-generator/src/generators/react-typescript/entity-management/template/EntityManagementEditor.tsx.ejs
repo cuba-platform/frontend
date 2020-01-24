@@ -5,14 +5,14 @@ import {observer} from "mobx-react";
 import {<%= className %>} from "./<%= className %>";
 import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
-import {IReactionDisposer, observable, reaction, toJS} from "mobx";
+import {IReactionDisposer, observable, reaction, toJS, computed} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 import {
 <% if (Object.keys(editRelations).length > 0) { %>
   collection,
 <% } %>
-  instance,
+  instance, MainStoreInjected, injectMainStore
 } from "@cuba-platform/react-core";
 
 import {
@@ -23,7 +23,8 @@ import {
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
-  MultilineText
+  MultilineText,
+  Spinner
 } from "@cuba-platform/react-ui";
 
 import "<%= relDirShift %>app/App.css";
@@ -32,13 +33,13 @@ import "<%= relDirShift %>app/App.css";
   import {<%= relationImport.className %>} from "<%= relDirShift %><%= relationImport.path %>";
 <% }) %>
 
-type Props = FormComponentProps & EditorProps;
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
 };
 
-
+@injectMainStore
 @observer
 class <%= editComponentName %>Component extends React.Component<Props & WrappedComponentProps> {
 
@@ -105,6 +106,7 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
     }
 
     const {status} = this.dataInstance;
+    if (!this.dataLoaded) return <Spinner/>;
 
     return (
       <Card className='narrow-layout'>
@@ -178,6 +180,11 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
 
   componentWillUnmount() {
     this.reactionDisposer();
+  }
+
+  @computed private get dataLoaded() {
+    const { mainStore } = this.props;
+    return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && !!mainStore.security.permissions;
   }
 
 }

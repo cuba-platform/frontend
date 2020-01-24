@@ -1,14 +1,15 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import { Modal, Button } from "antd";
 import {
   collection,
   injectMainStore,
   MainStoreInjected
 } from "@cuba-platform/react-core";
-import { DataTable } from "@cuba-platform/react-ui";
+
+import { DataTable, Spinner } from "@cuba-platform/react-ui";
 import { Car } from "cuba/entities/mpg$Car";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement3 } from "./CarManagement3";
@@ -65,7 +66,20 @@ class CarTableComponent extends React.Component<
     });
   };
 
+  @computed private get dataLoaded() {
+    const { mainStore } = this.props;
+    return (
+      mainStore &&
+      !!mainStore.messages &&
+      !!mainStore.metadata &&
+      !!mainStore.enums &&
+      !!mainStore.security.permissions
+    );
+  }
+
   render() {
+    if (!this.dataLoaded) return <Spinner />;
+
     const buttons = [
       <Link
         to={CarManagement3.PATH + "/" + CarManagement3.NEW_SUBPATH}

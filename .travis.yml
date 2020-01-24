@@ -45,20 +45,18 @@ jobs:
     - name: "front-generator - e2e - e2e:polymer2-ts"
       script: npm run test:e2e:polymer2-ts --prefix packages/front-generator
 
-    - name: "front-generator - e2e - e2e:react:scr"
-      script: npm run test:e2e:react:scr --prefix packages/front-generator
-
     - name: "front-generator - e2e - e2e:react:new-project"
       script: npm run test:e2e:react:new-project --prefix packages/front-generator
 
     - name: "front-generator - e2e - e2e:react:empty-model"
       script: npm run test:e2e:react:empty-model --prefix packages/front-generator
 
-    - name: "Puppeteer e2e tests on generated app"
+    - name: "Tests on generated app"
       # setup cuba postgres user; build and run backend app
       before_install: node scripts/ci-bootstrap-backend.js
       script:
       - npm run bootstrap-react-app
+      - npm run validate-react-app
       - npm run start-react-app &
       - sleep 60 && npm run test-pup
 

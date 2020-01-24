@@ -1,16 +1,17 @@
 import * as React from "react";
 import {observer} from "mobx-react";
 import {Link} from "react-router-dom";
-
+import { computed,
 <% if (listType === 'table') { -%>
-  import {observable} from 'mobx';
+  observable
 <% } %>
+} from 'mobx';
 
 import {Modal, Button,
 <% if (listType === 'cards') { %>
-  Card, Icon, Spin,
+  Card, Icon,
 <% } else if (listType === 'list') { %>
-  List, Icon, Spin,
+  List, Icon,
 <% } %>
 } from "antd";
 
@@ -21,6 +22,7 @@ import {
 <% } else { %>
   EntityProperty,
 <% } %>
+  Spinner
 } from "@cuba-platform/react-ui";
 
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
@@ -60,9 +62,17 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
     });
   };
 
+  @computed private get dataLoaded() {
+    const { mainStore } = this.props;
+    return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && !!mainStore.security.permissions;
+  }
+
   <% /* TABLE COMPONENT*/ %>
 <% if (listType === 'table') { %>
   render() {
+
+    if (!this.dataLoaded) return <Spinner/>;
+
     const buttons = (
       [
         (<Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH} key='create'>
@@ -124,16 +134,9 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
   <% /* CARD\LIST COMPONENT*/ %>
 <% } else { %>
   render() {
-    const {
-      status,
-      items
-    } = this.dataCollection;
 
-    if (status === "LOADING") {
-      return (<div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-        <Spin size='large'/>
-      </div>);
-    }
+    const {status, items} = this.dataCollection;
+    if (status === "LOADING" || !this.dataLoaded) { return <Spinner/> };
 
     return (
       <div <% if (listType !== 'table') { %>className='narrow-layout'<% } %>>
