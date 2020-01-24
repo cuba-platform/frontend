@@ -28,6 +28,9 @@
     - [Security](#react-client-security)
     - [Building the Client](#react-client-build)
     - [Configuration](#react-client-configuration)
+- [React Native Client](#react-native-client)
+    - [Running the Client](#react-native-running-the-client)
+    - [Technologies](#react-native-technologies)
 - [Polymer-based Client (Deprecated)](#polymer-client)
 - [TypeScript SDK](#typescript-sdk)
     - [Entities](#react-client-entities)
@@ -393,7 +396,7 @@ The client is based on the following frameworks and libraries:
 * [MobX](https://mobx.js.org/) - reactive state management;
 * [Ant Design](https://ant.design/docs/react/introduce) - UI components;
 * [React Router](https://reacttraining.com/react-router/) - routing;
-* [CUBA React Core](packages/cuba-react-core) - CUBA React core components and utilities;
+* [CUBA React Core](https://github.com/cuba-platform/frontend#cuba-react-components) - CUBA React core components and utilities;
 * [CUBA React UI](packages/cuba-react-ui) - CUBA React UI components and utilities;
 * [CUBA REST JS](packages/cuba-rest-js) - interaction with СUBA generic REST API;
 * [Create React App](https://facebook.github.io/create-react-app/) - build scripts and configuration;
@@ -962,6 +965,100 @@ The client served from development server has absolute URL of REST API specified
 See the [list of all available environment variables](https://facebook.github.io/create-react-app/docs/advanced-configuration).
 
 See `src/config.ts` for full list of common application settings used in runtime.
+
+<a name="react-native-client"/>
+
+## React Native Client
+
+<a name="react-native-running-the-client"/>
+
+### Running the Client
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+The client uses [Expo](https://expo.io/). You may prefer to install Expo CLI globally and use it from command line directly, or use it via npm scripts, which doesn't require global installation.
+
+```bash
+# with Expo CLI installed globally
+expo [command] [options]
+
+# without global installation
+npm run expo -- [command] [options]
+``` 
+
+To install Expo CLI globally:
+
+```bash
+npm install -g expo-cli
+```
+
+See [Expo documentation](https://expo.io/) for details on available commands and options. If you are running Expo via npm scripts, note that there convenience scripts for the most widely used commands:
+
+```bash
+# start (restart) a local server for the app:
+# with Expo CLI installed globally:
+expo start
+# via generic npm script:
+npm run expo -- start
+# via convenience npm script:
+npm run start
+
+# run the project in the browser:
+# with Expo CLI installed globally:
+expo start --web
+# via generic npm script:
+npm run expo -- start --web
+# via convenience npm script:
+npm run web
+
+# run the project on an Android device or emulator:
+# with Expo CLI installed globally:
+expo start --android
+# via generic npm script:
+npm run expo -- start --android
+# via convenience npm script:
+npm run android
+
+# run the project in an iOS simulator:
+# with Expo CLI installed globally:
+expo start --ios
+# via generic npm script:
+npm run expo -- start --ios
+# via convenience npm script:
+npm run ios
+
+# eject:
+# with Expo CLI installed globally:
+expo eject
+# via generic npm script:
+npm run expo -- eject
+# via convenience npm script:
+npm run eject
+
+# passing options to a convenience script:
+npm run android -- --clear
+# which would be the same as:
+expo start --android --clear
+```
+
+> In order to run the app on an emulator/simulator you may need to change `REACT_NATIVE_APP_CUBA_URL` in `.env` from `localhost` to your IP address. You may need to clear the React Native Packager cache for the change to take effect (e.g. `expo start --android --clear` or `npm run android -- --clear`).
+
+<a name="react-native-technologies"/>
+
+### Technologies
+
+The client is based on the following frameworks and libraries:
+
+* [React Native](https://facebook.github.io/react-native/) - UI rendering;
+* [MobX](https://mobx.js.org/) - reactive state management;
+* [CUBA React Core](https://github.com/cuba-platform/frontend#cuba-react-components) - CUBA React core components and utilities;
+* [CUBA REST JS](packages/cuba-rest-js) - interaction with СUBA generic REST API;
+* [Expo](https://expo.io/) - development tools for React Native;
+
 
 <a name="polymer-client"/>
 

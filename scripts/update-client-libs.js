@@ -1,26 +1,30 @@
 const {promisify} = require('util');
 const exec = promisify(require('child_process').exec);
 
-const restVer = require('../packages/cuba-rest-js/package.json').version;
-const reactCoreVer = require('../packages/cuba-react-core/package.json').version;
-const reactUiVer = require('../packages/cuba-react-ui/package.json').version;
-
-const updateClientLibs = async () => {
-  const cubaRestDir = 'cuba-rest-js';
-  const cubaReactCoreDir = 'cuba-react-core';
-  const cubaReactUiDir = 'cuba-react-ui';
-
-  await cmd(`npm install ../packages/${cubaRestDir}/cuba-platform-rest-${restVer}.tgz`);
-  await cmd(`npm install ../packages/${cubaReactCoreDir}/cuba-platform-react-core-${reactCoreVer}.tgz`);
-  await cmd(`npm install ../packages/${cubaReactUiDir}/cuba-platform-react-ui-${reactUiVer}.tgz`);
-  await cmd(`npm install`);
+const dirNames = {
+  rest: 'cuba-rest-js',
+  'react-core': 'cuba-react-core',
+  'react-ui': 'cuba-react-ui',
 };
 
-const cmd = async (command) => {
-  const dir = 'react-client-scr';
-  console.log(`${dir}$ ${command}`);
-  await exec(command, {cwd: dir});
+const updateClientLibs = async (clientDir, libs) => {
+  console.log('*** Updating client libs ***');
+
+  for (const lib of libs) {
+    console.log(`updating @cuba-platform/${lib}...`);
+    const version = require(`../packages/${dirNames[lib]}/package.json`).version;
+    await cmd(clientDir, `npm install ../packages/${dirNames[lib]}/cuba-platform-${lib}-${version}.tgz`);
+    console.log(`@cuba-platform/${lib} updated`);
+  }
+
+  console.log(`updating other dependencies...`);
+  await cmd(clientDir, `npm install`);
+  console.log(`all dependencies updated`);
 };
 
-// noinspection JSIgnoredPromiseFromCall
-updateClientLibs();
+const cmd = async (cwd, command) => {
+  console.log(`${cwd}$ ${command}`);
+  await exec(command, {cwd: cwd});
+};
+
+module.exports = updateClientLibs;
