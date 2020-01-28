@@ -61,8 +61,6 @@ class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNat
     const sdkDest = 'cuba';
     this.log(`Generating SDK model and services in ${sdkDest}`);
 
-    console.log(this.modelPath);
-
     const sdkOpts = {
       model: this.modelPath,
       dest: sdkDest
