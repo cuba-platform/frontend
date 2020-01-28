@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const {promisify} = require('util');
-const exec = promisify(require('child_process').exec);
+const {runCmdSync} = require('./common');
 const rimraf = promisify(require('rimraf'));
 
 const encodeAnswers = (answers) => {
@@ -13,7 +13,7 @@ const generateClientScr = async (clientName, clientDir, modelPath, generators) =
 
     console.log(`*** Generating ${clientName} ***`);
     console.log('building front-generator');
-    await exec(`lerna run --scope @cuba-platform/front-generator prepublishOnly`);
+    runCmdSync(`lerna run --scope @cuba-platform/front-generator prepublishOnly`);
 
     !fs.existsSync(SCR_APP_DIR) && fs.mkdirSync(SCR_APP_DIR);
     await rimraf(`${SCR_APP_DIR}/*`);
@@ -34,7 +34,7 @@ const generateClientScr = async (clientName, clientDir, modelPath, generators) =
         const dest = generator.dest ? ` --dest ${generator.dest}` : '';
         const answers = generator.answers ? ` --answers ${encodeAnswers(generator.answers)}` : '';
 
-        await exec('' +
+        runCmdSync('' +
             `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} ${generator.command}` +
             modelArg + dirShift + dest + answers
         );
