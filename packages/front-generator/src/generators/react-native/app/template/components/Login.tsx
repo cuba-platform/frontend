@@ -12,6 +12,7 @@ import {observable} from "mobx";
 import {colors} from '../styles/palette';
 import { PrimaryButton } from './PrimaryButton';
 import {cubaREST, REST_TOKEN_STORAGE_KEY} from "../rest/rest";
+import {OAUTH2_INVALID_GRANT} from "../rest/errorCodes";
 
 
 const styles = StyleSheet.create({
@@ -165,7 +166,7 @@ export class Login extends Component<Props> {
       .catch(err => {
         if (err.response) {
           err.response.json().then((message) => {
-            if (message.error === 'invalid_grant') {
+            if (message.error === OAUTH2_INVALID_GRANT) {
               this.badCredentialsError = true;
             } else {
               this.serverError = true;
