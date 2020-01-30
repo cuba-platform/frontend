@@ -9,7 +9,7 @@ registerBase64();
 
 export default function App() {
   return (
-    <CubaAppProvider cubaREST={cubaREST} restApiTokenPromise={AsyncStorage.getItem(REST_TOKEN_STORAGE_KEY)}>
+    <CubaAppProvider cubaREST={cubaREST} retrieveRestApiToken={() => AsyncStorage.getItem(REST_TOKEN_STORAGE_KEY)}>
       <Root/>
     </CubaAppProvider>
   );
