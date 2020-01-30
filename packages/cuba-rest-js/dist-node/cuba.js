@@ -465,3 +465,4 @@ function getBasicAuthHeaders(client, secret, locale) {
     };
 }
 exports.getBasicAuthHeaders = getBasicAuthHeaders;
+//# sourceMappingURL=cuba.js.map
