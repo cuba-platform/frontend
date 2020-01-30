@@ -1,9 +1,11 @@
 import {
+  EffectivePermsInfo,
+  EffectivePermsLoadOptions,
   EntitiesWithCount,
   EntityMessages,
   EnumInfo,
   MetaClassInfo,
-  PermissionInfo, RolesInfo,
+  PermissionInfo,
   SerializedEntity,
   UserInfo,
   View
@@ -333,14 +335,26 @@ export class CubaApp {
     return fetchRes;
   }
 
+  /**
+   * @deprecated since version 0.7.3 use {@link #getEffectivePermissions}
+   * @param fetchOptions
+   */
   public getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]> {
     return this.fetch('GET', 'v2/permissions', null, {handleAs: 'json', ...fetchOptions});
   }
 
-  public getRoles(fetchOptions?: FetchOptions): Promise<RolesInfo> {
+  public getEffectivePermissions(effectivePermsLoadOptions?: EffectivePermsLoadOptions, fetchOptions?: FetchOptions)
+    : Promise<EffectivePermsInfo> {
+
+    const loadOpts: EffectivePermsLoadOptions = {
+      entities: true,
+      entityAttributes: true,
+      specific: true,
+      ...effectivePermsLoadOptions};
+
     return this.requestIfSupported(
       '7.2',
-      () => this.fetch('GET', 'v2/roles', null, {handleAs: 'json', ...fetchOptions}));
+      () => this.fetchJson('GET', 'v2/permissions/effective', loadOpts, fetchOptions));
   }
 
   public getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo> {
@@ -353,6 +367,13 @@ export class CubaApp {
 
   public getFile(id: string, fetchOptions?: FetchOptions): Promise<Blob> {
     return this.fetch('GET', 'v2/files/' + id, null, {handleAs: 'blob', ...fetchOptions});
+  }
+
+  /**
+   * Shorthand for {@link #fetch} that already has 'json' as default 'handleAs' property
+   */
+  public fetchJson<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T> {
+    return this.fetch(method, path, data, {handleAs: 'json', ...fetchOptions});
   }
 
   public fetch<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T> {

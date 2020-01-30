@@ -54,8 +54,9 @@ export interface UserInfo {
   locale: string;
 }
 
-export type EntityOperationType = 'create' | 'read' | 'update' | 'delete';
-
+/*
+ * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
+ */
 export enum PermissionType {
   SCREEN = 'SCREEN',
   ENTITY_OP = 'ENTITY_OP',
@@ -64,10 +65,18 @@ export enum PermissionType {
   UI = 'UI'
 }
 
+/**
+ * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
+ */
 export type BasePermissionValue = 'DENY' | 'ALLOW';
-export type EntityAttrPermissionValue = 'DENY' | 'VIEW' | 'MODIFY';
+/**
+ * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
+ */
 export type UiPermissionValue = 'HIDE' | 'READ_ONLY' | 'SHOW';
 
+/**
+ * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
+ */
 export interface PermissionInfo {
   type: PermissionType;
   target: string;
@@ -75,21 +84,28 @@ export interface PermissionInfo {
   intValue: number;
 }
 
-export enum RoleType {
-  STANDARD = 'STANDARD',
-  SUPER = 'SUPER',
-  READONLY = 'READONLY',
-  DENYING = 'DENYING',
-  STRICTLY_DENYING = 'STRICTLY_DENYING'
+export type EntityOperationType = 'create' | 'read' | 'update' | 'delete';
+export type EntityAttrPermissionValue = 'DENY' | 'VIEW' | 'MODIFY';
+export interface EffectivePermsLoadOptions {
+  entities: boolean;
+  entityAttributes: boolean;
+  specific: boolean;
 }
 
-export interface RoleInfo {
-  roleType: RoleType | null;
+export type AttributePermissionValue = 0 | 1 | 2;
+export type EntityPermissionValue = 0 | 1;
+
+export interface Permission<T extends AttributePermissionValue | EntityPermissionValue> {
+  target: string; value: T;
 }
 
-export interface RolesInfo {
-  permissions: PermissionInfo[];
-  roles: RoleInfo[];
+export interface EffectivePermsInfo {
+  explicitPermissions: {
+    entities: Array<Permission<EntityPermissionValue>>;
+    entityAttributes: Array<Permission<AttributePermissionValue>>;
+    specific: Array<Permission<EntityPermissionValue>>;
+  };
+  undefinedPermissionPolicy: 'ALLOW' | 'DENY';
 }
 
 export interface EnumValueInfo {

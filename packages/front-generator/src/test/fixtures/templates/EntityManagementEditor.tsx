@@ -222,7 +222,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
       !!mainStore.messages &&
       !!mainStore.metadata &&
       !!mainStore.enums &&
-      !!mainStore.security.permissions
+      mainStore.security.dataLoaded
     );
   }
 }
