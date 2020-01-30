@@ -87,3 +87,4 @@ function getMaxAllowedAttrPerm(entityName, attributeName, perms) {
 function hasRole(roles, roleType) {
     return roles.some(function (r) { return r.roleType === roleType; });
 }
+//# sourceMappingURL=security.js.map

@@ -22,3 +22,4 @@ var PredefinedView;
     PredefinedView["LOCAL"] = "_local";
     PredefinedView["BASE"] = "_base";
 })(PredefinedView = exports.PredefinedView || (exports.PredefinedView = {}));
+//# sourceMappingURL=model.js.map

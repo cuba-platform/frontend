@@ -35,3 +35,4 @@ var DefaultStorage = /** @class */ (function () {
     return DefaultStorage;
 }());
 exports.DefaultStorage = DefaultStorage;
+//# sourceMappingURL=storage.js.map
