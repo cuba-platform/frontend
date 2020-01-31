@@ -1,5 +1,5 @@
 import {action, IObservableArray, observable, ObservableMap} from 'mobx';
-import {CubaApp, EntityAttrPermissionValue, PermissionInfo, RoleInfo, RolesInfo} from '@cuba-platform/rest';
+import {CubaApp, EntityAttrPermissionValue, PermissionInfo, RoleInfo} from '@cuba-platform/rest';
 import {getAttributePermission} from '@cuba-platform/rest/dist-node/security';
 
 export class Security {
@@ -29,28 +29,11 @@ export class Security {
 
   @action loadPermissions() {
     const requestId = ++this.permissionsRequestCount;
-
-    this.cubaREST.getRoles()
-      .then(action((rolesInfo: RolesInfo) => {
+    this.cubaREST.getPermissions()
+      .then(action((perms: PermissionInfo[]) => {
         if (requestId === this.permissionsRequestCount) {
-          this.permissions = observable(rolesInfo.permissions);
-          this.roles = observable(rolesInfo.roles);
-          this.attrPermissionCache.clear();
+          this.permissions = observable(perms);
         }
-      }))
-      .catch(reason => {
-        // support rest api version < 7.2
-        if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
-          this.cubaREST.getPermissions()
-            .then(action((perms: PermissionInfo[]) => {
-              if (requestId === this.permissionsRequestCount) {
-                this.permissions = observable(perms);
-              }
-            }));
-        } else {
-          throw reason;
-        }
-      });
+      }));
   }
-
 }
