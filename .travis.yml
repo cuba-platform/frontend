@@ -28,37 +28,15 @@ before_script: |
 
 jobs:
   include:
-    - name: "Lint commits"
-      script: commitlint-travis
-
-    - name: "Unit tests and coverage"
-      # setup cuba postgres user; build and run backend app
-      before_install: node scripts/ci-bootstrap-backend.js
-      script: npm run lerna run coverage
-
-    - name: "front-generator - e2e - e2e:sdk"
-      script: npm run test:e2e:sdk --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:polymer2"
-      script: npm run test:e2e:polymer2 --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:polymer2-ts"
-      script: npm run test:e2e:polymer2-ts --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:react:new-project"
-      script: npm run test:e2e:react:new-project --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:react:empty-model"
-      script: npm run test:e2e:react:empty-model --prefix packages/front-generator
-
     - name: "Tests on generated app"
       # setup cuba postgres user; build and run backend app
       before_install: node scripts/ci-bootstrap-backend.js
       script:
-      - npm run bootstrap-react-app
-      - npm run validate-react-app
-      - npm run start-react-app &
-      - sleep 60 && npm run test-pup
+        - npm run bootstrap-react-app
+        - npm run validate-react-app
+        - npm run start-react-app &
+        - sleep 60
+        - npm test react-client-scr/ --prefix test-pup
 
     - name: "Tests on generated app - backward compatibility 7.1"
       # setup cuba postgres user; build and run backend app
@@ -71,6 +49,27 @@ jobs:
         - npm test react-client-scr/app-start.test.js --prefix test-pup
         - npm test react-client-scr-71 --prefix test-pup
 
+    - name: "Unit tests, coverage and lint commits"
+      # setup cuba postgres user; build and run backend app
+      before_install: node scripts/ci-bootstrap-backend.js
+      script:
+        - commitlint-travis
+        - npm run lerna run coverage
+
+    - name: "front-generator - e2e - e2e:react:new-project"
+      script: npm run test:e2e:react:new-project --prefix packages/front-generator
+
+    - name: "front-generator - e2e - e2e:react:empty-model"
+      script: npm run test:e2e:react:empty-model --prefix packages/front-generator
+
+    - name: "front-generator - e2e - e2e:sdk"
+      script: npm run test:e2e:sdk --prefix packages/front-generator
+
+    - name: "front-generator - e2e - e2e:polymer2"
+      script: npm run test:e2e:polymer2 --prefix packages/front-generator
+
+    - name: "front-generator - e2e - e2e:polymer2-ts"
+      script: npm run test:e2e:polymer2-ts --prefix packages/front-generator
 
 #    - name: "front-generator - e2e - e2e:react:scr os: windows"
 #      os:
