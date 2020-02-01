@@ -901,14 +901,14 @@ Documentation can be found [here](https://doc.cuba-platform.com/manual-latest/po
 
 TypeScript SDK contains CUBA data model
 ([entities and enums](https://doc.cuba-platform.com/manual-latest/data_model.html)), 
-rest [services](https://doc.cuba-platform.com/manual-latest/rest_api_v2_services_config.html) 
-and [queries](https://doc.cuba-platform.com/manual-latest/rest_api_v2_queries_config.html) 
+rest [services](https://doc.cuba-platform.com/restapi-7.1/#rest_api_v2_services_config) 
+and [queries](https://doc.cuba-platform.com/restapi-7.1/#rest_api_v2_queries_config) 
 as TypeScript classes.
 
 The SDK is framework-agnostic, meaning that in addition to using it with our React client, you can use it with any
 TypeScript-compatible framework such as Angular of Vue.  
 
-It's possible to generate the following configurations of SDK depending on your needs (see [usage instruction](#using-via-command-line)):
+It's possible to generate the following configurations of SDK depending on your needs (see [usage instruction](#getting-started-cli)):
 
 - ```gen-cuba-front sdk:model``` - generates entities and enums<br>
 - ```gen-cuba-front sdk:all``` - generates all toolkit - entities, enums, queries and services<br>
