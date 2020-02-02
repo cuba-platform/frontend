@@ -44,6 +44,8 @@
     "@types/mocha": "^2.2.48",
     "@types/nock": "^11.1.0",
     "@types/node": "^10.17.0",
+    "@types/sinon": "^7.5.1",
+    "@types/sinon-chai": "^3.2.3",
     "@types/through2": "^2.0.33",
     "@types/yeoman-generator": "^2.0.3",
     "chai": "^4.2.0",
@@ -51,6 +53,8 @@
     "nock": "^11.3.5",
     "nyc": "^14.1.1",
     "rimraf": "^2.6.2",
+    "sinon": "^8.1.1",
+    "sinon-chai": "^3.4.0",
     "source-map-support": "^0.5.6",
     "ts-node": "^4.1.0",
     "vinyl-fs": "^3.0.3"
