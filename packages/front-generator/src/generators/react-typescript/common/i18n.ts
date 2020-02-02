@@ -1,18 +1,19 @@
 import * as path from 'path';
 import {MemFsEditor} from "yeoman-generator";
+import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
 
 /**
- * Generates and add 'router.className = Class Name' message to i18n en file.
- * Also add set of en and ru messages passed in parameters ('enJson', 'ruJson') to existed i18n files.
- * If message already exist in file - it will be overwritten with new value.
+ * Add set of en and ru component messages to existed i18n files.
+ * Also, based on class name, generates and add component menu item caption in en.json file.
+ * If any message already exist in file - it will be overwritten with new value.
  *
  * @param fs - yeoman fs
- * @param className - component class name //todo may be pass className for router as part of enJson object
+ * @param className - component class name
  * @param dirShift - directory depth from project root
- * @param enJson - object with key-value messages to be added in en file
- * @param ruJson - object with key-value messages to be added in ru file
+ * @param enJson - object with key-value i18n component captions to be added in en file
+ * @param ruJson - object with key-value i18n component captions to be added in ru file
  */
-export function writeI18nMessages(
+export function writeComponentI18nMessages(
   fs: MemFsEditor,
   className: string,
   dirShift: string = './',
@@ -37,13 +38,13 @@ function mergeI18nMessages(
   enTemplate: Record<string, string>,
   ruExisting: Record<string, string>,
   ruTemplate: Record<string, string>,
-  className: string
-): {
-  enOut: Record<string, string>, ruOut: Record<string, string>
-} {
+  className: string)
+  : { enOut: Record<string, string>, ruOut: Record<string, string> } {
+
+  const menuCaption = splitByCapitalLetter(capitalizeFirst(className));
   const enOut = {
     ...enTemplate,
-    [`router.${className}`]: className,
+    [`router.${className}`]: menuCaption,
     ...enExisting
   };
 

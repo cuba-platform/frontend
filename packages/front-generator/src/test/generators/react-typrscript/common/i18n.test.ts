@@ -1,4 +1,4 @@
-import {writeI18nMessages} from '../../../../generators/react-typescript/common/i18n';
+import {writeComponentI18nMessages} from '../../../../generators/react-typescript/common/i18n';
 import {expect, use} from 'chai';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
@@ -17,14 +17,14 @@ describe('i18n generation', () => {
 
   it('should write i18n messages when message files are empty', () => {
 
-    writeI18nMessages(fs, "componentClassName", './directory/shift');
+    writeComponentI18nMessages(fs, "componentClassName", './directory/shift');
 
     expect(readJSON).calledWith(expectRuPath);
     expect(readJSON).calledWith(expectEnPath);
 
     expect(writeJSON).calledWith(expectRuPath, {});
     expect(writeJSON).calledWith(
-      expectEnPath, {'router.componentClassName': 'componentClassName'});
+      expectEnPath, {'router.componentClassName': 'Component Class Name'});
   });
 
   it('should merge and write i18n messages', function () {
@@ -64,7 +64,7 @@ describe('i18n generation', () => {
       'key3': 'predefined value 3',
       'key4': 'template value 4',
       'key5': 'template value 5',
-      'router.testClass': 'testClass',
+      'router.testClass': 'Test Class',
       'keyNotInTemplate': 'key not in template'
     };
 
@@ -82,7 +82,7 @@ describe('i18n generation', () => {
     readJSON.withArgs(expectRuPath).returns(ruExisting);
     fs.readJSON = readJSON;
 
-    writeI18nMessages(fs, 'testClass', './directory/shift', enTemplate, ruTemplate);
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', enTemplate, ruTemplate);
 
     expect(writeJSON).calledWith(expectEnPath, enExpected);
     expect(writeJSON).calledWith(expectRuPath, ruExpected);
