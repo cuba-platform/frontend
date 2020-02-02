@@ -2,15 +2,19 @@ import * as path from "path";
 import {Entity} from "./model/cuba-model";
 
 /**
- * @param {string} elementName my-app-custom
+ * Remove illegal symbols and normalize class name by standard js notation.
+ *
+ * @param {string} elementName 'my-app-custom' | 'myAppCustom' | 'my app custom'
  * @returns {string} class name MyAppCustom
  */
 export const elementNameToClass = (elementName: string): string => {
-  if (elementName == null) {
-    return elementName;
-  }
+
+  if (elementName.match(/$\s*^/)) throw new Error('Could not generate class name from empty string');
+
   return elementName
-    .split('-')
+    .trim().replace(/\s{2,}/g, ' ') // extra spaces
+    .replace(/[^\w\d\s_\-$]/g, '') // remove symbols not allowed in class name
+    .split(/[-\s]/) // split by separate words
     .map(capitalizeFirst)
     .join('');
 };
