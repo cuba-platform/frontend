@@ -51,7 +51,7 @@
     "entity": {
       "name": "scr$Car"
     },
-    "managementComponentName": "CarManagement3"
+    "managementComponentName": "car-management-3"
   },
   "spareParts1": {
     "editView": {

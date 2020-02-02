@@ -23,6 +23,8 @@ export const capitalizeFirst = (part: string) => part[0].toUpperCase() + part.sl
 
 export const unCapitalizeFirst = (part: string) => part[0].toLowerCase() + part.slice(1);
 
+export const splitByCapitalLetter =  (word: string) => word.replace(/([^A-Z])([A-Z])/g, '$1 $2');
+
 export function convertToUnixPath(input: string): string {
   const isExtendedLengthPath = /^\\\\\?\\/.test(input);
   const hasNonAscii = /[^\u0000-\u0080]+/.test(input); // eslint-disable-line no-control-regex
