@@ -8,7 +8,7 @@ export type TemporalPropertyType =
 export type PropertyType = TemporalPropertyType |
   'string' | 'uuid'
   | 'byteArray'
-  | 'int' | 'double' | 'decimal'
+  | 'int' | 'long' | 'double' | 'decimal'
   | 'boolean';
 
 export interface SerializedEntityProps {
