@@ -1,10 +1,11 @@
 import * as React from "react";
-import {Checkbox, DatePicker, Input, Select, TimePicker} from "antd";
+import {Checkbox, DatePicker, Input, InputNumber, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
 import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType} from "@cuba-platform/rest"
 import {FileUpload} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
 import {MainStoreInjected, DataCollectionStore, WithId, injectMainStore, getPropertyInfo, isFileProperty} from "@cuba-platform/react-core";
+import './FormField.less';
 
 type Props = MainStoreInjected & {
   entityName: string
@@ -52,6 +53,15 @@ export const FormField = injectMainStore(observer((props: Props) => {
     case 'localTime':
     case 'offsetTime':
       return <TimePicker {...rest}/>
+    case 'int':
+      return <InputNumber min={JAVA_INTEGER_MIN_VALUE}
+                          max={JAVA_INTEGER_MAX_VALUE}
+                          precision={0}
+                          className='inputnumber-field'
+                          {...rest}
+             />
+    case 'double':
+      return <InputNumber className='inputnumber-field' {...rest}/>
   }
   return <Input {...rest}/>;
 }));
@@ -82,3 +92,6 @@ function getSelectMode(cardinality: Cardinality): "default" | "multiple" {
 function getAllowClear(propertyInfo: MetaPropertyInfo): boolean {
   return !propertyInfo.mandatory;
 }
+
+const JAVA_INTEGER_MIN_VALUE = -2_147_483_648;
+const JAVA_INTEGER_MAX_VALUE = 2_147_483_647;
