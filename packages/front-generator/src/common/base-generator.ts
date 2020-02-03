@@ -13,7 +13,12 @@ import {fromStudioProperties} from "./questions";
 import * as fs from "fs";
 import {ProjectModel} from "./model/cuba-model";
 import {findEntity, findQuery, findServiceMethod, findView} from "./model/cuba-model-utils";
-import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from './studio/studio-integration';
+import {
+  exportProjectModel,
+  getOpenedCubaProjects,
+  ERR_STUDIO_NOT_CONNECTED,
+  StudioProjectInfo
+} from './studio/studio-integration';
 import * as AutocompletePrompt from 'inquirer-autocomplete-prompt';
 import through2 = require('through2');
 import prettier = require('prettier');
@@ -51,15 +56,13 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       this.cubaProjectModel = readProjectModel(this.options.model);
     } else {
       const openedCubaProjects = await getOpenedCubaProjects();
-      if (openedCubaProjects.length < 1) {
-        this.env.error(Error("Please open Cuba Studio Intellij and enable Old Studio integration"));
-      }
+      if (!openedCubaProjects || openedCubaProjects.length < 1) this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
 
       const projectModelAnswers: ProjectInfoAnswers = await this.prompt([{
         name: 'projectInfo',
         type: 'list',
         message: 'Please select CUBA project you want to use for generation',
-        choices: openedCubaProjects.map(p => ({
+        choices: openedCubaProjects && openedCubaProjects.map(p => ({
           name: `${p.name} [${p.path}]`,
           value: p
         }))
