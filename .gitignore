@@ -2,5 +2,3 @@
 node_modules
 react-client-scr/**
 react-native-client-scr/**
-/packages/cuba-rest-js/dist-browser/
-/packages/cuba-rest-js/dist-node/
