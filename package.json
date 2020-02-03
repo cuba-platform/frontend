@@ -1,6 +1,10 @@
 {
   "name": "root",
   "private": true,
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^8.3.4",
