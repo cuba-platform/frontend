@@ -37,20 +37,20 @@ gen(
       {
         command: 'react-typescript:entity-management',
         dirShift,
-        dest: 'src/app/spare-parts1',
-        answers: answers.spareParts1
+        dest: 'src/app/datatypes-test1',
+        answers: answers.datatypesTest1
       },
       {
         command: 'react-typescript:entity-management',
         dirShift,
-        dest: 'src/app/spare-parts2',
-        answers: answers.spareParts2
+        dest: 'src/app/datatypes-test2',
+        answers: answers.datatypesTest2
       },
       {
         command: 'react-typescript:entity-management',
         dirShift,
-        dest: 'src/app/spare-parts3',
-        answers: answers.spareParts3
+        dest: 'src/app/datatypes-test3',
+        answers: answers.datatypesTest3
       },
     ]
 );

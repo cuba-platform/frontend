@@ -1,1 +1,0 @@
-alter table SCR_SPARE_PART add constraint FK_SCR_SPARE_PART_COMPOSITION_O2O foreign key (COMPOSITION_O2O_ID) references SCR_SPARE_PART_O2O(ID);

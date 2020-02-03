@@ -35,8 +35,24 @@
     <view entity="scr$SparePart" name="sparePart-view" extends="_local">
         <property name="spareParts" view="_minimal"/>
     </view>
-    <view entity="scr$SparePart" name="sparePart-front-edit" extends="_local">
-        <property name="compositionO2O" view="_minimal"/>
-        <property name="compositionO2M" view="_minimal"/>
-    </view>
+  <view entity="scr_DatatypesTestEntity" name="datatypesTestEntity-view" extends="_local">
+    <property name="associationO2Oattr" view="_minimal"/>
+    <property name="associationO2Mattr" view="_minimal"/>
+    <property name="associationM2Oattr" view="_minimal"/>
+    <property name="associationM2Mattr" view="_minimal"/>
+  </view>
+  <view entity="scr_AssociationM2MTestEntity" name="associationM2MTestEntity-view" extends="_local">
+    <property name="datatypesTestEntities" view="_minimal"/>
+  </view>
+  <view entity="scr_AssociationM2OTestEntity" name="associationM2OTestEntity-view" extends="_local"/>
+  <view entity="scr_AssociationO2MTestEntity" name="associationO2MTestEntity-view" extends="_local">
+    <property name="datatypesTestEntity" view="_minimal"/>
+  </view>
+  <view entity="scr_AssociationO2OTestEntity" name="associationO2OTestEntity-view" extends="_local">
+    <property name="datatypesTestEntity" view="_minimal"/>
+  </view>
+  <view entity="scr_CompositionO2MTestEntity" name="compositionO2MTestEntity-view" extends="_local">
+    <property name="datatypesTestEntity" view="_minimal"/>
+  </view>
+  <view entity="scr_CompositionO2OTestEntity" name="compositionO2OTestEntity-view" extends="_local"/>
 </views>

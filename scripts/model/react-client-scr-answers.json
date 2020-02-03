@@ -53,56 +53,56 @@
     },
     "managementComponentName": "car-management-3"
   },
-  "spareParts1": {
+  "datatypesTest1": {
     "editView": {
-      "name": "sparePart-front-edit",
-      "entityName": "scr$SparePart"
+      "name": "datatypesTestEntity-view",
+      "entityName": "scr_DatatypesTestEntity"
     },
+    "editComponentName": "DatatypesEdit1",
     "listView": {
-      "name": "_local",
-      "entityName": "scr$SparePart"
+      "name": "datatypesTestEntity-view",
+      "entityName": "scr_DatatypesTestEntity"
     },
-    "editComponentName": "SparePartEdit1",
-    "listComponentName": "SparePartTable1",
+    "listComponentName": "DatatypesBrowse1",
     "listType": "cards",
     "entity": {
-      "name": "scr$SparePart"
+      "name": "scr_DatatypesTestEntity"
     },
-    "managementComponentName": "SparePartManagement1"
+    "managementComponentName": "DatatypesManagement1"
   },
-  "spareParts2": {
+  "datatypesTest2": {
     "editView": {
-      "name": "sparePart-front-edit",
-      "entityName": "scr$SparePart"
+      "name": "datatypesTestEntity-view",
+      "entityName": "scr_DatatypesTestEntity"
     },
+    "editComponentName": "DatatypesEdit2",
     "listView": {
-      "name": "_local",
-      "entityName": "scr$SparePart"
+      "name": "datatypesTestEntity-view",
+      "entityName": "scr_DatatypesTestEntity"
     },
-    "editComponentName": "SparePartEdit2",
-    "listComponentName": "SparePartTable2",
+    "listComponentName": "DatatypesBrowse2",
     "listType": "list",
     "entity": {
-      "name": "scr$SparePart"
+      "name": "scr_DatatypesTestEntity"
     },
-    "managementComponentName": "SparePartManagement2"
+    "managementComponentName": "DatatypesManagement2"
   },
-  "spareParts3": {
+  "datatypesTest3": {
     "editView": {
-      "name": "sparePart-front-edit",
-      "entityName": "scr$SparePart"
+      "name": "datatypesTestEntity-view",
+      "entityName": "scr_DatatypesTestEntity"
     },
+    "editComponentName": "DatatypesEdit3",
     "listView": {
-      "name": "_local",
-      "entityName": "scr$SparePart"
+      "name": "datatypesTestEntity-view",
+      "entityName": "scr_DatatypesTestEntity"
     },
-    "editComponentName": "SparePartEdit3",
-    "listComponentName": "SparePartTable3",
+    "listComponentName": "DatatypesBrowse3",
     "listType": "table",
     "entity": {
-      "name": "scr$SparePart"
+      "name": "scr_DatatypesTestEntity"
     },
-    "managementComponentName": "SparePartManagement3"
+    "managementComponentName": "DatatypesManagement3"
   },
   "entityCards": {
     "entityView": {

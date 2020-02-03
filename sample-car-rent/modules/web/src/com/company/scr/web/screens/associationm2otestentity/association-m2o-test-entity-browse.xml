@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="associationM2OTestEntitiesTable"
+        messagesPack="com.company.scr.web.screens.associationm2otestentity">
+  <data readOnly="true">
+    <collection id="associationM2OTestEntitiesDc"
+                class="com.company.scr.entity.test.AssociationM2OTestEntity"
+                view="associationM2OTestEntity-view">
+      <loader id="associationM2OTestEntitiesDl">
+        <query>
+          <![CDATA[select e from scr_AssociationM2OTestEntity e]]>
+        </query>
+      </loader>
+    </collection>
+  </data>
+  <dialogMode height="600"
+              width="800"/>
+  <layout expand="associationM2OTestEntitiesTable"
+          spacing="true">
+    <filter id="filter"
+            applyTo="associationM2OTestEntitiesTable"
+            dataLoader="associationM2OTestEntitiesDl">
+      <properties include=".*"/>
+    </filter>
+    <groupTable id="associationM2OTestEntitiesTable"
+                width="100%"
+                dataContainer="associationM2OTestEntitiesDc">
+      <actions>
+        <action id="create" type="create"/>
+        <action id="edit" type="edit"/>
+        <action id="remove" type="remove"/>
+      </actions>
+      <columns>
+        <column id="name"/>
+      </columns>
+      <rowsCount/>
+      <buttonsPanel id="buttonsPanel"
+                    alwaysVisible="true">
+        <button id="createBtn" action="associationM2OTestEntitiesTable.create"/>
+        <button id="editBtn" action="associationM2OTestEntitiesTable.edit"/>
+        <button id="removeBtn" action="associationM2OTestEntitiesTable.remove"/>
+      </buttonsPanel>
+    </groupTable>
+    <hbox id="lookupActions" spacing="true" visible="false">
+      <button action="lookupSelectAction"/>
+      <button action="lookupCancelAction"/>
+    </hbox>
+  </layout>
+</window>

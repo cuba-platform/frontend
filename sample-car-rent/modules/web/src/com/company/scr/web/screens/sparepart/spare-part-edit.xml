@@ -3,53 +3,31 @@
         caption="msg://editorCaption"
         focusComponent="form"
         messagesPack="com.company.scr.web.screens.sparepart">
-  <data>
-    <instance id="sparePartDc"
-              class="com.company.scr.entity.SparePart"
-    >
-      <view extends="_local">
-        <property name="compositionO2O" view="_minimal"/>
-        <property name="compositionO2M" view="_minimal"/>
-      </view>
-      <loader/>
-      <instance id="compositionO2ODc" property="compositionO2O"/>
-      <collection id="compositionO2MDc" property="compositionO2M"/>
-    </instance>
-  </data>
-  <dialogMode height="600"
-              width="800"/>
-  <layout expand="editActions" spacing="true">
-    <form id="form" dataContainer="sparePartDc">
-      <column width="250px">
-        <textField id="nameField" property="name"/>
-        <maskedField id="partIdField" mask="hhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh" property="partId"/>
-        <textField id="currentStockField" property="currentStock"/>
-        <dateField id="localDateField" property="localDate"/>
-        <timeField id="localTimeField" property="localTime"/>
-        <dateField id="localDateTimeField" property="localDateTime"/>
-        <dateField id="offsetDateTimeField" property="offsetDateTime"/>
-        <timeField id="offsetTimeField" property="offsetTime"/>
-        <pickerField property="compositionO2O"/>
-      </column>
-    </form>
-    <table id="compositionTable" height="300px" width="100%" dataContainer="compositionO2MDc">
-      <actions>
-        <action id="create" type="create"/>
-        <action id="edit" type="edit"/>
-        <action id="remove" type="remove"/>
-      </actions>
-      <buttonsPanel alwaysVisible="true">
-        <button id="compositionTableCreateBtn" action="compositionTable.create"/>
-        <button id="compositionTableEditBtn" action="compositionTable.edit"/>
-        <button id="compositionTableRemoveBtn" action="compositionTable.remove"/>
-      </buttonsPanel>
-      <columns>
-        <column id="name"/>
-      </columns>
-    </table>
-    <hbox id="editActions" spacing="true">
-      <button action="windowCommitAndClose"/>
-      <button action="windowClose"/>
-    </hbox>
-  </layout>
+    <data>
+        <instance id="sparePartDc"
+                  class="com.company.scr.entity.SparePart"
+                  view="sparePart-view">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="sparePartDc">
+            <column width="250px">
+                <textField id="nameField" property="name"/>
+                <pickerField id="sparePartsField" property="spareParts">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
 </window>
