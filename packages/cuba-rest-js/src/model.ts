@@ -2,7 +2,14 @@ export type Cardinality = 'NONE' | 'ONE_TO_ONE' | 'MANY_TO_ONE' | 'ONE_TO_MANY' 
 
 export type AttributeType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION';
 
-export type PropertyType = 'string' | 'int' | 'double' | 'decimal' | 'date' | 'time' | 'dateTime' | 'boolean';
+export type TemporalPropertyType =
+  'date' | 'time' | 'dateTime' | 'localDate' | 'localTime' | 'localDateTime' | 'offsetDateTime' | 'offsetTime';
+
+export type PropertyType = TemporalPropertyType |
+  'string' | 'uuid'
+  | 'byteArray'
+  | 'int' | 'double' | 'decimal'
+  | 'boolean';
 
 export interface SerializedEntityProps {
   _entityName: string;

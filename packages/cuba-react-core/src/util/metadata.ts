@@ -68,12 +68,55 @@ export function isDateProperty({type}: MetaPropertyInfo): boolean {
   return type === 'date';
 }
 
+export function isLocalDateProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'localDate';
+}
+
 export function isTimeProperty({type}: MetaPropertyInfo): boolean {
   return type === 'time';
 }
 
+export function isLocalTimeProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'localTime';
+}
+
+export function isOffsetTimeProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'offsetTime';
+}
+
 export function isDateTimeProperty({type}: MetaPropertyInfo): boolean {
   return type === 'dateTime';
+}
+
+export function isLocalDateTimeProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'localDateTime';
+}
+
+export function isOffsetDateTimeProperty({type}: MetaPropertyInfo): boolean {
+  return type === 'offsetDateTime';
+}
+
+export function isAnyDateProperty(propertyInfo: MetaPropertyInfo): boolean {
+  return isDateProperty(propertyInfo)
+    || isLocalDateProperty(propertyInfo);
+}
+
+export function isAnyTimeProperty(propertyInfo: MetaPropertyInfo): boolean {
+  return isTimeProperty(propertyInfo)
+    || isLocalTimeProperty(propertyInfo)
+    || isOffsetTimeProperty(propertyInfo);
+}
+
+export function isAnyDateTimeProperty(propertyInfo: MetaPropertyInfo): boolean {
+  return isDateTimeProperty(propertyInfo)
+    || isLocalDateTimeProperty(propertyInfo)
+    || isOffsetDateTimeProperty(propertyInfo);
+}
+
+export function isTemporalProperty(propertyInfo: MetaPropertyInfo): boolean {
+  return isAnyDateProperty(propertyInfo)
+    || isAnyTimeProperty(propertyInfo)
+    || isAnyDateTimeProperty(propertyInfo);
 }
 
 export function isRelationProperty(propertyInfo: MetaPropertyInfo): boolean {
