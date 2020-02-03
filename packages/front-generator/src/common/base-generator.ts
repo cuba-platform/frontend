@@ -56,7 +56,10 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       this.cubaProjectModel = readProjectModel(this.options.model);
     } else {
       const openedCubaProjects = await getOpenedCubaProjects();
-      if (!openedCubaProjects || openedCubaProjects.length < 1) this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+      if (!openedCubaProjects || openedCubaProjects.length < 1) {
+        this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+        return;
+      }
 
       const projectModelAnswers: ProjectInfoAnswers = await this.prompt([{
         name: 'projectInfo',

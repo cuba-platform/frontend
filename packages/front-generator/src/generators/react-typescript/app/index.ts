@@ -44,8 +44,10 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     }
 
     const openedCubaProjects = await getOpenedCubaProjects();
-    if (!openedCubaProjects || openedCubaProjects.length < 1) this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
-
+    if (!openedCubaProjects || openedCubaProjects.length < 1) {
+      this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+      return;
+    }
 
     this.answers = await this.prompt([{
       name: 'projectInfo',
