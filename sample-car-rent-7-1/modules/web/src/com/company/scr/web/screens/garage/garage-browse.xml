@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="garagesTable"
+        messagesPack="com.company.scr.web.screens.garage">
+    <data readOnly="true">
+        <collection id="garagesDc"
+                    class="com.company.scr.entity.Garage"
+                    view="_local">
+            <loader id="garagesDl">
+                <query>
+                    <![CDATA[select e from scr$Garage e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="garagesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="garagesTable"
+                dataLoader="garagesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="garagesTable"
+                    width="100%"
+                    dataContainer="garagesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="capacity"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="garagesTable.create"/>
+                <button id="editBtn" action="garagesTable.edit"/>
+                <button id="removeBtn" action="garagesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

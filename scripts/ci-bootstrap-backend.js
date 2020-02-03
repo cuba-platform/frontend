@@ -1,11 +1,14 @@
 const {runCmdSync} = require('./common');
 
 const ciBootstrapBackend = () => {
+
+  const backendAppDir = process.argv.length > 2 ? process.argv[2] : `sample-car-rent`;
+
   runCmdSync(`psql -c "create user cuba with encrypted password 'cuba';" -U postgres`);
   runCmdSync(`psql -c "alter user cuba createdb;" -U postgres`);
-  runCmdSync(`sample-car-rent/gradlew -v`);
-  runCmdSync(`sample-car-rent/gradlew -p sample-car-rent setupTomcat createDb --no-daemon`);
-  runCmdSync(`sample-car-rent/gradlew -p sample-car-rent assemble deploy start waitAppStarted --no-daemon`);
+  runCmdSync(`${backendAppDir}/gradlew -v`);
+  runCmdSync(`${backendAppDir}/gradlew -p ${backendAppDir} setupTomcat createDb --no-daemon`);
+  runCmdSync(`${backendAppDir}/gradlew -p ${backendAppDir} assemble deploy start waitAppStarted --no-daemon`);
 };
 
 ciBootstrapBackend();
