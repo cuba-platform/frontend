@@ -1,5 +1,5 @@
 import {action, computed, observable, runInAction, toJS} from "mobx";
-import {PredefinedView, SerializedEntityProps, PropertyType} from "@cuba-platform/rest";
+import {PredefinedView, SerializedEntityProps, TemporalPropertyType} from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
@@ -7,15 +7,16 @@ import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore} from "../app/MainStore";
 import {
   getPropertyInfo,
-  isDateProperty, isDateTimeProperty,
-  isTimeProperty,
+  isTemporalProperty,
   isToManyRelation,
   isToOneRelation,
   WithId,
   WithName
 } from "../util/metadata";
 import moment from 'moment';
-import {defaultDateFormat, defaultDateTimeFormat, defaultTimeFormat} from '../util/formats';
+import {
+  getDataTransferFormat,
+} from '../util/formats';
 
 
 export class DataInstanceStore<T> implements DataContainer {
@@ -72,14 +73,8 @@ export class DataInstanceStore<T> implements DataContainer {
       if (propInfo && isToManyRelation(propInfo) && Array.isArray(value)) {
         normalizedPatch[key] = value.map(id => ({id}));
       }
-      if (propInfo && isDateProperty(propInfo) && moment.isMoment(value)) {
-        normalizedPatch[key] = value.format(defaultDateFormat);
-      }
-      if (propInfo && isTimeProperty(propInfo) && moment.isMoment(value)) {
-        normalizedPatch[key] = value.format(defaultTimeFormat);
-      }
-      if (propInfo && isDateTimeProperty(propInfo) && moment.isMoment(value)) {
-        normalizedPatch[key] = value.format(defaultDateTimeFormat);
+      if (propInfo && isTemporalProperty(propInfo) && moment.isMoment(value)) {
+        normalizedPatch[key] = value.format(getDataTransferFormat(propInfo.type as TemporalPropertyType));
       }
       if (value === '' || value == null) {
         normalizedPatch[key] = null;
@@ -124,8 +119,6 @@ export class DataInstanceStore<T> implements DataContainer {
           return fields;
         }
 
-        const type = propertyInfo.type as PropertyType;
-
         if (propertyInfo.attributeType === "ASSOCIATION" || propertyInfo.attributeType === "COMPOSITION") {
           if (entity[propertyName] == null) {
             fields[propertyName] = entity[propertyName];
@@ -156,17 +149,14 @@ export class DataInstanceStore<T> implements DataContainer {
           }
         }
 
-        if (isTemporalType(type)) {
-          if (entity[propertyName] == null) {
-            fields[propertyName] = null;
-          } else {
-            fields[propertyName] = moment(entity[propertyName]);
-          }
-          return fields;
+        if (entity[propertyName] == null) {
+          fields[propertyName] = null;
+        } else if (isTemporalProperty(propertyInfo)) {
+          fields[propertyName] = moment(entity[propertyName], getDataTransferFormat(propertyInfo.type as TemporalPropertyType));
         } else {
           fields[propertyName] = entity[propertyName];
-          return fields;
         }
+        return fields;
       },
       {}
     );
@@ -222,8 +212,4 @@ export class Instance<E> extends React.Component<DataInstanceProps<E>> {
     const {item, status, load, commit} = this.store;
     return {...{item, status, load, commit}};
   }
-}
-
-function isTemporalType(type: string): boolean {
-  return ["date", "time", "dateTime"].indexOf(type) > -1;
 }

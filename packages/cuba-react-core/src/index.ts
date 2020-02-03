@@ -7,4 +7,5 @@ export * from './data/Collection';
 export * from './data/Instance';
 
 export * from './util/metadata';
+export * from './util/formats';
 export * from './util/errorHandling';

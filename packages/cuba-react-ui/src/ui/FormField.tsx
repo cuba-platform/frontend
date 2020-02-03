@@ -42,10 +42,15 @@ export const FormField = injectMainStore(observer((props: Props) => {
     case 'boolean':
       return <Checkbox {...rest}/>;
     case 'date':
+    case 'localDate':
       return <DatePicker {...rest}/>;
     case 'dateTime':
+    case 'localDateTime':
+    case 'offsetDateTime':
       return <DatePicker showTime={true} {...rest}/>;
     case 'time':
+    case 'localTime':
+    case 'offsetTime':
       return <TimePicker {...rest}/>
   }
   return <Input {...rest}/>;

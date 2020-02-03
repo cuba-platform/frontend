@@ -1,8 +1,16 @@
 import * as React from "react";
 import {observer} from "mobx-react";
 import {toJS} from "mobx";
-import {MetaPropertyInfo} from '@cuba-platform/rest';
-import {getEnumCaption, getPropertyInfo, injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
+import {MetaPropertyInfo, TemporalPropertyType} from '@cuba-platform/rest';
+import {
+  getEnumCaption,
+  getPropertyInfo,
+  injectMainStore,
+  isTemporalProperty,
+  MainStoreInjected
+} from "@cuba-platform/react-core";
+import moment from 'moment';
+import {getDataTransferFormat, getDisplayFormat} from '@cuba-platform/react-core';
 
 type Props = MainStoreInjected & {
   entityName: string;
@@ -48,7 +56,7 @@ const EntityPropertyFormattedValue = observer((props: Props) => {
 
   const displayValue = propertyInfo.attributeType === 'ENUM'
     ? getEnumCaption(value, propertyInfo, mainStore.enums)
-    : toJS(value);
+    : toDisplayValue(toJS(value), propertyInfo);
 
   return label != null
     ? <div><strong>{label}:</strong> {formatValue(displayValue)}</div>
@@ -73,4 +81,14 @@ function formatValue(value: any): string {
     }
   }
   return JSON.stringify(value);
+}
+
+export function toDisplayValue(value: any, propertyInfo: MetaPropertyInfo) {
+  if (value != null && isTemporalProperty(propertyInfo)) {
+    // Display format for temporal properties may be different from data transfer format
+    const parsed = moment(value, getDataTransferFormat(propertyInfo.type as TemporalPropertyType));
+    return parsed.format(getDisplayFormat(propertyInfo.type as TemporalPropertyType));
+  } else {
+    return value;
+  }
 }
