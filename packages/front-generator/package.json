@@ -7,7 +7,7 @@
     "gen-cuba-front": "bin/gen-cuba-front.js"
   },
   "engines": {
-    "node": ">=10.17"
+    "node": ">=12"
   },
   "scripts": {
     "build": "rimraf lib && tsc && node scripts/copy-templates.js",

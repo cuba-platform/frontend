@@ -94,7 +94,7 @@ You will be able to create CRUD screens using CUBA Studio UI.
 
 #### Installation
 
-Install [Node.js](https://nodejs.org/en/download/) 10.15+ and npm 6+ (usually comes with node).
+Install [Node.js](https://nodejs.org/en/download/) 12+ and npm 6+ (usually comes with node).
 
 Install the generator using npm package manager: 
 
