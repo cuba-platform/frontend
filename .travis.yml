@@ -60,6 +60,18 @@ jobs:
       - npm run start-react-app &
       - sleep 60 && npm run test-pup
 
+    - name: "Tests on generated app - backward compatibility 7.1"
+      # setup cuba postgres user; build and run backend app
+      before_install: node scripts/ci-bootstrap-backend.js sample-car-rent-7-1
+      script:
+        - npm run bootstrap-react-app
+        - npm run validate-react-app
+        - npm run start-react-app &
+        - sleep 60
+        - npm test react-client-scr/app-start.test.js --prefix test-pup
+        - npm test react-client-scr-71 --prefix test-pup
+
+
 #    - name: "front-generator - e2e - e2e:react:scr os: windows"
 #      os:
 #        - windows

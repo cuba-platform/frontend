@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="carsTable"
+        messagesPack="com.company.scr.web.screens.car">
+    <data readOnly="true">
+        <collection id="carsDc"
+                    class="com.company.scr.entity.Car"
+                    view="_local">
+            <loader id="carsDl">
+                <query>
+                    <![CDATA[select e from scr$Car e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="carsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="carsTable"
+                dataLoader="carsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="carsTable"
+                    width="100%"
+                    dataContainer="carsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="manufacturer"/>
+                <column id="model"/>
+                <column id="regNumber"/>
+                <column id="purchaseDate"/>
+                <column id="manufactureDate"/>
+                <column id="wheelOnRight"/>
+                <column id="carType"/>
+                <column id="ecoRank"/>
+                <column id="maxPassengers"/>
+                <column id="price"/>
+                <column id="mileage"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="carsTable.create"/>
+                <button id="editBtn" action="carsTable.edit"/>
+                <button id="removeBtn" action="carsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
