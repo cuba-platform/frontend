@@ -114,15 +114,6 @@ create table SCR_SPARE_PART (
     --
     NAME varchar(255),
     SPARE_PARTS_ID uuid,
-    PART_ID uuid,
-    CURRENT_STOCK bigint,
-    LOCAL_DATE date,
-    LOCAL_TIME time,
-    LOCAL_DATE_TIME timestamp,
-    OFFSET_DATE_TIME timestamp with time zone,
-    OFFSET_TIME time with time zone,
-    BYTE_ARRAY bytea,
-    COMPOSITION_O2O_ID uuid,
     --
     primary key (ID)
 )^
@@ -139,8 +130,8 @@ alter table SEC_USER add column PHONE varchar(255) ^
 alter table SEC_USER add column DTYPE varchar(100) ^
 update SEC_USER set DTYPE = 'scr$User' where DTYPE is null ^
 -- end SEC_USER
--- begin SCR_SPARE_PART_O2O
-create table SCR_SPARE_PART_O2O (
+-- begin SCR_ASSOCIATION_M2M_TEST_ENTITY
+create table SCR_ASSOCIATION_M2M_TEST_ENTITY (
     ID uuid,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -154,9 +145,9 @@ create table SCR_SPARE_PART_O2O (
     --
     primary key (ID)
 )^
--- end SCR_SPARE_PART_O2O
--- begin SCR_SPARE_PART_O2M
-create table SCR_SPARE_PART_O2M (
+-- end SCR_ASSOCIATION_M2M_TEST_ENTITY
+-- begin SCR_ASSOCIATION_M2O_TEST_ENTITY
+create table SCR_ASSOCIATION_M2O_TEST_ENTITY (
     ID uuid,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -167,8 +158,116 @@ create table SCR_SPARE_PART_O2M (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
-    SPARE_PART_ID uuid,
     --
     primary key (ID)
 )^
--- end SCR_SPARE_PART_O2M
+-- end SCR_ASSOCIATION_M2O_TEST_ENTITY
+-- begin SCR_ASSOCIATION_O2M_TEST_ENTITY
+create table SCR_ASSOCIATION_O2M_TEST_ENTITY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    DATATYPES_TEST_ENTITY_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end SCR_ASSOCIATION_O2M_TEST_ENTITY
+-- begin SCR_ASSOCIATION_O2O_TEST_ENTITY
+create table SCR_ASSOCIATION_O2O_TEST_ENTITY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    --
+    primary key (ID)
+)^
+-- end SCR_ASSOCIATION_O2O_TEST_ENTITY
+-- begin SCR_COMPOSITION_O2M_TEST_ENTITY
+create table SCR_COMPOSITION_O2M_TEST_ENTITY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    DATATYPES_TEST_ENTITY_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end SCR_COMPOSITION_O2M_TEST_ENTITY
+-- begin SCR_COMPOSITION_O2O_TEST_ENTITY
+create table SCR_COMPOSITION_O2O_TEST_ENTITY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    --
+    primary key (ID)
+)^
+-- end SCR_COMPOSITION_O2O_TEST_ENTITY
+-- begin SCR_DATATYPES_TEST_ENTITY
+create table SCR_DATATYPES_TEST_ENTITY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    BIG_DECIMAL_ATTR decimal(19, 2),
+    BOOLEAN_ATTR boolean,
+    BYTE_ARRAY_ATTR bytea,
+    DATE_ATTR date,
+    DATE_TIME_ATTR timestamp,
+    DOUBLE_ATTR double precision,
+    INTEGER_ATTR integer,
+    LONG_ATTR bigint,
+    STRING_ATTR varchar(255),
+    TIME_ATTR time,
+    UUID_ATTR uuid,
+    LOCAL_DATE_TIME_ATTR timestamp,
+    OFFSET_DATE_TIME_ATTR timestamp with time zone,
+    LOCAL_DATE_ATTR date,
+    LOCAL_TIME_ATTR time,
+    OFFSET_TIME_ATTR time with time zone,
+    ENUM_ATTR varchar(50),
+    ASSOCIATION_O2_OATTR_ID uuid,
+    ASSOCIATION_M2_OATTR_ID uuid,
+    COMPOSITION_O2_OATTR_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end SCR_DATATYPES_TEST_ENTITY
+-- begin SCR_DATATYPES_TEST_ENTITY_ASSOCIATION_M2M_TEST_ENTITY_LINK
+create table SCR_DATATYPES_TEST_ENTITY_ASSOCIATION_M2M_TEST_ENTITY_LINK (
+    DATATYPES_TEST_ENTITY_ID uuid,
+    ASSOCIATION_M2_M_TEST_ENTITY_ID uuid,
+    primary key (DATATYPES_TEST_ENTITY_ID, ASSOCIATION_M2_M_TEST_ENTITY_ID)
+)^
+-- end SCR_DATATYPES_TEST_ENTITY_ASSOCIATION_M2M_TEST_ENTITY_LINK
