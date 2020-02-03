@@ -499,15 +499,40 @@ As soon as we decorate a class or a function component as [observer](https://mob
 
 ### CUBA React Core Components
 
-##### MainStore
+##### CubaAppProvider
 
-`MainStore` contains common application data. It's being initialized using `<CubaAppProvider>`:
+`CubaAppProvider` initializes main CUBA React Core components and provides them to the client application. It receives an instance of REST API service and an optional config object which has the following interface:
 
 ```typescript
-<CubaAppProvider cubaREST={cubaREST}>
+import {PropertyType} from "@cuba-platform/rest";
+
+export interface CubaAppConfig {
+  dataTransferFormats?: Partial<Record<PropertyType, string>>;
+  displayFormats?: Partial<Record<PropertyType, string>>;
+}
+```
+
+**dataTransferFormats** can be used to override the default formats used to (de)serialize the data transferred by REST API.
+
+**displayFormats** can be used to override the formats used for data presentation. 
+
+> Only formats for temporal types can currently be overridden this way
+
+```typescript jsx
+<CubaAppProvider cubaREST={cubaREST}
+                 config={{
+                   dataTransferFormats: {
+                     localDateTime: 'DD/MM/YYYY HH:mm:ss'
+                   }
+                 }}
+>
    // App component tree
 </CubaAppProvider>
 ```
+
+##### MainStore
+
+`MainStore` contains common application data. It's being initialized using `<CubaAppProvider>`.
 
 You can inject it in any component using `@injectMainStore` decorator:
 

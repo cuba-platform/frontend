@@ -1,4 +1,5 @@
-import {TemporalPropertyType} from '@cuba-platform/rest';
+import {PropertyType} from '@cuba-platform/rest';
+import {getCubaAppConfig} from '..';
 
 export const defaultDateFormat = 'YYYY-MM-DD';
 export const defaultTimeFormat = 'HH:mm:ss';
@@ -11,7 +12,7 @@ export const offsetDateTimeDisplayFormat = 'YYYY-MM-DD HH:mm:ss';
 export const offsetTimeDataTransferFormat = 'HH:mm:ss ZZ';
 export const offsetTimeDisplayFormat = 'HH:mm:ss';
 
-export const dataTransferFormats: Record<TemporalPropertyType, string> = {
+export const dataTransferFormats: Partial<Record<PropertyType, string>> = {
   date: defaultDateFormat,
   time: defaultTimeFormat,
   dateTime: defaultDateTimeDataTransferFormat,
@@ -22,7 +23,7 @@ export const dataTransferFormats: Record<TemporalPropertyType, string> = {
   offsetTime: offsetTimeDataTransferFormat
 };
 
-export const displayFormats: Record<TemporalPropertyType, string> = {
+export const displayFormats: Partial<Record<PropertyType, string>> = {
   date: defaultDateFormat,
   time: defaultTimeFormat,
   dateTime: defaultDateTimeDisplayFormat,
@@ -33,10 +34,12 @@ export const displayFormats: Record<TemporalPropertyType, string> = {
   offsetTime: offsetTimeDisplayFormat
 };
 
-export function getDataTransferFormat(type: TemporalPropertyType): string {
-  return dataTransferFormats[type];
+export function getDataTransferFormat(type: PropertyType): string | undefined {
+  const formats = {...dataTransferFormats, ...getCubaAppConfig()?.dataTransferFormats};
+  return formats[type];
 }
 
-export function getDisplayFormat(type: TemporalPropertyType): string {
-  return displayFormats[type];
+export function getDisplayFormat(type: PropertyType): string | undefined {
+  const formats = {...displayFormats, ...getCubaAppConfig()?.displayFormats};
+  return formats[type];
 }
