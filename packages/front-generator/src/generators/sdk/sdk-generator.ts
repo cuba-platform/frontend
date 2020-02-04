@@ -1,7 +1,12 @@
 import {BaseGenerator, readProjectModel} from "../../common/base-generator";
 import {CommonGenerationOptions} from "../../common/cli-options";
 import * as path from "path";
-import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../common/studio/studio-integration";
+import {
+  ERR_STUDIO_NOT_CONNECTED,
+  exportProjectModel,
+  getOpenedCubaProjects,
+  StudioProjectInfo
+} from "../../common/studio/studio-integration";
 import {generateEntities} from "./model/entities-generation";
 import {generateServices} from "./services/services-generation";
 import {generateQueries} from "./services/queries-generation";
@@ -39,15 +44,16 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
     }
 
     const openedCubaProjects = await getOpenedCubaProjects();
-    if (openedCubaProjects.length < 1) {
-      this.env.error(Error("Please open Cuba Studio Intellij and enable Old Studio integration"));
+    if (!openedCubaProjects || openedCubaProjects.length < 1)  {
+      this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+      return;
     }
 
     this.answers = await this.prompt([{
       name: 'projectInfo',
       type: 'list',
       message: 'Please select CUBA project you want to use for generation',
-      choices: openedCubaProjects.map(p => ({
+      choices: openedCubaProjects && openedCubaProjects.map(p => ({
         name: `${p.name} [${p.path}]`,
         value: p
       }))
@@ -84,7 +90,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
       }
 
     } else {
-      this.env.error({name: 'No project model', message: 'Skip sdk generation - no project model provided'});
+      this.env.error(Error('Skip sdk generation - no project model provided'));
     }
   }
 

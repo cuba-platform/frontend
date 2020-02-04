@@ -46,6 +46,7 @@
     "@types/node": "^10.17.0",
     "@types/sinon": "^7.5.1",
     "@types/sinon-chai": "^3.2.3",
+    "@types/node-fetch": "^2.5.4",
     "@types/through2": "^2.0.33",
     "@types/yeoman-generator": "^2.0.3",
     "chai": "^4.2.0",
