@@ -6,6 +6,7 @@ import {FileUpload} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
 import {MainStoreInjected, DataCollectionStore, WithId, injectMainStore, getPropertyInfo, isFileProperty} from "@cuba-platform/react-core";
 import './FormField.less';
+import {UuidField} from "./form/UuidField";
 
 type Props = MainStoreInjected & {
   entityName: string
@@ -62,6 +63,8 @@ export const FormField = injectMainStore(observer((props: Props) => {
              />
     case 'double':
       return <InputNumber className='inputnumber-field' {...rest}/>
+    case 'uuid':
+      return <UuidField {...rest}/>
   }
   return <Input {...rest}/>;
 }));
