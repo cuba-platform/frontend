@@ -2,7 +2,7 @@ import {Checkbox} from 'antd';
 import React, {ReactNode} from 'react';
 import {MetaPropertyInfo} from '@cuba-platform/rest';
 import { MainStoreInjected, MainStore, getEnumCaption } from '@cuba-platform/react-core';
-import {toDisplayValue} from '../EntityProperty';
+import { toDisplayValue } from '../../util/formatting';
 
 type DataTableCellProps = MainStoreInjected & {
   text: any,
