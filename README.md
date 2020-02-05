@@ -516,6 +516,8 @@ export interface CubaAppConfig {
 
 **displayFormats** can be used to override the formats used for data presentation. 
 
+See [PropertyType](https://cuba-platform.github.io/frontend/docs/cuba-rest-js/modules/_model_.html#propertytype) in CUBA REST JS API docs for the list of available property types.
+
 > Only formats for temporal types can currently be overridden this way
 
 ```typescript jsx
