@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://browseCaption"
         focusComponent="associationO2OTestEntitiesTable"
         messagesPack="com.company.scr.web.screens.associationo2otestentity">
@@ -32,7 +33,6 @@
         <action id="remove" type="remove"/>
       </actions>
       <columns>
-        <column id="datatypesTestEntity"/>
         <column id="name"/>
       </columns>
       <rowsCount/>

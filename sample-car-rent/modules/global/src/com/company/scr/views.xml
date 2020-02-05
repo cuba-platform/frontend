@@ -48,9 +48,7 @@
   <view entity="scr_AssociationO2MTestEntity" name="associationO2MTestEntity-view" extends="_local">
     <property name="datatypesTestEntity" view="_minimal"/>
   </view>
-  <view entity="scr_AssociationO2OTestEntity" name="associationO2OTestEntity-view" extends="_local">
-    <property name="datatypesTestEntity" view="_minimal"/>
-  </view>
+  <view entity="scr_AssociationO2OTestEntity" name="associationO2OTestEntity-view" extends="_local"/>
   <view entity="scr_CompositionO2MTestEntity" name="compositionO2MTestEntity-view" extends="_local">
     <property name="datatypesTestEntity" view="_minimal"/>
   </view>
