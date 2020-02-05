@@ -12,7 +12,7 @@ export const offsetDateTimeDisplayFormat = 'YYYY-MM-DD HH:mm:ss';
 export const offsetTimeDataTransferFormat = 'HH:mm:ss ZZ';
 export const offsetTimeDisplayFormat = 'HH:mm:ss';
 
-export const dataTransferFormats: Partial<Record<PropertyType, string>> = {
+export const defaultDataTransferFormats: Partial<Record<PropertyType, string>> = {
   date: defaultDateFormat,
   time: defaultTimeFormat,
   dateTime: defaultDateTimeDataTransferFormat,
@@ -23,7 +23,7 @@ export const dataTransferFormats: Partial<Record<PropertyType, string>> = {
   offsetTime: offsetTimeDataTransferFormat
 };
 
-export const displayFormats: Partial<Record<PropertyType, string>> = {
+export const defaultDisplayFormats: Partial<Record<PropertyType, string>> = {
   date: defaultDateFormat,
   time: defaultTimeFormat,
   dateTime: defaultDateTimeDisplayFormat,
@@ -35,11 +35,9 @@ export const displayFormats: Partial<Record<PropertyType, string>> = {
 };
 
 export function getDataTransferFormat(type: PropertyType): string | undefined {
-  const formats = {...dataTransferFormats, ...getCubaAppConfig()?.dataTransferFormats};
-  return formats[type];
+  return getCubaAppConfig()?.dataTransferFormats?.[type] || defaultDataTransferFormats[type];
 }
 
 export function getDisplayFormat(type: PropertyType): string | undefined {
-  const formats = {...displayFormats, ...getCubaAppConfig()?.displayFormats};
-  return formats[type];
+  return getCubaAppConfig()?.displayFormats?.[type] || defaultDisplayFormats[type];
 }
