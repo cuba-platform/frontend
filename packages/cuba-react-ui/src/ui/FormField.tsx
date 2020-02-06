@@ -53,16 +53,27 @@ export const FormField = injectMainStore(observer((props: Props) => {
     case 'time':
     case 'localTime':
     case 'offsetTime':
-      return <TimePicker {...rest}/>
+      return <TimePicker {...rest}/>;
     case 'int':
       return <InputNumber min={JAVA_INTEGER_MIN_VALUE}
                           max={JAVA_INTEGER_MAX_VALUE}
                           precision={0}
                           className='inputnumber-field'
                           {...rest}
-             />
+             />;
     case 'double':
-      return <InputNumber className='inputnumber-field' {...rest}/>
+      return <InputNumber className='inputnumber-field' {...rest}/>;
+    case 'long': // TODO values > Number.MAX_SAFE_INTEGER are not currently supported https://github.com/cuba-platform/frontend/issues/99
+      return <InputNumber className='inputnumber-field'
+                          // TODO once values > Number.MAX_SAFE_INTEGER add validation agains Long.MIN_VALUE/MAX_VALUE
+                          precision={0}
+                          {...rest}
+             />;
+    case 'decimal': // TODO values > Number.MAX_SAFE_INTEGER are not currently supported https://github.com/cuba-platform/frontend/issues/99
+      return <InputNumber className='inputnumber-field'
+                          // TODO Add validation of precision/scale https://github.com/cuba-platform/frontend/issues/100
+                          {...rest}
+             />;
     case 'uuid':
       return <UuidField {...rest}/>
   }
