@@ -54,36 +54,6 @@ export interface UserInfo {
   locale: string;
 }
 
-/*
- * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
- */
-export enum PermissionType {
-  SCREEN = 'SCREEN',
-  ENTITY_OP = 'ENTITY_OP',
-  ENTITY_ATTR = 'ENTITY_ATTR',
-  SPECIFIC = 'SPECIFIC',
-  UI = 'UI'
-}
-
-/**
- * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
- */
-export type BasePermissionValue = 'DENY' | 'ALLOW';
-/**
- * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
- */
-export type UiPermissionValue = 'HIDE' | 'READ_ONLY' | 'SHOW';
-
-/**
- * @deprecated since version 0.7.3 @see {@link CubaApp#getPermissions}
- */
-export interface PermissionInfo {
-  type: PermissionType;
-  target: string;
-  value: BasePermissionValue | EntityAttrPermissionValue | UiPermissionValue;
-  intValue: number;
-}
-
 export type EntityOperationType = 'create' | 'read' | 'update' | 'delete';
 export type EntityAttrPermissionValue = 'DENY' | 'VIEW' | 'MODIFY';
 export interface EffectivePermsLoadOptions {

@@ -5,7 +5,6 @@ import {
   EntityMessages,
   EnumInfo,
   MetaClassInfo,
-  PermissionInfo,
   SerializedEntity,
   UserInfo,
   View
@@ -333,14 +332,6 @@ export class CubaApp {
       this.enumsLoadingListeners.forEach((l) => l(enums));
     });
     return fetchRes;
-  }
-
-  /**
-   * @deprecated since version 0.7.3 use {@link #getEffectivePermissions}
-   * @param fetchOptions
-   */
-  public getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]> {
-    return this.fetch('GET', 'v2/permissions', null, {handleAs: 'json', ...fetchOptions});
   }
 
   public getEffectivePermissions(effectivePermsLoadOptions?: EffectivePermsLoadOptions, fetchOptions?: FetchOptions)
