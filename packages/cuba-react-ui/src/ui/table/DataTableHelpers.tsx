@@ -1,6 +1,13 @@
 import {ColumnFilterItem, ColumnProps, FilterDropdownProps, PaginationConfig, SorterResult} from 'antd/es/table';
 import React from 'react';
-import {Condition, ConditionsGroup, EntityFilter, EnumInfo, EnumValueInfo, MetaPropertyInfo} from '@cuba-platform/rest';
+import {
+  Condition,
+  ConditionsGroup,
+  EntityFilter,
+  EnumInfo,
+  EnumValueInfo,
+  MetaPropertyInfo
+} from '@cuba-platform/rest';
 import {DataTableCell} from './DataTableCell';
 import {
   ComparisonType,
@@ -162,7 +169,7 @@ export function generateDataColumn<EntityType>(config: DataColumnConfig): Column
     dataIndex,
     sorter: enableSorter,
     key: propertyName as string,
-    render: text => renderCell(propertyInfo, text, mainStore)
+    render: (text, record) => renderCell<EntityType>(propertyInfo, text, mainStore, record)
   };
 
   if (enableFilter && isPropertyTypeSupported(propertyInfo)) {
@@ -266,11 +273,12 @@ export function generateCustomFilterDropdown(
  * @param text
  * @param mainStore
  */
-export function renderCell(propertyInfo: MetaPropertyInfo, text: any, mainStore: MainStore) {
-  return DataTableCell({
+export function renderCell<EntityType>(propertyInfo: MetaPropertyInfo, text: any, mainStore: MainStore, record: EntityType) {
+  return DataTableCell<EntityType>({
     text,
     propertyInfo,
-    mainStore
+    mainStore,
+    record
   });
 }
 

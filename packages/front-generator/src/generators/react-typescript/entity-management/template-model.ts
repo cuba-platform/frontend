@@ -18,6 +18,7 @@ export interface EntityManagementTemplateModel extends CommonTemplateModel {
   nameLiteral: string;
   entity: EntityTemplateModel,
   listView: View,
+  listAttributes: EntityAttribute[],
   editView: View,
   editAttributes: EntityAttribute[],
   editRelations: EditRelations,

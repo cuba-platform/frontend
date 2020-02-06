@@ -7,6 +7,9 @@ import {EntityCardsTemplateModel} from "./template-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {writeComponentI18nMessages} from '../common/i18n';
+import {createEntityTemplateModel, determineDisplayedAttributes} from "../common/entity";
+import {EntityTemplateModel} from "../common/template-model";
+import {ProjectModel} from "../../../common/model/cuba-model";
 
 
 class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCardsTemplateModel, PolymerElementOptions> {
@@ -28,7 +31,11 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
     if (!this.answers) {
       throw new Error('Answers not provided');
     }
-    this.model = entityCardsAnswersToModel(this.answers, this.options.dirShift);
+    if (!this.cubaProjectModel) {
+      throw new Error('CUBA project model is not provided');
+    }
+    const entity: EntityTemplateModel = createEntityTemplateModel(this.answers.entity, this.cubaProjectModel);
+    this.model = entityCardsAnswersToModel(this.answers, this.options.dirShift, entity, this.cubaProjectModel);
     this.fs.copyTpl(
       this.templatePath('EntityCards.tsx.ejs'),
       this.destinationPath(this.model.className + '.tsx.ejs'), this.model
@@ -62,15 +69,19 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
   }
 }
 
-export function entityCardsAnswersToModel(answers: EntityCardsAnswers, dirShift: string | undefined): EntityCardsTemplateModel {
+export function entityCardsAnswersToModel(
+  answers: EntityCardsAnswers, dirShift: string | undefined, entity: EntityTemplateModel, projectModel: ProjectModel
+): EntityCardsTemplateModel {
   const className = elementNameToClass(answers.componentName);
+  const attributes = determineDisplayedAttributes(answers.entityView.allProperties, entity, projectModel);
   return {
     componentName: answers.componentName,
     className: className,
     nameLiteral: unCapitalizeFirst(className),
     relDirShift: dirShift || '',
     entity: answers.entity,
-    view: answers.entityView
+    view: answers.entityView,
+    attributes
   }
 }
 
