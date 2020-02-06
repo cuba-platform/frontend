@@ -26,6 +26,8 @@ export function determineDisplayedAttributes(
       && attr.cardinality === 'ONE_TO_ONE'
       && (attr.mappedBy && attr.mappedBy.length > 0);
 
-    return !isOneToManyAssociation && !isOneToOneAssociationInverseSide;
+    const isByteArray = (attr.mappingType === 'DATATYPE' && attr.type?.fqn === 'byte[]');
+
+    return !isOneToManyAssociation && !isOneToOneAssociationInverseSide && !isByteArray;
   });
 }
