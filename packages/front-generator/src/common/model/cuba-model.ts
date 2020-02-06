@@ -76,7 +76,8 @@ export interface EntityAttribute {
   column: string;
   mandatory: boolean;
   unique: boolean;
-  length: number;
+  length: number; // TODO VP: should be optional, but that would break polymer generator
+  mappedBy?: string;
   transient: boolean;
   temporalType?: TemporalType;
 }

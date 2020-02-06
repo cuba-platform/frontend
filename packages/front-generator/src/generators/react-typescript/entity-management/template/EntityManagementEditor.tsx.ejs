@@ -54,7 +54,7 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
   reactionDisposer: IReactionDisposer;
 
   fields = [
-  <% editView.allProperties.forEach(p => { %>
+  <% editAttributes.forEach(p => { %>
     '<%= p.name %>',
   <% }) %>
   ];

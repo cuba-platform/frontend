@@ -338,7 +338,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       bodyStyle: { overflowX: 'auto' },
       loading: status === 'LOADING',
       columns: this.generateColumnProps,
-      dataSource: items.slice(),
+      dataSource: toJS(items),
       onChange: this.onChange,
       pagination: this.paginationConfig,
       rowKey: record => this.constructRowKey(record),

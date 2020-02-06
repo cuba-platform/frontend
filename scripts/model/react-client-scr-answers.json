@@ -104,6 +104,87 @@
     },
     "managementComponentName": "DatatypesManagement3"
   },
+
+  "associationO2O": {
+    "editView": {
+      "name": "associationO2OTestEntity-view",
+      "entityName": "scr_AssociationO2OTestEntity"
+    },
+    "editComponentName": "AssociationO2OEdit",
+    "listView": {
+      "name": "associationO2OTestEntity-view",
+      "entityName": "scr_AssociationO2OTestEntity"
+    },
+    "listComponentName": "AssociationO2OBrowse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_AssociationO2OTestEntity"
+    },
+    "managementComponentName": "AssociationO2OManagement"
+  },
+  "associationO2M": {
+    "editView": {
+      "name": "associationO2MTestEntity-view",
+      "entityName": "scr_AssociationO2MTestEntity"
+    },
+    "editComponentName": "AssociationO2MEdit",
+    "listView": {
+      "name": "associationO2MTestEntity-view",
+      "entityName": "scr_AssociationO2MTestEntity"
+    },
+    "listComponentName": "AssociationO2MBrowse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_AssociationO2MTestEntity"
+    },
+    "managementComponentName": "AssociationO2MManagement"
+  },
+  "associationM2O": {
+    "editView": {
+      "name": "associationM2OTestEntity-view",
+      "entityName": "scr_AssociationM2OTestEntity"
+    },
+    "editComponentName": "AssociationM2OEdit",
+    "listView": {
+      "name": "associationM2OTestEntity-view",
+      "entityName": "scr_AssociationM2OTestEntity"
+    },
+    "listComponentName": "AssociationM2OBrowse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_AssociationM2OTestEntity"
+    },
+    "managementComponentName": "AssociationM2OManagement"
+  },
+  "associationM2M": {
+    "editView": {
+      "name": "associationM2MTestEntity-view",
+      "entityName": "scr_AssociationM2MTestEntity"
+    },
+    "editComponentName": "AssociationM2MEdit",
+    "listView": {
+      "name": "associationM2MTestEntity-view",
+      "entityName": "scr_AssociationM2MTestEntity"
+    },
+    "listComponentName": "AssociationM2MBrowse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_AssociationM2MTestEntity"
+    },
+    "managementComponentName": "AssociationM2MManagement"
+  },
+
+  "datatypesTestCards": {
+    "entityView": {
+      "name": "datatypesTestEntity-view",
+      "entityName": "scr_DatatypesTestEntity"
+    },
+    "componentName": "DatatypesCards",
+    "entity": {
+      "name": "scr_DatatypesTestEntity"
+    }
+  },
+
   "entityCards": {
     "entityView": {
       "name": "favoriteCar-view",

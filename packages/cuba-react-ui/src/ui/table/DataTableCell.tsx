@@ -1,16 +1,17 @@
 import {Checkbox} from 'antd';
 import React, {ReactNode} from 'react';
-import {MetaPropertyInfo} from '@cuba-platform/rest';
+import {MetaPropertyInfo, SerializedEntityProps} from '@cuba-platform/rest';
 import { MainStoreInjected, MainStore, getEnumCaption } from '@cuba-platform/react-core';
 import { toDisplayValue } from '../../util/formatting';
 
-type DataTableCellProps = MainStoreInjected & {
+type DataTableCellProps<EntityType> = MainStoreInjected & {
   text: any,
   propertyInfo: MetaPropertyInfo,
   mainStore: MainStore,
+  record?: EntityType
 }
 
-export const DataTableCell = (props: DataTableCellProps): ReactNode => {
+export const DataTableCell = <EntityType extends unknown>(props: DataTableCellProps<EntityType>): ReactNode => {
   if (props.propertyInfo.type === 'boolean') {
     return (
       <Checkbox
@@ -20,8 +21,15 @@ export const DataTableCell = (props: DataTableCellProps): ReactNode => {
     );
   } else if (props.propertyInfo.attributeType === 'ENUM') {
     return (
-      <EnumCell text={props.text} propertyInfo={props.propertyInfo} mainStore={props.mainStore!} />
+      <EnumCell text={props.text} propertyInfo={props.propertyInfo} mainStore={props.mainStore!}/>
     );
+  } else if (props.propertyInfo.attributeType === 'ASSOCIATION' && props.propertyInfo.cardinality === 'MANY_TO_MANY') {
+    const associatedEntities = props.record?.[props.propertyInfo.name as keyof EntityType] as unknown as SerializedEntityProps[];
+    const displayValue = associatedEntities?.map(entity => entity._instanceName).join(', ');
+    return (
+      <div>{displayValue}</div>
+    );
+    return '';
   } else {
     return (
       <div>{toDisplayValue(props.text, props.propertyInfo)}</div>
@@ -29,7 +37,7 @@ export const DataTableCell = (props: DataTableCellProps): ReactNode => {
   }
 };
 
-const EnumCell = (props: DataTableCellProps) => {
+const EnumCell = <EntityType extends unknown>(props: DataTableCellProps<EntityType>) => {
   const caption = getEnumCaption(props.text, props.propertyInfo, props.mainStore!.enums!);
 
   if (caption) {

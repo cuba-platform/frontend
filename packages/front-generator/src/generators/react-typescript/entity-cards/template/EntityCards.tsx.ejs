@@ -9,7 +9,7 @@ import {EntityProperty} from "@cuba-platform/react-ui";
 export class <%= className %> extends React.Component {
 
   dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%=view.name%>', sort: '-updateTs'});
-  fields = [<% view.allProperties.forEach(p => { %>
+  fields = [<% attributes.forEach(p => { %>
     '<%= p.name %>',
     <% }) %>
     ];

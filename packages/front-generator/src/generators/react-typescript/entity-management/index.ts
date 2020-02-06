@@ -7,11 +7,12 @@ import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
-import {collectAttributesFromHierarchy, findEntity} from "../../../common/model/cuba-model-utils";
+import {findEntity} from "../../../common/model/cuba-model-utils";
 import {EntityTemplateModel, getEntityPath} from "../common/template-model";
 import * as entityManagementEn from "./entity-management-en.json";
 import * as entityManagementRu from "./entity-management-ru.json";
 import {writeComponentI18nMessages} from "../common/i18n";
+import {createEntityTemplateModel, determineDisplayedAttributes} from "../common/entity";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 
@@ -80,20 +81,15 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
                                          projectModel:ProjectModel,
                                          dirShift: string | undefined): EntityManagementTemplateModel {
   const className = elementNameToClass(answers.managementComponentName);
-  const entity: EntityTemplateModel = {
-    ...answers.entity,
-    path: getEntityPath(answers.entity, projectModel)
-  };
+  const entity: EntityTemplateModel = createEntityTemplateModel(answers.entity, projectModel);
 
-  const attributesInView: EntityAttribute[] = answers.editView.allProperties.reduce((attrArrMap:EntityAttribute[], prop) => {
-    const attr = collectAttributesFromHierarchy(entity, projectModel).find(ea => ea.name === prop.name);
-    if (attr) {
-      attrArrMap.push(attr);
-    }
-    return attrArrMap;
-  }, []);
+  const listAttributes: EntityAttribute[] =
+    determineDisplayedAttributes(answers.listView.allProperties, entity, projectModel);
 
-  const relations = getRelations(projectModel, attributesInView);
+  const editAttributes: EntityAttribute[] =
+    determineDisplayedAttributes(answers.editView.allProperties, entity, projectModel);
+
+  const editRelations = getRelations(projectModel, editAttributes);
 
   return {
     componentName: answers.managementComponentName,
@@ -105,10 +101,11 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
     nameLiteral: unCapitalizeFirst(className),
     entity,
     listView: answers.listView,
+    listAttributes,
     editView: answers.editView,
-    editAttributes: attributesInView,
-    editRelations: relations,
-    relationImports: getRelationImports(relations, entity)
+    editAttributes,
+    editRelations,
+    relationImports: getRelationImports(editRelations, entity)
   }
 }
 
