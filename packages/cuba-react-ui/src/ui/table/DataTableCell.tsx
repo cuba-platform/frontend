@@ -19,22 +19,25 @@ export const DataTableCell = <EntityType extends unknown>(props: DataTableCellPr
         disabled={true}
       />
     );
-  } else if (props.propertyInfo.attributeType === 'ENUM') {
+  }
+
+  if (props.propertyInfo.attributeType === 'ENUM') {
     return (
       <EnumCell text={props.text} propertyInfo={props.propertyInfo} mainStore={props.mainStore!}/>
     );
-  } else if (props.propertyInfo.attributeType === 'ASSOCIATION' && props.propertyInfo.cardinality === 'MANY_TO_MANY') {
+  }
+
+  if (props.propertyInfo.attributeType === 'ASSOCIATION' && props.propertyInfo.cardinality === 'MANY_TO_MANY') {
     const associatedEntities = props.record?.[props.propertyInfo.name as keyof EntityType] as unknown as SerializedEntityProps[];
     const displayValue = associatedEntities?.map(entity => entity._instanceName).join(', ');
     return (
       <div>{displayValue}</div>
     );
-    return '';
-  } else {
-    return (
-      <div>{toDisplayValue(props.text, props.propertyInfo)}</div>
-    );
   }
+
+  return (
+    <div>{toDisplayValue(props.text, props.propertyInfo)}</div>
+  );
 };
 
 const EnumCell = <EntityType extends unknown>(props: DataTableCellProps<EntityType>) => {
