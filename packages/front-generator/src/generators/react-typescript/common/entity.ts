@@ -9,25 +9,38 @@ export function createEntityTemplateModel(entity: Entity, projectModel: ProjectM
   };
 }
 
-export function determineDisplayedAttributes(
+export function getDisplayedAttributes(
   viewProperties: ViewProperty[], entity: EntityTemplateModel, projectModel: ProjectModel
-) {
+): EntityAttribute[] {
   return viewProperties.reduce((attrArr: EntityAttribute[], prop) => {
     const attr = collectAttributesFromHierarchy(entity, projectModel).find(ea => ea.name === prop.name);
-    if (attr) {
+    if (attr && isDisplayedAttribute(attr)) {
       attrArr.push(attr);
     }
     return attrArr;
-  }, []).filter((attr: EntityAttribute) => {
-    const isOneToManyAssociation = (attr.mappingType === 'ASSOCIATION' && attr.cardinality === 'ONE_TO_MANY');
+  }, []);
+}
 
-    const isOneToOneAssociationInverseSide =
-      attr.mappingType === 'ASSOCIATION'
-      && attr.cardinality === 'ONE_TO_ONE'
-      && (attr.mappedBy && attr.mappedBy.length > 0);
+function isDisplayedAttribute(attr: EntityAttribute) {
+  // Do not display one to many associations
+  if (attr.mappingType === 'ASSOCIATION' && attr.cardinality === 'ONE_TO_MANY') {
+    return false;
+  }
 
-    const isByteArray = (attr.mappingType === 'DATATYPE' && attr.type?.fqn === 'byte[]');
+  // Do not display one to one associations on the inverse side
+  if (
+    attr.mappingType === 'ASSOCIATION'
+    && attr.cardinality === 'ONE_TO_ONE'
+    && (attr.mappedBy && attr.mappedBy.length > 0)
+  ) {
+    return false;
+  }
 
-    return !isOneToManyAssociation && !isOneToOneAssociationInverseSide && !isByteArray;
-  });
+  // Do not display byte arrays
+  // noinspection RedundantIfStatementJS
+  if (attr.mappingType === 'DATATYPE' && attr.type?.fqn === 'byte[]') {
+    return false;
+  }
+
+  return true;
 }

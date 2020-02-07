@@ -12,7 +12,7 @@ import {EntityTemplateModel, getEntityPath} from "../common/template-model";
 import * as entityManagementEn from "./entity-management-en.json";
 import * as entityManagementRu from "./entity-management-ru.json";
 import {writeComponentI18nMessages} from "../common/i18n";
-import {createEntityTemplateModel, determineDisplayedAttributes} from "../common/entity";
+import {createEntityTemplateModel, getDisplayedAttributes} from "../common/entity";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 
@@ -84,10 +84,10 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
   const entity: EntityTemplateModel = createEntityTemplateModel(answers.entity, projectModel);
 
   const listAttributes: EntityAttribute[] =
-    determineDisplayedAttributes(answers.listView.allProperties, entity, projectModel);
+    getDisplayedAttributes(answers.listView.allProperties, entity, projectModel);
 
   const editAttributes: EntityAttribute[] =
-    determineDisplayedAttributes(answers.editView.allProperties, entity, projectModel);
+    getDisplayedAttributes(answers.editView.allProperties, entity, projectModel);
 
   const editRelations = getRelations(projectModel, editAttributes);
 

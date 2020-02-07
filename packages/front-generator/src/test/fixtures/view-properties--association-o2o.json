@@ -1,0 +1,11 @@
+[
+  {
+    "name": "name",
+    "lazy": false
+  },
+  {
+    "name": "datatypesTestEntity",
+    "entity": "scr_DatatypesTestEntity",
+    "lazy": false
+  }
+]
