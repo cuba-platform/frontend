@@ -1,6 +1,6 @@
 import * as React from "react";
 import {observer} from "mobx-react";
-import {FormField} from "../FormField";
+import {FormField, FormFieldComponentProps} from "../FormField";
 import {Form} from "antd";
 import {FormComponentProps, FormItemProps} from 'antd/lib/form';
 import {GetFieldDecoratorOptions} from 'antd/lib/form/Form';
@@ -17,17 +17,18 @@ import {MetaClassInfo} from "@cuba-platform/rest";
 import {uuidPattern} from "../../util/regex";
 
 type Props = MainStoreInjected & FormComponentProps & {
-  entityName: string
-  propertyName: string
-  optionsContainer?: DataCollectionStore<WithId>
+  entityName: string;
+  propertyName: string;
+  optionsContainer?: DataCollectionStore<WithId>;
 
   // form item
-  formItemKey?: string
-  formItemOpts?: FormItemProps
+  formItemKey?: string;
+  formItemOpts?: FormItemProps;
 
   // field decorator
-  fieldDecoratorId?: string
-  getFieldDecoratorOpts?: GetFieldDecoratorOptions
+  fieldDecoratorId?: string;
+  getFieldDecoratorOpts?: GetFieldDecoratorOptions;
+  componentProps?: FormFieldComponentProps;
 }
 
 // noinspection JSUnusedGlobalSymbols
@@ -36,7 +37,7 @@ export const Field = injectMainStore(observer((props: Props) => {
   const {getFieldDecorator} = props.form;
 
   const {
-    entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore
+    entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps
   } = props;
 
   const formItemOpts: FormItemProps = {... props.formItemOpts};
@@ -56,6 +57,7 @@ export const Field = injectMainStore(observer((props: Props) => {
                      propertyName={propertyName}
                      disabled={isReadOnly}
                      optionsContainer={optionsContainer}
+                     {...componentProps}
           />
         )}
       </Form.Item>

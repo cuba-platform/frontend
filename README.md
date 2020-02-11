@@ -809,25 +809,25 @@ Sub menus can have unlimited nesting. One sub menu could be used as item of anot
 ### Forms
 
 In order to facilitate data binding, Ant Design's [Form](https://ant.design/components/form/) component and utilities
-are used in the app. 
-
-`getFieldDecorator` is a useful higher order function which allows you to set up validation and binding. See the following example:
+are used in the app. On top of that we provide a `Field` component which automatically renders corresponding component 
+basing on metadata. See the following example:
 
 ```typescript jsx
-  <Form.Item label='name'>
-     getFieldDecorator('model', {
-       normalize: (value) => {
-         return value === '' ? null : value; // Normalize value so that empty string is converted to null
-       },
-       rules: [ // Allows you to setup front-end validation rules
-         {required: true} 
-       ]
-     })(
-        <FormField entityName={Entity.NAME}
-                   propertyName='model'/>
-     )}
-  </Form.Item>
+  <Field
+    entityName={Car.NAME}
+    propertyName="manufacturer"
+    form={this.props.form}
+    formItemOpts={{ style: { marginBottom: "12px" } }}
+    getFieldDecoratorOpts={{
+      rules: [{ required: true }]
+    }}
+    componentProps= {{
+      maxLength: 4
+    }}
+  />
 ```
+
+You can customize underlying components, validation rules and binding using `getFieldDecoratorOpts` and `componentProps` properties.
 
 <a name="react-client-i18n"/>
 
