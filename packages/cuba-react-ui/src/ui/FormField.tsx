@@ -2,33 +2,41 @@ import * as React from "react";
 import {Checkbox, DatePicker, Input, InputNumber, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
 import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType} from "@cuba-platform/rest"
-import {FileUpload} from './FileUpload';
+import {FileUpload, FileUploadProps} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
 import {MainStoreInjected, DataCollectionStore, WithId, injectMainStore, getPropertyInfo, isFileProperty} from "@cuba-platform/react-core";
 import './FormField.less';
 import {UuidField} from "./form/UuidField";
+import {SelectProps} from "antd/lib/select";
+import {InputProps} from "antd/lib/input/Input";
+import {CheckboxProps} from "antd/lib/checkbox/Checkbox";
+import {DatePickerProps} from "antd/lib/date-picker/interface";
+import {TimePickerProps} from "antd/lib/time-picker";
+import {InputNumberProps} from "antd/lib/input-number";
 
-type Props = MainStoreInjected & {
+export type FormFieldComponentProps = SelectProps | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps;
+
+export type FormFieldProps = MainStoreInjected & {
   entityName: string
   propertyName: string
   disabled?: boolean
   optionsContainer?: DataCollectionStore<WithId>
-}
+} & FormFieldComponentProps
 
-export const FormField = injectMainStore(observer((props: Props) => {
+export const FormField = injectMainStore(observer((props: FormFieldProps) => {
 
   const {entityName, propertyName, optionsContainer, mainStore, ...rest} = props;
 
   if (mainStore == null || mainStore.metadata == null) {
-    return <Input {...rest}/>;
+    return <Input {...(rest as InputProps)}/>;
   }
   const propertyInfo = getPropertyInfo(mainStore!.metadata, entityName, propertyName);
   if (propertyInfo == null) {
-    return <Input {...rest}/>
+    return <Input {...(rest as InputProps)}/>
   }
 
   if (isFileProperty(propertyInfo)) {
-    return <FileUpload {...rest}/>;
+    return <FileUpload {...(rest as FileUploadProps)}/>;
   }
 
   switch (propertyInfo.attributeType) {
@@ -42,42 +50,42 @@ export const FormField = injectMainStore(observer((props: Props) => {
   }
   switch (propertyInfo.type as PropertyType) {
     case 'boolean':
-      return <Checkbox {...rest}/>;
+      return <Checkbox {...(rest as CheckboxProps)}/>;
     case 'date':
     case 'localDate':
-      return <DatePicker {...rest}/>;
+      return <DatePicker {...(rest as DatePickerProps)}/>;
     case 'dateTime':
     case 'localDateTime':
     case 'offsetDateTime':
-      return <DatePicker showTime={true} {...rest}/>;
+      return <DatePicker showTime={true} {...(rest as DatePickerProps)}/>;
     case 'time':
     case 'localTime':
     case 'offsetTime':
-      return <TimePicker {...rest}/>;
+      return <TimePicker {...(rest as TimePickerProps)}/>;
     case 'int':
       return <InputNumber min={JAVA_INTEGER_MIN_VALUE}
                           max={JAVA_INTEGER_MAX_VALUE}
                           precision={0}
                           className='inputnumber-field'
-                          {...rest}
+                          {...(rest as InputNumberProps)}
              />;
     case 'double':
-      return <InputNumber className='inputnumber-field' {...rest}/>;
+      return <InputNumber className='inputnumber-field' {...(rest as InputNumberProps)}/>;
     case 'long': // TODO values > Number.MAX_SAFE_INTEGER are not currently supported https://github.com/cuba-platform/frontend/issues/99
       return <InputNumber className='inputnumber-field'
                           // TODO once values > Number.MAX_SAFE_INTEGER add validation agains Long.MIN_VALUE/MAX_VALUE
                           precision={0}
-                          {...rest}
+                          {...(rest as InputNumberProps)}
              />;
     case 'decimal': // TODO values > Number.MAX_SAFE_INTEGER are not currently supported https://github.com/cuba-platform/frontend/issues/99
       return <InputNumber className='inputnumber-field'
                           // TODO Add validation of precision/scale https://github.com/cuba-platform/frontend/issues/100
-                          {...rest}
+                          {...(rest as InputNumberProps)}
              />;
     case 'uuid':
       return <UuidField {...rest}/>
   }
-  return <Input {...rest}/>;
+  return <Input {...(rest as InputProps)}/>;
 }));
 
 
