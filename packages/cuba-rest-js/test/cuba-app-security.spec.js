@@ -12,17 +12,17 @@ describe('CubaApp security methods', () => {
   it('should load effective perms for admin', async () => {
 
     const expectedAdminEffectivePerms = {
-      explicitPermissions: {entities: [], entityAttributes: [], specific: []},
-      defaultValues:
-        {
-          entityCreate: 1,
-          entityRead: 1,
-          entityUpdate: 1,
-          entityDelete: 1,
-          entityAttribute: 2,
-          specific: 1
-        },
-      undefinedPermissionPolicy: "DENY"
+      explicitPermissions: {
+        entities: [
+          {target: '*:update', value: 1},
+          {target: '*:read', value: 1},
+          {target: '*:delete', value: 1},
+          {target: '*:create', value: 1}
+        ],
+        entityAttributes: [{target: '*:*', value: 2}],
+        specific: [{target: '*', value: 1}]
+      },
+      undefinedPermissionPolicy: 'DENY'
     };
 
     app = new cuba.CubaApp('', apiUrl);
@@ -38,16 +38,6 @@ describe('CubaApp security methods', () => {
 
     expect(perms.undefinedPermissionPolicy).eq("DENY");
 
-    expect(perms.defaultValues).eql(
-      {
-        entityCreate: 0,
-        entityRead: 0,
-        entityUpdate: 0,
-        entityDelete: 0,
-        entityAttribute: 0,
-        specific: 0
-      });
-
     expect(perms.explicitPermissions.entities).include.all.deep.members([
       {target: 'scr$Car:read', value: 1},
       {target: 'scr$Car:create', value: 1},
@@ -61,6 +51,12 @@ describe('CubaApp security methods', () => {
       {target: 'scr$Car:model', value: 2},
       {target: 'scr$Car:manufacturer', value: 2}
     ]);
+
+    expect(perms.explicitPermissions.specific).include.all.deep.members([
+      { target: 'cuba.gui.loginToClient', value: 1 },
+      { target: 'cuba.restApi.enabled', value: 1 },
+      { target: 'cuba.restApi.fileUpload.enabled', value: 1 }
+    ]);
   });
 
   it('should load effective perms for manager', async () => {
@@ -68,19 +64,8 @@ describe('CubaApp security methods', () => {
     app = new cuba.CubaApp('', apiUrl);
     await app.login('manager', '2');
     const perms = await app.getEffectivePermissions();
-    console.dir(perms, {depth: null});
 
     expect(perms.undefinedPermissionPolicy).eq("DENY");
-
-    expect(perms.defaultValues).eql(
-      {
-        entityCreate: 0,
-        entityRead: 0,
-        entityUpdate: 0,
-        entityDelete: 0,
-        entityAttribute: 0,
-        specific: 0
-      });
 
     expect(perms.explicitPermissions.entities).include.all.deep.members([
       {target: 'scr$Car:read', value: 1},
@@ -94,6 +79,12 @@ describe('CubaApp security methods', () => {
       {target: 'scr$Car:regNumber', value: 2},
       {target: 'scr$Car:model', value: 2},
       {target: 'scr$Car:manufacturer', value: 2}
+    ]);
+
+    expect(perms.explicitPermissions.specific).include.all.deep.members([
+      { target: 'cuba.gui.loginToClient', value: 1 },
+      { target: 'cuba.restApi.enabled', value: 1 },
+      { target: 'cuba.restApi.fileUpload.enabled', value: 1 }
     ]);
   });
 

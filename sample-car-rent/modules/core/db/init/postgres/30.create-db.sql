@@ -1,10 +1,10 @@
 -- SECURITY
 
 -- ROLES
-INSERT INTO sec_role (id, create_ts, created_by, version, update_ts, updated_by, delete_ts, deleted_by, sys_tenant_id, name, loc_name, description, is_default_role, role_type, security_scope, default_screen_access, default_entity_create_access, default_entity_read_access, default_entity_update_access, default_entity_delete_access, default_entity_attr_access, default_specific_access)
-VALUES ('91099ca3-194e-6ba5-7aa6-15b03bcef05a', now(), 'admin', 2, now(), 'admin', NULL, NULL, NULL, 'Managers', NULL, NULL, NULL, 40, 'GENERIC_UI', NULL, 0, 0, 0, 0, 0, 0);
-INSERT INTO sec_role (id, create_ts, created_by, version, update_ts, updated_by, delete_ts, deleted_by, sys_tenant_id, name, loc_name, description, is_default_role, role_type, security_scope, default_screen_access, default_entity_create_access, default_entity_read_access, default_entity_update_access, default_entity_delete_access, default_entity_attr_access, default_specific_access)
-VALUES ('23548523-3f0f-f96a-07ff-0d60b9cb5c1b', now(), 'admin', 2, now(), 'admin', NULL, NULL, NULL, 'Mechanics', NULL, NULL, NULL, 30, 'GENERIC_UI', NULL, 0, 0, 0, 0, 0, 0);
+INSERT INTO sec_role (id, create_ts, created_by, version, update_ts, updated_by, delete_ts, deleted_by, sys_tenant_id, name, loc_name, description, is_default_role, role_type, security_scope)
+VALUES ('91099ca3-194e-6ba5-7aa6-15b03bcef05a', now(), 'admin', 2, now(), 'admin', NULL, NULL, NULL, 'Managers', NULL, NULL, NULL, 40, 'GENERIC_UI');
+INSERT INTO sec_role (id, create_ts, created_by, version, update_ts, updated_by, delete_ts, deleted_by, sys_tenant_id, name, loc_name, description, is_default_role, role_type, security_scope)
+VALUES ('23548523-3f0f-f96a-07ff-0d60b9cb5c1b', now(), 'admin', 2, now(), 'admin', NULL, NULL, NULL, 'Mechanics', NULL, NULL, NULL, 30, 'GENERIC_UI');
 
 -- USERS
 INSERT INTO SEC_USER (ID,LOGIN,LOGIN_LC,PASSWORD,PASSWORD_ENCRYPTION,NAME,FIRST_NAME,LAST_NAME,EMAIL,LANGUAGE_,ACTIVE,GROUP_ID,DTYPE)
