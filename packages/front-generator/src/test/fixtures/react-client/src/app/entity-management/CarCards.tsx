@@ -69,7 +69,7 @@ class CarCardsComponent extends React.Component<
       !!mainStore.messages &&
       !!mainStore.metadata &&
       !!mainStore.enums &&
-      !!mainStore.security.permissions
+      mainStore.security.dataLoaded
     );
   }
 

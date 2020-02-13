@@ -23,6 +23,7 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
           <LanguageSwitcher className='panelelement language-switcher -header'/>
           <span className="panelelement">{appState.userName}</span>
           <Button className="panelelement"
+                  id='button_logout'
                   ghost={true}
                   icon='logout'
                   style={{border: 0}}

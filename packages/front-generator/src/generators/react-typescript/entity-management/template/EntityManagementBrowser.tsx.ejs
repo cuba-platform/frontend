@@ -64,7 +64,7 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
 
   @computed private get dataLoaded() {
     const { mainStore } = this.props;
-    return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && !!mainStore.security.permissions;
+    return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && mainStore.security.dataLoaded;
   }
 
   <% /* TABLE COMPONENT*/ %>

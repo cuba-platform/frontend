@@ -184,7 +184,7 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
 
   @computed private get dataLoaded() {
     const { mainStore } = this.props;
-    return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && !!mainStore.security.permissions;
+    return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && mainStore.security.dataLoaded;
   }
 
 }

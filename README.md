@@ -970,7 +970,11 @@ $ npm run `update-model`
 ### Security
 
 Since React client works via Generic REST API endpoints, the backend (CUBA) application should have properly configured Security 
-Roles and Access groups. See the [corresponding chapter](https://doc.cuba-platform.com/restapi-7.1/#security) in REST API documentation.
+Roles and Access groups. See the [corresponding chapter](https://doc.cuba-platform.com/restapi-7.2/#security) in REST API documentation.
+
+Package `cuba-rest-js` provide methods, which allows check for user runtime security permissions for entity attributes and operations.
+* ```getAttributePermission``` checks entity attribute permission and could return `DENY` `VIEW` or `MODIFY`
+* ```isOperationAllowed``` checks entity operation permission and returns `true` or `false`
 
 <a name="react-client-build"/>
 

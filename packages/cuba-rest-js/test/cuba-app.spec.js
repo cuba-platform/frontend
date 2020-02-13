@@ -95,21 +95,14 @@ describe('CubaApp', function () {
         });
     });
 
-    it('should update existing entity', function (done) {
-      const admRole = {
-        id: '0c018061-b26f-4de2-a5be-dff348347f93',
+    it('should update existing entity', async () => {
+      const managersRole = {
+        id: '91099ca3-194e-6ba5-7aa6-15b03bcef05a',
         description: 'Updated role description'
       };
-      app.commitEntity('sec$Role', admRole)
-        .then(function () {
-          app.loadEntity('sec$Role', admRole.id).then((updatedRole) => {
-            assert(updatedRole.description === 'Updated role description');
-            done();
-          });
-        })
-        .catch(function (e) {
-          done(e);
-        })
+      return app.commitEntity('sec$Role', managersRole)
+        .then(() => app.loadEntity('sec$Role', managersRole.id))
+        .then((updatedRole) => assert(updatedRole.description === 'Updated role description'));
     });
   });
 
