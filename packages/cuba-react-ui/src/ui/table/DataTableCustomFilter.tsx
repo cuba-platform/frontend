@@ -1,9 +1,9 @@
 import React, {FormEvent, ReactNode} from 'react';
-import {Button, DatePicker, Divider, Form, Input, InputNumber, message, Select, Spin, TimePicker} from 'antd';
+import {Button, DatePicker, Divider, Form, Input, message, Select, Spin, TimePicker} from 'antd';
 import {FormComponentProps} from 'antd/es/form';
 import {FilterDropdownProps} from 'antd/es/table';
 import {observer} from 'mobx-react';
-import {MetaClassInfo, MetaPropertyInfo, OperatorType, PropertyType} from '@cuba-platform/rest';
+import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@cuba-platform/rest';
 import {action, computed, observable} from 'mobx';
 import moment, {Moment} from 'moment';
 import {DataTableListEditor} from './DataTableListEditor';
@@ -12,7 +12,21 @@ import './DataTableCustomFilter.less';
 import './DataTableFilterControlLayout.less';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {injectIntl, WrappedComponentProps, FormattedMessage} from 'react-intl';
-import {MainStoreInjected, injectMainStore, WithId, getCubaREST, getPropertyInfo} from "@cuba-platform/react-core";
+import {
+  MainStoreInjected,
+  injectMainStore,
+  WithId,
+  getCubaREST,
+  getPropertyInfo,
+  assertNever, getDataTransferFormat
+} from '@cuba-platform/react-core';
+import {IntegerInput} from "../form/IntegerInput";
+import {BigDecimalInput} from "../form/BigDecimalInput";
+import {DoubleInput} from "../form/DoubleInput";
+import {LongInput} from "../form/LongInput";
+import {UuidInput} from '../form/UuidInput';
+import {uuidPattern} from "../../util/regex";
+import {LabeledValue} from "antd/es/select";
 
 export interface CaptionValuePair {
   caption: string;
@@ -69,7 +83,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   constructor(props: DataTableCustomFilterProps & WrappedComponentProps) {
     super(props);
 
-    this.setDefaultYesNoDropdown();
+    this.initValue();
   }
 
   componentDidMount(): void {
@@ -144,16 +158,19 @@ class DataTableCustomFilterComponent<E extends WithId>
     });
   };
 
-  @action
-  resetFilter = (): void => {
-    if (this.propertyInfoNN.type === 'boolean') {
-      this.value = 'true';
+  initValue = (): void => {
+    if (this.operator === 'notEmpty' || this.propertyInfoNN.type === 'boolean') {
+      this.value = true;
     } else {
       this.value = null;
     }
+  };
 
+  @action
+  resetFilter = (): void => {
     this.props.form.resetFields();
     this.operator = this.getDefaultOperator();
+    this.initValue();
 
     // @ts-ignore
     this.props.filterProps.clearFilters!(this.props.filterProps.selectedKeys!);
@@ -166,22 +183,11 @@ class DataTableCustomFilterComponent<E extends WithId>
     const oldOperatorGroup: OperatorGroup = determineOperatorGroup(oldOperator);
     const newOperatorGroup: OperatorGroup = determineOperatorGroup(newOperator);
 
-    if (oldOperatorGroup !== newOperatorGroup) {
-      this.props.form.resetFields();
-      this.value = null;
-    }
-
     this.operator = newOperator;
 
-    this.setDefaultYesNoDropdown();
-  };
-
-  @action
-  setDefaultYesNoDropdown = (): void => {
-    if (!this.value &&
-      (this.operator === 'notEmpty' || this.propertyInfoNN.type === 'boolean')
-    ) {
-      this.value = 'true';
+    if (oldOperatorGroup !== newOperatorGroup) {
+      this.props.form.resetFields();
+      this.initValue();
     }
   };
 
@@ -191,22 +197,29 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
-  onDatePickerChange = (_date: Moment | null, dateString: string): void => {
-    this.value = dateString;
+  onDatePickerChange = (date: Moment | null, _dateString: string): void => {
+    if (date) {
+      this.value = date.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
+    }
   };
 
   @action
   onTimePickerChange = (time: Moment | null, _timeString: string): void => {
     if (time) {
-      this.value = time.format('HH:mm:ss.mmm');
+      this.value = time.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
     }
   };
 
   @action
   onDateTimePickerChange = (dateTime: Moment, _timeString: string): void => {
     if (dateTime) {
-      this.value = dateTime.format('YYYY-MM-DD HH:mm:ss.000');
+      this.value = dateTime.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
     }
+  };
+
+  @action
+  onYesNoSelectChange = (value: string | number | LabeledValue): void => {
+    this.value = (value === 'true');
   };
 
   @action
@@ -236,7 +249,7 @@ class DataTableCustomFilterComponent<E extends WithId>
               </Form.Item>
               <Form.Item className='filtercontrol'>
                 {this.getFieldDecorator(
-                  `${this.props.entityProperty}.operatorsDropdown`,
+                  `${this.props.entityProperty}_operatorsDropdown`,
                   {initialValue: this.getDefaultOperator()})(
                   <Select
                     dropdownMatchSelectWidth={false}
@@ -283,13 +296,21 @@ class DataTableCustomFilterComponent<E extends WithId>
       case 'date':
       case 'time':
       case 'dateTime':
+      case 'localDate':
+      case 'localTime':
+      case 'localDateTime':
+      case 'offsetDateTime':
+      case 'offsetTime':
         return '=';
       case 'int':
       case 'double':
       case 'decimal':
+      case 'long':
         return '=';
       case 'string':
         return 'contains';
+      case 'uuid':
+        return '=';
       default:
         throw new Error(`${this.errorContext} Unexpected property type ${propertyInfo.type} when trying to get the default condition operator`)
     }
@@ -371,6 +392,8 @@ class DataTableCustomFilterComponent<E extends WithId>
         return this.yesNoSelectField;
 
       case 'dateTime':
+      case 'localDateTime':
+      case 'offsetDateTime':
         switch (this.operator) {
           case '=':
           case '<>':
@@ -390,6 +413,7 @@ class DataTableCustomFilterComponent<E extends WithId>
         throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
       case 'date':
+      case 'localDate':
         switch (this.operator) {
           case '=':
           case '<>':
@@ -409,6 +433,8 @@ class DataTableCustomFilterComponent<E extends WithId>
         throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
       case 'time':
+      case 'localTime':
+      case 'offsetTime':
         switch (this.operator) {
           case '=':
           case '<>':
@@ -428,6 +454,7 @@ class DataTableCustomFilterComponent<E extends WithId>
       case 'int':
       case 'double':
       case 'decimal':
+      case 'long':
         switch (this.operator) {
           case '=':
           case '<>':
@@ -435,7 +462,7 @@ class DataTableCustomFilterComponent<E extends WithId>
           case '>=':
           case '<':
           case '<=':
-            return this.numberInputField;
+            return this.numberInputField(propertyInfo.type as NumericPropertyType);
           case 'in':
           case 'notIn':
             return this.listEditor;
@@ -461,6 +488,18 @@ class DataTableCustomFilterComponent<E extends WithId>
         }
         throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
 
+      case 'uuid':
+        switch (this.operator) {
+          case '=':
+          case '<>':
+            return this.uuidInputField;
+          case 'in':
+          case 'notIn':
+            return this.listEditor;
+          case 'notEmpty':
+            return this.yesNoSelectField;
+        }
+
       default:
         throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
     }
@@ -468,38 +507,48 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @computed
   get textInputField(): ReactNode {
-    return (
-      <Form.Item hasFeedback={true} className='filtercontrol'>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
-          <Input onChange={this.onTextInputChange}/>
-        )}
-      </Form.Item>
-    );
+    return this.createFilterInput(<Input onChange={this.onTextInputChange}/>, true);
   }
 
   @computed
-  get numberInputField(): ReactNode {
-    return (
-      <Form.Item hasFeedback={true} className='filtercontrol'>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
-          <InputNumber onChange={this.setValue}/>
-        )}
-      </Form.Item>
-    );
+  get uuidInputField(): ReactNode {
+    const options = this.getDefaultFieldDecoratorOptions();
+
+    if (!options.rules) {
+      options.rules = [];
+    }
+
+    options.rules.push({
+      pattern: uuidPattern,
+      message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.uuid'})
+    });
+
+    return this.createFilterInput(<UuidInput onChange={this.onTextInputChange}/>, true, options);
+  }
+
+  numberInputField(propertyType: NumericPropertyType): ReactNode {
+    switch (propertyType) {
+      case 'int':
+        return this.createFilterInput(<IntegerInput onChange={this.setValue}/>, true);
+      case 'double':
+        return this.createFilterInput(<DoubleInput onChange={this.setValue}/>, true);
+      case 'long':
+        return this.createFilterInput(<LongInput onChange={this.setValue}/>, true);
+      case 'decimal':
+        return this.createFilterInput(<BigDecimalInput onChange={this.setValue}/>, true);
+      default:
+        return assertNever('property type', propertyType);
+    }
   }
 
   @computed
   get selectField(): ReactNode {
-    return (
-      <Form.Item className='filtercontrol'>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, {initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}]})(
-          <Select dropdownMatchSelectWidth={false}
-                  className='cuba-filter-select'
-                  onSelect={this.setValue}>
-            {this.selectFieldOptions}
-          </Select>
-        )}
-      </Form.Item>
+    return this.createFilterInput(
+      <Select dropdownMatchSelectWidth={false}
+              className='cuba-filter-select'
+              onSelect={this.setValue}>
+        {this.selectFieldOptions}
+      </Select>
     );
   }
 
@@ -516,22 +565,20 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @computed
   get yesNoSelectField(): ReactNode {
-    return (
-      <Form.Item className='filtercontrol'>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, {initialValue: 'true', rules: [{required: true}]})(
-          <Select dropdownMatchSelectWidth={false}
-                  className='cuba-filter-select'
-                  onSelect={this.setValue}>
-            <Select.Option value='true'>
-              <FormattedMessage id='cubaReact.dataTable.yes'/>
-            </Select.Option>
-            <Select.Option value='false'>
-              <FormattedMessage id='cubaReact.dataTable.no'/>
-            </Select.Option>
-          </Select>
-        )}
-      </Form.Item>
+    const component = (
+      <Select dropdownMatchSelectWidth={false}
+              className='cuba-filter-select'
+              onSelect={this.onYesNoSelectChange}>
+        <Select.Option value='true'>
+          <FormattedMessage id='cubaReact.dataTable.yes'/>
+        </Select.Option>
+        <Select.Option value='false'>
+          <FormattedMessage id='cubaReact.dataTable.no'/>
+        </Select.Option>
+      </Select>
     );
+
+    return this.createFilterInput(component, false, {initialValue: 'true', rules: [{required: true}]});
   }
 
   @computed
@@ -555,6 +602,7 @@ class DataTableCustomFilterComponent<E extends WithId>
         <DataTableIntervalEditor onChange={(value: any) => this.value = value}
                                  id={this.props.entityProperty}
                                  getFieldDecorator={this.props.form.getFieldDecorator}
+                                 propertyType={this.propertyInfoNN.type as PropertyType}
         />
       </Form.Item>
     );
@@ -562,48 +610,65 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @computed
   get datePickerField(): ReactNode {
-    return (
-      <Form.Item hasFeedback={true} className='filtercontrol'>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
-          <DatePicker placeholder='YYYY-MM-DD' onChange={this.onDatePickerChange}/>
-        )}
-      </Form.Item>
+    const component = (
+      <DatePicker placeholder='YYYY-MM-DD' onChange={this.onDatePickerChange}/>
     );
+    return this.createFilterInput(component, true);
   }
 
   @computed
   get timePickerField(): ReactNode {
-    return (
-      <Form.Item hasFeedback={true} className='filtercontrol'>
-        {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
-          <TimePicker placeholder='HH:mm:ss'
-                      defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                      onChange={this.onTimePickerChange}/>
-        )}
-      </Form.Item>
+    const component = (
+      <TimePicker placeholder='HH:mm:ss'
+                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                  onChange={this.onTimePickerChange}/>
     );
+    return this.createFilterInput(component, true);
   }
 
   @computed
   get dateTimePickerField(): ReactNode {
+    const datePicker = (
+      <DatePicker placeholder='YYYY-MM-DD'/>
+    );
+    const filterDatePicker = this.createFilterInput(datePicker, true);
+
+    const timePicker = (
+      <TimePicker placeholder='HH:mm:ss'
+                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                  onChange={this.onDateTimePickerChange}/>
+    );
+    const filterTimePicker = this.createFilterInput(timePicker, true);
+
     return (
       <Form.Item hasFeedback={true} className='filtercontrol'>
         <div className='cuba-filter-controls-layout'>
-          <Form.Item hasFeedback={true} className='filtercontrol'>
-            {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
-              <DatePicker placeholder='YYYY-MM-DD'/>
-            )}
-          </Form.Item>
-          <Form.Item hasFeedback={true} className='filtercontrol'>
-            {this.getFieldDecorator(`${this.props.entityProperty}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}] })(
-              <TimePicker placeholder='HH:mm:ss'
-                          defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                          onChange={this.onDateTimePickerChange}/>
-            )}
-          </Form.Item>
+          {filterDatePicker}
+          {filterTimePicker}
         </div>
       </Form.Item>
     );
+  }
+
+  getDefaultFieldDecoratorOptions(): GetFieldDecoratorOptions {
+    return {
+      initialValue: null,
+      rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}]
+    };
+  }
+
+  createFilterInput(
+    component: ReactNode, hasFeedback: boolean = false, options?: GetFieldDecoratorOptions, additionalClassName?: string
+  ): ReactNode {
+    if (!options) {
+      options = this.getDefaultFieldDecoratorOptions();
+    }
+
+    return <Form.Item hasFeedback={hasFeedback} className={`filtercontrol ${additionalClassName || ''}`}>
+      {this.getFieldDecorator(`${this.props.entityProperty}_input`, options)(
+        component
+      )}
+    </Form.Item>
   }
 
 }
@@ -645,16 +710,26 @@ function getAvailableOperators(propertyInfo: MetaPropertyInfo): ComparisonType[]
     case 'boolean':
       return ['=', '<>', 'notEmpty'];
     case 'date':
+    case 'localDate':
     case 'dateTime':
+    case 'localDateTime':
+    case 'offsetDateTime':
       return ['=', 'in', 'notIn', '<>', '>', '>=', '<', '<=', 'notEmpty', 'inInterval'];
     case 'time':
       return ['=', 'in', 'notIn', '<>', '>', '>=', '<', '<=', 'notEmpty'];
+    case 'localTime':
+    case 'offsetTime':
+      // 'in', 'notIn' are not supported, see https://github.com/cuba-platform/restapi/issues/93
+      return ['=', '<>', '>', '>=', '<', '<=', 'notEmpty'];
     case 'int':
     case 'double':
+    case 'long':
     case 'decimal':
       return ['=', 'in', 'notIn', '<>', '>', '>=', '<', '<=', 'notEmpty'];
     case 'string':
       return ['contains', '=', 'in', 'notIn', '<>', 'doesNotContain', 'notEmpty', 'startsWith', 'endsWith'];
+    case 'uuid':
+      return ['=', 'in', 'notIn', '<>', 'notEmpty'];
     default:
       throw new Error(`Could not determine available condition operators for property ${propertyInfo.name} with attribute type ${propertyInfo.attributeType} and type ${propertyInfo.type}`);
   }

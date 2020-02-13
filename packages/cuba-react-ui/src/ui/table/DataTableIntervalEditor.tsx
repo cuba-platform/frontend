@@ -9,6 +9,7 @@ import './DataTableIntervalEditor.less';
 import './DataTableFilterControlLayout.less';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+import {PropertyType} from '@cuba-platform/rest';
 
 export interface Interval {
   minDate: string,
@@ -20,6 +21,7 @@ interface DataTableIntervalEditorProps {
   // tslint:disable-next-line:ban-types
   getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode,
   id: string,
+  propertyType: PropertyType
 }
 
 export type DataTableIntervalEditorMode = 'last' | 'next' | 'predefined';
@@ -42,8 +44,8 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   @computed
   get interval(): Interval {
     return (this.mode === 'predefined')
-      ? determinePredefinedInterval(this.option)
-      : determineLastNextXInterval(this.mode, this.numberOfUnits, this.timeUnit, this.includeCurrent);
+      ? determinePredefinedInterval(this.option, this.props.propertyType)
+      : determineLastNextXInterval(this.mode, this.numberOfUnits, this.timeUnit, this.includeCurrent, this.props.propertyType);
   }
 
   @action
@@ -111,9 +113,9 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   get predefinedIntervals(): ReactNode {
     return (
       <Form.Item className='filtercontrol'>
-        {this.props.getFieldDecorator(`${this.props.id}.predefined`, {
+        {this.props.getFieldDecorator(`${this.props.id}_predefined`, {
           initialValue: this.option,
-          rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}],
+          rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}],
         })(
           <Select onChange={this.onPredefinedIntervalOptionChanged}
                   dropdownMatchSelectWidth={false}
@@ -148,9 +150,9 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
     return (
       <div className='cuba-filter-controls-layout'>
         <Form.Item key={`${this.props.id}.wrap.number`} className='filtercontrol'>
-          {this.props.getFieldDecorator(`${this.props.id}.number`, {
+          {this.props.getFieldDecorator(`${this.props.id}_number`, {
             initialValue: this.numberOfUnits,
-            rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.requiredField'})}],
+            rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}],
           })(
             <InputNumber onChange={this.onIntervalNumberChanged}/>
           )}

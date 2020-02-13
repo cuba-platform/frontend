@@ -1,4 +1,4 @@
-import {getDisplayedAttributes} from "../../../../generators/react-typescript/common/entity";
+import {getDisplayedAttributes, ScreenType} from "../../../../generators/react-typescript/common/entity";
 import {expect} from "chai";
 
 const dtViewProperties = require('../../../fixtures/view-properties--datatypes-test-entity.json');
@@ -8,30 +8,41 @@ const o2oEntityModel = require('../../../fixtures/entity-model--association-o2o.
 const projectModel = require('../../../fixtures/project-model--scr.json');
 
 describe('getDisplayedAttributes()', () => {
-  let dtDisplayedFields: string[];
-  let o2oDisplayedFields: string[];
+  let dtBrowserDisplayedFields: string[];
+  let dtEditorDisplayedFields: string[];
+  let o2oDisplayedFieldsBrowser: string[];
 
   before(() => {
-    const dtEntityAttrs = getDisplayedAttributes(dtViewProperties, dtEntityModel, projectModel);
-    dtDisplayedFields = dtEntityAttrs.map(attr => attr.name);
-    const o2oEntityAttrs = getDisplayedAttributes(o2oViewProperties, o2oEntityModel, projectModel);
-    o2oDisplayedFields = o2oEntityAttrs.map(attr => attr.name);
+    const dtBrowserEntityAttrs = getDisplayedAttributes(dtViewProperties, dtEntityModel, projectModel, ScreenType.BROWSER);
+    dtBrowserDisplayedFields = dtBrowserEntityAttrs.map(attr => attr.name);
+    const dtEditorEntityAttrs = getDisplayedAttributes(dtViewProperties, dtEntityModel, projectModel, ScreenType.EDITOR);
+    dtEditorDisplayedFields = dtEditorEntityAttrs.map(attr => attr.name);
+    const o2oEntityAttrs = getDisplayedAttributes(o2oViewProperties, o2oEntityModel, projectModel, ScreenType.BROWSER);
+    o2oDisplayedFieldsBrowser = o2oEntityAttrs.map(attr => attr.name);
   });
 
   it('does not include one to many associations', () => {
-    expect(dtDisplayedFields).to.not.include('associationO2Mattr');
+    expect(dtBrowserDisplayedFields).to.not.include('associationO2Mattr');
   });
 
   it('does not include one to one associations on the inverse side', () => {
-    expect(o2oDisplayedFields).to.not.include('datatypesTestEntity');
+    expect(o2oDisplayedFieldsBrowser).to.not.include('datatypesTestEntity');
   });
 
   it('does not include byte arrays', () => {
-    expect(dtDisplayedFields).to.not.include('byteArrayAttr');
+    expect(dtBrowserDisplayedFields).to.not.include('byteArrayAttr');
+  });
+
+  it('does not include many to many associations (browser)', () => {
+    expect(dtBrowserDisplayedFields).to.not.include('associationM2Mattr');
+  });
+
+  it('includes many to many associations (editor)', () => {
+    expect(dtEditorDisplayedFields).to.not.include('associationM2Mattr');
   });
 
   it('includes all other properties', () => {
-    expect(dtDisplayedFields).to.include.members([
+    const propertiesSet = [
       'bigDecimalAttr',
       'booleanAttr',
       'dateAttr',
@@ -51,8 +62,9 @@ describe('getDisplayedAttributes()', () => {
       'name',
       'associationO2Oattr',
       'associationM2Oattr',
-      'associationM2Mattr',
-    ]);
-    expect(o2oDisplayedFields).to.include('name');
+    ];
+    expect(dtBrowserDisplayedFields).to.include.members(propertiesSet);
+    expect(dtEditorDisplayedFields).to.include.members(propertiesSet);
+    expect(o2oDisplayedFieldsBrowser).to.include('name');
   });
 });

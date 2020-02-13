@@ -1,11 +1,9 @@
-import { InputWithMask } from "./InputWithMask";
-import React from "react";
+import {InputWithMask} from "./InputWithMask";
+import React, {forwardRef, Ref} from "react";
+import {Input} from 'antd';
+import {InputProps} from 'antd/es/input';
 
-type Props = {
-  disabled?: boolean
-};
-
-export const UuidField = (props: Props) => {
+export const UuidInput = forwardRef((props: InputProps, ref: Ref<Input>) => {
   return (
     <InputWithMask mask='xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx'
                    formatChars={{
@@ -13,7 +11,8 @@ export const UuidField = (props: Props) => {
                      'M': '[0-5]', // UUID version
                      'N': '[089ab]', // UUID variant
                    }}
+                   ref={ref}
                    {...props}
     />
   );
-};
+});
