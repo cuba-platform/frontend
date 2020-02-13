@@ -1,12 +1,16 @@
 import * as React from "react";
-import {Checkbox, DatePicker, Input, InputNumber, Select, TimePicker} from "antd";
+import {Checkbox, DatePicker, Input, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
 import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType} from "@cuba-platform/rest"
 import {FileUpload, FileUploadProps} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
 import {MainStoreInjected, DataCollectionStore, WithId, injectMainStore, getPropertyInfo, isFileProperty} from "@cuba-platform/react-core";
-import './FormField.less';
-import {UuidField} from "./form/UuidField";
+import './form/InputNumber.less';
+import {UuidInput} from "./form/UuidInput";
+import {DoubleInput} from "./form/DoubleInput";
+import {IntegerInput} from "./form/IntegerInput";
+import {LongInput} from "./form/LongInput";
+import {BigDecimalInput} from "./form/BigDecimalInput";
 import {SelectProps} from "antd/lib/select";
 import {InputProps} from "antd/lib/input/Input";
 import {CheckboxProps} from "antd/lib/checkbox/Checkbox";
@@ -63,27 +67,15 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
     case 'offsetTime':
       return <TimePicker {...(rest as TimePickerProps)}/>;
     case 'int':
-      return <InputNumber min={JAVA_INTEGER_MIN_VALUE}
-                          max={JAVA_INTEGER_MAX_VALUE}
-                          precision={0}
-                          className='inputnumber-field'
-                          {...(rest as InputNumberProps)}
-             />;
+      return <IntegerInput {...(rest as InputNumberProps)}/>;
     case 'double':
-      return <InputNumber className='inputnumber-field' {...(rest as InputNumberProps)}/>;
-    case 'long': // TODO values > Number.MAX_SAFE_INTEGER are not currently supported https://github.com/cuba-platform/frontend/issues/99
-      return <InputNumber className='inputnumber-field'
-                          // TODO once values > Number.MAX_SAFE_INTEGER add validation agains Long.MIN_VALUE/MAX_VALUE
-                          precision={0}
-                          {...(rest as InputNumberProps)}
-             />;
-    case 'decimal': // TODO values > Number.MAX_SAFE_INTEGER are not currently supported https://github.com/cuba-platform/frontend/issues/99
-      return <InputNumber className='inputnumber-field'
-                          // TODO Add validation of precision/scale https://github.com/cuba-platform/frontend/issues/100
-                          {...(rest as InputNumberProps)}
-             />;
+      return <DoubleInput {...(rest as InputNumberProps)}/>;
+    case 'long':
+      return <LongInput {...(rest as InputNumberProps)}/>;
+    case 'decimal':
+      return <BigDecimalInput {...(rest as InputNumberProps)}/>;
     case 'uuid':
-      return <UuidField {...rest}/>
+      return <UuidInput {...(rest as InputProps)}/>
   }
   return <Input {...(rest as InputProps)}/>;
 }));
@@ -114,6 +106,3 @@ function getSelectMode(cardinality: Cardinality): "default" | "multiple" {
 function getAllowClear(propertyInfo: MetaPropertyInfo): boolean {
   return !propertyInfo.mandatory;
 }
-
-const JAVA_INTEGER_MIN_VALUE = -2_147_483_648;
-const JAVA_INTEGER_MAX_VALUE = 2_147_483_647;

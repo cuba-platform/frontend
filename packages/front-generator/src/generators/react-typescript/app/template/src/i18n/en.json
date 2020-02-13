@@ -11,7 +11,8 @@
   "header.logout.cancel": "Cancel",
 
   "cubaReact.dataTable.clearAllFilters": "Clear filters",
-  "cubaReact.dataTable.requiredField": "Required field",
+  "cubaReact.dataTable.validation.requiredField": "Required field",
+  "cubaReact.dataTable.validation.uuid": "Not a valid UUID",
   "cubaReact.dataTable.failedToLoadNestedEntities": "Failed to load nested entities list",
   "cubaReact.dataTable.loading": "Loading...",
 

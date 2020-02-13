@@ -6,10 +6,16 @@ import moment, {Moment} from "moment";
 import {CaptionValuePair} from "./DataTableCustomFilter";
 import {DataTableListEditorDateTimePicker} from './DataTableListEditorDateTimePicker';
 import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
-import {ReactNode} from 'react';
+import {ReactNode, Ref} from 'react';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {LabeledValue} from 'antd/es/select';
 import {FormattedMessage} from 'react-intl';
+import {IntegerInput} from '../form/IntegerInput';
+import {DoubleInput} from '../form/DoubleInput';
+import {LongInput} from '../form/LongInput';
+import {BigDecimalInput} from '../form/BigDecimalInput';
+import {assertNever, getDataTransferFormat} from '@cuba-platform/react-core';
+import {InputNumberProps} from 'antd/es/input-number';
 
 interface DataTableListEditorProps {
   onChange: (items: any) => void,
@@ -22,7 +28,10 @@ interface DataTableListEditorProps {
 
 export enum DataTableListEditorType {
   TEXT = 'text',
-  NUMBER = 'number',
+  INTEGER = 'integer',
+  DOUBLE = 'double',
+  LONG = 'long',
+  BIG_DECIMAL = 'bigDecimal',
   DATE = 'date',
   TIME = 'time',
   DATETIME = 'datetime',
@@ -47,16 +56,26 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
     } else {
       switch(this.props.propertyInfo.type as PropertyType) {
         case 'string':
+        case 'uuid':
           return DataTableListEditorType.TEXT;
         case 'int':
+          return DataTableListEditorType.INTEGER;
         case 'double':
+          return DataTableListEditorType.DOUBLE;
+        case 'long':
+          return DataTableListEditorType.LONG;
         case 'decimal':
-          return DataTableListEditorType.NUMBER;
+          return DataTableListEditorType.BIG_DECIMAL;
         case 'date':
+        case 'localDate':
           return DataTableListEditorType.DATE;
         case 'time':
+        case 'localTime':
+        case 'offsetTime':
           return DataTableListEditorType.TIME;
         case 'dateTime':
+        case 'localDateTime':
+        case 'offsetDateTime':
           return DataTableListEditorType.DATETIME;
         default:
           throw new Error(`Unexpected property type ${this.props.propertyInfo.type}`);
@@ -93,15 +112,17 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
-  onDatePickerChange = (_date: Moment | null, dateString: string): void => {
-    this.handleInputChange(dateString);
-    this.handleInputConfirm()
+  onDatePickerChange = (date: Moment | null, _dateString: string): void => {
+    if (date) {
+      this.handleInputChange(date.format(getDataTransferFormat(this.props.propertyInfo.type as PropertyType)));
+      this.handleInputConfirm()
+    }
   };
 
   @action
   onTimePickerChange = (time: Moment, _timeString: string): void => {
     if (time) {
-      const timeParam = time.format('HH:mm:ss');
+      const timeParam = time.format(getDataTransferFormat(this.props.propertyInfo.type as PropertyType));
       this.handleInputChange(timeParam);
     }
   };
@@ -210,17 +231,28 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
             />
           </div>
         );
-      case DataTableListEditorType.NUMBER:
-        // @ts-ignore
-        return (<div><InputNumber
-              ref={this.trapFocus}
-              type='text'
-              size='small'
-              value={this.inputModel.value as number | undefined}
-              onChange={this.handleInputNumberChange}
-              onBlur={this.onInputBlurOrEnter}
-              onPressEnter={this.onInputBlurOrEnter}
-            />
+      case DataTableListEditorType.INTEGER:
+        return (
+          <div>
+            <IntegerInput {...this.getInputNumberProps()} />
+          </div>
+        );
+      case DataTableListEditorType.DOUBLE:
+        return (
+          <div>
+            <DoubleInput {...this.getInputNumberProps()} />
+          </div>
+        );
+      case DataTableListEditorType.LONG:
+        return (
+          <div>
+            <LongInput {...this.getInputNumberProps()} />
+          </div>
+        );
+      case DataTableListEditorType.BIG_DECIMAL:
+        return (
+          <div>
+            <BigDecimalInput {...this.getInputNumberProps()} />
           </div>
         );
       case DataTableListEditorType.DATE:
@@ -248,6 +280,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
                                              id={this.props.id}
                                              onInputChange={this.handleInputChange}
                                              onInputConfirm={this.handleInputConfirm}
+                                             propertyType={this.props.propertyInfo.type as PropertyType}
           />
         );
       case DataTableListEditorType.SELECT:
@@ -261,8 +294,20 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
           </div>
         );
       default:
-        throw new Error(`Unexpected ListEditorType ${this.type}`);
+        return assertNever('ListEditorType', this.type);
     }
+  }
+
+  getInputNumberProps(): InputNumberProps & {ref: Ref<InputNumber>} {
+    return {
+      ref: this.trapFocus,
+      type: 'text',
+      size: 'small',
+      value: this.inputModel.value as number | undefined,
+      onChange: this.handleInputNumberChange,
+      onBlur: this.onInputBlurOrEnter,
+      onPressEnter: this.onInputBlurOrEnter,
+    };
   }
 
   @computed

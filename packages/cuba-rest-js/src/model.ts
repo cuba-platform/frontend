@@ -5,10 +5,12 @@ export type AttributeType = 'DATATYPE' | 'ENUM' | 'ASSOCIATION' | 'COMPOSITION';
 export type TemporalPropertyType =
   'date' | 'time' | 'dateTime' | 'localDate' | 'localTime' | 'localDateTime' | 'offsetDateTime' | 'offsetTime';
 
+export type NumericPropertyType = 'int' | 'long' | 'double' | 'decimal';
+
 export type PropertyType = TemporalPropertyType |
   'string' | 'uuid'
   | 'byteArray'
-  | 'int' | 'long' | 'double' | 'decimal'
+  | NumericPropertyType
   | 'boolean';
 
 export interface SerializedEntityProps {

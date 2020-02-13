@@ -11,7 +11,8 @@
   "header.logout.cancel": "Отмена",
 
   "cubaReact.dataTable.clearAllFilters": "Очистить фильтры",
-  "cubaReact.dataTable.requiredField": "Обязательное поле",
+  "cubaReact.dataTable.validation.requiredField": "Обязательное поле",
+  "cubaReact.dataTable.validation.uuid": "Не является валидным UUID",
   "cubaReact.dataTable.failedToLoadNestedEntities": "Не удалось загрузить вложенные сущности",
   "cubaReact.dataTable.loading": "Загрузка...",
 

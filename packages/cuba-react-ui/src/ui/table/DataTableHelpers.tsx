@@ -484,7 +484,15 @@ export function isPreservedCondition(condition: Condition | ConditionsGroup, fie
 
 export function isPropertyTypeSupported(propertyInfo: MetaPropertyInfo): boolean {
   const supportedAttributeTypes: string[] = ['ENUM', 'ASSOCIATION', 'COMPOSITION'];
-  const supportedTypes: string[] = ['string', 'int', 'double', 'decimal', 'date', 'time', 'dateTime', 'boolean'];
+  const supportedTypes: string[] = [
+    'string',
+    'uuid',
+    'int', 'double', 'decimal', 'long',
+    'date', 'time', 'dateTime',
+    'localDate', 'localTime', 'localDateTime',
+    'offsetTime', 'offsetDateTime',
+    'boolean'
+  ];
 
   return supportedAttributeTypes.indexOf(propertyInfo.attributeType) > -1
     || supportedTypes.indexOf(propertyInfo.type) > -1;

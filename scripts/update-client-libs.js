@@ -6,7 +6,7 @@ const dirNames = {
   'react-ui': 'cuba-react-ui',
 };
 
-const updateClientLibs = async (clientDir, libs) => {
+const updateClientLibs = async (clientDir, libs, updateCubaLibsOnly) => {
   console.log('*** Updating client libs ***');
 
   for (const lib of libs) {
@@ -16,8 +16,11 @@ const updateClientLibs = async (clientDir, libs) => {
     console.log(`@cuba-platform/${lib} updated`);
   }
 
-  console.log(`updating other dependencies...`);
-  cmd(clientDir, `npm install`);
+  if (!updateCubaLibsOnly) {
+    console.log(`updating other dependencies...`);
+    cmd(clientDir, `npm install`);
+  }
+
   console.log(`all dependencies updated`);
 };
 

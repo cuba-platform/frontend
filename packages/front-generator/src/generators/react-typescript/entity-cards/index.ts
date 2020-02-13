@@ -7,7 +7,7 @@ import {EntityCardsTemplateModel} from "./template-model";
 import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {writeComponentI18nMessages} from '../common/i18n';
-import {createEntityTemplateModel, getDisplayedAttributes} from "../common/entity";
+import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../common/entity";
 import {EntityTemplateModel} from "../common/template-model";
 import {ProjectModel} from "../../../common/model/cuba-model";
 
@@ -73,7 +73,7 @@ export function entityCardsAnswersToModel(
   answers: EntityCardsAnswers, dirShift: string | undefined, entity: EntityTemplateModel, projectModel: ProjectModel
 ): EntityCardsTemplateModel {
   const className = elementNameToClass(answers.componentName);
-  const attributes = getDisplayedAttributes(answers.entityView.allProperties, entity, projectModel);
+  const attributes = getDisplayedAttributes(answers.entityView.allProperties, entity, projectModel, ScreenType.BROWSER);
   return {
     componentName: answers.componentName,
     className: className,
