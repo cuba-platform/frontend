@@ -193,10 +193,7 @@ export class Collection<E> extends React.Component<DataCollectionProps<E>> {
   }
 
   render() {
-    if (!this.props.children) {
-      return null;
-    }
-    return this.props.children(this.childrenProps);
+    return !!this.props.children && this.props.children(this.childrenProps);
   }
 
   @computed
