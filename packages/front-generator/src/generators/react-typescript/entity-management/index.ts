@@ -4,7 +4,7 @@ import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from 
 import {EditRelations, EntityManagementTemplateModel, RelationImport} from "./template-model";
 import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
-import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
+import {capitalizeFirst, elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
 import {findEntity} from "../../../common/model/cuba-model-utils";
@@ -33,15 +33,17 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       throw new Error('Answers not provided');
     }
     this.model = answersToManagementModel(this.answers, this.cubaProjectModel!, this.options.dirShift);
-    const {className, listComponentName, editComponentName} = this.model;
+    const {className, listComponentName, editComponentName, listType} = this.model;
 
     const extension = '.tsx.ejs';
     this.fs.copyTpl(
       this.templatePath('EntityManagement' + extension),
       this.destinationPath(className + extension), this.model
     );
+
+    let listTemplateFile = capitalizeFirst(listType) + extension;
     this.fs.copyTpl(
-      this.templatePath('EntityManagementBrowser' + extension),
+      this.templatePath(listTemplateFile),
       this.destinationPath(listComponentName + extension), this.model
     );
     this.fs.copyTpl(

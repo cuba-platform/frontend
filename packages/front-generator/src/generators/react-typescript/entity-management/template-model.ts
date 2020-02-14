@@ -1,5 +1,5 @@
 import {CommonTemplateModel, EntityTemplateModel} from "../common/template-model";
-import {entityManagementListType} from "./params";
+import {EntityManagementListType} from "./params";
 import {EntityAttribute, View} from "../../../common/model/cuba-model";
 
 export interface EditRelations {
@@ -14,7 +14,7 @@ export interface RelationImport {
 export interface EntityManagementTemplateModel extends CommonTemplateModel {
   listComponentName: string;
   editComponentName: string;
-  listType: entityManagementListType,
+  listType: EntityManagementListType,
   nameLiteral: string;
   entity: EntityTemplateModel,
   listView: View,

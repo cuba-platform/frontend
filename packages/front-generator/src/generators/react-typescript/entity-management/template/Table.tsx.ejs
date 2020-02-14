@@ -1,29 +1,11 @@
 import * as React from "react";
-import {observer} from "mobx-react";
-import {Link} from "react-router-dom";
-import { computed,
-<% if (listType === 'table') { -%>
-  observable
-<% } %>
-} from 'mobx';
-
-import {Modal, Button,
-<% if (listType === 'cards') { %>
-  Card, Icon,
-<% } else if (listType === 'list') { %>
-  List, Icon,
-<% } %>
-} from "antd";
+import { observer } from "mobx-react";
+import { Link } from "react-router-dom";
+import { computed, observable } from 'mobx';
+import { Modal, Button } from "antd";
 
 import {collection, injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
-import {
-<% if (listType === 'table') { %>
-  DataTable,
-<% } else { %>
-  EntityProperty,
-<% } %>
-  Spinner
-} from "@cuba-platform/react-ui";
+import { DataTable, Spinner } from "@cuba-platform/react-ui";
 
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
 import {SerializedEntity} from "@cuba-platform/rest";
@@ -42,9 +24,7 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
   <% }) %>
   ];
 
-  <% if (listType === 'table') { %>
-    @observable selectedRowKey: string | undefined;
-  <% } %>
+  @observable selectedRowKey: string | undefined;
   showDeletionDialog = (e: SerializedEntity<<%= entity.className %>>) => {
     Modal.confirm({
       title: this.props.intl.formatMessage(
@@ -54,9 +34,7 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
       okText: this.props.intl.formatMessage({id: 'management.browser.delete.ok'}),
       cancelText: this.props.intl.formatMessage({id:'management.browser.delete.cancel'}),
       onOk: () => {
-      <% if (listType === 'table') { %>
         this.selectedRowKey = undefined;
-      <% } %>
         return this.dataCollection.delete(e);
       }
     });
@@ -67,8 +45,6 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
     return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && mainStore.security.dataLoaded;
   }
 
-  <% /* TABLE COMPONENT*/ %>
-<% if (listType === 'table') { %>
   render() {
 
     if (!this.dataLoaded) return <Spinner/>;
@@ -131,80 +107,6 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
     this.showDeletionDialog(this.getRecordById(this.selectedRowKey!));
   };
 
-  <% /* CARD\LIST COMPONENT*/ %>
-<% } else { %>
-  render() {
-
-    const {status, items} = this.dataCollection;
-    if (status === "LOADING" || !this.dataLoaded) { return <Spinner/> };
-
-    return (
-      <div <% if (listType !== 'table') { %>className='narrow-layout'<% } %>>
-        <div style={{marginBottom: '12px'}}>
-          <Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH}>
-            <Button htmlType='button'
-                    type='primary'
-                    icon='plus'>
-              <span><FormattedMessage id='management.browser.create'/></span>
-            </Button>
-          </Link>
-        </div>
-
-<%/* LIST */%>
-    <% if (listType === 'list') { %>
-
-        <List itemLayout="horizontal"
-              bordered
-              dataSource={items}
-              renderItem={item =>
-                <List.Item actions={[
-                    <Icon type='delete'
-                          key='delete'
-                          onClick={() => this.showDeletionDialog(item)}/>,
-                    <Link to={<%= className %>.PATH + '/' + item.id} key='edit'>
-                      <Icon type='edit'/>
-                    </Link>
-                ]}>
-                  <div style={{flexGrow: 1}}>
-                  {this.fields.map(p =>
-                    <EntityProperty entityName={<%= entity.className %>.NAME}
-                                    propertyName={p}
-                                    value={item[p]}
-                                    key={p}/>
-                  )}
-                  </div>
-                </List.Item>
-            }/>
-
-<%/* CARD */%>
-    <% } else { %>
-        {items == null || items.length === 0 ?
-          <p><FormattedMessage id='management.browser.noItems'/></p> : null}
-        {items.map(e =>
-          <Card title={e._instanceName}
-                key={e.id}
-                style={{marginBottom: '12px'}}
-                actions={[
-                  <Icon type='delete'
-                        key='delete'
-                        onClick={() => this.showDeletionDialog(e)}/>,
-                  <Link to={<%= className %>.PATH + '/' + e.id} key='edit'>
-                    <Icon type='edit'/>
-                  </Link>
-                ]}>
-                {this.fields.map(p =>
-                  <EntityProperty entityName={<%= entity.className %>.NAME}
-                                  propertyName={p}
-                                  value={e[p]}
-                                  key={p}/>
-                )}
-          </Card>
-        )}
-        <% } %>
-      </div>
-    )
-  }
-<% } %>
 }
 
 const <%=listComponentName%> = injectIntl(<%=listComponentName%>Component);
