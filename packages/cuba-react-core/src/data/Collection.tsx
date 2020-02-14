@@ -84,7 +84,7 @@ export class DataCollectionStore<T> implements DataContainer {
     return toJS(this.items)
   }
 
-  @computed // todo
+  @computed // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
   get properties(): string[] {
     return [];
   }
@@ -159,6 +159,7 @@ function createStore<E>(entityName: string, opts: DataCollectionOptions): DataCo
   return dataCollection;
 }
 
+// todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
 export const withDataCollection = (entityName: string, opts: DataCollectionOptions = defaultOpts) => <T extends IReactComponent>(target: T) => {
   return inject(() => {
     const dataCollection = createStore(entityName, opts);
@@ -170,6 +171,7 @@ export const collection = <E extends {}>(entityName: string, opts: DataCollectio
   return createStore<E>(entityName, opts);
 };
 
+// todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
 export interface DataCollectionInjected<E> {
   dataCollection?: DataCollectionStore<E>
 }
