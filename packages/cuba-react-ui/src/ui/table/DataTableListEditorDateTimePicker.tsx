@@ -12,7 +12,7 @@ interface DataTableListEditorDateTimePickerProps {
   id: string;
   // tslint:disable-next-line:ban-types
   getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
-  onInputChange: (value: any, caption: any) => void;
+  onInputChange: (value: string, caption: string) => void;
   onInputConfirm: () => void;
   propertyType: PropertyType;
 }

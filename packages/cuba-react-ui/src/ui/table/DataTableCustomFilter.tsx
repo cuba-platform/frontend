@@ -7,7 +7,7 @@ import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, Prop
 import {action, computed, observable} from 'mobx';
 import moment, {Moment} from 'moment';
 import {DataTableListEditor} from './DataTableListEditor';
-import {DataTableIntervalEditor} from './DataTableIntervalEditor';
+import {DataTableIntervalEditor, TemporalInterval} from './DataTableIntervalEditor';
 import './DataTableCustomFilter.less';
 import './DataTableFilterControlLayout.less';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
@@ -33,14 +33,16 @@ export interface CaptionValuePair {
   value: string | number | undefined;
 }
 
+export type CustomFilterInputValue = string | number | boolean | string[] | number[] | TemporalInterval | undefined;
+
 export interface DataTableCustomFilterProps extends FormComponentProps, MainStoreInjected {
   entityName: string,
   entityProperty: string,
   filterProps: FilterDropdownProps,
   operator: ComparisonType | undefined,
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
-  value: any,
-  onValueChange: (value: any, propertyName: string) => void,
+  value: CustomFilterInputValue,
+  onValueChange: (value: CustomFilterInputValue, propertyName: string) => void,
   ref?: (instance: React.Component<DataTableCustomFilterProps>) => void,
 }
 
@@ -72,11 +74,11 @@ class DataTableCustomFilterComponent<E extends WithId>
     return this.props.operator || this.getDefaultOperator();
   }
 
-  set value(value: any) {
+  set value(value: CustomFilterInputValue) {
     this.props.onValueChange(value, this.props.entityProperty);
   }
 
-  get value(): any {
+  get value(): CustomFilterInputValue {
     return this.props.value;
   }
 
@@ -162,7 +164,7 @@ class DataTableCustomFilterComponent<E extends WithId>
     if (this.operator === 'notEmpty' || this.propertyInfoNN.type === 'boolean') {
       this.value = true;
     } else {
-      this.value = null;
+      this.value = undefined;
     }
   };
 
@@ -197,6 +199,11 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
+  onNumberInputChange = (value: number | undefined): void => {
+    this.value = value;
+  };
+
+  @action
   onDatePickerChange = (date: Moment | null, _dateString: string): void => {
     if (date) {
       this.value = date.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
@@ -223,8 +230,8 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
-  setValue = (value: any): void => {
-    this.value = value;
+  onSelectChange = (value: string | number | LabeledValue): void => {
+    this.value = value as string;
   };
 
   render() {
@@ -529,13 +536,13 @@ class DataTableCustomFilterComponent<E extends WithId>
   numberInputField(propertyType: NumericPropertyType): ReactNode {
     switch (propertyType) {
       case 'int':
-        return this.createFilterInput(<IntegerInput onChange={this.setValue}/>, true);
+        return this.createFilterInput(<IntegerInput onChange={this.onNumberInputChange}/>, true);
       case 'double':
-        return this.createFilterInput(<DoubleInput onChange={this.setValue}/>, true);
+        return this.createFilterInput(<DoubleInput onChange={this.onNumberInputChange}/>, true);
       case 'long':
-        return this.createFilterInput(<LongInput onChange={this.setValue}/>, true);
+        return this.createFilterInput(<LongInput onChange={this.onNumberInputChange}/>, true);
       case 'decimal':
-        return this.createFilterInput(<BigDecimalInput onChange={this.setValue}/>, true);
+        return this.createFilterInput(<BigDecimalInput onChange={this.onNumberInputChange}/>, true);
       default:
         return assertNever('property type', propertyType);
     }
@@ -546,7 +553,7 @@ class DataTableCustomFilterComponent<E extends WithId>
     return this.createFilterInput(
       <Select dropdownMatchSelectWidth={false}
               className='cuba-filter-select'
-              onSelect={this.setValue}>
+              onSelect={this.onSelectChange}>
         {this.selectFieldOptions}
       </Select>
     );
@@ -585,7 +592,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   get listEditor(): ReactNode {
     return (
       <Form.Item className='filtercontrol -complex-editor'>
-        <DataTableListEditor onChange={(value: any) => this.value = value}
+        <DataTableListEditor onChange={(value: string[] | number[]) => this.value = value}
                              id={this.props.entityProperty}
                              propertyInfo={this.propertyInfoNN}
                              getFieldDecorator={this.props.form.getFieldDecorator}
@@ -599,7 +606,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   get intervalEditor(): ReactNode {
     return (
       <Form.Item className='filtercontrol -complex-editor'>
-        <DataTableIntervalEditor onChange={(value: any) => this.value = value}
+        <DataTableIntervalEditor onChange={(value: TemporalInterval) => this.value = value}
                                  id={this.props.entityProperty}
                                  getFieldDecorator={this.props.form.getFieldDecorator}
                                  propertyType={this.propertyInfoNN.type as PropertyType}

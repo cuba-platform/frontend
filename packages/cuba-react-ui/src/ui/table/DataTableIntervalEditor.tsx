@@ -11,13 +11,13 @@ import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {PropertyType} from '@cuba-platform/rest';
 
-export interface Interval {
+export interface TemporalInterval {
   minDate: string,
   maxDate: string,
 }
 
 interface DataTableIntervalEditorProps {
-  onChange: (value: any) => void,
+  onChange: (value: TemporalInterval) => void,
   // tslint:disable-next-line:ban-types
   getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode,
   id: string,
@@ -42,7 +42,7 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   }
 
   @computed
-  get interval(): Interval {
+  get interval(): TemporalInterval {
     return (this.mode === 'predefined')
       ? determinePredefinedInterval(this.option, this.props.propertyType)
       : determineLastNextXInterval(this.mode, this.numberOfUnits, this.timeUnit, this.includeCurrent, this.props.propertyType);

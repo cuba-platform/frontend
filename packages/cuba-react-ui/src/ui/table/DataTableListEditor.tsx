@@ -8,7 +8,6 @@ import {DataTableListEditorDateTimePicker} from './DataTableListEditorDateTimePi
 import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
 import {ReactNode, Ref} from 'react';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
-import {LabeledValue} from 'antd/es/select';
 import {FormattedMessage} from 'react-intl';
 import {IntegerInput} from '../form/IntegerInput';
 import {DoubleInput} from '../form/DoubleInput';
@@ -16,9 +15,10 @@ import {LongInput} from '../form/LongInput';
 import {BigDecimalInput} from '../form/BigDecimalInput';
 import {assertNever, getDataTransferFormat} from '@cuba-platform/react-core';
 import {InputNumberProps} from 'antd/es/input-number';
+import {LabeledValue} from 'antd/es/select';
 
 interface DataTableListEditorProps {
-  onChange: (items: any) => void,
+  onChange: (items: string[] | number []) => void,
   id: string,
   propertyInfo: MetaPropertyInfo,
   // tslint:disable-next-line:ban-types
@@ -97,7 +97,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
     if (this.type === DataTableListEditorType.SELECT) {
       this.availableOptions = [ ...this.availableOptions, item ];
     }
-    this.props.onChange(this.items.map((savedItem) => savedItem.value));
+    this.props.onChange(this.items.map((savedItem) => savedItem.value) as string[] | number[]);
   };
 
   @action
@@ -139,7 +139,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
     const caption: string = this.props.nestedEntityOptions
       .find((option) => option.value === value)!
       .caption;
-    this.handleInputChange(value, caption);
+    this.handleInputChange(value as string, caption);
     this.availableOptions = this.availableOptions.filter((option) => {
       return option.value !== value;
     });
@@ -147,17 +147,16 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
-  handleInputChange = (value: any, caption: any = value): void => {
+  handleInputChange = (value: string, caption: string = value): void => {
     this.inputModel.value = value;
     this.inputModel.caption = caption;
   };
 
   @action
-  handleInputNumberChange = (value: any): void => {
-    const num: number = Number(value);
-    if (!isNaN(num)) {
-      this.inputModel.value = num;
-      this.inputModel.caption = String(num);
+  handleInputNumberChange = (value: number | undefined): void => {
+    if (value) {
+      this.inputModel.value = value;
+      this.inputModel.caption = String(value);
     }
   };
 
@@ -170,7 +169,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
       this.inputModel.value = undefined;
       this.inputModel.caption = '';
       this.inputVisible = false;
-      this.props.onChange(this.items.map((item) => item.value));
+      this.props.onChange(this.items.map((item) => item.value) as string[] | number[]);
     }
   };
 
