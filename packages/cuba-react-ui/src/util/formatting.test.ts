@@ -3,6 +3,7 @@ import {
   MetaPropertyInfo,
   PropertyType
 } from '@cuba-platform/rest';
+import moment from 'moment-timezone';
 
 const mockPropertyInfo: MetaPropertyInfo = {
   attributeType: 'DATATYPE',
@@ -29,6 +30,14 @@ function expectFormat(type: PropertyType, input: string | number | boolean, outp
 }
 
 describe('toDisplayValue()', () => {
+  beforeAll(() => {
+    moment.tz.setDefault('Africa/Harare'); // +02:00
+  });
+
+  afterAll(() => {
+    moment.tz.setDefault();
+  });
+
   it('changes format of DateTime', () => {
     expectMsStripped('dateTime');
   });
@@ -38,11 +47,11 @@ describe('toDisplayValue()', () => {
   });
 
   it('changes format of OffsetDateTime', () => {
-    expectMsStripped('offsetDateTime');
+    expectFormat('offsetDateTime', '2020-02-02 02:02:02.222 +0200', '2020-02-02 02:02:02')
   });
 
   it('changes format of OffsetTime', () => {
-    expectFormat('offsetTime', '01:02:03 +0400', '01:02:03');
+    expectFormat('offsetTime', '01:02:03 +0200', '01:02:03');
   });
 
   it('does not change format of OffsetTime', () => {
