@@ -3,6 +3,16 @@ import {TemporalInterval, DataTableIntervalEditorMode, PredefinedIntervalOption,
 import {PropertyType} from '@cuba-platform/rest';
 import {getDataTransferFormat} from '@cuba-platform/react-core';
 
+/**
+ * Creates a {@link TemporalInterval} based on input in form of "last|next number of time units including|excluding current".
+ * For example, "last 5 days including current day".
+ *
+ * @param mode 'last' or 'next', will throw an error if a different value is encountered
+ * @param numberOfUnits
+ * @param timeUnit see {@link TimeUnit}
+ * @param includeCurrent
+ * @param propertyType
+ */
 export function determineLastNextXInterval(
   mode: DataTableIntervalEditorMode,
   numberOfUnits: number,
@@ -37,6 +47,12 @@ export function determineLastNextXInterval(
   };
 }
 
+/**
+ * Creates a {@link TemporalInterval} that corresponds to a given {@link PredefinedIntervalOption}
+ *
+ * @param option see {@link PredefinedIntervalOption}
+ * @param propertyType
+ */
 export function determinePredefinedInterval(option: PredefinedIntervalOption, propertyType: PropertyType): TemporalInterval {
   let minDate: Moment;
   let maxDate: Moment;
