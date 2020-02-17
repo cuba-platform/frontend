@@ -1,5 +1,5 @@
 import moment, {Moment} from 'moment';
-import {Interval, DataTableIntervalEditorMode, PredefinedIntervalOption, TimeUnit} from './DataTableIntervalEditor';
+import {TemporalInterval, DataTableIntervalEditorMode, PredefinedIntervalOption, TimeUnit} from './DataTableIntervalEditor';
 import {PropertyType} from '@cuba-platform/rest';
 import {getDataTransferFormat} from '@cuba-platform/react-core';
 
@@ -9,7 +9,7 @@ export function determineLastNextXInterval(
   timeUnit: TimeUnit,
   includeCurrent: boolean,
   propertyType: PropertyType
-): Interval {
+): TemporalInterval {
   let minDate: Moment;
   let maxDate: Moment;
 
@@ -37,7 +37,7 @@ export function determineLastNextXInterval(
   };
 }
 
-export function determinePredefinedInterval(option: PredefinedIntervalOption, propertyType: PropertyType): Interval {
+export function determinePredefinedInterval(option: PredefinedIntervalOption, propertyType: PropertyType): TemporalInterval {
   let minDate: Moment;
   let maxDate: Moment;
 

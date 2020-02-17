@@ -8,7 +8,7 @@ import {
 } from 'antd/es/table';
 import {action, computed, IReactionDisposer, observable, reaction, toJS} from 'mobx';
 import {observer} from 'mobx-react';
-import {ComparisonType, DataTableCustomFilterProps} from './DataTableCustomFilter';
+import {ComparisonType, CustomFilterInputValue, DataTableCustomFilterProps} from './DataTableCustomFilter';
 import './DataTable.less';
 import {FormattedMessage} from 'react-intl';
 import {
@@ -80,7 +80,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   @observable selectedRowKeys: string[] = [];
   @observable.ref tableFilters: Record<string, any> = {};
   @observable operatorsByProperty: Map<string, ComparisonType> = new Map();
-  @observable valuesByProperty: Map<string, any> = new Map();
+  @observable valuesByProperty: Map<string, CustomFilterInputValue> = new Map();
 
   disposers: IReactionDisposer[] = [];
   firstLoad: boolean = true;
@@ -207,7 +207,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   };
 
   @action
-  handleFilterValueChange = (value: any, propertyName: string) => {
+  handleFilterValueChange = (value: CustomFilterInputValue, propertyName: string) => {
     this.valuesByProperty.set(propertyName, value);
   };
 
