@@ -4,9 +4,10 @@ import * as React from 'react';
 import {action, observable} from 'mobx';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {ReactNode} from 'react';
-import {injectIntl, WrappedComponentProps} from 'react-intl';
+import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {getDataTransferFormat, getDisplayFormat} from '@cuba-platform/react-core';
 import {PropertyType} from '@cuba-platform/rest';
+import {decorateAndWrapInFormItem} from './DataTableHelpers';
 
 interface DataTableListEditorDateTimePickerProps {
   id: string;
@@ -36,29 +37,35 @@ class DataTableListEditorDateTimePickerComponent extends React.Component<DataTab
   };
 
   render() {
+    const datePicker = (
+      <DatePicker placeholder='YYYY-MM-DD'
+                  onChange={this.onMomentChange}
+      />
+    );
+    const datePickerInput = decorateAndWrapInFormItem(
+      datePicker, this.props.id, this.props.getFieldDecorator, this.props.intl, true
+    );
+
+    const timePicker = (
+      <TimePicker placeholder='HH:mm:ss'
+                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                  onChange={this.onMomentChange}
+      />
+    );
+    const timePickerInput = decorateAndWrapInFormItem(
+      timePicker, this.props.id, this.props.getFieldDecorator, this.props.intl, true
+    );
+
     return (
       <div className='cuba-filter-controls-layout -no-wrap'>
-        <Form.Item hasFeedback={true} className='filtercontrol'>
-          {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}] })(
-            <DatePicker placeholder='YYYY-MM-DD'
-                        onChange={this.onMomentChange}
-            />
-          )}
-        </Form.Item>
-        <Form.Item hasFeedback={true} className='filtercontrol'>
-          {this.props.getFieldDecorator(`${this.props.id}.input`, { initialValue: null, rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}] })(
-            <TimePicker placeholder='HH:mm:ss'
-                        defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                        onChange={this.onMomentChange}
-            />
-          )}
-        </Form.Item>
+        {datePickerInput}
+        {timePickerInput}
         <Form.Item className='filtercontrol'>
           <Button htmlType='button'
                   disabled={!this.moment}
                   onClick={this.onConfirm}
                   type='default'>
-            Add
+            <FormattedMessage id='cubaReact.dataTable.add'/>
           </Button>
         </Form.Item>
       </div>
