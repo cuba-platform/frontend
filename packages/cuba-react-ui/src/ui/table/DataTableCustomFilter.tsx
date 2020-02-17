@@ -27,6 +27,7 @@ import {LongInput} from "../form/LongInput";
 import {UuidInput} from '../form/UuidInput';
 import {uuidPattern} from "../../util/regex";
 import {LabeledValue} from "antd/es/select";
+import {decorateAndWrapInFormItem, getDefaultFieldDecoratorOptions} from './DataTableHelpers';
 
 export interface CaptionValuePair {
   caption: string;
@@ -519,7 +520,7 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @computed
   get uuidInputField(): ReactNode {
-    const options = this.getDefaultFieldDecoratorOptions();
+    const options = getDefaultFieldDecoratorOptions(this.props.intl);
 
     if (!options.rules) {
       options.rules = [];
@@ -657,25 +658,12 @@ class DataTableCustomFilterComponent<E extends WithId>
     );
   }
 
-  getDefaultFieldDecoratorOptions(): GetFieldDecoratorOptions {
-    return {
-      initialValue: null,
-      rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}]
-    };
-  }
-
   createFilterInput(
     component: ReactNode, hasFeedback: boolean = false, options?: GetFieldDecoratorOptions, additionalClassName?: string
   ): ReactNode {
-    if (!options) {
-      options = this.getDefaultFieldDecoratorOptions();
-    }
-
-    return <Form.Item hasFeedback={hasFeedback} className={`filtercontrol ${additionalClassName || ''}`}>
-      {this.getFieldDecorator(`${this.props.entityProperty}_input`, options)(
-        component
-      )}
-    </Form.Item>
+    return decorateAndWrapInFormItem(
+      component, this.props.entityProperty, this.getFieldDecorator, this.props.intl, hasFeedback, options, additionalClassName
+    );
   }
 
 }

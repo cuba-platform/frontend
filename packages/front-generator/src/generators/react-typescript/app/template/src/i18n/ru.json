@@ -29,6 +29,7 @@
   "cubaReact.dataTable.no": "Нет",
   "cubaReact.dataTable.ok": "ОК",
   "cubaReact.dataTable.reset": "Сбросить",
+  "cubaReact.dataTable.add": "Добавить",
 
   "cubaReact.dataTable.intervalEditor.last": "Предыдущие",
   "cubaReact.dataTable.intervalEditor.next": "Следующие",
