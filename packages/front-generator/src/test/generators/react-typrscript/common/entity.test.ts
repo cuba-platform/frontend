@@ -38,7 +38,7 @@ describe('getDisplayedAttributes()', () => {
   });
 
   it('includes many to many associations (editor)', () => {
-    expect(dtEditorDisplayedFields).to.not.include('associationM2Mattr');
+    expect(dtEditorDisplayedFields).to.include('associationM2Mattr');
   });
 
   it('includes all other properties', () => {
