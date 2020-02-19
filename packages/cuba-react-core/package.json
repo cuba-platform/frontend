@@ -15,14 +15,19 @@
     "react": "^16.7.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
     "@cuba-platform/rest": "^0.7.2",
     "@types/jest": "^24.0.18",
     "@types/react": "^16.7.18",
+    "@types/react-test-renderer": "^16.9.2",
+    "babel-jest": "^25.1.0",
     "jest": "^24.9.0",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
     "react": "^16.11.0",
     "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0",
     "rollup": "~1.17.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
@@ -38,6 +43,7 @@
     "compile": "npm run clean && tsc && rollup -c",
     "clean": "rm -rf dist && rm -rf dist-transpiled",
     "test": "jest",
+    "coverage": "npm test -- --coverage",
     "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-react-core src",
     "prepublishOnly": "npm run compile"
   },
