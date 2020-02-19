@@ -6,18 +6,18 @@ global.fetch = require('node-fetch');
 
 const apiUrl = 'http://localhost:8080/app/rest/';
 
-describe('CubaApp version <7.2.0', function () {
+describe('CubaApp version <7.2.0', () => {
 
   let app;
   const initApiVersion = '5.5.5';
 
-  before(function () {
+  beforeAll(() => {
     app = new cuba.CubaApp('', apiUrl, undefined, undefined, undefined, undefined, initApiVersion);
     return app.login('admin', 'admin');
   });
 
-  describe('.setSessionLocal()', function() {
-    it('should fail if version doesn\'t match', function(done) {
+  describe('.setSessionLocal()', () => {
+    it('should fail if version doesn\'t match', done => {
       app.setSessionLocale()
         .then(() => {
           done('did not fail');
