@@ -17,14 +17,14 @@ import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 class <%= listComponentName %>Component extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
   dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= listView.name %>', sort: '-updateTs'});
+  @observable selectedRowKey: string | undefined;
 
   fields = [
-  <% listAttributes.forEach(p => { %>
+  <% listAttributes.forEach(p => { -%>
     '<%= p.name %>',
   <% }) %>
   ];
 
-  @observable selectedRowKey: string | undefined;
   showDeletionDialog = (e: SerializedEntity<<%= entity.className %>>) => {
     Modal.confirm({
       title: this.props.intl.formatMessage(

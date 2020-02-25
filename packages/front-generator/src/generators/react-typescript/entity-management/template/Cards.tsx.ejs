@@ -19,7 +19,7 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
   dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= listView.name %>', sort: '-updateTs'});
 
   fields = [
-  <% listAttributes.forEach(p => { %>
+  <% listAttributes.forEach(p => { -%>
     '<%= p.name %>',
   <% }) %>
   ];

@@ -24,10 +24,13 @@ import {
 class CarTableComponent extends React.Component<
   MainStoreInjected & WrappedComponentProps
 > {
+
   dataCollection = collection<Car>(Car.NAME, {
     view: "car-edit",
     sort: "-updateTs"
   });
+  @observable selectedRowKey: string | undefined;
+
   fields = [
     "manufacturer",
     "model",
@@ -44,8 +47,6 @@ class CarTableComponent extends React.Component<
     "technicalCertificate",
     "photo"
   ];
-
-  @observable selectedRowKey: string | undefined;
 
   showDeletionDialog = (e: SerializedEntity<Car>) => {
     Modal.confirm({
