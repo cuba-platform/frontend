@@ -1,14 +1,22 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import { computed } from "mobx";
+import { computed, reaction } from "mobx";
+
 import { Modal, Button, List, Icon } from "antd";
+
 import {
   collection,
   injectMainStore,
   MainStoreInjected
 } from "@cuba-platform/react-core";
-import { EntityProperty, Spinner } from "@cuba-platform/react-ui";
+import {
+  EntityProperty,
+  Paging,
+  setPagination,
+  Spinner
+} from "@cuba-platform/react-ui";
+
 import { Car } from "cuba/entities/mpg$Car";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement2 } from "./CarManagement2";
@@ -17,16 +25,23 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+import { PaginationConfig } from "antd/es/pagination";
+
+type Props = MainStoreInjected &
+  WrappedComponentProps & {
+    paginationConfig: PaginationConfig;
+    onPagingChange: (current: number, pageSize: number) => void;
+  };
 
 @injectMainStore
 @observer
-class CarListComponent extends React.Component<
-  MainStoreInjected & WrappedComponentProps
-> {
+class CarListComponent extends React.Component<Props> {
   dataCollection = collection<Car>(Car.NAME, {
     view: "car-edit",
-    sort: "-updateTs"
+    sort: "-updateTs",
+    loadImmediately: false
   });
+
   fields = [
     "manufacturer",
     "model",
@@ -43,6 +58,15 @@ class CarListComponent extends React.Component<
     "technicalCertificate",
     "photo"
   ];
+
+  componentDidMount(): void {
+    reaction(
+      () => this.props.paginationConfig,
+      paginationConfig =>
+        setPagination(paginationConfig, this.dataCollection, true)
+    );
+    setPagination(this.props.paginationConfig, this.dataCollection, true);
+  }
 
   showDeletionDialog = (e: SerializedEntity<Car>) => {
     Modal.confirm({
@@ -121,6 +145,10 @@ class CarListComponent extends React.Component<
             </List.Item>
           )}
         />
+
+        <div style={{ margin: "12px 0 12px 0", float: "right" }}>
+          <Paging {...this.props} total={this.dataCollection.count} />
+        </div>
       </div>
     );
   }

@@ -13,7 +13,7 @@ describe('Paging component', () => {
     };
 
     const paging = renderer.create(<Paging {...props}/>);
-    expect(paging.toJSON()!.children?.length).toBe(10);
+    expect(paging.toJSON()!.children?.length).toBe(8);
   });
 
 });

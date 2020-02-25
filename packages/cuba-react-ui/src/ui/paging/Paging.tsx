@@ -16,10 +16,10 @@ type Props = {
  */
 export const defaultPagingConfig: PaginationConfig = {
   current: 1,
-  pageSize: 3,
-  defaultPageSize: 3,
+  pageSize: 10,
+  defaultPageSize: 10,
   showSizeChanger: true,
-  pageSizeOptions: ['2', '3', '4']
+  pageSizeOptions: ['10', '20', '30']
 };
 
 /**

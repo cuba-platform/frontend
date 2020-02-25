@@ -3,23 +3,44 @@ import {RouteComponentProps} from "react-router";
 import {observer} from "mobx-react";
 import <%= editComponentName %> from "./<%= editComponentName %>";
 import <%= listComponentName %> from "./<%= listComponentName %>";
+import {PaginationConfig} from "antd/es/pagination";
+import {action, observable} from "mobx";
+import {addPagingParams, parsePagingParams, defaultPagingConfig} from "@cuba-platform/react-ui";
 
 type Props = RouteComponentProps<{entityId?: string}>;
 
 @observer
 export class <%= className %> extends React.Component<Props> {
-
   static PATH = '/<%= nameLiteral %>';
   static NEW_SUBPATH = 'new';
 
-  render() {
+  @observable paginationConfig: PaginationConfig = {...defaultPagingConfig};
+
+  componentDidMount(): void {
+    const {search} = this.props.location;
+    const {current, pageSize} = this.paginationConfig;
+    this.paginationConfig = {...this.paginationConfig, ...parsePagingParams(search, current, pageSize)};
+  }
+
+    render() {
     const {entityId} = this.props.match.params;
     return (
-      <>
-        {entityId
+      entityId
           ? < <%= editComponentName %> entityId={entityId}/>
-          : < <%= listComponentName %> />}
-      </>
+          : < <%= listComponentName %>
+
+    <% if (listType === 'list') { %> <%# if clause will be removed after paging impleneted on other list types %>
+        onPagingChange={this.onPagingChange}
+        paginationConfig={this.paginationConfig}
+    <% } %>
+
+    />
     )
   }
+
+  @action onPagingChange = (current: number, pageSize: number) => {
+    this.props.history.push(addPagingParams('carManagement2', current, pageSize));
+    this.paginationConfig = {...this.paginationConfig, current, pageSize};
+  };
+
 }
