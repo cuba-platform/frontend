@@ -146,9 +146,11 @@ class CarListComponent extends React.Component<Props> {
           )}
         />
 
+        {!this.props.paginationConfig.disabled && (
         <div style={{ margin: "12px 0 12px 0", float: "right" }}>
           <Paging {...this.props} total={this.dataCollection.count} />
         </div>
+        )}
       </div>
     );
   }

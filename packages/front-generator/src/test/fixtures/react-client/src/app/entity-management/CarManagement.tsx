@@ -7,7 +7,7 @@ import { PaginationConfig } from "antd/es/pagination";
 import { action, observable } from "mobx";
 import {
   addPagingParams,
-  parsePagingParams,
+  createPagingConfig,
   defaultPagingConfig
 } from "@cuba-platform/react-ui";
 
@@ -21,12 +21,8 @@ export class CarManagement extends React.Component<Props> {
   @observable paginationConfig: PaginationConfig = { ...defaultPagingConfig };
 
   componentDidMount(): void {
-    const { search } = this.props.location;
-    const { current, pageSize } = this.paginationConfig;
-    this.paginationConfig = {
-      ...this.paginationConfig,
-      ...parsePagingParams(search, current, pageSize)
-    };
+    // to disable paging config pass 'true' as disabled param in function below
+    this.paginationConfig = createPagingConfig(this.props.location.search);
   }
 
   render() {

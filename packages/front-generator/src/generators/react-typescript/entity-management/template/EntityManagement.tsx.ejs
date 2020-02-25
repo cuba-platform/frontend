@@ -5,7 +5,7 @@ import <%= editComponentName %> from "./<%= editComponentName %>";
 import <%= listComponentName %> from "./<%= listComponentName %>";
 import {PaginationConfig} from "antd/es/pagination";
 import {action, observable} from "mobx";
-import {addPagingParams, parsePagingParams, defaultPagingConfig} from "@cuba-platform/react-ui";
+import {addPagingParams, createPagingConfig, defaultPagingConfig} from "@cuba-platform/react-ui";
 
 type Props = RouteComponentProps<{entityId?: string}>;
 
@@ -17,12 +17,11 @@ export class <%= className %> extends React.Component<Props> {
   @observable paginationConfig: PaginationConfig = {...defaultPagingConfig};
 
   componentDidMount(): void {
-    const {search} = this.props.location;
-    const {current, pageSize} = this.paginationConfig;
-    this.paginationConfig = {...this.paginationConfig, ...parsePagingParams(search, current, pageSize)};
+    // to disable paging config pass 'true' as disabled param in function below
+    this.paginationConfig = createPagingConfig(this.props.location.search);
   }
 
-    render() {
+  render() {
     const {entityId} = this.props.match.params;
     return (
       entityId
@@ -42,5 +41,4 @@ export class <%= className %> extends React.Component<Props> {
     this.props.history.push(addPagingParams('carManagement2', current, pageSize));
     this.paginationConfig = {...this.paginationConfig, current, pageSize};
   };
-
 }

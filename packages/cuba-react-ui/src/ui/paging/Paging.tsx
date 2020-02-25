@@ -1,4 +1,4 @@
-import {PaginationConfig} from "antd/es/table";
+import {PaginationConfig} from "antd/lib/table";
 import {DataCollectionStore} from "@cuba-platform/react-core";
 import * as QueryString from "querystring";
 import React from "react";
@@ -83,9 +83,41 @@ export function addPagingParams(url: string, current: number | undefined, pageSi
  * @param reload - reload collection data store, if needsr
  */
 export function setPagination<E>(pagination: PaginationConfig, dataCollection: DataCollectionStore<E>, reload: boolean = false) {
-  if (pagination && pagination.pageSize && pagination.current) {
-    dataCollection.limit = pagination.pageSize;
-    dataCollection.offset = pagination.pageSize * (pagination.current - 1);
+
+  const {disabled, pageSize, current} = pagination;
+
+  if (disabled === true) {
+    dataCollection.limit = undefined;
+    dataCollection.offset = undefined;
+    dataCollection.skipCount = true;
     if (reload) dataCollection.load();
+    return;
   }
+
+  // need to sync enabled pagination config and dataCollection - reset limit and offset
+  if (dataCollection.skipCount) {
+    dataCollection.skipCount = false;
+  }
+
+  if (pageSize && current) {
+    dataCollection.limit = pageSize;
+    dataCollection.offset = pageSize * (current - 1);
+  }
+
+  if (reload) dataCollection.load();
+}
+
+
+/**
+ * @param urlParams query params from 'location.history'
+ * @param disabled set to true, if no pagination required for component
+ */
+export function createPagingConfig(urlParams: string, disabled: boolean = false) {
+  const config = {...defaultPagingConfig};
+  if (disabled) {
+    return {config, disabled: true};
+  }
+
+  const {current, pageSize} = config;
+  return {...config, ...parsePagingParams(urlParams, current, pageSize)};
 }

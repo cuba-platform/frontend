@@ -1,5 +1,12 @@
 import React from 'react';
-import {addPagingParams, defaultPagingConfig, Paging, parsePagingParams, setPagination} from "./Paging";
+import {
+  addPagingParams,
+  createPagingConfig,
+  defaultPagingConfig,
+  Paging,
+  parsePagingParams,
+  setPagination
+} from "./Paging";
 import renderer from 'react-test-renderer';
 import {PaginationConfig} from "antd/lib/pagination";
 
@@ -73,10 +80,31 @@ describe('setPagination', () => {
   it('should set pagination to dataCollection and reload', () => {
     const ds = {offset: 0, limit: 0} as any;
     ds.load = jest.fn();
-
     setPagination(pagingConfig, ds, true);
     expect(ds).toMatchObject({offset: 40, limit: 10});
     expect(ds.load).toBeCalled();
+
+    ds.load = jest.fn();
+    const config = {...pagingConfig, disabled: true};
+    setPagination(config, ds, true);
+    expect(ds).toMatchObject({offset: undefined, limit: undefined});
+    expect(ds.load).toBeCalled();
+
+    ds.load = jest.fn();
+    setPagination(config, ds);
+    expect(ds).toMatchObject({offset: undefined, limit: undefined});
+    expect(ds.load).not.toBeCalled();
   });
 
+});
+
+describe('createPagingConfig', function () {
+
+  it('should create disabled paging config', function () {
+    expect(createPagingConfig('', true).disabled).toBeTruthy();
+  });
+
+  it('should create enabled paging config', function () {
+    expect(createPagingConfig('')).toMatchObject(defaultPagingConfig);
+  });
 });
