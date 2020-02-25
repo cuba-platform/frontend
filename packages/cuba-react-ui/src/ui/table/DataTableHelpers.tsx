@@ -20,6 +20,7 @@ import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {Form} from 'antd';
 import { IntlShape } from 'react-intl';
 import {OperatorType} from "@cuba-platform/rest";
+import {setPagination} from "../paging/Paging";
 
 // todo we should not use '*Helpers' in class name in case of lack semantic. This class need to be split
 //  to different files like 'DataColumn', 'Conditions', 'Filters', 'Paging' ot something like this
@@ -350,19 +351,6 @@ export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | unde
     dataCollection.sort = sortOrderPrefix + sortField;
   } else {
     dataCollection.sort = defaultSort;
-  }
-}
-
-/**
- *
- * @param pagination
- * @param dataCollection
- * todo will be moved to DataCollectionStore - we need it list paging too
- */
-export function setPagination<E>(pagination: PaginationConfig, dataCollection: DataCollectionStore<E>) {
-  if (pagination && pagination.pageSize && pagination.current) {
-    dataCollection.limit = pagination.pageSize;
-    dataCollection.offset = pagination.pageSize * (pagination.current - 1);
   }
 }
 
