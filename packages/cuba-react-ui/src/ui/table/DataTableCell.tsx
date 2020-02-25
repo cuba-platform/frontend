@@ -12,7 +12,10 @@ type DataTableCellProps<EntityType> = MainStoreInjected & {
 }
 
 export const DataTableCell = <EntityType extends unknown>(props: DataTableCellProps<EntityType>): ReactNode => {
-  if (props.propertyInfo.type === 'boolean') {
+
+  const {type, attributeType, cardinality, name} = props.propertyInfo;
+
+  if (type === 'boolean') {
     return (
       <Checkbox
         checked={props.text as boolean}
@@ -21,14 +24,14 @@ export const DataTableCell = <EntityType extends unknown>(props: DataTableCellPr
     );
   }
 
-  if (props.propertyInfo.attributeType === 'ENUM') {
+  if (attributeType === 'ENUM') {
     return (
       <EnumCell text={props.text} propertyInfo={props.propertyInfo} mainStore={props.mainStore!}/>
     );
   }
 
-  if (props.propertyInfo.attributeType === 'ASSOCIATION' && props.propertyInfo.cardinality === 'MANY_TO_MANY') {
-    const associatedEntities = props.record?.[props.propertyInfo.name as keyof EntityType] as unknown as SerializedEntityProps[];
+  if (attributeType === 'ASSOCIATION' && cardinality === 'MANY_TO_MANY') {
+    const associatedEntities = props.record?.[name as keyof EntityType] as unknown as SerializedEntityProps[];
     const displayValue = associatedEntities?.map(entity => entity._instanceName).join(', ');
     return (
       <div>{displayValue}</div>
@@ -42,12 +45,5 @@ export const DataTableCell = <EntityType extends unknown>(props: DataTableCellPr
 
 const EnumCell = <EntityType extends unknown>(props: DataTableCellProps<EntityType>) => {
   const caption = getEnumCaption(props.text, props.propertyInfo, props.mainStore!.enums!);
-
-  if (caption) {
-    return (
-      <div>{caption}</div>
-    );
-  } else {
-    return <div/>;
-  }
+  return <div>{caption ? caption : ''}</div>;
 };

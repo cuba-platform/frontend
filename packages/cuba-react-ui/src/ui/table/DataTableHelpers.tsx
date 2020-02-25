@@ -19,6 +19,11 @@ import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption }
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {Form} from 'antd';
 import { IntlShape } from 'react-intl';
+import {OperatorType} from "@cuba-platform/rest";
+
+// todo we should not use '*Helpers' in class name in case of lack semantic. This class need to be split
+//  to different files like 'DataColumn', 'Conditions', 'Filters', 'Paging' ot something like this
+//  https://github.com/cuba-platform/frontend/issues/133
 
 /**
  * `filters` is an object received in antd `Table`'s `onChange` callback, it is a mapping between column names and currently applied filters.
@@ -132,6 +137,8 @@ export interface DataColumnConfig {
  *
  *  export default CarTable;
  *  ```
+ *
+ *  todo refactor - extract DataColumn class
  */
 export function generateDataColumn<EntityType>(config: DataColumnConfig): ColumnProps<EntityType> {
   const {
@@ -172,7 +179,7 @@ export function generateDataColumn<EntityType>(config: DataColumnConfig): Column
     dataIndex,
     sorter: enableSorter,
     key: propertyName as string,
-    render: (text, record) => renderCell<EntityType>(propertyInfo, text, mainStore, record)
+    render: (text, record) => DataTableCell<EntityType>({propertyInfo, text, mainStore, record})
   };
 
   if (enableFilter && isPropertyTypeSupported(propertyInfo)) {
@@ -219,9 +226,7 @@ export function generateDataColumn<EntityType>(config: DataColumnConfig): Column
  */
 export function generateEnumFilter(propertyInfo: MetaPropertyInfo, mainStore: MainStore): ColumnFilterItem[] {
   const propertyEnumInfo: EnumInfo | undefined = mainStore!.enums!
-    .find((enumInfo: EnumInfo) => {
-      return enumInfo.name === propertyInfo.type;
-    });
+    .find((enumInfo: EnumInfo) => enumInfo.name === propertyInfo.type);
 
   if (!propertyEnumInfo) {
     return [];
@@ -235,16 +240,7 @@ export function generateEnumFilter(propertyInfo: MetaPropertyInfo, mainStore: Ma
   });
 }
 
-/**
- *
- * @param propertyName
- * @param entityName
- * @param operator
- * @param onOperatorChange
- * @param value
- * @param onValueChange
- * @param customFilterRefCallback
- */
+// todo - after extraction DataColumn class move this method to DataColumn and inline
 export function generateCustomFilterDropdown(
   propertyName: string,
   entityName: string,
@@ -254,35 +250,19 @@ export function generateCustomFilterDropdown(
   onValueChange: (value: any, propertyName: string) => void,
   customFilterRefCallback?: (instance: React.Component<DataTableCustomFilterProps>) => void,
 ): ((props: FilterDropdownProps) => React.ReactNode) {
-  return (props: FilterDropdownProps) => {
-    return (
-      <CustomFilter entityName={entityName}
-                    entityProperty={propertyName}
-                    filterProps={props}
-                    operator={operator}
-                    onOperatorChange={onOperatorChange}
-                    value={value}
-                    onValueChange={onValueChange}
-                    ref={customFilterRefCallback}
-      />
-    );
-  }
-}
 
-/**
- * Generates a table cell that can be different depending on property type. See `DataTableCell` for details.
- *
- * @param propertyInfo
- * @param text
- * @param mainStore
- */
-export function renderCell<EntityType>(propertyInfo: MetaPropertyInfo, text: any, mainStore: MainStore, record: EntityType) {
-  return DataTableCell<EntityType>({
-    text,
-    propertyInfo,
-    mainStore,
-    record
-  });
+  return (props: FilterDropdownProps) => (
+    <CustomFilter entityName={entityName}
+                  entityProperty={propertyName}
+                  filterProps={props}
+                  operator={operator}
+                  onOperatorChange={onOperatorChange}
+                  value={value}
+                  onValueChange={onValueChange}
+                  ref={customFilterRefCallback}
+    />
+  )
+
 }
 
 /**
@@ -302,9 +282,9 @@ export function setFilters<E>(
   let entityFilter: EntityFilter | undefined = undefined;
 
   if (dataCollection.filter && dataCollection.filter.conditions && dataCollection.filter.conditions.length > 0) {
-    const preservedConditions: Array<Condition | ConditionsGroup> = dataCollection.filter.conditions.filter(condition => {
-      return isPreservedCondition(condition, fields);
-    });
+
+    const preservedConditions: Array<Condition | ConditionsGroup> = dataCollection.filter.conditions
+      .filter(condition => isPreservedCondition(condition, fields));
 
     if (preservedConditions.length > 0) {
       entityFilter = {
@@ -322,35 +302,17 @@ export function setFilters<E>(
           };
         }
 
-        if (getPropertyInfoNN(
-          propertyName as string, dataCollection.entityName, mainStore.metadata!
-        ).attributeType === 'ENUM') {
-          // @ts-ignore // TODO fix cuba-react typing
-          entityFilter.conditions.push({
-            property: propertyName,
-            operator: 'in',
-            value: tableFilters[propertyName],
-          });
+        const propertyInfoNN = getPropertyInfoNN(propertyName as string, dataCollection.entityName, mainStore.metadata!);
+        if (propertyInfoNN.attributeType === 'ENUM') {
+          pushCondition(entityFilter, propertyName, 'in', tableFilters[propertyName]);
         } else {
           const {operator, value} = JSON.parse(tableFilters[propertyName][0]);
           if (operator === 'inInterval') {
             const {minDate, maxDate} = value;
-            entityFilter.conditions.push({
-              property: propertyName,
-              operator: '>=',
-              value: minDate,
-            });
-            entityFilter.conditions.push({
-              property: propertyName,
-              operator: '<=',
-              value: maxDate,
-            });
+            pushCondition(entityFilter, propertyName, '>=', minDate);
+            pushCondition(entityFilter, propertyName, '<=', maxDate);
           } else {
-            entityFilter.conditions.push({
-              property: propertyName,
-              operator,
-              value,
-            });
+            pushCondition(entityFilter, propertyName, operator, value);
           }
         }
       }
@@ -358,6 +320,11 @@ export function setFilters<E>(
   }
 
   dataCollection.filter = entityFilter;
+}
+
+function pushCondition(ef: EntityFilter, property: string, operator: OperatorType,
+                       value: string | number | string[] | number[] | null) {
+  ef.conditions.push({property, operator, value});
 }
 
 /**
@@ -368,6 +335,7 @@ export function setFilters<E>(
  * if by the '-' character then descending. If there is no special character before the property name, then ascending sort will be used.
  * @param dataCollection
  */
+// todo could we make defaultSort of type defined as properties keys of 'E' ?
 export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | undefined, dataCollection: DataCollectionStore<E>) {
   if (sorter && sorter.order) {
     const sortOrderPrefix: string = (sorter.order === 'descend') ? '-' : '+';
@@ -389,6 +357,7 @@ export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | unde
  *
  * @param pagination
  * @param dataCollection
+ * todo will be moved to DataCollectionStore - we need it list paging too
  */
 export function setPagination<E>(pagination: PaginationConfig, dataCollection: DataCollectionStore<E>) {
   if (pagination && pagination.pageSize && pagination.current) {
@@ -534,4 +503,4 @@ export function decorateAndWrapInFormItem(
       )}
     </Form.Item>
   );
-};
+}

@@ -27,6 +27,8 @@ import {
   WithId
 } from '@cuba-platform/react-core';
 
+// todo may be it make sense to add 'defaultDataTableProps' const instead of describe each property in jsdoc,
+//  it's easy to forget update js docs after DataTable.defaultProps changes
 export interface DataTableProps<E> extends MainStoreInjected {
   dataCollection: DataCollectionStore<E>,
   /**
@@ -82,20 +84,23 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   @observable operatorsByProperty: Map<string, ComparisonType> = new Map();
   @observable valuesByProperty: Map<string, CustomFilterInputValue> = new Map();
 
+  // We need to mount and unmount several reactions (listeners) on componentDidMount/componentWillUnmount
   disposers: IReactionDisposer[] = [];
+
   firstLoad: boolean = true;
   customFilters: Map<string, React.Component<DataTableCustomFilterProps>> =
     new Map<string, React.Component<DataTableCustomFilterProps>>();
+  // todo introduce Sort type
   defaultSort: string | undefined;
 
   constructor(props: DataTableProps<E>) {
     super(props);
 
-    if (this.props.dataCollection.filter) {
-      this.tableFilters = entityFilterToTableFilters(this.props.dataCollection.filter, this.fields);
+    const {filter, sort} = this.props.dataCollection;
+    if (filter) {
+      this.tableFilters = entityFilterToTableFilters(filter, this.fields);
     }
-
-    this.defaultSort = this.props.dataCollection.sort;
+    this.defaultSort = sort;
   }
 
   static defaultProps = {
@@ -110,11 +115,11 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     // When dataCollection.items has changed (e.g. due to sorting, filtering or pagination change) some of the selected rows
     // may not be displayed anymore and shall be removed from selectedRowKeys
     this.disposers.push(reaction(
-      () => this.props.dataCollection.items,
-      () => {
-        if (this.isRowSelectionEnabled() && this.selectedRowKeys.length > 0 && this.props.dataCollection.status === 'DONE') {
+      () => this.props.dataCollection,
+      dataCollection => {
+        if (this.isRowSelectionEnabled && this.selectedRowKeys.length > 0 && dataCollection.status === 'DONE') {
 
-          const displayedRowKeys = this.props.dataCollection.items.map(item => this.constructRowKey(item));
+          const displayedRowKeys = dataCollection.items.map(item => this.constructRowKey(item));
 
           const displayedSelectedKeys: string[] = [];
 
@@ -165,12 +170,11 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     }
   };
 
-  isRowSelectionEnabled(): boolean {
-    if (this.props.rowSelectionMode) {
-      return ['single', 'multi'].indexOf(this.props.rowSelectionMode) > -1;
-    } else {
+  get isRowSelectionEnabled(): boolean {
+    if (!this.props.rowSelectionMode) {
       throw new Error(`${this.errorContext} rowSelectionMode is expected to be defined at this point`);
     }
+    return ['single', 'multi'].indexOf(this.props.rowSelectionMode) > -1;
   }
 
   get errorContext(): string {
@@ -178,8 +182,11 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   }
 
   @computed get fields(): string[] {
-    if (this.props.columnDefinitions != null) {
-      return this.props.columnDefinitions.reduce((accumulatedFields: string[], columnDefinition: string | ColumnDefinition<E>) => {
+
+    const {columnDefinitions, fields} = this.props;
+
+    if (columnDefinitions != null) {
+      return columnDefinitions.reduce((accumulatedFields: string[], columnDefinition: string | ColumnDefinition<E>) => {
         if (typeof columnDefinition === 'string') {
           accumulatedFields.push(columnDefinition);
         } else if (typeof (columnDefinition.field === 'string')) {
@@ -187,11 +194,13 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
         }
         return accumulatedFields;
       }, []);
-    } else if (this.props.fields != null) {
-      return this.props.fields;
-    } else {
-      throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
     }
+
+    if (fields != null) {
+      return fields;
+    }
+
+    throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
   }
 
   @computed get paginationConfig(): PaginationConfig {
@@ -212,22 +221,21 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   };
 
   @action
-  onChange = (pagination: PaginationConfig, tableFilters: Record<string, any>, sorter: SorterResult<E>): void => {
-    this.tableFilters = tableFilters;
+  onChange = (pagination: PaginationConfig, filters: Record<string, any>, sorter: SorterResult<E>): void => {
+    this.tableFilters = filters;
+
+    const {defaultSort, fields} = this;
+    const {dataCollection} = this.props;
+    const mainStore = this.props.mainStore!;
+
     handleTableChange<E>({
-      pagination,
-      filters: tableFilters,
-      sorter,
-      defaultSort: this.defaultSort,
-      fields: this.fields,
-      mainStore: this.props.mainStore!,
-      dataCollection: this.props.dataCollection
+      pagination, filters, sorter, defaultSort, fields, mainStore, dataCollection
     });
   };
 
   @action
   onRowClicked = (record: E): void => {
-    if (this.isRowSelectionEnabled()) {
+    if (this.isRowSelectionEnabled) {
       const clickedRowKey = this.constructRowKey(record);
 
       let newSelectedRowKeys = this.selectedRowKeys.slice();
@@ -260,7 +268,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
 
   @action
   onRowSelectionColumnClicked = (selectedRowKeys: string[] | number[]): void => {
-    if (this.isRowSelectionEnabled()) {
+    if (this.isRowSelectionEnabled) {
       this.selectedRowKeys = selectedRowKeys as string[];
     }
   };
@@ -268,9 +276,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   @action
   onRow = (record: E): TableEventListeners => {
     return {
-      onClick: () => {
-        this.onRowClicked(record);
-      }
+      onClick: () => this.onRowClicked(record)
     }
   };
 
@@ -279,8 +285,11 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     this.tableFilters = {};
     this.operatorsByProperty.clear();
     this.valuesByProperty.clear();
+
+    const {filter, load, entityName} = this.props.dataCollection;
+
     this.fields.forEach((field: string) => {
-      const propertyInfo = getPropertyInfoNN(field, this.props.dataCollection.entityName, this.props.mainStore!.metadata!);
+      const propertyInfo = getPropertyInfoNN(field, entityName, this.props.mainStore!.metadata!);
       if (propertyInfo.type === 'boolean') {
         this.valuesByProperty.set(field, 'true');
       }
@@ -291,21 +300,20 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       customFilter.resetFields(); // Reset Ant Form in CustomFilter
     });
 
-    if (this.props.dataCollection.filter) {
-      const preservedConditions: Array<Condition | ConditionsGroup> = this.props.dataCollection.filter.conditions.filter(condition => {
-        return isPreservedCondition(condition, this.fields);
-      });
+    if (filter) {
+      const preservedConditions: Array<Condition | ConditionsGroup> = filter.conditions
+        .filter(condition => isPreservedCondition(condition, this.fields));
 
       if (preservedConditions.length > 0) {
-        this.props.dataCollection.filter.conditions = preservedConditions;
+        filter.conditions = preservedConditions;
       } else {
         this.props.dataCollection.filter = undefined;
       }
     }
-    this.props.dataCollection.load();
+    load();
   };
 
-  rowSelectionType(): RowSelectionType {
+  get rowSelectionType(): RowSelectionType {
     switch (this.props.rowSelectionMode) {
       case 'multi':
         return 'checkbox';
@@ -319,6 +327,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   render() {
     const { items, status } = this.props.dataCollection;
 
+    // todo - can we say 'available' if mainStore.security not loaded yet ?
     const isMainStoreAvailable = !!this.props.mainStore
       && !!this.props.mainStore.messages
       && !!this.props.mainStore.metadata
@@ -344,11 +353,11 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       rowKey: record => this.constructRowKey(record),
     };
 
-    if (this.isRowSelectionEnabled()) {
+    if (this.isRowSelectionEnabled) {
       defaultTableProps = {
         ...defaultTableProps,
         rowSelection: {
-          type: this.rowSelectionType(),
+          type: this.rowSelectionType,
           selectedRowKeys: toJS(this.selectedRowKeys),
           onChange: this.onRowSelectionColumnClicked,
         },
@@ -375,9 +384,8 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     );
   }
 
-  @computed
-  get clearFiltersButton(): ReactNode {
-    if (this.isClearFiltersShown()) {
+  @computed get clearFiltersButton(): ReactNode {
+    if (this.isClearFiltersShown) {
       return (
         <Button htmlType='button'
                 className='cuba-data-table-clear-filters'
@@ -392,21 +400,19 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     }
   }
 
-  isClearFiltersShown(): boolean {
-    return this.props.dataCollection.filter != null
-      && this.props.dataCollection.filter.conditions != null
-      && this.props.dataCollection.filter.conditions.some(condition => {
-        return !isPreservedCondition(condition, this.fields);
-      });
+  get isClearFiltersShown(): boolean {
+    const {filter} =  this.props.dataCollection;
+
+    return filter != null && filter.conditions != null
+      && filter.conditions.some(condition => !isPreservedCondition(condition, this.fields));
   }
 
   @computed
   get generateColumnProps(): Array<ColumnProps<E>> {
-    const source = this.props.columnDefinitions ? this.props.columnDefinitions : this.props.fields;
+    const {columnDefinitions, fields, dataCollection, mainStore} = this.props;
 
-    if (source == null) {
-      throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
-    }
+    const source = columnDefinitions ? columnDefinitions : fields;
+    if (!source) throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
 
     return source.map((columnDef: string | ColumnDefinition<E>) => {
       const propertyName = typeof columnDef === 'string' ? columnDef : columnDef.field;
@@ -417,15 +423,15 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
 
         const generatedColumnProps = generateDataColumn<E>({
           propertyName,
-          entityName: this.props.dataCollection.entityName,
-          enableFilter: this.enableFilterForColumn(propertyName),
+          entityName: dataCollection.entityName,
+          enableFilter: this.isFilterForColumnEnabled(propertyName),
           filters: this.tableFilters,
           operator: this.operatorsByProperty.get(propertyName),
           onOperatorChange: this.handleFilterOperatorChange,
           value: this.valuesByProperty.get(propertyName),
           onValueChange: this.handleFilterValueChange,
           enableSorter: true,
-          mainStore: this.props.mainStore!,
+          mainStore: mainStore!,
           customFilterRef: (instance: any) => this.customFilters.set(propertyName, instance)
         });
 
@@ -434,17 +440,19 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
           ...this.props.columnProps, // First we add customizations from columnProps TODO @deprecated
           ...(columnSettings ? columnSettings : []) // Then we add customizations from columnDefinitions
         };
-      } else if (columnSettings != null) {
+      }
+
+      if (columnSettings != null) {
         // Column is not be bound to an entity property. It is a column fully constructed by client.
         // E.g. it can be a calculated column or an action column.
         return columnSettings;
-      } else {
-        throw new Error(`${this.errorContext} Neither field name nor columnProps were provided`);
       }
+
+      throw new Error(`${this.errorContext} Neither field name nor columnProps were provided`);
     });
   };
 
-  enableFilterForColumn(propertyName: string) {
+  isFilterForColumnEnabled(propertyName: string): boolean {
     return this.props.enableFiltersOnColumns
       ? this.props.enableFiltersOnColumns.indexOf(propertyName) > -1
       : true;
