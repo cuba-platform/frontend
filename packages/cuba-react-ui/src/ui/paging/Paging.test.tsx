@@ -1,6 +1,7 @@
 import React from 'react';
-import {addPagingParams, defaultPagingConfig, Paging, parsePagingParams} from "./Paging";
+import {addPagingParams, defaultPagingConfig, Paging, parsePagingParams, setPagination} from "./Paging";
 import renderer from 'react-test-renderer';
+import {PaginationConfig} from "antd/lib/pagination";
 
 describe('Paging component', () => {
 
@@ -12,13 +13,13 @@ describe('Paging component', () => {
       onPagingChange: () => {}
     };
 
-    const paging = renderer.create(<Paging {...props}/>);
-    expect(paging.toJSON()!.children?.length).toBe(8);
+    const items = renderer.create(<Paging {...props}/>).root
+      .findAll(el => el.props.className?.indexOf('ant-pagination-item ant-pagination-item-') === 0);
+    expect(items?.length).toBe(5);
   });
-
 });
 
-describe('paging params', () => {
+describe('addPagingParams', () => {
 
   it('should return same url if one of param not set', () => {
     expect(addPagingParams('initialUrl', undefined, undefined)).toBe('initialUrl');
@@ -26,9 +27,56 @@ describe('paging params', () => {
     expect(addPagingParams('initialUrl', 2, undefined)).toBe('initialUrl');
   });
 
+  it('should add paging params to url', () => {
+    expect(addPagingParams('initialUrl', 2, 4)).toBe('initialUrl?page=2&pageSize=4');
+  });
+});
+
+describe('parsePagingParams', () => {
   it('should parse null paging params', () => {
     expect(parsePagingParams('initialUrl', undefined, undefined))
       .toEqual({});
+    expect(parsePagingParams('', undefined, undefined))
+      .toEqual({});
+  });
+
+  it('should parse paging params', () => {
+    expect(parsePagingParams('?page=4&pageSize=7', undefined, undefined))
+      .toEqual({current: 4, pageSize: 7});
+    expect(parsePagingParams('?page=3', 10, 20))
+      .toEqual({current: 3, pageSize: 20});
+    expect(parsePagingParams('?pageSize=8', 10, 20))
+      .toEqual({current: 10, pageSize: 8});
+  });
+});
+
+
+const pagingConfig: PaginationConfig = {
+  current: 5,
+  pageSize: 10
+};
+
+describe('setPagination', () => {
+
+  it('should set pagination to dataCollection', () => {
+    let ds = {offset: 0, limit: 0, load: jest.fn()} as any;
+    setPagination(pagingConfig, ds);
+    expect(ds).toMatchObject({offset: 40, limit: 10});
+    expect(ds.load).not.toBeCalled();
+
+    ds = {offset: 0, limit: 0, load: jest.fn()} as any;
+    setPagination({}, ds);
+    expect(ds).toMatchObject({offset: 0, limit: 0});
+    expect(ds.load).not.toBeCalled();
+  });
+
+  it('should set pagination to dataCollection and reload', () => {
+    const ds = {offset: 0, limit: 0} as any;
+    ds.load = jest.fn();
+
+    setPagination(pagingConfig, ds, true);
+    expect(ds).toMatchObject({offset: 40, limit: 10});
+    expect(ds.load).toBeCalled();
   });
 
 });
