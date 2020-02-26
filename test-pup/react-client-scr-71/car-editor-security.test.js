@@ -19,49 +19,57 @@ describe('car editor security', () => {
     'Technical Certificate',
     'Photo'];
 
+  let pageMech;
+  let pageMan;
+  let pageAdmin;
+
+  beforeAll(async () => {
+    pageAdmin = await (await puppeteer.launch()).newPage();
+    pageMech = await (await puppeteer.launch()).newPage();
+    pageMan = await (await puppeteer.launch()).newPage();
+  });
+
   it('should check that security shows all car fields on editor for admin', async () => {
-    const page = await (await puppeteer.launch()).newPage();
-    await login(page);
+    await login(pageAdmin);
 
-    await page.goto('http://localhost:3000/#/carManagement/3da61043-aaad-7e30-c7f5-c1f1328d3980');
-    await page.waitFor('div.ant-card-body');
+    await pageAdmin.goto('http://localhost:3000/#/carManagement/3da61043-aaad-7e30-c7f5-c1f1328d3980');
+    await pageAdmin.waitFor('div.ant-card-body');
 
-    const fieldLabels = await page.$$eval('div.ant-col.ant-form-item-label',
+    const fieldLabels = await pageAdmin.$$eval('div.ant-col.ant-form-item-label',
       elements => elements.map(el => el.innerText));
 
     expect(fieldLabels).toEqual(expectFieldLabels);
-
-    page.browser().close();
   });
 
   it('should check that security shows all car fields on editor for mechanic', async () => {
-    const page = await (await puppeteer.launch()).newPage();
-    await login(page, 'mechanic', '1');
+    await login(pageMech, 'mechanic', '1');
 
-    await page.goto('http://localhost:3000/#/carManagement/3da61043-aaad-7e30-c7f5-c1f1328d3980');
-    await page.waitFor('div.ant-card-body');
+    await pageMech.goto('http://localhost:3000/#/carManagement/3da61043-aaad-7e30-c7f5-c1f1328d3980');
+    await pageMech.waitFor('div.ant-card-body');
 
-    const fieldLabels = await page.$$eval('div.ant-col.ant-form-item-label',
+    const fieldLabels = await pageMech.$$eval('div.ant-col.ant-form-item-label',
       elements => elements.map(el => el.innerText));
 
     expect(fieldLabels).toEqual(expectFieldLabels);
-
-    page.browser().close();
   });
 
   it('should check that security shows all car fields on editor for manager', async () => {
-    const page = await (await puppeteer.launch()).newPage();
-    await login(page, 'manager', '2');
+    await login(pageMan, 'manager', '2');
 
-    await page.goto('http://localhost:3000/#/carManagement/3da61043-aaad-7e30-c7f5-c1f1328d3980');
-    await page.waitFor('div.ant-card-body');
+    await pageMan.goto('http://localhost:3000/#/carManagement/3da61043-aaad-7e30-c7f5-c1f1328d3980');
+    await pageMan.waitFor('div.ant-card-body');
 
-    const fieldLabels = await page.$$eval('div.ant-col.ant-form-item-label',
+    const fieldLabels = await pageMan.$$eval('div.ant-col.ant-form-item-label',
       elements => elements.map(el => el.innerText));
 
     expect(fieldLabels).toEqual(expectFieldLabels);
+  });
 
-    page.browser().close();
+  afterAll(async done => {
+    await pageAdmin.browser().close();
+    await pageMech.browser().close();
+    await pageMan.browser().close();
+    done();
   });
 
 });
