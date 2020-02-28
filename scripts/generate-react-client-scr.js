@@ -2,6 +2,7 @@ const gen = require('./generate-client-scr');
 
 const clientDir = 'react-client-scr';
 const answers = require('./model/react-client-scr-answers');
+const intIdCardsConfig = require('./screens/int-id-cards');
 const dirShift = '../../';
 
 gen(
@@ -81,6 +82,12 @@ gen(
         dirShift,
         dest: 'src/app/datatypes-test-cards',
         answers: answers.datatypesTestCards
+      },
+      {
+        command: 'react-typescript:entity-cards',
+        dirShift,
+        dest: 'src/app/int-id-cards',
+        answers: intIdCardsConfig
       },
     ]
 );
