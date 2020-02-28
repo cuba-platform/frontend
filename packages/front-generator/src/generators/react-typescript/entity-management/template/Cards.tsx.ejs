@@ -65,8 +65,9 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
         {items == null || items.length === 0 ?
           <p><FormattedMessage id='management.browser.noItems'/></p> : null}
         {items.map(e =>
+          <% /* todo null check of e.id will be removed after we strict id type in https://github.com/cuba-platform/frontend/issues/119 */ %>
           <Card title={e._instanceName}
-                key={e.id}
+                key={e.id ? e.id : undefined}
                 style={{marginBottom: '12px'}}
                 actions={[
                   <Icon type='delete'
