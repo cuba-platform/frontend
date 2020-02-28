@@ -1,7 +1,7 @@
 import * as React from "react";
 import {observer} from "mobx-react";
 import {Link} from "react-router-dom";
-import {computed, reaction} from "mobx";
+import {computed, IReactionDisposer, reaction} from "mobx";
 
 import {Modal, Button, List, Icon} from "antd";
 
@@ -30,6 +30,7 @@ class <%= listComponentName %>Component extends React.Component<Props> {
     loadImmediately: false
   });
 
+  reactionDisposer: IReactionDisposer;
   fields = [
   <% listAttributes.forEach(p => { -%>
     '<%= p.name %>',
@@ -37,10 +38,14 @@ class <%= listComponentName %>Component extends React.Component<Props> {
   ];
 
   componentDidMount(): void {
-    reaction(() => this.props.paginationConfig,
+    this.reactionDisposer = reaction(() => this.props.paginationConfig,
       paginationConfig => setPagination(paginationConfig, this.dataCollection, true)
     );
     setPagination(this.props.paginationConfig, this.dataCollection, true);
+  }
+
+  componentWillUnmount() {
+    this.reactionDisposer();
   }
 
   showDeletionDialog = (e: SerializedEntity<<%= entity.className %>>) => {
@@ -63,7 +68,9 @@ class <%= listComponentName %>Component extends React.Component<Props> {
   }
 
   render() {
-    const {status, items} = this.dataCollection;
+    const { status, items, count } = this.dataCollection;
+    const {paginationConfig, onPagingChange} = this.props;
+
     if (status === "LOADING" || !this.dataLoaded) { return <Spinner/> };
 
     return (
@@ -103,7 +110,11 @@ class <%= listComponentName %>Component extends React.Component<Props> {
 
         {!this.props.paginationConfig.disabled && (
           <div style={{margin: "12px 0 12px 0", float: "right"}}>
-            <Paging {... this.props} total={this.dataCollection.count} />
+            <Paging
+              paginationConfig={paginationConfig}
+              onPagingChange={onPagingChange}
+              total={count}
+            />
           </div>
         )}
 

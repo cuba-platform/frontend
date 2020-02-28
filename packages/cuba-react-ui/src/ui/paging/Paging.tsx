@@ -19,7 +19,7 @@ export const defaultPagingConfig: PaginationConfig = {
   pageSize: 10,
   defaultPageSize: 10,
   showSizeChanger: true,
-  pageSizeOptions: ['10', '20', '30']
+  pageSizeOptions: ['20', '50', '100', '500', '1000', '5000']
 };
 
 /**
