@@ -17,5 +17,7 @@
         <class>com.company.scr.entity.test.AssociationO2MTestEntity</class>
         <class>com.company.scr.entity.test.AssociationM2OTestEntity</class>
         <class>com.company.scr.entity.test.AssociationM2MTestEntity</class>
+        <class>com.company.scr.entity.test.StringIdTestEntity</class>
+        <class>com.company.scr.entity.test.IntIdTestEntity</class>
     </persistence-unit>
 </persistence>
