@@ -1,7 +1,7 @@
 import {PaginationConfig} from "antd/lib/table";
 import {DataCollectionStore} from "@cuba-platform/react-core";
-import * as QueryString from "querystring";
 import React from "react";
+import queryString from "query-string"
 import {Pagination} from "antd";
 import {toJS} from "mobx";
 
@@ -47,14 +47,11 @@ export class Paging extends React.Component<Props> {
  * If param not found in search url, previous value (currentPrev, pageSizePrev) will be returned.
  *
  * @param locationSearch trying to find paging params here
- * @param currentPrev - previous value, will be returned in result if new value not found in locationSeach
- * @param pageSizePrev - previous value, will be returned in result if new value not found in locationSeach
+ * @param currentPrev - previous value, will be returned in result if new value not found in locationSearch
+ * @param pageSizePrev - previous value, will be returned in result if new value not found in locationSearch
  */
 export function parsePagingParams(locationSearch: string, currentPrev: number | undefined, pageSizePrev: number | undefined): PaginationConfig {
-  // remove '?' from start of location.search
-  const locationSearchParams = locationSearch && locationSearch.length > 0 ? locationSearch.substr(1) : '';
-  // parse params
-  const parsedUrlQuery = QueryString.parse(locationSearchParams);
+  const parsedUrlQuery = queryString.parse(locationSearch);
   const current = typeof parsedUrlQuery.page == 'string' ? parseInt(parsedUrlQuery.page) : currentPrev;
   const pageSize = typeof parsedUrlQuery.pageSize == 'string' ? parseInt(parsedUrlQuery.pageSize) : pageSizePrev;
 

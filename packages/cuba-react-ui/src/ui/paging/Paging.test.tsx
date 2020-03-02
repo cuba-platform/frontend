@@ -55,6 +55,11 @@ describe('parsePagingParams', () => {
     expect(parsePagingParams('?pageSize=8', 10, 20))
       .toEqual({current: 10, pageSize: 8});
   });
+
+  it ('should parse paging params without question mark at start', () => {
+    expect(parsePagingParams('page=4&pageSize=7', undefined, undefined))
+      .toEqual({current: 4, pageSize: 7});
+  })
 });
 
 
