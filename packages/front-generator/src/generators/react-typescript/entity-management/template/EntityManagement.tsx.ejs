@@ -28,7 +28,7 @@ export class <%= className %> extends React.Component<Props> {
           ? < <%= editComponentName %> entityId={entityId}/>
           : < <%= listComponentName %>
 
-    <% if (listType === 'list') { %> <%# if clause will be removed after paging impleneted on other list types %>
+    <% if (listType === 'list' || listType === 'cards') { %> <%# if clause will be removed after paging impleneted on other list types %>
         onPagingChange={this.onPagingChange}
         paginationConfig={this.paginationConfig}
     <% } %>
