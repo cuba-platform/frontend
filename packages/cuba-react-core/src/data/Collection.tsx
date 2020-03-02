@@ -21,6 +21,7 @@ export class DataCollectionStore<T> implements DataContainer {
   @observable limit?: number;
   @observable offset?: number;
   @observable count?: number;
+  @observable skipCount?: boolean;
 
   changedItems: IObservableArray<any> = observable([]);
 
@@ -48,11 +49,18 @@ export class DataCollectionStore<T> implements DataContainer {
   load = () => {
     this.changedItems.clear();
     this.status = "LOADING";
-    if (this.filter) {
-      this.handleLoading(getCubaREST()!.searchEntitiesWithCount<T>(this.entityName, this.filter, this.entitiesLoadOptions));
-    } else {
-      this.handleLoading(getCubaREST()!.loadEntitiesWithCount<T>(this.entityName, this.entitiesLoadOptions));
-    }
+
+    let loadingPromise;
+
+      if (this.filter) {
+        loadingPromise = this.handleLoadingWithCount(getCubaREST()!.searchEntitiesWithCount<T>(this.entityName, this.filter, this.entitiesLoadOptions));
+      } else if (this.skipCount === true) {
+        loadingPromise = this.handleLoadingNoCount(getCubaREST()!.loadEntities<T>(this.entityName, this.entitiesLoadOptions));
+      } else {
+        loadingPromise = this.handleLoadingWithCount(getCubaREST()!.loadEntitiesWithCount<T>(this.entityName, this.entitiesLoadOptions));
+      }
+
+      loadingPromise.catch(() => runInAction(() => this.status = 'ERROR'));
   };
 
   @action
@@ -105,8 +113,8 @@ export class DataCollectionStore<T> implements DataContainer {
     return loadOptions;
   }
 
-  private handleLoading(promise: Promise<EntitiesWithCount<T>>) {
-    promise
+  private handleLoadingWithCount(promise: Promise<EntitiesWithCount<T>>) {
+    return promise
       .then((resp) => {
         runInAction(() => {
           this.items = resp.result;
@@ -114,9 +122,15 @@ export class DataCollectionStore<T> implements DataContainer {
           this.status = 'DONE';
         })
       })
-      .catch(() => {
+  }
+
+  private handleLoadingNoCount(promise: Promise<Array<SerializedEntity<T>>>) {
+    return promise
+      .then((resp: Array<SerializedEntity<T>>) => {
         runInAction(() => {
-          this.status = 'ERROR'
+          this.items = resp;
+          this.count = undefined;
+          this.status = 'DONE';
         })
       })
   }

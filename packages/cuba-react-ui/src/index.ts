@@ -8,6 +8,7 @@ export * from './ui/table/DataTableCustomFilter';
 export * from './ui/FileUpload';
 export * from './ui/MultilineText';
 export * from './ui/Spinner';
+export * from './ui/paging/Paging';
 
 export * from './util/errorHandling';
 
