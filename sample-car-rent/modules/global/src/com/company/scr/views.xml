@@ -40,6 +40,10 @@
     <property name="associationO2Mattr" view="_minimal"/>
     <property name="associationM2Oattr" view="_minimal"/>
     <property name="associationM2Mattr" view="_minimal"/>
+    <property name="compositionO2Oattr" view="_minimal"/>
+    <property name="compositionO2Mattr" view="_minimal">
+      <property name="datatypesTestEntity" view="_minimal"/>
+    </property>
   </view>
   <view entity="scr_AssociationM2MTestEntity" name="associationM2MTestEntity-view" extends="_local">
     <property name="datatypesTestEntities" view="_minimal"/>
@@ -48,9 +52,45 @@
   <view entity="scr_AssociationO2MTestEntity" name="associationO2MTestEntity-view" extends="_local">
     <property name="datatypesTestEntity" view="_minimal"/>
   </view>
-  <view entity="scr_AssociationO2OTestEntity" name="associationO2OTestEntity-view" extends="_local"/>
+  <view entity="scr_AssociationO2OTestEntity" name="associationO2OTestEntity-view" extends="_local">
+    <property name="datatypesTestEntity" view="_minimal"/>
+  </view>
   <view entity="scr_CompositionO2MTestEntity" name="compositionO2MTestEntity-view" extends="_local">
     <property name="datatypesTestEntity" view="_minimal"/>
   </view>
-  <view entity="scr_CompositionO2OTestEntity" name="compositionO2OTestEntity-view" extends="_local"/>
+  <view entity="scr_CompositionO2OTestEntity" name="compositionO2OTestEntity-view" extends="_local">
+    <property name="nestedComposition" view="_minimal">
+      <property name="associationO2Oattr" view="_minimal"/>
+    </property>
+  </view>
+  <view entity="scr_DeeplyNestedTestEntity" name="deeplyNestedTestEntity-view" extends="_local">
+    <property name="associationO2Oattr" view="_minimal"/>
+  </view>
+  <view entity="scr_DatatypesTestEntity2" name="datatypesTestEntity2-view" extends="_local">
+    <property name="datatypesTestEntityAttr" view="_minimal">
+      <property name="bigDecimalAttr"/>
+      <property name="booleanAttr"/>
+      <property name="byteArrayAttr"/>
+      <property name="dateAttr"/>
+      <property name="dateTimeAttr"/>
+      <property name="doubleAttr"/>
+      <property name="integerAttr"/>
+      <property name="longAttr"/>
+      <property name="stringAttr"/>
+      <property name="timeAttr"/>
+      <property name="uuidAttr"/>
+      <property name="localDateTimeAttr"/>
+      <property name="offsetDateTimeAttr"/>
+      <property name="localDateAttr"/>
+      <property name="localTimeAttr"/>
+      <property name="offsetTimeAttr"/>
+      <property name="enumAttr"/>
+      <property name="associationO2Oattr" view="_minimal"/>
+      <property name="associationO2Mattr" view="_minimal"/>
+      <property name="associationM2Oattr" view="_minimal"/>
+      <property name="associationM2Mattr" view="_minimal"/>
+      <property name="compositionO2Oattr" view="_minimal"/>
+      <property name="compositionO2Mattr" view="_minimal"/>
+    </property>
+  </view>
 </views>

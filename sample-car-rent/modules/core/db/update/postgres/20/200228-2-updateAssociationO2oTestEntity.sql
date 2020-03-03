@@ -1,0 +1,1 @@
+alter table SCR_ASSOCIATION_O2O_TEST_ENTITY add column NESTED_ASSOCIATION_ID uuid ;

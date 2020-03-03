@@ -1,11 +1,12 @@
 package com.company.scr.entity.test;
 
+import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @NamePattern("%s|name")
 @Table(name = "SCR_COMPOSITION_O2O_TEST_ENTITY")
@@ -15,6 +16,20 @@ public class CompositionO2OTestEntity extends StandardEntity {
 
     @Column(name = "NAME")
     protected String name;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "NESTED_COMPOSITION_ID")
+    protected DeeplyNestedTestEntity nestedComposition;
+
+    public DeeplyNestedTestEntity getNestedComposition() {
+        return nestedComposition;
+    }
+
+    public void setNestedComposition(DeeplyNestedTestEntity nestedComposition) {
+        this.nestedComposition = nestedComposition;
+    }
 
     public String getName() {
         return name;

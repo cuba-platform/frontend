@@ -1,0 +1,2 @@
+alter table SCR_ASSOCIATION_O2O_TEST_ENTITY rename column nested_association_id to nested_association_id__u20059 ;
+alter table SCR_ASSOCIATION_O2O_TEST_ENTITY drop constraint FK_SCR_ASSOCIATION_O2O_TEST_ENTITY_NESTED_ASSOCIATION ;

@@ -1,0 +1,1 @@
+alter table SCR_ASSOCIATION_O2O_TEST_ENTITY drop column NESTED_ASSOCIATION_ID__U20059 cascade ;
