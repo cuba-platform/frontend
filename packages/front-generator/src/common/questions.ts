@@ -1,6 +1,7 @@
 import {EntityInfo, StudioTemplateProperty, StudioTemplatePropertyType, ViewInfo} from "./studio/studio-model";
 import {Answers, Question as YeomanQuestion} from "yeoman-generator";
 import {getEntitiesArray, ProjectModel} from './model/cuba-model';
+import {findViewsForEntity} from './model/cuba-model-utils';
 
 export type ObjectChoice = {name: string, value: any, short?: string};
 export type Choice = string | ObjectChoice;
@@ -27,6 +28,7 @@ const matching: {[key: string]: QuestionType} = {
   [StudioTemplatePropertyType.BOOLEAN]: QuestionType.confirm,
   [StudioTemplatePropertyType.ENTITY]: QuestionType.autocomplete,
   [StudioTemplatePropertyType.VIEW]: QuestionType.autocomplete,
+  [StudioTemplatePropertyType.NESTED_ENTITY_VIEW]: QuestionType.autocomplete,
   [StudioTemplatePropertyType.STRING]: QuestionType.input,
   [StudioTemplatePropertyType.INTEGER]: QuestionType.input,
   [StudioTemplatePropertyType.OPTION]: QuestionType.autocomplete,
@@ -65,19 +67,27 @@ export function fromStudioProperty(prop: StudioTemplateProperty, projectModel?: 
         throw new Error('Project model is required to determine choices for property of type ' + StudioTemplatePropertyType.VIEW);
       }
       question.choices = (previousAnswers) => {
-        return projectModel.views
-          .filter(view => view.entity === previousAnswers['entity'].name)
-          .map(view => {
-            const viewInfo: ViewInfo = {
-              name: view.name,
-              entityName: view.entity
-            };
-            return {
-              name: view.name,
-              value: viewInfo
-            }
-          });
+        return findViewsForEntity(projectModel, previousAnswers.entity.name)
+          .map(view => ({
+            name: view.name,
+            value: view
+          }));
       };
+      break;
+    case StudioTemplatePropertyType.NESTED_ENTITY_VIEW:
+      if (!projectModel) {
+        throw new Error('Project model is required to determine choices for property of type ' + StudioTemplatePropertyType.NESTED_ENTITY_VIEW);
+      }
+      if (!prop.options) {
+        throw new Error('Property name and entity name are required to determine choices for property of type ' + StudioTemplatePropertyType.NESTED_ENTITY_VIEW);
+      }
+      const propertyName = prop.options[0];
+      const entityName = prop.options[1];
+      question.choices = findViewsForEntity(projectModel, entityName)
+        .map(view => ({
+          name: view.name,
+          value: {[propertyName]: view.name}
+        }));
       break;
     case StudioTemplatePropertyType.OPTION:
       if (!prop.options) {

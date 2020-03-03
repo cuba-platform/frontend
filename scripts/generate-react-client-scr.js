@@ -78,6 +78,24 @@ gen(
         answers: answers.associationM2M
       },
       {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/compositionO2O',
+        answers: answers.compositionO2O
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/compositionO2M',
+        answers: answers.compositionO2M
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/datatypes2',
+        answers: answers.datatypes2Test
+      },
+      {
         command: 'react-typescript:entity-cards',
         dirShift,
         dest: 'src/app/datatypes-test-cards',

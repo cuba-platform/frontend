@@ -35,6 +35,9 @@ export class MainStore {
     })
   }
 
+  isEntityDataLoaded(): boolean {
+    return !!this.messages && !!this.metadata && !!this.enums && this.security.dataLoaded;
+  }
 
   @action
   loadEnums() {

@@ -8,8 +8,8 @@ module.exports = {
   "coverageThreshold": {
     "global": {
       "statements": 4,
-      "branches": 4,
-      "functions": 2,
+      "branches": 3,
+      "functions": 1,
       "lines": 4
     },
     "./src/ui/paging": {

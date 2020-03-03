@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Checkbox, DatePicker, Input, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
-import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType} from "@cuba-platform/rest"
+import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType, SerializedEntityProps} from "@cuba-platform/rest"
 import {FileUpload, FileUploadProps} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
 import {MainStoreInjected, DataCollectionStore, WithId, injectMainStore, getPropertyInfo, isFileProperty} from "@cuba-platform/react-core";
@@ -17,19 +17,29 @@ import {CheckboxProps} from "antd/lib/checkbox/Checkbox";
 import {DatePickerProps} from "antd/lib/date-picker/interface";
 import {TimePickerProps} from "antd/lib/time-picker";
 import {InputNumberProps} from "antd/lib/input-number";
+import {NestedEntityEditor, NestedEntityEditorProps} from "./form/NestedEntityEditor";
+import {NestedEntityBrowser} from "./form/NestedEntityBrowser";
 
-export type FormFieldComponentProps = SelectProps | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps;
+export type FormFieldComponentProps = SelectProps | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
+  | NestedEntityEditorProps;
 
 export type FormFieldProps = MainStoreInjected & {
-  entityName: string
-  propertyName: string
-  disabled?: boolean
-  optionsContainer?: DataCollectionStore<WithId>
+  entityName: string;
+  propertyName: string;
+  disabled?: boolean;
+  optionsContainer?: DataCollectionStore<WithId>;
+  nestedEntityName?: string;
+  nestedEntityType?: new () => Partial<WithId & SerializedEntityProps>;
+  nestedEntityView?: string;
 } & FormFieldComponentProps
 
 export const FormField = injectMainStore(observer((props: FormFieldProps) => {
 
-  const {entityName, propertyName, optionsContainer, mainStore, ...rest} = props;
+  const {
+    entityName, propertyName, optionsContainer, mainStore,
+    nestedEntityName, nestedEntityType, nestedEntityView,
+    ...rest
+  } = props;
 
   if (mainStore == null || mainStore.metadata == null) {
     return <Input {...(rest as InputProps)}/>;
@@ -50,7 +60,19 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
       const mode = getSelectMode(propertyInfo.cardinality);
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
-      return <EntitySelectField {...rest} allowClear={getAllowClear(propertyInfo)} />;
+      if (nestedEntityName && nestedEntityType && nestedEntityView) {
+        if (propertyInfo.cardinality === 'ONE_TO_ONE') {
+          return <NestedEntityEditor nestedEntityName={nestedEntityName}
+                                     nestedEntityType={nestedEntityType}
+                                     nestedEntityView={nestedEntityView}
+                                     {...(rest as NestedEntityEditorProps)}
+                 />;
+        }
+        if (propertyInfo.cardinality === 'ONE_TO_MANY') {
+          return <NestedEntityBrowser/>;
+        }
+      }
+      return null;
   }
   switch (propertyInfo.type as PropertyType) {
     case 'boolean':

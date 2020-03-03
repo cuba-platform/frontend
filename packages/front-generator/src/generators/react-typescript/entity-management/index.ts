@@ -1,9 +1,9 @@
 import {BaseGenerator} from "../../../common/base-generator";
 import {EntityManagementAnswers, entityManagementGeneratorParams} from "./params";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
-import {EditRelations, EntityManagementTemplateModel, RelationImport} from "./template-model";
+import {EditRelations, EditRelationsSplit, EntityManagementTemplateModel, RelationImport} from "./template-model";
 import * as path from "path";
-import {StudioTemplateProperty} from "../../../common/studio/studio-model";
+import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {capitalizeFirst, elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
@@ -13,6 +13,7 @@ import * as entityManagementEn from "./entity-management-en.json";
 import * as entityManagementRu from "./entity-management-ru.json";
 import {writeComponentI18nMessages} from "../common/i18n";
 import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../common/entity";
+import {fromStudioProperties} from '../../../common/questions';
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
 
@@ -77,6 +78,44 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
   _getAvailableOptions(): OptionsConfig {
     return polymerElementOptionsConfig;
   }
+
+  async _additionalPrompts(answers: EntityManagementAnswers): Promise<EntityManagementAnswers> {
+    if (!this.cubaProjectModel) {
+      throw Error('Additional prompt failed: cannot find project model');
+    }
+    const entityName = answers.entity.name;
+    if (!entityName) {
+      throw Error('Additional prompt failed: cannot find entity name');
+    }
+    const entity = findEntity(this.cubaProjectModel, entityName);
+    if (!entity) {
+      throw Error('Additional prompt failed: cannot find entity');
+    }
+
+    const nestedEntityQuestions = entity.attributes.reduce((questions: StudioTemplateProperty[], attr: EntityAttribute) => {
+      if (attr.mappingType === 'COMPOSITION') {
+        questions.push(
+          {
+            code: 'nestedEntityView_' + attr.name,
+            caption: 'View for nested entity attribute ' + attr.name,
+            propertyType: StudioTemplatePropertyType.NESTED_ENTITY_VIEW,
+            options: [attr.name, attr.type.entityName!],
+            required: true
+          },
+        );
+      }
+      return questions;
+    }, []);
+
+    const nestedEntityAnswers = await this.prompt(fromStudioProperties(nestedEntityQuestions, this.cubaProjectModel));
+
+    const nestedEntityInfo = Object.values(nestedEntityAnswers).reduce((result, answer) => {
+      result = {...result, ...answer};
+      return result;
+    }, {});
+
+    return {...answers, nestedEntityInfo};
+  }
 }
 
 export function answersToManagementModel(answers: EntityManagementAnswers,
@@ -91,11 +130,15 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
   const editAttributes: EntityAttribute[] =
     getDisplayedAttributes(answers.editView.allProperties, entity, projectModel, ScreenType.EDITOR);
 
-  const editRelations = getRelations(projectModel, editAttributes);
+  const { editAssociations, editCompositions } = getRelations(projectModel, editAttributes);
+
+  const nestedEntityInfo = answers.nestedEntityInfo;
+
+  const relationImports = getRelationImports({...editAssociations, ...editCompositions}, entity);
 
   return {
     componentName: answers.managementComponentName,
-    className: className,
+    className,
     relDirShift: dirShift || '',
     listComponentName: answers.listComponentName,
     editComponentName: answers.editComponentName,
@@ -106,8 +149,10 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
     listAttributes,
     editView: answers.editView,
     editAttributes,
-    editRelations,
-    relationImports: getRelationImports(editRelations, entity)
+    nestedEntityInfo,
+    editCompositions,
+    editAssociations,
+    relationImports
   }
 }
 
@@ -125,20 +170,26 @@ export function getRelationImports(relations: EditRelations, entity: EntityTempl
       } , [] as RelationImport[])
 }
 
-export function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelations  {
-  return attributes.reduce<EditRelations>((relations, attribute) => {
-    if (attribute.type == null || attribute.mappingType !== 'ASSOCIATION') {
+export function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelationsSplit {
+  return attributes.reduce<EditRelationsSplit>((relations, attribute) => {
+    if (attribute.type == null || (attribute.mappingType !== 'ASSOCIATION' && attribute.mappingType !== 'COMPOSITION')) {
       return relations;
     }
     const entity = findEntity(projectModel, attribute.type.entityName!);
     if (entity) {
-      relations[attribute.name] = {
+      const entityWithPath = {
         ...entity,
         path: getEntityPath(entity, projectModel)
+      };
+      if (attribute.mappingType === 'ASSOCIATION') {
+        relations.editAssociations[attribute.name] = entityWithPath;
+      }
+      if (attribute.mappingType === 'COMPOSITION') {
+        relations.editCompositions[attribute.name] = entityWithPath;
       }
     }
     return relations;
-  }, {});
+  }, {editAssociations: {}, editCompositions: {}});
 }
 
 const description = 'CRUD (list + editor) screens for specified entity';

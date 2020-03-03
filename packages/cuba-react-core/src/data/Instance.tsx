@@ -1,5 +1,7 @@
 import {action, computed, observable, runInAction, toJS} from "mobx";
-import {PredefinedView, SerializedEntityProps, TemporalPropertyType} from "@cuba-platform/rest";
+import {
+  PredefinedView, SerializedEntityProps, TemporalPropertyType
+} from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
@@ -7,8 +9,8 @@ import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore} from "../app/MainStore";
 import {
   getPropertyInfo,
-  isTemporalProperty,
-  isToManyRelation,
+  isTemporalProperty, isToManyAssociation, isToManyComposition,
+  isToManyRelation, isToOneAssociation, isToOneComposition,
   isToOneRelation,
   WithId,
   WithName
@@ -62,15 +64,31 @@ export class DataInstanceStore<T> implements DataContainer {
 
   @action
   update(entityPatch: Partial<T>): Promise<any> {
+    const normalizedPatch: Record<string, any> = this.normalizePatch(entityPatch, this.entityName);
+    Object.assign(this.item, normalizedPatch);
+    return this.commit();
+  }
+
+  normalizePatch(entityPatch: Record<string, any>, entityName: string): Record<string, any> {
     const metadata = toJS(this.mainStore.metadata);
     const normalizedPatch: Record<string, any> = {...entityPatch};
     Object.entries(entityPatch).forEach(([key, value]) => {
-      const propInfo = getPropertyInfo(metadata!, this.entityName, key);
-      if (propInfo && isToOneRelation(propInfo)
-            && typeof value === 'string') {
+      const propInfo = getPropertyInfo(metadata!, entityName, key);
+      if (propInfo && isToOneComposition(propInfo) && value != null) {
+        normalizedPatch[key] = this.normalizePatch(value, propInfo.type);
+        return;
+      }
+      if (propInfo && isToManyComposition(propInfo)) {
+        if (value == null) {
+          normalizedPatch[key] = [];
+          return;
+        }
+      }
+      if (propInfo && isToOneAssociation(propInfo)
+        && typeof value === 'string') {
         normalizedPatch[key] = {id: value};
       }
-      if (propInfo && isToManyRelation(propInfo) && Array.isArray(value)) {
+      if (propInfo && isToManyAssociation(propInfo) && Array.isArray(value)) {
         normalizedPatch[key] = value.map(id => ({id}));
       }
       if (propInfo && isTemporalProperty(propInfo) && moment.isMoment(value)) {
@@ -80,24 +98,25 @@ export class DataInstanceStore<T> implements DataContainer {
         normalizedPatch[key] = null;
       }
     });
-    Object.assign(this.item, normalizedPatch);
-    return this.commit();
+    return normalizedPatch;
   }
 
   @action
-  commit = (): Promise<void> => {
+  commit = (): Promise<any> => {
     if (this.item == null) {
       return Promise.reject();
     }
     this.status = 'LOADING';
     return getCubaREST()!.commitEntity(this.entityName, toJS(this.item!))
-      .then((updatedEntity) => {
+      .then((updateResult) => {
         runInAction(() => {
-          if (updatedEntity.id != null) {
-            this.item!.id = updatedEntity.id
+          if (updateResult.id != null) {
+            this.item!.id = updateResult.id
+            this.item!._instanceName = updateResult._instanceName;
           }
           this.status = 'DONE';
-        })
+        });
+        return updateResult;
       })
       .catch((e) => {
         this.status = 'ERROR';
@@ -131,6 +150,8 @@ export class DataInstanceStore<T> implements DataContainer {
                 id: (entity[propertyName] as WithId).id!,
                 name: (entity[propertyName] as WithName).name!,
               };
+            } else if (propertyInfo.attributeType === 'COMPOSITION') {
+              fields[propertyName] = entity[propertyName];
             } else {
               fields[propertyName] = (entity[propertyName] as WithId).id!;
             }

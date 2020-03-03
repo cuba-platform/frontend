@@ -66,6 +66,10 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
     if (!this.cubaProjectModel && this.answers) {
       const modelFilePath = path.join(process.cwd(), 'projectModel.json');
       await exportProjectModel(this.answers.projectInfo.locationHash, modelFilePath);
+
+      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       this.cubaProjectModel = readProjectModel(modelFilePath);
     }
   }

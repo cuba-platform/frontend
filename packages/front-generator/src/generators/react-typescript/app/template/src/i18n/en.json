@@ -1,5 +1,8 @@
 {
   "common.alt.logo": "Logo",
+  "common.ok": "OK",
+  "common.cancel": "Cancel",
+
   "home.welcome": "Welcome to",
   "router.home": "Home",
   "login.failed": "Login failed",
@@ -51,6 +54,10 @@
   "cubaReact.fileUpload.replace": "Upload a different file by clicking or dragging file to this area",
   "cubaReact.fileUpload.upload": "Click or drag file to this area to upload",
   "cubaReact.fileUpload.uploadFailed": "File upload failed",
+
+  "cubaReact.nestedEntityEditor.create": "Create an entity",
+  "cubaReact.nestedEntityEditor.delete.areYouSure": "Are you sure you want to delete the nested entity?",
+  "cubaReact.nestedEntityEditor.newOrModifiedEntity": "(new or modified entity)",
 
   "antd.form.validation.default": "Field %s has a validation error.",
   "antd.form.validation.required": "Field %s is mandatory.",

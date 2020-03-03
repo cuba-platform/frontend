@@ -39,6 +39,16 @@ export function findView(projectModel: ProjectModel, view: ViewInfo) {
   return projectModel.views.find(v => v.name === view.name && v.entity === view.entityName);
 }
 
+export function findViewsForEntity(projectModel: ProjectModel, entityName: string): ViewInfo[] {
+  return projectModel.views
+    .filter(view => view.entity === entityName)
+    .map(view => ({ // Convert View (studio project model) to ViewInfo (metadata)
+        name: view.name,
+        entityName: view.entity
+      })
+    );
+}
+
 export function findQuery(projectModel: ProjectModel, queryInfo: RestQueryInfo) {
   return projectModel.restQueries.find(q => q.entity === queryInfo.entityName && q.name === queryInfo.name);
 }

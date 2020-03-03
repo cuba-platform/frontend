@@ -63,4 +63,5 @@ export interface EntityManagementAnswers {
   listView: View;
   editComponentName: string;
   editView: View;
+  nestedEntityInfo: Record<string, string>;
 }

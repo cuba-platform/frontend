@@ -6,6 +6,11 @@ export interface EditRelations {
   [propName: string]: EntityTemplateModel
 }
 
+export interface EditRelationsSplit {
+  editAssociations: EditRelations;
+  editCompositions: EditRelations;
+}
+
 export interface RelationImport {
   className: string
   path: string
@@ -14,13 +19,15 @@ export interface RelationImport {
 export interface EntityManagementTemplateModel extends CommonTemplateModel {
   listComponentName: string;
   editComponentName: string;
-  listType: EntityManagementListType,
+  listType: EntityManagementListType;
   nameLiteral: string;
-  entity: EntityTemplateModel,
-  listView: View,
-  listAttributes: EntityAttribute[],
-  editView: View,
-  editAttributes: EntityAttribute[],
-  editRelations: EditRelations,
-  relationImports: RelationImport[]
+  entity: EntityTemplateModel;
+  listView: View;
+  listAttributes: EntityAttribute[];
+  editView: View;
+  editAttributes: EntityAttribute[];
+  editCompositions: EditRelations;
+  editAssociations: EditRelations;
+  nestedEntityInfo: Record<string, string>;
+  relationImports: RelationImport[];
 }

@@ -9,7 +9,7 @@ import {IReactionDisposer, observable, reaction, toJS, computed} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 import {
-<% if (Object.keys(editRelations).length > 0) { %>
+<% if (Object.keys(editAssociations).length > 0) { %>
   collection,
 <% } %>
   instance, MainStoreInjected, injectMainStore
@@ -45,7 +45,7 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
 
   dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= editView.name %>', loadImmediately: false});
 
-  <% Object.entries(editRelations).forEach(([attrName, entity]) => { %>
+  <% Object.entries(editAssociations).forEach(([attrName, entity]) => { %>
     <%= attrName %>sDc = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '_minimal'});
   <% }) %>
 
@@ -119,7 +119,16 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
                    form={ this.props.form }
                    formItemOpts={ {style: {marginBottom: "12px"} } }
 
-              <% if (Object.keys(editRelations).includes(attr.name)) { %>
+
+              <% if (Object.keys(editCompositions).includes(attr.name)) { %>
+                   <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
+                        nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
+                        nestedEntityName='<%= attr.type.entityName %>'
+                        nestedEntityType={<%= attr.type.className %>}
+                   <% } %>
+              <% } %>
+
+              <% if (Object.keys(editAssociations).includes(attr.name)) { %>
                    optionsContainer={this.<%= attr.name %>sDc}
               <% } %>
 

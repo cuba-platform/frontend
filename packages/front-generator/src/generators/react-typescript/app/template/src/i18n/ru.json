@@ -1,5 +1,8 @@
 {
   "common.alt.logo": "Лого",
+  "common.ok": "OK",
+  "common.cancel": "Отмена",
+
   "home.welcome": "Добро пожаловать в",
   "router.home": "Главная страница",
   "login.failed": "Не удалось войти",
@@ -51,6 +54,10 @@
   "cubaReact.fileUpload.replace": "Чтобы загрузить другой файл, нажмите на эту область, или перетащите в неё файл.",
   "cubaReact.fileUpload.upload": "Нажмите на эту область, или перетащите в неё файл, чтобы загрузить его",
   "cubaReact.fileUpload.uploadFailed": "Не удалось загрузить файл",
+
+  "cubaReact.nestedEntityEditor.create": "Создать сущность",
+  "cubaReact.nestedEntityEditor.delete.areYouSure": "Удалить вложенную сущность?",
+  "cubaReact.nestedEntityEditor.newOrModifiedEntity": "(новая или модифицированная сущность)",
 
   "antd.form.validation.default": "Ошибка валидации в поле %s.",
   "antd.form.validation.required": "Поле %s является обязательным.",
