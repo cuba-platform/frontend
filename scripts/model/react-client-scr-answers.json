@@ -68,7 +68,11 @@
     "entity": {
       "name": "scr_DatatypesTestEntity"
     },
-    "managementComponentName": "DatatypesManagement1"
+    "managementComponentName": "DatatypesManagement1",
+    "nestedEntityInfo": {
+      "compositionO2Oattr": "compositionO2OTestEntity-view",
+      "compositionO2Mattr": "compositionO2MTestEntity-view"
+    }
   },
   "datatypesTest2": {
     "editView": {
@@ -85,7 +89,11 @@
     "entity": {
       "name": "scr_DatatypesTestEntity"
     },
-    "managementComponentName": "DatatypesManagement2"
+    "managementComponentName": "DatatypesManagement2",
+    "nestedEntityInfo": {
+      "compositionO2Oattr": "compositionO2OTestEntity-view",
+      "compositionO2Mattr": "compositionO2MTestEntity-view"
+    }
   },
   "datatypesTest3": {
     "editView": {
@@ -102,7 +110,31 @@
     "entity": {
       "name": "scr_DatatypesTestEntity"
     },
-    "managementComponentName": "DatatypesManagement3"
+    "managementComponentName": "DatatypesManagement3",
+    "nestedEntityInfo": {
+      "compositionO2Oattr": "compositionO2OTestEntity-view",
+      "compositionO2Mattr": "compositionO2MTestEntity-view"
+    }
+  },
+  "datatypes2Test": {
+    "editView": {
+      "name": "datatypesTestEntity2-view",
+      "entityName": "scr_DatatypesTestEntity2"
+    },
+    "editComponentName": "Datatypes2Edit",
+    "listView": {
+      "name": "datatypesTestEntity2-view",
+      "entityName": "scr_DatatypesTestEntity2"
+    },
+    "listComponentName": "Datatypes2Browse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_DatatypesTestEntity2"
+    },
+    "managementComponentName": "Datatypes2Management",
+    "nestedEntityInfo": {
+      "datatypesTestEntityAttr": "datatypesTestEntity-view"
+    }
   },
 
   "associationO2O": {
@@ -172,6 +204,44 @@
       "name": "scr_AssociationM2MTestEntity"
     },
     "managementComponentName": "AssociationM2MManagement"
+  },
+
+  "compositionO2O": {
+    "editView": {
+      "name": "compositionO2OTestEntity-view",
+      "entityName": "scr_CompositionO2OTestEntity"
+    },
+    "editComponentName": "CompositionO2OEdit",
+    "listView": {
+      "name": "compositionO2OTestEntity-view",
+      "entityName": "scr_CompositionO2OTestEntity"
+    },
+    "listComponentName": "CompositionO2OBrowse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_CompositionO2OTestEntity"
+    },
+    "managementComponentName": "CompositionO2OManagement",
+    "nestedEntityInfo": {
+      "nestedComposition": "deeplyNestedTestEntity-view"
+    }
+  },
+  "compositionO2M": {
+    "editView": {
+      "name": "compositionO2MTestEntity-view",
+      "entityName": "scr_CompositionO2MTestEntity"
+    },
+    "editComponentName": "CompositionO2MEdit",
+    "listView": {
+      "name": "compositionO2MTestEntity-view",
+      "entityName": "scr_CompositionO2MTestEntity"
+    },
+    "listComponentName": "CompositionO2MBrowse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_CompositionO2MTestEntity"
+    },
+    "managementComponentName": "CompositionO2MManagement"
   },
 
   "datatypesTestCards": {

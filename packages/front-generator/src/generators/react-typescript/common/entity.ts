@@ -32,19 +32,15 @@ function isDisplayedAttribute(attr: EntityAttribute, screenType: ScreenType) {
     if (attr.mappingType === 'ASSOCIATION' && attr.cardinality === "MANY_TO_MANY") {
       return false;
     }
+
+    // Do not display one to many compositions in browser
+    if (attr.mappingType === 'COMPOSITION' && attr.cardinality === 'ONE_TO_MANY') {
+      return false;
+    }
   }
 
   // Do not display one to many associations
   if (attr.mappingType === 'ASSOCIATION' && attr.cardinality === 'ONE_TO_MANY') {
-    return false;
-  }
-
-  // Do not display one to one associations on the inverse side
-  if (
-    attr.mappingType === 'ASSOCIATION'
-    && attr.cardinality === 'ONE_TO_ONE'
-    && (attr.mappedBy && attr.mappedBy.length > 0)
-  ) {
     return false;
   }
 

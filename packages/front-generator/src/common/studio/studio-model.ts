@@ -3,6 +3,7 @@ import {RestService, RestServiceMethod} from "../model/cuba-model";
 export const enum StudioTemplatePropertyType {
   ENTITY = 'ENTITY',
   VIEW = 'VIEW',
+  NESTED_ENTITY_VIEW = 'NESTED_ENTITY_VIEW',
   STRING = 'STRING',
   BOOLEAN = 'BOOLEAN',
   INTEGER = 'INTEGER',

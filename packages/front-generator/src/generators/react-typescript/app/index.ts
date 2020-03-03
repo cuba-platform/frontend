@@ -68,6 +68,10 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     } else if (this.answers) {
       this.modelPath = path.join(process.cwd(), 'projectModel.json');
       await exportProjectModel(this.answers.projectInfo.locationHash, this.modelPath);
+
+      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       this.cubaProjectModel = readProjectModel(this.modelPath);
       this.model = createModel(this.cubaProjectModel.project);
     }

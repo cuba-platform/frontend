@@ -25,10 +25,6 @@ describe('getDisplayedAttributes()', () => {
     expect(dtBrowserDisplayedFields).to.not.include('associationO2Mattr');
   });
 
-  it('does not include one to one associations on the inverse side', () => {
-    expect(o2oDisplayedFieldsBrowser).to.not.include('datatypesTestEntity');
-  });
-
   it('does not include byte arrays', () => {
     expect(dtBrowserDisplayedFields).to.not.include('byteArrayAttr');
   });
@@ -65,6 +61,6 @@ describe('getDisplayedAttributes()', () => {
     ];
     expect(dtBrowserDisplayedFields).to.include.members(propertiesSet);
     expect(dtEditorDisplayedFields).to.include.members(propertiesSet);
-    expect(o2oDisplayedFieldsBrowser).to.include('name');
+    expect(o2oDisplayedFieldsBrowser).to.include.members(['name', 'datatypesTestEntity']);
   });
 });

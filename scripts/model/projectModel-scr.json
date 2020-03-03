@@ -992,6 +992,47 @@
       ]
     },
     {
+      "name": "scr_DatatypesTestEntity2",
+      "className": "DatatypesTestEntity2",
+      "packageName": "com.company.scr.entity.test",
+      "dataStore": "_MAIN_",
+      "table": "SCR_DATATYPES_TEST_ENTITY2",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": false,
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.test.DatatypesTestEntity2",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "StandardEntity",
+      "attributes": [
+        {
+          "name": "datatypesTestEntityAttr",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "DatatypesTestEntity",
+            "fqn": "com.company.scr.entity.test.DatatypesTestEntity",
+            "label": "DatatypesTestEntity",
+            "entityName": "scr_DatatypesTestEntity"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "column": "DATATYPES_TEST_ENTITY_ATTR_ID",
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "",
+          "transient": false
+        }
+      ]
+    },
+    {
       "name": "scr$Garage",
       "className": "Garage",
       "packageName": "com.company.scr.entity",
@@ -1419,6 +1460,24 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "nestedComposition",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "DeeplyNestedTestEntity",
+            "fqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
+            "label": "DeeplyNestedTestEntity",
+            "entityName": "scr_DeeplyNestedTestEntity"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "column": "NESTED_COMPOSITION_ID",
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "",
+          "transient": false
         }
       ]
     },
@@ -1567,6 +1626,23 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "deeplyNestedTestEntity",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "DeeplyNestedTestEntity",
+            "fqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
+            "label": "DeeplyNestedTestEntity",
+            "entityName": "scr_DeeplyNestedTestEntity"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "associationO2Oattr",
+          "transient": false
         }
       ]
     },
@@ -1623,6 +1699,64 @@
           "column": "SPARE_PARTS_ID",
           "mandatory": false,
           "unique": false,
+          "transient": false
+        }
+      ]
+    },
+    {
+      "name": "scr_DeeplyNestedTestEntity",
+      "className": "DeeplyNestedTestEntity",
+      "packageName": "com.company.scr.entity.test",
+      "dataStore": "_MAIN_",
+      "table": "SCR_DEEPLY_NESTED_TEST_ENTITY",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": false,
+      "namePattern": "%s|name",
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
+      "imported": false,
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "StandardEntity",
+      "attributes": [
+        {
+          "name": "name",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "NAME",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "associationO2Oattr",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "AssociationO2OTestEntity",
+            "fqn": "com.company.scr.entity.test.AssociationO2OTestEntity",
+            "label": "AssociationO2OTestEntity",
+            "entityName": "scr_AssociationO2OTestEntity"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "column": "ASSOCIATION_O2_OATTR_ID",
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "",
           "transient": false
         }
       ]
@@ -12905,6 +13039,16 @@
           "name": "associationM2Mattr",
           "entity": "scr_AssociationM2MTestEntity",
           "lazy": false
+        },
+        {
+          "name": "compositionO2Oattr",
+          "entity": "scr_CompositionO2OTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "compositionO2Mattr",
+          "entity": "scr_CompositionO2MTestEntity",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -12998,6 +13142,16 @@
         {
           "name": "associationM2Mattr",
           "entity": "scr_AssociationM2MTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "compositionO2Oattr",
+          "entity": "scr_CompositionO2OTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "compositionO2Mattr",
+          "entity": "scr_CompositionO2MTestEntity",
           "lazy": false
         }
       ]
@@ -13139,6 +13293,55 @@
         {
           "name": "user",
           "entity": "sec$User",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "scr_DatatypesTestEntity2",
+      "classFqn": "com.company.scr.entity.test.DatatypesTestEntity2",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_local",
+      "entity": "scr_DatatypesTestEntity2",
+      "classFqn": "com.company.scr.entity.test.DatatypesTestEntity2",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_base",
+      "entity": "scr_DatatypesTestEntity2",
+      "classFqn": "com.company.scr.entity.test.DatatypesTestEntity2",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "datatypesTestEntity2-view",
+      "entity": "scr_DatatypesTestEntity2",
+      "classFqn": "com.company.scr.entity.test.DatatypesTestEntity2",
+      "parentName": "_local",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "datatypesTestEntityAttr",
+          "entity": "scr_DatatypesTestEntity",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "datatypesTestEntityAttr",
+          "entity": "scr_DatatypesTestEntity",
           "lazy": false
         }
       ]
@@ -13655,10 +13858,21 @@
       "parentName": "_local",
       "overwrite": false,
       "systemProperties": false,
-      "properties": [],
+      "properties": [
+        {
+          "name": "nestedComposition",
+          "entity": "scr_DeeplyNestedTestEntity",
+          "lazy": false
+        }
+      ],
       "allProperties": [
         {
           "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "nestedComposition",
+          "entity": "scr_DeeplyNestedTestEntity",
           "lazy": false
         }
       ]
@@ -13927,6 +14141,89 @@
         {
           "name": "spareParts",
           "entity": "scr$SparePart",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "scr_DeeplyNestedTestEntity",
+      "classFqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "scr_DeeplyNestedTestEntity",
+      "classFqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_base",
+      "entity": "scr_DeeplyNestedTestEntity",
+      "classFqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "deeplyNestedTestEntity-view",
+      "entity": "scr_DeeplyNestedTestEntity",
+      "classFqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
+      "parentName": "_local",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "associationO2Oattr",
+          "entity": "scr_AssociationO2OTestEntity",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "name",
+          "lazy": false
+        },
+        {
+          "name": "associationO2Oattr",
+          "entity": "scr_AssociationO2OTestEntity",
           "lazy": false
         }
       ]

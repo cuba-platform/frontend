@@ -119,8 +119,16 @@ export function isTemporalProperty(propertyInfo: MetaPropertyInfo): boolean {
     || isAnyDateTimeProperty(propertyInfo);
 }
 
+export function isByteArray({attributeType, type}: MetaPropertyInfo): boolean {
+  return attributeType === 'DATATYPE' && type === 'byteArray'
+}
+
 export function isRelationProperty(propertyInfo: MetaPropertyInfo): boolean {
-  return (propertyInfo.attributeType === 'ASSOCIATION') || (propertyInfo.attributeType === 'COMPOSITION');
+  return isAssociation(propertyInfo) || isComposition(propertyInfo);
+}
+
+export function isOneToManyRelation({cardinality}: MetaPropertyInfo): boolean {
+  return cardinality === 'ONE_TO_MANY';
 }
 
 export function isToOneRelation({cardinality}: MetaPropertyInfo): boolean {
@@ -129,6 +137,34 @@ export function isToOneRelation({cardinality}: MetaPropertyInfo): boolean {
 
 export function isToManyRelation({cardinality}: MetaPropertyInfo): boolean {
   return cardinality === "ONE_TO_MANY" || cardinality === "MANY_TO_MANY";
+}
+
+export function isAssociation({attributeType}: MetaPropertyInfo): boolean {
+  return attributeType === 'ASSOCIATION';
+}
+
+export function isToOneAssociation(propertyInfo: MetaPropertyInfo): boolean {
+  return isToOneRelation(propertyInfo) && isAssociation(propertyInfo);
+}
+
+export function isToManyAssociation(propertyInfo: MetaPropertyInfo): boolean {
+  return isToManyRelation(propertyInfo) && isAssociation(propertyInfo);
+}
+
+export function isOneToManyAssociation(propertyInfo: MetaPropertyInfo): boolean {
+  return isAssociation(propertyInfo) && isOneToManyRelation(propertyInfo);
+}
+
+export function isComposition({attributeType}: MetaPropertyInfo): boolean {
+  return attributeType === 'COMPOSITION';
+}
+
+export function isToOneComposition(propertyInfo: MetaPropertyInfo): boolean {
+  return isComposition(propertyInfo) && isToOneRelation(propertyInfo);
+}
+
+export function isToManyComposition(propertyInfo: MetaPropertyInfo): boolean {
+  return isComposition(propertyInfo) && isToManyRelation(propertyInfo);
 }
 
 export type WithId = {id?: string};

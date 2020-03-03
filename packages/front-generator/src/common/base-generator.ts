@@ -73,6 +73,10 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
 
       this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
       await exportProjectModel(projectModelAnswers.projectInfo.locationHash, this.modelFilePath);
+
+      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       this.cubaProjectModel = readProjectModel(this.modelFilePath);
     }
   }
@@ -88,6 +92,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       unrefinedAnswers = JSON.parse(answersBuffer);
     } else {
       unrefinedAnswers = await this.prompt(fromStudioProperties(this._getParams(), this.cubaProjectModel)) as A;
+      unrefinedAnswers = await this._additionalPrompts(unrefinedAnswers);
       this.options.verbose && this.log('Component config:\n' + JSON.stringify(unrefinedAnswers));
     }
     this.answers = refineAnswers<A>(this.cubaProjectModel!, this._getParams(), unrefinedAnswers);
@@ -134,6 +139,16 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     return [];
   }
 
+  /**
+   * Additional dynamic prompts where questions depend on answers to initial prompt
+   *
+   * @param answers
+   * @private
+   */
+  protected async _additionalPrompts(answers: A): Promise<A> {
+    return answers;
+  }
+
   abstract writing(): void
 }
 
@@ -151,7 +166,7 @@ export function readProjectModel(modelFilePath: string): ProjectModel {
   return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
 }
 
-function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplateProperty[], answers: any): T {
+export function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplateProperty[], answers: any): T {
   const refinedAnswers: { [key: string]: any } = {};
   Object.keys(answers).forEach((key: string) => {
     const prop = props.find(p => p.code === key);
