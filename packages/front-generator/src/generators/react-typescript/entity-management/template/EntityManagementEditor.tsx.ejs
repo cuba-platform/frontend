@@ -49,18 +49,16 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
     <%= attrName %>sDc = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '_minimal'});
   <% }) %>
 
-  @observable
-  updated = false;
+  @observable updated = false;
   reactionDisposer: IReactionDisposer;
 
   fields = [
-  <% editAttributes.forEach(p => { %>
+  <% editAttributes.forEach(p => { -%>
     '<%= p.name %>',
   <% }) %>
   ];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();

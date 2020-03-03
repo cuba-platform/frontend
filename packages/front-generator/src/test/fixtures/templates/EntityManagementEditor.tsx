@@ -50,14 +50,12 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
 
   garagesDc = collection<Garage>(Garage.NAME, { view: "_minimal" });
 
-  @observable
-  updated = false;
+  @observable updated = false;
   reactionDisposer: IReactionDisposer;
 
   fields = ["manufacturer", "model", "wheelOnRight", "garage"];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
