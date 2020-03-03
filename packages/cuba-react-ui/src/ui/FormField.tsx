@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Checkbox, DatePicker, Input, Select, TimePicker} from "antd";
 import {observer} from "mobx-react";
-import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType, SerializedEntityProps} from "@cuba-platform/rest"
+import {Cardinality, EnumInfo, EnumValueInfo, MetaPropertyInfo, PropertyType} from "@cuba-platform/rest"
 import {FileUpload, FileUploadProps} from './FileUpload';
 import {EntitySelectField} from "./EntitySelectField";
 import {MainStoreInjected, DataCollectionStore, WithId, injectMainStore, getPropertyInfo, isFileProperty} from "@cuba-platform/react-core";
@@ -28,15 +28,13 @@ export type FormFieldProps = MainStoreInjected & {
   propertyName: string;
   disabled?: boolean;
   optionsContainer?: DataCollectionStore<WithId>;
-  nestedEntityType?: new () => Partial<WithId & SerializedEntityProps>;
   nestedEntityView?: string;
 } & FormFieldComponentProps
 
 export const FormField = injectMainStore(observer((props: FormFieldProps) => {
 
   const {
-    entityName, propertyName, optionsContainer, mainStore,
-    nestedEntityType, nestedEntityView,
+    entityName, propertyName, optionsContainer, mainStore, nestedEntityView,
     ...rest
   } = props;
 
@@ -59,13 +57,12 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
       const mode = getSelectMode(propertyInfo.cardinality);
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
-      if (nestedEntityType && nestedEntityView) {
+      if (nestedEntityView) {
         if (propertyInfo.cardinality === 'ONE_TO_ONE') {
           const nestedEntityName = mainStore.metadata.find(metaClass => metaClass.entityName === entityName)?.properties
             .find(property => property.name === propertyName)?.type;
 
           return <NestedEntityEditor nestedEntityName={nestedEntityName}
-                                     nestedEntityType={nestedEntityType}
                                      nestedEntityView={nestedEntityView}
                                      {...(rest as NestedEntityEditorProps)}
                  />;

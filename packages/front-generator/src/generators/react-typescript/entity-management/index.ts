@@ -134,7 +134,8 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
 
   const nestedEntityInfo = answers.nestedEntityInfo;
 
-  const relationImports = getRelationImports({...editAssociations, ...editCompositions}, entity);
+  // Associations only
+  const relationImports = getRelationImports(editAssociations, entity);
 
   return {
     componentName: answers.managementComponentName,
