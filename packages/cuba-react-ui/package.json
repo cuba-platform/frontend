@@ -8,6 +8,10 @@
   "files": [
     "dist/"
   ],
+  "dependencies": {
+    "moment": "^2.24.0",
+    "query-string": "^6.11.0"
+  },
   "peerDependencies": {
     "@cuba-platform/react-core": "^0.1.0",
     "@cuba-platform/rest": "^0.7.2",
@@ -68,9 +72,5 @@
     "url": "https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui"
   },
   "author": "CUBA Platform Team <info@cuba-platform.com>",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "moment": "^2.24.0",
-    "query-string": "^6.11.0"
-  }
+  "license": "Apache-2.0"
 }
