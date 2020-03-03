@@ -5,7 +5,7 @@ import { observer } from "mobx-react";
 import { CarManagement } from "./CarManagement";
 import { FormComponentProps } from "antd/lib/form";
 import { Link, Redirect } from "react-router-dom";
-import { IReactionDisposer, observable, reaction, toJS, computed } from "mobx";
+import { IReactionDisposer, observable, reaction, toJS } from "mobx";
 import {
   FormattedMessage,
   injectIntl,
@@ -122,7 +122,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     }
 
     const { status } = this.dataInstance;
-    if (!this.dataLoaded) return <Spinner />;
+    const { mainStore } = this.props;
+    if (mainStore == null || !mainStore.isDataLoadedForEntityManagement) {
+      return <Spinner />;
+    }
 
     return (
       <Card className="narrow-layout">
@@ -213,17 +216,6 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
 
   componentWillUnmount() {
     this.reactionDisposer();
-  }
-
-  @computed private get dataLoaded() {
-    const { mainStore } = this.props;
-    return (
-      mainStore &&
-      !!mainStore.messages &&
-      !!mainStore.metadata &&
-      !!mainStore.enums &&
-      mainStore.security.dataLoaded
-    );
   }
 }
 

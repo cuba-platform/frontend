@@ -327,13 +327,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   render() {
     const { items, status } = this.props.dataCollection;
 
-    // todo - can we say 'available' if mainStore.security not loaded yet ?
-    const isMainStoreAvailable = !!this.props.mainStore
-      && !!this.props.mainStore.messages
-      && !!this.props.mainStore.metadata
-      && !!this.props.mainStore.enums;
-
-    if (!isMainStoreAvailable || (status === "LOADING" && this.firstLoad)) {
+    if (this.props.mainStore?.isDataLoadedForEntityManagement !== true || (status === "LOADING" && this.firstLoad)) {
       return (
         <div className='cuba-data-table-loader'>
           <Spin size='large'/>

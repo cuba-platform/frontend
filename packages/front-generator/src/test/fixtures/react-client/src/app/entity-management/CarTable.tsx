@@ -1,15 +1,16 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import { computed, observable } from "mobx";
+import { observable } from "mobx";
 import { Modal, Button } from "antd";
+
 import {
   collection,
   injectMainStore,
   MainStoreInjected
 } from "@cuba-platform/react-core";
-
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
+
 import { Car } from "cuba/entities/mpg$Car";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement3 } from "./CarManagement3";
@@ -24,7 +25,6 @@ import {
 class CarTableComponent extends React.Component<
   MainStoreInjected & WrappedComponentProps
 > {
-
   dataCollection = collection<Car>(Car.NAME, {
     view: "car-edit",
     sort: "-updateTs"
@@ -67,19 +67,9 @@ class CarTableComponent extends React.Component<
     });
   };
 
-  @computed private get dataLoaded() {
-    const { mainStore } = this.props;
-    return (
-      mainStore &&
-      !!mainStore.messages &&
-      !!mainStore.metadata &&
-      !!mainStore.enums &&
-      mainStore.security.dataLoaded
-    );
-  }
-
   render() {
-    if (!this.dataLoaded) return <Spinner />;
+    if (this.props.mainStore?.isDataLoadedForEntityManagement !== true)
+      return <Spinner />;
 
     const buttons = [
       <Link

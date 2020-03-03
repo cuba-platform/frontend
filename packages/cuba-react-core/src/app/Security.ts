@@ -12,13 +12,13 @@ export class Security {
   constructor(private cubaREST: CubaApp) {
   }
 
-  @computed get dataLoaded(): boolean {
-    return !!this.effectivePermissions || !this.restSupportEffectivePerms;
+  @computed get isDataLoaded(): boolean {
+    return this.effectivePermissions != null || !this.restSupportEffectivePerms;
   };
 
   getAttributePermission = (entityName: string, attributeName: string): EntityAttrPermissionValue => {
 
-    if (!this.dataLoaded) return 'DENY';
+    if (!this.isDataLoaded) return 'DENY';
 
     // do not deny anything for rest version prev 7.2
     if (!this.restSupportEffectivePerms) return 'MODIFY';

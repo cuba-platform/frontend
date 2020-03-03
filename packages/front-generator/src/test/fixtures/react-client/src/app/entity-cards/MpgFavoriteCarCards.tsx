@@ -17,13 +17,7 @@ import {
   setPagination,
   Spinner
 } from "@cuba-platform/react-ui";
-import {
-  action,
-  computed,
-  IReactionDisposer,
-  observable,
-  reaction
-} from "mobx";
+import { action, IReactionDisposer, observable, reaction } from "mobx";
 import { PaginationConfig } from "antd/es/pagination";
 import { RouteComponentProps } from "react-router";
 
@@ -41,17 +35,6 @@ export class MpgFavoriteCarCards extends React.Component<Props> {
   @observable paginationConfig: PaginationConfig = { ...defaultPagingConfig };
   reactionDisposer: IReactionDisposer;
   fields = ["notes", "car", "user"];
-
-  @computed private get dataLoaded() {
-    const { mainStore } = this.props;
-    return (
-      mainStore &&
-      !!mainStore.messages &&
-      !!mainStore.metadata &&
-      !!mainStore.enums &&
-      mainStore.security.dataLoaded
-    );
-  }
 
   componentDidMount(): void {
     // to disable paging config pass 'true' as disabled param in function below
@@ -72,7 +55,10 @@ export class MpgFavoriteCarCards extends React.Component<Props> {
   render() {
     const { status, items, count } = this.dataCollection;
 
-    if (status === "LOADING" || !this.dataLoaded) {
+    if (
+      status === "LOADING" ||
+      this.props.mainStore?.isDataLoadedForEntityManagement !== true
+    ) {
       return <Spinner />;
     }
 
