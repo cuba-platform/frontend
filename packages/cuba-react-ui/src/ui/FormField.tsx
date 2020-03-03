@@ -28,7 +28,6 @@ export type FormFieldProps = MainStoreInjected & {
   propertyName: string;
   disabled?: boolean;
   optionsContainer?: DataCollectionStore<WithId>;
-  nestedEntityName?: string;
   nestedEntityType?: new () => Partial<WithId & SerializedEntityProps>;
   nestedEntityView?: string;
 } & FormFieldComponentProps
@@ -37,7 +36,7 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
 
   const {
     entityName, propertyName, optionsContainer, mainStore,
-    nestedEntityName, nestedEntityType, nestedEntityView,
+    nestedEntityType, nestedEntityView,
     ...rest
   } = props;
 
@@ -60,8 +59,11 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
       const mode = getSelectMode(propertyInfo.cardinality);
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
-      if (nestedEntityName && nestedEntityType && nestedEntityView) {
+      if (nestedEntityType && nestedEntityView) {
         if (propertyInfo.cardinality === 'ONE_TO_ONE') {
+          const nestedEntityName = mainStore.metadata.find(metaClass => metaClass.entityName === entityName)?.properties
+            .find(property => property.name === propertyName)?.type;
+
           return <NestedEntityEditor nestedEntityName={nestedEntityName}
                                      nestedEntityType={nestedEntityType}
                                      nestedEntityView={nestedEntityView}

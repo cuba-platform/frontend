@@ -123,7 +123,6 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
               <% if (Object.keys(editCompositions).includes(attr.name)) { %>
                    <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
                         nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
-                        nestedEntityName='<%= attr.type.entityName %>'
                         nestedEntityType={<%= attr.type.className %>}
                    <% } %>
               <% } %>
