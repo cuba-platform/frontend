@@ -18,7 +18,6 @@ export type NestedEntityEditorProps = MainStoreInjected & WrappedComponentProps 
   value?: any; // coming from Ant Design form field decorator
   onChange?: (value: any) => void; // coming from Ant Design form field decorator
   nestedEntityName: string;
-  nestedEntityType: new () => Partial<WithId & SerializedEntityProps>;
   nestedEntityView: string;
 }
 
@@ -47,7 +46,7 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
   reactionDisposers: IReactionDisposer[] = [];
 
   componentDidMount(): void {
-    const {nestedEntityName, nestedEntityType, nestedEntityView} = this.props;
+    const {nestedEntityName, nestedEntityView} = this.props;
 
     this.dataInstance = instance(nestedEntityName, {view: nestedEntityView});
     loadViewPropertyNames(nestedEntityName, nestedEntityView)
@@ -60,7 +59,7 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
       () => this.props.value,
       () => {
         if (this.props.value == null) {
-          this.dataInstance?.setItem(new nestedEntityType());
+          this.dataInstance?.setItem({});
         } else {
           this.dataInstance?.setItem(this.props.value);
         }
