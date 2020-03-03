@@ -16,6 +16,16 @@ public class AssociationO2OTestEntity extends StandardEntity {
 
     @Column(name = "NAME")
     protected String name;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "associationO2Oattr")
+    protected DeeplyNestedTestEntity deeplyNestedTestEntity;
+
+    public DeeplyNestedTestEntity getDeeplyNestedTestEntity() {
+        return deeplyNestedTestEntity;
+    }
+
+    public void setDeeplyNestedTestEntity(DeeplyNestedTestEntity deeplyNestedTestEntity) {
+        this.deeplyNestedTestEntity = deeplyNestedTestEntity;
+    }
 
     public String getName() {
         return name;

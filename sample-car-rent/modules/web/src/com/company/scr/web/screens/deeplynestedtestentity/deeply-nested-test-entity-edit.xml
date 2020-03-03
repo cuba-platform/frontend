@@ -2,24 +2,23 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
         focusComponent="form"
-        messagesPack="com.company.scr.web.screens.compositiono2otestentity">
+        messagesPack="com.company.scr.web.screens.deeplynestedtestentity">
   <data>
-    <instance id="compositionO2OTestEntityDc"
-              class="com.company.scr.entity.test.CompositionO2OTestEntity"
-              view="compositionO2OTestEntity-view">
+    <instance id="deeplyNestedTestEntityDc"
+              class="com.company.scr.entity.test.DeeplyNestedTestEntity"
+              view="deeplyNestedTestEntity-view">
       <loader/>
-      <instance id="nestedCompositionDc" property="nestedComposition"/>
     </instance>
   </data>
   <dialogMode height="600"
               width="800"/>
   <layout expand="editActions" spacing="true">
-    <form id="form" dataContainer="compositionO2OTestEntityDc">
+    <form id="form" dataContainer="deeplyNestedTestEntityDc">
       <column width="250px">
         <textField id="nameField" property="name"/>
-        <pickerField id="nestedCompositionField" property="nestedComposition">
+        <pickerField id="associationO2OattrField" property="associationO2Oattr">
           <actions>
-            <action id="open_composition" type="picker_open_composition"/>
+            <action id="lookup" type="picker_lookup"/>
             <action id="clear" type="picker_clear"/>
           </actions>
         </pickerField>

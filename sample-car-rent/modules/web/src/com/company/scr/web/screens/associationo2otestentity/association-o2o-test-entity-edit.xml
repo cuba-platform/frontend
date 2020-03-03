@@ -15,6 +15,18 @@
   <layout expand="editActions" spacing="true">
     <form id="form" dataContainer="associationO2OTestEntityDc">
       <column width="250px">
+        <pickerField id="datatypesTestEntityField" property="datatypesTestEntity">
+          <actions>
+            <action id="lookup" type="picker_lookup"/>
+            <action id="clear" type="picker_clear"/>
+          </actions>
+        </pickerField>
+        <pickerField id="nestedAssociationField" property="nestedAssociation">
+          <actions>
+            <action id="lookup" type="picker_lookup"/>
+            <action id="clear" type="picker_clear"/>
+          </actions>
+        </pickerField>
         <textField id="nameField" property="name"/>
       </column>
     </form>

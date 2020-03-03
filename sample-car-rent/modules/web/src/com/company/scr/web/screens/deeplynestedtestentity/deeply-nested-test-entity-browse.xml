@@ -2,46 +2,46 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://browseCaption"
-        focusComponent="compositionO2MTestEntitiesTable"
-        messagesPack="com.company.scr.web.screens.compositiono2mtestentity">
+        focusComponent="deeplyNestedTestEntitiesTable"
+        messagesPack="com.company.scr.web.screens.deeplynestedtestentity">
   <data readOnly="true">
-    <collection id="compositionO2MTestEntitiesDc"
-                class="com.company.scr.entity.test.CompositionO2MTestEntity"
-                view="compositionO2MTestEntity-view">
-      <loader id="compositionO2MTestEntitiesDl">
+    <collection id="deeplyNestedTestEntitiesDc"
+                class="com.company.scr.entity.test.DeeplyNestedTestEntity"
+                view="deeplyNestedTestEntity-view">
+      <loader id="deeplyNestedTestEntitiesDl">
         <query>
-          <![CDATA[select e from scr_CompositionO2MTestEntity e]]>
+          <![CDATA[select e from scr_DeeplyNestedTestEntity e]]>
         </query>
       </loader>
     </collection>
   </data>
   <dialogMode height="600"
               width="800"/>
-  <layout expand="compositionO2MTestEntitiesTable"
+  <layout expand="deeplyNestedTestEntitiesTable"
           spacing="true">
     <filter id="filter"
-            applyTo="compositionO2MTestEntitiesTable"
-            dataLoader="compositionO2MTestEntitiesDl">
+            applyTo="deeplyNestedTestEntitiesTable"
+            dataLoader="deeplyNestedTestEntitiesDl">
       <properties include=".*"/>
     </filter>
-    <groupTable id="compositionO2MTestEntitiesTable"
+    <groupTable id="deeplyNestedTestEntitiesTable"
                 width="100%"
-                dataContainer="compositionO2MTestEntitiesDc">
+                dataContainer="deeplyNestedTestEntitiesDc">
       <actions>
         <action id="create" type="create"/>
         <action id="edit" type="edit"/>
         <action id="remove" type="remove"/>
       </actions>
       <columns>
-        <column id="datatypesTestEntity"/>
         <column id="name"/>
+        <column id="associationO2Oattr"/>
       </columns>
       <rowsCount/>
       <buttonsPanel id="buttonsPanel"
                     alwaysVisible="true">
-        <button id="createBtn" action="compositionO2MTestEntitiesTable.create"/>
-        <button id="editBtn" action="compositionO2MTestEntitiesTable.edit"/>
-        <button id="removeBtn" action="compositionO2MTestEntitiesTable.remove"/>
+        <button id="createBtn" action="deeplyNestedTestEntitiesTable.create"/>
+        <button id="editBtn" action="deeplyNestedTestEntitiesTable.edit"/>
+        <button id="removeBtn" action="deeplyNestedTestEntitiesTable.remove"/>
       </buttonsPanel>
     </groupTable>
     <hbox id="lookupActions" spacing="true" visible="false">

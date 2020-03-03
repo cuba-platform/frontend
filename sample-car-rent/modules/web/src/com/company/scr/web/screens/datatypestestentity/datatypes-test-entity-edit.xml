@@ -8,7 +8,9 @@
               class="com.company.scr.entity.test.DatatypesTestEntity"
               view="datatypesTestEntity-view">
       <loader/>
+      <instance id="compositionO2OattrDc" property="compositionO2Oattr"/>
       <collection id="associationM2MattrDc" property="associationM2Mattr"/>
+      <collection id="compositionO2MattrDc" property="compositionO2Mattr"/>
     </instance>
   </data>
   <dialogMode height="600"
@@ -45,6 +47,12 @@
               <action id="clear" type="picker_clear"/>
             </actions>
           </pickerField>
+          <pickerField id="compositionO2OattrField" property="compositionO2Oattr">
+            <actions>
+              <action id="open_composition" type="picker_open_composition"/>
+              <action id="clear" type="picker_clear"/>
+            </actions>
+          </pickerField>
           <textField id="nameField" property="name"/>
         </column>
       </form>
@@ -61,6 +69,25 @@
           <buttonsPanel>
             <button action="associationM2MattrTable.add"/>
             <button action="associationM2MattrTable.exclude"/>
+          </buttonsPanel>
+        </table>
+      </groupBox>
+      <groupBox id="compositionO2MattrBox"
+                caption="msg://com.company.scr.entity.test/DatatypesTestEntity.compositionO2Mattr">
+        <table id="compositionO2MattrTable" dataContainer="compositionO2MattrDc" width="100%" height="200px">
+          <actions>
+            <action id="create" type="create"/>
+            <action id="edit" type="edit"/>
+            <action id="remove" type="remove"/>
+          </actions>
+          <columns>
+            <column id="name"/>
+            <column id="datatypesTestEntity"/>
+          </columns>
+          <buttonsPanel>
+            <button action="compositionO2MattrTable.create"/>
+            <button action="compositionO2MattrTable.edit"/>
+            <button action="compositionO2MattrTable.remove"/>
           </buttonsPanel>
         </table>
       </groupBox>

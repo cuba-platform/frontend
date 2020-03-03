@@ -1,0 +1,1 @@
+alter table SCR_COMPOSITION_O2O_TEST_ENTITY add column NESTED_COMPOSITION_ID uuid ;

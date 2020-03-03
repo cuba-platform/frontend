@@ -1,0 +1,2 @@
+alter table SCR_COMPOSITION_O2O_TEST_ENTITY rename column nested_composition_id to nested_composition_id__u84909 ;
+alter table SCR_COMPOSITION_O2O_TEST_ENTITY add column NESTED_COMPOSITION_ID uuid ;

@@ -33,6 +33,8 @@
         <action id="remove" type="remove"/>
       </actions>
       <columns>
+        <column id="datatypesTestEntity"/>
+        <column id="nestedAssociation"/>
         <column id="name"/>
       </columns>
       <rowsCount/>
