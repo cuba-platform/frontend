@@ -38,7 +38,7 @@ export class <%= className %> extends React.Component<Props> {
   }
 
   @action onPagingChange = (current: number, pageSize: number) => {
-    this.props.history.push(addPagingParams('carManagement2', current, pageSize));
+    this.props.history.push(addPagingParams('<%= nameLiteral %>', current, pageSize));
     this.paginationConfig = {...this.paginationConfig, current, pageSize};
   };
 }

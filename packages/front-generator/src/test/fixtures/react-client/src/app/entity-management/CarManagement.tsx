@@ -32,7 +32,7 @@ export class CarManagement extends React.Component<Props> {
 
   @action onPagingChange = (current: number, pageSize: number) => {
     this.props.history.push(
-      addPagingParams("carManagement2", current, pageSize)
+      addPagingParams("carManagement", current, pageSize)
     );
     this.paginationConfig = { ...this.paginationConfig, current, pageSize };
   };
