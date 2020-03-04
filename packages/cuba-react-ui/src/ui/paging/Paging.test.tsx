@@ -54,6 +54,13 @@ describe('parsePagingParams', () => {
       .toEqual({current: 3, pageSize: 20});
     expect(parsePagingParams('?pageSize=8', 10, 20))
       .toEqual({current: 10, pageSize: 8});
+
+    expect(parsePagingParams('?page=&pageSize=', 7, 18))
+      .toEqual({current: 7, pageSize: 18});
+    expect(parsePagingParams('?page=AAAAA&pageSize=BBBBBB', 7, 18))
+      .toEqual({current: 7, pageSize: 18});
+    expect(parsePagingParams('?page=null&pageSize=undefined', 7, 18))
+      .toEqual({current: 7, pageSize: 18});
   });
 
   it ('should parse paging params without question mark at start', () => {
@@ -61,7 +68,6 @@ describe('parsePagingParams', () => {
       .toEqual({current: 4, pageSize: 7});
   })
 });
-
 
 const pagingConfig: PaginationConfig = {
   current: 5,
@@ -103,13 +109,27 @@ describe('setPagination', () => {
 
 });
 
-describe('createPagingConfig', function () {
+describe('createPagingConfig', () => {
 
-  it('should create disabled paging config', function () {
+  it('should create disabled paging config', () => {
     expect(createPagingConfig('', true).disabled).toBeTruthy();
   });
 
-  it('should create enabled paging config', function () {
-    expect(createPagingConfig('')).toMatchObject(defaultPagingConfig);
+  it('should create enabled paging config', () => {
+    expect(createPagingConfig(''))
+      .toMatchObject(defaultPagingConfig);
   });
+
+  it('should check that page size is used only if it\'s value in pageSizeOptions', () => {
+    expect(createPagingConfig('?page=4&pageSize=7'))
+      .toMatchObject(defaultPagingConfig);
+
+    expect(createPagingConfig('?page=4&pageSize=10'))
+      .toMatchObject({...defaultPagingConfig, current: 4, pageSize: 10});
+
+    const config = {...defaultPagingConfig, pageSizeOptions: ['7']};
+    expect(createPagingConfig('?page=4&pageSize=7', false, config))
+      .toMatchObject({...config, current: 4, pageSize: 7});
+  });
+
 });

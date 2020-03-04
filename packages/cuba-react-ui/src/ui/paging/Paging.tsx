@@ -19,7 +19,7 @@ export const defaultPagingConfig: PaginationConfig = {
   pageSize: 10,
   defaultPageSize: 10,
   showSizeChanger: true,
-  pageSizeOptions: ['20', '50', '100', '500', '1000', '5000']
+  pageSizeOptions: ['10', '20', '50', '100', '500', '1000', '5000']
 };
 
 /**
@@ -45,17 +45,27 @@ export class Paging extends React.Component<Props> {
 /**
  * Returns new PaginationConfig object with 'current' and 'pageSize' params, parsed from location.search.
  * If param not found in search url, previous value (currentPrev, pageSizePrev) will be returned.
+ * If new pageSize not contains in config pageSizeOptions - previous config will be returned.
  *
  * @param locationSearch trying to find paging params here
  * @param currentPrev - previous value, will be returned in result if new value not found in locationSearch
  * @param pageSizePrev - previous value, will be returned in result if new value not found in locationSearch
  */
-export function parsePagingParams(locationSearch: string, currentPrev: number | undefined, pageSizePrev: number | undefined): PaginationConfig {
-  const parsedUrlQuery = queryString.parse(locationSearch);
-  const current = typeof parsedUrlQuery.page == 'string' ? parseInt(parsedUrlQuery.page) : currentPrev;
-  const pageSize = typeof parsedUrlQuery.pageSize == 'string' ? parseInt(parsedUrlQuery.pageSize) : pageSizePrev;
+export function parsePagingParams(locationSearch: string,
+                                  currentPrev: number | undefined,
+                                  pageSizePrev: number | undefined): PaginationConfig {
 
-  return {current, pageSize};
+  const parsedUrlQuery = queryString.parse(locationSearch);
+  return {
+    current: parseIntParam(parsedUrlQuery.page, currentPrev),
+    pageSize: parseIntParam(parsedUrlQuery.pageSize, pageSizePrev)
+  };
+}
+
+function parseIntParam(param: string | string[] | null | undefined, defaultValue: number | undefined): number | undefined {
+  if (typeof param !== 'string') return defaultValue;
+  const parsed = parseInt(param);
+  return isNaN(parsed) ? defaultValue : parsed;
 }
 
 /**
@@ -108,13 +118,24 @@ export function setPagination<E>(pagination: PaginationConfig, dataCollection: D
 /**
  * @param urlParams query params from 'location.history'
  * @param disabled set to true, if no pagination required for component
+ * @param prevConfig previous paging configuration, by default used Paging#defaultPagingConfig
  */
-export function createPagingConfig(urlParams: string, disabled: boolean = false) {
-  const config = {...defaultPagingConfig};
+export function createPagingConfig(urlParams: string,
+                                   disabled: boolean = false,
+                                   prevConfig: PaginationConfig = defaultPagingConfig) {
+
+  const config = {...prevConfig};
   if (disabled) {
     return {config, disabled: true};
   }
 
-  const {current, pageSize} = config;
-  return {...config, ...parsePagingParams(urlParams, current, pageSize)};
+  const {current, pageSize, pageSizeOptions} = config;
+  const parsedParams = parsePagingParams(urlParams, current, pageSize);
+
+  // return prev config if pageSize param not match to options
+  if (!pageSizeOptions || !parsedParams.pageSize || pageSizeOptions?.indexOf('' + parsedParams.pageSize) < 0) {
+    return config;
+  }
+
+  return {...config, ...parsedParams};
 }
