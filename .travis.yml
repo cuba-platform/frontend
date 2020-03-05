@@ -34,6 +34,7 @@ jobs:
       script:
         - npm run bootstrap-react-app
         - npm run validate-react-app
+        - npm run build --prefix react-client-scr
         - npm run start-react-app &
         - sleep 60
         - npm test react-client-scr/ --prefix test-pup
@@ -43,7 +44,6 @@ jobs:
       before_install: node scripts/ci-bootstrap-backend.js sample-car-rent-7-1
       script:
         - npm run bootstrap-react-app
-        - npm run validate-react-app
         - npm run start-react-app &
         - sleep 60
         - npm test react-client-scr/app-start.test.js --prefix test-pup

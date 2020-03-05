@@ -99,7 +99,7 @@ class CarCardsComponent extends React.Component<
         {items.map(e => (
           <Card
             title={e._instanceName}
-            key={e.id}
+            key={e.id ? e.id : undefined}
             style={{ marginBottom: "12px" }}
             actions={[
               <Icon

@@ -239,7 +239,6 @@ create table SCR_DATATYPES_TEST_ENTITY (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    NAME varchar(255),
     BIG_DECIMAL_ATTR decimal(19, 2),
     BOOLEAN_ATTR boolean,
     BYTE_ARRAY_ATTR bytea,
@@ -260,6 +259,7 @@ create table SCR_DATATYPES_TEST_ENTITY (
     ASSOCIATION_O2_OATTR_ID uuid,
     ASSOCIATION_M2_OATTR_ID uuid,
     COMPOSITION_O2_OATTR_ID uuid,
+    NAME varchar(255),
     --
     primary key (ID)
 )^
@@ -271,3 +271,25 @@ create table SCR_DATATYPES_TEST_ENTITY_ASSOCIATION_M2M_TEST_ENTITY_LINK (
     primary key (DATATYPES_TEST_ENTITY_ID, ASSOCIATION_M2_M_TEST_ENTITY_ID)
 )^
 -- end SCR_DATATYPES_TEST_ENTITY_ASSOCIATION_M2M_TEST_ENTITY_LINK
+-- begin SCR_STRING_ID_TEST_ENTITY
+create table SCR_STRING_ID_TEST_ENTITY (
+    IDENTIFIER varchar(10),
+    --
+    DESCRIPTION varchar(255),
+    --
+    primary key (IDENTIFIER)
+)^
+-- end SCR_STRING_ID_TEST_ENTITY
+-- begin SCR_INT_ID_TEST_ENTITY
+create table SCR_INT_ID_TEST_ENTITY (
+    ID serial,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    DESCRIPTION varchar(255),
+    --
+    primary key (ID)
+)^
+-- end SCR_INT_ID_TEST_ENTITY

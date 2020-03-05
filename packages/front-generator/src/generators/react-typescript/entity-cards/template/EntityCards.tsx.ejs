@@ -24,9 +24,10 @@ export class <%= className %> extends React.Component {
     return (
       <div className='narrow-layout'>
         {items.map(e =>
-          <Card title={e._instanceName}
-                key={e.id}
-                style={{marginBottom: '12px'}}>
+        <% /* todo null check of e.id will be removed after we strict id type in https://github.com/cuba-platform/frontend/issues/119 */ %>
+        <Card title={e._instanceName}
+              key={e.id ? e.id : undefined}
+              style={{marginBottom: '12px'}}>
             {this.fields.map(p =>
               <EntityProperty entityName={<%= entity.className %>.NAME}
                               propertyName={p}
