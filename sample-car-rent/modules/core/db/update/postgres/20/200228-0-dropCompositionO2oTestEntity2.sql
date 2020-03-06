@@ -1,2 +1,0 @@
-alter table scr_composition_o2o_test_entity2 rename to SCR_COMPOSITION_O2O_TEST_ENTITY2__U45286 ;
-alter table scr_composition_o2o_test_entity drop constraint FK_SCR_COMPOSITION_O2O_TEST_ENTITY_NESTED_COMPOSITION ;
