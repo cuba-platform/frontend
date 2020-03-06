@@ -104,29 +104,16 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
         if (serverError.response && typeof serverError.response.json === "function") {
           serverError.response.json().then((response: any) => {
             clearFieldErrors(form);
-            const {
-              globalErrors,
-              fieldErrors
-            } = extractServerValidationErrors(response);
+            const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
             this.globalErrors = globalErrors;
             if (fieldErrors.size > 0) {
-              form.setFields(
-                constructFieldsWithErrors(fieldErrors, form)
-              );
+              form.setFields(constructFieldsWithErrors(fieldErrors, form));
             }
 
             if (fieldErrors.size > 0 || globalErrors.length > 0) {
-              message.error(
-                intl.formatMessage({
-                  id: "management.editor.validationError"
-                })
-              );
+              message.error(intl.formatMessage({id: "management.editor.validationError"}));
             } else {
-              message.error(
-                intl.formatMessage({
-                  id: "management.editor.error"
-                })
-              );
+              message.error(intl.formatMessage({id: "management.editor.error"}));
             }
           });
         } else {
