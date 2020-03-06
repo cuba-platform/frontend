@@ -10,7 +10,7 @@ export function withLocalizedForm<P>(options?: FormCreateOption<P>) {
       const ComponentWithForm = Form.create<P & WrappedComponentProps & FormComponentProps>({
         validateMessages: createAntdFormValidationMessages(props.intl),
         ...options
-      // @ts-ignore
+      // @ts-ignore TODO expects different type here, investigate why
       })(Component);
 
       return <ComponentWithForm {...props as unknown as P & WrappedComponentProps & FormComponentProps } />;

@@ -36,7 +36,10 @@ export class MainStore {
   }
 
   isEntityDataLoaded(): boolean {
-    return !!this.messages && !!this.metadata && !!this.enums && this.security.dataLoaded;
+    return this.messages != null
+      && this.metadata != null
+      && this.enums != null
+      && this.security.dataLoaded;
   }
 
   @action
