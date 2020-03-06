@@ -102,7 +102,7 @@ export class DataInstanceStore<T> implements DataContainer {
   }
 
   @action
-  commit = (): Promise<any> => {
+  commit = (): Promise<Partial<T>> => {
     if (this.item == null) {
       return Promise.reject();
     }
@@ -110,9 +110,9 @@ export class DataInstanceStore<T> implements DataContainer {
     return getCubaREST()!.commitEntity(this.entityName, toJS(this.item!))
       .then((updateResult) => {
         runInAction(() => {
-          if (updateResult.id != null) {
-            this.item!.id = updateResult.id
-            this.item!._instanceName = updateResult._instanceName;
+          if (updateResult.id != null && this.item) {
+            this.item.id = updateResult.id
+            this.item._instanceName = updateResult._instanceName;
           }
           this.status = 'DONE';
         });
