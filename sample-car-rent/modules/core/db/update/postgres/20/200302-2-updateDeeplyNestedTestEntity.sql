@@ -1,1 +1,0 @@
-alter table SCR_DEEPLY_NESTED_TEST_ENTITY add column ASSOCIATION_O2_OATTR_ID uuid ;

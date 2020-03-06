@@ -1,1 +1,0 @@
-drop table if exists SCR_COMPOSITION_O2O_TEST_ENTITY2__U45286 cascade ;
