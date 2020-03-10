@@ -55,12 +55,7 @@ export class MpgFavoriteCarCards extends React.Component<Props> {
   render() {
     const { status, items, count } = this.dataCollection;
 
-    if (
-      status === "LOADING" ||
-      this.props.mainStore?.isDataLoadedForEntityManagement !== true
-    ) {
-      return <Spinner />;
-    }
+    if (status === "LOADING") return <Spinner />;
 
     return (
       <div className="narrow-layout">

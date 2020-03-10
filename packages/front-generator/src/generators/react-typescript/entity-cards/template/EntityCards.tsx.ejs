@@ -30,7 +30,7 @@ export class <%= className %> extends React.Component<Props> {
 
   @observable paginationConfig: PaginationConfig = { ...defaultPagingConfig };
   reactionDisposer: IReactionDisposer;
-  fields = [<% attributes.forEach(p => { %>
+  fields = [<% attributes.forEach(p => { -%>
     '<%= p.name %>',
     <% }) %>
     ];
@@ -55,9 +55,7 @@ export class <%= className %> extends React.Component<Props> {
   render() {
     const { status, items, count } = this.dataCollection;
 
-    if (status === "LOADING" || this.props.mainStore?.isDataLoadedForEntityManagement !== true) {
-      return <Spinner />;
-    }
+    if (status === "LOADING") return <Spinner />;
 
     return (
       <div className='narrow-layout'>
