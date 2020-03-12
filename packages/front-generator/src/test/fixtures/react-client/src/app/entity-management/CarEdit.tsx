@@ -5,18 +5,20 @@ import { observer } from "mobx-react";
 import { CarManagement } from "./CarManagement";
 import { FormComponentProps } from "antd/lib/form";
 import { Link, Redirect } from "react-router-dom";
-import { IReactionDisposer, observable, reaction, toJS, computed } from "mobx";
+import { IReactionDisposer, observable, reaction, toJS } from "mobx";
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+
 import {
   collection,
   instance,
   MainStoreInjected,
   injectMainStore
 } from "@cuba-platform/react-core";
+
 import {
   Field,
   withLocalizedForm,
@@ -26,15 +28,20 @@ import {
   MultilineText,
   Spinner
 } from "@cuba-platform/react-ui";
+
 import "app/App.css";
+
 import { Car } from "cuba/entities/mpg$Car";
 import { Garage } from "cuba/entities/mpg$Garage";
 import { TechnicalCertificate } from "cuba/entities/mpg$TechnicalCertificate";
 import { FileDescriptor } from "cuba/entities/base/sys$FileDescriptor";
+
 type Props = FormComponentProps & EditorProps & MainStoreInjected;
+
 type EditorProps = {
   entityId: string;
 };
+
 @injectMainStore
 @observer
 class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
@@ -42,17 +49,19 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     view: "car-edit",
     loadImmediately: false
   });
+
   garagesDc = collection<Garage>(Garage.NAME, { view: "_minimal" });
+
   technicalCertificatesDc = collection<TechnicalCertificate>(
     TechnicalCertificate.NAME,
     { view: "_minimal" }
   );
+
   photosDc = collection<FileDescriptor>(FileDescriptor.NAME, {
     view: "_minimal"
   });
 
-  @observable
-  updated = false;
+  @observable updated = false;
   reactionDisposer: IReactionDisposer;
 
   fields = [
@@ -72,8 +81,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     "photo"
   ];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -102,9 +110,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
                 globalErrors,
                 fieldErrors
               } = extractServerValidationErrors(response);
-
               this.globalErrors = globalErrors;
-
               if (fieldErrors.size > 0) {
                 this.props.form.setFields(
                   constructFieldsWithErrors(fieldErrors, this.props.form)
@@ -140,7 +146,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     }
 
     const { status } = this.dataInstance;
-    if (!this.dataLoaded) return <Spinner />;
+    const { mainStore } = this.props;
+    if (mainStore == null || !mainStore.isDataLoadedForEntityManagement) {
+      return <Spinner />;
+    }
 
     return (
       <Card className="narrow-layout">
@@ -154,6 +163,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               rules: [{ required: true }]
             }}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="model"
@@ -161,6 +171,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="regNumber"
@@ -168,6 +179,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="purchaseDate"
@@ -175,6 +187,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="manufactureDate"
@@ -182,6 +195,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="wheelOnRight"
@@ -191,6 +205,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               valuePropName: "checked"
             }}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="carType"
@@ -200,6 +215,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               rules: [{ required: true }]
             }}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="ecoRank"
@@ -207,6 +223,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="maxPassengers"
@@ -214,6 +231,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="price"
@@ -221,6 +239,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="mileage"
@@ -228,6 +247,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="garage"
@@ -236,6 +256,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             optionsContainer={this.garagesDc}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="technicalCertificate"
@@ -244,6 +265,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             optionsContainer={this.technicalCertificatesDc}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="photo"
@@ -303,18 +325,6 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   componentWillUnmount() {
     this.reactionDisposer();
   }
-
-  @computed private get dataLoaded() {
-    const { mainStore } = this.props;
-    return (
-      mainStore &&
-      !!mainStore.messages &&
-      !!mainStore.metadata &&
-      !!mainStore.enums &&
-      mainStore.security.dataLoaded
-    );
-  }
-
 }
 
 export default injectIntl(

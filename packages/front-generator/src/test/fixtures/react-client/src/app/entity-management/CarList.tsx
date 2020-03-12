@@ -1,7 +1,7 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import { computed, IReactionDisposer, reaction } from "mobx";
+import { IReactionDisposer, reaction } from "mobx";
 
 import { Modal, Button, List, Icon } from "antd";
 
@@ -91,22 +91,14 @@ class CarListComponent extends React.Component<Props> {
     });
   };
 
-  @computed private get dataLoaded() {
-    const { mainStore } = this.props;
-    return (
-      mainStore &&
-      !!mainStore.messages &&
-      !!mainStore.metadata &&
-      !!mainStore.enums &&
-      mainStore.security.dataLoaded
-    );
-  }
-
   render() {
     const { status, items, count } = this.dataCollection;
-    const { paginationConfig, onPagingChange } = this.props;
+    const { paginationConfig, onPagingChange, mainStore } = this.props;
 
-    if (status === "LOADING" || !this.dataLoaded) {
+    if (
+      status === "LOADING" ||
+      mainStore?.isDataLoadedForEntityManagement !== true
+    ) {
       return <Spinner />;
     }
 

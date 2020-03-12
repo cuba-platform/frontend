@@ -15,7 +15,7 @@ describe('car browse components for mechanic', () => {
     await page.goto('http://localhost:3000/#/carManagement');
     await page.waitFor('div.ant-card');
     const carCards = await page.$$('div.ant-card');
-    expect(carCards.length).toEqual(8);
+    expect(carCards.length).toEqual(10);
 
     const carCaptions = await page.$$eval('div.ant-card-head > div > div', els => els.map(el => el.innerHTML));
 
@@ -27,7 +27,10 @@ describe('car browse components for mechanic', () => {
       'bmw - X0',
       'Porshe - 911',
       'Tesla - Model Y',
-      'Mercedes - ']);
+      'Mercedes - ',
+      'Tata - m01',
+      'Tata - m02',
+    ]);
   });
 
   it('should check that car list is loaded for mechanic', async () => {
@@ -35,7 +38,7 @@ describe('car browse components for mechanic', () => {
     await page.goto('http://localhost:3000/#/carManagement2');
     await page.waitFor('div.ant-list');
     const carListItems = await page.$$('li.ant-list-item');
-    expect(carListItems.length).toEqual(8);
+    expect(carListItems.length).toEqual(10);
 
     const carManufacturers = await page.$$eval('div.ant-list li > div > div:nth-child(1)'
       , elements => elements.map(el => el.innerText.split(':')[1]));
@@ -48,7 +51,10 @@ describe('car browse components for mechanic', () => {
       ' bmw',
       ' Porshe',
       ' Tesla',
-      ' Mercedes']);
+      ' Mercedes',
+      ' Tata',
+      ' Tata',
+    ]);
   });
 
   afterAll(async done => {

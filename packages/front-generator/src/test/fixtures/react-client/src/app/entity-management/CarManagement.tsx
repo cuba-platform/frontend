@@ -27,12 +27,19 @@ export class CarManagement extends React.Component<Props> {
 
   render() {
     const { entityId } = this.props.match.params;
-    return entityId ? <CarEdit entityId={entityId} /> : <CarCards />;
+    return entityId ? (
+      <CarEdit entityId={entityId} />
+    ) : (
+      <CarCards
+        onPagingChange={this.onPagingChange}
+        paginationConfig={this.paginationConfig}
+      />
+    );
   }
 
   @action onPagingChange = (current: number, pageSize: number) => {
     this.props.history.push(
-      addPagingParams("carManagement2", current, pageSize)
+      addPagingParams("carManagement", current, pageSize)
     );
     this.paginationConfig = { ...this.paginationConfig, current, pageSize };
   };

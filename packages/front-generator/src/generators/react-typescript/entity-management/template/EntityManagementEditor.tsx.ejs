@@ -5,7 +5,7 @@ import {observer} from "mobx-react";
 import {<%= className %>} from "./<%= className %>";
 import {FormComponentProps} from "antd/lib/form";
 import {Link, Redirect} from "react-router-dom";
-import {IReactionDisposer, observable, reaction, toJS, computed} from "mobx";
+import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 import {
@@ -49,18 +49,16 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
     <%= attrName %>sDc = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '_minimal'});
   <% }) %>
 
-  @observable
-  updated = false;
+  @observable updated = false;
   reactionDisposer: IReactionDisposer;
 
   fields = [
-  <% editAttributes.forEach(p => { %>
+  <% editAttributes.forEach(p => { -%>
     '<%= p.name %>',
   <% }) %>
   ];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -106,7 +104,10 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
     }
 
     const {status} = this.dataInstance;
-    if (!this.dataLoaded) return <Spinner/>;
+    const {mainStore} = this.props;
+    if (mainStore == null || !mainStore.isDataLoadedForEntityManagement) {
+      return <Spinner/>;
+    }
 
     return (
       <Card className='narrow-layout'>
@@ -187,11 +188,6 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
 
   componentWillUnmount() {
     this.reactionDisposer();
-  }
-
-  @computed private get dataLoaded() {
-    const { mainStore } = this.props;
-    return mainStore && !!mainStore.messages && !!mainStore.metadata && !!mainStore.enums && mainStore.security.dataLoaded;
   }
 
 }
