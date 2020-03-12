@@ -39,7 +39,7 @@ export class MainStore {
     return this.messages != null
       && this.metadata != null
       && this.enums != null
-      && this.security.dataLoaded;
+      && this.security.isDataLoaded;
   }
 
   @action
