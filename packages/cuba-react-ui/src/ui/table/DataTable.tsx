@@ -36,7 +36,8 @@ export interface DataTableProps<E> extends MainStoreInjected, WrappedComponentPr
    */
   fields?: string[],
   /**
-   * Default: filters will be enabled on all columns
+   * Names of columns that should have filters enabled.
+   * Default: filters will be enabled on all columns. Pass empty array to disable all filters.
    */
   enableFiltersOnColumns?: string[],
   /**

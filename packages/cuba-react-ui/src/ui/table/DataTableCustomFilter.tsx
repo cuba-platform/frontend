@@ -102,7 +102,7 @@ class DataTableCustomFilterComponent<E extends WithId>
           (resp) => {
             resp.forEach((instance) => {
               this.nestedEntityOptions.push({
-                caption: instance._instanceName,
+                caption: instance._instanceName || '',
                 value: instance.id
               });
             });

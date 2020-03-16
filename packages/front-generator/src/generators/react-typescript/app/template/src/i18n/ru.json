@@ -2,6 +2,10 @@
   "common.alt.logo": "Лого",
   "common.ok": "OK",
   "common.cancel": "Отмена",
+  "common.create": "Создать",
+  "common.edit": "Изменить",
+  "common.remove": "Удалить",
+  "common.unsavedEntity": "(несохранённая сущность или сущность без имени)",
 
   "home.welcome": "Добро пожаловать в",
   "router.home": "Главная страница",
@@ -56,9 +60,10 @@
   "cubaReact.fileUpload.upload": "Нажмите на эту область, или перетащите в неё файл, чтобы загрузить его",
   "cubaReact.fileUpload.uploadFailed": "Не удалось загрузить файл",
 
-  "cubaReact.nestedEntityEditor.create": "Создать сущность",
-  "cubaReact.nestedEntityEditor.delete.areYouSure": "Удалить вложенную сущность?",
-  "cubaReact.nestedEntityEditor.newOrModifiedEntity": "(новая или модифицированная сущность)",
+  "cubaReact.nestedEntityField.create": "Создать сущность",
+  "cubaReact.nestedEntityField.delete.areYouSure": "Удалить вложенную сущность?",
+
+  "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Удалить вложенную сущность?",
 
   "antd.form.validation.default": "Ошибка валидации в поле %s.",
   "antd.form.validation.required": "Поле %s является обязательным.",

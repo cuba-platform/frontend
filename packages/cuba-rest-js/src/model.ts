@@ -14,8 +14,8 @@ export type PropertyType = TemporalPropertyType |
   | 'boolean';
 
 export interface SerializedEntityProps {
-  _entityName: string;
-  _instanceName: string;
+  _entityName?: string;
+  _instanceName?: string;
 }
 
 export type SerializedEntity<T> = SerializedEntityProps & T;

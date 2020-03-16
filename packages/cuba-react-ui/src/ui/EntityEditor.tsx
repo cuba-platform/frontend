@@ -13,17 +13,18 @@ import {
   WithId,
   isByteArray,
   isOneToManyAssociation,
+  defaultCompare
 } from "@cuba-platform/react-core";
 import {MetaPropertyInfo, MetaClassInfo, SerializedEntityProps} from "@cuba-platform/rest";
-import {Spinner} from "../Spinner";
-import {Field} from "./Field";
-import {MultilineText} from '../MultilineText';
+import {Spinner} from "./Spinner";
+import {Field} from "./form/Field";
+import {MultilineText} from './MultilineText';
 import {
   clearFieldErrors,
   constructFieldsWithErrors,
   extractServerValidationErrors,
   withLocalizedForm,
-} from '../..';
+} from '../index';
 import './EntityEditor.less';
 
 type EntityEditorProps = MainStoreInjected & WrappedComponentProps & {
@@ -33,6 +34,7 @@ type EntityEditorProps = MainStoreInjected & WrappedComponentProps & {
   associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>>>;
   onSubmit?: (fieldValues: {[field: string]: any}) => void;
   onCancel: () => void;
+  parentEntityName?: string;
 };
 
 @injectMainStore
@@ -63,7 +65,10 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
 
   get entityProperties(): MetaPropertyInfo[] {
     const {entityName, fields, mainStore} = this.props;
-    return mainStore?.metadata ? getEntityProperties(entityName, fields, mainStore?.metadata) : [];
+    return mainStore?.metadata
+      ? getEntityProperties(entityName, fields, mainStore?.metadata)
+          .sort((a, b) => defaultCompare(a.name, b.name))
+      : [];
   }
 
   handleSubmit = (event: FormEvent) => {
@@ -74,11 +79,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
 
     form.validateFields((clientError: any) => {
       if (clientError) {
-        message.error(
-          intl.formatMessage({
-            id: "management.editor.validationError"
-          })
-        );
+        message.error(intl.formatMessage({id: "management.editor.validationError"}));
         return;
       }
 
@@ -96,9 +97,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
     dataInstance
       .update(form.getFieldsValue(fields))
       .then(() => {
-        message.success(
-          intl.formatMessage({ id: "management.editor.success" })
-        );
+        message.success(intl.formatMessage({ id: "management.editor.success" }));
       })
       .catch((serverError: any) => {
         if (serverError.response && typeof serverError.response.json === "function") {

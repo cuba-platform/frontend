@@ -136,6 +136,26 @@
       "datatypesTestEntityAttr": "datatypesTestEntity-view"
     }
   },
+  "datatypes3Test": {
+    "editView": {
+      "name": "datatypesTestEntity3-view",
+      "entityName": "scr_DatatypesTestEntity3"
+    },
+    "editComponentName": "Datatypes3Edit",
+    "listView": {
+      "name": "datatypesTestEntity3-view",
+      "entityName": "scr_DatatypesTestEntity3"
+    },
+    "listComponentName": "Datatypes3Browse",
+    "listType": "table",
+    "entity": {
+      "name": "scr_DatatypesTestEntity3"
+    },
+    "managementComponentName": "Datatypes3Management",
+    "nestedEntityInfo": {
+      "datatypesTestEntityAttr": "datatypesTestEntity-view"
+    }
+  },
 
   "associationO2O": {
     "editView": {
