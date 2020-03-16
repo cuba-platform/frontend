@@ -103,6 +103,17 @@ public class DatatypesTestEntity extends StandardEntity {
 
     @Column(name = "NAME")
     protected String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DATATYPES_TEST_ENTITY3_ID")
+    protected DatatypesTestEntity3 datatypesTestEntity3;
+
+    public DatatypesTestEntity3 getDatatypesTestEntity3() {
+        return datatypesTestEntity3;
+    }
+
+    public void setDatatypesTestEntity3(DatatypesTestEntity3 datatypesTestEntity3) {
+        this.datatypesTestEntity3 = datatypesTestEntity3;
+    }
 
     public String getName() {
         return name;

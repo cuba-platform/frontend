@@ -127,8 +127,20 @@ export function isRelationProperty(propertyInfo: MetaPropertyInfo): boolean {
   return isAssociation(propertyInfo) || isComposition(propertyInfo);
 }
 
+export function isOneToOneRelation({cardinality}: MetaPropertyInfo): boolean {
+  return cardinality === 'ONE_TO_ONE';
+}
+
 export function isOneToManyRelation({cardinality}: MetaPropertyInfo): boolean {
   return cardinality === 'ONE_TO_MANY';
+}
+
+export function isManyToOneRelation({cardinality}: MetaPropertyInfo): boolean {
+  return cardinality === 'MANY_TO_ONE';
+}
+
+export function isManyToManyRelation({cardinality}: MetaPropertyInfo): boolean {
+  return cardinality === 'MANY_TO_MANY';
 }
 
 export function isToOneRelation({cardinality}: MetaPropertyInfo): boolean {
@@ -151,20 +163,32 @@ export function isToManyAssociation(propertyInfo: MetaPropertyInfo): boolean {
   return isToManyRelation(propertyInfo) && isAssociation(propertyInfo);
 }
 
+export function isOneToOneAssociation(propertyInfo: MetaPropertyInfo): boolean {
+  return isAssociation(propertyInfo) && isOneToOneRelation(propertyInfo);
+}
+
 export function isOneToManyAssociation(propertyInfo: MetaPropertyInfo): boolean {
   return isAssociation(propertyInfo) && isOneToManyRelation(propertyInfo);
+}
+
+export function isManyToOneAssociation(propertyInfo: MetaPropertyInfo): boolean {
+  return isAssociation(propertyInfo) && isManyToOneRelation(propertyInfo);
+}
+
+export function isManyToManyAssociation(propertyInfo: MetaPropertyInfo): boolean {
+  return isAssociation(propertyInfo) && isManyToManyRelation(propertyInfo);
 }
 
 export function isComposition({attributeType}: MetaPropertyInfo): boolean {
   return attributeType === 'COMPOSITION';
 }
 
-export function isToOneComposition(propertyInfo: MetaPropertyInfo): boolean {
-  return isComposition(propertyInfo) && isToOneRelation(propertyInfo);
+export function isOneToOneComposition(propertyInfo: MetaPropertyInfo): boolean {
+  return isComposition(propertyInfo) && isOneToOneRelation(propertyInfo);
 }
 
-export function isToManyComposition(propertyInfo: MetaPropertyInfo): boolean {
-  return isComposition(propertyInfo) && isToManyRelation(propertyInfo);
+export function isOneToManyComposition(propertyInfo: MetaPropertyInfo): boolean {
+  return isComposition(propertyInfo) && isOneToManyRelation(propertyInfo);
 }
 
 export type WithId = {id?: string};

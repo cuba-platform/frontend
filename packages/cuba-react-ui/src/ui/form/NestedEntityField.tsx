@@ -3,18 +3,19 @@ import {Button, Drawer, Icon, Modal, Spin} from "antd";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from "react-intl";
 import {observer} from "mobx-react";
 import {computed, IReactionDisposer, observable, reaction} from "mobx";
-import {EntityEditor, getEntityProperties} from './EntityEditor';
+import {EntityEditor, getEntityProperties} from '../EntityEditor';
 import {
   injectMainStore,
   MainStoreInjected,
   WithId,
-  loadViewPropertyNames, DataInstanceStore, instance,
-  collection, DataCollectionStore
+  getCubaREST, DataInstanceStore, instance,
+  DataCollectionStore
 } from "@cuba-platform/react-core";
-import './NestedEntityEditor.less';
-import {SerializedEntityProps, MetaPropertyInfo} from '@cuba-platform/rest';
+import './NestedEntityField.less';
+import {SerializedEntityProps, MetaPropertyInfo, View, ViewProperty} from '@cuba-platform/rest';
+import { loadAssociationOptions } from "../../util/ui-model";
 
-export type NestedEntityEditorProps = MainStoreInjected & WrappedComponentProps & {
+export type NestedEntityFieldProps = MainStoreInjected & WrappedComponentProps & {
   value?: any; // coming from Ant Design form field decorator
   onChange?: (value: any) => void; // coming from Ant Design form field decorator
   nestedEntityName: string;
@@ -23,7 +24,7 @@ export type NestedEntityEditorProps = MainStoreInjected & WrappedComponentProps 
 
 @injectMainStore
 @observer
-class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProps> {
+class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps> {
 
   @observable isDrawerOpen = false;
   @observable fields: string[] = [];
@@ -38,9 +39,9 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
       return instanceName;
     }
 
-    // TODO VP Add the possibility to get the rules for instance name construction via REST API
-    // TODO VP Update the name based on the obtained rules instead of using placeholder
-    return intl.formatMessage({id: 'cubaReact.nestedEntityEditor.newOrModifiedEntity'});
+    // TODO Add the possibility to get the rules for instance name construction via REST API
+    // TODO Update the name based on the obtained rules instead of using placeholder
+    return intl.formatMessage({id: 'common.unsavedEntity'});
   }
 
   reactionDisposers: IReactionDisposer[] = [];
@@ -49,7 +50,7 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
     const {nestedEntityName, nestedEntityView} = this.props;
 
     this.dataInstance = instance(nestedEntityName, {view: nestedEntityView});
-    loadViewPropertyNames(nestedEntityName, nestedEntityView)
+    this.loadViewPropertyNames(nestedEntityName, nestedEntityView)
       ?.then((propertyNames: string[]) => {
         this.fields = propertyNames;
         this.loadAssociationOptions();
@@ -61,7 +62,7 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
         if (this.props.value == null) {
           this.dataInstance?.setItem({});
         } else {
-          this.dataInstance?.setItem(this.props.value);
+          this.dataInstance?.setItemToFormFields(this.props.value);
         }
       },
       {fireImmediately: true}
@@ -72,16 +73,17 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
     this.reactionDisposers.forEach(dispose => dispose());
   }
 
+  loadViewPropertyNames = (entityName: string, viewName: string) => {
+    return getCubaREST()?.loadEntityView(entityName, viewName)
+      .then((view: View) => {
+        return view.properties.map((viewProperty: ViewProperty) => {
+          return (typeof viewProperty === 'string') ? viewProperty : viewProperty.name;
+        });
+      });
+  };
+
   loadAssociationOptions = () => {
-    this.entityProperties.forEach(property => {
-      if (property.attributeType !== 'ASSOCIATION' || property.cardinality === 'ONE_TO_MANY') {
-        return;
-      }
-      const entityName = property.type;
-      // Request from backend:
-      const optionsContainer = collection<Partial<WithId & SerializedEntityProps>>(entityName, { view: "_minimal" });
-      this.associationOptions.set(entityName, optionsContainer);
-    });
+    this.associationOptions = loadAssociationOptions(this.entityProperties);
   };
 
   get entityProperties(): MetaPropertyInfo[] {
@@ -103,7 +105,7 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
     const {intl} = this.props;
 
     Modal.confirm({
-      title: intl.formatMessage({id: "cubaReact.nestedEntityEditor.delete.areYouSure"}),
+      title: intl.formatMessage({id: "cubaReact.nestedEntityField.delete.areYouSure"}),
       okText: intl.formatMessage({id: "common.ok"}),
       cancelText: intl.formatMessage({id: "common.cancel"}),
       onOk: this.deleteEntity
@@ -148,7 +150,7 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
           <Button type='link'
                   onClick={this.openDrawer}
           >
-            <FormattedMessage id='cubaReact.nestedEntityEditor.create' />
+            <FormattedMessage id='cubaReact.nestedEntityField.create' />
           </Button>
         )}
         {this.isEditMode && (
@@ -181,5 +183,5 @@ class NestedEntityEditorComponent extends React.Component<NestedEntityEditorProp
   }
 }
 
-const NestedEntityEditor = injectIntl(NestedEntityEditorComponent);
-export {NestedEntityEditor};
+const NestedEntityField = injectIntl(NestedEntityFieldComponent);
+export {NestedEntityField};

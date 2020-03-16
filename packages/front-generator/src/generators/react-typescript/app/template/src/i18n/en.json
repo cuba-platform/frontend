@@ -2,6 +2,10 @@
   "common.alt.logo": "Logo",
   "common.ok": "OK",
   "common.cancel": "Cancel",
+  "common.create": "Create",
+  "common.edit": "Edit",
+  "common.remove": "Remove",
+  "common.unsavedEntity": "(unsaved or unnamed entity)",
 
   "home.welcome": "Welcome to",
   "router.home": "Home",
@@ -56,9 +60,10 @@
   "cubaReact.fileUpload.upload": "Click or drag file to this area to upload",
   "cubaReact.fileUpload.uploadFailed": "File upload failed",
 
-  "cubaReact.nestedEntityEditor.create": "Create an entity",
-  "cubaReact.nestedEntityEditor.delete.areYouSure": "Are you sure you want to delete the nested entity?",
-  "cubaReact.nestedEntityEditor.newOrModifiedEntity": "(new or modified entity)",
+  "cubaReact.nestedEntityField.create": "Create an entity",
+  "cubaReact.nestedEntityField.delete.areYouSure": "Are you sure you want to delete the nested entity?",
+
+  "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Are you sure you want to delete the nested entity?",
 
   "antd.form.validation.default": "Field %s has a validation error.",
   "antd.form.validation.required": "Field %s is mandatory.",

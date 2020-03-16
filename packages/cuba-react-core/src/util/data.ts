@@ -1,11 +1,3 @@
-import {getCubaREST} from '..';
-import {View, ViewProperty} from '@cuba-platform/rest';
+export const TEMPORARY_ENTITY_ID_PREFIX = '_CUBA_TEMPORARY_ENTITY_ID_';
 
-export const loadViewPropertyNames = (entityName: string, viewName: string) => {
-  return getCubaREST()?.loadEntityView(entityName, viewName)
-    .then((view: View) => {
-      return view.properties.map((viewProperty: ViewProperty) => {
-        return (typeof viewProperty === 'string') ? viewProperty : viewProperty.name;
-      });
-    });
-};
+export const generateTemporaryEntityId = () => TEMPORARY_ENTITY_ID_PREFIX + Math.random().toString().slice(2);

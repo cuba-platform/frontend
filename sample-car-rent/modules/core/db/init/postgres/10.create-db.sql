@@ -240,7 +240,6 @@ create table SCR_DATATYPES_TEST_ENTITY (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    NAME varchar(255),
     BIG_DECIMAL_ATTR decimal(19, 2),
     BOOLEAN_ATTR boolean,
     BYTE_ARRAY_ATTR bytea,
@@ -261,6 +260,8 @@ create table SCR_DATATYPES_TEST_ENTITY (
     ASSOCIATION_O2_OATTR_ID uuid,
     ASSOCIATION_M2_OATTR_ID uuid,
     COMPOSITION_O2_OATTR_ID uuid,
+    NAME varchar(255),
+    DATATYPES_TEST_ENTITY3_ID uuid,
     --
     primary key (ID)
 )^
@@ -328,3 +329,19 @@ create table SCR_DATATYPES_TEST_ENTITY2 (
     primary key (ID)
 )^
 -- end SCR_DATATYPES_TEST_ENTITY2
+-- begin SCR_DATATYPES_TEST_ENTITY3
+create table SCR_DATATYPES_TEST_ENTITY3 (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    --
+    primary key (ID)
+)^
+-- end SCR_DATATYPES_TEST_ENTITY3

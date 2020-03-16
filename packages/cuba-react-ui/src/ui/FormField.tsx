@@ -17,11 +17,11 @@ import {CheckboxProps} from "antd/lib/checkbox/Checkbox";
 import {DatePickerProps} from "antd/lib/date-picker/interface";
 import {TimePickerProps} from "antd/lib/time-picker";
 import {InputNumberProps} from "antd/lib/input-number";
-import {NestedEntityEditor, NestedEntityEditorProps} from "./form/NestedEntityEditor";
-import {NestedEntityBrowser} from "./form/NestedEntityBrowser";
+import {NestedEntityField, NestedEntityFieldProps} from "./form/NestedEntityField";
+import {NestedEntitiesTableField, NestedEntitiesTableFieldProps} from "./form/NestedEntitiesTableField";
 
 export type FormFieldComponentProps = SelectProps | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
-  | NestedEntityEditorProps;
+  | NestedEntityFieldProps | NestedEntitiesTableFieldProps;
 
 export type FormFieldProps = MainStoreInjected & {
   entityName: string;
@@ -58,17 +58,24 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
       if (nestedEntityView) {
-        if (propertyInfo.cardinality === 'ONE_TO_ONE') {
-          const nestedEntityName = mainStore.metadata.find(metaClass => metaClass.entityName === entityName)?.properties
-            .find(property => property.name === propertyName)?.type;
+        const nestedEntityName = mainStore.metadata.find(metaClass => metaClass.entityName === entityName)?.properties
+          .find(property => property.name === propertyName)?.type;
 
-          return <NestedEntityEditor nestedEntityName={nestedEntityName}
-                                     nestedEntityView={nestedEntityView}
-                                     {...(rest as NestedEntityEditorProps)}
-                 />;
-        }
-        if (propertyInfo.cardinality === 'ONE_TO_MANY') {
-          return <NestedEntityBrowser/>;
+        if (nestedEntityName) {
+          if (propertyInfo.cardinality === 'ONE_TO_ONE') {
+            return <NestedEntityField nestedEntityName={nestedEntityName}
+                                      nestedEntityView={nestedEntityView}
+                                      {...(rest as NestedEntityFieldProps)}
+            />;
+          }
+
+          if (propertyInfo.cardinality === 'ONE_TO_MANY') {
+            return <NestedEntitiesTableField nestedEntityName={nestedEntityName}
+                                             nestedEntityView={nestedEntityView}
+                                             parentEntityName={entityName}
+                                             {...(rest as NestedEntitiesTableFieldProps)}
+            />;
+          }
         }
       }
       return null;

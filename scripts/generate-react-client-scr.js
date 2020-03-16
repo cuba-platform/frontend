@@ -96,6 +96,12 @@ gen(
         answers: answers.datatypes2Test
       },
       {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/datatypes3',
+        answers: answers.datatypes3Test
+      },
+      {
         command: 'react-typescript:entity-cards',
         dirShift,
         dest: 'src/app/datatypes-test-cards',

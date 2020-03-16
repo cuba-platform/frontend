@@ -28,6 +28,8 @@
     "update-react-client-libs": "npm run pack-react-client-libs && node scripts/update-react-client-libs.js",
     "update-react-native-client-libs": "npm run pack-react-native-client-libs && node scripts/update-react-native-client-libs.js",
     "update-react-ui": "npm run pack-given-client-libs @cuba-platform/react-ui && npm run update-given-client-libs react-client-scr react-ui",
+    "update-react-core": "npm run pack-given-client-libs @cuba-platform/react-core && npm run update-given-client-libs react-client-scr react-core",
+    "update-react-core-and-ui": "npm run pack-given-client-libs @cuba-platform/react-ui @cuba-platform/react-core && npm run update-given-client-libs react-client-scr react-core react-ui",
     "bootstrap-react-app": "node scripts/generate-react-client-scr.js && npm run update-react-client-libs",
     "bootstrap-react-native-app": "node scripts/generate-react-native-client-scr.js && npm run update-react-native-client-libs",
     "bootstrap-cuba-app": "sample-car-rent/gradlew -p sample-car-rent setupTomcat createDb",

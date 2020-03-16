@@ -10,6 +10,7 @@ import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST} from "../app/CubaAppProvider";
+import {sortEntityInstances} from '../util/collation';
 
 export class DataCollectionStore<T> implements DataContainer {
 
@@ -23,13 +24,16 @@ export class DataCollectionStore<T> implements DataContainer {
   @observable count?: number;
   @observable skipCount?: boolean;
 
+  mode?: 'server' | 'client';
+  allItems: Array<SerializedEntity<T>> = []; // Client mode only
+
   changedItems: IObservableArray<any> = observable([]);
 
 
   constructor(public readonly entityName: string,
               public readonly trackChanges = false,
               viewName: string = PredefinedView.MINIMAL,
-              sort: string | undefined = undefined) {
+              sort?: string) {
     this.view = viewName;
     if (sort) {
       this.sort = sort;
@@ -46,7 +50,20 @@ export class DataCollectionStore<T> implements DataContainer {
   }
 
   @action
-  load = (): Promise<void> => {
+  load = (): Promise<void>  => {
+    return this.mode === 'client' ? this.filterAndSortItems() : this.loadServerSide();
+  };
+
+  @action
+  filterAndSortItems = (): Promise<void>  => {
+    // const filteredItems = filterEntityInstances([...this.allItems], this.filter);
+    const filteredItems = [...this.allItems]; // TODO Client-side filtering is not implemented
+    this.items = sortEntityInstances(filteredItems, this.sort);
+    return Promise.resolve();
+  };
+
+  @action
+  loadServerSide = (): Promise<void>  => {
     this.changedItems.clear();
     this.status = "LOADING";
 
@@ -74,6 +91,18 @@ export class DataCollectionStore<T> implements DataContainer {
 
   @action
   delete = (e: T & {id?: string}): Promise<any> => {
+    return this.mode === 'client' ? this.deleteClientSide(e) : this.deleteServerSide(e);
+  };
+
+  @action
+  deleteClientSide = (e: T & {id?: string}): Promise<any> => {
+    this.allItems = this.allItems.filter((item: T & {id?: string}) => (item != null && item.id !== e.id));
+    this.filterAndSortItems();
+    return Promise.resolve();
+  };
+
+  @action
+  deleteServerSide = (e: T & {id?: string}): Promise<any> => {
     if (e == null || e.id == null) {
       throw new Error('Unable to delete entity without ID');
     }
@@ -145,7 +174,9 @@ export interface DataCollectionOptions {
   limit?: number,
   offset?: number,
   filter?: EntityFilter,
-  trackChanges?: boolean
+  trackChanges?: boolean,
+  mode?: 'server' | 'client',
+  allItems?: Array<SerializedEntity<any>>
 }
 
 export const defaultOpts: DataCollectionOptions = {
@@ -154,20 +185,26 @@ export const defaultOpts: DataCollectionOptions = {
 
 function createStore<E>(entityName: string, opts: DataCollectionOptions): DataCollectionStore<E> {
   const dataCollection = new DataCollectionStore<E>(entityName, !!opts.trackChanges);
-  if (opts.view) {
+  if (opts.view != null) {
     dataCollection.view = opts.view;
   }
-  if (opts.filter) {
+  if (opts.filter != null) {
     dataCollection.filter = opts.filter;
   }
-  if (opts.sort) {
+  if (opts.sort != null) {
     dataCollection.sort = opts.sort;
   }
-  if (opts.limit !== null && opts.limit !== undefined) {
+  if (opts.limit != null) {
     dataCollection.limit = opts.limit;
   }
-  if (opts.offset !== null && opts.offset !== undefined) {
+  if (opts.offset != null) {
     dataCollection.offset = opts.offset;
+  }
+  if (opts.mode != null) {
+    dataCollection.mode = opts.mode;
+  }
+  if (opts.allItems != null) {
+    dataCollection.allItems = opts.allItems;
   }
   if (typeof opts.loadImmediately === 'undefined' || opts.loadImmediately) {
     dataCollection.load();

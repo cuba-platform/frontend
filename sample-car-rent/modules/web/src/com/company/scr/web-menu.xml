@@ -18,5 +18,6 @@
       <item screen="scr_CompositionO2OTestEntity2.browse"/>
       <item screen="scr_DeeplyNestedTestEntity.browse"/>
       <item screen="scr_DatatypesTestEntity2.browse"/>
+        <item screen="scr_DatatypesTestEntity3.browse"/>
     </menu>
 </menu-config>
