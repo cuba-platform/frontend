@@ -15,7 +15,8 @@
     "lerna": "^3.19.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
-    "semantic-release": "^15.13.31"
+    "semantic-release": "^15.13.31",
+    "snyk": "^1.299.0"
   },
   "scripts": {
     "lerna": "lerna",
@@ -39,6 +40,9 @@
     "test:unit": "echo 'RUNNING UNIT TESTS...' && node scripts/run-unit-tests.js",
     "test:integration": "echo 'RUNNING INTEGRATION TESTS...' && lerna run test:e2e --scope @cuba-platform/front-generator",
     "test:e2e": "echo 'RUNNING E2E TESTS...' && npm test react-client-scr/ --prefix test-pup",
+    "snyk": "snyk",
+    "snyk:auth": "snyk auth",
+    "snyk:test": "snyk test --all-projects --detection-depth=3 --exclude=test-pup,react-client-scr --dev",
     "docs": "npm run docs:api-reference && npm run docs:toc",
     "docs:toc": "node update-readme-toc.js",
     "docs:api-reference": "rimraf docs && lerna run generate-docs",
