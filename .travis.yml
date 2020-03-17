@@ -15,8 +15,8 @@ addons:
 
 env:
   global:
-    - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
-
+  - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+  - secure: OpPbpS47Vk9EEiHSQvNcBsMZZgkYDP2n1/KR7SGkbykJpMi5t2O9q08PT7TiOtKaADBuVIypZtiTrkoJPtKEgSVLWburLKGkheqt53yfa4iRt/A+J2Xw5gfK5Zi/loChton+fHr+xEQmDLswK8cz3GrbsOKVtx3v+2+C5UNkSSz3Pcdh5YVGCripZJV1mbUcq4w4+z1893+hFFnA4hnPG5rNmTSYvAJhsATWIhckF6VjZjjKKrVjm3iz3NokDnlk97Zig/pH0HF9XV/zv2UFTl344C3TV3+IlOLk2a0XalMtR03RAXHDYeIW93qWVag/+KiWVjqf5xgLI1VdmexJTcXBT04KrYJhUU5gvA2HbtuVwf9pLQr8wZmY+XTD7l7DgGl+Bl6syOwipxyMCmL3EB+E1eAB47qwcwLJ0j5F3LJZ8GMqrEbrnrJFdiLNHBDLhelKKHTg/VAzO3xl08OvkNGfbo3r8Vu0+GBbeBbjQTyzD2NOkukqxSMb2aohiSzctjrs79KPD22YCfCIhJaK1F/+y7eCwj2X/4ysVcoAqfh3xPlWDCZvekevtYh8s6iaeKQbFIA8jf6yl6YGeHAkRHBo1XzYikt9RAZQ5E7qo+knWfdswTnJd3zJax+rcx0b9Cs4xlnxULqMjaOgYwFaPyGP6Y93V5Gfts7oG6tjQgg=
 cache:
   directories:
     - $HOME/.gradle/caches/
@@ -28,6 +28,15 @@ before_script: |
 
 jobs:
   include:
+    - name: "Dependency vulnerability check"
+      script:
+        - snyk test --all-projects --detection-depth=3 --exclude=test-pup,react-client-scr --dev
+
+    - name: "Send snapshot to Snyk"
+      if: branch = master OR branch = develop
+      script:
+        - snyk monitor --all-projects --detection-depth=3 --exclude=test-pup,react-client-scr --dev
+
     - name: "Tests on generated app"
       # setup cuba postgres user; build and run backend app
       before_install: node scripts/ci-bootstrap-backend.js
