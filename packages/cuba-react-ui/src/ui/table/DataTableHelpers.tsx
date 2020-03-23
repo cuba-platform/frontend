@@ -376,7 +376,7 @@ export interface TableChangeDTO<E> {
  *
  * @param tableChangeDTO
  */
-export function handleTableChange<E>(tableChangeDTO: TableChangeDTO<E>) {
+export function handleTableChange<E>(tableChangeDTO: TableChangeDTO<E>): Promise<void> {
   const {
     pagination,
     filters,
@@ -391,7 +391,7 @@ export function handleTableChange<E>(tableChangeDTO: TableChangeDTO<E>) {
   setSorter(sorter, defaultSort, dataCollection);
   setPagination(pagination, dataCollection);
 
-  dataCollection.load();
+  return dataCollection.load();
 }
 
 /**
