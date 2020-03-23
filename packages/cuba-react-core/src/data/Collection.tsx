@@ -46,21 +46,23 @@ export class DataCollectionStore<T> implements DataContainer {
   }
 
   @action
-  load = () => {
+  load = (): Promise<void> => {
     this.changedItems.clear();
     this.status = "LOADING";
 
     let loadingPromise;
 
-      if (this.filter) {
-        loadingPromise = this.handleLoadingWithCount(getCubaREST()!.searchEntitiesWithCount<T>(this.entityName, this.filter, this.entitiesLoadOptions));
-      } else if (this.skipCount === true) {
-        loadingPromise = this.handleLoadingNoCount(getCubaREST()!.loadEntities<T>(this.entityName, this.entitiesLoadOptions));
-      } else {
-        loadingPromise = this.handleLoadingWithCount(getCubaREST()!.loadEntitiesWithCount<T>(this.entityName, this.entitiesLoadOptions));
-      }
+    if (this.filter) {
+      loadingPromise = this.handleLoadingWithCount(getCubaREST()!.searchEntitiesWithCount<T>(this.entityName, this.filter, this.entitiesLoadOptions));
+    } else if (this.skipCount === true) {
+      loadingPromise = this.handleLoadingNoCount(getCubaREST()!.loadEntities<T>(this.entityName, this.entitiesLoadOptions));
+    } else {
+      loadingPromise = this.handleLoadingWithCount(getCubaREST()!.loadEntitiesWithCount<T>(this.entityName, this.entitiesLoadOptions));
+    }
 
-      loadingPromise.catch(() => runInAction(() => this.status = 'ERROR'));
+    loadingPromise.catch(() => runInAction(() => this.status = 'ERROR'));
+
+    return loadingPromise;
   };
 
   @action

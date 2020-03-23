@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {Button, Icon, Spin, Table} from 'antd';
+import {Button, Icon, message, Spin, Table} from 'antd';
 import {
   ColumnProps,
   PaginationConfig, RowSelectionType,
@@ -10,7 +10,7 @@ import {action, computed, IReactionDisposer, observable, reaction, toJS} from 'm
 import {observer} from 'mobx-react';
 import {ComparisonType, CustomFilterInputValue, DataTableCustomFilterProps} from './DataTableCustomFilter';
 import './DataTable.less';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {
   entityFilterToTableFilters,
   generateDataColumn,
@@ -29,7 +29,7 @@ import {
 
 // todo may be it make sense to add 'defaultDataTableProps' const instead of describe each property in jsdoc,
 //  it's easy to forget update js docs after DataTable.defaultProps changes
-export interface DataTableProps<E> extends MainStoreInjected {
+export interface DataTableProps<E> extends MainStoreInjected, WrappedComponentProps {
   dataCollection: DataCollectionStore<E>,
   /**
    * @deprecated use `columnDefinitions` instead. If used together, `columnDefinitions` will take precedence.
@@ -75,7 +75,7 @@ export interface ColumnDefinition<E> {
 
 @injectMainStore
 @observer
-export class DataTable<E> extends React.Component<DataTableProps<E>> {
+class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
 
   static readonly NO_COLUMN_DEF_ERROR = 'You need to provide either columnDefinitions or fields prop';
 
@@ -104,7 +104,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   }
 
   static defaultProps = {
-    rowSelectionMode: 'single',
+    rowSelectionMode: 'single' as 'single' | 'multi' | 'none',
     canSelectRowByClick: true,
     hideSelectionColumn: false,
     hideClearFilters: false,
@@ -200,7 +200,7 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
       return fields;
     }
 
-    throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
+    throw new Error(`${this.errorContext} ${DataTableComponent.NO_COLUMN_DEF_ERROR}`);
   }
 
   @computed get paginationConfig(): PaginationConfig {
@@ -230,7 +230,17 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
 
     handleTableChange<E>({
       pagination, filters, sorter, defaultSort, fields, mainStore, dataCollection
+    }).finally(() => {
+      this.checkDataCollectionStatus();
     });
+  };
+
+  checkDataCollectionStatus = () => {
+    const {dataCollection, intl} = this.props;
+
+    if (dataCollection.status === 'ERROR') {
+      message.error(intl.formatMessage({id: 'cubaReact.dataTable.failedToLoad'}));
+    }
   };
 
   @action
@@ -310,7 +320,9 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
         this.props.dataCollection.filter = undefined;
       }
     }
-    load();
+    load().finally(() => {
+      this.checkDataCollectionStatus();
+    });
   };
 
   get rowSelectionType(): RowSelectionType {
@@ -406,7 +418,9 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
     const {columnDefinitions, fields, dataCollection, mainStore} = this.props;
 
     const source = columnDefinitions ? columnDefinitions : fields;
-    if (!source) throw new Error(`${this.errorContext} ${DataTable.NO_COLUMN_DEF_ERROR}`);
+    if (!source) {
+      throw new Error(`${this.errorContext} ${DataTableComponent.NO_COLUMN_DEF_ERROR}`);
+    }
 
     return source.map((columnDef: string | ColumnDefinition<E>) => {
       const propertyName = typeof columnDef === 'string' ? columnDef : columnDef.field;
@@ -457,3 +471,6 @@ export class DataTable<E> extends React.Component<DataTableProps<E>> {
   }
 
 }
+
+const dataTable = injectIntl(DataTableComponent);
+export {dataTable as DataTable};
