@@ -23,6 +23,6 @@ npm run ios
 
 ### Learn More
 
-React Native client documentation is available [here](https://github.com/cuba-platform/frontend#react-native-client).
+React Native client documentation is available [here](https://cuba-platform.github.io/frontend).
 
 The client uses Expo. Documentation is available [here](https://expo.io/).

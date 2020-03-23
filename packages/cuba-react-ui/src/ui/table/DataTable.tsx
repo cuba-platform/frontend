@@ -340,7 +340,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
   render() {
     const { items, status } = this.props.dataCollection;
 
-    if (this.props.mainStore?.isDataLoadedForEntityManagement !== true || (status === "LOADING" && this.firstLoad)) {
+    if (this.props.mainStore?.isEntityDataLoaded() !== true || (status === "LOADING" && this.firstLoad)) {
       return (
         <div className='cuba-data-table-loader'>
           <Spin size='large'/>

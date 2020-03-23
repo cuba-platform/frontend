@@ -1,0 +1,17 @@
+site:
+  title: CUBA Platform Frontend Generator
+  url: https://cuba-platform.github.io/frontend
+output:
+  dir: docs
+content:
+  sources:
+    - url: git@github.com:cuba-platform/frontend.git
+      branches:
+        - master
+        - v[0-9]*
+      start_path: docs-src/doc-component-repo
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./supplemental-ui
