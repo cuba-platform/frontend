@@ -6,12 +6,16 @@
     "npm": ">=6"
   },
   "devDependencies": {
+    "@antora/cli": "^2.2.0",
+    "@antora/site-generator-default": "^2.2.0",
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^8.3.4",
     "@commitlint/travis-cli": "^8.3.4",
     "commitizen": "^4.0.3",
     "cz-lerna-changelog": "^2.0.2",
+    "fs-extra": "^8.1.0",
     "husky": "^4.0.6",
+    "js-yaml": "^3.13.1",
     "lerna": "^3.19.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
@@ -20,6 +24,8 @@
   },
   "scripts": {
     "lerna": "lerna",
+    "antora": "antora",
+    "antora:gen": "antora docs-src/antora-playbook.yml --fetch",
     "commit": "node_modules/commitizen/bin/git-cz",
     "pack-given-client-libs": "node scripts/pack-given-client-libs.js",
     "pack-react-client-libs": "node scripts/pack-react-client-libs.js",
@@ -46,9 +52,8 @@
     "snyk:auth": "snyk auth",
     "snyk:test": "snyk test --all-projects --detection-depth=3 --exclude=test-pup --dev",
     "snyk:monitor": "snyk monitor --all-projects --detection-depth=3 --exclude=test-pup --dev",
-    "docs": "npm run docs:api-reference && npm run docs:toc",
-    "docs:toc": "node update-readme-toc.js",
-    "docs:api-reference": "rimraf docs && lerna run generate-docs",
+    "doc:site": "node scripts/docs/generate-docs-site.js",
+    "doc:src": "node scripts/docs/update-docs-src.js",
     "validate-react-app": "prettier --check react-client-scr/**/*.ts && CI=true npm test --prefix react-client-scr",
     "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits"
   },

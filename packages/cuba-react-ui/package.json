@@ -64,7 +64,7 @@
     "clean": "rm -rf dist && rm -rf dist-transpiled",
     "test": "jest",
     "coverage": "npm test -- --coverage",
-    "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-react-ui src",
+    "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/cuba-react-ui src",
     "prepublishOnly": "npm run compile"
   },
   "repository": {

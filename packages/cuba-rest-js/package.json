@@ -12,7 +12,7 @@
     "compile": "tsc",
     "types:browser": "tsc --declarationDir dist-browser --emitDeclarationOnly true",
     "dist": "npm run compile && mkdir -p dist-browser && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js",
-    "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-rest-js src",
+    "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/cuba-rest-js src",
     "prepublishOnly": "npm run dist"
   },
   "repository": {
