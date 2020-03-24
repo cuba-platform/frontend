@@ -17,7 +17,7 @@ import {
   handleTableChange,
   isPreservedCondition
 } from './DataTableHelpers';
-import {Condition, ConditionsGroup} from "@cuba-platform/rest";
+import {Condition, ConditionsGroup, EntityAttrPermissionValue} from "@cuba-platform/rest";
 import {
   MainStoreInjected,
   DataCollectionStore,
@@ -422,41 +422,51 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
       throw new Error(`${this.errorContext} ${DataTableComponent.NO_COLUMN_DEF_ERROR}`);
     }
 
-    return source.map((columnDef: string | ColumnDefinition<E>) => {
-      const propertyName = typeof columnDef === 'string' ? columnDef : columnDef.field;
-      const columnSettings = (columnDef as ColumnDefinition<E>).columnProps;
+    return source
+      .filter((columnDef: string | ColumnDefinition<E>) => {
+        const {getAttributePermission} = mainStore!.security;
+        const propertyName = columnDefToPropertyName(columnDef);
+        if (propertyName) {
+          const perm: EntityAttrPermissionValue = getAttributePermission(dataCollection.entityName, propertyName);
+          return perm === 'MODIFY' || perm === 'VIEW';
+        }
+        return true; // Column not bound to an entity attribute
+      })
+      .map((columnDef: string | ColumnDefinition<E>) => {
+        const propertyName = columnDefToPropertyName(columnDef);
+        const columnSettings = (columnDef as ColumnDefinition<E>).columnProps;
 
-      if (propertyName != null) {
-        // Column is bound to an entity property
+        if (propertyName != null) {
+          // Column is bound to an entity property
 
-        const generatedColumnProps = generateDataColumn<E>({
-          propertyName,
-          entityName: dataCollection.entityName,
-          enableFilter: this.isFilterForColumnEnabled(propertyName),
-          filters: this.tableFilters,
-          operator: this.operatorsByProperty.get(propertyName),
-          onOperatorChange: this.handleFilterOperatorChange,
-          value: this.valuesByProperty.get(propertyName),
-          onValueChange: this.handleFilterValueChange,
-          enableSorter: true,
-          mainStore: mainStore!,
-          customFilterRef: (instance: any) => this.customFilters.set(propertyName, instance)
-        });
+          const generatedColumnProps = generateDataColumn<E>({
+            propertyName,
+            entityName: dataCollection.entityName,
+            enableFilter: this.isFilterForColumnEnabled(propertyName),
+            filters: this.tableFilters,
+            operator: this.operatorsByProperty.get(propertyName),
+            onOperatorChange: this.handleFilterOperatorChange,
+            value: this.valuesByProperty.get(propertyName),
+            onValueChange: this.handleFilterValueChange,
+            enableSorter: true,
+            mainStore: mainStore!,
+            customFilterRef: (instance: any) => this.customFilters.set(propertyName, instance)
+          });
 
-        return {
-          ...generatedColumnProps,
-          ...this.props.columnProps, // First we add customizations from columnProps TODO @deprecated
-          ...(columnSettings ? columnSettings : []) // Then we add customizations from columnDefinitions
-        };
-      }
+          return {
+            ...generatedColumnProps,
+            ...this.props.columnProps, // First we add customizations from columnProps TODO @deprecated
+            ...(columnSettings ? columnSettings : []) // Then we add customizations from columnDefinitions
+          };
+        }
 
-      if (columnSettings != null) {
-        // Column is not be bound to an entity property. It is a column fully constructed by client.
-        // E.g. it can be a calculated column or an action column.
-        return columnSettings;
-      }
+        if (columnSettings != null) {
+          // Column is not be bound to an entity property. It is a column fully constructed by client.
+          // E.g. it can be a calculated column or an action column.
+          return columnSettings;
+        }
 
-      throw new Error(`${this.errorContext} Neither field name nor columnProps were provided`);
+        throw new Error(`${this.errorContext} Neither field name nor columnProps were provided`);
     });
   };
 
@@ -470,6 +480,10 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
     return record.id!;
   }
 
+}
+
+function columnDefToPropertyName<E>(columnDef: string | ColumnDefinition<E>): string | undefined {
+  return typeof columnDef === 'string' ? columnDef : columnDef.field;
 }
 
 const dataTable = injectIntl(DataTableComponent);
