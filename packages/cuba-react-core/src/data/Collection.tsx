@@ -24,6 +24,19 @@ export class DataCollectionStore<T> implements DataContainer {
   @observable count?: number;
   @observable skipCount?: boolean;
 
+  /**
+   * `DataCollectionStore` can work in either server or client mode. Server mode (default) means that the data will be
+   * obtained from the server and changes to the data will stored on the server. In particular, invocation of `load` method
+   * will initiate a request to the server to get the entities (with pagination, sorting and filtering performed
+   * server-side), and invocation of `delete` method will initiate a request to delete the entity.
+   * Client mode means that the data is operated client-side and is not automatically propagated to the server.
+   * This mode is useful for example when handling Composition. Since `items` field represents
+   * the currently displayed entity instances, in client mode an additional field `allItems` is used to store all
+   * instances.
+   * `load` method will perform pagination and sorting client-side.
+   * NOTE: client-side filtering is not currently implemented.
+   * `delete` method will delete the item from `allItems`.
+   */
   mode?: 'server' | 'client';
   allItems: Array<SerializedEntity<T>> = []; // Client mode only
 
@@ -49,9 +62,13 @@ export class DataCollectionStore<T> implements DataContainer {
     }
   }
 
+  isClientMode = () => {
+    return this.mode === 'client';
+  };
+
   @action
   load = (): Promise<void>  => {
-    return this.mode === 'client' ? this.filterAndSortItems() : this.loadServerSide();
+    return this.isClientMode() ? this.filterAndSortItems() : this.loadServerSide();
   };
 
   @action
@@ -63,7 +80,29 @@ export class DataCollectionStore<T> implements DataContainer {
   };
 
   @action
-  loadServerSide = (): Promise<void>  => {
+  clear = () => {
+    this.items = [];
+    this.changedItems.clear();
+    this.status = 'CLEAN';
+  };
+
+  @action
+  delete = (e: T & {id?: string}): Promise<any> => {
+    return this.isClientMode() ? this.deleteClientSide(e) : this.deleteServerSide(e);
+  };
+
+  @computed
+  get readOnlyItems(): Array<SerializedEntity<T>> {
+    return toJS(this.items)
+  }
+
+  @computed // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
+  get properties(): string[] {
+    return [];
+  }
+
+  @action
+  private loadServerSide: Promise<void> = () => {
     this.changedItems.clear();
     this.status = "LOADING";
 
@@ -83,26 +122,14 @@ export class DataCollectionStore<T> implements DataContainer {
   };
 
   @action
-  clear = () => {
-    this.items = [];
-    this.changedItems.clear();
-    this.status = 'CLEAN';
-  };
-
-  @action
-  delete = (e: T & {id?: string}): Promise<any> => {
-    return this.mode === 'client' ? this.deleteClientSide(e) : this.deleteServerSide(e);
-  };
-
-  @action
-  deleteClientSide = (e: T & {id?: string}): Promise<any> => {
+  private deleteClientSide = (e: T & {id?: string}): Promise<any> => {
     this.allItems = this.allItems.filter((item: T & {id?: string}) => (item != null && item.id !== e.id));
     this.filterAndSortItems();
     return Promise.resolve();
   };
 
   @action
-  deleteServerSide = (e: T & {id?: string}): Promise<any> => {
+  private deleteServerSide = (e: T & {id?: string}): Promise<any> => {
     if (e == null || e.id == null) {
       throw new Error('Unable to delete entity without ID');
     }
@@ -117,16 +144,6 @@ export class DataCollectionStore<T> implements DataContainer {
         return true;
       }));
   };
-
-  @computed
-  get readOnlyItems(): Array<SerializedEntity<T>> {
-    return toJS(this.items)
-  }
-
-  @computed // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
-  get properties(): string[] {
-    return [];
-  }
 
   private get entitiesLoadOptions() {
     const loadOptions: EntitiesLoadOptions = {
