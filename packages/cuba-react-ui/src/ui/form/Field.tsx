@@ -21,6 +21,7 @@ type Props = MainStoreInjected & FormComponentProps & {
   propertyName: string;
   optionsContainer?: DataCollectionStore<WithId>;
   nestedEntityView?: string;
+  parentEntityInstanceId?: string;
 
   // form item
   formItemKey?: string;
@@ -39,7 +40,7 @@ export const Field = injectMainStore(observer((props: Props) => {
 
   const {
     entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps,
-    nestedEntityView
+    nestedEntityView, parentEntityInstanceId
   } = props;
 
   const formItemOpts: FormItemProps = {... props.formItemOpts};
@@ -60,6 +61,7 @@ export const Field = injectMainStore(observer((props: Props) => {
                      disabled={isReadOnly}
                      optionsContainer={optionsContainer}
                      nestedEntityView={nestedEntityView}
+                     parentEntityInstanceId={parentEntityInstanceId}
                      {...componentProps}
           />
         )}

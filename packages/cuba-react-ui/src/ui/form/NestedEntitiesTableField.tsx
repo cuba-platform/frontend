@@ -28,6 +28,7 @@ export type NestedEntitiesTableFieldProps = MainStoreInjected & WrappedComponent
   nestedEntityName: string;
   nestedEntityView: string;
   parentEntityName: string;
+  parentEntityInstanceId: string;
 }
 
 @injectMainStore
@@ -39,6 +40,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
   @observable allFields: string[] | undefined;
   @observable editorFields: string[] | undefined;
   @observable tableFields: string[] | undefined;
+  @observable inverseAttributeName: string | undefined;
   @observable dataCollection: DataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined;
   @observable editedInstance: DataInstanceStore<Partial<WithId & SerializedEntityProps>> | undefined;
   @observable associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>>> = new Map();
@@ -95,6 +97,9 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
           const entityProperties: MetaPropertyInfo[] =
             getEntityProperties(nestedEntityName, this.allFields, this.props.mainStore?.metadata);
           this.associationOptions = loadAssociationOptions(entityProperties); // Performs HTTP requests, async
+          this.inverseAttributeName = entityProperties
+            .find(property => property.type === parentEntityName)
+            ?.name;
           const propertiesExceptInverseAttr = entityProperties
             .filter(property => property.type !== parentEntityName);
           this.editorFields = propertiesExceptInverseAttr
@@ -168,11 +173,19 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
    * @param updatedValues
    */
   handleSubmitInstance = (updatedValues: {[field: string]: any}) => {
+    const {parentEntityInstanceId} = this.props;
+
     if (this.editedInstance?.item?.id != null) {
       // We are editing existing entity (loaded from server or created client-side)
       // Update this.editedInstance.item - this includes data transformation from Form fields to REST API format
       const instanceId = this.editedInstance?.item?.id;
-      this.editedInstance?.setItemToFormFields({id: instanceId, ...updatedValues});
+
+      const patch: any = {id: instanceId, ...updatedValues};
+      if (this.inverseAttributeName != null) {
+        patch[this.inverseAttributeName] = parentEntityInstanceId;
+      }
+
+      this.editedInstance?.setItemToFormFields(patch);
       // Put updated item into dataCollection
       const index = this.dataCollection?.allItems.findIndex((item: WithId) => {
         return item.id === instanceId;
@@ -182,8 +195,12 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
       }
     } else {
       // We are creating a new entity
+      const patch: any = {id: generateTemporaryEntityId(), ...updatedValues};
+      if (this.inverseAttributeName != null) {
+        patch[this.inverseAttributeName] = parentEntityInstanceId;
+      }
       // Update this.editedInstance.item - this includes data transformation from Form fields to REST API format
-      this.editedInstance?.setItemToFormFields({id: generateTemporaryEntityId(), ...updatedValues});
+      this.editedInstance?.setItemToFormFields(patch);
       // Put updated item into dataCollection
       this.dataCollection?.allItems.push(this.editedInstance?.item || {});
     }

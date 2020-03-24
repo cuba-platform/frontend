@@ -29,12 +29,13 @@ export type FormFieldProps = MainStoreInjected & {
   disabled?: boolean;
   optionsContainer?: DataCollectionStore<WithId>;
   nestedEntityView?: string;
+  parentEntityInstanceId?: string;
 } & FormFieldComponentProps
 
 export const FormField = injectMainStore(observer((props: FormFieldProps) => {
 
   const {
-    entityName, propertyName, optionsContainer, mainStore, nestedEntityView,
+    entityName, propertyName, optionsContainer, mainStore, nestedEntityView, parentEntityInstanceId,
     ...rest
   } = props;
 
@@ -73,6 +74,7 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
             return <NestedEntitiesTableField nestedEntityName={nestedEntityName}
                                              nestedEntityView={nestedEntityView}
                                              parentEntityName={entityName}
+                                             parentEntityInstanceId={parentEntityInstanceId}
                                              {...(rest as NestedEntitiesTableFieldProps)}
             />;
           }
