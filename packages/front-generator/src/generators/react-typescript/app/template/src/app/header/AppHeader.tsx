@@ -26,7 +26,6 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
                   id='button_logout'
                   ghost={true}
                   icon='logout'
-                  style={{border: 0}}
                   onClick={this.showLogoutConfirm}/>
         </div>
       </div>
