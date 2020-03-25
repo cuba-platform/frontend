@@ -6,4 +6,5 @@
 
 .user-panel > .panelelement {
   margin: 6px;
+  border: 0;
 }

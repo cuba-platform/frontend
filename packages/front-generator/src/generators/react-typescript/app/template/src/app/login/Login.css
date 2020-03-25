@@ -16,3 +16,7 @@
   display: block;
   margin: 0 auto 12px;
 }
+
+.language-switcher-container {
+  float: right;
+}

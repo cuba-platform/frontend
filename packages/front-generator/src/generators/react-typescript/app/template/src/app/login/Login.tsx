@@ -67,7 +67,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
                    size='large'/>
           </Form.Item>
           <Form.Item>
-            <div style={{float: 'right'}}>
+            <div className='language-switcher-container'>
               <LanguageSwitcher className='language-switcher' />
             </div>
           </Form.Item>
