@@ -176,6 +176,7 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
                         associationOptions={this.associationOptions}
                         onSubmit={this.handleSubmit}
                         onCancel={this.closeDrawer}
+                        submitButtonText='common.ok'
           />
         </Drawer>
       </>

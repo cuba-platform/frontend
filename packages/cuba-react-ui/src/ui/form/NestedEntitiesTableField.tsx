@@ -290,6 +290,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
                           associationOptions={this.associationOptions}
                           onSubmit={this.handleSubmitInstance}
                           onCancel={this.closeDrawer}
+                          submitButtonText='common.ok'
           />}
         </Drawer>
       </>
