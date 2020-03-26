@@ -35,6 +35,7 @@ type EntityEditorProps = MainStoreInjected & WrappedComponentProps & {
   onSubmit?: (fieldValues: {[field: string]: any}) => void;
   onCancel: () => void;
   parentEntityName?: string;
+  submitButtonText?: string;
 };
 
 @injectMainStore
@@ -142,7 +143,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
   };
 
   render() {
-    const {mainStore, dataInstance, onCancel} = this.props;
+    const {mainStore, dataInstance, onCancel, submitButtonText} = this.props;
 
     if (!mainStore?.isEntityDataLoaded()) { return <Spinner/> }
 
@@ -172,7 +173,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
               loading={status === "LOADING"}
               className='submitbutton'
             >
-              <FormattedMessage id="management.editor.submit" />
+              <FormattedMessage id={submitButtonText || 'management.editor.submit'} />
             </Button>
           </Form.Item>
         </Form>
