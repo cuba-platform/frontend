@@ -26,4 +26,4 @@ Libraries powering React and React Native front-end clients.
 
 ## Documentation
 
-[Learn how to use the tools](https://cuba-platform.github.io/frontend)
+[Browse documentation](https://cuba-platform.github.io/frontend)
