@@ -30,12 +30,14 @@ jobs:
   include:
     - name: "Dependency vulnerability check"
       script:
-        - snyk test --all-projects --detection-depth=3 --exclude=test-pup,react-client-scr --dev
+        - npm run bootstrap-react-app
+        - npm run snyk:test
 
     - name: "Send snapshot to Snyk"
       if: branch = master OR branch = develop
       script:
-        - snyk monitor --all-projects --detection-depth=3 --exclude=test-pup,react-client-scr --dev
+        - npm run bootstrap-react-app
+        - npm run snyk:monitor
 
     - name: "Tests on generated app"
       # setup cuba postgres user; build and run backend app
