@@ -64,7 +64,7 @@ export class DataInstanceStore<T> implements DataContainer {
 
   @action
   setItemToFormFields(formFields: Partial<T>) {
-    Object.assign(this.item, formFieldsToInstanceItem(formFields, this.entityName, toJS(this.mainStore.metadata!)));
+    this.item = formFieldsToInstanceItem(formFields, this.entityName, toJS(this.mainStore.metadata!)) as T & Partial<SerializedEntityProps> & { id?: string };
     this.status = "DONE";
   }
 
