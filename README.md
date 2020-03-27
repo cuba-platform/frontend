@@ -598,6 +598,28 @@ class CarList extends React.Component {
 }
 ``` 
 
+##### ClientSideDataCollectionStore
+
+`ClientSideDataCollectionStore` is a variant of `DataCollectionStore` intended for situations when data shall be operated client-side. It is useful for example when handling [Composition relationship](https://www.cuba-platform.com/guides/data-modelling-composition). `ClientSideDataCollectionStore` can be created via `clientSideCollection()` initializer function.
+
+```typescript
+dataCollection = clientSideCollection<Pet>(Pet.NAME, {
+    allItems: entityInstancesArray,
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);
+```
+
+`ClientSideDataCollectionStore` inteface extends `DataCollectionStore` adding the following members:
+
+- `allItems` field - array of entity instances with default sort order and no filtering applied. 
+- `adjustItems` method - sets `items` based on `allItems` and other conditions. Currently it only performs the client-side sorting based on `sort` field, client-side filtering is not currently supported.
+
 ##### DataInstanceStore
 `DataInstanceStore` is used to work with a single instance of some Entity. It can be created via `instance()` initializer function:
 ```typescript
