@@ -12,7 +12,28 @@ import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST} from "../app/CubaAppProvider";
 import {sortEntityInstances} from '../util/collation';
 
-export class DataCollectionStore<T> implements DataContainer {
+export interface DataCollectionStore<T> extends DataContainer {
+  items: Array<SerializedEntity<T>>;
+  readonly readOnlyItems: Array<SerializedEntity<T>>;
+  readonly properties: string[];
+  view: string;
+  sort?: string;
+  filter?: EntityFilter;
+  limit?: number;
+  offset?: number;
+  count?: number;
+  skipCount?: boolean;
+  load: () => Promise<void>;
+  clear: () => void;
+  delete: (e: T & {id?: string}) => Promise<any>;
+}
+
+export interface ClientSideDataCollectionStore<T> extends DataCollectionStore<T> {
+  allItems: Array<SerializedEntity<T>>;
+  adjustItems: () => void;
+}
+
+class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
 
   @observable items: Array<SerializedEntity<T>> = [];
   @observable status: DataContainerStatus = "CLEAN";
@@ -24,24 +45,9 @@ export class DataCollectionStore<T> implements DataContainer {
   @observable count?: number;
   @observable skipCount?: boolean;
 
-  /**
-   * `DataCollectionStore` can work in either server or client mode. Server mode (default) means that the data will be
-   * obtained from the server and changes to the data will stored on the server. In particular, invocation of `load` method
-   * will initiate a request to the server to get the entities (with pagination, sorting and filtering performed
-   * server-side), and invocation of `delete` method will initiate a request to delete the entity.
-   * Client mode means that the data is operated client-side and is not automatically propagated to the server.
-   * This mode is useful for example when handling Composition. Since `items` field represents
-   * the currently displayed entity instances, in client mode an additional field `allItems` is used to store all
-   * instances.
-   * `load` method will perform pagination and sorting client-side.
-   * NOTE: client-side filtering is not currently implemented.
-   * `delete` method will delete the item from `allItems`.
-   */
-  mode?: 'server' | 'client';
   allItems: Array<SerializedEntity<T>> = []; // Client mode only
 
   changedItems: IObservableArray<any> = observable([]);
-
 
   constructor(public readonly entityName: string,
               public readonly trackChanges = false,
@@ -62,47 +68,8 @@ export class DataCollectionStore<T> implements DataContainer {
     }
   }
 
-  isClientMode = () => {
-    return this.mode === 'client';
-  };
-
   @action
-  load = (): Promise<void>  => {
-    return this.isClientMode() ? this.filterAndSortItems() : this.loadServerSide();
-  };
-
-  @action
-  filterAndSortItems = (): Promise<void>  => {
-    // const filteredItems = filterEntityInstances([...this.allItems], this.filter);
-    const filteredItems = [...this.allItems]; // TODO Client-side filtering is not implemented
-    this.items = sortEntityInstances(filteredItems, this.sort);
-    return Promise.resolve();
-  };
-
-  @action
-  clear = () => {
-    this.items = [];
-    this.changedItems.clear();
-    this.status = 'CLEAN';
-  };
-
-  @action
-  delete = (e: T & {id?: string}): Promise<any> => {
-    return this.isClientMode() ? this.deleteClientSide(e) : this.deleteServerSide(e);
-  };
-
-  @computed
-  get readOnlyItems(): Array<SerializedEntity<T>> {
-    return toJS(this.items)
-  }
-
-  @computed // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
-  get properties(): string[] {
-    return [];
-  }
-
-  @action
-  private loadServerSide: Promise<void> = () => {
+  load = (): Promise<void> => {
     this.changedItems.clear();
     this.status = "LOADING";
 
@@ -122,14 +89,14 @@ export class DataCollectionStore<T> implements DataContainer {
   };
 
   @action
-  private deleteClientSide = (e: T & {id?: string}): Promise<any> => {
-    this.allItems = this.allItems.filter((item: T & {id?: string}) => (item != null && item.id !== e.id));
-    this.filterAndSortItems();
-    return Promise.resolve();
+  clear = () => {
+    this.items = [];
+    this.changedItems.clear();
+    this.status = 'CLEAN';
   };
 
   @action
-  private deleteServerSide = (e: T & {id?: string}): Promise<any> => {
+  delete = (e: T & {id?: string}): Promise<any> => {
     if (e == null || e.id == null) {
       throw new Error('Unable to delete entity without ID');
     }
@@ -144,6 +111,16 @@ export class DataCollectionStore<T> implements DataContainer {
         return true;
       }));
   };
+
+  @computed
+  get readOnlyItems(): Array<SerializedEntity<T>> {
+    return toJS(this.items)
+  }
+
+  @computed // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
+  get properties(): string[] {
+    return [];
+  }
 
   private get entitiesLoadOptions() {
     const loadOptions: EntitiesLoadOptions = {
@@ -184,6 +161,37 @@ export class DataCollectionStore<T> implements DataContainer {
   }
 }
 
+class ClientSideDataCollectionStoreImpl<T> extends DataCollectionStoreImpl<T> implements ClientSideDataCollectionStore<T> {
+  allItems: Array<SerializedEntity<T>> = [];
+
+  constructor(public readonly entityName: string,
+              public readonly trackChanges = false,
+              viewName: string = PredefinedView.MINIMAL,
+              sort?: string) {
+    super(entityName, trackChanges, viewName, sort);
+  }
+
+  @action
+  load = (): Promise<void> => {
+    this.adjustItems();
+    return Promise.resolve();
+  };
+
+  @action
+  adjustItems = () => {
+    // Currently only sorts the items. Client-side filtering can be implemented here:
+    // const filteredItems = filterEntityInstances([...this.allItems], this.filter);
+    this.items = sortEntityInstances([...this.allItems], this.sort);
+  };
+
+  @action
+  delete = (e: T & {id?: string}): Promise<any> => {
+    this.allItems = this.allItems.filter((item: T & {id?: string}) => (item != null && item.id !== e.id));
+    this.adjustItems();
+    return Promise.resolve();
+  };
+}
+
 export interface DataCollectionOptions {
   loadImmediately?: boolean,
   view?: string,
@@ -192,8 +200,10 @@ export interface DataCollectionOptions {
   offset?: number,
   filter?: EntityFilter,
   trackChanges?: boolean,
-  mode?: 'server' | 'client',
-  allItems?: Array<SerializedEntity<any>>
+}
+
+export interface ClientSideDataCollectionOptions extends DataCollectionOptions {
+  allItems?: Array<SerializedEntity<any>>;
 }
 
 export const defaultOpts: DataCollectionOptions = {
@@ -201,7 +211,21 @@ export const defaultOpts: DataCollectionOptions = {
 };
 
 function createStore<E>(entityName: string, opts: DataCollectionOptions): DataCollectionStore<E> {
-  const dataCollection = new DataCollectionStore<E>(entityName, !!opts.trackChanges);
+  const dataCollection = new DataCollectionStoreImpl<E>(entityName, !!opts.trackChanges);
+  setOptionsAndLoad(dataCollection, opts);
+  return dataCollection;
+}
+
+function createClientSideStore<E>(entityName: string, opts: ClientSideDataCollectionOptions): ClientSideDataCollectionStore<E> {
+  const dataCollection = new ClientSideDataCollectionStoreImpl<E>(entityName, !!opts.trackChanges);
+  if (opts.allItems != null) {
+    dataCollection.allItems = opts.allItems;
+  }
+  setOptionsAndLoad(dataCollection, opts);
+  return dataCollection;
+}
+
+function setOptionsAndLoad<E>(dataCollection: DataCollectionStore<E>, opts: DataCollectionOptions) {
   if (opts.view != null) {
     dataCollection.view = opts.view;
   }
@@ -217,16 +241,9 @@ function createStore<E>(entityName: string, opts: DataCollectionOptions): DataCo
   if (opts.offset != null) {
     dataCollection.offset = opts.offset;
   }
-  if (opts.mode != null) {
-    dataCollection.mode = opts.mode;
-  }
-  if (opts.allItems != null) {
-    dataCollection.allItems = opts.allItems;
-  }
   if (typeof opts.loadImmediately === 'undefined' || opts.loadImmediately) {
     dataCollection.load();
   }
-  return dataCollection;
 }
 
 // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
@@ -237,8 +254,14 @@ export const withDataCollection = (entityName: string, opts: DataCollectionOptio
   })(target);
 };
 
-export const collection = <E extends {}>(entityName: string, opts: DataCollectionOptions = defaultOpts) => {
+export const collection = <E extends {}>(entityName: string, opts: DataCollectionOptions = defaultOpts): DataCollectionStore<E> => {
   return createStore<E>(entityName, opts);
+};
+
+export const clientSideCollection = <E extends {}>(
+  entityName: string, opts: ClientSideDataCollectionOptions = defaultOpts
+): ClientSideDataCollectionStore<E> => {
+  return createClientSideStore<E>(entityName, opts);
 };
 
 // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4

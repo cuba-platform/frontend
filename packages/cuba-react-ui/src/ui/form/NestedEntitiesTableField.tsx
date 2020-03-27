@@ -1,8 +1,9 @@
 import React from 'react';
 import {DataTable} from '../..';
 import {
-  collection,
   DataCollectionStore,
+  ClientSideDataCollectionStore,
+  clientSideCollection,
   MainStoreInjected,
   WithId,
   DataInstanceStore,
@@ -41,7 +42,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
   @observable editorFields: string[] | undefined;
   @observable tableFields: string[] | undefined;
   @observable inverseAttributeName: string | undefined;
-  @observable dataCollection: DataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined;
+  @observable dataCollection: ClientSideDataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined;
   @observable editedInstance: DataInstanceStore<Partial<WithId & SerializedEntityProps>> | undefined;
   @observable associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>>> = new Map();
 
@@ -51,10 +52,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
   componentDidMount(): void {
     const {nestedEntityName, nestedEntityView, parentEntityName, mainStore} = this.props;
 
-    this.dataCollection = collection(nestedEntityName, {
-      loadImmediately: false,
-      mode: 'client'
-    });
+    this.dataCollection = clientSideCollection(nestedEntityName, {loadImmediately: false});
 
     // HTTP request
     if (this.allFields == null) {
@@ -79,7 +77,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
               ...formFieldsToInstanceItem(element, nestedEntityName, mainStore!.metadata!)
             };
           });
-          this.dataCollection.filterAndSortItems();
+          this.dataCollection.adjustItems();
         }
       }
     ));
@@ -205,7 +203,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
       this.dataCollection?.allItems.push(this.editedInstance?.item || {});
     }
 
-    this.dataCollection?.filterAndSortItems();
+    this.dataCollection?.adjustItems();
     this.updateFormFieldValue();
     this.closeDrawer();
   };
