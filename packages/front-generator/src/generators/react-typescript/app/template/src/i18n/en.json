@@ -56,9 +56,17 @@
 
   "cubaReact.dataTable.listEditor.addItem": "Add Item",
 
+  "cubaReact.file.downloading": "Downloading file...",
+  "cubaReact.file.downloadFailed": "Download failed",
+
   "cubaReact.fileUpload.replace": "Upload a different file by clicking or dragging file to this area",
   "cubaReact.fileUpload.upload": "Click or drag file to this area to upload",
   "cubaReact.fileUpload.uploadFailed": "File upload failed",
+
+  "cubaReact.imagePreview.title": "Image Preview",
+  "cubaReact.imagePreview.alt": "Image Preview",
+  "cubaReact.imagePreview.close": "Close",
+  "cubaReact.imagePreview.download": "Download",
 
   "cubaReact.nestedEntityField.create": "Create an entity",
   "cubaReact.nestedEntityField.delete.areYouSure": "Are you sure you want to delete the nested entity?",
