@@ -8,6 +8,8 @@ import {UploadFile} from 'antd/es/upload/interface';
 import './FileUpload.less';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import { getCubaREST } from '@cuba-platform/react-core';
+import {ImagePreview} from './ImagePreview';
+import {saveFile} from '../util/files';
 
 export interface FileUploadProps {
   value?: FileInfo, // coming from Ant Design form field decorator
@@ -28,6 +30,10 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
 
   @observable
   fileList: UploadFile[] = [];
+  @observable isPreviewVisible = false;
+  @observable isPreviewLoading = false;
+  @observable previewImageObjectUrl: string | undefined;
+  @observable previewFileName: string | undefined;
 
   reactionDisposers: IReactionDisposer[] = [];
 
@@ -54,6 +60,9 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
 
   componentWillUnmount(): void {
     this.reactionDisposers.forEach(disposer => disposer());
+    if (this.previewImageObjectUrl != null) {
+      URL.revokeObjectURL(this.previewImageObjectUrl);
+    }
   }
 
   handleChange = (info: UploadChangeParam): void => {
@@ -80,23 +89,35 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
   };
 
   handlePreview = (_file: UploadFile): void => {
-    getCubaREST()!.getFile(this.fileList[0].uid).then((blob: Blob) => {
-      const objectUrl: string = URL.createObjectURL(blob);
+    const {intl} = this.props;
 
-      const fileName: string = this.fileList[0].name;
-      if (isImageFile(fileName)) {
-        // Open image in a new tab
-        window.open(objectUrl);
-      } else {
-        // Download file with correct filename
-        const anchor: HTMLAnchorElement = document.createElement('a');
-        anchor.href = objectUrl;
-        anchor.download = fileName;
-        anchor.click();
-      }
-
-      URL.revokeObjectURL(objectUrl);
-    });
+    const fileName: string = this.fileList[0].name;
+    if (isImageFile(fileName)) {
+      // Open image in ImagePreview component
+      this.isPreviewVisible = true;
+      this.isPreviewLoading = true;
+      this.previewFileName = fileName;
+      getCubaREST()!.getFile(this.fileList[0].uid).then((blob: Blob) => {
+        this.previewImageObjectUrl = URL.createObjectURL(blob);
+      }).catch(() => {
+        message.error(intl.formatMessage({id: 'cubaReact.file.downloadFailed'}));
+        this.isPreviewVisible = false;
+      }).finally(() => {
+        this.isPreviewLoading = false;
+      });
+    } else {
+      // Download file with correct filename
+      const hideDownloadMessage = message.loading(intl.formatMessage({id: 'cubaReact.file.downloading'}));
+      getCubaREST()!.getFile(this.fileList[0].uid).then((blob: Blob) => {
+        const objectUrl: string = URL.createObjectURL(blob);
+        saveFile(objectUrl, fileName);
+        URL.revokeObjectURL(objectUrl);
+      }).catch(() => {
+        message.error(intl.formatMessage({id: 'cubaReact.file.downloadFailed'}));
+      }).finally(() => {
+        hideDownloadMessage();
+      });
+    }
   };
 
   handleRemove = (_file: UploadFile) => {
@@ -104,6 +125,15 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
     if (this.props.onChange) {
       this.props.onChange(null);
     }
+  };
+
+  handleClosePreview = () => {
+    this.isPreviewVisible = false;
+    if (this.previewImageObjectUrl) {
+      URL.revokeObjectURL(this.previewImageObjectUrl);
+    }
+    this.previewImageObjectUrl = undefined;
+    this.previewFileName = undefined;
   };
 
   render() {
@@ -126,11 +156,19 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
     const uploadProps: UploadProps = { ...defaultUploadProps, ...this.props.uploadProps };
 
     return (
-      <Upload
-        { ...uploadProps }
-      >
-        { this.props.render ? this.props.render(this.props.value) : <FileUploadDropArea fileInfo={this.props.value}/> }
-      </Upload>
+      <>
+        <Upload
+          { ...uploadProps }
+        >
+          { this.props.render ? this.props.render(this.props.value) : <FileUploadDropArea fileInfo={this.props.value}/> }
+        </Upload>
+        <ImagePreview isVisible={this.isPreviewVisible}
+                      isLoading={this.isPreviewLoading}
+                      objectUrl={this.previewImageObjectUrl}
+                      fileName={this.previewFileName}
+                      onClose={this.handleClosePreview}
+        />
+      </>
     );
   };
 
