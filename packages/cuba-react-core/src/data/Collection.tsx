@@ -107,7 +107,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
         return true;
       }))
       .catch(action(() => {
-        this.status = "DONE";
+        this.status = "ERROR";
         return true;
       }));
   };
