@@ -135,6 +135,17 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
       }
     ));
 
+    // Display error message if dataCollection.load has failed
+    this.disposers.push(reaction(
+      () => this.props.dataCollection.status,
+      (status) => {
+        const {intl} = this.props;
+        if (status === 'ERROR') {
+          message.error(intl.formatMessage({id: 'common.requestFailed'}));
+        }
+      }
+    ));
+
     // Call corresponding callback(s) when selectedRowKeys is changed
     this.disposers.push(reaction(
       () => this.selectedRowKeys,
@@ -231,17 +242,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
 
     handleTableChange<E>({
       pagination, filters, sorter, defaultSort, fields, mainStore, dataCollection
-    }).finally(() => {
-      this.checkDataCollectionStatus();
     });
-  };
-
-  checkDataCollectionStatus = () => {
-    const {dataCollection, intl} = this.props;
-
-    if (dataCollection.status === 'ERROR') {
-      message.error(intl.formatMessage({id: 'cubaReact.dataTable.failedToLoad'}));
-    }
   };
 
   @action
@@ -321,9 +322,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
         this.props.dataCollection.filter = undefined;
       }
     }
-    load().finally(() => {
-      this.checkDataCollectionStatus();
-    });
+    load();
   };
 
   get rowSelectionType(): RowSelectionType {
