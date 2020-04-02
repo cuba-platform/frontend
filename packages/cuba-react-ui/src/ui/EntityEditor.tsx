@@ -27,16 +27,55 @@ import {
 } from '../index';
 import './EntityEditor.less';
 
-type EntityEditorProps = MainStoreInjected & WrappedComponentProps & {
+export interface EntityEditorProps extends MainStoreInjected, WrappedComponentProps {
+  /**
+   * Name of the entity being edited
+   */
   entityName: string;
+  /**
+   * A list of entity properties for which the form fields should be rendered.
+   * Certain fields might not be editable if the user lacks edit permissions.
+   */
   fields: string[];
+  /**
+   * A data instance representing the entity instance being edited
+   */
   dataInstance: DataInstanceStore<Partial<WithId & SerializedEntityProps>>;
+  /**
+   * A map where keys are names of entity properties with relation type Association
+   * and values are data collections containing entity instances that can be assigned
+   * to the corresponding property (i.e. possible options that can be selected in a form field)
+   */
   associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>>>;
+  /**
+   * A callback that is executed when the form is submitted.
+   * Execution happens only after a successful client-side validation.
+   * This prop can be used to override the default behavior which is to send
+   * a request to REST API to update the entity.
+   *
+   * It takes one parameter `fieldValues` that represents the values of antd {@link https://ant.design/components/form/ Form} fields.
+   * It can be obtained via antd Form's `getFieldsValue(fields)` method.
+   * `fields` parameter of this method is a list of entity properties for which
+   * the form field values should be collected.
+   */
   onSubmit?: (fieldValues: {[field: string]: any}) => void;
+  /**
+   * A callback that is executed when Cancel button is clicked.
+   * Examples of behavior initiated by this callback may include
+   * navigating back to the entity browser screen or,
+   * if the `EntityEditor` was opened in a modal, closing that modal.
+   */
   onCancel: () => void;
+  /**
+   * Used in a context of Composition relationship. When `EntityEditor` is used to edit a nested entity,
+   * parent entity name shall be supplied via this prop.
+   */
   parentEntityName?: string;
+  /**
+   * This prop can be used to override the default caption on Submit button
+   */
   submitButtonText?: string;
-};
+}
 
 @injectMainStore
 @observer

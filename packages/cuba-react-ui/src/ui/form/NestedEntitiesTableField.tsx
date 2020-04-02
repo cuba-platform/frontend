@@ -23,12 +23,30 @@ import './NestedEntitiesTableField.less';
 import {EntityEditor, getEntityProperties} from '../EntityEditor';
 import { loadAssociationOptions } from '../../util/ui-model';
 
-export type NestedEntitiesTableFieldProps = MainStoreInjected & WrappedComponentProps & {
-  value?: any; // coming from Ant Design form field decorator
-  onChange?: (value: any) => void; // coming from Ant Design form field decorator
+export interface NestedEntitiesTableFieldProps extends MainStoreInjected, WrappedComponentProps {
+  /**
+   * Сoming from antd Form field decorator
+   */
+  value?: any;
+  /**
+   * Сoming from antd Form field decorator
+   */
+  onChange?: (value: any) => void;
+  /**
+   * Name of the nested entity
+   */
   nestedEntityName: string;
+  /**
+   * Name of the view that will be used for the nested entity
+   */
   nestedEntityView: string;
+  /**
+   * Name of the parent entity
+   */
   parentEntityName: string;
+  /**
+   * Instance id of the parent entity
+   */
   parentEntityInstanceId: string;
 }
 

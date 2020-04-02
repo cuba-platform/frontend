@@ -12,16 +12,38 @@ import {ImagePreview} from './ImagePreview';
 import {saveFile} from '../util/files';
 
 export interface FileUploadProps {
-  value?: FileInfo, // coming from Ant Design form field decorator
-  onChange?: (arg: any) => void, // coming from Ant Design form field decorator
+  /**
+   * Сoming from antd Form field decorator
+   */
+  value?: FileInfo,
+  /**
+   * Сoming from antd Form field decorator
+   */
+  onChange?: (arg: any) => void,
+  /**
+   * Whether the component shall take all available width. **Default**: true.
+   */
   enableFullWidth?: boolean,
   disabled?: boolean,
+  /**
+   * UploadProps object that is passed through to the underlying antd {@link https://ant.design/components/upload/ Upload} component
+   */
   uploadProps?: UploadProps,
+  /**
+   * Render function that allows to customize the file drop area.
+   * @param fileInfo - a valid {@link FileInfo} object
+   */
   render?: (fileInfo: FileInfo | undefined) => React.ReactNode,
 }
 
 export interface FileInfo {
+  /**
+   * FileDescriptor id
+   */
   id: string,
+  /**
+   * File name
+   */
   name: string,
 }
 
