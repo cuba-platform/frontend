@@ -6,15 +6,31 @@ import './ImagePreview.less';
 import {saveFile} from '../util/files';
 import {ButtonProps} from 'antd/es/button';
 
-type Props = WrappedComponentProps & {
+export interface ImagePreviewProps extends WrappedComponentProps {
+  /**
+   * Whether the modal with image preview is displayed
+   */
   isVisible: boolean;
+  /**
+   * When true a spinner will displayed in place of the image
+   */
   isLoading: boolean;
+  /**
+   * An object URL representing the image.
+   * See {@link https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL documentation} for object URL.
+   */
   objectUrl?: string;
+  /**
+   * A file name that will be used when downloading the file.
+   */
   fileName?: string;
+  /**
+   * A callback that will be executed when the modal is closed.
+   */
   onClose: () => void;
 }
 
-class ImagePreviewComponent extends React.Component<Props> {
+class ImagePreviewComponent extends React.Component<ImagePreviewProps> {
   get okButtonProps(): ButtonProps {
     const {isLoading} = this.props;
     return {

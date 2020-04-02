@@ -1,6 +1,11 @@
 = CUBA Platform Frontend Generator
 // :imagesdir: attribute is ignored by Antora, which allows us to have images displayed properly both in README and generated site
 :imagesdir: docs-src/doc-component-repo/modules/ROOT/images
+:EntityEditorProps: link:api-reference/cuba-react-ui/interfaces/_ui_entityeditor_.entityeditorprops.html[EntityEditorProps]
+:NestedEntityFieldProps: link:api-reference/cuba-react-ui/interfaces/_ui_form_nestedentityfield_.nestedentityfieldprops.html[NestedEntityFieldProps]
+:NestedEntitiesTableField: link:api-reference/cuba-react-ui/interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html[NestedEntitiesTableField]
+:FileUploadProps: link:api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html[FileUploadProps]
+:ImagePreviewProps: link:api-reference/cuba-react-ui/interfaces/_ui_imagepreview_.imagepreviewprops.html[ImagePreviewProps]
 :toc:
 --------------------------------
 
@@ -494,6 +499,8 @@ export function Button(props) {
 }
 ----
 
+There are some useful components provided in link:#cuba-react-core[CUBA React Core] and link:#cuba-react-ui[CUBA React UI] libraries. Please see the corresponding sections for more details.
+
 [[observable-state-with-mobx]]
 === Observable State with MobX
 
@@ -537,369 +544,6 @@ automatically subscribes to changes on any
 https://mobx.js.org/refguide/observable.html[observable] value or object
 i.e. in the example above changing `count` property will result in
 automatic re-render of the component.
-
-[[cuba-react-core]]
-=== CUBA React Core Components
-
-[[cubaappprovider]]
-*CubaAppProvider*
-
-`CubaAppProvider` initializes main CUBA React Core components and
-provides them to the client application. It receives an instance of REST
-API service and an optional config object which has the following
-interface:
-
-[source,typescript]
-----
-import {PropertyType} from "@cuba-platform/rest";
-
-export interface CubaAppConfig {
-  dataTransferFormats?: Partial<Record<PropertyType, string>>;
-  displayFormats?: Partial<Record<PropertyType, string>>;
-}
-----
-
-`dataTransferFormats` can be used to override the default formats used
-to (de)serialize the data transferred by REST API.
-
-`displayFormats` can be used to override the formats used for data
-presentation.
-
-See
-link:api-reference/cuba-rest-js/modules/\_model_.html#propertytype[PropertyType]
-in CUBA REST JS API docs for the list of available property types.
-
-____________________________________________________________________
-NOTE: Only formats for temporal types can currently be overridden this way
-____________________________________________________________________
-
-[source,typescript]
-----
-<CubaAppProvider cubaREST={cubaREST}
-                 config={{
-                   dataTransferFormats: {
-                     localDateTime: 'DD/MM/YYYY HH:mm:ss'
-                   }
-                 }}
->
-   // App component tree
-</CubaAppProvider>
-----
-
-[[mainstore]]
-*MainStore*
-
-`MainStore` contains common application data. It's being initialized
-using `<CubaAppProvider>`.
-
-You can inject it in any component using `@injectMainStore` decorator:
-
-[source,typescript]
-----
-@injectMainStore
-@observer
-export class AppInfo extends React.Component<MainStoreInjected> {
-  render() {
-    if (!this.props.mainStore) {
-      return null;
-    }
-    const {
-      initialized,
-      authenticated,
-      userName,
-      metadata,
-      messages,
-      enums
-    } = this.props.mainStore;
-    return (
-      <ul>
-        <li>App initialized: {initialized ? 'yes' : 'no'}</li>
-        <li>User authenticated: {authenticated ? 'yes' : 'no'}</li>
-        <li>User name: {userName}</li>
-        <li>Metadata: {JSON.stringify(metadata)}</li>
-        <li>Messages: {JSON.stringify(messages)}</li>
-        <li>Enums: {JSON.stringify(enums)}</li>
-      </ul>
-    )
-  }
-}
-----
-
-[[datacollectionstore]]
-*DataCollectionStore*
-
-`DataCollectionStore` is a MobX based store for loading entity
-collections. It can be created via `collection()` initializer function:
-
-[source,typescript]
-----
-dataCollection = collection<Pet>(Pet.NAME, {
-    view: 'pet-with-owner-and-type',
-    sort: 'identificationNumber',
-    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
-    limit: 10,
-    offset: 0,
-    loadImmediately: true, // true by default
-  }
-);
-----
-
-Typically it's being used to display list of entities. Since it's
-reactive, any changes in `items` and `status` will trigger re-render of
-`@observer` components:
-
-[source,typescript]
-----
-@observer
-class CarList extends React.Component {
-  carsData = collection<Car>(Car.NAME, {view: 'car-view', sort: '-updateTs'});
-  render() {
-    if (this.carsData.status === "LOADING") return 'Loading...';
-    return (
-      <ul>
-        {this.carsData.items.map(car =>
-           <li>{car._instanceName}</li>
-        )}
-      </ul>
-    )
-  }
-}
-----
-
-[[ClientSideDataCollectionStore]]
-*ClientSideDataCollectionStore*
-
-`ClientSideDataCollectionStore` is a variant of `DataCollectionStore` intended for situations when data shall be operated client-side. It is useful for example when handling link:https://www.cuba-platform.com/guides/data-modelling-composition[Composition relationship]. `ClientSideDataCollectionStore` can be created via `clientSideCollection()` initializer function.
-
-[source,typescript]
-----
-dataCollection = clientSideCollection<Pet>(Pet.NAME, {
-    allItems: entityInstancesArray,
-    view: 'pet-with-owner-and-type',
-    sort: 'identificationNumber',
-    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
-    limit: 10,
-    offset: 0,
-    loadImmediately: true, // true by default
-  }
-);
-----
-
-`ClientSideDataCollectionStore` inteface extends `DataCollectionStore` adding the following members:
-
-- `allItems` field - array of entity instances with default sort order and no filtering applied.
-- `adjustItems` method - sets `items` based on `allItems` and other conditions. Currently it only performs the client-side sorting based on `sort` field, client-side filtering is not currently supported.
-
-[[datainstancestore]]
-*DataInstanceStore*
-
-`DataInstanceStore` is used to work with a single instance of some
-Entity. It can be created via `instance()` initializer function:
-
-[source,typescript]
-----
-dataInstance = instance<Pet>(Pet.NAME, {view: 'pet-with-owner-and-type', loadImmediately: false});
-----
-
-Use `dataInstance.commit()` method to perform entity update:
-
-[source,typescript]
-----
-dataInstance.item.name = 'New Name';
-dataInstance.commit()
-----
-
-[[api-reference]]
-*API Reference*
-
-API reference for CUBA React Core components can be found
-link:api-reference/cuba-react-core/index.html[here].
-
-[[cuba-react-ui]]
-=== CUBA React UI Components
-
-[[entityproperty]]
-*EntityProperty*
-
-`<EntityProperty>` component is aimed to display a value of some
-Entity's property. It automatically applies formatting according to the
-type of property and adds a corresponding label from global message pack
-(defined on the backend)
-
-[source,typescript]
-----
-<EntityProperty entityName={Pet.NAME}
-                propertyName='birthDate'
-                value={pet.birthDate}/>
-----
-
-[[formfield]]
-*FormField*
-
-`<FormField>` component automatically creates correct Form UI component
-based on entity and property names:
-
-[source,typescript]
-----
-<FormField entityName={Pet.NAME} propertyName='birthDate'/>
-----
-
-For the attributes with relationship it's possible to provide an
-instance of DataCollectionStore via `optionsContainer` prop to render
-options list
-
-[source,typescript]
-----
-petTypesDc = collection<PetType>(PetType.NAME, {view: '_minimal', sort: 'name'});
-...
-<FormField entityName={Pet.NAME}
-           propertyName='type'
-           optionsContainer={this.petTypesDc}/>
-----
-
-[[datatable]]
-*DataTable*
-
-`<DataTable>` is used to present data in tabular form.
-
-image:react/data-table-demo.gif[Data table
-showcase]
-
-It uses Ant Design's https://ant.design/components/table/[Table] under
-the hood and provides the following additional benefits:
-
-* out-of-the-box integration with `DataCollectionStore`
-* powerful filters +
-* support for action buttons (e.g. for CRUD operations)
-
-At the same time `<DataTable>` provides developer with a full access to
-underlying `Table` via its `tableProps` and `columnDefinitions`
-properties (see below).
-
-Example of using `<DataTable>` API:
-
-[source,typescript]
-----
-<DataTable dataCollection={this.dataCollection}
-           columnDefinitions={[
-             'item',
-             'manufacturer',
-             {
-               field: 'price',
-               columnProps: {
-                 align: 'right'
-               }
-             }
-           ]}
-           onSelectedRowChange={this.onSelectedRowChange}
-           buttons={buttons}
-           tableProps={{
-             bordered: true
-           }}
-/>
-----
-
-* `dataCollection` - instance of `DataCollectionStore`
-* `columnDefinitions` - describes the columns to be displayed. See more
-details below.
-* `onSelectedRowChange` - callback that takes the id of selected row,
-can be used together with `buttons` e.g. to facilitate CRUD operations
-* `buttons` - array of React elements representing controls that will be
-rendered above the table
-* `tableProps` - can be used to override any of the underlying
-https://ant.design/components/table/#Table[Table properties]
-
-Deprecated props (use `columnDefinitions` instead):
-
-* `fields` - array of entity property names
-* `columnProps` - can be used to override underlying
-https://ant.design/components/table/#Column[Column properties]. Applied
-to every column.
-
-____________________________________________________________________________________________________________________________________________________________________________________________
-NOTE: `columnDefinitions` is more flexible and provides greater ability to
-customize the columns. `columnDefinitions` will take precedence over
-`fields` and `columnProps` if used simultaneously.
-____________________________________________________________________________________________________________________________________________________________________________________________
-
-[[columndefinitions]]
-_columnDefinitions_
-
-`columnDefinitions` describes the columns to be displayed. The columns
-can represent entity properties or have arbitrary content (for example:
-an action button column, a calculated field column).
-
-There are 3 ways you can define a column:
-
-*1.* Simply put an entity property name as a `string`. In this case
-`DataTable` will render a column with default settings for that
-property.
-
-[source,typescript]
-----
-<DataTable
-       dataCollection={this.dataCollection}
-       columnDefinitions={[
-         'manufacturer',
-         // more columns
-       ]}
-/>
-----
-
-*2.* If you want to customize the default column, use a
-`ColumnDefinition` object where `field` is an entity property name and
-`columnProps` is an antd
-https://ant.design/components/table/#Column[ColumnProps] object. The
-properties you put in `columnProps` will override the default
-properties.
-
-[source,typescript]
-----
-<DataTable
-       dataCollection={this.dataCollection}
-       columnDefinitions={[
-         {
-           field: 'manufacturer', // property name
-           columnProps: { // antd ColumnProps object
-             align: 'right'
-           }
-         },
-         // more columns
-       ]}
-/>
-----
-
-*3.* If you want a column not bound to an entity field, create it from
-scratch using `columnProps` and do not specify a `field`.
-
-[source,typescript]
-----
-<DataTable
-       dataCollection={this.dataCollection}
-       columnDefinitions={[
-         {
-           columnProps: { // antd ColumnProps object
-             render: (text, record) => { /* render some custom content */ }
-           }
-         },
-         // more columns
-       ]}
-/>
-----
-
-If you need even more control, you may want to start with a vanilla antd
-https://ant.design/components/table/[Table] and take a look into
-exported functions in `DataTableHelpers`. These functions are used to
-create `DataTable` custom functionality such as custom filters. You
-may also want to look into using `DataTableCustomFilter` directly. Note
-that both these approaches may require deeper understanding of
-`DataTable` internal workings.
-
-[[api-reference-1]]
-*API Reference*
-
-API reference for CUBA React UI components can be found
-link:api-reference/cuba-react-ui/index.html[here].
 
 [[routing-and-menu]]
 === Routing and Menu
@@ -1159,7 +803,7 @@ well so that you can work with them in a type-safe manner:
 ----
 function changeRole(role: Role) {
   role.defaultRole = true;   // ok
-  role.defaultRole = 'foo';  // compilation fails  
+  role.defaultRole = 'foo';  // compilation fails
 }
 ----
 
@@ -1326,6 +970,422 @@ generic REST API;
 
 Documentation can be found
 https://doc.cuba-platform.com/manual-latest/polymer_ui.html[here].
+
+[[cuba-react-core]]
+== CUBA React Core Components
+
+[[cubaappprovider]]
+=== CubaAppProvider
+
+`CubaAppProvider` initializes main CUBA React Core components and
+provides them to the client application. It receives an instance of REST
+API service and an optional config object which has the following
+interface:
+
+[source,typescript]
+----
+import {PropertyType} from "@cuba-platform/rest";
+
+export interface CubaAppConfig {
+  dataTransferFormats?: Partial<Record<PropertyType, string>>;
+  displayFormats?: Partial<Record<PropertyType, string>>;
+}
+----
+
+`dataTransferFormats` can be used to override the default formats used
+to (de)serialize the data transferred by REST API.
+
+`displayFormats` can be used to override the formats used for data
+presentation.
+
+See
+link:api-reference/cuba-rest-js/modules/\_model_.html#propertytype[PropertyType]
+in CUBA REST JS API docs for the list of available property types.
+
+____________________________________________________________________
+NOTE: Only formats for temporal types can currently be overridden this way
+____________________________________________________________________
+
+[source,typescript]
+----
+<CubaAppProvider cubaREST={cubaREST}
+                 config={{
+                   dataTransferFormats: {
+                     localDateTime: 'DD/MM/YYYY HH:mm:ss'
+                   }
+                 }}
+>
+   // App component tree
+</CubaAppProvider>
+----
+
+[[mainstore]]
+=== MainStore
+
+`MainStore` contains common application data. It's being initialized
+using `<CubaAppProvider>`.
+
+You can inject it in any component using `@injectMainStore` decorator:
+
+[source,typescript]
+----
+@injectMainStore
+@observer
+export class AppInfo extends React.Component<MainStoreInjected> {
+  render() {
+    if (!this.props.mainStore) {
+      return null;
+    }
+    const {
+      initialized,
+      authenticated,
+      userName,
+      metadata,
+      messages,
+      enums
+    } = this.props.mainStore;
+    return (
+      <ul>
+        <li>App initialized: {initialized ? 'yes' : 'no'}</li>
+        <li>User authenticated: {authenticated ? 'yes' : 'no'}</li>
+        <li>User name: {userName}</li>
+        <li>Metadata: {JSON.stringify(metadata)}</li>
+        <li>Messages: {JSON.stringify(messages)}</li>
+        <li>Enums: {JSON.stringify(enums)}</li>
+      </ul>
+    )
+  }
+}
+----
+
+[[datacollectionstore]]
+=== DataCollectionStore
+
+`DataCollectionStore` is a MobX based store for loading entity
+collections. It can be created via `collection()` initializer function:
+
+[source,typescript]
+----
+dataCollection = collection<Pet>(Pet.NAME, {
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);
+----
+
+Typically it's being used to display list of entities. Since it's
+reactive, any changes in `items` and `status` will trigger re-render of
+`@observer` components:
+
+[source,typescript]
+----
+@observer
+class CarList extends React.Component {
+  carsData = collection<Car>(Car.NAME, {view: 'car-view', sort: '-updateTs'});
+  render() {
+    if (this.carsData.status === "LOADING") return 'Loading...';
+    return (
+      <ul>
+        {this.carsData.items.map(car =>
+           <li>{car._instanceName}</li>
+        )}
+      </ul>
+    )
+  }
+}
+----
+
+[[ClientSideDataCollectionStore]]
+=== ClientSideDataCollectionStore
+
+`ClientSideDataCollectionStore` is a variant of `DataCollectionStore` intended for situations when data shall be operated client-side. It is useful for example when handling link:https://www.cuba-platform.com/guides/data-modelling-composition[Composition relationship]. `ClientSideDataCollectionStore` can be created via `clientSideCollection()` initializer function.
+
+[source,typescript]
+----
+dataCollection = clientSideCollection<Pet>(Pet.NAME, {
+    allItems: entityInstancesArray,
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);
+----
+
+`ClientSideDataCollectionStore` inteface extends `DataCollectionStore` adding the following members:
+
+- `allItems` field - array of entity instances with default sort order and no filtering applied.
+- `adjustItems` method - sets `items` based on `allItems` and other conditions. Currently it only performs the client-side sorting based on `sort` field, client-side filtering is not currently supported.
+
+[[datainstancestore]]
+=== DataInstanceStore
+
+`DataInstanceStore` is used to work with a single instance of some
+Entity. It can be created via `instance()` initializer function:
+
+[source,typescript]
+----
+dataInstance = instance<Pet>(Pet.NAME, {view: 'pet-with-owner-and-type', loadImmediately: false});
+----
+
+Use `dataInstance.commit()` method to perform entity update:
+
+[source,typescript]
+----
+dataInstance.item.name = 'New Name';
+dataInstance.commit()
+----
+
+[[api-reference]]
+=== API Reference
+
+API reference for CUBA React Core components can be found
+link:api-reference/cuba-react-core/index.html[here].
+
+[[cuba-react-ui]]
+== CUBA React UI Components
+
+[[entityproperty]]
+=== EntityProperty
+
+`<EntityProperty>` component is aimed to display a value of some
+Entity's property. It automatically applies formatting according to the
+type of property and adds a corresponding label from global message pack
+(defined on the backend)
+
+[source,typescript]
+----
+<EntityProperty entityName={Pet.NAME}
+                propertyName='birthDate'
+                value={pet.birthDate}/>
+----
+
+[[formfield]]
+=== FormField
+
+`<FormField>` component automatically creates correct Form UI component
+based on entity and property names:
+
+[source,typescript]
+----
+<FormField entityName={Pet.NAME} propertyName='birthDate'/>
+----
+
+For the attributes with relationship it's possible to provide an
+instance of DataCollectionStore via `optionsContainer` prop to render
+options list
+
+[source,typescript]
+----
+petTypesDc = collection<PetType>(PetType.NAME, {view: '_minimal', sort: 'name'});
+...
+<FormField entityName={Pet.NAME}
+           propertyName='type'
+           optionsContainer={this.petTypesDc}/>
+----
+
+[[entityeditor]]
+=== EntityEditor
+
+`EntityEditor` component is a form with dynamically rendered fields representing entity properties. It uses link:#formfield[FormField] to render correct input components (e.g. `Checkbox`, `Datepicker`, etc.) depending on entity property type. The list of displayed fields (that is, the list of properties to be edited) can be configured via `fields` prop.
+
+[source,typescript]
+----
+<EntityEditor entityName={nestedEntityName}
+              fields={this.fields}
+              dataInstance={this.dataInstance}
+              associationOptions={this.associationOptions}
+              onSubmit={this.handleSubmit}
+              onCancel={this.closeDrawer}
+              submitButtonText='common.ok'
+/>
+----
+
+API: {EntityEditorProps}.
+
+[[nestedentityfield]]
+=== NestedEntityField
+
+`NestedEntityField` is a form field component that is used in the context of One-to-One Composition and represents the nested entity. It is a control that allows to create, edit or remove the nested entity. Create/edit will open an link:#entityeditor[EntityEditor] for the nested entity. link:#formfield[FormField] will automatically render a `NestedEntityField` for an One-to-One Composition entity property.
+
+NOTE: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+
+API: {NestedEntityFieldProps}.
+
+[[nestedentitiestablefield]]
+=== NestedEntitiesTableField
+
+`NestedEntitiesTableField` is a form field component that is used in the context of One-to-Many Composition and represents the nested entities. It will render a link:#datatable[DataTable] with buttons to create, edit or remove nested entities. Clicking create or edit button will open an link:#entityeditor[EntityEditor]. link:#formfield[FormField] will automatically render a `NestedEntitiesTableField` for an One-to-Many Composition entity property.
+
+NOTE: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+
+API: {NestedEntitiesTableField}.
+
+[[fileupload]]
+=== FileUpload
+
+`FileUpload` is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via link:#imagepreview[ImagePreview] component.  link:#formfield[FormField] will automatically render a `FileUpload` for a FileDescriptor entity property.
+
+image:FileUploadAndImagePreviewDemo.apng[FileUpload and ImagePreview demo]
+
+API: {FileUploadProps}.
+
+[[imagepreview]]
+=== ImagePreview
+
+`ImagePreview` allows to preview or download an image. It works with an link:https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL[object URL].
+
+API: {ImagePreviewProps}.
+
+[[datatable]]
+=== DataTable
+
+`<DataTable>` is used to present data in tabular form.
+
+image:react/data-table-demo.gif[Data table
+showcase]
+
+It uses Ant Design's https://ant.design/components/table/[Table] under
+the hood and provides the following additional benefits:
+
+* out-of-the-box integration with `DataCollectionStore`
+* powerful filters +
+* support for action buttons (e.g. for CRUD operations)
+
+At the same time `<DataTable>` provides developer with a full access to
+underlying `Table` via its `tableProps` and `columnDefinitions`
+properties (see below).
+
+Example of using `<DataTable>` API:
+
+[source,typescript]
+----
+<DataTable dataCollection={this.dataCollection}
+           columnDefinitions={[
+             'item',
+             'manufacturer',
+             {
+               field: 'price',
+               columnProps: {
+                 align: 'right'
+               }
+             }
+           ]}
+           onSelectedRowChange={this.onSelectedRowChange}
+           buttons={buttons}
+           tableProps={{
+             bordered: true
+           }}
+/>
+----
+
+* `dataCollection` - instance of `DataCollectionStore`
+* `columnDefinitions` - describes the columns to be displayed. See more
+details below.
+* `onSelectedRowChange` - callback that takes the id of selected row,
+can be used together with `buttons` e.g. to facilitate CRUD operations
+* `buttons` - array of React elements representing controls that will be
+rendered above the table
+* `tableProps` - can be used to override any of the underlying
+https://ant.design/components/table/#Table[Table properties]
+
+Deprecated props (use `columnDefinitions` instead):
+
+* `fields` - array of entity property names
+* `columnProps` - can be used to override underlying
+https://ant.design/components/table/#Column[Column properties]. Applied
+to every column.
+
+____________________________________________________________________________________________________________________________________________________________________________________________
+NOTE: `columnDefinitions` is more flexible and provides greater ability to
+customize the columns. `columnDefinitions` will take precedence over
+`fields` and `columnProps` if used simultaneously.
+____________________________________________________________________________________________________________________________________________________________________________________________
+
+[[columndefinitions]]
+*columnDefinitions*
+
+`columnDefinitions` describes the columns to be displayed. The columns
+can represent entity properties or have arbitrary content (for example:
+an action button column, a calculated field column).
+
+There are 3 ways you can define a column:
+
+*1.* Simply put an entity property name as a `string`. In this case
+`DataTable` will render a column with default settings for that
+property.
+
+[source,typescript]
+----
+<DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         'manufacturer',
+         // more columns
+       ]}
+/>
+----
+
+*2.* If you want to customize the default column, use a
+`ColumnDefinition` object where `field` is an entity property name and
+`columnProps` is an antd
+https://ant.design/components/table/#Column[ColumnProps] object. The
+properties you put in `columnProps` will override the default
+properties.
+
+[source,typescript]
+----
+<DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         {
+           field: 'manufacturer', // property name
+           columnProps: { // antd ColumnProps object
+             align: 'right'
+           }
+         },
+         // more columns
+       ]}
+/>
+----
+
+*3.* If you want a column not bound to an entity field, create it from
+scratch using `columnProps` and do not specify a `field`.
+
+[source,typescript]
+----
+<DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         {
+           columnProps: { // antd ColumnProps object
+             render: (text, record) => { /* render some custom content */ }
+           }
+         },
+         // more columns
+       ]}
+/>
+----
+
+If you need even more control, you may want to start with a vanilla antd
+https://ant.design/components/table/[Table] and take a look into
+exported functions in `DataTableHelpers`. These functions are used to
+create `DataTable` custom functionality such as custom filters. You
+may also want to look into using `DataTableCustomFilter` directly. Note
+that both these approaches may require deeper understanding of
+`DataTable` internal workings.
+
+[[api-reference-1]]
+=== API Reference
+
+API reference for CUBA React UI components can be found
+link:api-reference/cuba-react-ui/index.html[here].
 
 [[typescript-sdk]]
 == TypeScript SDK

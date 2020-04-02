@@ -15,10 +15,22 @@ import './NestedEntityField.less';
 import {SerializedEntityProps, MetaPropertyInfo, View, ViewProperty} from '@cuba-platform/rest';
 import { loadAssociationOptions } from "../../util/ui-model";
 
-export type NestedEntityFieldProps = MainStoreInjected & WrappedComponentProps & {
-  value?: any; // coming from Ant Design form field decorator
-  onChange?: (value: any) => void; // coming from Ant Design form field decorator
+export interface NestedEntityFieldProps extends MainStoreInjected, WrappedComponentProps {
+  /**
+   * Сoming from antd Form field decorator
+   */
+  value?: any;
+  /**
+   * Сoming from antd Form field decorator
+   */
+  onChange?: (value: any) => void;
+  /**
+   * Name of the nested entity
+   */
   nestedEntityName: string;
+  /**
+   * Name of the view that will be used for the nested entity
+   */
   nestedEntityView: string;
 }
 
