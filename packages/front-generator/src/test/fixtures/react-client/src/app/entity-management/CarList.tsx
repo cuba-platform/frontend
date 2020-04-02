@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { IReactionDisposer, reaction } from "mobx";
 
-import { Modal, Button, List, Icon } from "antd";
+import { Modal, Button, List, Icon, message } from "antd";
 
 import {
   collection,
@@ -42,7 +42,7 @@ class CarListComponent extends React.Component<Props> {
     loadImmediately: false
   });
 
-  reactionDisposer: IReactionDisposer;
+  reactionDisposers: IReactionDisposer[] = [];
   fields = [
     "manufacturer",
     "model",
@@ -61,16 +61,30 @@ class CarListComponent extends React.Component<Props> {
   ];
 
   componentDidMount(): void {
-    this.reactionDisposer = reaction(
-      () => this.props.paginationConfig,
-      paginationConfig =>
-        setPagination(paginationConfig, this.dataCollection, true)
+    this.reactionDisposers.push(
+      reaction(
+        () => this.props.paginationConfig,
+        paginationConfig =>
+          setPagination(paginationConfig, this.dataCollection, true)
+      )
     );
     setPagination(this.props.paginationConfig, this.dataCollection, true);
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.dataCollection.status,
+        status => {
+          const { intl } = this.props;
+          if (status === "ERROR") {
+            message.error(intl.formatMessage({ id: "common.requestFailed" }));
+          }
+        }
+      )
+    );
   }
 
   componentWillUnmount() {
-    this.reactionDisposer();
+    this.reactionDisposers.forEach(dispose => dispose());
   }
 
   showDeletionDialog = (e: SerializedEntity<Car>) => {
