@@ -94,12 +94,6 @@
     <a class="nav-link" href="#observable-state-with-mobx">Observable State with MobX</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#cuba-react-core">CUBA React Core Components</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#cuba-react-ui">CUBA React UI Components</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#routing-and-menu">Routing and Menu</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -142,6 +136,63 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="#polymer-based-client-deprecated">Polymer-based Client (Deprecated)</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#cuba-react-core">CUBA React Core Components</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#cubaappprovider">CubaAppProvider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#mainstore">MainStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#datacollectionstore">DataCollectionStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#ClientSideDataCollectionStore">ClientSideDataCollectionStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#datainstancestore">DataInstanceStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#api-reference">API Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#cuba-react-ui">CUBA React UI Components</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#entityproperty">EntityProperty</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#formfield">FormField</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#entityeditor">EntityEditor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#nestedentityfield">NestedEntityField</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#nestedentitiestablefield">NestedEntitiesTableField</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#fileupload">FileUpload</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#imagepreview">ImagePreview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#datatable">DataTable</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#api-reference-1">API Reference</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -197,7 +248,7 @@
     </div>
   </aside>
 </div>
-<main>
+<main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
@@ -205,8 +256,9 @@
     <li><a href="index.html">CUBA Platform Frontend Generator</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/cuba-platform/frontend/edit/pv/docs/site/docs-src/doc-component-repo/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
-  </div>
+  <div class="edit-this-page"><a href="file:///home/corwyn/frontend/docs-src/doc-component-repo/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
 <article class="doc">
 <h1 class="page">CUBA Platform Frontend Generator</h1>
 <div id="toc" class="toc">
@@ -233,8 +285,6 @@
 <li><a href="#overview-of-react-client">Overview of React Client</a></li>
 <li><a href="#creating-react-components">Creating React Components</a></li>
 <li><a href="#observable-state-with-mobx">Observable State with MobX</a></li>
-<li><a href="#cuba-react-core">CUBA React Core Components</a></li>
-<li><a href="#cuba-react-ui">CUBA React UI Components</a></li>
 <li><a href="#routing-and-menu">Routing and Menu</a></li>
 <li><a href="#forms">Forms</a></li>
 <li><a href="#i18n">I18n</a></li>
@@ -253,6 +303,29 @@
 </ul>
 </li>
 <li><a href="#polymer-based-client-deprecated">Polymer-based Client (Deprecated)</a></li>
+<li><a href="#cuba-react-core">CUBA React Core Components</a>
+<ul class="sectlevel2">
+<li><a href="#cubaappprovider">CubaAppProvider</a></li>
+<li><a href="#mainstore">MainStore</a></li>
+<li><a href="#datacollectionstore">DataCollectionStore</a></li>
+<li><a href="#ClientSideDataCollectionStore">ClientSideDataCollectionStore</a></li>
+<li><a href="#datainstancestore">DataInstanceStore</a></li>
+<li><a href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li><a href="#cuba-react-ui">CUBA React UI Components</a>
+<ul class="sectlevel2">
+<li><a href="#entityproperty">EntityProperty</a></li>
+<li><a href="#formfield">FormField</a></li>
+<li><a href="#entityeditor">EntityEditor</a></li>
+<li><a href="#nestedentityfield">NestedEntityField</a></li>
+<li><a href="#nestedentitiestablefield">NestedEntitiesTableField</a></li>
+<li><a href="#fileupload">FileUpload</a></li>
+<li><a href="#imagepreview">ImagePreview</a></li>
+<li><a href="#datatable">DataTable</a></li>
+<li><a href="#api-reference-1">API Reference</a></li>
+</ul>
+</li>
 <li><a href="#typescript-sdk">TypeScript SDK</a>
 <ul class="sectlevel2">
 <li><a href="#entities">Entities</a></li>
@@ -901,6 +974,9 @@ export class Button extends Component {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>There are some useful components provided in <a href="#cuba-react-core">CUBA React Core</a> and <a href="#cuba-react-ui">CUBA React UI</a> libraries. Please see the corresponding sections for more details.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="observable-state-with-mobx"><a class="anchor" href="#observable-state-with-mobx"></a>Observable State with MobX</h3>
@@ -947,424 +1023,6 @@ automatically subscribes to changes on any
 <a href="https://mobx.js.org/refguide/observable.html">observable</a> value or object
 i.e. in the example above changing <code>count</code> property will result in
 automatic re-render of the component.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="cuba-react-core"><a class="anchor" href="#cuba-react-core"></a>CUBA React Core Components</h3>
-<div id="cubaappprovider" class="paragraph">
-<p><strong>CubaAppProvider</strong></p>
-</div>
-<div class="paragraph">
-<p><code>CubaAppProvider</code> initializes main CUBA React Core components and
-provides them to the client application. It receives an instance of REST
-API service and an optional config object which has the following
-interface:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import {PropertyType} from "@cuba-platform/rest";
-
-export interface CubaAppConfig {
-  dataTransferFormats?: Partial&lt;Record&lt;PropertyType, string&gt;&gt;;
-  displayFormats?: Partial&lt;Record&lt;PropertyType, string&gt;&gt;;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>dataTransferFormats</code> can be used to override the default formats used
-to (de)serialize the data transferred by REST API.</p>
-</div>
-<div class="paragraph">
-<p><code>displayFormats</code> can be used to override the formats used for data
-presentation.</p>
-</div>
-<div class="paragraph">
-<p>See
-<a href="api-reference/cuba-rest-js/modules/_model_.html#propertytype">PropertyType</a>
-in CUBA REST JS API docs for the list of available property types.</p>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Only formats for temporal types can currently be overridden this way
-</td>
-</tr>
-</table>
-</div>
-</blockquote>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;CubaAppProvider cubaREST={cubaREST}
-                 config={{
-                   dataTransferFormats: {
-                     localDateTime: 'DD/MM/YYYY HH:mm:ss'
-                   }
-                 }}
-&gt;
-   // App component tree
-&lt;/CubaAppProvider&gt;</code></pre>
-</div>
-</div>
-<div id="mainstore" class="paragraph">
-<p><strong>MainStore</strong></p>
-</div>
-<div class="paragraph">
-<p><code>MainStore</code> contains common application data. It&#8217;s being initialized
-using <code>&lt;CubaAppProvider&gt;</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can inject it in any component using <code>@injectMainStore</code> decorator:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">@injectMainStore
-@observer
-export class AppInfo extends React.Component&lt;MainStoreInjected&gt; {
-  render() {
-    if (!this.props.mainStore) {
-      return null;
-    }
-    const {
-      initialized,
-      authenticated,
-      userName,
-      metadata,
-      messages,
-      enums
-    } = this.props.mainStore;
-    return (
-      &lt;ul&gt;
-        &lt;li&gt;App initialized: {initialized ? 'yes' : 'no'}&lt;/li&gt;
-        &lt;li&gt;User authenticated: {authenticated ? 'yes' : 'no'}&lt;/li&gt;
-        &lt;li&gt;User name: {userName}&lt;/li&gt;
-        &lt;li&gt;Metadata: {JSON.stringify(metadata)}&lt;/li&gt;
-        &lt;li&gt;Messages: {JSON.stringify(messages)}&lt;/li&gt;
-        &lt;li&gt;Enums: {JSON.stringify(enums)}&lt;/li&gt;
-      &lt;/ul&gt;
-    )
-  }
-}</code></pre>
-</div>
-</div>
-<div id="datacollectionstore" class="paragraph">
-<p><strong>DataCollectionStore</strong></p>
-</div>
-<div class="paragraph">
-<p><code>DataCollectionStore</code> is a MobX based store for loading entity
-collections. It can be created via <code>collection()</code> initializer function:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">dataCollection = collection&lt;Pet&gt;(Pet.NAME, {
-    view: 'pet-with-owner-and-type',
-    sort: 'identificationNumber',
-    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
-    limit: 10,
-    offset: 0,
-    loadImmediately: true, // true by default
-  }
-);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Typically it&#8217;s being used to display list of entities. Since it&#8217;s
-reactive, any changes in <code>items</code> and <code>status</code> will trigger re-render of
-<code>@observer</code> components:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">@observer
-class CarList extends React.Component {
-  carsData = collection&lt;Car&gt;(Car.NAME, {view: 'car-view', sort: '-updateTs'});
-  render() {
-    if (this.carsData.status === "LOADING") return 'Loading...';
-    return (
-      &lt;ul&gt;
-        {this.carsData.items.map(car =&gt;
-           &lt;li&gt;{car._instanceName}&lt;/li&gt;
-        )}
-      &lt;/ul&gt;
-    )
-  }
-}</code></pre>
-</div>
-</div>
-<div id="datainstancestore" class="paragraph">
-<p><strong>DataInstanceStore</strong></p>
-</div>
-<div class="paragraph">
-<p><code>DataInstanceStore</code> is used to work with a single instance of some
-Entity. It can be created via <code>instance()</code> initializer function:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">dataInstance = instance&lt;Pet&gt;(Pet.NAME, {view: 'pet-with-owner-and-type', loadImmediately: false});</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Use <code>dataInstance.commit()</code> method to perform entity update:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">dataInstance.item.name = 'New Name';
-dataInstance.commit()</code></pre>
-</div>
-</div>
-<div id="api-reference" class="paragraph">
-<p><strong>API Reference</strong></p>
-</div>
-<div class="paragraph">
-<p>API reference for CUBA React Core components can be found
-<a href="api-reference/cuba-react-core/index.html">here</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="cuba-react-ui"><a class="anchor" href="#cuba-react-ui"></a>CUBA React UI Components</h3>
-<div id="entityproperty" class="paragraph">
-<p><strong>EntityProperty</strong></p>
-</div>
-<div class="paragraph">
-<p><code>&lt;EntityProperty&gt;</code> component is aimed to display a value of some
-Entity&#8217;s property. It automatically applies formatting according to the
-type of property and adds a corresponding label from global message pack
-(defined on the backend)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;EntityProperty entityName={Pet.NAME}
-                propertyName='birthDate'
-                value={pet.birthDate}/&gt;</code></pre>
-</div>
-</div>
-<div id="formfield" class="paragraph">
-<p><strong>FormField</strong></p>
-</div>
-<div class="paragraph">
-<p><code>&lt;FormField&gt;</code> component automatically creates correct Form UI component
-based on entity and property names:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;FormField entityName={Pet.NAME} propertyName='birthDate'/&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For the attributes with relationship it&#8217;s possible to provide an
-instance of DataCollectionStore via <code>optionsContainer</code> prop to render
-options list</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">petTypesDc = collection&lt;PetType&gt;(PetType.NAME, {view: '_minimal', sort: 'name'});
-...
-&lt;FormField entityName={Pet.NAME}
-           propertyName='type'
-           optionsContainer={this.petTypesDc}/&gt;</code></pre>
-</div>
-</div>
-<div id="datatable" class="paragraph">
-<p><strong>DataTable</strong></p>
-</div>
-<div class="paragraph">
-<p><code>&lt;DataTable&gt;</code> is used to present data in tabular form.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/react/data-table-demo.gif" alt="Data table showcase"></span></p>
-</div>
-<div class="paragraph">
-<p>It uses Ant Design&#8217;s <a href="https://ant.design/components/table/">Table</a> under
-the hood and provides the following additional benefits:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>out-of-the-box integration with <code>DataCollectionStore</code></p>
-</li>
-<li>
-<p>powerful filters<br></p>
-</li>
-<li>
-<p>support for action buttons (e.g. for CRUD operations)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>At the same time <code>&lt;DataTable&gt;</code> provides developer with a full access to
-underlying <code>Table</code> via its <code>tableProps</code> and <code>columnDefinitions</code>
-properties (see below).</p>
-</div>
-<div class="paragraph">
-<p>Example of using <code>&lt;DataTable&gt;</code> API:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable dataCollection={this.dataCollection}
-           columnDefinitions={[
-             'item',
-             'manufacturer',
-             {
-               field: 'price',
-               columnProps: {
-                 align: 'right'
-               }
-             }
-           ]}
-           onSelectedRowChange={this.onSelectedRowChange}
-           buttons={buttons}
-           tableProps={{
-             bordered: true
-           }}
-/&gt;</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>dataCollection</code> - instance of <code>DataCollectionStore</code></p>
-</li>
-<li>
-<p><code>columnDefinitions</code> - describes the columns to be displayed. See more
-details below.</p>
-</li>
-<li>
-<p><code>onSelectedRowChange</code> - callback that takes the id of selected row,
-can be used together with <code>buttons</code> e.g. to facilitate CRUD operations</p>
-</li>
-<li>
-<p><code>buttons</code> - array of React elements representing controls that will be
-rendered above the table</p>
-</li>
-<li>
-<p><code>tableProps</code> - can be used to override any of the underlying
-<a href="https://ant.design/components/table/#Table">Table properties</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Deprecated props (use <code>columnDefinitions</code> instead):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>fields</code> - array of entity property names</p>
-</li>
-<li>
-<p><code>columnProps</code> - can be used to override underlying
-<a href="https://ant.design/components/table/#Column">Column properties</a>. Applied
-to every column.</p>
-</li>
-</ul>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>columnDefinitions</code> is more flexible and provides greater ability to
-customize the columns. <code>columnDefinitions</code> will take precedence over
-<code>fields</code> and <code>columnProps</code> if used simultaneously.
-</td>
-</tr>
-</table>
-</div>
-</blockquote>
-</div>
-<div id="columndefinitions" class="paragraph">
-<p><em>columnDefinitions</em></p>
-</div>
-<div class="paragraph">
-<p><code>columnDefinitions</code> describes the columns to be displayed. The columns
-can represent entity properties or have arbitrary content (for example:
-an action button column, a calculated field column).</p>
-</div>
-<div class="paragraph">
-<p>There are 3 ways you can define a column:</p>
-</div>
-<div class="paragraph">
-<p><strong>1.</strong> Simply put an entity property name as a <code>string</code>. In this case
-<code>DataTable</code> will render a column with default settings for that
-property.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable
-       dataCollection={this.dataCollection}
-       columnDefinitions={[
-         'manufacturer',
-         // more columns
-       ]}
-/&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>2.</strong> If you want to customize the default column, use a
-<code>ColumnDefinition</code> object where <code>field</code> is an entity property name and
-<code>columnProps</code> is an antd
-<a href="https://ant.design/components/table/#Column">ColumnProps</a> object. The
-properties you put in <code>columnProps</code> will override the default
-properties.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable
-       dataCollection={this.dataCollection}
-       columnDefinitions={[
-         {
-           field: 'manufacturer', // property name
-           columnProps: { // antd ColumnProps object
-             align: 'right'
-           }
-         },
-         // more columns
-       ]}
-/&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>3.</strong> If you want a column not bound to an entity field, create it from
-scratch using <code>columnProps</code> and do not specify a <code>field</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable
-       dataCollection={this.dataCollection}
-       columnDefinitions={[
-         {
-           columnProps: { // antd ColumnProps object
-             render: (text, record) =&gt; { /* render some custom content */ }
-           }
-         },
-         // more columns
-       ]}
-/&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you need even more control, you may want to start with a vanilla antd
-<a href="https://ant.design/components/table/">Table</a> and take a look into
-exported functions in <code>DataTableHelpers</code>. These functions are used to
-create <code>DataTable</code> custom functionality such as custom filters. You
-may also want to look into using <code>DataTableCustomFilter</code> directly. Note
-that both these approaches may require deeper understanding of
-<code>DataTable</code> internal workings.</p>
-</div>
-<div id="api-reference-1" class="paragraph">
-<p><strong>API Reference</strong></p>
-</div>
-<div class="paragraph">
-<p>API reference for CUBA React UI components can be found
-<a href="api-reference/cuba-react-ui/index.html">here</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1926,6 +1584,545 @@ generic REST API;</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="cuba-react-core"><a class="anchor" href="#cuba-react-core"></a>CUBA React Core Components</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="cubaappprovider"><a class="anchor" href="#cubaappprovider"></a>CubaAppProvider</h3>
+<div class="paragraph">
+<p><code>CubaAppProvider</code> initializes main CUBA React Core components and
+provides them to the client application. It receives an instance of REST
+API service and an optional config object which has the following
+interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import {PropertyType} from "@cuba-platform/rest";
+
+export interface CubaAppConfig {
+  dataTransferFormats?: Partial&lt;Record&lt;PropertyType, string&gt;&gt;;
+  displayFormats?: Partial&lt;Record&lt;PropertyType, string&gt;&gt;;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>dataTransferFormats</code> can be used to override the default formats used
+to (de)serialize the data transferred by REST API.</p>
+</div>
+<div class="paragraph">
+<p><code>displayFormats</code> can be used to override the formats used for data
+presentation.</p>
+</div>
+<div class="paragraph">
+<p>See
+<a href="api-reference/cuba-rest-js/modules/_model_.html#propertytype">PropertyType</a>
+in CUBA REST JS API docs for the list of available property types.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only formats for temporal types can currently be overridden this way
+</td>
+</tr>
+</table>
+</div>
+</blockquote>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;CubaAppProvider cubaREST={cubaREST}
+                 config={{
+                   dataTransferFormats: {
+                     localDateTime: 'DD/MM/YYYY HH:mm:ss'
+                   }
+                 }}
+&gt;
+   // App component tree
+&lt;/CubaAppProvider&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mainstore"><a class="anchor" href="#mainstore"></a>MainStore</h3>
+<div class="paragraph">
+<p><code>MainStore</code> contains common application data. It&#8217;s being initialized
+using <code>&lt;CubaAppProvider&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can inject it in any component using <code>@injectMainStore</code> decorator:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">@injectMainStore
+@observer
+export class AppInfo extends React.Component&lt;MainStoreInjected&gt; {
+  render() {
+    if (!this.props.mainStore) {
+      return null;
+    }
+    const {
+      initialized,
+      authenticated,
+      userName,
+      metadata,
+      messages,
+      enums
+    } = this.props.mainStore;
+    return (
+      &lt;ul&gt;
+        &lt;li&gt;App initialized: {initialized ? 'yes' : 'no'}&lt;/li&gt;
+        &lt;li&gt;User authenticated: {authenticated ? 'yes' : 'no'}&lt;/li&gt;
+        &lt;li&gt;User name: {userName}&lt;/li&gt;
+        &lt;li&gt;Metadata: {JSON.stringify(metadata)}&lt;/li&gt;
+        &lt;li&gt;Messages: {JSON.stringify(messages)}&lt;/li&gt;
+        &lt;li&gt;Enums: {JSON.stringify(enums)}&lt;/li&gt;
+      &lt;/ul&gt;
+    )
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="datacollectionstore"><a class="anchor" href="#datacollectionstore"></a>DataCollectionStore</h3>
+<div class="paragraph">
+<p><code>DataCollectionStore</code> is a MobX based store for loading entity
+collections. It can be created via <code>collection()</code> initializer function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">dataCollection = collection&lt;Pet&gt;(Pet.NAME, {
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typically it&#8217;s being used to display list of entities. Since it&#8217;s
+reactive, any changes in <code>items</code> and <code>status</code> will trigger re-render of
+<code>@observer</code> components:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">@observer
+class CarList extends React.Component {
+  carsData = collection&lt;Car&gt;(Car.NAME, {view: 'car-view', sort: '-updateTs'});
+  render() {
+    if (this.carsData.status === "LOADING") return 'Loading...';
+    return (
+      &lt;ul&gt;
+        {this.carsData.items.map(car =&gt;
+           &lt;li&gt;{car._instanceName}&lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    )
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ClientSideDataCollectionStore"><a class="anchor" href="#ClientSideDataCollectionStore"></a>ClientSideDataCollectionStore</h3>
+<div class="paragraph">
+<p><code>ClientSideDataCollectionStore</code> is a variant of <code>DataCollectionStore</code> intended for situations when data shall be operated client-side. It is useful for example when handling <a href="https://www.cuba-platform.com/guides/data-modelling-composition">Composition relationship</a>. <code>ClientSideDataCollectionStore</code> can be created via <code>clientSideCollection()</code> initializer function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">dataCollection = clientSideCollection&lt;Pet&gt;(Pet.NAME, {
+    allItems: entityInstancesArray,
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>ClientSideDataCollectionStore</code> inteface extends <code>DataCollectionStore</code> adding the following members:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>allItems</code> field - array of entity instances with default sort order and no filtering applied.</p>
+</li>
+<li>
+<p><code>adjustItems</code> method - sets <code>items</code> based on <code>allItems</code> and other conditions. Currently it only performs the client-side sorting based on <code>sort</code> field, client-side filtering is not currently supported.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="datainstancestore"><a class="anchor" href="#datainstancestore"></a>DataInstanceStore</h3>
+<div class="paragraph">
+<p><code>DataInstanceStore</code> is used to work with a single instance of some
+Entity. It can be created via <code>instance()</code> initializer function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">dataInstance = instance&lt;Pet&gt;(Pet.NAME, {view: 'pet-with-owner-and-type', loadImmediately: false});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use <code>dataInstance.commit()</code> method to perform entity update:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">dataInstance.item.name = 'New Name';
+dataInstance.commit()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="api-reference"><a class="anchor" href="#api-reference"></a>API Reference</h3>
+<div class="paragraph">
+<p>API reference for CUBA React Core components can be found
+<a href="api-reference/cuba-react-core/index.html">here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cuba-react-ui"><a class="anchor" href="#cuba-react-ui"></a>CUBA React UI Components</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="entityproperty"><a class="anchor" href="#entityproperty"></a>EntityProperty</h3>
+<div class="paragraph">
+<p><code>&lt;EntityProperty&gt;</code> component is aimed to display a value of some
+Entity&#8217;s property. It automatically applies formatting according to the
+type of property and adds a corresponding label from global message pack
+(defined on the backend)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;EntityProperty entityName={Pet.NAME}
+                propertyName='birthDate'
+                value={pet.birthDate}/&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="formfield"><a class="anchor" href="#formfield"></a>FormField</h3>
+<div class="paragraph">
+<p><code>&lt;FormField&gt;</code> component automatically creates correct Form UI component
+based on entity and property names:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;FormField entityName={Pet.NAME} propertyName='birthDate'/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the attributes with relationship it&#8217;s possible to provide an
+instance of DataCollectionStore via <code>optionsContainer</code> prop to render
+options list</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">petTypesDc = collection&lt;PetType&gt;(PetType.NAME, {view: '_minimal', sort: 'name'});
+...
+&lt;FormField entityName={Pet.NAME}
+           propertyName='type'
+           optionsContainer={this.petTypesDc}/&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="entityeditor"><a class="anchor" href="#entityeditor"></a>EntityEditor</h3>
+<div class="paragraph">
+<p><code>EntityEditor</code> component is a form with dynamically rendered fields representing entity properties. It uses <a href="#formfield">FormField</a> to render correct input components (e.g. <code>Checkbox</code>, <code>Datepicker</code>, etc.) depending on entity property type. The list of displayed fields (that is, the list of properties to be edited) can be configured via <code>fields</code> prop.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;EntityEditor entityName={nestedEntityName}
+              fields={this.fields}
+              dataInstance={this.dataInstance}
+              associationOptions={this.associationOptions}
+              onSubmit={this.handleSubmit}
+              onCancel={this.closeDrawer}
+              submitButtonText='common.ok'
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_entityeditor_.entityeditorprops.html">EntityEditorProps</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nestedentityfield"><a class="anchor" href="#nestedentityfield"></a>NestedEntityField</h3>
+<div class="paragraph">
+<p><code>NestedEntityField</code> is a form field component that is used in the context of One-to-One Composition and represents the nested entity. It is a control that allows to create, edit or remove the nested entity. Create/edit will open an <a href="#entityeditor">EntityEditor</a> for the nested entity. <a href="#formfield">FormField</a> will automatically render a <code>NestedEntityField</code> for an One-to-One Composition entity property.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_form_nestedentityfield_.nestedentityfieldprops.html">NestedEntityFieldProps</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nestedentitiestablefield"><a class="anchor" href="#nestedentitiestablefield"></a>NestedEntitiesTableField</h3>
+<div class="paragraph">
+<p><code>NestedEntitiesTableField</code> is a form field component that is used in the context of One-to-Many Composition and represents the nested entities. It will render a <a href="#datatable">DataTable</a> with buttons to create, edit or remove nested entities. Clicking create or edit button will open an <a href="#entityeditor">EntityEditor</a>. <a href="#formfield">FormField</a> will automatically render a <code>NestedEntitiesTableField</code> for an One-to-Many Composition entity property.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html">NestedEntitiesTableField</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="fileupload"><a class="anchor" href="#fileupload"></a>FileUpload</h3>
+<div class="paragraph">
+<p><code>FileUpload</code> is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via <a href="#imagepreview">ImagePreview</a> component.  <a href="#formfield">FormField</a> will automatically render a <code>FileUpload</code> for a FileDescriptor entity property.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/FileUploadAndImagePreviewDemo.apng" alt="FileUpload and ImagePreview demo"></span></p>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html">FileUploadProps</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="imagepreview"><a class="anchor" href="#imagepreview"></a>ImagePreview</h3>
+<div class="paragraph">
+<p><code>ImagePreview</code> allows to preview or download an image. It works with an <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL">object URL</a>.</p>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_imagepreview_.imagepreviewprops.html">ImagePreviewProps</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="datatable"><a class="anchor" href="#datatable"></a>DataTable</h3>
+<div class="paragraph">
+<p><code>&lt;DataTable&gt;</code> is used to present data in tabular form.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/data-table-demo.gif" alt="Data table showcase"></span></p>
+</div>
+<div class="paragraph">
+<p>It uses Ant Design&#8217;s <a href="https://ant.design/components/table/">Table</a> under
+the hood and provides the following additional benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>out-of-the-box integration with <code>DataCollectionStore</code></p>
+</li>
+<li>
+<p>powerful filters<br></p>
+</li>
+<li>
+<p>support for action buttons (e.g. for CRUD operations)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>At the same time <code>&lt;DataTable&gt;</code> provides developer with a full access to
+underlying <code>Table</code> via its <code>tableProps</code> and <code>columnDefinitions</code>
+properties (see below).</p>
+</div>
+<div class="paragraph">
+<p>Example of using <code>&lt;DataTable&gt;</code> API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable dataCollection={this.dataCollection}
+           columnDefinitions={[
+             'item',
+             'manufacturer',
+             {
+               field: 'price',
+               columnProps: {
+                 align: 'right'
+               }
+             }
+           ]}
+           onSelectedRowChange={this.onSelectedRowChange}
+           buttons={buttons}
+           tableProps={{
+             bordered: true
+           }}
+/&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>dataCollection</code> - instance of <code>DataCollectionStore</code></p>
+</li>
+<li>
+<p><code>columnDefinitions</code> - describes the columns to be displayed. See more
+details below.</p>
+</li>
+<li>
+<p><code>onSelectedRowChange</code> - callback that takes the id of selected row,
+can be used together with <code>buttons</code> e.g. to facilitate CRUD operations</p>
+</li>
+<li>
+<p><code>buttons</code> - array of React elements representing controls that will be
+rendered above the table</p>
+</li>
+<li>
+<p><code>tableProps</code> - can be used to override any of the underlying
+<a href="https://ant.design/components/table/#Table">Table properties</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Deprecated props (use <code>columnDefinitions</code> instead):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fields</code> - array of entity property names</p>
+</li>
+<li>
+<p><code>columnProps</code> - can be used to override underlying
+<a href="https://ant.design/components/table/#Column">Column properties</a>. Applied
+to every column.</p>
+</li>
+</ul>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>columnDefinitions</code> is more flexible and provides greater ability to
+customize the columns. <code>columnDefinitions</code> will take precedence over
+<code>fields</code> and <code>columnProps</code> if used simultaneously.
+</td>
+</tr>
+</table>
+</div>
+</blockquote>
+</div>
+<div id="columndefinitions" class="paragraph">
+<p><strong>columnDefinitions</strong></p>
+</div>
+<div class="paragraph">
+<p><code>columnDefinitions</code> describes the columns to be displayed. The columns
+can represent entity properties or have arbitrary content (for example:
+an action button column, a calculated field column).</p>
+</div>
+<div class="paragraph">
+<p>There are 3 ways you can define a column:</p>
+</div>
+<div class="paragraph">
+<p><strong>1.</strong> Simply put an entity property name as a <code>string</code>. In this case
+<code>DataTable</code> will render a column with default settings for that
+property.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         'manufacturer',
+         // more columns
+       ]}
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>2.</strong> If you want to customize the default column, use a
+<code>ColumnDefinition</code> object where <code>field</code> is an entity property name and
+<code>columnProps</code> is an antd
+<a href="https://ant.design/components/table/#Column">ColumnProps</a> object. The
+properties you put in <code>columnProps</code> will override the default
+properties.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         {
+           field: 'manufacturer', // property name
+           columnProps: { // antd ColumnProps object
+             align: 'right'
+           }
+         },
+         // more columns
+       ]}
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>3.</strong> If you want a column not bound to an entity field, create it from
+scratch using <code>columnProps</code> and do not specify a <code>field</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         {
+           columnProps: { // antd ColumnProps object
+             render: (text, record) =&gt; { /* render some custom content */ }
+           }
+         },
+         // more columns
+       ]}
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you need even more control, you may want to start with a vanilla antd
+<a href="https://ant.design/components/table/">Table</a> and take a look into
+exported functions in <code>DataTableHelpers</code>. These functions are used to
+create <code>DataTable</code> custom functionality such as custom filters. You
+may also want to look into using <code>DataTableCustomFilter</code> directly. Note
+that both these approaches may require deeper understanding of
+<code>DataTable</code> internal workings.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="api-reference-1"><a class="anchor" href="#api-reference-1"></a>API Reference</h3>
+<div class="paragraph">
+<p>API reference for CUBA React UI components can be found
+<a href="api-reference/cuba-react-ui/index.html">here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="typescript-sdk"><a class="anchor" href="#typescript-sdk"></a>TypeScript SDK</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2126,6 +2323,10 @@ with Generic REST API. Documentation and API reference can be found
 </div>
 </div>
 </article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
 </main>
 </div>
 <footer class="footer">

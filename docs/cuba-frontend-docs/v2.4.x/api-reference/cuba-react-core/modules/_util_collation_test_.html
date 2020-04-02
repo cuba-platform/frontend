@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;ui/form/EntityEditor&quot; | @cuba-platform/react-ui - v0.1.0</title>
+	<title>&quot;util/collation.test&quot; | @cuba-platform/react-core - v0.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cuba-platform/react-ui - v0.1.0</a>
+					<a href="../index.html" class="title">@cuba-platform/react-core - v0.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_ui_form_entityeditor_.html">&quot;ui/form/EntityEditor&quot;</a>
+					<a href="_util_collation_test_.html">&quot;util/collation.test&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;ui/form/EntityEditor&quot;</h1>
+			<h1>External module &quot;util/collation.test&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -71,110 +71,45 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Classes</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported"><a href="../classes/_ui_form_entityeditor_.entityeditorcomponent.html" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Component</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Type aliases</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ui_form_entityeditor_.html#entityeditorprops" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Props</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ui_form_entityeditor_.html#entityeditor" class="tsd-kind-icon">Entity<wbr>Editor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_form_entityeditor_.html#getentityproperties" class="tsd-kind-icon">get<wbr>Entity<wbr>Properties</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ui_form_entityeditor_.html#isdisplayedproperty" class="tsd-kind-icon">is<wbr>Displayed<wbr>Property</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_util_collation_test_.html#checksorting" class="tsd-kind-icon">check<wbr>Sorting</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="entityeditorprops" class="tsd-anchor"></a>
-					<h3>Entity<wbr>Editor<wbr>Props</h3>
-					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Editor<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MainStoreInjected</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">WrappedComponentProps</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/050af44/packages/cuba-react-ui/src/ui/form/EntityEditor.tsx#L29">cuba-react-ui/src/ui/form/EntityEditor.tsx:29</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="entityeditor" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Entity<wbr>Editor</h3>
-					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Editor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FunctionComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectIntl&lt;&#x27;intl&#x27;, EntityEditorProps&gt;(withLocalizedForm({onValuesChange: (theProps: any, changedValues: any) &#x3D;&gt; {// Reset server-side errors when field is editedObject.keys(changedValues).forEach((fieldName: string) &#x3D;&gt; {theProps.form.setFields({[fieldName]: {value: changedValues[fieldName]}});});}})(EntityEditorComponent))</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/050af44/packages/cuba-react-ui/src/ui/form/EntityEditor.tsx#L204">cuba-react-ui/src/ui/form/EntityEditor.tsx:204</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="getentityproperties" class="tsd-anchor"></a>
-					<h3>get<wbr>Entity<wbr>Properties</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Entity<wbr>Properties<span class="tsd-signature-symbol">(</span>entityName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, metadata<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MetaClassInfo</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MetaPropertyInfo</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/050af44/packages/cuba-react-ui/src/ui/form/EntityEditor.tsx#L217">cuba-react-ui/src/ui/form/EntityEditor.tsx:217</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>entityName: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>fields: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>metadata: <span class="tsd-signature-type">MetaClassInfo</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">MetaPropertyInfo</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="isdisplayedproperty" class="tsd-anchor"></a>
-					<h3>is<wbr>Displayed<wbr>Property</h3>
+					<a name="checksorting" class="tsd-anchor"></a>
+					<h3>check<wbr>Sorting</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Displayed<wbr>Property<span class="tsd-signature-symbol">(</span>property<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MetaPropertyInfo</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Sorting<span class="tsd-signature-symbol">(</span>items<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span>, fieldName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, expectedAsc<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span>, expectedDesc<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/050af44/packages/cuba-react-ui/src/ui/form/EntityEditor.tsx#L226">cuba-react-ui/src/ui/form/EntityEditor.tsx:226</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5297260/packages/cuba-react-core/src/util/collation.test.tsx#L36">src/util/collation.test.tsx:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>property: <span class="tsd-signature-type">MetaPropertyInfo</span></h5>
+									<h5>items: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>fieldName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>expectedAsc: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>expectedDesc: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -186,27 +121,60 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_app_cubaappprovider_.html">&quot;app/<wbr>Cuba<wbr>App<wbr>Provider&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_app_mainstore_.html">&quot;app/<wbr>Main<wbr>Store&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_app_menuconfig_.html">&quot;app/<wbr>Menu<wbr>Config&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_app_security_.html">&quot;app/<wbr>Security&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_collection_.html">&quot;data/<wbr>Collection&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_collection_test_.html">&quot;data/<wbr>Collection.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_datacontext_.html">&quot;data/<wbr>Data<wbr>Context&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_instance_.html">&quot;data/<wbr>Instance&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_instance_test_.html">&quot;data/<wbr>Instance.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_collation_.html">&quot;util/collation&quot;</a>
+					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_ui_form_entityeditor_.html">&quot;ui/form/<wbr>Entity<wbr>Editor&quot;</a>
+						<a href="_util_collation_test_.html">&quot;util/collation.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_data_.html">&quot;util/data&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_errorhandling_.html">&quot;util/error<wbr>Handling&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_formats_.html">&quot;util/formats&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_metadata_.html">&quot;util/metadata&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../classes/_ui_form_entityeditor_.entityeditorcomponent.html" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Component</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_ui_form_entityeditor_.html#entityeditorprops" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_ui_form_entityeditor_.html#entityeditor" class="tsd-kind-icon">Entity<wbr>Editor</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_ui_form_entityeditor_.html#getentityproperties" class="tsd-kind-icon">get<wbr>Entity<wbr>Properties</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_ui_form_entityeditor_.html#isdisplayedproperty" class="tsd-kind-icon">is<wbr>Displayed<wbr>Property</a>
+						<a href="_util_collation_test_.html#checksorting" class="tsd-kind-icon">check<wbr>Sorting</a>
 					</li>
 				</ul>
 			</nav>

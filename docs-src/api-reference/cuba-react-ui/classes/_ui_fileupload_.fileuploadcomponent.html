@@ -111,6 +111,10 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#context" class="tsd-kind-icon">context</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#filelist" class="tsd-kind-icon">file<wbr>List</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#ispreviewloading" class="tsd-kind-icon">is<wbr>Preview<wbr>Loading</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#ispreviewvisible" class="tsd-kind-icon">is<wbr>Preview<wbr>Visible</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#previewfilename" class="tsd-kind-icon">preview<wbr>File<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#previewimageobjecturl" class="tsd-kind-icon">preview<wbr>Image<wbr>Object<wbr>Url</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#reactiondisposers" class="tsd-kind-icon">reaction<wbr>Disposers</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#refs" class="tsd-kind-icon">refs</a></li>
@@ -134,6 +138,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#forceupdate" class="tsd-kind-icon">force<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#handlechange" class="tsd-kind-icon">handle<wbr>Change</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#handleclosepreview" class="tsd-kind-icon">handle<wbr>Close<wbr>Preview</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#handlepreview" class="tsd-kind-icon">handle<wbr>Preview</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#handleremove" class="tsd-kind-icon">handle<wbr>Remove</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_ui_fileupload_.fileuploadcomponent.html#render" class="tsd-kind-icon">render</a></li>
@@ -241,7 +246,47 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">file<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">UploadFile</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L30">cuba-react-ui/src/ui/FileUpload.tsx:30</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L54">cuba-react-ui/src/ui/FileUpload.tsx:54</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="ispreviewloading" class="tsd-anchor"></a>
+					<h3>is<wbr>Preview<wbr>Loading</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Preview<wbr>Loading<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L56">cuba-react-ui/src/ui/FileUpload.tsx:56</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="ispreviewvisible" class="tsd-anchor"></a>
+					<h3>is<wbr>Preview<wbr>Visible</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Preview<wbr>Visible<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L55">cuba-react-ui/src/ui/FileUpload.tsx:55</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="previewfilename" class="tsd-anchor"></a>
+					<h3>preview<wbr>File<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>File<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L58">cuba-react-ui/src/ui/FileUpload.tsx:58</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="previewimageobjecturl" class="tsd-anchor"></a>
+					<h3>preview<wbr>Image<wbr>Object<wbr>Url</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>Image<wbr>Object<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L57">cuba-react-ui/src/ui/FileUpload.tsx:57</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -262,7 +307,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">reaction<wbr>Disposers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IReactionDisposer</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L32">cuba-react-ui/src/ui/FileUpload.tsx:32</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L60">cuba-react-ui/src/ui/FileUpload.tsx:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -519,7 +564,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L38">cuba-react-ui/src/ui/FileUpload.tsx:38</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L66">cuba-react-ui/src/ui/FileUpload.tsx:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -658,7 +703,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L55">cuba-react-ui/src/ui/FileUpload.tsx:55</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L83">cuba-react-ui/src/ui/FileUpload.tsx:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -787,7 +832,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L59">cuba-react-ui/src/ui/FileUpload.tsx:59</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L90">cuba-react-ui/src/ui/FileUpload.tsx:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -796,6 +841,23 @@ class Foo extends React.Component {
 									<h5>info: <span class="tsd-signature-type">UploadChangeParam</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="handleclosepreview" class="tsd-anchor"></a>
+					<h3>handle<wbr>Close<wbr>Preview</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Close<wbr>Preview<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L152">cuba-react-ui/src/ui/FileUpload.tsx:152</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -810,7 +872,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L82">cuba-react-ui/src/ui/FileUpload.tsx:82</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L113">cuba-react-ui/src/ui/FileUpload.tsx:113</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -833,7 +895,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L102">cuba-react-ui/src/ui/FileUpload.tsx:102</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L145">cuba-react-ui/src/ui/FileUpload.tsx:145</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -857,7 +919,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L109">cuba-react-ui/src/ui/FileUpload.tsx:109</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L161">cuba-react-ui/src/ui/FileUpload.tsx:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -946,7 +1008,7 @@ class Foo extends React.Component {
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L34">cuba-react-ui/src/ui/FileUpload.tsx:34</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L62">cuba-react-ui/src/ui/FileUpload.tsx:62</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -955,7 +1017,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">enable<wbr>Full<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/0c5b288/packages/cuba-react-ui/src/ui/FileUpload.tsx#L35">cuba-react-ui/src/ui/FileUpload.tsx:35</a></li>
+								<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FileUpload.tsx#L63">cuba-react-ui/src/ui/FileUpload.tsx:63</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -988,6 +1050,18 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_ui_fileupload_.fileuploadcomponent.html#filelist" class="tsd-kind-icon">file<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_ui_fileupload_.fileuploadcomponent.html#ispreviewloading" class="tsd-kind-icon">is<wbr>Preview<wbr>Loading</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_ui_fileupload_.fileuploadcomponent.html#ispreviewvisible" class="tsd-kind-icon">is<wbr>Preview<wbr>Visible</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_ui_fileupload_.fileuploadcomponent.html#previewfilename" class="tsd-kind-icon">preview<wbr>File<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_ui_fileupload_.fileuploadcomponent.html#previewimageobjecturl" class="tsd-kind-icon">preview<wbr>Image<wbr>Object<wbr>Url</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
 								<a href="_ui_fileupload_.fileuploadcomponent.html#props" class="tsd-kind-icon">props</a>
@@ -1042,6 +1116,9 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_ui_fileupload_.fileuploadcomponent.html#handlechange" class="tsd-kind-icon">handle<wbr>Change</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_ui_fileupload_.fileuploadcomponent.html#handleclosepreview" class="tsd-kind-icon">handle<wbr>Close<wbr>Preview</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_ui_fileupload_.fileuploadcomponent.html#handlepreview" class="tsd-kind-icon">handle<wbr>Preview</a>
