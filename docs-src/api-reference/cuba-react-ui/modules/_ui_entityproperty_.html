@@ -70,10 +70,10 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Type aliases</h3>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ui_entityproperty_.html#props" class="tsd-kind-icon">Props</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_ui_entityproperty_.entitypropertyprops.html" class="tsd-kind-icon">Entity<wbr>Property<wbr>Props</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -92,38 +92,25 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="props" class="tsd-anchor"></a>
-					<h3>Props</h3>
-					<div class="tsd-signature tsd-kind-icon">Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MainStoreInjected</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L13">cuba-react-ui/src/ui/EntityProperty.tsx:13</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
 					<a name="entityproperty" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Entity<wbr>Property</h3>
-					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Property<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectMainStore(observer((props: Props) &#x3D;&gt;&lt;EntityPropertyFormattedValue {...props}/&gt;))</span></div>
+					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Property<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectMainStore(observer((props: EntityPropertyProps) &#x3D;&gt;&lt;EntityPropertyFormattedValue {...props}/&gt;))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L64">cuba-react-ui/src/ui/EntityProperty.tsx:64</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L73">cuba-react-ui/src/ui/EntityProperty.tsx:73</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="entitypropertyformattedvalue" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Entity<wbr>Property<wbr>Formatted<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Property<wbr>Formatted<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> =&nbsp;observer((props: Props) &#x3D;&gt; {const {entityName,propertyName,value,showLabel &#x3D; true,hideIfEmpty &#x3D; true,mainStore,} &#x3D; props;if (hideIfEmpty &amp;&amp; value &#x3D;&#x3D; null) {return null;}if (!showLabel) {return &lt;div&gt;{formatValue(toJS(value))}&lt;/div&gt;;}// store not ready yetif (!mainStore || !mainStore.messages || !mainStore.metadata || !mainStore.enums) {return null;}const propertyFullName &#x3D; entityName + &#x27;.&#x27; + propertyName;const label: string &#x3D; mainStore.messages[propertyFullName];const propertyInfo: MetaPropertyInfo | null &#x3D; getPropertyInfo(mainStore.metadata,entityName,propertyName);if (!propertyInfo) {throw new Error(&#x27;Cannot find MetaPropertyInfo for property &#x27; + propertyFullName);}const displayValue &#x3D; propertyInfo.attributeType &#x3D;&#x3D;&#x3D; &#x27;ENUM&#x27;? getEnumCaption(value, propertyInfo, mainStore.enums): toDisplayValue(toJS(value), propertyInfo);return label !&#x3D; null? &lt;div&gt;&lt;strong&gt;{label}:&lt;/strong&gt; {formatValue(displayValue)}&lt;/div&gt;: &lt;div&gt;{formatValue(displayValue)}&lt;/div&gt;})</span></div>
+					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Property<wbr>Formatted<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> =&nbsp;observer((props: EntityPropertyProps) &#x3D;&gt; {const {entityName,propertyName,value,showLabel &#x3D; true,hideIfEmpty &#x3D; true,mainStore,} &#x3D; props;if (hideIfEmpty &amp;&amp; value &#x3D;&#x3D; null) {return null;}if (!showLabel) {return &lt;div&gt;{formatValue(toJS(value))}&lt;/div&gt;;}// store not ready yetif (!mainStore || !mainStore.messages || !mainStore.metadata || !mainStore.enums) {return null;}const propertyFullName &#x3D; entityName + &#x27;.&#x27; + propertyName;const label: string &#x3D; mainStore.messages[propertyFullName];const propertyInfo: MetaPropertyInfo | null &#x3D; getPropertyInfo(mainStore.metadata,entityName,propertyName);if (!propertyInfo) {throw new Error(&#x27;Cannot find MetaPropertyInfo for property &#x27; + propertyFullName);}const displayValue &#x3D; propertyInfo.attributeType &#x3D;&#x3D;&#x3D; &#x27;ENUM&#x27;? getEnumCaption(value, propertyInfo, mainStore.enums): toDisplayValue(toJS(value), propertyInfo);return label !&#x3D; null? &lt;div&gt;&lt;strong&gt;{label}:&lt;/strong&gt; {formatValue(displayValue)}&lt;/div&gt;: &lt;div&gt;{formatValue(displayValue)}&lt;/div&gt;})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L21">cuba-react-ui/src/ui/EntityProperty.tsx:21</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L30">cuba-react-ui/src/ui/EntityProperty.tsx:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -140,7 +127,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L67">cuba-react-ui/src/ui/EntityProperty.tsx:67</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L76">cuba-react-ui/src/ui/EntityProperty.tsx:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -168,8 +155,8 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_ui_entityproperty_.html#props" class="tsd-kind-icon">Props</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_ui_entityproperty_.entitypropertyprops.html" class="tsd-kind-icon">Entity<wbr>Property<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="_ui_entityproperty_.html#entityproperty" class="tsd-kind-icon">Entity<wbr>Property</a>

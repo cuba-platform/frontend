@@ -69,11 +69,20 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>E</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>entity type.</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</section>
@@ -126,9 +135,14 @@
 					<div class="tsd-signature tsd-kind-icon">buttons<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L60">cuba-react-ui/src/ui/table/DataTable.tsx:60</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L82">cuba-react-ui/src/ui/table/DataTable.tsx:82</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Controls that will be rendered above the table.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="canselectrowbyclick" class="tsd-anchor"></a>
@@ -136,12 +150,15 @@
 					<div class="tsd-signature tsd-kind-icon">can<wbr>Select<wbr>Row<wbr>ByClick<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L59">cuba-react-ui/src/ui/table/DataTable.tsx:59</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L78">cuba-react-ui/src/ui/table/DataTable.tsx:78</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Default: <code>true</code>.</p>
+							<p>When <code>true</code>, a row can be selected by clicking on it.
+								When <code>false</code>, a row can only be selected using
+								the <a href="https://3x.ant.design/components/table " class="external"> selection column</a>.
+							Default: <code>true</code>.</p>
 						</div>
 					</div>
 				</section>
@@ -151,13 +168,18 @@
 					<div class="tsd-signature tsd-kind-icon">column<wbr>Definitions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_ui_table_datatable_.columndefinition.html" class="tsd-signature-type">ColumnDefinition</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L69">cuba-react-ui/src/ui/table/DataTable.tsx:69</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L101">cuba-react-ui/src/ui/table/DataTable.tsx:101</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>You need to use either <code>columnDefinitions</code> or <code>fields</code> for the <code>DataTable</code> to work</p>
+							<p>Describes the columns to be displayed. An element of this array can be
+								a property name (which will render a column displaying that property;
+								the column will have the default look&amp;feel)
+							or a <a href="_ui_table_datatable_.columndefinition.html">ColumnDefinition</a> object (which allows creating a custom column).</p>
 						</div>
+						<p>NOTE: you need to use either <a href="_ui_table_datatable_.datatableprops.html#columndefinitions">columnDefinitions</a> or <a href="_ui_table_datatable_.datatableprops.html#fields">fields</a> (deprecated)
+						for the <code>DataTable</code> to work.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -166,7 +188,7 @@
 					<div class="tsd-signature tsd-kind-icon">column<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ColumnProps</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L65">cuba-react-ui/src/ui/table/DataTable.tsx:65</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L91">cuba-react-ui/src/ui/table/DataTable.tsx:91</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -183,7 +205,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>Collection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DataCollectionStore</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L33">cuba-react-ui/src/ui/table/DataTable.tsx:33</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L36">cuba-react-ui/src/ui/table/DataTable.tsx:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -193,7 +215,7 @@
 					<div class="tsd-signature tsd-kind-icon">enable<wbr>Filters<wbr>OnColumns<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L42">cuba-react-ui/src/ui/table/DataTable.tsx:42</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L45">cuba-react-ui/src/ui/table/DataTable.tsx:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -209,7 +231,7 @@
 					<div class="tsd-signature tsd-kind-icon">fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L37">cuba-react-ui/src/ui/table/DataTable.tsx:37</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L40">cuba-react-ui/src/ui/table/DataTable.tsx:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -226,12 +248,15 @@
 					<div class="tsd-signature tsd-kind-icon">hide<wbr>Clear<wbr>Filters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L46">cuba-react-ui/src/ui/table/DataTable.tsx:46</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L52">cuba-react-ui/src/ui/table/DataTable.tsx:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Default: <code>false</code></p>
+							<p>By default, when any number of filters is active, a <code>Clear filters</code> control will be displayed above the
+								table. When clicked, this control disables all filters at once.
+								If <code>hideClearFilters</code> is <code>true</code>, then the <code>Clear filters</code> control won&#39;t be displayed.
+							Default: <code>false</code></p>
 						</div>
 					</div>
 				</section>
@@ -241,12 +266,13 @@
 					<div class="tsd-signature tsd-kind-icon">hide<wbr>Selection<wbr>Column<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L55">cuba-react-ui/src/ui/table/DataTable.tsx:55</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L71">cuba-react-ui/src/ui/table/DataTable.tsx:71</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Default: <code>false</code>.</p>
+							<p>When <code>true</code>, hides the <a href="https://3x.ant.design/components/table " class="external"> selection column</a>.
+							Default: <code>false</code>.</p>
 						</div>
 					</div>
 				</section>
@@ -257,7 +283,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from MainStoreInjected.mainStore</p>
 						<ul>
-							<li>Defined in cuba-react-core/dist/app/MainStore.d.ts:39</li>
+							<li>Defined in cuba-react-core/dist/app/MainStore.d.ts:79</li>
 						</ul>
 					</aside>
 				</section>
@@ -267,9 +293,20 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Row<wbr>Selection<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L47">cuba-react-ui/src/ui/table/DataTable.tsx:47</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L59">cuba-react-ui/src/ui/table/DataTable.tsx:59</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A callback that takes the ids of the selected rows.
+							Can be used together with <a href="_ui_table_datatable_.datatableprops.html#buttons">buttons</a> to facilitate CRUD operations or other functionality.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>param</dt>
+							<dd><p>entity ids corresponding to the selected rows.</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="rowselectionmode" class="tsd-anchor"></a>
@@ -277,12 +314,15 @@
 					<div class="tsd-signature tsd-kind-icon">row<wbr>Selection<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"single"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"multi"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"none"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L51">cuba-react-ui/src/ui/table/DataTable.tsx:51</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L66">cuba-react-ui/src/ui/table/DataTable.tsx:66</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Default: <code>single</code>.</p>
+							<p><code>single</code> allows to select one row at a time.
+								<code>multi</code> allows to select multiple rows.
+								<code>none</code> disables row selection.
+							Default: <code>single</code>.</p>
 						</div>
 					</div>
 				</section>
@@ -292,9 +332,15 @@
 					<div class="tsd-signature tsd-kind-icon">table<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TableProps</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L61">cuba-react-ui/src/ui/table/DataTable.tsx:61</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L87">cuba-react-ui/src/ui/table/DataTable.tsx:87</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Can be used to override any of the underlying
+							<a href="https://3x.ant.design/components/table/#Table " class="external"> Table properties</a>.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>

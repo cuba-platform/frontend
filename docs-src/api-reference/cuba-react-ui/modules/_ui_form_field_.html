@@ -70,10 +70,10 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Type aliases</h3>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ui_form_field_.html#props" class="tsd-kind-icon">Props</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_ui_form_field_.fieldprops.html" class="tsd-kind-icon">Field<wbr>Props</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -91,28 +91,15 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="props" class="tsd-anchor"></a>
-					<h3>Props</h3>
-					<div class="tsd-signature tsd-kind-icon">Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MainStoreInjected</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">FormComponentProps</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/form/Field.tsx#L19">cuba-react-ui/src/ui/form/Field.tsx:19</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
 					<a name="field" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Field</h3>
-					<div class="tsd-signature tsd-kind-icon">Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectMainStore(observer((props: Props) &#x3D;&gt; {const {getFieldDecorator} &#x3D; props.form;const {entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps,nestedEntityView, parentEntityInstanceId} &#x3D; props;const formItemOpts: FormItemProps &#x3D; {... props.formItemOpts};if (!formItemOpts.label) { formItemOpts.label &#x3D; &lt;Msg entityName&#x3D;{entityName} propertyName&#x3D;{propertyName}/&gt; };return (&lt;FieldPermissionContainer entityName&#x3D;{entityName} propertyName&#x3D;{propertyName} renderField&#x3D;{(isReadOnly: boolean) &#x3D;&gt; {return &lt;Form.Item key&#x3D;{formItemKey ? formItemKey : propertyName}{...formItemOpts}&gt;{getFieldDecorator(fieldDecoratorId ? fieldDecoratorId : propertyName,{...getDefaultOptions(mainStore?.metadata, entityName, propertyName), ...getFieldDecoratorOpts})(&lt;FormField entityName&#x3D;{entityName}propertyName&#x3D;{propertyName}disabled&#x3D;{isReadOnly}optionsContainer&#x3D;{optionsContainer}nestedEntityView&#x3D;{nestedEntityView}parentEntityInstanceId&#x3D;{parentEntityInstanceId}{...componentProps}/&gt;)}&lt;/Form.Item&gt;}}/&gt;);}))</span></div>
+					<div class="tsd-signature tsd-kind-icon">Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectMainStore(observer((props: FieldProps) &#x3D;&gt; {const {getFieldDecorator} &#x3D; props.form;const {entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps,nestedEntityView, parentEntityInstanceId} &#x3D; props;const formItemOpts: FormItemProps &#x3D; {... props.formItemOpts};if (!formItemOpts.label) { formItemOpts.label &#x3D; &lt;Msg entityName&#x3D;{entityName} propertyName&#x3D;{propertyName}/&gt; };return (&lt;FieldPermissionContainer entityName&#x3D;{entityName} propertyName&#x3D;{propertyName} renderField&#x3D;{(isReadOnly: boolean) &#x3D;&gt; {return &lt;Form.Item key&#x3D;{formItemKey ? formItemKey : propertyName}{...formItemOpts}&gt;{getFieldDecorator(fieldDecoratorId ? fieldDecoratorId : propertyName,{...getDefaultOptions(mainStore?.metadata, entityName, propertyName), ...getFieldDecoratorOpts})(&lt;FormField entityName&#x3D;{entityName}propertyName&#x3D;{propertyName}disabled&#x3D;{isReadOnly}optionsContainer&#x3D;{optionsContainer}nestedEntityView&#x3D;{nestedEntityView}parentEntityInstanceId&#x3D;{parentEntityInstanceId}{...componentProps}/&gt;)}&lt;/Form.Item&gt;}}/&gt;);}))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/form/Field.tsx#L37">cuba-react-ui/src/ui/form/Field.tsx:37</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/form/Field.tsx#L67">cuba-react-ui/src/ui/form/Field.tsx:67</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -129,7 +116,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/form/Field.tsx#L74">cuba-react-ui/src/ui/form/Field.tsx:74</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/form/Field.tsx#L104">cuba-react-ui/src/ui/form/Field.tsx:104</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -163,8 +150,8 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_ui_form_field_.html#props" class="tsd-kind-icon">Props</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../interfaces/_ui_form_field_.fieldprops.html" class="tsd-kind-icon">Field<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="_ui_form_field_.html#field" class="tsd-kind-icon">Field</a>

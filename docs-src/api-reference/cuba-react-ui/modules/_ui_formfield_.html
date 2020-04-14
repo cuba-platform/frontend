@@ -102,7 +102,7 @@
 					<div class="tsd-signature tsd-kind-icon">Form<wbr>Field<wbr>Component<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SelectProps</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">InputNumberProps</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">CheckboxProps</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DatePickerProps</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">TimePickerProps</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_ui_fileupload_.fileuploadprops.html" class="tsd-signature-type">FileUploadProps</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_ui_form_nestedentityfield_.nestedentityfieldprops.html" class="tsd-signature-type">NestedEntityFieldProps</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html" class="tsd-signature-type">NestedEntitiesTableFieldProps</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FormField.tsx#L23">cuba-react-ui/src/ui/FormField.tsx:23</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/FormField.tsx#L23">cuba-react-ui/src/ui/FormField.tsx:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -112,9 +112,14 @@
 					<div class="tsd-signature tsd-kind-icon">Form<wbr>Field<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MainStoreInjected</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><a href="_ui_formfield_.html#formfieldcomponentprops" class="tsd-signature-type">FormFieldComponentProps</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FormField.tsx#L26">cuba-react-ui/src/ui/FormField.tsx:26</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/FormField.tsx#L31">cuba-react-ui/src/ui/FormField.tsx:31</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>See <a href="../interfaces/_ui_form_field_.fieldprops.html">FieldProps</a></p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -125,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectMainStore(observer(({enumClass, mainStore, ...rest}) &#x3D;&gt; {let enumValues: EnumValueInfo[] &#x3D; [];if (mainStore!.enums !&#x3D; null) {const enumInfo &#x3D; mainStore!.enums.find((enm: EnumInfo) &#x3D;&gt; enm.name &#x3D;&#x3D;&#x3D; enumClass);if (enumInfo !&#x3D; null) {enumValues &#x3D; enumInfo.values;}}return &lt;Select {...rest} &gt;{enumValues.map(enumValue &#x3D;&gt;&lt;Select.Option key&#x3D;{enumValue.name} value&#x3D;{enumValue.name}&gt;{enumValue.caption}&lt;/Select.Option&gt;)}&lt;/Select&gt;}))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FormField.tsx#L114">cuba-react-ui/src/ui/FormField.tsx:114</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/FormField.tsx#L119">cuba-react-ui/src/ui/FormField.tsx:119</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -135,7 +140,7 @@
 					<div class="tsd-signature tsd-kind-icon">Form<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectMainStore(observer((props: FormFieldProps) &#x3D;&gt; {const {entityName, propertyName, optionsContainer, mainStore, nestedEntityView, parentEntityInstanceId,...rest} &#x3D; props;if (mainStore &#x3D;&#x3D; null || mainStore.metadata &#x3D;&#x3D; null) {return &lt;Input {...(rest as InputProps)}/&gt;;}const propertyInfo &#x3D; getPropertyInfo(mainStore!.metadata, entityName, propertyName);if (propertyInfo &#x3D;&#x3D; null) {return &lt;Input {...(rest as InputProps)}/&gt;}if (isFileProperty(propertyInfo)) {return &lt;FileUpload {...(rest as FileUploadProps)}/&gt;;}switch (propertyInfo.attributeType) {case &#x27;ENUM&#x27;:return &lt;EnumField enumClass&#x3D;{propertyInfo.type} allowClear&#x3D;{getAllowClear(propertyInfo)} {...rest}/&gt;;case &#x27;ASSOCIATION&#x27;:const mode &#x3D; getSelectMode(propertyInfo.cardinality);return &lt;EntitySelectField {...{mode, optionsContainer}} allowClear&#x3D;{getAllowClear(propertyInfo)} {...rest}/&gt;;case &#x27;COMPOSITION&#x27;:if (nestedEntityView) {const nestedEntityName &#x3D; mainStore.metadata.find(metaClass &#x3D;&gt; metaClass.entityName &#x3D;&#x3D;&#x3D; entityName)?.properties.find(property &#x3D;&gt; property.name &#x3D;&#x3D;&#x3D; propertyName)?.type;if (nestedEntityName) {if (propertyInfo.cardinality &#x3D;&#x3D;&#x3D; &#x27;ONE_TO_ONE&#x27;) {return &lt;NestedEntityField nestedEntityName&#x3D;{nestedEntityName}nestedEntityView&#x3D;{nestedEntityView}{...(rest as NestedEntityFieldProps)}/&gt;;}if (propertyInfo.cardinality &#x3D;&#x3D;&#x3D; &#x27;ONE_TO_MANY&#x27;) {return &lt;NestedEntitiesTableField nestedEntityName&#x3D;{nestedEntityName}nestedEntityView&#x3D;{nestedEntityView}parentEntityName&#x3D;{entityName}parentEntityInstanceId&#x3D;{parentEntityInstanceId}{...(rest as NestedEntitiesTableFieldProps)}/&gt;;}}}return null;}switch (propertyInfo.type as PropertyType) {case &#x27;boolean&#x27;:return &lt;Checkbox {...(rest as CheckboxProps)}/&gt;;case &#x27;date&#x27;:case &#x27;localDate&#x27;:return &lt;DatePicker {...(rest as DatePickerProps)}/&gt;;case &#x27;dateTime&#x27;:case &#x27;localDateTime&#x27;:case &#x27;offsetDateTime&#x27;:return &lt;DatePicker showTime&#x3D;{true} {...(rest as DatePickerProps)}/&gt;;case &#x27;time&#x27;:case &#x27;localTime&#x27;:case &#x27;offsetTime&#x27;:return &lt;TimePicker {...(rest as TimePickerProps)}/&gt;;case &#x27;int&#x27;:return &lt;IntegerInput {...(rest as InputNumberProps)}/&gt;;case &#x27;double&#x27;:return &lt;DoubleInput {...(rest as InputNumberProps)}/&gt;;case &#x27;long&#x27;:return &lt;LongInput {...(rest as InputNumberProps)}/&gt;;case &#x27;decimal&#x27;:return &lt;BigDecimalInput {...(rest as InputNumberProps)}/&gt;;case &#x27;uuid&#x27;:return &lt;UuidInput {...(rest as InputProps)}/&gt;}return &lt;Input {...(rest as InputProps)}/&gt;;}))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FormField.tsx#L35">cuba-react-ui/src/ui/FormField.tsx:35</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/FormField.tsx#L40">cuba-react-ui/src/ui/FormField.tsx:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -152,7 +157,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FormField.tsx#L136">cuba-react-ui/src/ui/FormField.tsx:136</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/FormField.tsx#L141">cuba-react-ui/src/ui/FormField.tsx:141</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -175,7 +180,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/FormField.tsx#L129">cuba-react-ui/src/ui/FormField.tsx:129</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/FormField.tsx#L134">cuba-react-ui/src/ui/FormField.tsx:134</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
