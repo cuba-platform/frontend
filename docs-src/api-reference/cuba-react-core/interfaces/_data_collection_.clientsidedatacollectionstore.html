@@ -69,11 +69,23 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A variant of <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a> that works with a client-side source of entities.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>T</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>entity type.</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</section>
@@ -134,9 +146,16 @@
 					<div class="tsd-signature tsd-kind-icon">adjust<wbr>Items<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L33">src/data/Collection.tsx:33</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L114">src/data/Collection.tsx:114</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets <a href="_data_collection_.clientsidedatacollectionstore.html#items">items</a> based on <a href="_data_collection_.clientsidedatacollectionstore.html#allitems">allItems</a> and other conditions.
+								Currently it only performs client-side sorting based on <a href="_data_collection_.clientsidedatacollectionstore.html#sort">sort</a> field,
+							client-side filtering is currently not supported.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -159,9 +178,15 @@
 					<div class="tsd-signature tsd-kind-icon">all<wbr>Items<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SerializedEntity</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L32">src/data/Collection.tsx:32</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L108">src/data/Collection.tsx:108</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The client-side source from where the entities are being retrieved.
+							An array of entity instances with default sort order and no filtering applied.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="changeditems" class="tsd-anchor"></a>
@@ -170,7 +195,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_datacontext_.datacontainer.html">DataContainer</a>.<a href="_data_datacontext_.datacontainer.html#changeditems">changedItems</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/DataContext.tsx#L6">src/data/DataContext.tsx:6</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/DataContext.tsx#L6">src/data/DataContext.tsx:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,9 +206,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#clear">clear</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L27">src/data/Collection.tsx:27</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L89">src/data/Collection.tsx:89</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Clears <a href="_data_collection_.clientsidedatacollectionstore.html#items">items</a>.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -207,9 +237,15 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#count">count</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L24">src/data/Collection.tsx:24</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L67">src/data/Collection.tsx:67</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Total number of entities available in the source.
+							MobX observable.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="delete" class="tsd-anchor"></a>
@@ -218,9 +254,22 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#delete">delete</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L28">src/data/Collection.tsx:28</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L95">src/data/Collection.tsx:95</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Deletes an entity instance from the source.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>param</dt>
+							<dd><p>entity instance to be deleted.</p>
+							</dd>
+							<dt>returns</dt>
+							<dd><p>promise that resolves when deletion is complete.</p>
+							</dd>
+						</dl>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -250,7 +299,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_datacontext_.datacontainer.html">DataContainer</a>.<a href="_data_datacontext_.datacontainer.html#entityname">entityName</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/DataContext.tsx#L5">src/data/DataContext.tsx:5</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/DataContext.tsx#L5">src/data/DataContext.tsx:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -261,9 +310,15 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#filter">filter</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L21">src/data/Collection.tsx:21</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L51">src/data/Collection.tsx:51</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An object describing the filtering criteria.
+							MobX observable.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="items" class="tsd-anchor"></a>
@@ -272,9 +327,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#items">items</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L16">src/data/Collection.tsx:16</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L27">src/data/Collection.tsx:27</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Retrieved entity instances. MobX observable.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="limit" class="tsd-anchor"></a>
@@ -283,9 +343,15 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#limit">limit</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L22">src/data/Collection.tsx:22</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L56">src/data/Collection.tsx:56</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Maximum number of entities to retrieve.
+							MobX observable.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="load" class="tsd-anchor"></a>
@@ -294,9 +360,24 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#load">load</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L26">src/data/Collection.tsx:26</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L85">src/data/Collection.tsx:85</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Retrieves the entity instances. Once retrieval is complete, the instances will be
+								available as <a href="_data_collection_.clientsidedatacollectionstore.html#items">items</a>.
+								When the source of entity instances is REST API, this method will by default
+								request a total count of entity instances to be sent along with the retrieved instances.
+								This number will be stored as <a href="_data_collection_.clientsidedatacollectionstore.html#count">count</a>.
+							Use <a href="_data_collection_.clientsidedatacollectionstore.html#skipcount">skipCount</a> to disable this behavior.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>returns</dt>
+							<dd><p>promise that resolves when retrieval is complete.</p>
+							</dd>
+						</dl>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -320,9 +401,16 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#offset">offset</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L23">src/data/Collection.tsx:23</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L62">src/data/Collection.tsx:62</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Position of the first entity to retrieve. Useful if you want to skip first N entities
+								(for example, in a pagination scenario).
+							MobX observable.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="properties" class="tsd-anchor"></a>
@@ -331,9 +419,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#properties">properties</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L18">src/data/Collection.tsx:18</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L35">src/data/Collection.tsx:35</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Not implemented</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="readonlyitems" class="tsd-anchor"></a>
@@ -342,9 +435,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#readonlyitems">readOnlyItems</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L17">src/data/Collection.tsx:17</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L31">src/data/Collection.tsx:31</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A deep copy of <a href="_data_collection_.clientsidedatacollectionstore.html#items">items</a>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="skipcount" class="tsd-anchor"></a>
@@ -353,9 +451,17 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#skipcount">skipCount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L25">src/data/Collection.tsx:25</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L74">src/data/Collection.tsx:74</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When the source of entity instances is REST API, the <a href="_data_collection_.clientsidedatacollectionstore.html#load">load</a> method will by default
+								request a total count of entity instances to be sent along with the retrieved instances.
+								This number will be stored as <a href="_data_collection_.clientsidedatacollectionstore.html#count">count</a>.
+							When <code>skipCount</code> is <code>true</code>, the total count will not be queried for.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="sort" class="tsd-anchor"></a>
@@ -364,9 +470,17 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#sort">sort</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L20">src/data/Collection.tsx:20</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L46">src/data/Collection.tsx:46</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sort order. Property name opionally preceeded by <code>+</code> or <code>-</code> character.
+								If the name is preceeded by <code>+</code>, or there is no preceeding character, then the sort order is ascending.
+								If the name is preceeded by <code>-</code>, then the sort order is descending.
+							MobX observable.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="status" class="tsd-anchor"></a>
@@ -375,7 +489,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_datacontext_.datacontainer.html">DataContainer</a>.<a href="_data_datacontext_.datacontainer.html#status">status</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/DataContext.tsx#L7">src/data/DataContext.tsx:7</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/DataContext.tsx#L7">src/data/DataContext.tsx:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -386,9 +500,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_data_collection_.datacollectionstore.html">DataCollectionStore</a>.<a href="_data_collection_.datacollectionstore.html#view">view</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-core/src/data/Collection.tsx#L19">src/data/Collection.tsx:19</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-core/src/data/Collection.tsx#L39">src/data/Collection.tsx:39</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of a view used to limit the entity graph. MobX observable.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>

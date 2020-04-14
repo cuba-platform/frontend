@@ -69,16 +69,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p><code>filters</code> is an object received in antd <code>Table</code>&#39;s <code>onChange</code> callback, it is a mapping between column names and currently applied filters.</p>
-					</div>
-					<p><code>operator</code> and <code>value</code> are lifted up from the custom filter component in order to allow operations on all filters at once,
-					such as clearing all filters.</p>
-					<p><code>customFilterRef</code> provides access to custom filter&#39;s <code>Form</code>, which can be used e.g. to clear the forms when clearing all filters.</p>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -118,9 +108,14 @@
 					<div class="tsd-signature tsd-kind-icon">custom<wbr>Filter<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L48">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:48</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L60">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:60</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>See {@link DataTableCustomFilterProps#ref}</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="enablefilter" class="tsd-anchor"></a>
@@ -128,9 +123,14 @@
 					<div class="tsd-signature tsd-kind-icon">enable<wbr>Filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L40">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:40</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L35">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:35</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to enable a filter for this column</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="enablesorter" class="tsd-anchor"></a>
@@ -138,9 +138,14 @@
 					<div class="tsd-signature tsd-kind-icon">enable<wbr>Sorter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L46">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:46</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L55">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:55</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to enable sorting on this column</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="entityname" class="tsd-anchor"></a>
@@ -148,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">entity<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L39">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:39</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L31">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -158,9 +163,15 @@
 					<div class="tsd-signature tsd-kind-icon">filters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L41">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:41</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L40">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:40</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An object received in antd <a href="https://3x.ant.design/components/table " class="external"> Table</a>&#39;s <code>onChange</code> callback,
+							it is a mapping between column names and currently applied filters.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="mainstore" class="tsd-anchor"></a>
@@ -168,7 +179,7 @@
 					<div class="tsd-signature tsd-kind-icon">main<wbr>Store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MainStore</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L47">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:47</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L56">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:56</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +189,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Operator<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L43">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:43</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L45">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -212,7 +223,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Value<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L45">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:45</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L51">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:51</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -246,9 +257,14 @@
 					<div class="tsd-signature tsd-kind-icon">operator<span class="tsd-signature-symbol">:</span> <a href="../modules/_ui_table_datatablecustomfilter_.html#comparisontype" class="tsd-signature-type">ComparisonType</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L42">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:42</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L44">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:44</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>See {@link DataTableCustomFilterProps#operator}</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="propertyname" class="tsd-anchor"></a>
@@ -256,7 +272,7 @@
 					<div class="tsd-signature tsd-kind-icon">property<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L38">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:38</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L30">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -266,9 +282,14 @@
 					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L44">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:44</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L50">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:50</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>See {@link DataTableCustomFilterProps#value}</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>

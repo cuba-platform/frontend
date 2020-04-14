@@ -110,7 +110,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L473">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:473</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L502">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:502</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -196,7 +196,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L405">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:405</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L434">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:434</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -213,8 +213,9 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fields: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>allows to check the <code>entityFilter.conditions</code> against the list of displayed fields and ensure that only
-										the conditions related to the displayed fields are included in the result</p>
+										<p>names of the entity properties displayed in the table.
+											Allows to check the {@link EntityFilter.conditions} against the list of displayed fields and ensure that only
+										the conditions related to the displayed fields are used.</p>
 									</div>
 								</li>
 							</ul>
@@ -232,7 +233,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L245">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:245</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L259">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:259</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -333,7 +334,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L144">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:144</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L158">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:158</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -341,6 +342,7 @@
 									<dt>remarks</dt>
 									<dd><p>It is possible to create a vanilla antd <code>Table</code> and customize some of its columns
 										with <code>DataTable</code>&#39;s custom filters using this helper function.</p>
+										<p>NOTE: it might be simpler to achieve the desired result using {@link DataTableProps#columnDefinitions}.</p>
 									</dd>
 									<dt>example</dt>
 									<dd><pre><code class="language-typescript"> import * as React from "react";
@@ -423,7 +425,6 @@
  const CarTable = injectIntl(CarTableComponent);
 
  export default CarTable;</code></pre>
-										<p> todo refactor - extract DataColumn class</p>
 									</dd>
 								</dl>
 							</div>
@@ -455,7 +456,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L228">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:228</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L242">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:242</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -488,7 +489,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L461">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:461</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L490">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:490</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -511,18 +512,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L379">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:379</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L407">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:407</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>When called from <code>Table</code>&#39;s <code>onChange</code> callback this function will reload data collection taking into account antd <code>Table</code>&#39;s filters, sorter and pagination</p>
+									<p>When called from antd <a href="https://3x.ant.design/components/table " class="external"> Table</a>&#39;s <code>onChange</code> callback
+									this function will reload data collection taking into account <code>Table</code>&#39;s filters, sorter and pagination.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>E</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>entity type.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -547,7 +552,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L427">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:427</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L456">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:456</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -570,7 +575,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L441">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:441</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L470">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:470</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -592,6 +597,7 @@
 								<li>
 									<h5>fields: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
+										<p>names of the entity properties displayed in the table</p>
 									</div>
 								</li>
 							</ul>
@@ -609,7 +615,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L445">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:445</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L474">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:474</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -632,7 +638,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L326">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:326</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L340">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:340</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -664,7 +670,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L277">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:277</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L291">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:291</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -709,7 +715,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/ec5ed0e/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L340">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:340</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L354">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:354</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
