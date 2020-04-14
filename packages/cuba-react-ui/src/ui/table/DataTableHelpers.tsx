@@ -26,25 +26,37 @@ import {setPagination} from "../paging/Paging";
 //  to different files like 'DataColumn', 'Conditions', 'Filters', 'Paging' ot something like this
 //  https://github.com/cuba-platform/frontend/issues/133
 
-/**
- * `filters` is an object received in antd `Table`'s `onChange` callback, it is a mapping between column names and currently applied filters.
- *
- * `operator` and `value` are lifted up from the custom filter component in order to allow operations on all filters at once,
- * such as clearing all filters.
- *
- * `customFilterRef` provides access to custom filter's `Form`, which can be used e.g. to clear the forms when clearing all filters.
- */
 export interface DataColumnConfig {
   propertyName: string,
   entityName: string,
+  /**
+   * Whether to enable a filter for this column
+   */
   enableFilter: boolean,
+  /**
+   * An object received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback,
+   * it is a mapping between column names and currently applied filters.
+   */
   filters: Record<string, any> | undefined,
+  /**
+   * See {@link DataTableCustomFilterProps#operator}
+   */
   operator: ComparisonType | undefined,
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
+  /**
+   * See {@link DataTableCustomFilterProps#value}
+   */
+  // TODO probably type should be changed to CustomFilterInputValue
   value: any,
   onValueChange: (value: any, propertyName: string) => void,
+  /**
+   * Whether to enable sorting on this column
+   */
   enableSorter: boolean,
   mainStore: MainStore,
+  /**
+   * See {@link DataTableCustomFilterProps#ref}
+   */
   customFilterRef?: (instance: React.Component<DataTableCustomFilterProps>) => void
 }
 
@@ -52,6 +64,8 @@ export interface DataColumnConfig {
  * @remarks
  * It is possible to create a vanilla antd `Table` and customize some of its columns
  * with `DataTable`'s custom filters using this helper function.
+ *
+ * NOTE: it might be simpler to achieve the desired result using {@link DataTableProps#columnDefinitions}.
  *
  * @param config
  *
@@ -139,8 +153,8 @@ export interface DataColumnConfig {
  *  export default CarTable;
  *  ```
  *
- *  todo refactor - extract DataColumn class
  */
+// todo refactor - extract DataColumn class
 export function generateDataColumn<EntityType>(config: DataColumnConfig): ColumnProps<EntityType> {
   const {
     propertyName,
@@ -355,24 +369,38 @@ export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | unde
 }
 
 /**
- * `pagination`, `filters` and `sorter` are received in antd `Table`'s `onChange` callback
- *
- * `defaultSort` - name of the field to be sorted by. If the name is preceeding by the '+' character, then the sort order is ascending,
- * if by the '-' character then descending. If there is no special character before the property name, then ascending sort will be used.
- *
+ * @typeparam E - entity type
  */
 export interface TableChangeDTO<E> {
+  /**
+   * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+   */
   pagination: PaginationConfig,
+  /**
+   * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+   */
   filters: Record<string, string[]>,
+  /**
+   * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+   */
   sorter: SorterResult<E>,
+  /**
+   * Default sort order. See {@link DataCollectionStore#sort}.
+   */
   defaultSort: string | undefined,
+  /**
+   * Names of the entity properties that should be displayed.
+   */
   fields: string[],
   mainStore: MainStore,
   dataCollection: DataCollectionStore<E>,
 }
 
 /**
- * When called from `Table`'s `onChange` callback this function will reload data collection taking into account antd `Table`'s filters, sorter and pagination
+ * When called from antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+ * this function will reload data collection taking into account `Table`'s filters, sorter and pagination.
+ *
+ * @typeparam E - entity type.
  *
  * @param tableChangeDTO
  */
@@ -399,8 +427,9 @@ export function handleTableChange<E>(tableChangeDTO: TableChangeDTO<E>): Promise
  * Useful e.g. to set the initial state of table filters when the table is loaded with a predefined EntityFilter.
  *
  * @param entityFilter
- * @param fields allows to check the `entityFilter.conditions` against the list of displayed fields and ensure that only
- * the conditions related to the displayed fields are included in the result
+ * @param fields - names of the entity properties displayed in the table.
+ * Allows to check the {@link EntityFilter.conditions} against the list of displayed fields and ensure that only
+ * the conditions related to the displayed fields are used.
  */
 export function entityFilterToTableFilters(entityFilter: EntityFilter, fields?: string[]): Record<string, any> {
   const tableFilters: Record<string, any> = {};
@@ -436,7 +465,7 @@ export function isConditionsGroup(conditionOrConditionsGroup: Condition | Condit
  * Effectively they act as invisible filters that cannot be disabled.
  *
  * @param condition
- * @param fields
+ * @param fields - names of the entity properties displayed in the table
  */
 export function isPreservedCondition(condition: Condition | ConditionsGroup, fields: string[]): boolean {
   return isConditionsGroup(condition) || fields.indexOf((condition as Condition).property) === -1;

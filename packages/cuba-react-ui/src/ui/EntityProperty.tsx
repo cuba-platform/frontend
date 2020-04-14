@@ -10,15 +10,24 @@ import {
 } from "@cuba-platform/react-core";
 import {toDisplayValue} from '../util/formatting';
 
-type Props = MainStoreInjected & {
+export interface EntityPropertyProps extends MainStoreInjected {
   entityName: string;
   propertyName: string;
+  /**
+   * Whether to show a localized property name as a label. Default: true.
+   */
   showLabel?: boolean;
+  /**
+   * If `true`, the component will render as `null` when {@link value} is `null` or `undefined`
+   */
   hideIfEmpty?: boolean;
+  /**
+   * Property value
+   */
   value: any;
 }
 
-const EntityPropertyFormattedValue = observer((props: Props) => {
+const EntityPropertyFormattedValue = observer((props: EntityPropertyProps) => {
   const {
     entityName,
     propertyName,
@@ -61,7 +70,7 @@ const EntityPropertyFormattedValue = observer((props: Props) => {
     : <div>{formatValue(displayValue)}</div>
 });
 
-export const EntityProperty = injectMainStore(observer((props: Props) =>
+export const EntityProperty = injectMainStore(observer((props: EntityPropertyProps) =>
   <EntityPropertyFormattedValue {...props}/>));
 
 function formatValue(value: any): string {

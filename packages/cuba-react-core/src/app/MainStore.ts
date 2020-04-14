@@ -7,17 +7,41 @@ export class MainStore {
 
   static NAME = 'mainStore';
 
+  /**
+   * Whether the `MainStore` instance is initialized.
+   */
   @observable initialized = false;
+  /**
+   * Whether the user authenticated.
+   */
   @observable authenticated = false;
+  /**
+   * Whether the user is anonymous.
+   */
   @observable usingAnonymously = false;
   @observable userName?: string;
+  /**
+   * Currently selected locale.
+   */
   @observable locale?: string;
 
+  /**
+   * Information about project entities.
+   */
   @observable metadata?: IObservableArray<MetaClassInfo>;
+  // TODO can be made private?
   metadataRequestCount = 0;
+  /**
+   * Localized entity messages.
+   */
   @observable messages?: EntityMessages;
+  // TODO can be made private?
   messagesRequestCount = 0;
+  /**
+   * Localized enums.
+   */
   @observable enums?: IObservableArray<EnumInfo>;
+  // TODO can be made private?
   enumsRequestCount = 0;
   security: Security;
 
@@ -35,6 +59,10 @@ export class MainStore {
     })
   }
 
+  /**
+   * `true` means that `MainStore` is in a state when entity data can be displayed (i.e. entity metadata,
+   * localized entity messages, localized enums and permissions information has been loaded).
+   */
   isEntityDataLoaded(): boolean {
     return this.messages != null
       && this.metadata != null
@@ -42,6 +70,9 @@ export class MainStore {
       && this.security.isDataLoaded;
   }
 
+  /**
+   * Retrieves localized enums using REST API.
+   */
   @action
   loadEnums() {
     const requestId = ++this.enumsRequestCount;
@@ -53,6 +84,9 @@ export class MainStore {
       }));
   }
 
+  /**
+   * Retrieves entity metadata using REST API.
+   */
   @action
   loadMetadata() {
     const requestId = ++this.metadataRequestCount;
@@ -64,6 +98,9 @@ export class MainStore {
       }));
   }
 
+  /**
+   * Retrieves localized entity messages using REST API.
+   */
   @action
   loadMessages() {
     const requestId = ++this.messagesRequestCount;
@@ -75,10 +112,16 @@ export class MainStore {
       }))
   }
 
+  /**
+   * Changes the active locale for this frontend client application.
+   *
+   * @param locale - locale to be set as active.
+   */
   setLocale = (locale: string) => {
     this.cubaREST.locale = locale;
   };
 
+  // TODO can be made private?
   @action
   handleLocaleChange = (locale: string) => {
     this.locale = locale;
@@ -93,6 +136,7 @@ export class MainStore {
     }
   };
 
+  // TODO can be made private?
   setSessionLocale = () => {
     this.cubaREST.setSessionLocale().catch((reason) => {
       if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
@@ -108,7 +152,9 @@ export class MainStore {
     return !this.authenticated && !this.usingAnonymously;
   }
 
-  /**
+  // TODO same method as `isEntityDataLoaded`, either one shall be removed.
+  // TODO Perhaps `isEntityDataLoaded` is a better name as this method can not only be used  in the entity management screens.
+  /*
    * Define id mainStore is ready to serve entiry management components.
    * todo may be we need to think about kind of 'generated component store' with such methods
    */
@@ -142,6 +188,11 @@ export class MainStore {
     return Promise.resolve();
   }
 
+  /**
+   * Initializes this `MainStore` instance.
+   *
+   * @returns a promise that resolves when initialization is complete.
+   */
   initialize(): Promise<void> {
     this.locale = this.cubaREST.locale;
     return this.cubaREST.getUserInfo()

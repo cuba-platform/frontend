@@ -23,6 +23,11 @@ import {NestedEntitiesTableField, NestedEntitiesTableFieldProps} from "./form/Ne
 export type FormFieldComponentProps = SelectProps | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
   | NestedEntityFieldProps | NestedEntitiesTableFieldProps;
 
+// TODO We should probably make it an interface as it is not convenient to document type declarations with TSDoc.
+// TODO However, that would be a minor breaking change, as interface cannot extend FormFieldComponentProps.
+/**
+ * See {@link FieldProps}
+ */
 export type FormFieldProps = MainStoreInjected & {
   entityName: string;
   propertyName: string;
@@ -30,7 +35,7 @@ export type FormFieldProps = MainStoreInjected & {
   optionsContainer?: DataCollectionStore<WithId>;
   nestedEntityView?: string;
   parentEntityInstanceId?: string;
-} & FormFieldComponentProps
+} & FormFieldComponentProps;
 
 export const FormField = injectMainStore(observer((props: FormFieldProps) => {
 

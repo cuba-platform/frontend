@@ -26,7 +26,7 @@ export interface FileUploadProps {
   enableFullWidth?: boolean,
   disabled?: boolean,
   /**
-   * UploadProps object that is passed through to the underlying antd {@link https://ant.design/components/upload/ Upload} component
+   * UploadProps object that is passed through to the underlying antd {@link https://3x.ant.design/components/upload/ Upload} component
    */
   uploadProps?: UploadProps,
   /**

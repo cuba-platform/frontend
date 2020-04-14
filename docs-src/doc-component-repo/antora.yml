@@ -1,5 +1,5 @@
 name: cuba-frontend-docs
-title: CUBA Platform Frontend Generator
+title: CUBA Platform Frontend UI Manual
 version: v2.4.x
 nav:
   - modules/ROOT/nav.adoc

@@ -53,7 +53,7 @@ export interface EntityEditorProps extends MainStoreInjected, WrappedComponentPr
    * This prop can be used to override the default behavior which is to send
    * a request to REST API to update the entity.
    *
-   * It takes one parameter `fieldValues` that represents the values of antd {@link https://ant.design/components/form/ Form} fields.
+   * @param fieldValues - the values of antd {@link https://3x.ant.design/components/form/ Form} fields.
    * It can be obtained via antd Form's `getFieldsValue(fields)` method.
    * `fields` parameter of this method is a list of entity properties for which
    * the form field values should be collected.
