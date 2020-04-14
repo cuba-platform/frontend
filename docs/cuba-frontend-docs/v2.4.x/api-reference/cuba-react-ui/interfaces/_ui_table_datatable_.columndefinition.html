@@ -107,9 +107,18 @@
 					<div class="tsd-signature tsd-kind-icon">column<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ColumnProps</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5297260/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L74">cuba-react-ui/src/ui/table/DataTable.tsx:74</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L121">cuba-react-ui/src/ui/table/DataTable.tsx:121</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If <a href="_ui_table_datatable_.columndefinition.html#field">field</a> is provided, then these properties will override the default look&amp;feel
+								(defaults will still apply to the properties not contained in <a href="_ui_table_datatable_.columndefinition.html#columnprops">columnProps</a>).
+								If you want to create a custom column that is not bound to an entity property
+								(e.g. an action button column or a calculated field column) use this prop only and do not use <a href="_ui_table_datatable_.columndefinition.html#field">field</a>.
+							In this case only the properties present in <a href="_ui_table_datatable_.columndefinition.html#columnprops">columnProps</a> will be applied to the column.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="field" class="tsd-anchor"></a>
@@ -117,9 +126,19 @@
 					<div class="tsd-signature tsd-kind-icon">field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5297260/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L73">cuba-react-ui/src/ui/table/DataTable.tsx:73</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/table/DataTable.tsx#L113">cuba-react-ui/src/ui/table/DataTable.tsx:113</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Entity property name.
+								Use it if you want to create a custom variant of the default property-bound column.
+								In this case the properties in <a href="_ui_table_datatable_.columndefinition.html#columnprops">columnProps</a> will override the default
+								look&amp;feel (defaults will still apply to the properties not contained in <a href="_ui_table_datatable_.columndefinition.html#columnprops">columnProps</a>).
+								If you want to create a custom column that is not bound to an entity property
+							(e.g. an action button column or a calculated field column), do not use this prop.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
