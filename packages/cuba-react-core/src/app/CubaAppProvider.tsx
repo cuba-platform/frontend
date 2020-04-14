@@ -26,14 +26,39 @@ export function getCubaAppConfig(): CubaAppConfig | undefined {
 }
 
 export interface CubaAppConfig {
+  /**
+   * Serialization formats for entity properties of temporal types.
+   * Can be used to override the default formats used to (de)serialize the data transferred by REST API.
+   * See @{link https://momentjs.com/docs/#/displaying/ | Moment documentation}
+   * for details on available formats.
+   */
   dataTransferFormats?: Partial<Record<PropertyType, string>>;
+  /**
+   * Display formats for entity properties of temporal types.
+   * Can be used to override the formats used for data presentation.
+   * See @{link https://momentjs.com/docs/#/displaying/ | Moment documentation}
+   * for details on available formats.
+   */
   displayFormats?: Partial<Record<PropertyType, string>>;
 }
 
 export interface CubaAppProviderProps {
+  /**
+   * REST API facade
+   */
   cubaREST: CubaApp;
   children: React.ReactNode | React.ReactNode[] | null;
+  /**
+   * A callback that retrieves REST API token from an external storage.
+   * Used, for example, in native mobile apps.
+   *
+   * @returns a promise that resolves into a `string` representing a valid REST API token
+   * or `undefined` if no valid token is available.
+   */
   retrieveRestApiToken?: () => Promise<string|undefined>;
+  /**
+   * Configuration object.
+   */
   config?: CubaAppConfig;
 }
 

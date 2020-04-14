@@ -16,25 +16,55 @@ import {
 import {MetaClassInfo} from "@cuba-platform/rest";
 import {uuidPattern} from "../../util/regex";
 
-type Props = MainStoreInjected & FormComponentProps & {
+export interface FieldProps extends MainStoreInjected, FormComponentProps {
   entityName: string;
   propertyName: string;
+  /**
+   * This prop shall be supplied if the entity property has Association relation type.
+   * It is a data collection containing entity instances that can be assigned to this property
+   * (i.e. possible options that can be selected in a form field).
+   */
   optionsContainer?: DataCollectionStore<WithId>;
+  /**
+   * This prop shall be supplied if the entity property has Composition relation type.
+   * It is a view that will be used to limit the entity graph of a nested entity.
+   */
   nestedEntityView?: string;
+  /**
+   * This prop shall be supplied if the entity property has Composition relation type.
+   * It is an id of the enclosing entity instance.
+   */
   parentEntityInstanceId?: string;
 
-  // form item
+  /**
+   * The value that will be assigned to {@link https://3x.ant.design/components/form/ | Form.Item} `key` property.
+   * If not provided, {@link propertyName} will be used instead.
+   */
   formItemKey?: string;
+  /**
+   * Props that will be passed through to {@link https://3x.ant.design/components/form/ | Form.Item} component.
+   */
   formItemOpts?: FormItemProps;
 
-  // field decorator
+  /**
+   * Will be passed as `id` argument to {@link https://3x.ant.design/components/form/ | getFieldDecorator}.
+   * If not provided, {@link propertyName} will be used instead.
+   */
   fieldDecoratorId?: string;
+  /**
+   * Will be spread into the default options object
+   * and passed as `options` argument to {@link https://3x.ant.design/components/form/ | getFieldDecorator}.
+   */
   getFieldDecoratorOpts?: GetFieldDecoratorOptions;
+  /**
+   * Props that will be passed through to the underlying component (i.e. the actual component
+   * that will be rendered, such as `DatePicker` or `Select`).
+   */
   componentProps?: FormFieldComponentProps;
 }
 
 // noinspection JSUnusedGlobalSymbols
-export const Field = injectMainStore(observer((props: Props) => {
+export const Field = injectMainStore(observer((props: FieldProps) => {
 
   const {getFieldDecorator} = props.form;
 

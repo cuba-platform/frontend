@@ -1,447 +1,199 @@
-= CUBA Platform Frontend Generator
-// :imagesdir: attribute is ignored by Antora, which allows us to have images displayed properly both in README and generated site
+= CUBA Platform Frontend UI Manual
 :imagesdir: docs-src/doc-component-repo/modules/ROOT/images
-:EntityEditorProps: link:api-reference/cuba-react-ui/interfaces/_ui_entityeditor_.entityeditorprops.html[EntityEditorProps]
-:NestedEntityFieldProps: link:api-reference/cuba-react-ui/interfaces/_ui_form_nestedentityfield_.nestedentityfieldprops.html[NestedEntityFieldProps]
-:NestedEntitiesTableField: link:api-reference/cuba-react-ui/interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html[NestedEntitiesTableField]
-:FileUploadProps: link:api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html[FileUploadProps]
-:ImagePreviewProps: link:api-reference/cuba-react-ui/interfaces/_ui_imagepreview_.imagepreviewprops.html[ImagePreviewProps]
-:toc:
+// External links
+:manual_platform: https://doc.cuba-platform.com/manual-latest
+:manual_restApi: https://doc.cuba-platform.com/restapi-7.2
+:manual_restApi_services: {manual_restApi}/#rest_api_v2_services_config
+:manual_restApi_queries: {manual_restApi}/#rest_api_v2_queries_config
+:manual_studio: https://doc.cuba-platform.com/studio
+:manual_studio_frontendUi: {manual_studio}/#frontend_ui
+:restApiSwagger: http://files.cuba-platform.com/swagger/7.2
+:compositionGuide: https://www.cuba-platform.com/guides/data-modelling-composition
+:petclinic: https://github.com/cuba-platform/cuba-petclinic
+// TODO Change this link to https://ant.design once https://github.com/cuba-platform/frontend/issues/168 is implemented
+:antDesign_base: https://3x.ant.design
+:antDesign_intro: {antDesign_base}/docs/react/introduce
+:antDesign_components: {antDesign_base}/components
+:npm_frontendGenerator: https://www.npmjs.com/package/@cuba-platform/front-generator
+:npm_cubaReactCore: https://www.npmjs.com/package/@cuba-platform/react-core
+:npm_cubaReactUi: https://www.npmjs.com/package/@cuba-platform/react-ui
+:npm_cubaRestJs: https://www.npmjs.com/package/@cuba-platform/rest
+:forum: link:https://www.cuba-platform.com/discuss
+// API docs: CUBA REST JS
+:api_rest: link:api-reference/cuba-rest-js/index.html
+:api_rest_PropertyType: link:api-reference/cuba-rest-js/modules/_model_.html#propertytype
+// API docs: CUBA React Core
+:api_core_CubaAppProviderProps: link:api-reference/cuba-react-core/interfaces/_app_cubaappprovider_.cubaappproviderprops.html
+:api_core_MainStore: link:api-reference/cuba-react-core/modules/_app_mainstore_.html
+:api_core_DataCollectionStore: link:api-reference/cuba-react-core/interfaces/_data_collection_.datacollectionstore.html
+:api_core_collection: link:api-reference/cuba-react-core/modules/_data_collection_.html#collection-1
+:api_core_ClientSideDataCollectionStore: link:api-reference/cuba-react-core/interfaces/_data_collection_.clientsidedatacollectionstore.html
+:api_core_clientSideCollection: link:api-reference/cuba-react-core/modules/_data_collection_.html#clientsidecollection
+:api_core_DataInstanceStore: link:api-reference/cuba-react-core/classes/_data_instance_.datainstancestore.html
+:api_core_instance: link:api-reference/cuba-react-core/modules/_data_instance_.html#instance-1
+// API docs: CUBA React UI
+:api_ui_FieldProps: link:api-reference/cuba-react-ui/interfaces/_ui_form_field_.fieldprops.html
+:api_ui_FormFieldProps: link:api-reference/cuba-react-ui/modules/_ui_formfield_.html#formfieldprops
+:api_ui_EntityPropertyProps: link:api-reference/cuba-react-ui/interfaces/_ui_entityproperty_.entitypropertyprops.html
+:api_ui_EntityEditorProps: link:api-reference/cuba-react-ui/interfaces/_ui_entityeditor_.entityeditorprops.html
+:api_ui_NestedEntityFieldProps: link:api-reference/cuba-react-ui/interfaces/_ui_form_nestedentityfield_.nestedentityfieldprops.html
+:api_ui_NestedEntitiesTableFieldProps: link:api-reference/cuba-react-ui/interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html
+:api_ui_FileUploadProps: link:api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html
+:api_ui_ImagePreviewProps: link:api-reference/cuba-react-ui/interfaces/_ui_imagepreview_.imagepreviewprops.html
+:api_ui_DataTableProps: link:api-reference/cuba-react-ui/interfaces/_ui_table_datatable_.datatableprops.html
+:api_ui_DataTableCustomFilterProps: link:api-reference/cuba-react-ui/interfaces/_ui_table_datatablecustomfilter_.datatablecustomfilterprops.html
+:api_ui_DataTableHelpers: link:api-reference/cuba-react-ui/modules/_ui_table_datatablehelpers_.html
 --------------------------------
-
-https://travis-ci.org/cuba-platform/frontend[image:https://travis-ci.org/cuba-platform/frontend.svg?branch=master[Build
-Status]]
-http://commitizen.github.io/cz-cli/[image:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg[Commitizen
-friendly]]
 
 [[overview]]
 == Overview
 
-This tool can be used to generate a front-end client for a CUBA
-Platform based application. The client can be powered by one of the
-following frameworks:
+The *Frontend UI* is a CUBA Platform {manual_platform}/app_tiers.html[block] serving as an alternative to the {manual_platform}/gui_framework.html[Generic UI]. Whereas Generic UI is designed primarily for internal (back-office) users, Frontend UI is targeted for external users and is more flexible in terms of layout customization. It also uses different technologies which are more familiar to frontend developers, and allows easy integration of UI libraries and components from vast JavaScript ecosystem. However, it requires better knowledge of modern frontend stack.
+
+Frontend UI can be powered by one of the following technologies:
 
 - React
 - React Native
 - Polymer (deprecated)
-- a framework-agnostic link:#typescript-sdk[TypeScript SDK]
+- Your favorite framework (such as Angular or Vue): you can use a framework-agnostic link:#typescript-sdk[TypeScript SDK] for that
 
-The front-end client is an alternative to the
-https://doc.cuba-platform.com/manual-latest/gui_framework.html[Generic
-UI] providing front-end oriented development experience. It's more
-flexible in terms of layout customization and allows easy integration of
-UI libraries and components from vast JavaScript ecosystem. However, it
-requires better knowledge of modern front-end stack.
+We provide several tools and libraries that you can use in order to build your Frontend UI application (or *frontend client* as we call it):
 
-The generator is used by https://doc.cuba-platform.com/studio/[CUBA
-Studio] for
-https://doc.cuba-platform.com/manual-latest/front_ui.html[front module]
-creation. Alternatively it can be used as a standalone CLI tool.
+Frontend Generator:: The link:#generator-reference[Frontend Generator] is a scaffolding tool that can be used to speed up the process of developing a frontend client. It can be used from {manual_studio}[CUBA Studio] or as a standalone CLI tool. It can generate a starter app and add the pieces you need such as entity browser and editor screens. It can also generate a link:#typescript-sdk[TypeScript SDK]. Frontend Generator is available as an npm package {npm_frontendGenerator}[@cuba-platform/front-generator].
 
-[[supported-browsers]]
-=== Supported Browsers
+Component and utility libraries for React and React Native:: There are two libraries for React and React Native powered frontend clients that are both used in the code generated by the link:#generator-reference[Frontend Generator] and can be utilized on its own. One is link:#cuba-react-core[CUBA React Core] which is responsible for core functionalities such as working with CUBA entities. It is used by both React and React Native clients. The other is link:#cuba-react-ui[CUBA React UI] which contains the UI components. It uses {antDesign_intro}[Ant Design] UI kit and is used by the React client. Both libraries are available as npm packages: {npm_cubaReactCore}[@cuba-platform/react-core], {npm_cubaReactUi}[@cuba-platform/react-ui].
 
-The client supports all modern (evergreen) browsers. In order to support
-IE 9,10,11
-https://facebook.github.io/create-react-app/docs/supported-browsers-features[additional
-configuration] required.
+CUBA REST JS library:: {api_rest}[CUBA REST JS] is a library that handles the interactions with {manual_restApi}[Generic REST API]. Frontend clients use Generic REST API to communicate with the Middleware. However, you don't have to manually send the requests from your code. If your frontend client is based on React or React Native then link:#cuba-react-core[CUBA React Core] components will often handle this communication for you utilizing CUBA REST JS under the hood. If you are using a different framework or need more flexibility, you can use CUBA REST JS directly. CUBA REST JS is available as an npm package {npm_cubaRestJs}[@cuba-platform/rest].
+
+TypeScript SDK:: link:#typescript-sdk[TypeScript SDK] is generated by the link:#generator-reference[Frontend Generator] and is a TypeScript representation of project's entities, views and facades to access REST services. The SDK can be used to develop a frontend client using your favorite framework (if it happens not to be one of the frameworks supported out of the box) as well as for Node.js-based BFF (Backend for Frontend) development.
 
 [[getting-started]]
 == Getting Started
 
-We recommend using an IDE with
-http://www.typescriptlang.org/[TypeScript] support:
-https://code.visualstudio.com/[VSCode],
-https://www.jetbrains.com/webstorm/[WebStorm] or
-https://www.jetbrains.com/idea/[IntelliJ IDEA] Ultimate Edition.
+First of all, install the {manual_studio}/#installation[CUBA Studio].
 
-Steps will vary depending on whether you are using the generator from
-CUBA Studio or as a standalone CLI tool.
+Your learning path will vary depending on what kind of frontend client you want to build (e.g. React, React Native, etc.). However, the common starting point will be the *Frontend Generator*. There are two ways to use it:
 
-[[getting-started-using-cuba-studio]]
-=== Getting Started Using CUBA Studio
+- from Studio UI
+- from command line interface using project model file exported via Studio
 
-[[installation]]
-*Installation*
+CAUTION: Majority of features provided by CLI are supported by the Studio, but there are few exceptions. Check link:#generator-reference[Frontend Generator Reference] to see which features are supported. Also you will want to use CLI if you prefer to have your frontend client as a separate project rather than as part of your CUBA project (e.g. you may have different teams working on frontend and backend).
 
-Install https://doc.cuba-platform.com/studio/#installation[CUBA Studio].
-
-[[generating-a-client-from-studio]]
-*Generating a Client from Studio*
-
-You can generate a client as
-https://doc.cuba-platform.com/studio/#modules[a module of CUBA
-application]. You will be able to create CRUD screens using CUBA Studio
-UI.
+If you want to use the Frontend Generator from CLI, check link:#getting-started-using-cli[here] for CLI-specific instructions. Otherwise, proceed to link:#choose-learning-path[this section].
 
 [[getting-started-using-cli]]
-=== Getting Started Using CLI
+=== CLI-specific instructions
 
-[[installation-1]]
+[[installation-cli]]
 *Installation*
 
-Install https://nodejs.org/en/download/[Node.js] 12+ and npm 6+ (usually
-comes with node).
+Install https://nodejs.org/en/download/[Node.js] 12+ and npm 6+ (usually comes with node).
 
-Install the generator using npm package manager:
+Install the generator CLI tool using npm:
 
 [source,bash]
 ----
 npm install -g @cuba-platform/front-generator
 ----
 
-Use the generator by running the following command in command line:
+Check if installation was successful by running the following command:
 
 [source,bash]
 ----
 gen-cuba-front
 ----
 
-Alternatively, you can run the generator without installation using
-https://www.npmjs.com/package/npx[npx]:
+This will display the usage info.
+
+Alternatively, you can run the generator without installation using https://www.npmjs.com/package/npx[npx]:
 
 [source,bash]
 ----
 npx @cuba-platform/front-generator
 ----
 
-[[generating-a-client-using-cli]]
-*Generating a Client Using CLI*
+[[exporting-project-model-file]]
+*Project Metadata*
 
-In order to generate a starter app, we need to feed the generator with
-project metadata (what entities do we have, etc.). There are two ways of
-doing that.
+The generator CLI tool will require the project metadata: information about your project's entities, views, etc. You can pass this information to the generator using CUBA Studio. There are two ways of doing that.
 
 [[passing-project-metadata-from-cuba-studio]]
-_Passing Project Metadata from CUBA Studio_
+_Passing Project Metadata Automatically_
 
 * Open your project in CUBA Studio.
-* Open settings (`File > Settings`), then open
-`Languages & Frameworks > CUBA`.
-* Tick the `Old Studio integration` checkbox:
+* Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA`.
+* Tick the `Enable integration` checkbox:
++
+image:studio-integration.png[Enabling Studio integration]
 
-image:studio-integration.png[Enabling
-Studio integration]
-
-Now generator will be able to automatically detect CUBA projects opened
+Now the generator will be able to automatically detect CUBA projects opened
 in Studio.
 
-Generate a starter React app by running the following command:
+[[passing-project-metadata-manually]]
+_Passing Project Metadata Manually_
+
+You can export the project model manually. Select `CUBA > Advanced > Export project model` in the main menu. Studio will generate `projectModel.json` file.
+
+IMPORTANT: When the project model changes (e.g. an entity has been altered, a view has been added, etc.), you will need to re-generate the project model file and update the project model in already generated code. In order to do the latter you can use a convenience npm script: `npm run update-model`.
+
+[[choose-learning-path]]
+=== Choosing the Learning Path
+
+If you want to create a React-based Frontend UI, check our link:#react-client[React Client] guide.
+
+For React Native check link:#react-native-client[this] guide.
+
+Deprecated Polymer Client documentation can be found {manual_platform}/polymer_ui.html[here].
+
+If you want to use a different framework, check link:#typescript-sdk[TypeScript SDK] and {api_rest}[CUBA REST JS] documentation.
+
+If you want to build a frontend client that works well on both desktop and mobile but not sure which framework to use, we suggest building a link:#react-client[React Client] as this is currently the most well-supported option.
+
+If you are stuck, or your specific use case is not covered by this documentation - feel free to contact us at {forum}[our forum].
+
+[[react-client]]
+== React Client
+
+[[getting-started-with-react-client]]
+=== Creating a Starter Client
+
+NOTE: If you haven't read our introductory link:#getting-started[Getting Started] section, we encourage you to do so now.
+
+In this guide we will use the Frontend Generator to create a starter React client and add screens to browse and edit an entity. You can try it with your own CUBA project, or you can use {petclinic}[Petclinic] sample project.
+
+There are two ways to use the generator: from CUBA Studio and from CLI.
+
+*Using Generator from Studio*
+
+Select `CUBA` view in `Project` tool window. Right-click on `Project` -> `Modules` and select `Manage modules` -> `Create 'front' module`. Choose `React` module preset.
+
+image:react/studio-create-front-module.gif[Creating front module]
+
+Starter React client will be created in `modules/front` directory.
+
+*Using Generator from CLI*
+
+If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.
 
 [source,bash]
 ----
 gen-cuba-front react-typescript:app
 ----
 
-Generator will prompt you to select one of the currently opened CUBA
-projects.
+Generator will prompt you to select one of the currently opened CUBA projects.
 
-image:interactive-projects.png[Interactive
-project selection]
+image:interactive-projects.png[Interactive project selection]
 
-[[passing-project-metadata-manually]]
-_Passing Project Metadata Manually_
-
-You can export the project model manually. Select
-`CUBA > Advanced > Export project model` in the main menu. Studio will
-generate `projectModel.json` file.
-
-Use `--model` command line option to specify location of the project
-model file:
+If you are using an exported project model file, use `--model` parameter to pass it to the generator.
 
 [source,bash]
 ----
 gen-cuba-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json
 ----
 
-[[generator-cli]]
-== Generator CLI
+*Exploring the Generated Project*
 
-Run `gen-cuba-front` (or `npx @cuba-platform/front-generator`) without
-arguments to see usage info.
-
-....
-Usage: gen-cuba-front [command] [options]
-
-  Options:
-
-    -v, --version  output the version number
-    -h, --help     output usage information
-
-  Commands:
-
-    list [options]                                   List all available clients and their clients
-    polymer2:app [options]                           Generates polymer2 app
-    polymer2:blank-component [options]               Generates polymer2 blank-component
-    polymer2:entity-cards [options]                  Generates polymer2 entity-cards
-    polymer2:entity-edit [options]                   Generates polymer2 entity-edit
-    polymer2:entity-list [options]                   Generates polymer2 entity-list
-    polymer2:entity-management [options]             Generates polymer2 entity-management
-    polymer2:query-results [options]                 Generates polymer2 query-results
-    polymer2:service-data [options]                  Generates polymer2 service-data
-    polymer2:service-form [options]                  Generates polymer2 service-form
-    polymer2-typescript:app [options]                Generates polymer2-typescript app
-    polymer2-typescript:blank-component [options]    Generates polymer2-typescript blank-component
-    polymer2-typescript:entity-cards [options]       Generates polymer2-typescript entity-cards
-    polymer2-typescript:entity-edit [options]        Generates polymer2-typescript entity-edit
-    polymer2-typescript:entity-list [options]        Generates polymer2-typescript entity-list
-    polymer2-typescript:entity-management [options]  Generates polymer2-typescript entity-management
-    react-typescript:app [options]                   Generates react-typescript app
-    react-typescript:blank-component [options]       Generates react-typescript blank-component
-    react-typescript:entity-cards [options]          Generates react-typescript entity-cards
-    react-typescript:entity-management [options]     Generates react-typescript entity-management
-    sdk:all [options]                                Generates sdk all
-    sdk:model [options]                              Generates sdk model
-....
-
-__________________________________
-NOTE: Polymer client is deprecated
-__________________________________
-
-Run `gen-cuba-front <command> --help` to see the list of available
-options.
-
-Most commands use interactive prompts to capture necessary inputs such
-as which entity you want to use, which
-https://doc.cuba-platform.com/manual-latest/views.html[view], etc.
-Alternatively, `answers` command line parameter can be used to provide
-these inputs. You may want to use it if you want to automate the
-generation. `answers` is a base64-encoded JSON string. See
-link:#commands-description[descriptions of individual
-commands] for details on what shall be put inside this JSON.
-
-Example of using `answers`:
-
-....
-gen-cuba-front react-typescript:entity-management \
-  --dest ../model-playground/modules/front/src/app/car \
-  --model /home/myusername/model-playground/projectModel.json \
-  --dirShift ../../ \
-  --answers eyJlZGl0VmlldyI6eyJuYW1lIjoiY2FyLXZpZXciLCJlbnRpdHlOYW1lIjoibXBnJENhciJ9LCJlZGl0Q29tcG9uZW50TmFtZSI6Im1wZy1jYXItZWRpdCIsImxpc3RWaWV3Ijp7Im5hbWUiOiJjYXItdmlldyIsImVudGl0eU5hbWUiOiJtcGckQ2FyIn0sImxpc3RDb21wb25lbnROYW1lIjoibXBnLWNhci1saXN0IiwibGlzdFR5cGUiOiJsaXN0IiwiZW50aXR5Ijp7Im5hbWUiOiJtcGckQ2FyIn0sIm1hbmFnZW1lbnRDb21wb25lbnROYW1lIjoibXBnLWNhci1tYW5hZ2VtZW50In0=
-....
-
-[[commands-description]]
-=== Commands Description
-
-[[react-typescriptapp]]
-*react-typescript:app*
-
-Generates a React starter app. See link:#getting-started[Getting
-started].
-
-....
-  Options:
-
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information
-....
-
-[[react-typescriptentity-management]]
-*react-typescript:entity-management*
-
-Generates:
-
-- Route / main menu item
-- Editor screen to create or edit an
-entity
-- Browser screen to view the list of entities and/or perform CRUD
-operations.
-
-....
-  Options:
-
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information
-....
-
-Browser screen is available in one of the following flavors (we call it
-list types):
-
-* list
-
-image:react/browser-list.png[List browser
-example]
-
-* cards
-
-image:react/browser-cards.png[Cards browser
-example]
-
-* table
-
-image:react/data-table-demo.gif[Data table
-showcase]
-
-`answers` format:
-
-....
-{
-    "editView": {
-      "name": "car-edit", // Name of view that will be used in Editor screen
-      "entityName": "mpg$Car" // Entity name
-    },
-    "editComponentName": "CarEdit", // Editor component class name 
-    "listView": {
-      "name": "car-edit", // Name of view that will be used in Browser screen
-      "entityName": "mpg$Car" // Entity name
-    },
-    "listComponentName": "CarCards", // Browser component class name
-    "listType": "cards", // List type: list, cards or table
-    "entity": {
-      "name": "mpg$Car" // Entity name
-    },
-    "managementComponentName": "CarManagement" // Management component class name (renders either Editor or Browser depending on current route) 
-    }
-}
-....
-
-[[react-typescriptentity-cards]]
-*react-typescript:entity-cards*
-
-Generates a list of entities where each entity is represented by a card
-(similar to a Browser component with `"listType": "cards"`, see
-link:#react-typescriptentity-management[react-typescript:entity-management])
-
-....
-  Options:
-
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information
-....
-
-`answers` format:
-
-....
-{
-    "entityView": {
-      "name": "favoriteCar-view", // View name
-      "entityName": "mpg$FavoriteCar" // Entity name 
-    },
-    "componentName": "FavoriteCarCards", // Component class name
-    "entity": {
-      "name": "mpg$FavoriteCar" // Entity name 
-    }
-}
-....
-
-[[react-typescriptblank-component]]
-*react-typescript:blank-component*
-
-Generates a blank component.
-
-....
-  Options:
-
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information
-....
-
-`answers` format:
-
-....
-{
-    "componentName": "BlankComponent" // Component class name
-}
-....
-
-[[sdkall]]
-*sdk:all*
-
-Generates framework-agnostic link:#typescript-sdk[TypeScript SDK]. It is
-also generated when executing `react-typescript:app` command.
-
-....
-  Options:
-
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information
-....
-
-[[sdkmodel]]
-*sdk:model*
-
-Generates SDK model only.
-
-....
-  Options:
-
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information
-....
-
-[[react-client]]
-== React Client
-
-[[overview-of-react-client]]
-=== Overview of React Client
-
-[[running-the-client]]
-*Running the Client*
-
-You can run the client by executing the following command:
-
-[source,bash]
-----
-npm run start
-----
-
-This will launch a dev server and allow you to access your app at
-`localhost:3000`.
-
-If the client was generated via CUBA Studio (as a module of CUBA
-application) you can use Gradle in order to run npm tooling:
-
-[source,bash]
-----
-./gradlew npm_run_start
-----
-
-________________________________________________________________________________________________________________________________________________________________
-NOTE: There is a known
-https://github.com/srs/gradle-node-plugin/issues/339[bug] in Gradle node
-plugin which does not kill JS development server on task interruption.
-________________________________________________________________________________________________________________________________________________________________
-
-You can also run your CUBA application normally (e.g. via
-`CUBA -> Start Application Server`) and front-end client will be
-accessible at `localhost:8080/app-front` (context root can be
-link:#react-client-configuration[configured]). However, in this case hot
-deploy will not be available. We recommend using one of the above
-methods during development.
-
-[[technologies]]
-*Technologies*
-
-The client is based on the following frameworks and libraries:
-
-* https://reactjs.org/[React] - UI rendering;
-* https://mobx.js.org/[MobX] - reactive state management;
-* https://ant.design/docs/react/introduce[Ant Design] - UI components;
-* https://reacttraining.com/react-router/[React Router] - routing;
-* link:#cuba-react-core[CUBA React Core] - CUBA React core components and utilities;
-* link:#cuba-react-ui[CUBA React UI] - CUBA React UI components
-and utilities;
-* link:api-reference/cuba-rest-js/index.html[CUBA REST JS^] - interaction with СUBA
-generic REST API;
-* https://facebook.github.io/create-react-app/[Create React App] - build
-scripts and configuration;
-
-[[project-structure]]
-*Project Structure*
-
-Here is the structure of the newly generated project:
+Here is the structure of a newly generated project:
 
 ....
 app-name/
@@ -464,20 +216,149 @@ app-name/
       enums/           <- Project enums
 ....
 
-If the client was generated using Studio it's placed in `modules/front`
-directory of main project.
+[[launching-react-client]]
+*Running the Client*
+
+Navigate to the directory with the generated React client and run the following command to install the dependencies.
+
+[source,bash]
+----
+npm install
+----
+
+Now you can run the client by executing the following command:
+
+[source,bash]
+----
+npm run start
+----
+
+This will launch a dev server and allow you to access your app at `localhost:3000`.
+
+.Other Ways to Run the Project
+****
+If the client was generated via CUBA Studio (as a module of CUBA application) you can use Gradle in order to run npm tooling:
+
+[source,bash]
+----
+./gradlew npm_run_start
+----
+
+NOTE: There is a known
+https://github.com/srs/gradle-node-plugin/issues/339[bug] in Gradle node
+plugin which does not kill JS development server on task interruption.
+
+You can also run your CUBA application normally (e.g. via `CUBA -> Start Application Server`) and frontend client will be accessible at `localhost:8080/app-front` (context root can be link:#react-client-configuration[configured]). However, in this case hot deploy will not be available. We recommend using one of the above methods during development.
+****
+
+Either way, this is what you will see once you open your project in a browser.
+
+image:react/login-screen.png[Login screen]
+
+Enter existing user's login and password (`admin/admin` if you are using Petclinic).
+
+image:react/home-screen.png[Home screen]
+
+That's it! Congratulations, you have just created your first React client!
+
+[[react-client-adding-components]]
+*Adding Components*
+
+So far our React client doesn't do much. Let's add the screens to browse and edit an entity.
+
+*Adding Components Using Studio*
+
+In `CUBA` view of `Project` tool window expand `Data Model` and right-click on an entity class. Select `New` -> `Frontend Component`. Select `Entity management`, `Next`, `Finish`.
+
+image:react/studio-adding-frontend-component.gif[Adding a frontend component]
+
+*Adding Components Using CLI*
+
+Execute:
+
+[source,bash]
+----
+gen-cuba-front react-typescript:entity-management --dest src/app/pet --dirShift ../../
+----
+
+`--dest` is the destination path for the components to be generated into. `--dirShift` is the relative path leading from the components destination directory back to `src` directory.
+
+As before, if you are using a project model file you'll need to supply it with `--model` parameter.
+
+The generator will ask you several questions:
+
+- Select a project (this won't be asked if you have supplied a project model file).
+- Select an entity for which the components shall be generated.
+- Enter a name for the CRUD component class, it is a component that renders a List component (i.e. an entity browser) or an Edit component (i.e. an entity editor) depending on which route is active.
+- Select a list type, i.e. how your List component shall look like (for now just select `table`).
+- Name the List component class.
+- Select a view for the List component.
+- Name the Edit component class.
+- Select a view for the editor component.
+
+If you are using Petclinic sample project you can enter the following values:
+
+[subs=+quotes]
+----
+? *Entity* petclinic_Pet
+? *CRUD component class* PetManagement
+? *List type* table
+? *List component class* PetBrowser
+? *List view* _minimal
+? *Edit component class name* PetEditor
+? *Edit view* pet-with-owner-and-type
+----
+
+Once all questions are answered the generation will begin. You will be asked to confirm the changes to some existing files - agree to all.
+
+Now let's go back to `localhost:3000` and see the changes. You should be able to see a new main menu item that will lead you to an entity browser screen.
+
+image:react/pet-clinic-browser.png[List component]
+
+If you select an entity and click `Edit` you will be taken to the entity editor.
+
+image:react/pet-clinic-editor.png[Edit component]
+
+That's it!
+
+[[react-client-further-learning]]
+=== Where Do I Go From Here?
+
+The rest of this section contains an overview on technologies used and some recipes for the most common use cases. We suggest that you go through it. You may skip some of the topics and come back to them later.
+
+link:#generator-reference[Frontend Generator Reference] contains detailed information on the generator. It explains how to use the CLI and what CLI features are available in the Studio UI. Be sure to go through it (you will be interested in commands starting with `react-typescript`). {manual_studio_frontendUi}[Studio manual] contains more information on how to use the generator from the Studio.
+
+Of course, frontend client development process is not limited to generation, you may want to create some components manually, as well as to reuse some of the components provided by our libraries. Go through link:#cuba-react-core[CUBA React Core] and link:#cuba-react-ui[CUBA React UI] sections to see what components are available to you and how to use them.
+
+Check {api_rest}[CUBA REST JS] documentation to see how your components can communicate with the {manual_restApi}[Generic REST API].
+
+[[react-client-technologies]]
+=== Technologies Overview
+
+React client is based on the following frameworks and libraries:
+
+* https://reactjs.org/[React] - UI rendering.
+* https://mobx.js.org/[MobX] - reactive state management.
+* {antDesign_intro}[Ant Design] - UI components.
+* https://reacttraining.com/react-router/[React Router] - routing.
+* link:#cuba-react-core[CUBA React Core] - CUBA React core components and utilities.
+* link:#cuba-react-ui[CUBA React UI] - CUBA React UI components and utilities.
+* {api_rest}[CUBA REST JS] - interaction with СUBA generic REST API.
+* https://facebook.github.io/create-react-app/[Create React App] - build scripts and configuration.
+
+React client is written in link:https://www.typescriptlang.org/[TypeScript].
+
+[[supported-browsers]]
+=== Supported Browsers
+
+The client supports all modern (evergreen) browsers. In order to support IE 9,10,11 https://facebook.github.io/create-react-app/docs/supported-browsers-features[additional configuration] is required.
 
 [[creating-react-components]]
 === Creating React Components
 
-It is highly recommended to read full
-https://reactjs.org/docs/getting-started.html[React documentation]. In
-React, like in many modern frameworks everything is a component. We use
-components to create reusable blocks of our application as well as
-particular pages and screens.
+It is highly recommended to read full https://reactjs.org/docs/getting-started.html[React documentation]. In React, like in many modern frameworks, everything is a component. We use components to create reusable blocks, as well as particular pages and screens.
 
-Let's create our first component: place file `Button.tsx` in `src`
-directory:
+Let's create our first component: place the `Button.tsx` file into the `src` directory:
 
 [source,typescript]
 ----
@@ -504,9 +385,7 @@ There are some useful components provided in link:#cuba-react-core[CUBA React Co
 [[observable-state-with-mobx]]
 === Observable State with MobX
 
-https://mobx.js.org/intro/overview.html[MobX] is a library for reactive
-state management which enables to work with state in a convenient and
-concise way.
+https://mobx.js.org/intro/overview.html[MobX] is a library for reactive state management that allows to work with state in a convenient and concise way.
 
 Consider the following example:
 
@@ -538,20 +417,12 @@ class Counter extends React.Component {
 }
 ----
 
-As soon as we decorate a class or a function component as
-https://mobx.js.org/refguide/observer-component.html[observer], it
-automatically subscribes to changes on any
-https://mobx.js.org/refguide/observable.html[observable] value or object
-i.e. in the example above changing `count` property will result in
-automatic re-render of the component.
+As soon as we decorate a class or a function component with https://mobx.js.org/refguide/observer-component.html[observer] decorator, it automatically subscribes to changes of any https://mobx.js.org/refguide/observable.html[observable] value or object. I.e. in the example above changing `count` property will result in automatic re-render of the component.
 
 [[routing-and-menu]]
 === Routing and Menu
 
-Routing is based on well-known
-https://reacttraining.com/react-router/web/guides/quick-start[React
-Router] library. The generated app has a single point (`src/routing.ts`)
-to define screens which will be automatically placed in the main menu:
+Routing is based on well-known https://reacttraining.com/react-router/web/guides/quick-start[React Router] library. The React client has a single point (`src/routing.ts`) to define the screens that will be automatically placed in the main menu:
 
 [source,typescript]
 ----
@@ -563,8 +434,7 @@ menuItems.push({
 });
 ----
 
-The `src/App.tsx` contains `Switch` component which renders screen
-depending on the URL path:
+The `src/App.tsx` contains `Switch` component that renders a screen depending on the URL path:
 
 [source,typescript]
 ----
@@ -576,15 +446,12 @@ depending on the URL path:
   </Switch>
 ----
 
-You can manually add `Route` to `Switch` component or customize the
-structure used in `routes.ts` for example in order to create
-hierarchical menu.
+You can manually add a `Route` to the `Switch` component or customize the structure used in `routes.ts` for example in order to create a hierarchical menu.
 
 [[sub-menus]]
 *Sub Menus*
 
-To create hierarchical menu you need to create `SubMenu` instance in
-`routes.ts` and add it to `menuItems`
+To create a hierarchical menu you need to create a `SubMenu` instance in `routes.ts` and add it to the `menuItems`.
 
 [source,typescript]
 ----
@@ -605,17 +472,12 @@ const userSettingsSubMenu = {
 menuItems.push(userSettingsSubMenu);
 ----
 
-Sub menus can have unlimited nesting. One sub menu could be used as item
-of another.
+Sub menus can have unlimited nesting. One sub menu could be used as an item in another.
 
 [[forms]]
 === Forms
 
-In order to facilitate data binding, Ant Design's
-https://ant.design/components/form/[Form] component and utilities are
-used in the app. On top of that we provide a `Field` component which
-automatically renders corresponding component basing on metadata. See
-the following example:
+In order to facilitate data binding we use Ant Design {antDesign_components}/form/[Form] component and utilities. On top of that we provide a `Field` component that automatically renders a correct component depending on the property type (e.g. `DatePicker`, `Select`, etc.). See the following example:
 
 [source,typescript]
 ----
@@ -633,85 +495,53 @@ the following example:
   />
 ----
 
-You can customize underlying components, validation rules and binding
-using `getFieldDecoratorOpts` and `componentProps` properties.
+You can customize underlying components, validation rules and binding using `getFieldDecoratorOpts` and `componentProps` properties.
+
+API: {api_ui_FieldProps}[FieldProps].
 
 [[i18n]]
 === I18n
 
-i18n is powered by https://github.com/formatjs/react-intl[react-intl]
-library.
-
-Out of the box React client supports `en` and `ru` locales.
+i18n is powered by https://github.com/formatjs/react-intl[react-intl] library. Out of the box React client supports `en` and `ru` locales.
 
 [[adding-new-localized-content]]
 *Adding New Localized Content*
 
-* Add new messages to `src/i18n/\{locale}.json` files
-* Refer to them from your code using standard `react-intl` components or
-API (see
-https://github.com/formatjs/react-intl/blob/master/docs/README.md[documentation])
+* Add new messages to `src/i18n/<locale>.json` files
+* Refer to them from your code using standard `react-intl` components or API (see https://github.com/formatjs/react-intl/blob/master/docs/README.md[react-intl documentation])
 
 [[overriding-existing-messages]]
 *Overriding Existing Messages*
 
-Simply replace existing messages in `src/i18n/\{locale}.json` files. This
-way you can override messages in client app,
-link:#cuba-react-ui[CUBA React UI] components and some of the
-messages in `antd` components.
+Simply replace existing messages in `src/i18n/<locale>.json` files. This way you can override the messages in the client app, link:#cuba-react-ui[CUBA React UI] components and some of the messages in the Ant Design components.
 
 [[adding-support-for-new-locales]]
 *Adding Support for New Locales*
 
-* Add a corresponding `\{locale}.json` message pack. Note that it shall
-contain messages for link:#cuba-react-ui[CUBA React UI]
-components (keys starting with `cuba-react`) and `antd` `Form`
-validation messages (keys starting with `antd.form.validation`)
-* Create a mapping between locale and message pack by modifying
-`messagesMapping` in `src/i18n/i18nMappings.ts`
-* Create a mapping between locale and `antd/es/locale-provider/Locale`
-object by modifying `antdLocaleMapping` in `src/i18n/i18nMappings.ts`.
-This is required because most of the messages in `antd` components are
-translated by telling `antd` to use one of the predefined locales. An
-extensive list of locales supported by `antd` can be found
-https://ant.design/docs/react/i18n[here].
-* Add import of corresponding https://github.com/moment/moment[moment]
-locale to `index.tsx`, e.g. `import 'moment/locale/ru';` > This is
-required because some of `antd` components use localized messages from
-`moment`.
-* Add a means of switching to the new locale. E.g. if you are using the
-default `LanguageSwitcher` - add a locale option into it.
+* Add a corresponding `<locale>.json` message pack. Note that it shall contain messages for link:#cuba-react-ui[CUBA React UI] components (keys starting with `cuba-react`) and Ant Design `Form` validation messages (keys starting with `antd.form.validation`).
+* Create a mapping between the locale and the message pack by modifying `messagesMapping` in `src/i18n/i18nMappings.ts`.
+* Create a mapping between the locale and `antd/es/locale-provider/Locale` object by modifying `antdLocaleMapping` in `src/i18n/i18nMappings.ts`. This is required because most of the messages in Ant Design components are translated by telling Ant Design to use one of the predefined locales. An extensive list of locales supported by Ant Design can be found {antDesign_base}/docs/react/i18n[here].
+* Add an import of a corresponding https://github.com/moment/moment[moment] locale to `index.tsx`, e.g. `import 'moment/locale/ru';`. This is required because some of the Ant Design components use localized messages from `moment`.
+* Add means of switching to the new locale. E.g. if you are using the default `LanguageSwitcher` - add a locale option into it.
 
 [[customizing-theme]]
 === Customizing Theme
 
-Ant Design provides a possibility to
-https://ant.design/docs/react/customize-theme[customize theme] using
-`less` and overriding built-in variables. You can also use these
-variables in your own code.
+Ant Design provides a possibility to {antDesign_base}/docs/react/customize-theme[customize theme] using `less` and overriding built-in variables. You can also use these variables in your own code.
 
-In order to do so, you will need to make some modifications to the
-generated app.
+In order to do so, you will need to make some modifications to the generated app.
 
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-NOTE: You will have to enable deprecated inline Javascript in `less` as
-`antd` makes heavy use of it.
-http://lesscss.org/usage/#less-options-strict-units[Reasons for
-deprecation.]
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+CAUTION: You will have to enable deprecated inline Javascript in `less` as Ant Design makes heavy use of it. link:http://lesscss.org/usage/#less-options-strict-units[Reasons for deprecation.]
 
-- Install the required dependencies. Note that we are
-using https://github.com/timarney/react-app-rewired[react-app-rewired]
-to modify the webpack config without having to `eject`. +
-
+- Install the required dependencies. Note that we are using https://github.com/timarney/react-app-rewired[react-app-rewired] to modify the webpack config without having to link:https://create-react-app.dev/docs/available-scripts#npm-run-eject[eject].
++
 [source,bash]
 ----
 npm i react-app-rewired less less-loader customize-cra babel-plugin-import --save-dev
 ----
 
-- Create `config-overrides.js` file in the app root. The file shall look
-like this.
-
+- Create `config-overrides.js` file in the app root. The file shall look like this.
++
 [source,typescript]
 ----
 const {addLessLoader, override, fixBabelImports} = require("customize-cra");
@@ -738,7 +568,7 @@ Now you can place your overrides in `src/theme.less`:
 @primary-color: #1DA57A;
 ----
 
-You can use `antd` variables in your code like this:
+You can use Ant Design variables in your code like this:
 
 [source,less]
 ----
@@ -750,24 +580,17 @@ body {
 
 References:
 
-- detailed
-https://ant.design/docs/react/use-with-create-react-app#Customize-Theme[documentation]
-on Ant Design website
+- detailed {antDesign_base}/docs/react/use-with-create-react-app#Customize-Theme[documentation] on Ant Design website
 
 [[css-methodology]]
 *CSS Methodology*
 
-Both the generated client and link:#cuba-react-ui[CUBA React UI] follow
-http://rscss.io[RSCSS methodology]. Additionally, we adopt Base Rules
-from http://smacss.com/book/type-base[SMACSS methodology].
+Both the generated client and link:#cuba-react-ui[CUBA React UI] follow http://rscss.io[RSCSS methodology]. Additionally, we adopt Base Rules from http://smacss.com/book/type-base[SMACSS methodology].
 
 [[backend-model]]
 === Backend Model
 
-`src/cuba` directory contains TypeScript representation of project's
-entities, views and facades to access REST services. See more details in
-link:#typescript-sdk[TypeScript SDK] section. Here is the layout of the
-directory:
+`src/cuba` directory contains TypeScript representation of project's entities, views and facades to access REST services and queries. See more details in link:#typescript-sdk[TypeScript SDK] section. Here is the layout of the directory:
 
 * `entities` - project entities and views;
 * `entities/base` - framework and addons entities;
@@ -775,8 +598,7 @@ directory:
 * `services.ts` - middleware services exposed to REST;
 * `queries.ts` - REST queries.
 
-Consider the `Role` entity class of CUBA Framework generated in
-typescript:
+Consider the `Role` entity class of CUBA Framework generated in typescript:
 
 `src/cuba/entities/base/sec$Role.ts`
 
@@ -793,11 +615,8 @@ export class Role extends StandardEntity {
 }
 ----
 
-* You can easily access entity name by static `NAME` property:
-`Role.NAME`,
-* The class contains all properties of the domain model entity including
-ones from class hierarchy. Reference fields have corresponding types as
-well so that you can work with them in a type-safe manner:
+* You can easily access the entity name using static `NAME` property: `Role.NAME`,
+* The `Role` class contains all properties of the domain model entity including ones from the class hierarchy. Reference fields has corresponding types as well so that you can work with them in a type-safe manner:
 
 [source,typescript]
 ----
@@ -810,8 +629,7 @@ function changeRole(role: Role) {
 [[synchronizing-project-model]]
 === Synchronizing Project Model
 
-In order to regenerate project model to conform changes in the backend
-you can use the following command:
+In order to sync up with the changes on the backend, you can re-generate the project model using the following command:
 
 [source,bash]
 ----
@@ -821,61 +639,72 @@ $ npm run `update-model`
 [[security]]
 === Security
 
-Since React client works via Generic REST API endpoints, the backend
-(CUBA) application should have properly configured Security Roles and
-Access groups. See the
-https://doc.cuba-platform.com/restapi-7.2/#security[corresponding
-chapter] in REST API documentation.
+Since React client uses Generic REST API endpoints, the backend (CUBA) application should have properly configured Security Roles and Access groups. See the {manual_restApi}/#security[corresponding chapter] in the REST API documentation.
 
-Package `cuba-rest-js` provide methods, which allows check for user
-runtime security permissions for entity attributes and operations. *
-`getAttributePermission` checks entity attribute permission and could
-return `DENY` `VIEW` or `MODIFY` * `isOperationAllowed` checks entity
-operation permission and returns `true` or `false`
+{api_rest}[CUBA REST JS] package provides methods that allow to check user runtime security permissions for entity attributes and operations.
+
+* `getAttributePermission` checks entity attribute permission and returns `DENY`, `VIEW` or `MODIFY`.
+* `isOperationAllowed` checks entity operation permission and returns `true` or `false`.
 
 [[building-the-client]]
 === Building the Client
 
-`$ npm run build` command builds your app for production use. See
-`build` folder.
+`npm run build` command builds your app for production use. See `build` folder.
 
-See
-https://facebook.github.io/create-react-app/docs/available-scripts[available
-scripts] in Create React App documentation.
+See https://facebook.github.io/create-react-app/docs/available-scripts[available scripts] in Create React App documentation.
 
 [[react-client-configuration]]
 === Configuration
 
-By default, client deployed to Tomcat is built with production preset
-and aimed to be served under `app-front` context. Use `PUBLIC_URL` env
-variable to change this behavior (see `.env.production.local`).
+By default, client deployed to Tomcat is built with production preset and aimed to be served under `app-front` context. Use `PUBLIC_URL` env variable to change this behavior (see `.env.production.local`).
 
-The client served from development server has absolute URL of REST API
-specified in `REACT_APP_CUBA_URL` (see `.env.development.local`).
+The client served from development server has absolute URL of REST API specified in `REACT_APP_CUBA_URL` (see `.env.development.local`).
 
-See the
-https://facebook.github.io/create-react-app/docs/advanced-configuration[list
-of all available environment variables].
+See the https://facebook.github.io/create-react-app/docs/advanced-configuration[list of all available environment variables].
 
-See `src/config.ts` for full list of common application settings used in
-runtime.
+See `src/config.ts` for full list of common application settings used in runtime.
 
 [[react-native-client]]
 == React Native Client
 
-[[running-the-client-1]]
-=== Running the Client
+[[react-native-client-getting-started]]
+=== Getting Started with React Native Client
 
-Install dependencies:
+NOTE: If you haven't read our introductory link:#getting-started[Getting Started] section, we encourage you to do so now.
+
+In this guide we will use the Frontend Generator to create a starter React Native client. You can try it with your own CUBA project, or you can use {petclinic}[Petclinic] sample project.
+
+If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.
+
+[source,bash]
+----
+gen-cuba-front react-native:app
+----
+
+Generator will prompt you to select one of the currently opened CUBA projects.
+
+image:interactive-projects.png[Interactive project selection]
+
+If you are using the exported project model file, use `--model` parameter to pass it to generator.
+
+[source,bash]
+----
+gen-cuba-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json
+----
+
+Either way, your starter React Native client will be generated.
+
+[[running-the-client-1]]
+*Running the Client*
+
+Install the dependencies:
 
 [source,bash]
 ----
 npm install
 ----
 
-The client uses https://expo.io/[Expo]. You may prefer to install Expo
-CLI globally and use it from command line directly, or use it via npm
-scripts, which doesn't require global installation.
+The client uses https://expo.io/[Expo]. You may prefer to install Expo CLI globally and use it from the command line directly, or use it via npm scripts, which doesn't require global installation.
 
 [source,bash]
 ----
@@ -893,9 +722,7 @@ To install Expo CLI globally:
 npm install -g expo-cli
 ----
 
-See https://expo.io/[Expo documentation] for details on available
-commands and options. If you are running Expo via npm scripts, note that
-there convenience scripts for the most frequently used commands:
+See https://expo.io/[Expo documentation] for details on the available commands and options. If you are running Expo via npm scripts, note that there are convenience scripts for the most frequently used commands:
 
 [source,bash]
 ----
@@ -945,13 +772,13 @@ npm run android -- --clear
 expo start --android --clear
 ----
 
-_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-TIP: In order to run the app on an emulator/simulator you may need to change
-`REACT_NATIVE_APP_CUBA_URL` in `.env` from `localhost` to your IP
-address. You may need to clear the React Native Packager cache for the
-change to take effect (e.g. `expo start --android --clear` or
-`npm run android -- --clear`).
-_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+TIP: In order to run the app on an emulator/simulator you may need to change `REACT_NATIVE_APP_CUBA_URL` in `.env` file from `localhost` to your IP address. You may need to clear the React Native Packager cache for the change to take effect (e.g. `expo start --android --clear` or `npm run android -- --clear`).
+
+Run the client using one of the commands above. This is what you shall be able to see:
+
+image:react-native/RNDemo.gif[React Native showcase]
+
+That's it!
 
 [[technologies-1]]
 === Technologies
@@ -961,15 +788,22 @@ The client is based on the following frameworks and libraries:
 * https://facebook.github.io/react-native/[React Native] - UI rendering;
 * https://mobx.js.org/[MobX] - reactive state management;
 * link:#cuba-react-core[CUBA React Core] - CUBA React core components and utilities;
-* link:api-reference/cuba-rest-js/index.html[CUBA REST JS^] - interaction with СUBA
-generic REST API;
+* {api_rest}[CUBA REST JS] - interaction with СUBA generic REST API;
 * https://expo.io/[Expo] - development tools for React Native;
+
+React Native client is written in link:https://www.typescriptlang.org/[TypeScript].
+
+[[react-native-further-learning]]
+=== Where Do I Go From Here?
+
+Check link:#cuba-react-core[CUBA React Core] section to see what components are available to you and how to use them.
+
+Check {api_rest}[CUBA REST JS] to see how your components can communicate with the {manual_restApi}[Generic REST API].
 
 [[polymer-based-client-deprecated]]
 == Polymer-based Client (Deprecated)
 
-Documentation can be found
-https://doc.cuba-platform.com/manual-latest/polymer_ui.html[here].
+Documentation can be found {manual_platform}/polymer_ui.html[here].
 
 [[cuba-react-core]]
 == CUBA React Core Components
@@ -977,10 +811,7 @@ https://doc.cuba-platform.com/manual-latest/polymer_ui.html[here].
 [[cubaappprovider]]
 === CubaAppProvider
 
-`CubaAppProvider` initializes main CUBA React Core components and
-provides them to the client application. It receives an instance of REST
-API service and an optional config object which has the following
-interface:
+`CubaAppProvider` initializes main CUBA React Core components and provides them to the client application. It receives an instance of REST API service and an optional config object which has the following interface:
 
 [source,typescript]
 ----
@@ -992,19 +823,12 @@ export interface CubaAppConfig {
 }
 ----
 
-`dataTransferFormats` can be used to override the default formats used
-to (de)serialize the data transferred by REST API.
+* `dataTransferFormats` can be used to override the default formats used to (de)serialize the data transferred by REST API.
+* `displayFormats` can be used to override the formats used for data presentation.
 
-`displayFormats` can be used to override the formats used for data
-presentation.
+See {api_rest_PropertyType}[PropertyType] in CUBA REST JS API docs for the list of available property types.
 
-See
-link:api-reference/cuba-rest-js/modules/\_model_.html#propertytype[PropertyType]
-in CUBA REST JS API docs for the list of available property types.
-
-____________________________________________________________________
-NOTE: Only formats for temporal types can currently be overridden this way
-____________________________________________________________________
+NOTE: Only formats for temporal types can currently be overridden this way.
 
 [source,typescript]
 ----
@@ -1019,13 +843,12 @@ ____________________________________________________________________
 </CubaAppProvider>
 ----
 
+API: {api_core_CubaAppProviderProps}[CubaAppProviderProps].
+
 [[mainstore]]
 === MainStore
 
-`MainStore` contains common application data. It's being initialized
-using `<CubaAppProvider>`.
-
-You can inject it in any component using `@injectMainStore` decorator:
+`MainStore` contains common application data. It is initialized by link:#cubaappprovider[CubaAppProvider]. You can inject it in any component using `@injectMainStore` decorator:
 
 [source,typescript]
 ----
@@ -1058,11 +881,12 @@ export class AppInfo extends React.Component<MainStoreInjected> {
 }
 ----
 
+API: {api_core_MainStore}[MainStore].
+
 [[datacollectionstore]]
 === DataCollectionStore
 
-`DataCollectionStore` is a MobX based store for loading entity
-collections. It can be created via `collection()` initializer function:
+`DataCollectionStore` is a MobX based store that can be used to retrieve entity collections. It can be created via {api_core_collection}[collection] initializer function:
 
 [source,typescript]
 ----
@@ -1077,9 +901,7 @@ dataCollection = collection<Pet>(Pet.NAME, {
 );
 ----
 
-Typically it's being used to display list of entities. Since it's
-reactive, any changes in `items` and `status` will trigger re-render of
-`@observer` components:
+Typically it is used to display a list of entities. Since it's reactive, any changes in `items` and `status` will trigger re-render of `@observer` components:
 
 [source,typescript]
 ----
@@ -1099,10 +921,12 @@ class CarList extends React.Component {
 }
 ----
 
+API: {api_core_DataCollectionStore}[DataCollectionStore], {api_core_collection}[collection].
+
 [[ClientSideDataCollectionStore]]
 === ClientSideDataCollectionStore
 
-`ClientSideDataCollectionStore` is a variant of `DataCollectionStore` intended for situations when data shall be operated client-side. It is useful for example when handling link:https://www.cuba-platform.com/guides/data-modelling-composition[Composition relationship]. `ClientSideDataCollectionStore` can be created via `clientSideCollection()` initializer function.
+`ClientSideDataCollectionStore` is a variant of `DataCollectionStore` intended for situations when data shall be operated client-side. It is useful for example when handling {compositionGuide}[Composition relationship]. `ClientSideDataCollectionStore` can be created via {api_core_clientSideCollection}[clientSideCollection] initializer function.
 
 [source,typescript]
 ----
@@ -1123,11 +947,12 @@ dataCollection = clientSideCollection<Pet>(Pet.NAME, {
 - `allItems` field - array of entity instances with default sort order and no filtering applied.
 - `adjustItems` method - sets `items` based on `allItems` and other conditions. Currently it only performs the client-side sorting based on `sort` field, client-side filtering is not currently supported.
 
+API: {api_core_ClientSideDataCollectionStore}[ClientSideDataCollectionStore], {api_core_clientSideCollection}[clientSideCollection].
+
 [[datainstancestore]]
 === DataInstanceStore
 
-`DataInstanceStore` is used to work with a single instance of some
-Entity. It can be created via `instance()` initializer function:
+`DataInstanceStore` is used to work with a single instance of some Entity. It can be created via {api_core_instance}[instance] initializer function:
 
 [source,typescript]
 ----
@@ -1142,11 +967,12 @@ dataInstance.item.name = 'New Name';
 dataInstance.commit()
 ----
 
+API: {api_core_DataInstanceStore}[DataInstanceStore], {api_core_instance}[instance].
+
 [[api-reference]]
 === API Reference
 
-API reference for CUBA React Core components can be found
-link:api-reference/cuba-react-core/index.html[here].
+API reference for CUBA React Core components can be found link:api-reference/cuba-react-core/index.html[here].
 
 [[cuba-react-ui]]
 == CUBA React UI Components
@@ -1154,10 +980,7 @@ link:api-reference/cuba-react-core/index.html[here].
 [[entityproperty]]
 === EntityProperty
 
-`<EntityProperty>` component is aimed to display a value of some
-Entity's property. It automatically applies formatting according to the
-type of property and adds a corresponding label from global message pack
-(defined on the backend)
+`EntityProperty` component is used to display a value of an entity property. It automatically applies formatting according to the type of the property and adds a corresponding label from global message pack (defined on the backend).
 
 [source,typescript]
 ----
@@ -1166,20 +989,19 @@ type of property and adds a corresponding label from global message pack
                 value={pet.birthDate}/>
 ----
 
+API: {api_ui_EntityPropertyProps}[EntityPropertyProps].
+
 [[formfield]]
 === FormField
 
-`<FormField>` component automatically creates correct Form UI component
-based on entity and property names:
+`FormField` component automatically creates a correct Form UI component based on entity and property names:
 
 [source,typescript]
 ----
 <FormField entityName={Pet.NAME} propertyName='birthDate'/>
 ----
 
-For the attributes with relationship it's possible to provide an
-instance of DataCollectionStore via `optionsContainer` prop to render
-options list
+For the attributes with relationship type Association it's possible to provide an instance of DataCollectionStore via `optionsContainer` prop to render an options list.
 
 [source,typescript]
 ----
@@ -1189,6 +1011,8 @@ petTypesDc = collection<PetType>(PetType.NAME, {view: '_minimal', sort: 'name'})
            propertyName='type'
            optionsContainer={this.petTypesDc}/>
 ----
+
+API: {api_ui_FormFieldProps}[FormFieldProps].
 
 [[entityeditor]]
 === EntityEditor
@@ -1207,60 +1031,56 @@ petTypesDc = collection<PetType>(PetType.NAME, {view: '_minimal', sort: 'name'})
 />
 ----
 
-API: {EntityEditorProps}.
+API: {api_ui_EntityEditorProps}[EntityEditorProps].
 
 [[nestedentityfield]]
 === NestedEntityField
 
 `NestedEntityField` is a form field component that is used in the context of One-to-One Composition and represents the nested entity. It is a control that allows to create, edit or remove the nested entity. Create/edit will open an link:#entityeditor[EntityEditor] for the nested entity. link:#formfield[FormField] will automatically render a `NestedEntityField` for an One-to-One Composition entity property.
 
-NOTE: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+CAUTION: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
 
-API: {NestedEntityFieldProps}.
+API: {api_ui_NestedEntityFieldProps}[NestedEntityFieldProps].
 
 [[nestedentitiestablefield]]
 === NestedEntitiesTableField
 
 `NestedEntitiesTableField` is a form field component that is used in the context of One-to-Many Composition and represents the nested entities. It will render a link:#datatable[DataTable] with buttons to create, edit or remove nested entities. Clicking create or edit button will open an link:#entityeditor[EntityEditor]. link:#formfield[FormField] will automatically render a `NestedEntitiesTableField` for an One-to-Many Composition entity property.
 
-NOTE: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+CAUTION: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
 
-API: {NestedEntitiesTableField}.
+API: {api_ui_NestedEntitiesTableFieldProps}[NestedEntitiesTableFieldProps].
 
 [[fileupload]]
 === FileUpload
 
-`FileUpload` is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via link:#imagepreview[ImagePreview] component.  link:#formfield[FormField] will automatically render a `FileUpload` for a FileDescriptor entity property.
+`FileUpload` is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via link:#imagepreview[ImagePreview] component.  link:#formfield[FormField] will automatically render a `FileUpload` for a `FileDescriptor` entity property.
 
-image:FileUploadAndImagePreviewDemo.apng[FileUpload and ImagePreview demo]
+image:FileUploadAndImagePreviewDemo.gif[FileUpload and ImagePreview demo]
 
-API: {FileUploadProps}.
+API: {api_ui_FileUploadProps}[FileUploadProps].
 
 [[imagepreview]]
 === ImagePreview
 
 `ImagePreview` allows to preview or download an image. It works with an link:https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL[object URL].
 
-API: {ImagePreviewProps}.
+API: {api_ui_ImagePreviewProps}[ImagePreviewProps].
 
 [[datatable]]
 === DataTable
 
 `<DataTable>` is used to present data in tabular form.
 
-image:react/data-table-demo.gif[Data table
-showcase]
+image:react/data-table-demo.gif[Data table showcase]
 
-It uses Ant Design's https://ant.design/components/table/[Table] under
-the hood and provides the following additional benefits:
+It uses Ant Design {antDesign_components}/table/[Table] under the hood and provides the following additional benefits:
 
 * out-of-the-box integration with `DataCollectionStore`
-* powerful filters +
+* powerful filters
 * support for action buttons (e.g. for CRUD operations)
 
-At the same time `<DataTable>` provides developer with a full access to
-underlying `Table` via its `tableProps` and `columnDefinitions`
-properties (see below).
+At the same time `<DataTable>` provides developer with a full access to underlying `Table` via its `tableProps` and `columnDefinitions` properties (see below).
 
 Example of using `<DataTable>` API:
 
@@ -1285,41 +1105,27 @@ Example of using `<DataTable>` API:
 />
 ----
 
-* `dataCollection` - instance of `DataCollectionStore`
-* `columnDefinitions` - describes the columns to be displayed. See more
-details below.
-* `onSelectedRowChange` - callback that takes the id of selected row,
-can be used together with `buttons` e.g. to facilitate CRUD operations
-* `buttons` - array of React elements representing controls that will be
-rendered above the table
-* `tableProps` - can be used to override any of the underlying
-https://ant.design/components/table/#Table[Table properties]
+* `dataCollection` - instance of `DataCollectionStore`.
+* `columnDefinitions` - describes the columns to be displayed. See more details below.
+* `onRowSelectionChange` - callback that takes the ids of the selected rows, can be used together with `buttons` e.g. to facilitate CRUD operations.
+* `buttons` - array of React elements representing the controls that will be rendered above the table.
+* `tableProps` - can be used to override any of the underlying {antDesign_components}/table/#Table[Table properties].
 
 Deprecated props (use `columnDefinitions` instead):
 
-* `fields` - array of entity property names
-* `columnProps` - can be used to override underlying
-https://ant.design/components/table/#Column[Column properties]. Applied
-to every column.
+* `fields` - names of properties that shall be displayed.
+* `columnProps` - can be used to override underlying {antDesign_components}/table/#Column[Column properties]. Applied to every column.
 
-____________________________________________________________________________________________________________________________________________________________________________________________
-NOTE: `columnDefinitions` is more flexible and provides greater ability to
-customize the columns. `columnDefinitions` will take precedence over
-`fields` and `columnProps` if used simultaneously.
-____________________________________________________________________________________________________________________________________________________________________________________________
+TIP: `columnDefinitions` is more flexible and provides greater ability to customize the columns. `columnDefinitions` will take precedence over `fields` and `columnProps` if used simultaneously.
 
 [[columndefinitions]]
 *columnDefinitions*
 
-`columnDefinitions` describes the columns to be displayed. The columns
-can represent entity properties or have arbitrary content (for example:
-an action button column, a calculated field column).
+`columnDefinitions` describes the columns to be displayed. The columns can represent entity properties or have arbitrary content (for example: an action button column, a calculated field column).
 
 There are 3 ways you can define a column:
 
-*1.* Simply put an entity property name as a `string`. In this case
-`DataTable` will render a column with default settings for that
-property.
+*1.* Simply put an entity property name as a `string`. In this case `DataTable` will render a column with default settings for that property.
 
 [source,typescript]
 ----
@@ -1332,12 +1138,8 @@ property.
 />
 ----
 
-*2.* If you want to customize the default column, use a
-`ColumnDefinition` object where `field` is an entity property name and
-`columnProps` is an antd
-https://ant.design/components/table/#Column[ColumnProps] object. The
-properties you put in `columnProps` will override the default
-properties.
+*2.* If you want to customize the default column, use a `ColumnDefinition` object where `field` is an entity property name and
+`columnProps` is an Ant Design {antDesign_components}/table/#Column[ColumnProps] object. The properties you put in `columnProps` will override the default properties.
 
 [source,typescript]
 ----
@@ -1346,7 +1148,7 @@ properties.
        columnDefinitions={[
          {
            field: 'manufacturer', // property name
-           columnProps: { // antd ColumnProps object
+           columnProps: { // Ant Design ColumnProps object
              align: 'right'
            }
          },
@@ -1355,8 +1157,7 @@ properties.
 />
 ----
 
-*3.* If you want a column not bound to an entity field, create it from
-scratch using `columnProps` and do not specify a `field`.
+*3.* If you want a column not bound to an entity field, create it from scratch using `columnProps` and do not specify a `field`.
 
 [source,typescript]
 ----
@@ -1364,7 +1165,7 @@ scratch using `columnProps` and do not specify a `field`.
        dataCollection={this.dataCollection}
        columnDefinitions={[
          {
-           columnProps: { // antd ColumnProps object
+           columnProps: { // Ant Design ColumnProps object
              render: (text, record) => { /* render some custom content */ }
            }
          },
@@ -1373,44 +1174,30 @@ scratch using `columnProps` and do not specify a `field`.
 />
 ----
 
-If you need even more control, you may want to start with a vanilla antd
-https://ant.design/components/table/[Table] and take a look into
-exported functions in `DataTableHelpers`. These functions are used to
-create `DataTable` custom functionality such as custom filters. You
-may also want to look into using `DataTableCustomFilter` directly. Note
-that both these approaches may require deeper understanding of
-`DataTable` internal workings.
+****
+If you need even more control, you may want to start with a vanilla Ant Design {antDesign_components}/table/[Table] and take a look into exported functions in `DataTableHelpers`. These functions are used to create `DataTable` custom functionality such as custom filters. You may also want to look into using `DataTableCustomFilter` directly. Note that both these approaches may require a deeper understanding of how `DataTable` works internally.
+****
+
+API: {api_ui_DataTableProps}[DataTableProps], {api_ui_DataTableCustomFilterProps}[DataTableCustomFilterProps], {api_ui_DataTableHelpers}[DataTableHelpers].
 
 [[api-reference-1]]
 === API Reference
 
-API reference for CUBA React UI components can be found
-link:api-reference/cuba-react-ui/index.html[here].
+API reference for CUBA React UI components can be found link:api-reference/cuba-react-ui/index.html[here].
 
 [[typescript-sdk]]
 == TypeScript SDK
 
-TypeScript SDK contains CUBA data model
-(https://doc.cuba-platform.com/manual-latest/data_model.html[entities
-and enums]), rest
-https://doc.cuba-platform.com/restapi-7.2/#rest_api_v2_services_config[services]
-and
-https://doc.cuba-platform.com/restapi-7.2/#rest_api_v2_queries_config[queries]
-as TypeScript classes.
+TypeScript SDK contains CUBA data model ({manual_platform}/data_model.html[entities and enums]), rest {manual_restApi_services}[services] and {manual_restApi_queries}[queries] as TypeScript classes.
 
-The SDK is framework-agnostic, meaning that in addition to using it with
-our React client, you can use it with any TypeScript-compatible
-framework such as Angular of Vue.
+The SDK is framework-agnostic, meaning that in addition to using it with e.g. our React client, you can use it with any TypeScript-compatible framework such as Angular of Vue.
 
-It's possible to generate the following configurations of SDK depending
-on your needs (see link:#generator-cli[usage instruction]):
+It's possible to generate the following configurations of SDK depending on your needs (see link:#generator-reference[usage instruction]):
 
-* `gen-cuba-front sdk:model` - generates entities and enums
-* `gen-cuba-front sdk:all` - generates all toolkit - entities, enums,
-queries and services
+* `gen-cuba-front sdk:model` - generates entities and enums.
+* `gen-cuba-front sdk:all` - generates all toolkit - entities, enums, queries and services.
 
-SDK can be used for front-end clients and Node.js-based BFF (Backend for
-Frontend) development.
+SDK can be used for front-end clients and Node.js-based BFF (Backend for Frontend) development.
 
 [[entities]]
 === Entities
@@ -1418,8 +1205,7 @@ Frontend) development.
 [[persistent-entities]]
 *Persistent Entities*
 
-Consider the `Role` entity class of CUBA Framework generated in
-TypeScript:
+Consider the `Role` entity class of CUBA Framework generated in TypeScript:
 
 `src/cuba/entities/base/sec$Role.ts`
 
@@ -1436,12 +1222,9 @@ export class Role extends StandardEntity {
 }
 ----
 
-* you can easily access entity name by static `NAME` property:
-`Role.NAME`,
-* class contains all properties of domain model entity including from
-class hierarchy, reference fields have corresponding types as well so
-that you can work with them in a type-safe manner:
-
+* You can easily access entity name using static `NAME` property: `Role.NAME`.
+* `Role` class contains all properties of the domain model entity including those from the class hierarchy. Reference fields have corresponding types as well, so that you can work with them in a type-safe manner:
++
 [source,typescript]
 ----
 function changeRole(role: Role) {
@@ -1453,12 +1236,7 @@ function changeRole(role: Role) {
 [[non-persistent-entities]]
 *Non-persistent Entities*
 
-CUBA Platform supports non-persistent entities in model. Entity class
-should be annotated with
-`com.haulmont.chile.core.annotations.MetaClass`, and extended from
-`com.haulmont.cuba.core.entity.BaseUuidEntity`. Class properties
-annotated with `com.haulmont.chile.core.annotations.MetaProperty` will
-be included in generated model.
+CUBA Platform supports non-persistent entities. Entity class should be annotated with `com.haulmont.chile.core.annotations.MetaClass`, and extended from `com.haulmont.cuba.core.entity.BaseUuidEntity`. Class properties annotated with `com.haulmont.chile.core.annotations.MetaProperty` will be included in the generated model.
 
 [[source]]
 Source:
@@ -1498,8 +1276,7 @@ export class SampleUserInfo {
 [[enums]]
 === Enums
 
-CUBA REST API module uses enum’s constant name in client-server
-communication. SDK contains generated string enums e.g.:
+CUBA REST API module uses enum’s constant name in client-server communication. SDK contains generated string enums e.g.:
 
 [source,typescript]
 ----
@@ -1509,9 +1286,7 @@ export enum CarType {
 }
 ----
 
-In order to get enum id and localized caption, you can query full
-information about enums in runtime using `loadEnums` method of
-cuba-rest-js:
+In order to get enum id and localized caption, you can query full information about enums in runtime using `loadEnums` method of {api_rest}[CUBA REST JS]:
 
 [source,typescript]
 ----
@@ -1545,14 +1320,243 @@ Response example:
   }]
 ----
 
+[[generator-reference]]
+== Frontend Generator Reference
+
+NOTE: If you haven't read our introductory link:#getting-started[Getting Started] section, we encourage you to do so now. Installation of the Frontend Generator CLI tool is described link:#getting-started-using-cli[here].
+
+NOTE: This section describes how to use the generator from CLI. You can also use many of the described features from CUBA Studio UI. The link:#commands-description[commands description] contains information on which features are available in Studio. See {manual_studio_frontendUi} for more details on using the generator from Studio.
+
+Run `gen-cuba-front` (or `npx @cuba-platform/front-generator`) without arguments to see usage info.
+
+....
+Usage: gen-cuba-front [command] [options]
+
+  Options:
+
+    -v, --version  output the version number
+    -h, --help     output usage information
+
+  Commands:
+
+    list [options]                                   List all available clients and their clients
+    polymer2:app [options]                           Generates polymer2 app
+    polymer2:blank-component [options]               Generates polymer2 blank-component
+    polymer2:entity-cards [options]                  Generates polymer2 entity-cards
+    polymer2:entity-edit [options]                   Generates polymer2 entity-edit
+    polymer2:entity-list [options]                   Generates polymer2 entity-list
+    polymer2:entity-management [options]             Generates polymer2 entity-management
+    polymer2:query-results [options]                 Generates polymer2 query-results
+    polymer2:service-data [options]                  Generates polymer2 service-data
+    polymer2:service-form [options]                  Generates polymer2 service-form
+    polymer2-typescript:app [options]                Generates polymer2-typescript app
+    polymer2-typescript:blank-component [options]    Generates polymer2-typescript blank-component
+    polymer2-typescript:entity-cards [options]       Generates polymer2-typescript entity-cards
+    polymer2-typescript:entity-edit [options]        Generates polymer2-typescript entity-edit
+    polymer2-typescript:entity-list [options]        Generates polymer2-typescript entity-list
+    polymer2-typescript:entity-management [options]  Generates polymer2-typescript entity-management
+    react-typescript:app [options]                   Generates react-typescript app
+    react-typescript:blank-component [options]       Generates react-typescript blank-component
+    react-typescript:entity-cards [options]          Generates react-typescript entity-cards
+    react-typescript:entity-management [options]     Generates react-typescript entity-management
+    sdk:all [options]                                Generates sdk all
+    sdk:model [options]                              Generates sdk model
+....
+
+WARNING: Polymer client is deprecated
+
+Run `gen-cuba-front <command> --help` to see the list of available options.
+
+Most commands use interactive prompts to capture necessary inputs such as which entity you want to use, which
+{manual_platform}/views.html[view], etc. Alternatively, `answers` command line parameter can be used to provide these inputs. You may want to use it if you want to automate the generation. `answers` is a base64-encoded JSON string. See link:#commands-description[descriptions of individual commands] for details on what shall be put inside this JSON.
+
+Example of using `answers`:
+
+....
+gen-cuba-front react-typescript:entity-management \
+  --dest ../model-playground/modules/front/src/app/car \
+  --model /home/myusername/model-playground/projectModel.json \
+  --dirShift ../../ \
+  --answers eyJlZGl0VmlldyI6eyJuYW1lIjoiY2FyLXZpZXciLCJlbnRpdHlOYW1lIjoibXBnJENhciJ9LCJlZGl0Q29tcG9uZW50TmFtZSI6Im1wZy1jYXItZWRpdCIsImxpc3RWaWV3Ijp7Im5hbWUiOiJjYXItdmlldyIsImVudGl0eU5hbWUiOiJtcGckQ2FyIn0sImxpc3RDb21wb25lbnROYW1lIjoibXBnLWNhci1saXN0IiwibGlzdFR5cGUiOiJsaXN0IiwiZW50aXR5Ijp7Im5hbWUiOiJtcGckQ2FyIn0sIm1hbmFnZW1lbnRDb21wb25lbnROYW1lIjoibXBnLWNhci1tYW5hZ2VtZW50In0=
+....
+
+[[commands-description]]
+=== Commands Description
+
+[[react-typescriptapp]]
+*react-typescript:app*
+
+TIP: This feature is also available in CUBA Studio, see {manual_studio_frontendUi}.
+
+Generates a React starter app. See link:#getting-started-with-react-client[Getting Started with React Client].
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information
+....
+
+[[react-typescriptentity-management]]
+*react-typescript:entity-management*
+
+TIP: This feature is also available in CUBA Studio, see {manual_studio_frontendUi}
+
+Generates:
+
+- Route / main menu item
+- *Edit component* - allows to edit an entity instance.
+- *List component* - allows to view the list of entities and open the Edit component for a selected entity instance.
+- *CRUD component* - component that renders a List component or an Edit component depending on whether the route path contains an `entityId` parameter (see https://reacttraining.com/react-router/[React Router] documentation for more details on how routing works in React client).
+
+....
+  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information
+....
+
+Browser screen is available in one of the following flavors (we call it list types):
+
+* list
+
+image:react/browser-list.png[List browser example]
+
+* cards
+
+image:react/browser-cards.png[Cards browser example]
+
+* table
+
+image:react/data-table-demo.gif[Data table showcase]
+
+`answers` format:
+
+....
+{
+    "editView": {
+      "name": "car-edit", // Name of view that will be used in Editor screen
+      "entityName": "mpg$Car" // Entity name
+    },
+    "editComponentName": "CarEdit", // Editor component class name
+    "listView": {
+      "name": "car-edit", // Name of view that will be used in Browser screen
+      "entityName": "mpg$Car" // Entity name
+    },
+    "listComponentName": "CarCards", // List component class name
+    "listType": "cards", // List type: list, cards or table
+    "entity": {
+      "name": "mpg$Car" // Entity name
+    },
+    "managementComponentName": "CarManagement" // Management component class name (renders either Editor or Browser depending on current route)
+    }
+}
+....
+
+[[react-typescriptentity-cards]]
+*react-typescript:entity-cards*
+
+TIP: This feature is also available in CUBA Studio, see {manual_studio_frontendUi}
+
+Generates a list of entities where each entity is represented by a card (similar to a List component with `"listType": "cards"`, but read-only, see link:#react-typescriptentity-management[react-typescript:entity-management])
+
+....
+  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information
+....
+
+`answers` format:
+
+....
+{
+    "entityView": {
+      "name": "favoriteCar-view", // View name
+      "entityName": "mpg$FavoriteCar" // Entity name
+    },
+    "componentName": "FavoriteCarCards", // Component class name
+    "entity": {
+      "name": "mpg$FavoriteCar" // Entity name
+    }
+}
+....
+
+[[react-typescriptblank-component]]
+*react-typescript:blank-component*
+
+TIP: This feature is also available in CUBA Studio, see {manual_studio_frontendUi}
+
+Generates a blank component.
+
+....
+  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information
+....
+
+`answers` format:
+
+....
+{
+    "componentName": "BlankComponent" // Component class name
+}
+....
+
+[[react-nativeapp]]
+*react-native:app*
+
+Generates a React Native starter app. See link:#react-native-client-getting-started[Getting Started with React Native Client].
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -vb, --verbose       log out additional info about generation process
+    -h, --help           output usage information
+....
+
+[[sdkall]]
+*sdk:all*
+
+Generates framework-agnostic link:#typescript-sdk[TypeScript SDK]. It is also generated when executing `react-typescript:app` command.
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information
+....
+
+[[sdkmodel]]
+*sdk:model*
+
+Generates SDK model only.
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information
+....
+
 [[rest-api]]
 == REST API
 
-Generated front-end clients use
-https://doc.cuba-platform.com/restapi-7.2/[Generic REST API]. The
-detailed documentation on the API endpoints is published
-http://files.cuba-platform.com/swagger/7.2[here].
+Generated frontend clients use {manual_restApi}[Generic REST API]. The detailed documentation on the API endpoints is published {restApiSwagger}[here].
 
-CUBA REST JS library is used to communicate
-with Generic REST API. Documentation and API reference can be found
-link:api-reference/cuba-rest-js/index.html[here^].
+CUBA REST JS library is used to communicate with Generic REST API. Documentation and API reference can be found {api_rest}[here].

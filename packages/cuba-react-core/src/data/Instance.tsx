@@ -20,13 +20,29 @@ import {
 } from '../util/formats';
 import {TEMPORARY_ENTITY_ID_PREFIX} from "..";
 
-
+/**
+ * Retrieves an entity instance using Generic REST API.
+ *
+ * @typeparam T - entity type.
+ */
 export class DataInstanceStore<T> implements DataContainer {
 
+  /**
+   * Retrieved entity instance.
+   */
   @observable item?: T & Partial<SerializedEntityProps> & { id?: string };
+  /**
+   * @inheritDoc
+   */
   @observable status: DataContainerStatus = "CLEAN";
+  /**
+   * Name of the view used to limit the entity graph.
+   */
   @observable viewName: string;
 
+  /**
+   * @inheritDoc
+   */
   changedItems = observable([]);
 
   constructor(private mainStore: MainStore,
@@ -35,6 +51,11 @@ export class DataInstanceStore<T> implements DataContainer {
     this.viewName = viewName;
   }
 
+  /**
+   * Retrieves an entity instance using the given id and view by sending a request to the REST API.
+   *
+   * @param id - id of an entity instance to be retrieved.
+   */
   @action
   load = (id: string) => {
     this.item = undefined;
@@ -56,18 +77,35 @@ export class DataInstanceStore<T> implements DataContainer {
       })
   };
 
+  /**
+   * Sets the {@link item} to the provided value. Changes {@link status} to `DONE`.
+   *
+   * @param item - entity instance to be set as the {@link item}.
+   */
   @action
   setItem(item: this["item"]) {
     this.item = item;
     this.status = "DONE";
   }
 
+  /**
+   * Sets the {@link item} based on provided values of Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   *
+   * @param formFields - a object representing the values of Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   */
   @action
   setItemToFormFields(formFields: Partial<T>) {
     this.item = formFieldsToInstanceItem(formFields, this.entityName, toJS(this.mainStore.metadata!)) as T & Partial<SerializedEntityProps> & { id?: string };
     this.status = "DONE";
   }
 
+  // TODO should return Promise<Partial<T>>
+  /**
+   * Updates the {@link item} using a provided `entityPatch`, then sends a request to the REST API to persist the changes.
+   *
+   * @param entityPatch - a `Partial` representing the changes to be made.
+   * @returns a promise that resolves to the update result returned by the REST API.
+   */
   @action
   update(entityPatch: Partial<T>): Promise<any> {
     const normalizedPatch: Record<string, any> = formFieldsToInstanceItem(entityPatch, this.entityName, toJS(this.mainStore.metadata!));
@@ -75,6 +113,11 @@ export class DataInstanceStore<T> implements DataContainer {
     return this.commit();
   }
 
+  /**
+   * Sends a request to the REST API to persist the changes made to the {@link item}.
+   *
+   * @returns a promise that resolves to the update result returned by the REST API.
+   */
   @action
   commit = (): Promise<Partial<T>> => {
     if (this.item == null) {
@@ -101,6 +144,12 @@ export class DataInstanceStore<T> implements DataContainer {
       })
   };
 
+  /**
+   * Transforms the {@link item} into the format expected by Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   *
+   * @param properties - entity properties that should be included in the result.
+   * @returns entity instance transformed into the format expected by Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   */
   getFieldValues(properties: string[]): Partial<{[prop in keyof T]: any}> {
     return instanceItemToFormFields<T>(
       this.item || {},
@@ -113,7 +162,14 @@ export class DataInstanceStore<T> implements DataContainer {
 }
 
 export interface DataInstanceOptions {
+  /**
+   * Whether to call the {@link DataInstanceStore#load} method immediately after the
+   * {@link DataInstanceStore} is constructed.
+   */
   loadImmediately?: boolean,
+  /**
+   * See {@link DataInstanceStore#viewName}
+   */
   view?: string
 }
 
@@ -122,6 +178,14 @@ export interface DataInstanceProps<E> extends DataInstanceOptions {
   children: (store: Partial<DataInstanceStore<E>>) => React.ReactNode;
 }
 
+/**
+ * Initialization function that instantiates a {@link DataInstanceStore}.
+ *
+ * @typeparam T - entity type.
+ *
+ * @param entityName - name of the entity to be retrieved.
+ * @param opts - {@link DataInstanceStore} configuration.
+ */
 export function instance<T>(entityName: string, opts: DataInstanceOptions) {
   return new DataInstanceStore<T>(getMainStore(), entityName, opts.view);
 }
@@ -229,12 +293,14 @@ export function formFieldsToInstanceItem<T>(
 }
 
 /**
- * Transforms the Instance item into format expected by antd Form fields
+ * Transforms the provided `item` into the format expected by Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
  *
- * @param item
+ * @typeparam T - entity type.
+ *
+ * @param item - entity instance to be transformed.
  * @param entityName
- * @param metadata
- * @param displayedProperties
+ * @param metadata - entities metadata.
+ * @param displayedProperties - entity properties that should be included in the result. If not provided, all properties will be included.
  */
 export function instanceItemToFormFields<T>(
   item: Record<string, any> | undefined, entityName: string, metadata: MetaClassInfo[], displayedProperties?: string[]

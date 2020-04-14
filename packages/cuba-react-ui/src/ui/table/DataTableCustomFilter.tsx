@@ -39,11 +39,32 @@ export type CustomFilterInputValue = string | number | boolean | string[] | numb
 export interface DataTableCustomFilterProps extends FormComponentProps, MainStoreInjected {
   entityName: string,
   entityProperty: string,
+  /**
+   * See `filterDropdown` in antd {@link https://3x.ant.design/components/table/#Column | Column} documentation
+   */
   filterProps: FilterDropdownProps,
+  /**
+   * Selected comparison operator (see {@link ComparisonType}). Used together with the {@link value} prop.
+   * E.g. filtering values greater than `100` can be achieved by using {@link operator} `>` and {@link value} `100`.
+   * {@link operator} and {@link value} state is lifted up from the custom filter component
+   * in order to allow operations on all filters at once, such as clearing all filters.
+   */
   operator: ComparisonType | undefined,
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
+  /**
+   * Filter value that is used together with the {@link operator} prop.
+   * E.g. filtering values greater than `100` can be achieved by using {@link operator} `>` and {@link value} `100`.
+   * {@link operator} and {@link value} state is lifted up from the custom filter component
+   * in order to allow operations on all filters at once, such as clearing all filters.
+   */
   value: CustomFilterInputValue,
   onValueChange: (value: CustomFilterInputValue, propertyName: string) => void,
+  /**
+   * Provides access to custom filter's {@link https://3x.ant.design/components/form/ | Form},
+   * which can be used e.g. to clear the form fields when clearing all filters.
+   *
+   * @param instance
+   */
   ref?: (instance: React.Component<DataTableCustomFilterProps>) => void,
 }
 

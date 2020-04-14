@@ -1,5 +1,5 @@
 site:
-  title: CUBA Platform Frontend Generator
+  title: CUBA Platform Frontend UI Manual
   url: https://cuba-platform.github.io/frontend
 output:
   dir: docs
@@ -7,6 +7,7 @@ content:
   sources:
     - url: git@github.com:cuba-platform/frontend.git
       branches:
+#        - pv/docs/2.0
         - master
         - v[0-9]*
       start_path: docs-src/doc-component-repo

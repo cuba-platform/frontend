@@ -29,6 +29,9 @@ import {
 
 // todo may be it make sense to add 'defaultDataTableProps' const instead of describe each property in jsdoc,
 //  it's easy to forget update js docs after DataTable.defaultProps changes
+/**
+ * @typeparam E - entity type.
+ */
 export interface DataTableProps<E> extends MainStoreInjected, WrappedComponentProps {
   dataCollection: DataCollectionStore<E>,
   /**
@@ -41,36 +44,80 @@ export interface DataTableProps<E> extends MainStoreInjected, WrappedComponentPr
    */
   enableFiltersOnColumns?: string[],
   /**
+   * By default, when any number of filters is active, a `Clear filters` control will be displayed above the
+   * table. When clicked, this control disables all filters at once.
+   * If `hideClearFilters` is `true`, then the `Clear filters` control won't be displayed.
    * Default: `false`
    */
   hideClearFilters?: boolean,
+  /**
+   * A callback that takes the ids of the selected rows.
+   * Can be used together with {@link buttons} to facilitate CRUD operations or other functionality.
+   *
+   * @param selectedRowKeys - entity ids corresponding to the selected rows.
+   */
   onRowSelectionChange?: (selectedRowKeys: string[]) => void,
   /**
+   * `single` allows to select one row at a time.
+   * `multi` allows to select multiple rows.
+   * `none` disables row selection.
    * Default: `single`.
    */
   rowSelectionMode?: 'single' | 'multi' | 'none',
   /**
+   * When `true`, hides the {@link https://3x.ant.design/components/table | selection column}.
    * Default: `false`.
    */
   hideSelectionColumn?: boolean;
   /**
+   * When `true`, a row can be selected by clicking on it.
+   * When `false`, a row can only be selected using
+   * the {@link https://3x.ant.design/components/table | selection column}.
    * Default: `true`.
    */
   canSelectRowByClick?: boolean,
+  /**
+   * Controls that will be rendered above the table.
+   */
   buttons?: JSX.Element[],
+  /**
+   * Can be used to override any of the underlying
+   * {@link https://3x.ant.design/components/table/#Table | Table properties}.
+   */
   tableProps?: TableProps<E>,
   /**
    * @deprecated use `columnDefinitions` instead. If used together, `columnDefinitions` will take precedence.
    */
   columnProps?: ColumnProps<E>,
   /**
-   * You need to use either `columnDefinitions` or `fields` for the `DataTable` to work
+   * Describes the columns to be displayed. An element of this array can be
+   * a property name (which will render a column displaying that property;
+   * the column will have the default look&feel)
+   * or a {@link ColumnDefinition} object (which allows creating a custom column).
+   *
+   * NOTE: you need to use either {@link columnDefinitions} or {@link fields} (deprecated)
+   * for the `DataTable` to work.
    */
   columnDefinitions?: Array<string | ColumnDefinition<E>>
 }
 
 export interface ColumnDefinition<E> {
+  /**
+   * Entity property name.
+   * Use it if you want to create a custom variant of the default property-bound column.
+   * In this case the properties in {@link columnProps} will override the default
+   * look&feel (defaults will still apply to the properties not contained in {@link columnProps}).
+   * If you want to create a custom column that is not bound to an entity property
+   * (e.g. an action button column or a calculated field column), do not use this prop.
+   */
   field?: string,
+  /**
+   * If {@link field} is provided, then these properties will override the default look&feel
+   * (defaults will still apply to the properties not contained in {@link columnProps}).
+   * If you want to create a custom column that is not bound to an entity property
+   * (e.g. an action button column or a calculated field column) use this prop only and do not use {@link field}.
+   * In this case only the properties present in {@link columnProps} will be applied to the column.
+   */
   columnProps: ColumnProps<E>
 }
 
