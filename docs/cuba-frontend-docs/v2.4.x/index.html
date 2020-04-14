@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>CUBA Platform Frontend Generator :: CUBA Platform Frontend Generator</title>
+    <title>CUBA Platform Frontend UI Manual :: CUBA Platform Frontend UI Manual</title>
     <link rel="canonical" href="https://cuba-platform.github.io/frontend/cuba-frontend-docs/v2.4.x/index.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -15,7 +15,7 @@
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://cuba-platform.github.io/frontend">CUBA Platform Frontend Generator</a>
+      <a class="navbar-item" href="https://cuba-platform.github.io/frontend">CUBA Platform Frontend UI</a>
     </div>
     <div id="topbar-nav" class="navbar-menu">
           <div class="navbar-end">
@@ -46,37 +46,22 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">CUBA Platform Frontend Generator</a></h3>
+    <h3 class="title"><a href="index.html">CUBA Platform Frontend UI Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="#overview">Overview</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#supported-browsers">Supported Browsers</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="#getting-started">Getting Started</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#getting-started-using-cuba-studio">Getting Started Using CUBA Studio</a>
+    <a class="nav-link" href="#getting-started-using-cli">CLI-specific instructions</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#getting-started-using-cli">Getting Started Using CLI</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="#generator-cli">Generator CLI</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#commands-description">Commands Description</a>
+    <a class="nav-link" href="#choose-learning-path">Choosing the Learning Path</a>
   </li>
 </ul>
   </li>
@@ -85,7 +70,16 @@
     <a class="nav-link" href="#react-client">React Client</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#overview-of-react-client">Overview of React Client</a>
+    <a class="nav-link" href="#getting-started-with-react-client">Creating a Starter Client</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#react-client-further-learning">Where Do I Go From Here?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#react-client-technologies">Technologies Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#supported-browsers">Supported Browsers</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#creating-react-components">Creating React Components</a>
@@ -127,10 +121,13 @@
     <a class="nav-link" href="#react-native-client">React Native Client</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#running-the-client-1">Running the Client</a>
+    <a class="nav-link" href="#react-native-client-getting-started">Getting Started with React Native Client</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#technologies-1">Technologies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#react-native-further-learning">Where Do I Go From Here?</a>
   </li>
 </ul>
   </li>
@@ -207,6 +204,15 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#generator-reference">Frontend Generator Reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#commands-description">Commands Description</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="#rest-api">REST API</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -231,12 +237,12 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">CUBA Platform Frontend Generator</span>
+    <span class="title">CUBA Platform Frontend UI Manual</span>
     <span class="version">v2.4.x</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">CUBA Platform Frontend Generator</span>
+      <span class="title">CUBA Platform Frontend UI Manual</span>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="index.html">v2.4.x</a>
@@ -253,103 +259,22 @@
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">CUBA Platform Frontend Generator</a></li>
+    <li><a href="index.html">CUBA Platform Frontend UI Manual</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="file:///home/corwyn/frontend/docs-src/doc-component-repo/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
-</div>
+  <div class="edit-this-page"><a href="https://github.com/cuba-platform/frontend/edit/pv/docs/2.0/docs-src/doc-component-repo/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">CUBA Platform Frontend Generator</h1>
-<div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#overview">Overview</a>
-<ul class="sectlevel2">
-<li><a href="#supported-browsers">Supported Browsers</a></li>
-</ul>
-</li>
-<li><a href="#getting-started">Getting Started</a>
-<ul class="sectlevel2">
-<li><a href="#getting-started-using-cuba-studio">Getting Started Using CUBA Studio</a></li>
-<li><a href="#getting-started-using-cli">Getting Started Using CLI</a></li>
-</ul>
-</li>
-<li><a href="#generator-cli">Generator CLI</a>
-<ul class="sectlevel2">
-<li><a href="#commands-description">Commands Description</a></li>
-</ul>
-</li>
-<li><a href="#react-client">React Client</a>
-<ul class="sectlevel2">
-<li><a href="#overview-of-react-client">Overview of React Client</a></li>
-<li><a href="#creating-react-components">Creating React Components</a></li>
-<li><a href="#observable-state-with-mobx">Observable State with MobX</a></li>
-<li><a href="#routing-and-menu">Routing and Menu</a></li>
-<li><a href="#forms">Forms</a></li>
-<li><a href="#i18n">I18n</a></li>
-<li><a href="#customizing-theme">Customizing Theme</a></li>
-<li><a href="#backend-model">Backend Model</a></li>
-<li><a href="#synchronizing-project-model">Synchronizing Project Model</a></li>
-<li><a href="#security">Security</a></li>
-<li><a href="#building-the-client">Building the Client</a></li>
-<li><a href="#react-client-configuration">Configuration</a></li>
-</ul>
-</li>
-<li><a href="#react-native-client">React Native Client</a>
-<ul class="sectlevel2">
-<li><a href="#running-the-client-1">Running the Client</a></li>
-<li><a href="#technologies-1">Technologies</a></li>
-</ul>
-</li>
-<li><a href="#polymer-based-client-deprecated">Polymer-based Client (Deprecated)</a></li>
-<li><a href="#cuba-react-core">CUBA React Core Components</a>
-<ul class="sectlevel2">
-<li><a href="#cubaappprovider">CubaAppProvider</a></li>
-<li><a href="#mainstore">MainStore</a></li>
-<li><a href="#datacollectionstore">DataCollectionStore</a></li>
-<li><a href="#ClientSideDataCollectionStore">ClientSideDataCollectionStore</a></li>
-<li><a href="#datainstancestore">DataInstanceStore</a></li>
-<li><a href="#api-reference">API Reference</a></li>
-</ul>
-</li>
-<li><a href="#cuba-react-ui">CUBA React UI Components</a>
-<ul class="sectlevel2">
-<li><a href="#entityproperty">EntityProperty</a></li>
-<li><a href="#formfield">FormField</a></li>
-<li><a href="#entityeditor">EntityEditor</a></li>
-<li><a href="#nestedentityfield">NestedEntityField</a></li>
-<li><a href="#nestedentitiestablefield">NestedEntitiesTableField</a></li>
-<li><a href="#fileupload">FileUpload</a></li>
-<li><a href="#imagepreview">ImagePreview</a></li>
-<li><a href="#datatable">DataTable</a></li>
-<li><a href="#api-reference-1">API Reference</a></li>
-</ul>
-</li>
-<li><a href="#typescript-sdk">TypeScript SDK</a>
-<ul class="sectlevel2">
-<li><a href="#entities">Entities</a></li>
-<li><a href="#enums">Enums</a></li>
-</ul>
-</li>
-<li><a href="#rest-api">REST API</a></li>
-</ul>
-</div>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://travis-ci.org/cuba-platform/frontend"><span class="image"><img src="https://travis-ci.org/cuba-platform/frontend.svg?branch=master" alt="Build Status"></span></a>
-<a href="http://commitizen.github.io/cz-cli/"><span class="image"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></span></a></p>
-</div>
-</div>
-</div>
+<h1 class="page">CUBA Platform Frontend UI Manual</h1>
 <div class="sect1">
 <h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tool can be used to generate a front-end client for a CUBA
-Platform based application. The client can be powered by one of the
-following frameworks:</p>
+<p>The <strong>Frontend UI</strong> is a CUBA Platform <a href="https://doc.cuba-platform.com/manual-latest/app_tiers.html">block</a> serving as an alternative to the <a href="https://doc.cuba-platform.com/manual-latest/gui_framework.html">Generic UI</a>. Whereas Generic UI is designed primarily for internal (back-office) users, Frontend UI is targeted for external users and is more flexible in terms of layout customization. It also uses different technologies which are more familiar to frontend developers, and allows easy integration of UI libraries and components from vast JavaScript ecosystem. However, it requires better knowledge of modern frontend stack.</p>
+</div>
+<div class="paragraph">
+<p>Frontend UI can be powered by one of the following technologies:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -363,32 +288,32 @@ following frameworks:</p>
 <p>Polymer (deprecated)</p>
 </li>
 <li>
-<p>a framework-agnostic <a href="#typescript-sdk">TypeScript SDK</a></p>
+<p>Your favorite framework (such as Angular or Vue): you can use a framework-agnostic <a href="#typescript-sdk">TypeScript SDK</a> for that</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The front-end client is an alternative to the
-<a href="https://doc.cuba-platform.com/manual-latest/gui_framework.html">Generic
-UI</a> providing front-end oriented development experience. It&#8217;s more
-flexible in terms of layout customization and allows easy integration of
-UI libraries and components from vast JavaScript ecosystem. However, it
-requires better knowledge of modern front-end stack.</p>
+<p>We provide several tools and libraries that you can use in order to build your Frontend UI application (or <strong>frontend client</strong> as we call it):</p>
 </div>
-<div class="paragraph">
-<p>The generator is used by <a href="https://doc.cuba-platform.com/studio/">CUBA
-Studio</a> for
-<a href="https://doc.cuba-platform.com/manual-latest/front_ui.html">front module</a>
-creation. Alternatively it can be used as a standalone CLI tool.</p>
-</div>
-<div class="sect2">
-<h3 id="supported-browsers"><a class="anchor" href="#supported-browsers"></a>Supported Browsers</h3>
-<div class="paragraph">
-<p>The client supports all modern (evergreen) browsers. In order to support
-IE 9,10,11
-<a href="https://facebook.github.io/create-react-app/docs/supported-browsers-features">additional
-configuration</a> required.</p>
-</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Frontend Generator</dt>
+<dd>
+<p>The <a href="#generator-reference">Frontend Generator</a> is a scaffolding tool that can be used to speed up the process of developing a frontend client. It can be used from <a href="https://doc.cuba-platform.com/studio">CUBA Studio</a> or as a standalone CLI tool. It can generate a starter app and add the pieces you need such as entity browser and editor screens. It can also generate a <a href="#typescript-sdk">TypeScript SDK</a>. Frontend Generator is available as an npm package <a href="https://www.npmjs.com/package/@cuba-platform/front-generator">@cuba-platform/front-generator</a>.</p>
+</dd>
+<dt class="hdlist1">Component and utility libraries for React and React Native</dt>
+<dd>
+<p>There are two libraries for React and React Native powered frontend clients that are both used in the code generated by the <a href="#generator-reference">Frontend Generator</a> and can be utilized on its own. One is <a href="#cuba-react-core">CUBA React Core</a> which is responsible for core functionalities such as working with CUBA entities. It is used by both React and React Native clients. The other is <a href="#cuba-react-ui">CUBA React UI</a> which contains the UI components. It uses <a href="https://3x.ant.design/docs/react/introduce">Ant Design</a> UI kit and is used by the React client. Both libraries are available as npm packages: <a href="https://www.npmjs.com/package/@cuba-platform/react-core">@cuba-platform/react-core</a>, <a href="https://www.npmjs.com/package/@cuba-platform/react-ui">@cuba-platform/react-ui</a>.</p>
+</dd>
+<dt class="hdlist1">CUBA REST JS library</dt>
+<dd>
+<p><a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a> is a library that handles the interactions with <a href="https://doc.cuba-platform.com/restapi-7.2">Generic REST API</a>. Frontend clients use Generic REST API to communicate with the Middleware. However, you don&#8217;t have to manually send the requests from your code. If your frontend client is based on React or React Native then <a href="#cuba-react-core">CUBA React Core</a> components will often handle this communication for you utilizing CUBA REST JS under the hood. If you are using a different framework or need more flexibility, you can use CUBA REST JS directly. CUBA REST JS is available as an npm package <a href="https://www.npmjs.com/package/@cuba-platform/rest">@cuba-platform/rest</a>.</p>
+</dd>
+<dt class="hdlist1">TypeScript SDK</dt>
+<dd>
+<p><a href="#typescript-sdk">TypeScript SDK</a> is generated by the <a href="#generator-reference">Frontend Generator</a> and is a TypeScript representation of project&#8217;s entities, views and facades to access REST services. The SDK can be used to develop a frontend client using your favorite framework (if it happens not to be one of the frameworks supported out of the box) as well as for Node.js-based BFF (Backend for Frontend) development.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -396,45 +321,46 @@ configuration</a> required.</p>
 <h2 id="getting-started"><a class="anchor" href="#getting-started"></a>Getting Started</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We recommend using an IDE with
-<a href="http://www.typescriptlang.org/">TypeScript</a> support:
-<a href="https://code.visualstudio.com/">VSCode</a>,
-<a href="https://www.jetbrains.com/webstorm/">WebStorm</a> or
-<a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a> Ultimate Edition.</p>
+<p>First of all, install the <a href="https://doc.cuba-platform.com/studio/#installation">CUBA Studio</a>.</p>
 </div>
 <div class="paragraph">
-<p>Steps will vary depending on whether you are using the generator from
-CUBA Studio or as a standalone CLI tool.</p>
+<p>Your learning path will vary depending on what kind of frontend client you want to build (e.g. React, React Native, etc.). However, the common starting point will be the <strong>Frontend Generator</strong>. There are two ways to use it:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>from Studio UI</p>
+</li>
+<li>
+<p>from command line interface using project model file exported via Studio</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Majority of features provided by CLI are supported by the Studio, but there are few exceptions. Check <a href="#generator-reference">Frontend Generator Reference</a> to see which features are supported. Also you will want to use CLI if you prefer to have your frontend client as a separate project rather than as part of your CUBA project (e.g. you may have different teams working on frontend and backend).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you want to use the Frontend Generator from CLI, check <a href="#getting-started-using-cli">here</a> for CLI-specific instructions. Otherwise, proceed to <a href="#choose-learning-path">this section</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="getting-started-using-cuba-studio"><a class="anchor" href="#getting-started-using-cuba-studio"></a>Getting Started Using CUBA Studio</h3>
-<div id="installation" class="paragraph">
+<h3 id="getting-started-using-cli"><a class="anchor" href="#getting-started-using-cli"></a>CLI-specific instructions</h3>
+<div id="installation-cli" class="paragraph">
 <p><strong>Installation</strong></p>
 </div>
 <div class="paragraph">
-<p>Install <a href="https://doc.cuba-platform.com/studio/#installation">CUBA Studio</a>.</p>
-</div>
-<div id="generating-a-client-from-studio" class="paragraph">
-<p><strong>Generating a Client from Studio</strong></p>
+<p>Install <a href="https://nodejs.org/en/download/">Node.js</a> 12+ and npm 6+ (usually comes with node).</p>
 </div>
 <div class="paragraph">
-<p>You can generate a client as
-<a href="https://doc.cuba-platform.com/studio/#modules">a module of CUBA
-application</a>. You will be able to create CRUD screens using CUBA Studio
-UI.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="getting-started-using-cli"><a class="anchor" href="#getting-started-using-cli"></a>Getting Started Using CLI</h3>
-<div id="installation-1" class="paragraph">
-<p><strong>Installation</strong></p>
-</div>
-<div class="paragraph">
-<p>Install <a href="https://nodejs.org/en/download/">Node.js</a> 12+ and npm 6+ (usually
-comes with node).</p>
-</div>
-<div class="paragraph">
-<p>Install the generator using npm package manager:</p>
+<p>Install the generator CLI tool using npm:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -442,7 +368,7 @@ comes with node).</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Use the generator by running the following command in command line:</p>
+<p>Check if installation was successful by running the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -450,24 +376,24 @@ comes with node).</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Alternatively, you can run the generator without installation using
-<a href="https://www.npmjs.com/package/npx">npx</a>:</p>
+<p>This will display the usage info.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can run the generator without installation using <a href="https://www.npmjs.com/package/npx">npx</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npx @cuba-platform/front-generator</code></pre>
 </div>
 </div>
-<div id="generating-a-client-using-cli" class="paragraph">
-<p><strong>Generating a Client Using CLI</strong></p>
+<div id="exporting-project-model-file" class="paragraph">
+<p><strong>Project Metadata</strong></p>
 </div>
 <div class="paragraph">
-<p>In order to generate a starter app, we need to feed the generator with
-project metadata (what entities do we have, etc.). There are two ways of
-doing that.</p>
+<p>The generator CLI tool will require the project metadata: information about your project&#8217;s entities, views, etc. You can pass this information to the generator using CUBA Studio. There are two ways of doing that.</p>
 </div>
 <div id="passing-project-metadata-from-cuba-studio" class="paragraph">
-<p><em>Passing Project Metadata from CUBA Studio</em></p>
+<p><em>Passing Project Metadata Automatically</em></p>
 </div>
 <div class="ulist">
 <ul>
@@ -475,342 +401,58 @@ doing that.</p>
 <p>Open your project in CUBA Studio.</p>
 </li>
 <li>
-<p>Open settings (<code>File &gt; Settings</code>), then open
-<code>Languages &amp; Frameworks &gt; CUBA</code>.</p>
+<p>Open settings (<code>File &gt; Settings</code>), then open <code>Languages &amp; Frameworks &gt; CUBA</code>.</p>
 </li>
 <li>
-<p>Tick the <code>Old Studio integration</code> checkbox:</p>
+<p>Tick the <code>Enable integration</code> checkbox:</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/studio-integration.png" alt="Enabling Studio integration"></span></p>
+</div>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/studio-integration.png" alt="Enabling Studio integration"></span></p>
-</div>
-<div class="paragraph">
-<p>Now generator will be able to automatically detect CUBA projects opened
+<p>Now the generator will be able to automatically detect CUBA projects opened
 in Studio.</p>
-</div>
-<div class="paragraph">
-<p>Generate a starter React app by running the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gen-cuba-front react-typescript:app</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Generator will prompt you to select one of the currently opened CUBA
-projects.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/interactive-projects.png" alt="Interactive project selection"></span></p>
 </div>
 <div id="passing-project-metadata-manually" class="paragraph">
 <p><em>Passing Project Metadata Manually</em></p>
 </div>
 <div class="paragraph">
-<p>You can export the project model manually. Select
-<code>CUBA &gt; Advanced &gt; Export project model</code> in the main menu. Studio will
-generate <code>projectModel.json</code> file.</p>
+<p>You can export the project model manually. Select <code>CUBA &gt; Advanced &gt; Export project model</code> in the main menu. Studio will generate <code>projectModel.json</code> file.</p>
 </div>
-<div class="paragraph">
-<p>Use <code>--model</code> command line option to specify location of the project
-model file:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gen-cuba-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="generator-cli"><a class="anchor" href="#generator-cli"></a>Generator CLI</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Run <code>gen-cuba-front</code> (or <code>npx @cuba-platform/front-generator</code>) without
-arguments to see usage info.</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Usage: gen-cuba-front [command] [options]
-
-  Options:
-
-    -v, --version  output the version number
-    -h, --help     output usage information
-
-  Commands:
-
-    list [options]                                   List all available clients and their clients
-    polymer2:app [options]                           Generates polymer2 app
-    polymer2:blank-component [options]               Generates polymer2 blank-component
-    polymer2:entity-cards [options]                  Generates polymer2 entity-cards
-    polymer2:entity-edit [options]                   Generates polymer2 entity-edit
-    polymer2:entity-list [options]                   Generates polymer2 entity-list
-    polymer2:entity-management [options]             Generates polymer2 entity-management
-    polymer2:query-results [options]                 Generates polymer2 query-results
-    polymer2:service-data [options]                  Generates polymer2 service-data
-    polymer2:service-form [options]                  Generates polymer2 service-form
-    polymer2-typescript:app [options]                Generates polymer2-typescript app
-    polymer2-typescript:blank-component [options]    Generates polymer2-typescript blank-component
-    polymer2-typescript:entity-cards [options]       Generates polymer2-typescript entity-cards
-    polymer2-typescript:entity-edit [options]        Generates polymer2-typescript entity-edit
-    polymer2-typescript:entity-list [options]        Generates polymer2-typescript entity-list
-    polymer2-typescript:entity-management [options]  Generates polymer2-typescript entity-management
-    react-typescript:app [options]                   Generates react-typescript app
-    react-typescript:blank-component [options]       Generates react-typescript blank-component
-    react-typescript:entity-cards [options]          Generates react-typescript entity-cards
-    react-typescript:entity-management [options]     Generates react-typescript entity-management
-    sdk:all [options]                                Generates sdk all
-    sdk:model [options]                              Generates sdk model</pre>
-</div>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Polymer client is deprecated
+When the project model changes (e.g. an entity has been altered, a view has been added, etc.), you will need to re-generate the project model file and update the project model in already generated code. In order to do the latter you can use a convenience npm script: <code>npm run update-model</code>.
 </td>
 </tr>
 </table>
 </div>
-</blockquote>
-</div>
-<div class="paragraph">
-<p>Run <code>gen-cuba-front &lt;command&gt; --help</code> to see the list of available
-options.</p>
-</div>
-<div class="paragraph">
-<p>Most commands use interactive prompts to capture necessary inputs such
-as which entity you want to use, which
-<a href="https://doc.cuba-platform.com/manual-latest/views.html">view</a>, etc.
-Alternatively, <code>answers</code> command line parameter can be used to provide
-these inputs. You may want to use it if you want to automate the
-generation. <code>answers</code> is a base64-encoded JSON string. See
-<a href="#commands-description">descriptions of individual
-commands</a> for details on what shall be put inside this JSON.</p>
-</div>
-<div class="paragraph">
-<p>Example of using <code>answers</code>:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>gen-cuba-front react-typescript:entity-management \
-  --dest ../model-playground/modules/front/src/app/car \
-  --model /home/myusername/model-playground/projectModel.json \
-  --dirShift ../../ \
-  --answers eyJlZGl0VmlldyI6eyJuYW1lIjoiY2FyLXZpZXciLCJlbnRpdHlOYW1lIjoibXBnJENhciJ9LCJlZGl0Q29tcG9uZW50TmFtZSI6Im1wZy1jYXItZWRpdCIsImxpc3RWaWV3Ijp7Im5hbWUiOiJjYXItdmlldyIsImVudGl0eU5hbWUiOiJtcGckQ2FyIn0sImxpc3RDb21wb25lbnROYW1lIjoibXBnLWNhci1saXN0IiwibGlzdFR5cGUiOiJsaXN0IiwiZW50aXR5Ijp7Im5hbWUiOiJtcGckQ2FyIn0sIm1hbmFnZW1lbnRDb21wb25lbnROYW1lIjoibXBnLWNhci1tYW5hZ2VtZW50In0=</pre>
-</div>
 </div>
 <div class="sect2">
-<h3 id="commands-description"><a class="anchor" href="#commands-description"></a>Commands Description</h3>
-<div id="react-typescriptapp" class="paragraph">
-<p><strong>react-typescript:app</strong></p>
+<h3 id="choose-learning-path"><a class="anchor" href="#choose-learning-path"></a>Choosing the Learning Path</h3>
+<div class="paragraph">
+<p>If you want to create a React-based Frontend UI, check our <a href="#react-client">React Client</a> guide.</p>
 </div>
 <div class="paragraph">
-<p>Generates a React starter app. See <a href="#getting-started">Getting
-started</a>.</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  Options:
-
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information</pre>
-</div>
-</div>
-<div id="react-typescriptentity-management" class="paragraph">
-<p><strong>react-typescript:entity-management</strong></p>
+<p>For React Native check <a href="#react-native-client">this</a> guide.</p>
 </div>
 <div class="paragraph">
-<p>Generates:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Route / main menu item</p>
-</li>
-<li>
-<p>Editor screen to create or edit an
-entity</p>
-</li>
-<li>
-<p>Browser screen to view the list of entities and/or perform CRUD
-operations.</p>
-</li>
-</ul>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  Options:
-
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information</pre>
-</div>
+<p>Deprecated Polymer Client documentation can be found <a href="https://doc.cuba-platform.com/manual-latest/polymer_ui.html">here</a>.</p>
 </div>
 <div class="paragraph">
-<p>Browser screen is available in one of the following flavors (we call it
-list types):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>list</p>
-</li>
-</ul>
+<p>If you want to use a different framework, check <a href="#typescript-sdk">TypeScript SDK</a> and <a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a> documentation.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/react/browser-list.png" alt="List browser example"></span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>cards</p>
-</li>
-</ul>
+<p>If you want to build a frontend client that works well on both desktop and mobile but not sure which framework to use, we suggest building a <a href="#react-client">React Client</a> as this is currently the most well-supported option.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/react/browser-cards.png" alt="Cards browser example"></span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>table</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/react/data-table-demo.gif" alt="Data table showcase"></span></p>
-</div>
-<div class="paragraph">
-<p><code>answers</code> format:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>{
-    "editView": {
-      "name": "car-edit", // Name of view that will be used in Editor screen
-      "entityName": "mpg$Car" // Entity name
-    },
-    "editComponentName": "CarEdit", // Editor component class name
-    "listView": {
-      "name": "car-edit", // Name of view that will be used in Browser screen
-      "entityName": "mpg$Car" // Entity name
-    },
-    "listComponentName": "CarCards", // Browser component class name
-    "listType": "cards", // List type: list, cards or table
-    "entity": {
-      "name": "mpg$Car" // Entity name
-    },
-    "managementComponentName": "CarManagement" // Management component class name (renders either Editor or Browser depending on current route)
-    }
-}</pre>
-</div>
-</div>
-<div id="react-typescriptentity-cards" class="paragraph">
-<p><strong>react-typescript:entity-cards</strong></p>
-</div>
-<div class="paragraph">
-<p>Generates a list of entities where each entity is represented by a card
-(similar to a Browser component with <code>"listType": "cards"</code>, see
-<a href="#react-typescriptentity-management">react-typescript:entity-management</a>)</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  Options:
-
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>answers</code> format:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>{
-    "entityView": {
-      "name": "favoriteCar-view", // View name
-      "entityName": "mpg$FavoriteCar" // Entity name
-    },
-    "componentName": "FavoriteCarCards", // Component class name
-    "entity": {
-      "name": "mpg$FavoriteCar" // Entity name
-    }
-}</pre>
-</div>
-</div>
-<div id="react-typescriptblank-component" class="paragraph">
-<p><strong>react-typescript:blank-component</strong></p>
-</div>
-<div class="paragraph">
-<p>Generates a blank component.</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  Options:
-
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>answers</code> format:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>{
-    "componentName": "BlankComponent" // Component class name
-}</pre>
-</div>
-</div>
-<div id="sdkall" class="paragraph">
-<p><strong>sdk:all</strong></p>
-</div>
-<div class="paragraph">
-<p>Generates framework-agnostic <a href="#typescript-sdk">TypeScript SDK</a>. It is
-also generated when executing <code>react-typescript:app</code> command.</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  Options:
-
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information</pre>
-</div>
-</div>
-<div id="sdkmodel" class="paragraph">
-<p><strong>sdk:model</strong></p>
-</div>
-<div class="paragraph">
-<p>Generates SDK model only.</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  Options:
-
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information</pre>
-</div>
+<p>If you are stuck, or your specific use case is not covered by this documentation - feel free to contact us at <a href="https://www.cuba-platform.com/discuss">our forum</a>.</p>
 </div>
 </div>
 </div>
@@ -819,33 +461,7 @@ also generated when executing <code>react-typescript:app</code> command.</p>
 <h2 id="react-client"><a class="anchor" href="#react-client"></a>React Client</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="overview-of-react-client"><a class="anchor" href="#overview-of-react-client"></a>Overview of React Client</h3>
-<div id="running-the-client" class="paragraph">
-<p><strong>Running the Client</strong></p>
-</div>
-<div class="paragraph">
-<p>You can run the client by executing the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm run start</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will launch a dev server and allow you to access your app at
-<code>localhost:3000</code>.</p>
-</div>
-<div class="paragraph">
-<p>If the client was generated via CUBA Studio (as a module of CUBA
-application) you can use Gradle in order to run npm tooling:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew npm_run_start</code></pre>
-</div>
-</div>
-<div class="quoteblock">
-<blockquote>
+<h3 id="getting-started-with-react-client"><a class="anchor" href="#getting-started-with-react-client"></a>Creating a Starter Client</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -853,65 +469,59 @@ application) you can use Gradle in order to run npm tooling:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-There is a known
-<a href="https://github.com/srs/gradle-node-plugin/issues/339">bug</a> in Gradle node
-plugin which does not kill JS development server on task interruption.
+If you haven&#8217;t read our introductory <a href="#getting-started">Getting Started</a> section, we encourage you to do so now.
 </td>
 </tr>
 </table>
 </div>
-</blockquote>
+<div class="paragraph">
+<p>In this guide we will use the Frontend Generator to create a starter React client and add screens to browse and edit an entity. You can try it with your own CUBA project, or you can use <a href="https://github.com/cuba-platform/cuba-petclinic">Petclinic</a> sample project.</p>
 </div>
 <div class="paragraph">
-<p>You can also run your CUBA application normally (e.g. via
-<code>CUBA &#8594; Start Application Server</code>) and front-end client will be
-accessible at <code>localhost:8080/app-front</code> (context root can be
-<a href="#react-client-configuration">configured</a>). However, in this case hot
-deploy will not be available. We recommend using one of the above
-methods during development.</p>
-</div>
-<div id="technologies" class="paragraph">
-<p><strong>Technologies</strong></p>
+<p>There are two ways to use the generator: from CUBA Studio and from CLI.</p>
 </div>
 <div class="paragraph">
-<p>The client is based on the following frameworks and libraries:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://reactjs.org/">React</a> - UI rendering;</p>
-</li>
-<li>
-<p><a href="https://mobx.js.org/">MobX</a> - reactive state management;</p>
-</li>
-<li>
-<p><a href="https://ant.design/docs/react/introduce">Ant Design</a> - UI components;</p>
-</li>
-<li>
-<p><a href="https://reacttraining.com/react-router/">React Router</a> - routing;</p>
-</li>
-<li>
-<p><a href="#cuba-react-core">CUBA React Core</a> - CUBA React core components and utilities;</p>
-</li>
-<li>
-<p><a href="#cuba-react-ui">CUBA React UI</a> - CUBA React UI components
-and utilities;</p>
-</li>
-<li>
-<p><a href="api-reference/cuba-rest-js/index.html" target="_blank" rel="noopener">CUBA REST JS</a> - interaction with СUBA
-generic REST API;</p>
-</li>
-<li>
-<p><a href="https://facebook.github.io/create-react-app/">Create React App</a> - build
-scripts and configuration;</p>
-</li>
-</ul>
-</div>
-<div id="project-structure" class="paragraph">
-<p><strong>Project Structure</strong></p>
+<p><strong>Using Generator from Studio</strong></p>
 </div>
 <div class="paragraph">
-<p>Here is the structure of the newly generated project:</p>
+<p>Select <code>CUBA</code> view in <code>Project</code> tool window. Right-click on <code>Project</code> &#8594; <code>Modules</code> and select <code>Manage modules</code> &#8594; <code>Create 'front' module</code>. Choose <code>React</code> module preset.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/studio-create-front-module.gif" alt="Creating front module"></span></p>
+</div>
+<div class="paragraph">
+<p>Starter React client will be created in <code>modules/front</code> directory.</p>
+</div>
+<div class="paragraph">
+<p><strong>Using Generator from CLI</strong></p>
+</div>
+<div class="paragraph">
+<p>If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gen-cuba-front react-typescript:app</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generator will prompt you to select one of the currently opened CUBA projects.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/interactive-projects.png" alt="Interactive project selection"></span></p>
+</div>
+<div class="paragraph">
+<p>If you are using an exported project model file, use <code>--model</code> parameter to pass it to the generator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gen-cuba-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Exploring the Generated Project</strong></p>
+</div>
+<div class="paragraph">
+<p>Here is the structure of a newly generated project:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -935,23 +545,234 @@ scripts and configuration;</p>
       enums/           &lt;- Project enums</pre>
 </div>
 </div>
+<div id="launching-react-client" class="paragraph">
+<p><strong>Running the Client</strong></p>
+</div>
 <div class="paragraph">
-<p>If the client was generated using Studio it&#8217;s placed in <code>modules/front</code>
-directory of main project.</p>
+<p>Navigate to the directory with the generated React client and run the following command to install the dependencies.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can run the client by executing the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm run start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will launch a dev server and allow you to access your app at <code>localhost:3000</code>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Other Ways to Run the Project</div>
+<div class="paragraph">
+<p>If the client was generated via CUBA Studio (as a module of CUBA application) you can use Gradle in order to run npm tooling:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew npm_run_start</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There is a known
+<a href="https://github.com/srs/gradle-node-plugin/issues/339">bug</a> in Gradle node
+plugin which does not kill JS development server on task interruption.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can also run your CUBA application normally (e.g. via <code>CUBA &#8594; Start Application Server</code>) and frontend client will be accessible at <code>localhost:8080/app-front</code> (context root can be <a href="#react-client-configuration">configured</a>). However, in this case hot deploy will not be available. We recommend using one of the above methods during development.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Either way, this is what you will see once you open your project in a browser.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/login-screen.png" alt="Login screen"></span></p>
+</div>
+<div class="paragraph">
+<p>Enter existing user&#8217;s login and password (<code>admin/admin</code> if you are using Petclinic).</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/home-screen.png" alt="Home screen"></span></p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it! Congratulations, you have just created your first React client!</p>
+</div>
+<div id="react-client-adding-components" class="paragraph">
+<p><strong>Adding Components</strong></p>
+</div>
+<div class="paragraph">
+<p>So far our React client doesn&#8217;t do much. Let&#8217;s add the screens to browse and edit an entity.</p>
+</div>
+<div class="paragraph">
+<p><strong>Adding Components Using Studio</strong></p>
+</div>
+<div class="paragraph">
+<p>In <code>CUBA</code> view of <code>Project</code> tool window expand <code>Data Model</code> and right-click on an entity class. Select <code>New</code> &#8594; <code>Frontend Component</code>. Select <code>Entity management</code>, <code>Next</code>, <code>Finish</code>.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/studio-adding-frontend-component.gif" alt="Adding a frontend component"></span></p>
+</div>
+<div class="paragraph">
+<p><strong>Adding Components Using CLI</strong></p>
+</div>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gen-cuba-front react-typescript:entity-management --dest src/app/pet --dirShift ../../</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>--dest</code> is the destination path for the components to be generated into. <code>--dirShift</code> is the relative path leading from the components destination directory back to <code>src</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>As before, if you are using a project model file you&#8217;ll need to supply it with <code>--model</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p>The generator will ask you several questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select a project (this won&#8217;t be asked if you have supplied a project model file).</p>
+</li>
+<li>
+<p>Select an entity for which the components shall be generated.</p>
+</li>
+<li>
+<p>Enter a name for the CRUD component class, it is a component that renders a List component (i.e. an entity browser) or an Edit component (i.e. an entity editor) depending on which route is active.</p>
+</li>
+<li>
+<p>Select a list type, i.e. how your List component shall look like (for now just select <code>table</code>).</p>
+</li>
+<li>
+<p>Name the List component class.</p>
+</li>
+<li>
+<p>Select a view for the List component.</p>
+</li>
+<li>
+<p>Name the Edit component class.</p>
+</li>
+<li>
+<p>Select a view for the editor component.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you are using Petclinic sample project you can enter the following values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>? <strong>Entity</strong> petclinic_Pet
+? <strong>CRUD component class</strong> PetManagement
+? <strong>List type</strong> table
+? <strong>List component class</strong> PetBrowser
+? <strong>List view</strong> _minimal
+? <strong>Edit component class name</strong> PetEditor
+? <strong>Edit view</strong> pet-with-owner-and-type</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once all questions are answered the generation will begin. You will be asked to confirm the changes to some existing files - agree to all.</p>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s go back to <code>localhost:3000</code> and see the changes. You should be able to see a new main menu item that will lead you to an entity browser screen.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/pet-clinic-browser.png" alt="List component"></span></p>
+</div>
+<div class="paragraph">
+<p>If you select an entity and click <code>Edit</code> you will be taken to the entity editor.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/pet-clinic-editor.png" alt="Edit component"></span></p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="react-client-further-learning"><a class="anchor" href="#react-client-further-learning"></a>Where Do I Go From Here?</h3>
+<div class="paragraph">
+<p>The rest of this section contains an overview on technologies used and some recipes for the most common use cases. We suggest that you go through it. You may skip some of the topics and come back to them later.</p>
+</div>
+<div class="paragraph">
+<p><a href="#generator-reference">Frontend Generator Reference</a> contains detailed information on the generator. It explains how to use the CLI and what CLI features are available in the Studio UI. Be sure to go through it (you will be interested in commands starting with <code>react-typescript</code>). <a href="https://doc.cuba-platform.com/studio/#frontend_ui">Studio manual</a> contains more information on how to use the generator from the Studio.</p>
+</div>
+<div class="paragraph">
+<p>Of course, frontend client development process is not limited to generation, you may want to create some components manually, as well as to reuse some of the components provided by our libraries. Go through <a href="#cuba-react-core">CUBA React Core</a> and <a href="#cuba-react-ui">CUBA React UI</a> sections to see what components are available to you and how to use them.</p>
+</div>
+<div class="paragraph">
+<p>Check <a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a> documentation to see how your components can communicate with the <a href="https://doc.cuba-platform.com/restapi-7.2">Generic REST API</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="react-client-technologies"><a class="anchor" href="#react-client-technologies"></a>Technologies Overview</h3>
+<div class="paragraph">
+<p>React client is based on the following frameworks and libraries:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://reactjs.org/">React</a> - UI rendering.</p>
+</li>
+<li>
+<p><a href="https://mobx.js.org/">MobX</a> - reactive state management.</p>
+</li>
+<li>
+<p><a href="https://3x.ant.design/docs/react/introduce">Ant Design</a> - UI components.</p>
+</li>
+<li>
+<p><a href="https://reacttraining.com/react-router/">React Router</a> - routing.</p>
+</li>
+<li>
+<p><a href="#cuba-react-core">CUBA React Core</a> - CUBA React core components and utilities.</p>
+</li>
+<li>
+<p><a href="#cuba-react-ui">CUBA React UI</a> - CUBA React UI components and utilities.</p>
+</li>
+<li>
+<p><a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a> - interaction with СUBA generic REST API.</p>
+</li>
+<li>
+<p><a href="https://facebook.github.io/create-react-app/">Create React App</a> - build scripts and configuration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>React client is written in <a href="https://www.typescriptlang.org/">TypeScript</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="supported-browsers"><a class="anchor" href="#supported-browsers"></a>Supported Browsers</h3>
+<div class="paragraph">
+<p>The client supports all modern (evergreen) browsers. In order to support IE 9,10,11 <a href="https://facebook.github.io/create-react-app/docs/supported-browsers-features">additional configuration</a> is required.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="creating-react-components"><a class="anchor" href="#creating-react-components"></a>Creating React Components</h3>
 <div class="paragraph">
-<p>It is highly recommended to read full
-<a href="https://reactjs.org/docs/getting-started.html">React documentation</a>. In
-React, like in many modern frameworks everything is a component. We use
-components to create reusable blocks of our application as well as
-particular pages and screens.</p>
+<p>It is highly recommended to read full <a href="https://reactjs.org/docs/getting-started.html">React documentation</a>. In React, like in many modern frameworks, everything is a component. We use components to create reusable blocks, as well as particular pages and screens.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s create our first component: place file <code>Button.tsx</code> in <code>src</code>
-directory:</p>
+<p>Let&#8217;s create our first component: place the <code>Button.tsx</code> file into the <code>src</code> directory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -981,9 +802,7 @@ export class Button extends Component {
 <div class="sect2">
 <h3 id="observable-state-with-mobx"><a class="anchor" href="#observable-state-with-mobx"></a>Observable State with MobX</h3>
 <div class="paragraph">
-<p><a href="https://mobx.js.org/intro/overview.html">MobX</a> is a library for reactive
-state management which enables to work with state in a convenient and
-concise way.</p>
+<p><a href="https://mobx.js.org/intro/overview.html">MobX</a> is a library for reactive state management that allows to work with state in a convenient and concise way.</p>
 </div>
 <div class="paragraph">
 <p>Consider the following example:</p>
@@ -1017,21 +836,13 @@ class Counter extends React.Component {
 </div>
 </div>
 <div class="paragraph">
-<p>As soon as we decorate a class or a function component as
-<a href="https://mobx.js.org/refguide/observer-component.html">observer</a>, it
-automatically subscribes to changes on any
-<a href="https://mobx.js.org/refguide/observable.html">observable</a> value or object
-i.e. in the example above changing <code>count</code> property will result in
-automatic re-render of the component.</p>
+<p>As soon as we decorate a class or a function component with <a href="https://mobx.js.org/refguide/observer-component.html">observer</a> decorator, it automatically subscribes to changes of any <a href="https://mobx.js.org/refguide/observable.html">observable</a> value or object. I.e. in the example above changing <code>count</code> property will result in automatic re-render of the component.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="routing-and-menu"><a class="anchor" href="#routing-and-menu"></a>Routing and Menu</h3>
 <div class="paragraph">
-<p>Routing is based on well-known
-<a href="https://reacttraining.com/react-router/web/guides/quick-start">React
-Router</a> library. The generated app has a single point (<code>src/routing.ts</code>)
-to define screens which will be automatically placed in the main menu:</p>
+<p>Routing is based on well-known <a href="https://reacttraining.com/react-router/web/guides/quick-start">React Router</a> library. The React client has a single point (<code>src/routing.ts</code>) to define the screens that will be automatically placed in the main menu:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1044,8 +855,7 @@ to define screens which will be automatically placed in the main menu:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>src/App.tsx</code> contains <code>Switch</code> component which renders screen
-depending on the URL path:</p>
+<p>The <code>src/App.tsx</code> contains <code>Switch</code> component that renders a screen depending on the URL path:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1058,16 +868,13 @@ depending on the URL path:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>You can manually add <code>Route</code> to <code>Switch</code> component or customize the
-structure used in <code>routes.ts</code> for example in order to create
-hierarchical menu.</p>
+<p>You can manually add a <code>Route</code> to the <code>Switch</code> component or customize the structure used in <code>routes.ts</code> for example in order to create a hierarchical menu.</p>
 </div>
 <div id="sub-menus" class="paragraph">
 <p><strong>Sub Menus</strong></p>
 </div>
 <div class="paragraph">
-<p>To create hierarchical menu you need to create <code>SubMenu</code> instance in
-<code>routes.ts</code> and add it to <code>menuItems</code></p>
+<p>To create a hierarchical menu you need to create a <code>SubMenu</code> instance in <code>routes.ts</code> and add it to the <code>menuItems</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1089,18 +896,13 @@ menuItems.push(userSettingsSubMenu);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Sub menus can have unlimited nesting. One sub menu could be used as item
-of another.</p>
+<p>Sub menus can have unlimited nesting. One sub menu could be used as an item in another.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="forms"><a class="anchor" href="#forms"></a>Forms</h3>
 <div class="paragraph">
-<p>In order to facilitate data binding, Ant Design&#8217;s
-<a href="https://ant.design/components/form/">Form</a> component and utilities are
-used in the app. On top of that we provide a <code>Field</code> component which
-automatically renders corresponding component basing on metadata. See
-the following example:</p>
+<p>In order to facilitate data binding we use Ant Design <a href="https://3x.ant.design/components/form/">Form</a> component and utilities. On top of that we provide a <code>Field</code> component that automatically renders a correct component depending on the property type (e.g. <code>DatePicker</code>, <code>Select</code>, etc.). See the following example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1119,18 +921,16 @@ the following example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>You can customize underlying components, validation rules and binding
-using <code>getFieldDecoratorOpts</code> and <code>componentProps</code> properties.</p>
+<p>You can customize underlying components, validation rules and binding using <code>getFieldDecoratorOpts</code> and <code>componentProps</code> properties.</p>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_form_field_.fieldprops.html">FieldProps</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="i18n"><a class="anchor" href="#i18n"></a>I18n</h3>
 <div class="paragraph">
-<p>i18n is powered by <a href="https://github.com/formatjs/react-intl">react-intl</a>
-library.</p>
-</div>
-<div class="paragraph">
-<p>Out of the box React client supports <code>en</code> and <code>ru</code> locales.</p>
+<p>i18n is powered by <a href="https://github.com/formatjs/react-intl">react-intl</a> library. Out of the box React client supports <code>en</code> and <code>ru</code> locales.</p>
 </div>
 <div id="adding-new-localized-content" class="paragraph">
 <p><strong>Adding New Localized Content</strong></p>
@@ -1138,12 +938,10 @@ library.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Add new messages to <code>src/i18n/{locale}.json</code> files</p>
+<p>Add new messages to <code>src/i18n/&lt;locale&gt;.json</code> files</p>
 </li>
 <li>
-<p>Refer to them from your code using standard <code>react-intl</code> components or
-API (see
-<a href="https://github.com/formatjs/react-intl/blob/master/docs/README.md">documentation</a>)</p>
+<p>Refer to them from your code using standard <code>react-intl</code> components or API (see <a href="https://github.com/formatjs/react-intl/blob/master/docs/README.md">react-intl documentation</a>)</p>
 </li>
 </ul>
 </div>
@@ -1151,10 +949,7 @@ API (see
 <p><strong>Overriding Existing Messages</strong></p>
 </div>
 <div class="paragraph">
-<p>Simply replace existing messages in <code>src/i18n/{locale}.json</code> files. This
-way you can override messages in client app,
-<a href="#cuba-react-ui">CUBA React UI</a> components and some of the
-messages in <code>antd</code> components.</p>
+<p>Simply replace existing messages in <code>src/i18n/&lt;locale&gt;.json</code> files. This way you can override the messages in the client app, <a href="#cuba-react-ui">CUBA React UI</a> components and some of the messages in the Ant Design components.</p>
 </div>
 <div id="adding-support-for-new-locales" class="paragraph">
 <p><strong>Adding Support for New Locales</strong></p>
@@ -1162,32 +957,19 @@ messages in <code>antd</code> components.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Add a corresponding <code>{locale}.json</code> message pack. Note that it shall
-contain messages for <a href="#cuba-react-ui">CUBA React UI</a>
-components (keys starting with <code>cuba-react</code>) and <code>antd</code> <code>Form</code>
-validation messages (keys starting with <code>antd.form.validation</code>)</p>
+<p>Add a corresponding <code>&lt;locale&gt;.json</code> message pack. Note that it shall contain messages for <a href="#cuba-react-ui">CUBA React UI</a> components (keys starting with <code>cuba-react</code>) and Ant Design <code>Form</code> validation messages (keys starting with <code>antd.form.validation</code>).</p>
 </li>
 <li>
-<p>Create a mapping between locale and message pack by modifying
-<code>messagesMapping</code> in <code>src/i18n/i18nMappings.ts</code></p>
+<p>Create a mapping between the locale and the message pack by modifying <code>messagesMapping</code> in <code>src/i18n/i18nMappings.ts</code>.</p>
 </li>
 <li>
-<p>Create a mapping between locale and <code>antd/es/locale-provider/Locale</code>
-object by modifying <code>antdLocaleMapping</code> in <code>src/i18n/i18nMappings.ts</code>.
-This is required because most of the messages in <code>antd</code> components are
-translated by telling <code>antd</code> to use one of the predefined locales. An
-extensive list of locales supported by <code>antd</code> can be found
-<a href="https://ant.design/docs/react/i18n">here</a>.</p>
+<p>Create a mapping between the locale and <code>antd/es/locale-provider/Locale</code> object by modifying <code>antdLocaleMapping</code> in <code>src/i18n/i18nMappings.ts</code>. This is required because most of the messages in Ant Design components are translated by telling Ant Design to use one of the predefined locales. An extensive list of locales supported by Ant Design can be found <a href="https://3x.ant.design/docs/react/i18n">here</a>.</p>
 </li>
 <li>
-<p>Add import of corresponding <a href="https://github.com/moment/moment">moment</a>
-locale to <code>index.tsx</code>, e.g. <code>import 'moment/locale/ru';</code> &gt; This is
-required because some of <code>antd</code> components use localized messages from
-<code>moment</code>.</p>
+<p>Add an import of a corresponding <a href="https://github.com/moment/moment">moment</a> locale to <code>index.tsx</code>, e.g. <code>import 'moment/locale/ru';</code>. This is required because some of the Ant Design components use localized messages from <code>moment</code>.</p>
 </li>
 <li>
-<p>Add a means of switching to the new locale. E.g. if you are using the
-default <code>LanguageSwitcher</code> - add a locale option into it.</p>
+<p>Add means of switching to the new locale. E.g. if you are using the default <code>LanguageSwitcher</code> - add a locale option into it.</p>
 </li>
 </ul>
 </div>
@@ -1195,56 +977,35 @@ default <code>LanguageSwitcher</code> - add a locale option into it.</p>
 <div class="sect2">
 <h3 id="customizing-theme"><a class="anchor" href="#customizing-theme"></a>Customizing Theme</h3>
 <div class="paragraph">
-<p>Ant Design provides a possibility to
-<a href="https://ant.design/docs/react/customize-theme">customize theme</a> using
-<code>less</code> and overriding built-in variables. You can also use these
-variables in your own code.</p>
+<p>Ant Design provides a possibility to <a href="https://3x.ant.design/docs/react/customize-theme">customize theme</a> using <code>less</code> and overriding built-in variables. You can also use these variables in your own code.</p>
 </div>
 <div class="paragraph">
-<p>In order to do so, you will need to make some modifications to the
-generated app.</p>
+<p>In order to do so, you will need to make some modifications to the generated app.</p>
 </div>
-<div class="quoteblock">
-<blockquote>
-<div class="admonitionblock note">
+<div class="admonitionblock caution">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-You will have to enable deprecated inline Javascript in <code>less</code> as
-<code>antd</code> makes heavy use of it.
-<a href="http://lesscss.org/usage/#less-options-strict-units">Reasons for
-deprecation.</a>
+You will have to enable deprecated inline Javascript in <code>less</code> as Ant Design makes heavy use of it. <a href="http://lesscss.org/usage/#less-options-strict-units">Reasons for deprecation.</a>
 </td>
 </tr>
 </table>
 </div>
-</blockquote>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Install the required dependencies. Note that we are
-using <a href="https://github.com/timarney/react-app-rewired">react-app-rewired</a>
-to modify the webpack config without having to <code>eject</code>.<br></p>
-</li>
-</ul>
-</div>
+<p>Install the required dependencies. Note that we are using <a href="https://github.com/timarney/react-app-rewired">react-app-rewired</a> to modify the webpack config without having to <a href="https://create-react-app.dev/docs/available-scripts#npm-run-eject">eject</a>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm i react-app-rewired less less-loader customize-cra babel-plugin-import --save-dev</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Create <code>config-overrides.js</code> file in the app root. The file shall look
-like this.</p>
 </li>
-</ul>
-</div>
+<li>
+<p>Create <code>config-overrides.js</code> file in the app root. The file shall look like this.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">const {addLessLoader, override, fixBabelImports} = require("customize-cra");
@@ -1264,6 +1025,9 @@ module.exports = override(
 );</code></pre>
 </div>
 </div>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>Now you can place your overrides in <code>src/theme.less</code>:</p>
 </div>
@@ -1273,7 +1037,7 @@ module.exports = override(
 </div>
 </div>
 <div class="paragraph">
-<p>You can use <code>antd</code> variables in your code like this:</p>
+<p>You can use Ant Design variables in your code like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1289,9 +1053,7 @@ body {
 <div class="ulist">
 <ul>
 <li>
-<p>detailed
-<a href="https://ant.design/docs/react/use-with-create-react-app#Customize-Theme">documentation</a>
-on Ant Design website</p>
+<p>detailed <a href="https://3x.ant.design/docs/react/use-with-create-react-app#Customize-Theme">documentation</a> on Ant Design website</p>
 </li>
 </ul>
 </div>
@@ -1299,18 +1061,13 @@ on Ant Design website</p>
 <p><strong>CSS Methodology</strong></p>
 </div>
 <div class="paragraph">
-<p>Both the generated client and <a href="#cuba-react-ui">CUBA React UI</a> follow
-<a href="http://rscss.io">RSCSS methodology</a>. Additionally, we adopt Base Rules
-from <a href="http://smacss.com/book/type-base">SMACSS methodology</a>.</p>
+<p>Both the generated client and <a href="#cuba-react-ui">CUBA React UI</a> follow <a href="http://rscss.io">RSCSS methodology</a>. Additionally, we adopt Base Rules from <a href="http://smacss.com/book/type-base">SMACSS methodology</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="backend-model"><a class="anchor" href="#backend-model"></a>Backend Model</h3>
 <div class="paragraph">
-<p><code>src/cuba</code> directory contains TypeScript representation of project&#8217;s
-entities, views and facades to access REST services. See more details in
-<a href="#typescript-sdk">TypeScript SDK</a> section. Here is the layout of the
-directory:</p>
+<p><code>src/cuba</code> directory contains TypeScript representation of project&#8217;s entities, views and facades to access REST services and queries. See more details in <a href="#typescript-sdk">TypeScript SDK</a> section. Here is the layout of the directory:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1332,8 +1089,7 @@ directory:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Consider the <code>Role</code> entity class of CUBA Framework generated in
-typescript:</p>
+<p>Consider the <code>Role</code> entity class of CUBA Framework generated in typescript:</p>
 </div>
 <div class="paragraph">
 <p><code>src/cuba/entities/base/sec$Role.ts</code></p>
@@ -1354,13 +1110,10 @@ typescript:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>You can easily access entity name by static <code>NAME</code> property:
-<code>Role.NAME</code>,</p>
+<p>You can easily access the entity name using static <code>NAME</code> property: <code>Role.NAME</code>,</p>
 </li>
 <li>
-<p>The class contains all properties of the domain model entity including
-ones from class hierarchy. Reference fields have corresponding types as
-well so that you can work with them in a type-safe manner:</p>
+<p>The <code>Role</code> class contains all properties of the domain model entity including ones from the class hierarchy. Reference fields has corresponding types as well so that you can work with them in a type-safe manner:</p>
 </li>
 </ul>
 </div>
@@ -1376,8 +1129,7 @@ well so that you can work with them in a type-safe manner:</p>
 <div class="sect2">
 <h3 id="synchronizing-project-model"><a class="anchor" href="#synchronizing-project-model"></a>Synchronizing Project Model</h3>
 <div class="paragraph">
-<p>In order to regenerate project model to conform changes in the backend
-you can use the following command:</p>
+<p>In order to sync up with the changes on the backend, you can re-generate the project model using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1388,51 +1140,44 @@ you can use the following command:</p>
 <div class="sect2">
 <h3 id="security"><a class="anchor" href="#security"></a>Security</h3>
 <div class="paragraph">
-<p>Since React client works via Generic REST API endpoints, the backend
-(CUBA) application should have properly configured Security Roles and
-Access groups. See the
-<a href="https://doc.cuba-platform.com/restapi-7.2/#security">corresponding
-chapter</a> in REST API documentation.</p>
+<p>Since React client uses Generic REST API endpoints, the backend (CUBA) application should have properly configured Security Roles and Access groups. See the <a href="https://doc.cuba-platform.com/restapi-7.2/#security">corresponding chapter</a> in the REST API documentation.</p>
 </div>
 <div class="paragraph">
-<p>Package <code>cuba-rest-js</code> provide methods, which allows check for user
-runtime security permissions for entity attributes and operations. *
-<code>getAttributePermission</code> checks entity attribute permission and could
-return <code>DENY</code> <code>VIEW</code> or <code>MODIFY</code> * <code>isOperationAllowed</code> checks entity
-operation permission and returns <code>true</code> or <code>false</code></p>
+<p><a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a> package provides methods that allow to check user runtime security permissions for entity attributes and operations.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getAttributePermission</code> checks entity attribute permission and returns <code>DENY</code>, <code>VIEW</code> or <code>MODIFY</code>.</p>
+</li>
+<li>
+<p><code>isOperationAllowed</code> checks entity operation permission and returns <code>true</code> or <code>false</code>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="building-the-client"><a class="anchor" href="#building-the-client"></a>Building the Client</h3>
 <div class="paragraph">
-<p><code>$ npm run build</code> command builds your app for production use. See
-<code>build</code> folder.</p>
+<p><code>npm run build</code> command builds your app for production use. See <code>build</code> folder.</p>
 </div>
 <div class="paragraph">
-<p>See
-<a href="https://facebook.github.io/create-react-app/docs/available-scripts">available
-scripts</a> in Create React App documentation.</p>
+<p>See <a href="https://facebook.github.io/create-react-app/docs/available-scripts">available scripts</a> in Create React App documentation.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="react-client-configuration"><a class="anchor" href="#react-client-configuration"></a>Configuration</h3>
 <div class="paragraph">
-<p>By default, client deployed to Tomcat is built with production preset
-and aimed to be served under <code>app-front</code> context. Use <code>PUBLIC_URL</code> env
-variable to change this behavior (see <code>.env.production.local</code>).</p>
+<p>By default, client deployed to Tomcat is built with production preset and aimed to be served under <code>app-front</code> context. Use <code>PUBLIC_URL</code> env variable to change this behavior (see <code>.env.production.local</code>).</p>
 </div>
 <div class="paragraph">
-<p>The client served from development server has absolute URL of REST API
-specified in <code>REACT_APP_CUBA_URL</code> (see <code>.env.development.local</code>).</p>
+<p>The client served from development server has absolute URL of REST API specified in <code>REACT_APP_CUBA_URL</code> (see <code>.env.development.local</code>).</p>
 </div>
 <div class="paragraph">
-<p>See the
-<a href="https://facebook.github.io/create-react-app/docs/advanced-configuration">list
-of all available environment variables</a>.</p>
+<p>See the <a href="https://facebook.github.io/create-react-app/docs/advanced-configuration">list of all available environment variables</a>.</p>
 </div>
 <div class="paragraph">
-<p>See <code>src/config.ts</code> for full list of common application settings used in
-runtime.</p>
+<p>See <code>src/config.ts</code> for full list of common application settings used in runtime.</p>
 </div>
 </div>
 </div>
@@ -1441,9 +1186,52 @@ runtime.</p>
 <h2 id="react-native-client"><a class="anchor" href="#react-native-client"></a>React Native Client</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="running-the-client-1"><a class="anchor" href="#running-the-client-1"></a>Running the Client</h3>
+<h3 id="react-native-client-getting-started"><a class="anchor" href="#react-native-client-getting-started"></a>Getting Started with React Native Client</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you haven&#8217;t read our introductory <a href="#getting-started">Getting Started</a> section, we encourage you to do so now.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>Install dependencies:</p>
+<p>In this guide we will use the Frontend Generator to create a starter React Native client. You can try it with your own CUBA project, or you can use <a href="https://github.com/cuba-platform/cuba-petclinic">Petclinic</a> sample project.</p>
+</div>
+<div class="paragraph">
+<p>If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gen-cuba-front react-native:app</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generator will prompt you to select one of the currently opened CUBA projects.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/interactive-projects.png" alt="Interactive project selection"></span></p>
+</div>
+<div class="paragraph">
+<p>If you are using the exported project model file, use <code>--model</code> parameter to pass it to generator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gen-cuba-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Either way, your starter React Native client will be generated.</p>
+</div>
+<div id="running-the-client-1" class="paragraph">
+<p><strong>Running the Client</strong></p>
+</div>
+<div class="paragraph">
+<p>Install the dependencies:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1451,9 +1239,7 @@ runtime.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The client uses <a href="https://expo.io/">Expo</a>. You may prefer to install Expo
-CLI globally and use it from command line directly, or use it via npm
-scripts, which doesn&#8217;t require global installation.</p>
+<p>The client uses <a href="https://expo.io/">Expo</a>. You may prefer to install Expo CLI globally and use it from the command line directly, or use it via npm scripts, which doesn&#8217;t require global installation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1473,9 +1259,7 @@ npm run expo -- [command] [options]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>See <a href="https://expo.io/">Expo documentation</a> for details on available
-commands and options. If you are running Expo via npm scripts, note that
-there convenience scripts for the most frequently used commands:</p>
+<p>See <a href="https://expo.io/">Expo documentation</a> for details on the available commands and options. If you are running Expo via npm scripts, note that there are convenience scripts for the most frequently used commands:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1525,8 +1309,6 @@ npm run android -- --clear
 expo start --android --clear</code></pre>
 </div>
 </div>
-<div class="quoteblock">
-<blockquote>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -1534,16 +1316,19 @@ expo start --android --clear</code></pre>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-In order to run the app on an emulator/simulator you may need to change
-<code>REACT_NATIVE_APP_CUBA_URL</code> in <code>.env</code> from <code>localhost</code> to your IP
-address. You may need to clear the React Native Packager cache for the
-change to take effect (e.g. <code>expo start --android --clear</code> or
-<code>npm run android&#8201;&#8212;&#8201;--clear</code>).
+In order to run the app on an emulator/simulator you may need to change <code>REACT_NATIVE_APP_CUBA_URL</code> in <code>.env</code> file from <code>localhost</code> to your IP address. You may need to clear the React Native Packager cache for the change to take effect (e.g. <code>expo start --android --clear</code> or <code>npm run android&#8201;&#8212;&#8201;--clear</code>).
 </td>
 </tr>
 </table>
 </div>
-</blockquote>
+<div class="paragraph">
+<p>Run the client using one of the commands above. This is what you shall be able to see:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react-native/RNDemo.gif" alt="React Native showcase"></span></p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it!</p>
 </div>
 </div>
 <div class="sect2">
@@ -1563,13 +1348,24 @@ change to take effect (e.g. <code>expo start --android --clear</code> or
 <p><a href="#cuba-react-core">CUBA React Core</a> - CUBA React core components and utilities;</p>
 </li>
 <li>
-<p><a href="api-reference/cuba-rest-js/index.html" target="_blank" rel="noopener">CUBA REST JS</a> - interaction with СUBA
-generic REST API;</p>
+<p><a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a> - interaction with СUBA generic REST API;</p>
 </li>
 <li>
 <p><a href="https://expo.io/">Expo</a> - development tools for React Native;</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>React Native client is written in <a href="https://www.typescriptlang.org/">TypeScript</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="react-native-further-learning"><a class="anchor" href="#react-native-further-learning"></a>Where Do I Go From Here?</h3>
+<div class="paragraph">
+<p>Check <a href="#cuba-react-core">CUBA React Core</a> section to see what components are available to you and how to use them.</p>
+</div>
+<div class="paragraph">
+<p>Check <a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a> to see how your components can communicate with the <a href="https://doc.cuba-platform.com/restapi-7.2">Generic REST API</a>.</p>
 </div>
 </div>
 </div>
@@ -1578,8 +1374,7 @@ generic REST API;</p>
 <h2 id="polymer-based-client-deprecated"><a class="anchor" href="#polymer-based-client-deprecated"></a>Polymer-based Client (Deprecated)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Documentation can be found
-<a href="https://doc.cuba-platform.com/manual-latest/polymer_ui.html">here</a>.</p>
+<p>Documentation can be found <a href="https://doc.cuba-platform.com/manual-latest/polymer_ui.html">here</a>.</p>
 </div>
 </div>
 </div>
@@ -1589,10 +1384,7 @@ generic REST API;</p>
 <div class="sect2">
 <h3 id="cubaappprovider"><a class="anchor" href="#cubaappprovider"></a>CubaAppProvider</h3>
 <div class="paragraph">
-<p><code>CubaAppProvider</code> initializes main CUBA React Core components and
-provides them to the client application. It receives an instance of REST
-API service and an optional config object which has the following
-interface:</p>
+<p><code>CubaAppProvider</code> initializes main CUBA React Core components and provides them to the client application. It receives an instance of REST API service and an optional config object which has the following interface:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1604,21 +1396,19 @@ export interface CubaAppConfig {
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><code>dataTransferFormats</code> can be used to override the default formats used
-to (de)serialize the data transferred by REST API.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>dataTransferFormats</code> can be used to override the default formats used to (de)serialize the data transferred by REST API.</p>
+</li>
+<li>
+<p><code>displayFormats</code> can be used to override the formats used for data presentation.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><code>displayFormats</code> can be used to override the formats used for data
-presentation.</p>
+<p>See <a href="api-reference/cuba-rest-js/modules/_model_.html#propertytype">PropertyType</a> in CUBA REST JS API docs for the list of available property types.</p>
 </div>
-<div class="paragraph">
-<p>See
-<a href="api-reference/cuba-rest-js/modules/_model_.html#propertytype">PropertyType</a>
-in CUBA REST JS API docs for the list of available property types.</p>
-</div>
-<div class="quoteblock">
-<blockquote>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1626,12 +1416,10 @@ in CUBA REST JS API docs for the list of available property types.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Only formats for temporal types can currently be overridden this way
+Only formats for temporal types can currently be overridden this way.
 </td>
 </tr>
 </table>
-</div>
-</blockquote>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1646,15 +1434,14 @@ Only formats for temporal types can currently be overridden this way
 &lt;/CubaAppProvider&gt;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-core/interfaces/_app_cubaappprovider_.cubaappproviderprops.html">CubaAppProviderProps</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="mainstore"><a class="anchor" href="#mainstore"></a>MainStore</h3>
 <div class="paragraph">
-<p><code>MainStore</code> contains common application data. It&#8217;s being initialized
-using <code>&lt;CubaAppProvider&gt;</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can inject it in any component using <code>@injectMainStore</code> decorator:</p>
+<p><code>MainStore</code> contains common application data. It is initialized by <a href="#cubaappprovider">CubaAppProvider</a>. You can inject it in any component using <code>@injectMainStore</code> decorator:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1687,12 +1474,14 @@ export class AppInfo extends React.Component&lt;MainStoreInjected&gt; {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-core/modules/_app_mainstore_.html">MainStore</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="datacollectionstore"><a class="anchor" href="#datacollectionstore"></a>DataCollectionStore</h3>
 <div class="paragraph">
-<p><code>DataCollectionStore</code> is a MobX based store for loading entity
-collections. It can be created via <code>collection()</code> initializer function:</p>
+<p><code>DataCollectionStore</code> is a MobX based store that can be used to retrieve entity collections. It can be created via <a href="api-reference/cuba-react-core/modules/_data_collection_.html#collection-1">collection</a> initializer function:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1708,9 +1497,7 @@ collections. It can be created via <code>collection()</code> initializer functio
 </div>
 </div>
 <div class="paragraph">
-<p>Typically it&#8217;s being used to display list of entities. Since it&#8217;s
-reactive, any changes in <code>items</code> and <code>status</code> will trigger re-render of
-<code>@observer</code> components:</p>
+<p>Typically it is used to display a list of entities. Since it&#8217;s reactive, any changes in <code>items</code> and <code>status</code> will trigger re-render of <code>@observer</code> components:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1730,11 +1517,14 @@ class CarList extends React.Component {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-core/interfaces/_data_collection_.datacollectionstore.html">DataCollectionStore</a>, <a href="api-reference/cuba-react-core/modules/_data_collection_.html#collection-1">collection</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="ClientSideDataCollectionStore"><a class="anchor" href="#ClientSideDataCollectionStore"></a>ClientSideDataCollectionStore</h3>
 <div class="paragraph">
-<p><code>ClientSideDataCollectionStore</code> is a variant of <code>DataCollectionStore</code> intended for situations when data shall be operated client-side. It is useful for example when handling <a href="https://www.cuba-platform.com/guides/data-modelling-composition">Composition relationship</a>. <code>ClientSideDataCollectionStore</code> can be created via <code>clientSideCollection()</code> initializer function.</p>
+<p><code>ClientSideDataCollectionStore</code> is a variant of <code>DataCollectionStore</code> intended for situations when data shall be operated client-side. It is useful for example when handling <a href="https://www.cuba-platform.com/guides/data-modelling-composition">Composition relationship</a>. <code>ClientSideDataCollectionStore</code> can be created via <a href="api-reference/cuba-react-core/modules/_data_collection_.html#clientsidecollection">clientSideCollection</a> initializer function.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1763,12 +1553,14 @@ class CarList extends React.Component {
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-core/interfaces/_data_collection_.clientsidedatacollectionstore.html">ClientSideDataCollectionStore</a>, <a href="api-reference/cuba-react-core/modules/_data_collection_.html#clientsidecollection">clientSideCollection</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="datainstancestore"><a class="anchor" href="#datainstancestore"></a>DataInstanceStore</h3>
 <div class="paragraph">
-<p><code>DataInstanceStore</code> is used to work with a single instance of some
-Entity. It can be created via <code>instance()</code> initializer function:</p>
+<p><code>DataInstanceStore</code> is used to work with a single instance of some Entity. It can be created via <a href="api-reference/cuba-react-core/modules/_data_instance_.html#instance-1">instance</a> initializer function:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1784,12 +1576,14 @@ Entity. It can be created via <code>instance()</code> initializer function:</p>
 dataInstance.commit()</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-core/classes/_data_instance_.datainstancestore.html">DataInstanceStore</a>, <a href="api-reference/cuba-react-core/modules/_data_instance_.html#instance-1">instance</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="api-reference"><a class="anchor" href="#api-reference"></a>API Reference</h3>
 <div class="paragraph">
-<p>API reference for CUBA React Core components can be found
-<a href="api-reference/cuba-react-core/index.html">here</a>.</p>
+<p>API reference for CUBA React Core components can be found <a href="api-reference/cuba-react-core/index.html">here</a>.</p>
 </div>
 </div>
 </div>
@@ -1800,10 +1594,7 @@ dataInstance.commit()</code></pre>
 <div class="sect2">
 <h3 id="entityproperty"><a class="anchor" href="#entityproperty"></a>EntityProperty</h3>
 <div class="paragraph">
-<p><code>&lt;EntityProperty&gt;</code> component is aimed to display a value of some
-Entity&#8217;s property. It automatically applies formatting according to the
-type of property and adds a corresponding label from global message pack
-(defined on the backend)</p>
+<p><code>EntityProperty</code> component is used to display a value of an entity property. It automatically applies formatting according to the type of the property and adds a corresponding label from global message pack (defined on the backend).</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1812,12 +1603,14 @@ type of property and adds a corresponding label from global message pack
                 value={pet.birthDate}/&gt;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_entityproperty_.entitypropertyprops.html">EntityPropertyProps</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="formfield"><a class="anchor" href="#formfield"></a>FormField</h3>
 <div class="paragraph">
-<p><code>&lt;FormField&gt;</code> component automatically creates correct Form UI component
-based on entity and property names:</p>
+<p><code>FormField</code> component automatically creates a correct Form UI component based on entity and property names:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1825,9 +1618,7 @@ based on entity and property names:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For the attributes with relationship it&#8217;s possible to provide an
-instance of DataCollectionStore via <code>optionsContainer</code> prop to render
-options list</p>
+<p>For the attributes with relationship type Association it&#8217;s possible to provide an instance of DataCollectionStore via <code>optionsContainer</code> prop to render an options list.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1837,6 +1628,9 @@ options list</p>
            propertyName='type'
            optionsContainer={this.petTypesDc}/&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/modules/_ui_formfield_.html#formfieldprops">FormFieldProps</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1865,11 +1659,11 @@ options list</p>
 <div class="paragraph">
 <p><code>NestedEntityField</code> is a form field component that is used in the context of One-to-One Composition and represents the nested entity. It is a control that allows to create, edit or remove the nested entity. Create/edit will open an <a href="#entityeditor">EntityEditor</a> for the nested entity. <a href="#formfield">FormField</a> will automatically render a <code>NestedEntityField</code> for an One-to-One Composition entity property.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock caution">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
 Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
@@ -1886,11 +1680,11 @@ Multiple levels of Composition (i.e. nested entities that themselves contain nes
 <div class="paragraph">
 <p><code>NestedEntitiesTableField</code> is a form field component that is used in the context of One-to-Many Composition and represents the nested entities. It will render a <a href="#datatable">DataTable</a> with buttons to create, edit or remove nested entities. Clicking create or edit button will open an <a href="#entityeditor">EntityEditor</a>. <a href="#formfield">FormField</a> will automatically render a <code>NestedEntitiesTableField</code> for an One-to-Many Composition entity property.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock caution">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
 Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
@@ -1899,16 +1693,16 @@ Multiple levels of Composition (i.e. nested entities that themselves contain nes
 </table>
 </div>
 <div class="paragraph">
-<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html">NestedEntitiesTableField</a>.</p>
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html">NestedEntitiesTableFieldProps</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="fileupload"><a class="anchor" href="#fileupload"></a>FileUpload</h3>
 <div class="paragraph">
-<p><code>FileUpload</code> is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via <a href="#imagepreview">ImagePreview</a> component.  <a href="#formfield">FormField</a> will automatically render a <code>FileUpload</code> for a FileDescriptor entity property.</p>
+<p><code>FileUpload</code> is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via <a href="#imagepreview">ImagePreview</a> component.  <a href="#formfield">FormField</a> will automatically render a <code>FileUpload</code> for a <code>FileDescriptor</code> entity property.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/FileUploadAndImagePreviewDemo.apng" alt="FileUpload and ImagePreview demo"></span></p>
+<p><span class="image"><img src="_images/FileUploadAndImagePreviewDemo.gif" alt="FileUpload and ImagePreview demo"></span></p>
 </div>
 <div class="paragraph">
 <p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html">FileUploadProps</a>.</p>
@@ -1932,8 +1726,7 @@ Multiple levels of Composition (i.e. nested entities that themselves contain nes
 <p><span class="image"><img src="_images/react/data-table-demo.gif" alt="Data table showcase"></span></p>
 </div>
 <div class="paragraph">
-<p>It uses Ant Design&#8217;s <a href="https://ant.design/components/table/">Table</a> under
-the hood and provides the following additional benefits:</p>
+<p>It uses Ant Design <a href="https://3x.ant.design/components/table/">Table</a> under the hood and provides the following additional benefits:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1941,7 +1734,7 @@ the hood and provides the following additional benefits:</p>
 <p>out-of-the-box integration with <code>DataCollectionStore</code></p>
 </li>
 <li>
-<p>powerful filters<br></p>
+<p>powerful filters</p>
 </li>
 <li>
 <p>support for action buttons (e.g. for CRUD operations)</p>
@@ -1949,9 +1742,7 @@ the hood and provides the following additional benefits:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>At the same time <code>&lt;DataTable&gt;</code> provides developer with a full access to
-underlying <code>Table</code> via its <code>tableProps</code> and <code>columnDefinitions</code>
-properties (see below).</p>
+<p>At the same time <code>&lt;DataTable&gt;</code> provides developer with a full access to underlying <code>Table</code> via its <code>tableProps</code> and <code>columnDefinitions</code> properties (see below).</p>
 </div>
 <div class="paragraph">
 <p>Example of using <code>&lt;DataTable&gt;</code> API:</p>
@@ -1980,23 +1771,19 @@ properties (see below).</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>dataCollection</code> - instance of <code>DataCollectionStore</code></p>
+<p><code>dataCollection</code> - instance of <code>DataCollectionStore</code>.</p>
 </li>
 <li>
-<p><code>columnDefinitions</code> - describes the columns to be displayed. See more
-details below.</p>
+<p><code>columnDefinitions</code> - describes the columns to be displayed. See more details below.</p>
 </li>
 <li>
-<p><code>onSelectedRowChange</code> - callback that takes the id of selected row,
-can be used together with <code>buttons</code> e.g. to facilitate CRUD operations</p>
+<p><code>onRowSelectionChange</code> - callback that takes the ids of the selected rows, can be used together with <code>buttons</code> e.g. to facilitate CRUD operations.</p>
 </li>
 <li>
-<p><code>buttons</code> - array of React elements representing controls that will be
-rendered above the table</p>
+<p><code>buttons</code> - array of React elements representing the controls that will be rendered above the table.</p>
 </li>
 <li>
-<p><code>tableProps</code> - can be used to override any of the underlying
-<a href="https://ant.design/components/table/#Table">Table properties</a></p>
+<p><code>tableProps</code> - can be used to override any of the underlying <a href="https://3x.ant.design/components/table/#Table">Table properties</a>.</p>
 </li>
 </ul>
 </div>
@@ -2006,48 +1793,36 @@ rendered above the table</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>fields</code> - array of entity property names</p>
+<p><code>fields</code> - names of properties that shall be displayed.</p>
 </li>
 <li>
-<p><code>columnProps</code> - can be used to override underlying
-<a href="https://ant.design/components/table/#Column">Column properties</a>. Applied
-to every column.</p>
+<p><code>columnProps</code> - can be used to override underlying <a href="https://3x.ant.design/components/table/#Column">Column properties</a>. Applied to every column.</p>
 </li>
 </ul>
 </div>
-<div class="quoteblock">
-<blockquote>
-<div class="admonitionblock note">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<code>columnDefinitions</code> is more flexible and provides greater ability to
-customize the columns. <code>columnDefinitions</code> will take precedence over
-<code>fields</code> and <code>columnProps</code> if used simultaneously.
+<code>columnDefinitions</code> is more flexible and provides greater ability to customize the columns. <code>columnDefinitions</code> will take precedence over <code>fields</code> and <code>columnProps</code> if used simultaneously.
 </td>
 </tr>
 </table>
-</div>
-</blockquote>
 </div>
 <div id="columndefinitions" class="paragraph">
 <p><strong>columnDefinitions</strong></p>
 </div>
 <div class="paragraph">
-<p><code>columnDefinitions</code> describes the columns to be displayed. The columns
-can represent entity properties or have arbitrary content (for example:
-an action button column, a calculated field column).</p>
+<p><code>columnDefinitions</code> describes the columns to be displayed. The columns can represent entity properties or have arbitrary content (for example: an action button column, a calculated field column).</p>
 </div>
 <div class="paragraph">
 <p>There are 3 ways you can define a column:</p>
 </div>
 <div class="paragraph">
-<p><strong>1.</strong> Simply put an entity property name as a <code>string</code>. In this case
-<code>DataTable</code> will render a column with default settings for that
-property.</p>
+<p><strong>1.</strong> Simply put an entity property name as a <code>string</code>. In this case <code>DataTable</code> will render a column with default settings for that property.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2061,12 +1836,8 @@ property.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>2.</strong> If you want to customize the default column, use a
-<code>ColumnDefinition</code> object where <code>field</code> is an entity property name and
-<code>columnProps</code> is an antd
-<a href="https://ant.design/components/table/#Column">ColumnProps</a> object. The
-properties you put in <code>columnProps</code> will override the default
-properties.</p>
+<p><strong>2.</strong> If you want to customize the default column, use a <code>ColumnDefinition</code> object where <code>field</code> is an entity property name and
+<code>columnProps</code> is an Ant Design <a href="https://3x.ant.design/components/table/#Column">ColumnProps</a> object. The properties you put in <code>columnProps</code> will override the default properties.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2075,7 +1846,7 @@ properties.</p>
        columnDefinitions={[
          {
            field: 'manufacturer', // property name
-           columnProps: { // antd ColumnProps object
+           columnProps: { // Ant Design ColumnProps object
              align: 'right'
            }
          },
@@ -2085,8 +1856,7 @@ properties.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>3.</strong> If you want a column not bound to an entity field, create it from
-scratch using <code>columnProps</code> and do not specify a <code>field</code>.</p>
+<p><strong>3.</strong> If you want a column not bound to an entity field, create it from scratch using <code>columnProps</code> and do not specify a <code>field</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2094,7 +1864,7 @@ scratch using <code>columnProps</code> and do not specify a <code>field</code>.<
        dataCollection={this.dataCollection}
        columnDefinitions={[
          {
-           columnProps: { // antd ColumnProps object
+           columnProps: { // Ant Design ColumnProps object
              render: (text, record) =&gt; { /* render some custom content */ }
            }
          },
@@ -2103,21 +1873,21 @@ scratch using <code>columnProps</code> and do not specify a <code>field</code>.<
 /&gt;</code></pre>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>If you need even more control, you may want to start with a vanilla antd
-<a href="https://ant.design/components/table/">Table</a> and take a look into
-exported functions in <code>DataTableHelpers</code>. These functions are used to
-create <code>DataTable</code> custom functionality such as custom filters. You
-may also want to look into using <code>DataTableCustomFilter</code> directly. Note
-that both these approaches may require deeper understanding of
-<code>DataTable</code> internal workings.</p>
+<p>If you need even more control, you may want to start with a vanilla Ant Design <a href="https://3x.ant.design/components/table/">Table</a> and take a look into exported functions in <code>DataTableHelpers</code>. These functions are used to create <code>DataTable</code> custom functionality such as custom filters. You may also want to look into using <code>DataTableCustomFilter</code> directly. Note that both these approaches may require a deeper understanding of how <code>DataTable</code> works internally.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>API: <a href="api-reference/cuba-react-ui/interfaces/_ui_table_datatable_.datatableprops.html">DataTableProps</a>, <a href="api-reference/cuba-react-ui/interfaces/_ui_table_datatablecustomfilter_.datatablecustomfilterprops.html">DataTableCustomFilterProps</a>, <a href="api-reference/cuba-react-ui/modules/_ui_table_datatablehelpers_.html">DataTableHelpers</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="api-reference-1"><a class="anchor" href="#api-reference-1"></a>API Reference</h3>
 <div class="paragraph">
-<p>API reference for CUBA React UI components can be found
-<a href="api-reference/cuba-react-ui/index.html">here</a>.</p>
+<p>API reference for CUBA React UI components can be found <a href="api-reference/cuba-react-ui/index.html">here</a>.</p>
 </div>
 </div>
 </div>
@@ -2126,37 +1896,26 @@ that both these approaches may require deeper understanding of
 <h2 id="typescript-sdk"><a class="anchor" href="#typescript-sdk"></a>TypeScript SDK</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TypeScript SDK contains CUBA data model
-(<a href="https://doc.cuba-platform.com/manual-latest/data_model.html">entities
-and enums</a>), rest
-<a href="https://doc.cuba-platform.com/restapi-7.2/#rest_api_v2_services_config">services</a>
-and
-<a href="https://doc.cuba-platform.com/restapi-7.2/#rest_api_v2_queries_config">queries</a>
-as TypeScript classes.</p>
+<p>TypeScript SDK contains CUBA data model (<a href="https://doc.cuba-platform.com/manual-latest/data_model.html">entities and enums</a>), rest <a href="https://doc.cuba-platform.com/restapi-7.2/#rest_api_v2_services_config">services</a> and <a href="https://doc.cuba-platform.com/restapi-7.2/#rest_api_v2_queries_config">queries</a> as TypeScript classes.</p>
 </div>
 <div class="paragraph">
-<p>The SDK is framework-agnostic, meaning that in addition to using it with
-our React client, you can use it with any TypeScript-compatible
-framework such as Angular of Vue.</p>
+<p>The SDK is framework-agnostic, meaning that in addition to using it with e.g. our React client, you can use it with any TypeScript-compatible framework such as Angular of Vue.</p>
 </div>
 <div class="paragraph">
-<p>It&#8217;s possible to generate the following configurations of SDK depending
-on your needs (see <a href="#generator-cli">usage instruction</a>):</p>
+<p>It&#8217;s possible to generate the following configurations of SDK depending on your needs (see <a href="#generator-reference">usage instruction</a>):</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>gen-cuba-front sdk:model</code> - generates entities and enums</p>
+<p><code>gen-cuba-front sdk:model</code> - generates entities and enums.</p>
 </li>
 <li>
-<p><code>gen-cuba-front sdk:all</code> - generates all toolkit - entities, enums,
-queries and services</p>
+<p><code>gen-cuba-front sdk:all</code> - generates all toolkit - entities, enums, queries and services.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>SDK can be used for front-end clients and Node.js-based BFF (Backend for
-Frontend) development.</p>
+<p>SDK can be used for front-end clients and Node.js-based BFF (Backend for Frontend) development.</p>
 </div>
 <div class="sect2">
 <h3 id="entities"><a class="anchor" href="#entities"></a>Entities</h3>
@@ -2164,8 +1923,7 @@ Frontend) development.</p>
 <p><strong>Persistent Entities</strong></p>
 </div>
 <div class="paragraph">
-<p>Consider the <code>Role</code> entity class of CUBA Framework generated in
-TypeScript:</p>
+<p>Consider the <code>Role</code> entity class of CUBA Framework generated in TypeScript:</p>
 </div>
 <div class="paragraph">
 <p><code>src/cuba/entities/base/sec$Role.ts</code></p>
@@ -2186,16 +1944,10 @@ TypeScript:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>you can easily access entity name by static <code>NAME</code> property:
-<code>Role.NAME</code>,</p>
+<p>You can easily access entity name using static <code>NAME</code> property: <code>Role.NAME</code>.</p>
 </li>
 <li>
-<p>class contains all properties of domain model entity including from
-class hierarchy, reference fields have corresponding types as well so
-that you can work with them in a type-safe manner:</p>
-</li>
-</ul>
-</div>
+<p><code>Role</code> class contains all properties of the domain model entity including those from the class hierarchy. Reference fields have corresponding types as well, so that you can work with them in a type-safe manner:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">function changeRole(role: Role) {
@@ -2204,16 +1956,14 @@ that you can work with them in a type-safe manner:</p>
 }</code></pre>
 </div>
 </div>
+</li>
+</ul>
+</div>
 <div id="non-persistent-entities" class="paragraph">
 <p><strong>Non-persistent Entities</strong></p>
 </div>
 <div class="paragraph">
-<p>CUBA Platform supports non-persistent entities in model. Entity class
-should be annotated with
-<code>com.haulmont.chile.core.annotations.MetaClass</code>, and extended from
-<code>com.haulmont.cuba.core.entity.BaseUuidEntity</code>. Class properties
-annotated with <code>com.haulmont.chile.core.annotations.MetaProperty</code> will
-be included in generated model.</p>
+<p>CUBA Platform supports non-persistent entities. Entity class should be annotated with <code>com.haulmont.chile.core.annotations.MetaClass</code>, and extended from <code>com.haulmont.cuba.core.entity.BaseUuidEntity</code>. Class properties annotated with <code>com.haulmont.chile.core.annotations.MetaProperty</code> will be included in the generated model.</p>
 </div>
 <div id="source" class="paragraph">
 <p>Source:</p>
@@ -2254,8 +2004,7 @@ public class SampleUserInfo extends BaseUuidEntity {
 <div class="sect2">
 <h3 id="enums"><a class="anchor" href="#enums"></a>Enums</h3>
 <div class="paragraph">
-<p>CUBA REST API module uses enum’s constant name in client-server
-communication. SDK contains generated string enums e.g.:</p>
+<p>CUBA REST API module uses enum’s constant name in client-server communication. SDK contains generated string enums e.g.:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2266,9 +2015,7 @@ communication. SDK contains generated string enums e.g.:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In order to get enum id and localized caption, you can query full
-information about enums in runtime using <code>loadEnums</code> method of
-cuba-rest-js:</p>
+<p>In order to get enum id and localized caption, you can query full information about enums in runtime using <code>loadEnums</code> method of <a href="api-reference/cuba-rest-js/index.html">CUBA REST JS</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2307,18 +2054,375 @@ cubaREST.loadEnums()
 </div>
 </div>
 <div class="sect1">
+<h2 id="generator-reference"><a class="anchor" href="#generator-reference"></a>Frontend Generator Reference</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you haven&#8217;t read our introductory <a href="#getting-started">Getting Started</a> section, we encourage you to do so now. Installation of the Frontend Generator CLI tool is described <a href="#getting-started-using-cli">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This section describes how to use the generator from CLI. You can also use many of the described features from CUBA Studio UI. The <a href="#commands-description">commands description</a> contains information on which features are available in Studio. See <a href="https://doc.cuba-platform.com/studio/#frontend_ui" class="bare">https://doc.cuba-platform.com/studio/#frontend_ui</a> for more details on using the generator from Studio.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run <code>gen-cuba-front</code> (or <code>npx @cuba-platform/front-generator</code>) without arguments to see usage info.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Usage: gen-cuba-front [command] [options]
+
+  Options:
+
+    -v, --version  output the version number
+    -h, --help     output usage information
+
+  Commands:
+
+    list [options]                                   List all available clients and their clients
+    polymer2:app [options]                           Generates polymer2 app
+    polymer2:blank-component [options]               Generates polymer2 blank-component
+    polymer2:entity-cards [options]                  Generates polymer2 entity-cards
+    polymer2:entity-edit [options]                   Generates polymer2 entity-edit
+    polymer2:entity-list [options]                   Generates polymer2 entity-list
+    polymer2:entity-management [options]             Generates polymer2 entity-management
+    polymer2:query-results [options]                 Generates polymer2 query-results
+    polymer2:service-data [options]                  Generates polymer2 service-data
+    polymer2:service-form [options]                  Generates polymer2 service-form
+    polymer2-typescript:app [options]                Generates polymer2-typescript app
+    polymer2-typescript:blank-component [options]    Generates polymer2-typescript blank-component
+    polymer2-typescript:entity-cards [options]       Generates polymer2-typescript entity-cards
+    polymer2-typescript:entity-edit [options]        Generates polymer2-typescript entity-edit
+    polymer2-typescript:entity-list [options]        Generates polymer2-typescript entity-list
+    polymer2-typescript:entity-management [options]  Generates polymer2-typescript entity-management
+    react-typescript:app [options]                   Generates react-typescript app
+    react-typescript:blank-component [options]       Generates react-typescript blank-component
+    react-typescript:entity-cards [options]          Generates react-typescript entity-cards
+    react-typescript:entity-management [options]     Generates react-typescript entity-management
+    sdk:all [options]                                Generates sdk all
+    sdk:model [options]                              Generates sdk model</pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Polymer client is deprecated
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run <code>gen-cuba-front &lt;command&gt; --help</code> to see the list of available options.</p>
+</div>
+<div class="paragraph">
+<p>Most commands use interactive prompts to capture necessary inputs such as which entity you want to use, which
+<a href="https://doc.cuba-platform.com/manual-latest/views.html">view</a>, etc. Alternatively, <code>answers</code> command line parameter can be used to provide these inputs. You may want to use it if you want to automate the generation. <code>answers</code> is a base64-encoded JSON string. See <a href="#commands-description">descriptions of individual commands</a> for details on what shall be put inside this JSON.</p>
+</div>
+<div class="paragraph">
+<p>Example of using <code>answers</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>gen-cuba-front react-typescript:entity-management \
+  --dest ../model-playground/modules/front/src/app/car \
+  --model /home/myusername/model-playground/projectModel.json \
+  --dirShift ../../ \
+  --answers eyJlZGl0VmlldyI6eyJuYW1lIjoiY2FyLXZpZXciLCJlbnRpdHlOYW1lIjoibXBnJENhciJ9LCJlZGl0Q29tcG9uZW50TmFtZSI6Im1wZy1jYXItZWRpdCIsImxpc3RWaWV3Ijp7Im5hbWUiOiJjYXItdmlldyIsImVudGl0eU5hbWUiOiJtcGckQ2FyIn0sImxpc3RDb21wb25lbnROYW1lIjoibXBnLWNhci1saXN0IiwibGlzdFR5cGUiOiJsaXN0IiwiZW50aXR5Ijp7Im5hbWUiOiJtcGckQ2FyIn0sIm1hbmFnZW1lbnRDb21wb25lbnROYW1lIjoibXBnLWNhci1tYW5hZ2VtZW50In0=</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="commands-description"><a class="anchor" href="#commands-description"></a>Commands Description</h3>
+<div id="react-typescriptapp" class="paragraph">
+<p><strong>react-typescript:app</strong></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This feature is also available in CUBA Studio, see <a href="https://doc.cuba-platform.com/studio/#frontend_ui" class="bare">https://doc.cuba-platform.com/studio/#frontend_ui</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Generates a React starter app. See <a href="#getting-started-with-react-client">Getting Started with React Client</a>.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information</pre>
+</div>
+</div>
+<div id="react-typescriptentity-management" class="paragraph">
+<p><strong>react-typescript:entity-management</strong></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This feature is also available in CUBA Studio, see <a href="https://doc.cuba-platform.com/studio/#frontend_ui" class="bare">https://doc.cuba-platform.com/studio/#frontend_ui</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Generates:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Route / main menu item</p>
+</li>
+<li>
+<p><strong>Edit component</strong> - allows to edit an entity instance.</p>
+</li>
+<li>
+<p><strong>List component</strong> - allows to view the list of entities and open the Edit component for a selected entity instance.</p>
+</li>
+<li>
+<p><strong>CRUD component</strong> - component that renders a List component or an Edit component depending on whether the route path contains an <code>entityId</code> parameter (see <a href="https://reacttraining.com/react-router/">React Router</a> documentation for more details on how routing works in React client).</p>
+</li>
+</ul>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Browser screen is available in one of the following flavors (we call it list types):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>list</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/browser-list.png" alt="List browser example"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cards</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/browser-cards.png" alt="Cards browser example"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>table</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/react/data-table-demo.gif" alt="Data table showcase"></span></p>
+</div>
+<div class="paragraph">
+<p><code>answers</code> format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>{
+    "editView": {
+      "name": "car-edit", // Name of view that will be used in Editor screen
+      "entityName": "mpg$Car" // Entity name
+    },
+    "editComponentName": "CarEdit", // Editor component class name
+    "listView": {
+      "name": "car-edit", // Name of view that will be used in Browser screen
+      "entityName": "mpg$Car" // Entity name
+    },
+    "listComponentName": "CarCards", // List component class name
+    "listType": "cards", // List type: list, cards or table
+    "entity": {
+      "name": "mpg$Car" // Entity name
+    },
+    "managementComponentName": "CarManagement" // Management component class name (renders either Editor or Browser depending on current route)
+    }
+}</pre>
+</div>
+</div>
+<div id="react-typescriptentity-cards" class="paragraph">
+<p><strong>react-typescript:entity-cards</strong></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This feature is also available in CUBA Studio, see <a href="https://doc.cuba-platform.com/studio/#frontend_ui" class="bare">https://doc.cuba-platform.com/studio/#frontend_ui</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Generates a list of entities where each entity is represented by a card (similar to a List component with <code>"listType": "cards"</code>, but read-only, see <a href="#react-typescriptentity-management">react-typescript:entity-management</a>)</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>answers</code> format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>{
+    "entityView": {
+      "name": "favoriteCar-view", // View name
+      "entityName": "mpg$FavoriteCar" // Entity name
+    },
+    "componentName": "FavoriteCarCards", // Component class name
+    "entity": {
+      "name": "mpg$FavoriteCar" // Entity name
+    }
+}</pre>
+</div>
+</div>
+<div id="react-typescriptblank-component" class="paragraph">
+<p><strong>react-typescript:blank-component</strong></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This feature is also available in CUBA Studio, see <a href="https://doc.cuba-platform.com/studio/#frontend_ui" class="bare">https://doc.cuba-platform.com/studio/#frontend_ui</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Generates a blank component.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>answers</code> format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>{
+    "componentName": "BlankComponent" // Component class name
+}</pre>
+</div>
+</div>
+<div id="react-nativeapp" class="paragraph">
+<p><strong>react-native:app</strong></p>
+</div>
+<div class="paragraph">
+<p>Generates a React Native starter app. See <a href="#react-native-client-getting-started">Getting Started with React Native Client</a>.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -vb, --verbose       log out additional info about generation process
+    -h, --help           output usage information</pre>
+</div>
+</div>
+<div id="sdkall" class="paragraph">
+<p><strong>sdk:all</strong></p>
+</div>
+<div class="paragraph">
+<p>Generates framework-agnostic <a href="#typescript-sdk">TypeScript SDK</a>. It is also generated when executing <code>react-typescript:app</code> command.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information</pre>
+</div>
+</div>
+<div id="sdkmodel" class="paragraph">
+<p><strong>sdk:model</strong></p>
+</div>
+<div class="paragraph">
+<p>Generates SDK model only.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="rest-api"><a class="anchor" href="#rest-api"></a>REST API</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Generated front-end clients use
-<a href="https://doc.cuba-platform.com/restapi-7.2/">Generic REST API</a>. The
-detailed documentation on the API endpoints is published
-<a href="http://files.cuba-platform.com/swagger/7.2">here</a>.</p>
+<p>Generated frontend clients use <a href="https://doc.cuba-platform.com/restapi-7.2">Generic REST API</a>. The detailed documentation on the API endpoints is published <a href="http://files.cuba-platform.com/swagger/7.2">here</a>.</p>
 </div>
 <div class="paragraph">
-<p>CUBA REST JS library is used to communicate
-with Generic REST API. Documentation and API reference can be found
-<a href="api-reference/cuba-rest-js/index.html" target="_blank" rel="noopener">here</a>.</p>
+<p>CUBA REST JS library is used to communicate with Generic REST API. Documentation and API reference can be found <a href="api-reference/cuba-rest-js/index.html">here</a>.</p>
 </div>
 </div>
 </div>
