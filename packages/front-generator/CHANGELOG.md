@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-alpha.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0-alpha.0...@cuba-platform/front-generator@3.0.0-alpha.1) (2020-04-16)
+
+
+### Bug Fixes
+
+* add missing node-fetch dependency ([5d3f17a](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/5d3f17a8cca54d0436e651609453056c9f658e30)), closes [#171](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/171)
+* bump lib versions in templates ([587853c](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/587853cddccfbb67ec9631f31d712df64256b176))
+
+
+
+
+
 # [3.0.0-alpha.0](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@2.4.5...@cuba-platform/front-generator@3.0.0-alpha.0) (2020-04-03)
 
 

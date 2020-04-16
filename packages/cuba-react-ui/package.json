@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/react-ui",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "CUBA Platform utilities and components for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -25,8 +25,8 @@
   "devDependencies": {
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "@cuba-platform/react-core": "^1.0.0-alpha.0",
-    "@cuba-platform/rest": "^1.0.0-alpha.0",
+    "@cuba-platform/react-core": "^1.0.0-alpha.1",
+    "@cuba-platform/rest": "^1.0.0-alpha.1",
     "@types/jest": "^24.0.18",
     "@types/moment-timezone": "^0.5.12",
     "@types/query-string": "^6.3.0",

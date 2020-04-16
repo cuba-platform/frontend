@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.0-alpha.0...@cuba-platform/react-ui@1.0.0-alpha.1) (2020-04-16)
+
+**Note:** Version bump only for package @cuba-platform/react-ui
+
+
+
+
+
 # 1.0.0-alpha.0 (2020-04-03)
 
 
