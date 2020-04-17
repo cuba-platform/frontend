@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;ui/EntityProperty&quot; | @cuba-platform/react-ui - v0.1.0</title>
+	<title>&quot;ui/EntityProperty&quot; | @cuba-platform/react-ui - v1.0.0-alpha.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cuba-platform/react-ui - v0.1.0</a>
+					<a href="../index.html" class="title">@cuba-platform/react-ui - v1.0.0-alpha.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -100,7 +100,7 @@
 					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Property<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectMainStore(observer((props: EntityPropertyProps) &#x3D;&gt;&lt;EntityPropertyFormattedValue {...props}/&gt;))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L73">cuba-react-ui/src/ui/EntityProperty.tsx:73</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/40d51df/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L73">cuba-react-ui/src/ui/EntityProperty.tsx:73</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -110,7 +110,7 @@
 					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Property<wbr>Formatted<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> =&nbsp;observer((props: EntityPropertyProps) &#x3D;&gt; {const {entityName,propertyName,value,showLabel &#x3D; true,hideIfEmpty &#x3D; true,mainStore,} &#x3D; props;if (hideIfEmpty &amp;&amp; value &#x3D;&#x3D; null) {return null;}if (!showLabel) {return &lt;div&gt;{formatValue(toJS(value))}&lt;/div&gt;;}// store not ready yetif (!mainStore || !mainStore.messages || !mainStore.metadata || !mainStore.enums) {return null;}const propertyFullName &#x3D; entityName + &#x27;.&#x27; + propertyName;const label: string &#x3D; mainStore.messages[propertyFullName];const propertyInfo: MetaPropertyInfo | null &#x3D; getPropertyInfo(mainStore.metadata,entityName,propertyName);if (!propertyInfo) {throw new Error(&#x27;Cannot find MetaPropertyInfo for property &#x27; + propertyFullName);}const displayValue &#x3D; propertyInfo.attributeType &#x3D;&#x3D;&#x3D; &#x27;ENUM&#x27;? getEnumCaption(value, propertyInfo, mainStore.enums): toDisplayValue(toJS(value), propertyInfo);return label !&#x3D; null? &lt;div&gt;&lt;strong&gt;{label}:&lt;/strong&gt; {formatValue(displayValue)}&lt;/div&gt;: &lt;div&gt;{formatValue(displayValue)}&lt;/div&gt;})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L30">cuba-react-ui/src/ui/EntityProperty.tsx:30</a></li>
+							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/40d51df/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L30">cuba-react-ui/src/ui/EntityProperty.tsx:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -127,7 +127,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/365b769/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L76">cuba-react-ui/src/ui/EntityProperty.tsx:76</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/40d51df/packages/cuba-react-ui/src/ui/EntityProperty.tsx#L76">cuba-react-ui/src/ui/EntityProperty.tsx:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>

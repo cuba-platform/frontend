@@ -1,0 +1,6 @@
+* xref:index.adoc[CUBA React Core]
+** xref:cuba-app-provider.adoc[CubaAppProvider]
+** xref:main-store.adoc[MainStore]
+** xref:data-collection-store.adoc[DataCollectionStore]
+** xref:client-side-data-collection-store.adoc[ClientSideDataCollectionStore]
+** xref:data-instance-store.adoc[DataInstanceStore]

@@ -1,0 +1,11 @@
+= Technologies Overview
+
+The client is based on the following frameworks and libraries:
+
+* https://facebook.github.io/react-native/[React Native] - UI rendering;
+* https://mobx.js.org/[MobX] - reactive state management;
+* xref:cuba-react-core:index.adoc[CUBA React Core] - CUBA React core components and utilities;
+* {api_rest}[CUBA REST JS] - interaction with СUBA generic REST API;
+* https://expo.io/[Expo] - development tools for React Native;
+
+React Native client is written in link:https://www.typescriptlang.org/[TypeScript].

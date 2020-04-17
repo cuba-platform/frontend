@@ -1,0 +1,40 @@
+= DataCollectionStore
+:api_core_DataCollectionStore: link:../api-reference/cuba-react-core/interfaces/_data_collection_.datacollectionstore.html
+:api_core_collection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#collection-1
+
+`DataCollectionStore` is a MobX based store that can be used to retrieve entity collections. It can be created via {api_core_collection}[collection] initializer function:
+
+[source,typescript]
+----
+dataCollection = collection<Pet>(Pet.NAME, {
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);
+----
+
+Typically it is used to display a list of entities. Since it's reactive, any changes in `items` and `status` will trigger re-render of `@observer` components:
+
+[source,typescript]
+----
+@observer
+class CarList extends React.Component {
+  carsData = collection<Car>(Car.NAME, {view: 'car-view', sort: '-updateTs'});
+  render() {
+    if (this.carsData.status === "LOADING") return 'Loading...';
+    return (
+      <ul>
+        {this.carsData.items.map(car =>
+           <li>{car._instanceName}</li>
+        )}
+      </ul>
+    )
+  }
+}
+----
+
+API: {api_core_DataCollectionStore}[DataCollectionStore], {api_core_collection}[collection].
