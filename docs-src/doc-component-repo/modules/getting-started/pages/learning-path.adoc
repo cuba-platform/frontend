@@ -4,7 +4,7 @@ If you want to create a React-based Frontend UI, check our xref:client-react:sta
 
 For React Native check xref:client-react-native:starter-guide.adoc[this] guide.
 
-Deprecated Polymer Client documentation can be found {manual_platform}/polymer_ui.html[here].
+Deprecated Polymer Client documentation can be found xref:client-polymer:index.adoc[here].
 
 If you want to use a different framework, check xref:typescript-sdk:index.adoc[TypeScript SDK] and {api_rest}[CUBA REST JS] documentation.
 
