@@ -275,40 +275,40 @@ class ClientSideDataCollectionStoreImpl<T> extends DataCollectionStoreImpl<T> im
 
 export interface DataCollectionOptions {
   /**
-   * Whether to call the {@link DataCollectionStore#load} method immediately after the
+   * Whether to call the {@link DataCollectionStore.load} method immediately after the
    * {@link DataCollectionStore} is constructed.
    */
   loadImmediately?: boolean,
   /**
-   * See {@link DataCollectionStore#view}.
+   * See {@link DataCollectionStore.view}.
    */
   view?: string,
   /**
-   * See {@link DataCollectionStore#sort}.
+   * See {@link DataCollectionStore.sort}.
    */
   sort?: string,
   /**
-   * See {@link DataCollectionStore#limit}.
+   * See {@link DataCollectionStore.limit}.
    */
   limit?: number,
   /**
-   * See {@link DataCollectionStore#offset}.
+   * See {@link DataCollectionStore.offset}.
    */
   offset?: number,
   /**
-   * See {@link DataCollectionStore#filter}.
+   * See {@link DataCollectionStore.filter}.
    */
   filter?: EntityFilter,
   /**
    * Whether to track the changed items. When `true`, the changes will be available via
-   * {@link DataContainer#changedItems} field.
+   * {@link DataContainer.changedItems} field.
    */
   trackChanges?: boolean,
 }
 
 export interface ClientSideDataCollectionOptions extends DataCollectionOptions {
   /**
-   * See {@link ClientSideDataCollectionStore#allItems}.
+   * See {@link ClientSideDataCollectionStore.allItems}.
    */
   allItems?: Array<SerializedEntity<any>>;
 }

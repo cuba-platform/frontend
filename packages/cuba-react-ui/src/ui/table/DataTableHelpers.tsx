@@ -39,12 +39,12 @@ export interface DataColumnConfig {
    */
   filters: Record<string, any> | undefined,
   /**
-   * See {@link DataTableCustomFilterProps#operator}
+   * See {@link DataTableCustomFilterProps.operator}
    */
   operator: ComparisonType | undefined,
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
   /**
-   * See {@link DataTableCustomFilterProps#value}
+   * See {@link DataTableCustomFilterProps.value}
    */
   // TODO probably type should be changed to CustomFilterInputValue
   value: any,
@@ -55,7 +55,7 @@ export interface DataColumnConfig {
   enableSorter: boolean,
   mainStore: MainStore,
   /**
-   * See {@link DataTableCustomFilterProps#ref}
+   * See {@link DataTableCustomFilterProps.ref}
    */
   customFilterRef?: (instance: React.Component<DataTableCustomFilterProps>) => void
 }
@@ -65,7 +65,7 @@ export interface DataColumnConfig {
  * It is possible to create a vanilla antd `Table` and customize some of its columns
  * with `DataTable`'s custom filters using this helper function.
  *
- * NOTE: it might be simpler to achieve the desired result using {@link DataTableProps#columnDefinitions}.
+ * NOTE: it might be simpler to achieve the desired result using {@link DataTableProps.columnDefinitions}.
  *
  * @param config
  *
@@ -343,7 +343,7 @@ function pushCondition(ef: EntityFilter, property: string, operator: OperatorTyp
 }
 
 /**
- * Sets sort field/order on provided `dataCollection` based on current state of table `sorter`
+ * Sets sort field/order on provided `dataCollection` based on current state of table `sorter`.
  *
  * @param sorter
  * @param defaultSort name of the field to be sorted by. If the name is preceeding by the '+' character, then the sort order is ascending,
@@ -385,7 +385,10 @@ export interface TableChangeDTO<E> {
    */
   sorter: SorterResult<E>,
   /**
-   * Default sort order. See {@link DataCollectionStore#sort}.
+   * Default sort order.
+   * Property name opionally preceeded by `+` or `-` character.
+   * If the name is preceeded by `+`, or there is no preceeding character, then the sort order is ascending.
+   * If the name is preceeded by `-`, then the sort order is descending.
    */
   defaultSort: string | undefined,
   /**
@@ -428,7 +431,7 @@ export function handleTableChange<E>(tableChangeDTO: TableChangeDTO<E>): Promise
  *
  * @param entityFilter
  * @param fields - names of the entity properties displayed in the table.
- * Allows to check the {@link EntityFilter.conditions} against the list of displayed fields and ensure that only
+ * Allows to check the `EntityFilter.conditions` against the list of displayed fields and ensure that only
  * the conditions related to the displayed fields are used.
  */
 export function entityFilterToTableFilters(entityFilter: EntityFilter, fields?: string[]): Record<string, any> {
