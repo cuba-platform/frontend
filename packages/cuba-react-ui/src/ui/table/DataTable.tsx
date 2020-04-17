@@ -27,8 +27,6 @@ import {
   WithId
 } from '@cuba-platform/react-core';
 
-// todo may be it make sense to add 'defaultDataTableProps' const instead of describe each property in jsdoc,
-//  it's easy to forget update js docs after DataTable.defaultProps changes
 /**
  * @typeparam E - entity type.
  */

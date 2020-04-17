@@ -24,26 +24,24 @@ export class MainStore {
    * Currently selected locale.
    */
   @observable locale?: string;
-
   /**
    * Information about project entities.
    */
   @observable metadata?: IObservableArray<MetaClassInfo>;
-  // TODO can be made private?
-  metadataRequestCount = 0;
   /**
    * Localized entity messages.
    */
   @observable messages?: EntityMessages;
-  // TODO can be made private?
-  messagesRequestCount = 0;
   /**
    * Localized enums.
    */
   @observable enums?: IObservableArray<EnumInfo>;
-  // TODO can be made private?
-  enumsRequestCount = 0;
+
   security: Security;
+
+  private metadataRequestCount = 0;
+  private messagesRequestCount = 0;
+  private enumsRequestCount = 0;
 
   constructor(private cubaREST: CubaApp) {
     this.cubaREST.onLocaleChange(this.handleLocaleChange);
@@ -121,48 +119,8 @@ export class MainStore {
     this.cubaREST.locale = locale;
   };
 
-  // TODO can be made private?
-  @action
-  handleLocaleChange = (locale: string) => {
-    this.locale = locale;
-
-    if (this.initialized && (this.authenticated || this.usingAnonymously)) {
-      this.loadEnums();
-      this.loadMessages();
-    }
-
-    if (this.initialized && this.authenticated) {
-      this.setSessionLocale();
-    }
-  };
-
-  // TODO can be made private?
-  setSessionLocale = () => {
-    this.cubaREST.setSessionLocale().catch((reason) => {
-      if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
-        console.warn('Relogin is required in order for bean validation messages to use correct locale. ' +
-              'Upgrade to REST API 7.2.0 or higher to be able to change locale without relogin.');
-      } else {
-        throw new Error('Failed to set session locale');
-      }
-    });
-  };
-
   @computed get loginRequired(): boolean {
     return !this.authenticated && !this.usingAnonymously;
-  }
-
-  // TODO same method as `isEntityDataLoaded`, either one shall be removed.
-  // TODO Perhaps `isEntityDataLoaded` is a better name as this method can not only be used  in the entity management screens.
-  /*
-   * Define id mainStore is ready to serve entiry management components.
-   * todo may be we need to think about kind of 'generated component store' with such methods
-   */
-  @computed get isDataLoadedForEntityManagement(): boolean {
-    return this.messages != null &&
-      this.metadata != null &&
-      this.enums != null &&
-      this.security.isDataLoaded;
   }
 
   @action
@@ -209,6 +167,31 @@ export class MainStore {
         this.initialized = true;
       }));
   }
+
+  @action
+  private handleLocaleChange = (locale: string) => {
+    this.locale = locale;
+
+    if (this.initialized && (this.authenticated || this.usingAnonymously)) {
+      this.loadEnums();
+      this.loadMessages();
+    }
+
+    if (this.initialized && this.authenticated) {
+      this.setSessionLocale();
+    }
+  };
+
+  private setSessionLocale = () => {
+    this.cubaREST.setSessionLocale().catch((reason) => {
+      if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
+        console.warn('Relogin is required in order for bean validation messages to use correct locale. ' +
+          'Upgrade to REST API 7.2.0 or higher to be able to change locale without relogin.');
+      } else {
+        throw new Error('Failed to set session locale');
+      }
+    });
+  };
 }
 
 export interface MainStoreInjected {
