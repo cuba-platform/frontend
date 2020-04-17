@@ -361,7 +361,7 @@ export class CubaApp {
   }
 
   /**
-   * Shorthand for {@link #fetch} that already has 'json' as default 'handleAs' property
+   * Shorthand for {@link fetch} that already has 'json' as default 'handleAs' property
    */
   public fetchJson<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T> {
     return this.fetch(method, path, data, {handleAs: 'json', ...fetchOptions});

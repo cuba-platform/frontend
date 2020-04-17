@@ -163,12 +163,12 @@ export class DataInstanceStore<T> implements DataContainer {
 
 export interface DataInstanceOptions {
   /**
-   * Whether to call the {@link DataInstanceStore#load} method immediately after the
+   * Whether to call the {@link DataInstanceStore.load} method immediately after the
    * {@link DataInstanceStore} is constructed.
    */
   loadImmediately?: boolean,
   /**
-   * See {@link DataInstanceStore#viewName}
+   * See {@link DataInstanceStore.viewName}
    */
   view?: string
 }
