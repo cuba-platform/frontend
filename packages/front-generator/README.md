@@ -4,4 +4,4 @@ The Frontend Generator is a scaffolding tool that can be used to speed up the pr
 
 ## Documentation
 
-You can find documentation on Frontend Generator in [Frontend UI Manual](https://cuba-platform.github.io/frontend). 
+You can find documentation on Frontend Generator in [Frontend UI Manual](https://doc.cuba-platform.com/frontend). 

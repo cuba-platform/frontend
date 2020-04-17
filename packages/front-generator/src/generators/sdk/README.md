@@ -1,3 +1,3 @@
 # TypeScript SDK
 
-Documentation is available [here](https://cuba-platform.github.io/frontend).
+Documentation is available [here](https://doc.cuba-platform.com/frontend).

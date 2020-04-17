@@ -9,4 +9,4 @@ Frontend UI is an alternative to the [Generic UI](https://doc.cuba-platform.com/
 
 ## Documentation
 
-[Frontend UI Manual](https://cuba-platform.github.io/frontend).
+[Frontend UI Manual](https://doc.cuba-platform.com/frontend).
