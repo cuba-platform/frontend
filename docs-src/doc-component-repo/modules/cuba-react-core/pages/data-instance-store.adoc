@@ -1,0 +1,20 @@
+= DataInstanceStore
+:api_core_DataInstanceStore: link:../api-reference/cuba-react-core/classes/_data_instance_.datainstancestore.html
+:api_core_instance: link:../api-reference/cuba-react-core/modules/_data_instance_.html#instance-1
+
+`DataInstanceStore` is used to work with a single instance of some Entity. It can be created via {api_core_instance}[instance] initializer function:
+
+[source,typescript]
+----
+dataInstance = instance<Pet>(Pet.NAME, {view: 'pet-with-owner-and-type', loadImmediately: false});
+----
+
+Use `dataInstance.commit()` method to perform entity update:
+
+[source,typescript]
+----
+dataInstance.item.name = 'New Name';
+dataInstance.commit()
+----
+
+API: {api_core_DataInstanceStore}[DataInstanceStore], {api_core_instance}[instance].

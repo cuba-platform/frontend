@@ -1,0 +1,3 @@
+= Polymer Client (Deprecated)
+
+Documentation can be found {manual_platform}/polymer_ui.html[here].

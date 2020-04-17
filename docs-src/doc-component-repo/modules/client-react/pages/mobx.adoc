@@ -1,0 +1,35 @@
+= Observable State with MobX
+
+https://mobx.js.org/intro/overview.html[MobX] is a library for reactive state management that allows to work with state in a convenient and concise way.
+
+Consider the following example:
+
+[source,typescript]
+----
+@observer
+class Counter extends React.Component {
+
+  @observable
+  count = 0;
+
+  render() {
+    return (
+      <div>
+        Counter: {this.count} <br />
+        <button onClick={this.handleInc}> + </button>
+        <button onClick={this.handleDec}> - </button>
+      </div>
+    )
+  }
+
+  handleInc = () => {
+    this.count++;
+  }
+
+  handleDec = () => {
+    this.count--;
+  }
+}
+----
+
+As soon as we decorate a class or a function component with https://mobx.js.org/refguide/observer-component.html[observer] decorator, it automatically subscribes to changes of any https://mobx.js.org/refguide/observable.html[observable] value or object. I.e. in the example above changing `count` property will result in automatic re-render of the component.

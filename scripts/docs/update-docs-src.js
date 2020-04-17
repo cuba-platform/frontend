@@ -13,7 +13,4 @@ rimraf.sync('docs-src/api-reference/cuba-react-ui');
 runCmdSync('lerna run prepublishOnly --scope {@cuba-platform/rest,@cuba-platform/react-core,@cuba-platform/react-ui}');
 runCmdSync('lerna run generate-docs');
 
-console.log(highlight, 'Updating navigation panel template...');
-childProcess.fork(__dirname + '/update-nav.js').on('exit', () => {
-    console.log(success, 'Documentation sources has been updated. Please commit your changes.');
-});
+console.log(success, 'API Reference documentation has been updated. Please commit your changes.');

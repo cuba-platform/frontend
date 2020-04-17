@@ -1,0 +1,113 @@
+= DataTable
+:api_ui_DataTableProps: link:../api-reference/cuba-react-ui/interfaces/_ui_table_datatable_.datatableprops.html
+:api_ui_DataTableCustomFilterProps: link:../api-reference/cuba-react-ui/interfaces/_ui_table_datatablecustomfilter_.datatablecustomfilterprops.html
+:api_ui_DataTableHelpers: link:../api-reference/cuba-react-ui/modules/_ui_table_datatablehelpers_.html
+
+`DataTable` is used to present data in tabular form.
+
+image:client-react:data-table-demo.gif[Data table showcase]
+
+It uses Ant Design {antDesign_base}/components/table/[Table] under the hood and provides the following additional benefits:
+
+* out-of-the-box integration with `DataCollectionStore`
+* powerful filters
+* support for action buttons (e.g. for CRUD operations)
+
+At the same time `<DataTable>` provides developer with a full access to underlying `Table` via its `tableProps` and `columnDefinitions` properties (see below).
+
+Example of using `<DataTable>` API:
+
+[source,typescript]
+----
+<DataTable dataCollection={this.dataCollection}
+           columnDefinitions={[
+             'item',
+             'manufacturer',
+             {
+               field: 'price',
+               columnProps: {
+                 align: 'right'
+               }
+             }
+           ]}
+           onSelectedRowChange={this.onSelectedRowChange}
+           buttons={buttons}
+           tableProps={{
+             bordered: true
+           }}
+/>
+----
+
+* `dataCollection` - instance of `DataCollectionStore`.
+* `columnDefinitions` - describes the columns to be displayed. See more details below.
+* `onRowSelectionChange` - callback that takes the ids of the selected rows, can be used together with `buttons` e.g. to facilitate CRUD operations.
+* `buttons` - array of React elements representing the controls that will be rendered above the table.
+* `tableProps` - can be used to override any of the underlying {antDesign_base}/components/table/#Table[Table properties].
+
+Deprecated props (use `columnDefinitions` instead):
+
+* `fields` - names of properties that shall be displayed.
+* `columnProps` - can be used to override underlying {antDesign_base}/components/table/#Column[Column properties]. Applied to every column.
+
+TIP: `columnDefinitions` is more flexible and provides greater ability to customize the columns. `columnDefinitions` will take precedence over `fields` and `columnProps` if used simultaneously.
+
+== columnDefinitions
+
+`columnDefinitions` describes the columns to be displayed. The columns can represent entity properties or have arbitrary content (for example: an action button column, a calculated field column).
+
+There are 3 ways you can define a column:
+
+. Simply put an entity property name as a `string`. In this case `DataTable` will render a column with default settings for that property.
++
+[source,typescript]
+----
+<DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         'manufacturer',
+         // more columns
+       ]}
+/>
+----
+
+. If you want to customize the default column, use a `ColumnDefinition` object where `field` is an entity property name and
+`columnProps` is an Ant Design {antDesign_base}/components/table/#Column[ColumnProps] object. The properties you put in `columnProps` will override the default properties.
++
+[source,typescript]
+----
+<DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         {
+           field: 'manufacturer', // property name
+           columnProps: { // Ant Design ColumnProps object
+             align: 'right'
+           }
+         },
+         // more columns
+       ]}
+/>
+----
+
+. If you want a column not bound to an entity field, create it from scratch using `columnProps` and do not specify a `field`.
++
+[source,typescript]
+----
+<DataTable
+       dataCollection={this.dataCollection}
+       columnDefinitions={[
+         {
+           columnProps: { // Ant Design ColumnProps object
+             render: (text, record) => { /* render some custom content */ }
+           }
+         },
+         // more columns
+       ]}
+/>
+----
+
+****
+If you need even more control, you may want to start with a vanilla Ant Design {antDesign_base}/components/table/[Table] and take a look into exported functions in `DataTableHelpers`. These functions are used to create `DataTable` custom functionality such as custom filters. You may also want to look into using `DataTableCustomFilter` directly. Note that both these approaches may require a deeper understanding of how `DataTable` works internally.
+****
+
+API: {api_ui_DataTableProps}[DataTableProps], {api_ui_DataTableCustomFilterProps}[DataTableCustomFilterProps], {api_ui_DataTableHelpers}[DataTableHelpers].

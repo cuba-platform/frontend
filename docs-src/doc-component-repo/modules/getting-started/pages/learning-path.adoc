@@ -1,0 +1,13 @@
+= Choosing a Learning Path
+
+If you want to create a React-based Frontend UI, check our xref:client-react:starter-guide.adoc[React Client] guide.
+
+For React Native check xref:client-react-native:starter-guide.adoc[this] guide.
+
+Deprecated Polymer Client documentation can be found {manual_platform}/polymer_ui.html[here].
+
+If you want to use a different framework, check xref:typescript-sdk:index.adoc[TypeScript SDK] and {api_rest}[CUBA REST JS] documentation.
+
+If you want to build a frontend client that works well on both desktop and mobile but not sure which framework to use, we suggest building a xref:client-react:starter-guide.adoc[React Client] as this is currently the most well-supported option.
+
+If you are stuck, or your specific use case is not covered by this documentation - feel free to contact us at {forum}[our forum].

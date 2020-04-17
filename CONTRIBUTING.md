@@ -61,18 +61,23 @@ test:e2e:polymer2-ts
 
 ### Documentation
 
-We use [Antora](https://antora.org/) to generate the [documentation site](https://cuba-platform.github.io/frontend).
+We use [Antora](https://antora.org/) to generate the [documentation site](https://doc.cuba-platform.com/frontend). Antora uses [AsciiDoc](http://asciidoc.org/) syntax.
 
-Antora uses the documentation sources from multiple branches of this repo in order to provide the possibility to browse documentation for older versions. More specifically, it uses `master` branch and branches matching the glob `v[0-9]*` (e.g. `v2.4.x`, etc.).
+Documentation sources are located in the `docs-src` folder:
 
-How to make changes to the documentation site:
+- `docs-src/api-reference` folder contains the API Reference documentation that is generated from the TSDoc comments.
 
-- Edit `docs-src/doc-component-repo/modules/ROOT/pages/index.adoc`. This is the main source file of the documentation. This file is in [AsciiDoc](http://asciidoc.org/) format.
-- Update the front-end generator version in `docs-src/doc-component-repo/antora.yml`.
-- Run `npm run doc:src`. This will automatically update the other documentation sources: generate the API Reference docs from TSDoc comments and update the navigation panel source file based on the content of `index.adoc`.
-- Commit the changes to the remote (generation uses remote repo, not your local repo).
-- Run `npm run doc:site`. This will generate the site from AsciiDoc sources and add the API Reference docs. The generated site is located in `docs` folder.
-- Once the changes have made its way to `master` the updated site will be available at [GitHub Pages](https://cuba-platform.github.io/frontend).
+- The rest of `docs-src` folder are the source files used by Antora.
+
+#### Building the Documentation Site
+
+1. Make sure that the component descriptor (`docs-src/doc-component-repo/antora.yml`) has the correct documentation version (it corresponds to the version of Frontend Generator).
+
+2. Make sure that the playbook file (`docs-src/antora-playbook.yml`) has the correct repo url and branch names. For example, you may want to build the documentation from a feature branch - then you'll need to add the name of that branch. Or you may want to change the remote repo url to the local filesystem path in order to build from your local repo.
+
+3. Update the API Reference with `npm run doc:src`. Commit the changes (and push them if you have specified the remote repo in the playbook file).
+
+4. Run `npm run doc:site`. This will build a site using the repo and the branches specified in the playbook file. The generated site will be placed to the `docs` folder.  
 
 ### Making a Commit
 

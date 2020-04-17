@@ -1,0 +1,8 @@
+= Security
+
+Since React client uses Generic REST API endpoints, the backend (CUBA) application should have properly configured Security Roles and Access groups. See the {manual_restApi}/#security[corresponding chapter] in the REST API documentation.
+
+{api_rest}[CUBA REST JS] package provides methods that allow to check user runtime security permissions for entity attributes and operations.
+
+* `getAttributePermission` checks entity attribute permission and returns `DENY`, `VIEW` or `MODIFY`.
+* `isOperationAllowed` checks entity operation permission and returns `true` or `false`.

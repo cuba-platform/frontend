@@ -1,0 +1,9 @@
+= Where Do I Go From Here?
+
+The rest of *React Client* section contains an overview on technologies used and some recipes for the most common use cases. We suggest that you go through it. You may skip some of the topics and come back to them later.
+
+xref:generator:index.adoc[Frontend Generator Reference] contains detailed information on the generator. It explains how to use the CLI and what CLI features are available in the Studio UI. Be sure to go through it (you will be interested in commands starting with `react-typescript`). {manual_studio_frontendUi}[Studio manual] contains more information on how to use the generator from the Studio.
+
+Of course, frontend client development process is not limited to generation, you may want to create some components manually, as well as to reuse some of the components provided by our libraries. Go through xref:cuba-react-core:index.adoc[CUBA React Core] and xref:cuba-react-ui:index.adoc[CUBA React UI] sections to see what components are available to you and how to use them.
+
+Check {api_rest}[CUBA REST JS] documentation to see how your components can communicate with the {manual_restApi}[Generic REST API].
