@@ -121,7 +121,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
 
     const { status } = this.dataInstance;
     const { mainStore } = this.props;
-    if (mainStore == null || !mainStore.isDataLoadedForEntityManagement) {
+    if (mainStore == null || !mainStore.isEntityDataLoaded()) {
       return <Spinner />;
     }
 

@@ -108,10 +108,7 @@ class CarCardsComponent extends React.Component<Props> {
     const { status, items, count } = this.dataCollection;
     const { paginationConfig, onPagingChange, mainStore } = this.props;
 
-    if (
-      status === "LOADING" ||
-      mainStore?.isDataLoadedForEntityManagement !== true
-    ) {
+    if (status === "LOADING" || mainStore?.isEntityDataLoaded() !== true) {
       return <Spinner />;
     }
 

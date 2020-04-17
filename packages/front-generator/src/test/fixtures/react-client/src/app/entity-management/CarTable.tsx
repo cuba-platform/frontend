@@ -68,8 +68,7 @@ class CarTableComponent extends React.Component<
   };
 
   render() {
-    if (this.props.mainStore?.isDataLoadedForEntityManagement !== true)
-      return <Spinner />;
+    if (this.props.mainStore?.isEntityDataLoaded() !== true) return <Spinner />;
 
     const buttons = [
       <Link
