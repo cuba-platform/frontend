@@ -6,13 +6,19 @@ import {
   Expression,
   ParameterDeclaration,
   PropertyAssignment,
-  TypeAliasDeclaration,
+  TypeAliasDeclaration, TypeNode,
   VariableStatement
 } from "typescript";
 import {renderTSNodes} from "../../../common/ts-helpers";
 import {collectMethods, createMethodParamsType, MethodWithOverloads} from "./method-params-type";
 import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
-import {CUBA_APP_MODULE_SPEC, CUBA_APP_NAME, CUBA_APP_TYPE, FETCH_OPTIONS_NAME, FETCH_OPTIONS_TYPE} from "../../../common/constants";
+import {
+  CUBA_APP_MODULE_SPEC,
+  CUBA_APP_NAME,
+  CUBA_APP_TYPE,
+  FETCH_OPTIONS_NAME,
+  FETCH_OPTIONS_TYPE
+} from "../../../common/constants";
 import {exportModifier, idn, param, str} from "../../../common/ts-shorthands";
 import {ModelContext} from "../model/model-utils";
 
@@ -65,7 +71,7 @@ export function createService(service: RestService, ctx: ModelContext): CreateIt
 
   collectMethods(service.methods).forEach((mwo: MethodWithOverloads) => {
 
-    let paramTypeName : string | undefined = undefined;
+    let paramTypeName: string | undefined = undefined;
 
     //if any of overloads has params - create special type for it
     if (mwo.methods.some(m => m.params.length > 0)) {
@@ -75,7 +81,7 @@ export function createService(service: RestService, ctx: ModelContext): CreateIt
       paramTypeName = name;
     }
 
-    const cubaCallFunc = cubaAppCallFunc('invokeService', paramTypeName, [serviceName, mwo.methodName]);
+    const cubaCallFunc = cubaAppCallFunc('invokeService', paramTypeName, undefined, [serviceName, mwo.methodName], []);
     methodAssignments.push(ts.createPropertyAssignment(mwo.methodName, cubaCallFunc));
   });
 
@@ -84,17 +90,24 @@ export function createService(service: RestService, ctx: ModelContext): CreateIt
 
 }
 
-export function cubaAppCallFunc(method: string, paramTypeName: string | undefined, cubaAppCallParams: string[]): ArrowFunction {
+export function cubaAppCallFunc(method: string,
+                                paramTypeName: string | undefined,
+                                functionType: TypeNode | undefined,
+                                cubaAppCallParams: string[],
+                                typeArguments: TypeNode[]): ArrowFunction {
+
   const methodSubBody: ConciseBody = arrowFunc(
     paramTypeName ? [param('params', paramTypeName)] : [],
-    cubaAppMethodCall(method, cubaAppCallParams, paramTypeName != null));
+    functionType,
+    cubaAppMethodCall(method, cubaAppCallParams, paramTypeName != null, typeArguments));
 
   return arrowFunc(
     [param(CUBA_APP_NAME, CUBA_APP_TYPE), param(FETCH_OPTIONS_NAME + '?', FETCH_OPTIONS_TYPE)],
+    undefined,
     methodSubBody);
 }
 
-function cubaAppMethodCall(methodName: string, signature: string[], withParams: boolean) {
+function cubaAppMethodCall(methodName: string, signature: string[], withParams: boolean, typeArguments: TypeNode[]) {
   const argumentsArray: Expression[] = signature.map(s => str(s));
   argumentsArray.push(withParams ? idn('params') : idn('{}'));
   argumentsArray.push(idn(FETCH_OPTIONS_NAME));
@@ -102,11 +115,13 @@ function cubaAppMethodCall(methodName: string, signature: string[], withParams: 
   return ts.createBlock(
     [ts.createReturn(
       ts.createCall(
-        ts.createPropertyAccess(idn(CUBA_APP_NAME), idn(methodName)), undefined, argumentsArray))
+        ts.createPropertyAccess(idn(CUBA_APP_NAME), idn(methodName)), typeArguments, argumentsArray))
     ],
     true);
 }
 
-export function arrowFunc(parameters: ParameterDeclaration[], body: ConciseBody): ArrowFunction {
-  return ts.createArrowFunction(undefined, undefined, parameters, undefined, undefined, body);
+export function arrowFunc(parameters: ParameterDeclaration[], functionType: TypeNode | undefined,
+                          body: ConciseBody): ArrowFunction {
+
+  return ts.createArrowFunction(undefined, undefined, parameters, functionType, undefined, body);
 }

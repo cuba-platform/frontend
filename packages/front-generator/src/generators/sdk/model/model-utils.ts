@@ -28,3 +28,8 @@ export function collectModelContext(projectModel: ProjectModel) {
   return {entitiesMap, enumsMap}
 }
 
+export function findEntityByName(entityName: string, ctx: ModelContext): ProjectEntityInfo | undefined {
+  return [...ctx.entitiesMap.values()]
+    .find(entityInfo => entityInfo.entity.name === entityName);
+}
+
