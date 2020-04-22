@@ -6,9 +6,10 @@ output:
   dir: docs-build
 content:
   sources:
-    - url: git@github.com:cuba-platform/frontend.git
+    - url: https://github.com/cuba-platform/frontend.git
       branches:
-        - pv/docs/2.0
+        - develop
+#        - pv/docs/2.0
 #        - master
 #        - v[0-9]*
       start_path: docs-src/doc-component-repo
