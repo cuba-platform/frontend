@@ -7,7 +7,7 @@ export interface DataContainer {
   status: DataContainerStatus
 }
 
-export type DataContainerStatus = 'CLEAN' | 'LOADING' | 'DONE' | 'ERROR';
+export type DataContainerStatus = 'CLEAN' | 'LOADING' | 'DONE' | 'ERROR' | 'COMMIT_ERROR';
 
 export interface Containers {
   [containerId: string]: DataContainer;

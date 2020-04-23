@@ -139,7 +139,7 @@ export class DataInstanceStore<T> implements DataContainer {
         return updateResult;
       })
       .catch((e) => {
-        this.status = 'ERROR';
+        this.status = 'COMMIT_ERROR';
         throw e;
       })
   };

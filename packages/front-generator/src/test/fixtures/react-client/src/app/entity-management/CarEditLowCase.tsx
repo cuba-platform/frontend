@@ -185,6 +185,9 @@ class CarEditLowCaseComponent extends React.Component<
     if (mainStore == null || !mainStore.isEntityDataLoaded()) {
       return <Spinner />;
     }
+    if (status === "ERROR") {
+      return <></>;
+    }
 
     return (
       <Card className="narrow-layout">
@@ -327,7 +330,7 @@ class CarEditLowCaseComponent extends React.Component<
             <Button
               type="primary"
               htmlType="submit"
-              disabled={status !== "DONE" && status !== "ERROR"}
+              disabled={status !== "DONE" && status !== "COMMIT_ERROR"}
               loading={status === "LOADING"}
               style={{ marginLeft: "8px" }}
             >
@@ -345,6 +348,28 @@ class CarEditLowCaseComponent extends React.Component<
     } else {
       this.dataInstance.setItem(new Car());
     }
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.dataInstance.item,
+        () => {
+          this.props.form.setFieldsValue(
+            this.dataInstance.getFieldValues(this.fields)
+          );
+        }
+      )
+    );
+    this.reactionDisposers.push(
+      reaction(
+        () => this.dataInstance.status,
+        status => {
+          const { intl } = this.props;
+          if (status === "ERROR") {
+            message.error(intl.formatMessage({ id: "common.requestFailed" }));
+          }
+        }
+      )
+    );
 
     this.reactionDisposers.push(
       reaction(

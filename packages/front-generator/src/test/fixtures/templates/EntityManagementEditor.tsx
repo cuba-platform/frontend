@@ -145,6 +145,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
       return <Spinner />;
     }
 
+    if (status === "ERROR") {
+      return <></>;
+    }
+
     return (
       <Card className="narrow-layout">
         <Form onSubmit={this.handleSubmit} layout="vertical" ref={this.formRef}>
@@ -202,7 +206,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             <Button
               type="primary"
               htmlType="submit"
-              disabled={status !== "DONE" && status !== "ERROR"}
+              disabled={status !== "DONE" && status !== "COMMIT_ERROR"}
               loading={status === "LOADING"}
               style={{ marginLeft: "8px" }}
             >
@@ -220,6 +224,29 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     } else {
       this.dataInstance.setItem(new Car());
     }
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.dataInstance.item,
+        () => {
+          this.props.form.setFieldsValue(
+            this.dataInstance.getFieldValues(this.fields)
+          );
+        }
+      )
+    );
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.dataInstance.status,
+        status => {
+          const { intl } = this.props;
+          if (status === "ERROR") {
+            message.error(intl.formatMessage({ id: "common.requestFailed" }));
+          }
+        }
+      )
+    );
 
     this.reactionDisposers.push(
       reaction(
