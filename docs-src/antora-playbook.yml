@@ -9,7 +9,6 @@ content:
     - url: https://github.com/cuba-platform/frontend.git
       branches:
         - develop
-#        - pv/docs/2.0
 #        - master
 #        - v[0-9]*
       start_path: docs-src/doc-component-repo
