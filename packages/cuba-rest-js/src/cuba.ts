@@ -334,13 +334,15 @@ export class CubaApp {
   }
 
   public getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]> {
-    return this.fetch('GET', 'v2/permissions', null, {handleAs: 'json', ...fetchOptions});
+    // https://github.com/cuba-platform/frontend/issues/177
+    // security model is changed in cuba rest 7.2 so we do not support roles and permission at this moment
+    return Promise.resolve([]);
   }
 
   public getRoles(fetchOptions?: FetchOptions): Promise<RolesInfo> {
-    return this.requestIfSupported(
-      '7.2',
-      () => this.fetch('GET', 'v2/roles', null, {handleAs: 'json', ...fetchOptions}));
+    // https://github.com/cuba-platform/frontend/issues/177
+    // security model is changed in cuba rest 7.2 so we do not support roles and permission at this moment
+    return Promise.reject(CubaApp.NOT_SUPPORTED_BY_API_VERSION);
   }
 
   public getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo> {
