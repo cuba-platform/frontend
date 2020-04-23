@@ -269,11 +269,14 @@ var CubaApp = /** @class */ (function () {
         return fetchRes;
     };
     CubaApp.prototype.getPermissions = function (fetchOptions) {
-        return this.fetch('GET', 'v2/permissions', null, __assign({ handleAs: 'json' }, fetchOptions));
+        // https://github.com/cuba-platform/frontend/issues/177
+        // security model is changed in cuba rest 7.2 so we do not support roles and permission at this moment
+        return Promise.resolve([]);
     };
     CubaApp.prototype.getRoles = function (fetchOptions) {
-        var _this = this;
-        return this.requestIfSupported('7.2', function () { return _this.fetch('GET', 'v2/roles', null, __assign({ handleAs: 'json' }, fetchOptions)); });
+        // https://github.com/cuba-platform/frontend/issues/177
+        // security model is changed in cuba rest 7.2 so we do not support roles and permission at this moment
+        return Promise.reject(CubaApp.NOT_SUPPORTED_BY_API_VERSION);
     };
     CubaApp.prototype.getUserInfo = function (fetchOptions) {
         return this.fetch('GET', 'v2/userInfo', null, __assign({ handleAs: 'json' }, fetchOptions));
