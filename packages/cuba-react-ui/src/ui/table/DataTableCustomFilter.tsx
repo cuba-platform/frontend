@@ -281,6 +281,7 @@ class DataTableCustomFilterComponent<E extends WithId>
                   `${this.props.entityProperty}_operatorsDropdown`,
                   {initialValue: this.getDefaultOperator()})(
                   <Select
+                    dropdownClassName={`cuba-operator-dropdown-${this.props.entityProperty}`}
                     dropdownMatchSelectWidth={false}
                     onChange={(operator: ComparisonType) => this.changeOperator(operator)}>
                     {this.operatorTypeOptions}
@@ -353,6 +354,7 @@ class DataTableCustomFilterComponent<E extends WithId>
 
     return availableOperators.map((operator: ComparisonType) => {
       return <Select.Option key={`${this.props.entityProperty}.${operator}`}
+                            className={operatorToOptionClassName(operator)}
                             value={operator}>
         {this.getOperatorCaption(operator)}
       </Select.Option>;
@@ -574,6 +576,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   get selectField(): ReactNode {
     return this.createFilterInput(
       <Select dropdownMatchSelectWidth={false}
+              dropdownClassName={`cuba-value-dropdown-${this.props.entityProperty}`}
               className='cuba-filter-select'
               onSelect={this.onSelectChange}>
         {this.selectFieldOptions}
@@ -585,7 +588,11 @@ class DataTableCustomFilterComponent<E extends WithId>
   get selectFieldOptions(): ReactNode {
     return this.nestedEntityOptions.map((option) => {
       return (
-        <Select.Option title={option.caption} value={option.value} key={option.value}>
+        <Select.Option title={option.caption}
+                       value={option.value}
+                       key={option.value}
+                       className={`cuba-filter-value-${option.value}`}
+        >
           {option.caption}
         </Select.Option>
       );
@@ -596,12 +603,17 @@ class DataTableCustomFilterComponent<E extends WithId>
   get yesNoSelectField(): ReactNode {
     const component = (
       <Select dropdownMatchSelectWidth={false}
+              dropdownClassName={`cuba-value-dropdown-${this.props.entityProperty}`}
               className='cuba-filter-select'
               onSelect={this.onYesNoSelectChange}>
-        <Select.Option value='true'>
+        <Select.Option value='true'
+                       className='cuba-filter-value-true'
+        >
           <FormattedMessage id='cubaReact.dataTable.yes'/>
         </Select.Option>
-        <Select.Option value='false'>
+        <Select.Option value='false'
+                       className='cuba-filter-value-false'
+        >
           <FormattedMessage id='cubaReact.dataTable.no'/>
         </Select.Option>
       </Select>
@@ -754,6 +766,33 @@ function getAvailableOperators(propertyInfo: MetaPropertyInfo): ComparisonType[]
 function isComplexOperator(operator: ComparisonType): boolean {
   const complexOperators: string[] = ['in', 'notIn', 'inInterval'];
   return complexOperators.indexOf(operator) > -1;
+}
+
+export function operatorToOptionClassName(operator: ComparisonType): string {
+  let className = 'cuba-operator-';
+  switch (operator) {
+    case '=':
+      className += 'equals';
+      break;
+    case '<':
+      className += 'less';
+      break;
+    case '<=':
+      className += 'lessOrEqual';
+      break;
+    case '>':
+      className += 'greater';
+      break;
+    case '>=':
+      className += 'greaterOrEqual';
+      break;
+    case '<>':
+      className += 'notEqual';
+      break;
+    default:
+      className += operator;
+  }
+  return className;
 }
 
 const dataTableCustomFilter =

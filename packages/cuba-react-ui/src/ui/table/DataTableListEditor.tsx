@@ -154,7 +154,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
 
   @action
   handleInputNumberChange = (value: number | undefined): void => {
-    if (value) {
+    if (value != null) {
       this.inputModel.value = value;
       this.inputModel.caption = String(value);
     }
@@ -286,8 +286,9 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         return (
           <div>
             <Select dropdownMatchSelectWidth={false}
-                className='cuba-filter-select'
-                onSelect={this.onSelect}>
+                    dropdownClassName={`cuba-value-dropdown-${this.props.id}`}
+                    className='cuba-filter-select'
+                    onSelect={this.onSelect}>
               {this.selectFieldOptions}
             </Select>
           </div>
@@ -313,7 +314,11 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   get selectFieldOptions(): ReactNode {
     return this.availableOptions.map((option) => {
       return (
-        <Select.Option title={option.caption} value={option.value} key={option.value}>
+        <Select.Option title={option.caption}
+                       value={option.value}
+                       key={option.value}
+                       className={`cuba-filter-value-${option.value}`}
+        >
           {option.caption}
         </Select.Option>
       );
