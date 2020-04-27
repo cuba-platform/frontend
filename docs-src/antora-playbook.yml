@@ -1,5 +1,5 @@
 site:
-  title: CUBA Platform Frontend UI Manual
+  title: CUBA Frontend UI Manual
   url: https://doc.cuba-platform.com/frontend
   start_page: cuba-frontend-docs:overview:index.adoc
 output:
