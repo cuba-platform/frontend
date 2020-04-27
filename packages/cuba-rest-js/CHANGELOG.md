@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.4](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@0.7.3...@cuba-platform/rest@0.7.4) (2020-04-27)
+
+
+### Bug Fixes
+
+* **React:** backward compatibility for CUBA REST 7.2 permission model ([91ec002](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/91ec0022f003c7f5ed496b2d5fc06293cae4ae3e))
+
+
+
+
+
 ## [0.7.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@0.7.1...@cuba-platform/rest@0.7.2) (2019-12-27)
 
 

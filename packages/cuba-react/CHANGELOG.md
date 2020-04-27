@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.5](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react/compare/@cuba-platform/react@0.4.4...@cuba-platform/react@0.4.5) (2020-04-27)
+
+
+### Bug Fixes
+
+* **React:** reverted role permission checks ([547457b](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react/commit/547457b4440b7da266fe766fc0f53c2f3604fb88))
+
+
+
+
+
 ## [0.4.4](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react/compare/@cuba-platform/react@0.4.3...@cuba-platform/react@0.4.4) (2020-01-23)
 
 **Note:** Version bump only for package @cuba-platform/react
