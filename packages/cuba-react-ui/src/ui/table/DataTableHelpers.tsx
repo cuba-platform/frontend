@@ -12,10 +12,10 @@ import {DataTableCell} from './DataTableCell';
 import {
   ComparisonType,
   DataTableCustomFilter as CustomFilter,
-  DataTableCustomFilterProps
 } from './DataTableCustomFilter';
 import { toJS } from 'mobx';
 import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
+import {WrappedFormUtils} from 'antd/es/form/Form';
 import {OperatorType} from "@cuba-platform/rest";
 import {setPagination} from "../paging/Paging";
 
@@ -54,7 +54,7 @@ export interface DataColumnConfig {
   /**
    * See {@link DataTableCustomFilterProps.ref}
    */
-  customFilterRef?: (instance: React.Component<DataTableCustomFilterProps>) => void
+  customFilterRef?: (instance: WrappedFormUtils) => void
 }
 
 /**
@@ -260,8 +260,8 @@ export function generateCustomFilterDropdown(
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
   value: any,
   onValueChange: (value: any, propertyName: string) => void,
-  customFilterRefCallback?: (instance: React.Component<DataTableCustomFilterProps>) => void,
-): ((props: FilterDropdownProps) => React.ReactNode) {
+  customFilterRefCallback?: (instance: WrappedFormUtils) => void,
+): (props: FilterDropdownProps) => React.ReactNode {
 
   return (props: FilterDropdownProps) => (
     <CustomFilter entityName={entityName}
@@ -271,7 +271,7 @@ export function generateCustomFilterDropdown(
                   onOperatorChange={onOperatorChange}
                   value={value}
                   onValueChange={onValueChange}
-                  ref={customFilterRefCallback}
+                  ref={customFilterRefCallback as string & ((instance: WrappedFormUtils) => void)}
     />
   )
 
