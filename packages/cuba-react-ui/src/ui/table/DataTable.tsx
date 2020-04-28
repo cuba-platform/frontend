@@ -8,7 +8,7 @@ import {
 } from 'antd/es/table';
 import {action, computed, IReactionDisposer, observable, reaction, toJS} from 'mobx';
 import {observer} from 'mobx-react';
-import {ComparisonType, CustomFilterInputValue, DataTableCustomFilterProps} from './DataTableCustomFilter';
+import {ComparisonType, CustomFilterInputValue} from './DataTableCustomFilter';
 import './DataTable.less';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {
@@ -26,6 +26,7 @@ import {
   getPropertyInfoNN,
   WithId
 } from '@cuba-platform/react-core';
+import {WrappedFormUtils} from 'antd/es/form/Form';
 
 /**
  * @typeparam E - entity type.
@@ -134,8 +135,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
   disposers: IReactionDisposer[] = [];
 
   firstLoad: boolean = true;
-  customFilters: Map<string, React.Component<DataTableCustomFilterProps>> =
-    new Map<string, React.Component<DataTableCustomFilterProps>>();
+  customFilterForms: Map<string, WrappedFormUtils> = new Map<string, WrappedFormUtils>();
   // todo introduce Sort type
   defaultSort: string | undefined;
 
@@ -352,9 +352,8 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
       }
     });
 
-    this.customFilters.forEach(customFilter => {
-      // @ts-ignore
-      customFilter.resetFields(); // Reset Ant Form in CustomFilter
+    this.customFilterForms.forEach(form => {
+      form.resetFields(); // Reset Ant Form in CustomFilter
     });
 
     if (filter) {
@@ -495,7 +494,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
             onValueChange: this.handleFilterValueChange,
             enableSorter: true,
             mainStore: mainStore!,
-            customFilterRef: (instance: any) => this.customFilters.set(propertyName, instance)
+            customFilterRef: (instance: WrappedFormUtils) => this.customFilterForms.set(propertyName, instance)
           });
 
           return {

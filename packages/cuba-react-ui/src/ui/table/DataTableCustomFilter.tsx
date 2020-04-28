@@ -59,13 +59,6 @@ export interface DataTableCustomFilterProps extends FormComponentProps, MainStor
    */
   value: CustomFilterInputValue,
   onValueChange: (value: CustomFilterInputValue, propertyName: string) => void,
-  /**
-   * Provides access to custom filter's {@link https://3x.ant.design/components/form/ | Form},
-   * which can be used e.g. to clear the form fields when clearing all filters.
-   *
-   * @param instance
-   */
-  ref?: (instance: React.Component<DataTableCustomFilterProps>) => void,
 }
 
 export type ComparisonType = OperatorType | 'inInterval';
