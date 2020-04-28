@@ -137,6 +137,7 @@ describe('DataTable - filters', () => {
     await openFilter(columnIndex);
     await setOperator(attr, operator);
     for (const i in values) {
+      // noinspection JSUnfilteredForInLoop
       await addListItem(attr, values[i]);
     }
     await applyFilter();
@@ -146,6 +147,7 @@ describe('DataTable - filters', () => {
     await openFilter(columnIndex);
     await setOperator(attr, operator);
     for (const i in values) {
+      // noinspection JSUnfilteredForInLoop
       await addDateListItem(attr, values[i]);
     }
     await applyFilter();
@@ -155,6 +157,7 @@ describe('DataTable - filters', () => {
     await openFilter(columnIndex);
     await setOperator(attr, operator);
     for (const i in values) {
+      // noinspection JSUnfilteredForInLoop
       await addSelectListItem(attr, values[i]);
     }
     await applyFilter();
