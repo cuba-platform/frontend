@@ -8,8 +8,7 @@ content:
   sources:
     - url: https://github.com/cuba-platform/frontend.git
       branches:
-        - develop
-#        - master
+        - master
 #        - v[0-9]*
       start_path: docs-src/doc-component-repo
 ui:

@@ -1,6 +1,6 @@
 name: cuba-frontend-docs
 title: CUBA Frontend UI Manual
-version: v3.0.x
+version: v20.1
 nav:
   - modules/overview/nav.adoc
   - modules/getting-started/nav.adoc
