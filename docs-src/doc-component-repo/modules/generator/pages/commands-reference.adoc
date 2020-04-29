@@ -32,7 +32,7 @@ Generates:
 
     -d, --dest [dest]           destination directory
     -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -s, --dirShift [dirShift]  directory shift for html imports e.g ../../
     -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
     -h, --help                  output usage information
 ....
@@ -85,7 +85,7 @@ Generates a list of entities where each entity is represented by a card (similar
 
     -d, --dest [dest]           destination directory
     -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -s, --dirShift [dirShift]  directory shift for html imports e.g ../../
     -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
     -h, --help                  output usage information
 ....
@@ -116,7 +116,7 @@ Generates a blank component.
 
     -d, --dest [dest]           destination directory
     -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -s, --dirShift [dirShift]  directory shift for html imports e.g ../../
     -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
     -h, --help                  output usage information
 ....
@@ -138,7 +138,7 @@ Generates a React Native starter app. See xref:client-react-native:starter-guide
 
     -d, --dest [dest]    destination directory
     -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -vb, --verbose       log out additional info about generation process
+    -b, --verbose       log out additional info about generation process
     -h, --help           output usage information
 ....
 
