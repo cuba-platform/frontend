@@ -3,7 +3,7 @@ import {generate} from "../../../init";
 import * as path from "path";
 import {promisify} from "util";
 import * as fs from "fs";
-import {assertContent} from '../../test-commons';
+import {assertContent, assertFiles, opts} from '../../test-commons';
 
 const rimraf = promisify(require('rimraf'));
 
@@ -23,10 +23,10 @@ describe('react generator test', () => {
 
     await rimraf(`${REACT_DIR}/*`);
 
-    await generate('react-typescript', 'app', opts(REACT_DIR, null));
+    await generate('react-typescript', 'app', opts(REACT_DIR, null, modelPath));
     assert.ok(fs.existsSync(`entities/base`));
     assert.ok(fs.existsSync(`enums/enums.ts`));
-    assertFiles('src/index.tsx');
+    assertFiles('src/index.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client blank-component', async function () {
@@ -34,9 +34,9 @@ describe('react generator test', () => {
     await rimraf(`${COMPONENT_DIR}/*`);
 
     await generate('react-typescript', 'blank-component',
-      opts(COMPONENT_DIR, answers.blankComponent));
+      opts(COMPONENT_DIR, answers.blankComponent, modelPath));
 
-    assertFiles('src/app/component/BlankComponent.tsx');
+    assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client entity-cards', async function () {
@@ -44,9 +44,9 @@ describe('react generator test', () => {
     await rimraf(`${CARDS_DIR}/*`);
 
     await generate('react-typescript', 'entity-cards',
-      opts(CARDS_DIR, answers.entityCards));
+      opts(CARDS_DIR, answers.entityCards, modelPath));
 
-    assertFiles('src/app/entity-cards/MpgFavoriteCarCards.tsx');
+    assertFiles('src/app/entity-cards/MpgFavoriteCarCards.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client entity-management', async function () {
@@ -54,32 +54,20 @@ describe('react generator test', () => {
     await rimraf(`${EM_DIR}/*`);
 
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement));
+      opts(EM_DIR, answers.entityManagement, modelPath));
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement2));
+      opts(EM_DIR, answers.entityManagement2, modelPath));
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement3));
+      opts(EM_DIR, answers.entityManagement3, modelPath));
 
-    assertFiles('src/app/entity-management/CarCards.tsx');
-    assertFiles('src/app/entity-management/CarEdit.tsx');
-    assertFiles('src/app/entity-management/CarList.tsx');
-    assertFiles('src/app/entity-management/CarTable.tsx');
-    assertFiles('src/app/entity-management/CarManagement.tsx');
+    assertFiles('src/app/entity-management/CarCards.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/CarEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/CarList.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/CarTable.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/CarManagement.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
 });
 
-function opts(dir: string, answers: any) {
-  return {
-    model: modelPath,
-    dest: dir,
-    debug: true,
-    answers: Buffer.from(JSON.stringify(answers)).toString('base64')
-  }
-}
 
-function assertFiles(filePath: string) {
-  const actual = fs.readFileSync(path.join(REACT_DIR, filePath), 'utf8');
-  const expect = fs.readFileSync(path.join(FIXTURES_DIR, filePath), 'utf8');
-  assertContent(actual, expect);
-}
+

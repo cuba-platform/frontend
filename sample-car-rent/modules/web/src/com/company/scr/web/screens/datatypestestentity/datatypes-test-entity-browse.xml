@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="datatypesTestEntitiesTable"
+        messagesPack="com.company.scr.web.screens.datatypestestentity">
+  <data readOnly="true">
+    <collection id="datatypesTestEntitiesDc"
+                class="com.company.scr.entity.test.DatatypesTestEntity"
+                view="datatypesTestEntity-view">
+      <loader id="datatypesTestEntitiesDl">
+        <query>
+          <![CDATA[select e from scr_DatatypesTestEntity e]]>
+        </query>
+      </loader>
+    </collection>
+  </data>
+  <dialogMode height="600"
+              width="800"/>
+  <layout expand="datatypesTestEntitiesTable"
+          spacing="true">
+    <filter id="filter"
+            applyTo="datatypesTestEntitiesTable"
+            dataLoader="datatypesTestEntitiesDl">
+      <properties include=".*"/>
+    </filter>
+    <groupTable id="datatypesTestEntitiesTable"
+                width="100%"
+                dataContainer="datatypesTestEntitiesDc">
+      <actions>
+        <action id="create" type="create"/>
+        <action id="edit" type="edit"/>
+        <action id="remove" type="remove"/>
+      </actions>
+      <columns>
+        <column id="bigDecimalAttr"/>
+        <column id="booleanAttr"/>
+        <column id="dateAttr"/>
+        <column id="dateTimeAttr"/>
+        <column id="doubleAttr"/>
+        <column id="integerAttr"/>
+        <column id="longAttr"/>
+        <column id="stringAttr"/>
+        <column id="timeAttr"/>
+        <column id="uuidAttr"/>
+        <column id="localDateTimeAttr"/>
+        <column id="offsetDateTimeAttr"/>
+        <column id="localDateAttr"/>
+        <column id="localTimeAttr"/>
+        <column id="offsetTimeAttr"/>
+        <column id="enumAttr"/>
+        <column id="associationO2Oattr"/>
+        <column id="associationM2Oattr"/>
+        <column id="compositionO2Oattr"/>
+        <column id="name"/>
+      </columns>
+      <rowsCount/>
+      <buttonsPanel id="buttonsPanel"
+                    alwaysVisible="true">
+        <button id="createBtn" action="datatypesTestEntitiesTable.create"/>
+        <button id="editBtn" action="datatypesTestEntitiesTable.edit"/>
+        <button id="removeBtn" action="datatypesTestEntitiesTable.remove"/>
+      </buttonsPanel>
+    </groupTable>
+    <hbox id="lookupActions" spacing="true" visible="false">
+      <button action="lookupSelectAction"/>
+      <button action="lookupCancelAction"/>
+    </hbox>
+  </layout>
+</window>

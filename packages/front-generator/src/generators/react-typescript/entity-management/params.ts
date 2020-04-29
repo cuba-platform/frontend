@@ -53,14 +53,15 @@ export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
   }
 ];
 
-export type entityManagementListType = 'table' | 'list' | 'cards';
+export type EntityManagementListType = 'table' | 'list' | 'cards';
 
 export interface EntityManagementAnswers {
   entity: Entity;
   managementComponentName: string;
-  listType: entityManagementListType;
+  listType: EntityManagementListType;
   listComponentName: string;
   listView: View;
   editComponentName: string;
   editView: View;
+  nestedEntityInfo: Record<string, string>;
 }

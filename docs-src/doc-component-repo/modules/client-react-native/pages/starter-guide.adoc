@@ -1,0 +1,111 @@
+= Getting Started with React Native Client
+
+include::overview:partial$getting-started-note.adoc[]
+
+In this guide we will use the Frontend Generator to create a starter React Native client. You can try it with your own CUBA project, or you can use {petclinic}[Petclinic] sample project.
+
+If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.
+
+[source,bash]
+----
+gen-cuba-front react-native:app
+----
+
+Generator will prompt you to select one of the currently opened CUBA projects.
+
+image:generator:interactive-projects.png[Interactive project selection]
+
+If you are using the exported project model file, use `--model` parameter to pass it to generator.
+
+[source,bash]
+----
+gen-cuba-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json
+----
+
+Either way, your starter React Native client will be generated.
+
+== Running the Client
+
+Install the dependencies:
+
+[source,bash]
+----
+npm install
+----
+
+The client uses https://expo.io/[Expo]. You may prefer to install Expo CLI globally and use it from the command line directly, or use it via npm scripts, which doesn't require global installation.
+
+[source,bash]
+----
+# with Expo CLI installed globally
+expo [command] [options]
+
+# without global installation
+npm run expo -- [command] [options]
+----
+
+To install Expo CLI globally:
+
+[source,bash]
+----
+npm install -g expo-cli
+----
+
+See https://expo.io/[Expo documentation] for details on the available commands and options. If you are running Expo via npm scripts, note that there are convenience scripts for the most frequently used commands:
+
+[source,bash]
+----
+# start (restart) a local server for the app:
+# with Expo CLI installed globally:
+expo start
+# via generic npm script:
+npm run expo -- start
+# via convenience npm script:
+npm run start
+
+# run the project in the browser:
+# with Expo CLI installed globally:
+expo start --web
+# via generic npm script:
+npm run expo -- start --web
+# via convenience npm script:
+npm run web
+
+# run the project on an Android device or emulator:
+# with Expo CLI installed globally:
+expo start --android
+# via generic npm script:
+npm run expo -- start --android
+# via convenience npm script:
+npm run android
+
+# run the project in an iOS simulator:
+# with Expo CLI installed globally:
+expo start --ios
+# via generic npm script:
+npm run expo -- start --ios
+# via convenience npm script:
+npm run ios
+
+# eject:
+# with Expo CLI installed globally:
+expo eject
+# via generic npm script:
+npm run expo -- eject
+# via convenience npm script:
+npm run eject
+
+# passing options to a convenience script:
+npm run android -- --clear
+# which would be the same as:
+expo start --android --clear
+----
+
+TIP: In order to run the app on an emulator/simulator you may need to change `REACT_NATIVE_APP_CUBA_URL` in `.env` file from `localhost` to your IP address. You may need to clear the React Native Packager cache for the change to take effect (e.g. `expo start --android --clear` or `npm run android -- --clear`).
+
+Run the client using one of the commands above. This is what you shall be able to see:
+
+image:RNDemo.gif[React Native showcase]
+
+That's it!
+

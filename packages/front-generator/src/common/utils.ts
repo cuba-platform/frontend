@@ -2,15 +2,19 @@ import * as path from "path";
 import {Entity} from "./model/cuba-model";
 
 /**
- * @param {string} elementName my-app-custom
+ * Remove illegal symbols and normalize class name by standard js notation.
+ *
+ * @param {string} elementName 'my-app-custom' | 'myAppCustom' | 'my app custom'
  * @returns {string} class name MyAppCustom
  */
 export const elementNameToClass = (elementName: string): string => {
-  if (elementName == null) {
-    return elementName;
-  }
+
+  if (elementName.match(/$\s*^/)) throw new Error('Could not generate class name from empty string');
+
   return elementName
-    .split('-')
+    .trim().replace(/\s{2,}/g, ' ') // extra spaces
+    .replace(/[^\w\d\s_\-$]/g, '') // remove symbols not allowed in class name
+    .split(/[-\s]/) // split by separate words
     .map(capitalizeFirst)
     .join('');
 };
@@ -18,6 +22,8 @@ export const elementNameToClass = (elementName: string): string => {
 export const capitalizeFirst = (part: string) => part[0].toUpperCase() + part.slice(1);
 
 export const unCapitalizeFirst = (part: string) => part[0].toLowerCase() + part.slice(1);
+
+export const splitByCapitalLetter =  (word: string) => word.replace(/([^A-Z])([A-Z])/g, '$1 $2');
 
 export function convertToUnixPath(input: string): string {
   const isExtendedLengthPath = /^\\\\\?\\/.test(input);

@@ -14,26 +14,33 @@ import {
 
 import {
   collection,
-  Field,
   instance,
+  MainStoreInjected,
+  injectMainStore
+} from "@cuba-platform/react-core";
+
+import {
+  Field,
   withLocalizedForm,
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
-  MultilineText
-} from "@cuba-platform/react";
+  MultilineText,
+  Spinner
+} from "@cuba-platform/react-ui";
 
 import "../../app/App.css";
 
 import { Car } from "../../cuba/entities/scr$Car";
 import { Garage } from "../../cuba/entities/scr$Garage";
 
-type Props = FormComponentProps & EditorProps;
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
 };
 
+@injectMainStore
 @observer
 class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   dataInstance = instance<Car>(Car.NAME, {
@@ -43,14 +50,12 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
 
   garagesDc = collection<Garage>(Garage.NAME, { view: "_minimal" });
 
-  @observable
-  updated = false;
+  @observable updated = false;
   reactionDisposer: IReactionDisposer;
 
   fields = ["manufacturer", "model", "wheelOnRight", "garage"];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -115,6 +120,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     }
 
     const { status } = this.dataInstance;
+    const { mainStore } = this.props;
+    if (mainStore == null || !mainStore.isEntityDataLoaded()) {
+      return <Spinner />;
+    }
 
     return (
       <Card className="narrow-layout">

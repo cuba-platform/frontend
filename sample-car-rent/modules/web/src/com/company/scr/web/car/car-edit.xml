@@ -30,9 +30,10 @@
                 <field id="wheelOnRight"/>
                 <field id="carType"/>
                 <field id="ecoRank"/>
-                <field id="garage"
-                       datasource="carDs"
-                       optionsDatasource="garagesDs"/>
+                <field id="garage">
+                    <lookupPickerField id="garagePicker"
+                                       optionsDatasource="garagesDs" datasource="carDs" property="garage"/>
+                </field>
                 <field id="model"/>
                 <field id="price"/>
                 <field id="mileage"/>

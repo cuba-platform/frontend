@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="application-scr" insertBefore="administration">
+        <item screen="scr$Car.browse"/>
+        <item screen="scr$FavoriteCar.browse"/>
+        <item screen="scr$Garage.browse"/>
+    </menu>
+</menu-config>

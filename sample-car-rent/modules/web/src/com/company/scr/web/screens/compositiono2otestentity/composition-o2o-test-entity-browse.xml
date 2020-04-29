@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="compositionO2OTestEntitiesTable"
+        messagesPack="com.company.scr.web.screens.compositiono2otestentity">
+  <data readOnly="true">
+    <collection id="compositionO2OTestEntitiesDc"
+                class="com.company.scr.entity.test.CompositionO2OTestEntity"
+                view="compositionO2OTestEntity-view">
+      <loader id="compositionO2OTestEntitiesDl">
+        <query>
+          <![CDATA[select e from scr_CompositionO2OTestEntity e]]>
+        </query>
+      </loader>
+    </collection>
+  </data>
+  <dialogMode height="600"
+              width="800"/>
+  <layout expand="compositionO2OTestEntitiesTable"
+          spacing="true">
+    <filter id="filter"
+            applyTo="compositionO2OTestEntitiesTable"
+            dataLoader="compositionO2OTestEntitiesDl">
+      <properties include=".*"/>
+    </filter>
+    <groupTable id="compositionO2OTestEntitiesTable"
+                width="100%"
+                dataContainer="compositionO2OTestEntitiesDc">
+      <actions>
+        <action id="create" type="create"/>
+        <action id="edit" type="edit"/>
+        <action id="remove" type="remove"/>
+      </actions>
+      <columns>
+        <column id="name"/>
+        <column id="nestedComposition"/>
+      </columns>
+      <rowsCount/>
+      <buttonsPanel id="buttonsPanel"
+                    alwaysVisible="true">
+        <button id="createBtn" action="compositionO2OTestEntitiesTable.create"/>
+        <button id="editBtn" action="compositionO2OTestEntitiesTable.edit"/>
+        <button id="removeBtn" action="compositionO2OTestEntitiesTable.remove"/>
+      </buttonsPanel>
+    </groupTable>
+    <hbox id="lookupActions" spacing="true" visible="false">
+      <button action="lookupSelectAction"/>
+      <button action="lookupCancelAction"/>
+    </hbox>
+  </layout>
+</window>

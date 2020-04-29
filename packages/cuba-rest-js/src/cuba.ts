@@ -1,9 +1,10 @@
 import {
+  EffectivePermsInfo,
+  EffectivePermsLoadOptions,
   EntitiesWithCount,
   EntityMessages,
   EnumInfo,
   MetaClassInfo,
-  PermissionInfo, RolesInfo,
   SerializedEntity,
   UserInfo,
   View
@@ -333,16 +334,18 @@ export class CubaApp {
     return fetchRes;
   }
 
-  public getPermissions(fetchOptions?: FetchOptions): Promise<PermissionInfo[]> {
-    // https://github.com/cuba-platform/frontend/issues/177
-    // security model is changed in cuba rest 7.2 so we do not support roles and permission at this moment
-    return Promise.resolve([]);
-  }
+  public getEffectivePermissions(effectivePermsLoadOptions?: EffectivePermsLoadOptions, fetchOptions?: FetchOptions)
+    : Promise<EffectivePermsInfo> {
 
-  public getRoles(fetchOptions?: FetchOptions): Promise<RolesInfo> {
-    // https://github.com/cuba-platform/frontend/issues/177
-    // security model is changed in cuba rest 7.2 so we do not support roles and permission at this moment
-    return Promise.reject(CubaApp.NOT_SUPPORTED_BY_API_VERSION);
+    const loadOpts: EffectivePermsLoadOptions = {
+      entities: true,
+      entityAttributes: true,
+      specific: true,
+      ...effectivePermsLoadOptions};
+
+    return this.requestIfSupported(
+      '7.2',
+      () => this.fetchJson('GET', 'v2/permissions/effective', loadOpts, fetchOptions));
   }
 
   public getUserInfo(fetchOptions?: FetchOptions): Promise<UserInfo> {
@@ -355,6 +358,13 @@ export class CubaApp {
 
   public getFile(id: string, fetchOptions?: FetchOptions): Promise<Blob> {
     return this.fetch('GET', 'v2/files/' + id, null, {handleAs: 'blob', ...fetchOptions});
+  }
+
+  /**
+   * Shorthand for {@link fetch} that already has 'json' as default 'handleAs' property
+   */
+  public fetchJson<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T> {
+    return this.fetch(method, path, data, {handleAs: 'json', ...fetchOptions});
   }
 
   public fetch<T>(method: string, path: string, data?: any, fetchOptions?: FetchOptions): Promise<T> {

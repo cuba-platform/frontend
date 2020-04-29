@@ -3,7 +3,12 @@ import {BaseGenerator, readProjectModel} from "../../../common/base-generator";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 
-import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../../common/studio/studio-integration";
+import {
+  ERR_STUDIO_NOT_CONNECTED,
+  exportProjectModel,
+  getOpenedCubaProjects,
+  StudioProjectInfo
+} from "../../../common/studio/studio-integration";
 import {ownVersion} from "../../../cli";
 import {SdkAllGenerator} from "../../sdk/sdk-generator";
 
@@ -39,15 +44,16 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     }
 
     const openedCubaProjects = await getOpenedCubaProjects();
-    if (openedCubaProjects.length < 1) {
-      this.env.error(Error("Please open Cuba Studio Intellij and enable Old Studio integration"));
+    if (!openedCubaProjects || openedCubaProjects.length < 1) {
+      this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+      return;
     }
 
     this.answers = await this.prompt([{
       name: 'projectInfo',
       type: 'list',
       message: 'Please select CUBA project you want to use for generation',
-      choices: openedCubaProjects.map(p => ({
+      choices: openedCubaProjects && openedCubaProjects.map(p => ({
         name: `${p.name} [${p.path}]`,
         value: p
       }))
@@ -62,6 +68,10 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     } else if (this.answers) {
       this.modelPath = path.join(process.cwd(), 'projectModel.json');
       await exportProjectModel(this.answers.projectInfo.locationHash, this.modelPath);
+
+      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       this.cubaProjectModel = readProjectModel(this.modelPath);
       this.model = createModel(this.cubaProjectModel.project);
     }
@@ -87,7 +97,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async generateSdk() {
     const sdkDest = 'src/cuba';
-    this.log(`Generate sdk model and services to ${sdkDest}`);
+    this.log(`Generate SDK model and services to ${sdkDest}`);
 
     const sdkOpts = {
       model: this.modelPath,

@@ -9,19 +9,23 @@ import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 import {
-<% if (Object.keys(editRelations).length > 0) { %>
+<% if (Object.keys(editAssociations).length > 0) { %>
   collection,
 <% } %>
+  instance, MainStoreInjected, injectMainStore
+} from "@cuba-platform/react-core";
+
+import {
 <% if (editAttributes.length > 0) { %>
   Field,
 <% } %>
-  instance,
   withLocalizedForm,
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
-  MultilineText
-} from "@cuba-platform/react";
+  MultilineText,
+  Spinner
+} from "@cuba-platform/react-ui";
 
 import "<%= relDirShift %>app/App.css";
 
@@ -29,34 +33,32 @@ import "<%= relDirShift %>app/App.css";
   import {<%= relationImport.className %>} from "<%= relDirShift %><%= relationImport.path %>";
 <% }) %>
 
-type Props = FormComponentProps & EditorProps;
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
 };
 
-
+@injectMainStore
 @observer
 class <%= editComponentName %>Component extends React.Component<Props & WrappedComponentProps> {
 
   dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= editView.name %>', loadImmediately: false});
 
-  <% Object.entries(editRelations).forEach(([attrName, entity]) => { %>
+  <% Object.entries(editAssociations).forEach(([attrName, entity]) => { %>
     <%= attrName %>sDc = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '_minimal'});
   <% }) %>
 
-  @observable
-  updated = false;
+  @observable updated = false;
   reactionDisposer: IReactionDisposer;
 
   fields = [
-  <% editView.allProperties.forEach(p => { %>
+  <% editAttributes.forEach(p => { -%>
     '<%= p.name %>',
   <% }) %>
   ];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -102,6 +104,10 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
     }
 
     const {status} = this.dataInstance;
+    const {mainStore} = this.props;
+    if (mainStore == null || !mainStore.isEntityDataLoaded()) {
+      return <Spinner/>;
+    }
 
     return (
       <Card className='narrow-layout'>
@@ -114,7 +120,15 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
                    form={ this.props.form }
                    formItemOpts={ {style: {marginBottom: "12px"} } }
 
-              <% if (Object.keys(editRelations).includes(attr.name)) { %>
+
+              <% if (Object.keys(editCompositions).includes(attr.name)) { %>
+                   <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
+                        nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
+                   <% } %>
+                   parentEntityInstanceId={this.props.entityId}
+              <% } %>
+
+              <% if (Object.keys(editAssociations).includes(attr.name)) { %>
                    optionsContainer={this.<%= attr.name %>sDc}
               <% } %>
 

@@ -19,6 +19,10 @@
             <column width="250px">
                 <field id="name"/>
                 <field id="capacity"/>
+                <field id="address"/>
+                <field id="vanEntry"/>
+                <field id="workingHoursFrom"/>
+                <field id="workingHoursTo"/>
             </column>
         </fieldGroup>
         <frame id="windowActions"

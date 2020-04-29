@@ -1,0 +1,36 @@
+site:
+  title: CUBA Frontend UI Manual
+  url: https://doc.cuba-platform.com/frontend
+  start_page: cuba-frontend-docs:overview:index.adoc
+output:
+  dir: docs-build
+content:
+  sources:
+    - url: https://github.com/cuba-platform/frontend.git
+      branches:
+        - develop
+#        - master
+#        - v[0-9]*
+      start_path: docs-src/doc-component-repo
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+asciidoc:
+  attributes:
+    manual_platform: 'https://doc.cuba-platform.com/manual-latest'
+    manual_restApi: 'https://doc.cuba-platform.com/restapi-7.2'
+    manual_studio: 'https://doc.cuba-platform.com/studio'
+    manual_studio_frontendUi: 'https://doc.cuba-platform.com/studio/#frontend_ui'
+    restApiSwagger: 'http://files.cuba-platform.com/swagger/7.2'
+    compositionGuide: 'https://www.cuba-platform.com/guides/data-modelling-composition'
+    petclinic: 'https://github.com/cuba-platform/cuba-petclinic'
+    # TODO Change this link to https://ant.design once https://github.com/cuba-platform/frontend/issues/168 is implemented
+    antDesign_base: 'https://3x.ant.design'
+    npm_frontendGenerator: 'https://www.npmjs.com/package/@cuba-platform/front-generator'
+    npm_cubaReactCore: 'https://www.npmjs.com/package/@cuba-platform/react-core'
+    npm_cubaReactUi: 'https://www.npmjs.com/package/@cuba-platform/react-ui'
+    npm_cubaRestJs: 'https://www.npmjs.com/package/@cuba-platform/rest'
+    forum: 'https://www.cuba-platform.com/discuss'
+    api_rest: 'link:../api-reference/cuba-rest-js/index.html'

@@ -59,6 +59,26 @@ test:e2e:polymer2-ts
 
 <a name="commits"/>
 
+### Documentation
+
+We use [Antora](https://antora.org/) to generate the [documentation site](https://doc.cuba-platform.com/frontend). Antora uses [AsciiDoc](http://asciidoc.org/) syntax.
+
+Documentation sources are located in the `docs-src` folder:
+
+- `docs-src/api-reference` folder contains the API Reference documentation that is generated from the TSDoc comments.
+
+- The rest of `docs-src` folder are the source files used by Antora.
+
+#### Building the Documentation Site
+
+1. Make sure that the component descriptor (`docs-src/doc-component-repo/antora.yml`) has the correct documentation version (it corresponds to the version of Frontend Generator).
+
+2. Make sure that the playbook file (`docs-src/antora-playbook.yml`) has the correct repo url and branch names. For example, you may want to build the documentation from a feature branch - then you'll need to add the name of that branch. Or you may want to change the remote repo url to the local filesystem path in order to build from your local repo.
+
+3. Update the API Reference with `npm run doc:src`. Commit the changes (and push them if you have specified the remote repo in the playbook file).
+
+4. Run `npm run doc:site`. This will build a site using the repo and the branches specified in the playbook file. The generated site will be placed to the `docs` folder.  
+
 ### Making a Commit
 
 Use `npm run commit` instead of `git commit`. This will launch [Commitizen CLI](https://github.com/commitizen/cz-cli). This tool will walk you through creating a conventional commit message. Conventional commits allow generating changelogs and simplify managing of semantic versioning.

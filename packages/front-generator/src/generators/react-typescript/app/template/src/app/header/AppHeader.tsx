@@ -3,7 +3,7 @@ import * as React from "react";
 import {observer} from "mobx-react";
 import './AppHeader.css';
 import logo from './logo.png';
-import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
+import {injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
 import {LanguageSwitcher} from '../../i18n/LanguageSwitcher';
 import {injectIntl, WrappedComponentProps} from 'react-intl';
 
@@ -23,9 +23,9 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
           <LanguageSwitcher className='panelelement language-switcher -header'/>
           <span className="panelelement">{appState.userName}</span>
           <Button className="panelelement"
+                  id='button_logout'
                   ghost={true}
                   icon='logout'
-                  style={{border: 0}}
                   onClick={this.showLogoutConfirm}/>
         </div>
       </div>

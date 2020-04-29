@@ -1,0 +1,167 @@
+= Commands Description
+
+[[react-typescript-app]]
+== react-typescript:app
+
+include::partial$feat-available-in-studio.adoc[]
+
+Generates a React starter app. See xref:client-react:starter-guide.adoc[Getting Started with React Client].
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information
+....
+
+[[react-typescript-entity-management]]
+== react-typescript:entity-management
+
+include::partial$feat-available-in-studio.adoc[]
+
+Generates:
+
+- Route / main menu item
+- *Edit component* - allows to edit an entity instance.
+- *List component* - allows to view the list of entities and open the Edit component for a selected entity instance.
+- *CRUD component* - component that renders a List component or an Edit component depending on whether the route path contains an `entityId` parameter (see https://reacttraining.com/react-router/[React Router] documentation for more details on how routing works in React client).
+
+....
+  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information
+....
+
+Browser screen is available in one of the following flavors (we call it list types):
+
+* list
++
+image:browser-list.png[List browser example]
+
+* cards
++
+image:browser-cards.png[Cards browser example]
+
+* table
++
+image:client-react:data-table-demo.gif[Data table showcase]
+
+`answers` format:
+
+....
+{
+    "editView": {
+      "name": "car-edit", // Name of view that will be used in Editor screen
+      "entityName": "mpg$Car" // Entity name
+    },
+    "editComponentName": "CarEdit", // Editor component class name
+    "listView": {
+      "name": "car-edit", // Name of view that will be used in Browser screen
+      "entityName": "mpg$Car" // Entity name
+    },
+    "listComponentName": "CarCards", // List component class name
+    "listType": "cards", // List type: list, cards or table
+    "entity": {
+      "name": "mpg$Car" // Entity name
+    },
+    "managementComponentName": "CarManagement" // Management component class name (renders either Editor or Browser depending on current route)
+    }
+}
+....
+
+== react-typescript:entity-cards
+
+include::partial$feat-available-in-studio.adoc[]
+
+Generates a list of entities where each entity is represented by a card (similar to a List component with `"listType": "cards"`, but read-only, see link:#react-typescript-entity-management[react-typescript:entity-management])
+
+....
+  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information
+....
+
+`answers` format:
+
+....
+{
+    "entityView": {
+      "name": "favoriteCar-view", // View name
+      "entityName": "mpg$FavoriteCar" // Entity name
+    },
+    "componentName": "FavoriteCarCards", // Component class name
+    "entity": {
+      "name": "mpg$FavoriteCar" // Entity name
+    }
+}
+....
+
+== react-typescript:blank-component
+
+include::partial$feat-available-in-studio.adoc[]
+
+Generates a blank component.
+
+....
+  Options:
+
+    -d, --dest [dest]           destination directory
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
+    -ds, --dirShift [dirShift]  directory shift for html imports e.g ../../
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
+    -h, --help                  output usage information
+....
+
+`answers` format:
+
+....
+{
+    "componentName": "BlankComponent" // Component class name
+}
+....
+
+== react-native:app
+
+Generates a React Native starter app. See xref:client-react-native:starter-guide.adoc[Getting Started with React Native Client].
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -vb, --verbose       log out additional info about generation process
+    -h, --help           output usage information
+....
+
+== sdk:all
+
+Generates framework-agnostic xref:typescript-sdk:index.adoc[TypeScript SDK]. It is also generated when executing link:#react-typescript-app[react-typescript:app] command.
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information
+....
+
+== sdk:model
+
+Generates SDK model only.
+
+....
+  Options:
+
+    -d, --dest [dest]    destination directory
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
+    -h, --help           output usage information
+....

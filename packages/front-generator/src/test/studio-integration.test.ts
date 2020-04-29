@@ -42,7 +42,7 @@ describe('studio-integration', function () {
     getOpenedCubaProjects()
       .then((projects) => {
         CI_MODE ?
-        expect(projects[0].locationHash === 'd50df17f')
+        expect(projects && projects[0].locationHash === 'd50df17f')
         :console.log(JSON.stringify(projects));
       })
   })

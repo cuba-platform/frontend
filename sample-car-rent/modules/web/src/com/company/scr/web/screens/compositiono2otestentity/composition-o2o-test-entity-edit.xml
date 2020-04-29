@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.scr.web.screens.compositiono2otestentity">
+  <data>
+    <instance id="compositionO2OTestEntityDc"
+              class="com.company.scr.entity.test.CompositionO2OTestEntity"
+              view="compositionO2OTestEntity-view">
+      <loader/>
+      <instance id="nestedCompositionDc" property="nestedComposition"/>
+    </instance>
+  </data>
+  <dialogMode height="600"
+              width="800"/>
+  <layout expand="editActions" spacing="true">
+    <form id="form" dataContainer="compositionO2OTestEntityDc">
+      <column width="250px">
+        <textField id="nameField" property="name"/>
+        <pickerField id="nestedCompositionField" property="nestedComposition">
+          <actions>
+            <action id="open_composition" type="picker_open_composition"/>
+            <action id="clear" type="picker_clear"/>
+          </actions>
+        </pickerField>
+      </column>
+    </form>
+    <hbox id="editActions" spacing="true">
+      <button action="windowCommitAndClose"/>
+      <button action="windowClose"/>
+    </hbox>
+  </layout>
+</window>

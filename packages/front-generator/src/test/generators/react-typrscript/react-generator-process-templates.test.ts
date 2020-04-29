@@ -40,9 +40,10 @@ class CopyTplGenerator extends Base {
       editComponentName: "CarEdit",
       listComponentName: "CarCards",
       className: "CarManagement",
-      editRelations: {
+      editAssociations: {
         garage: {className: 'Garage', path: 'cuba/entities/scr$Garage'}
       },
+      editCompositions: {},
       relationImports: [
         {className: 'Car', path: 'cuba/entities/scr$Car'},
         {className: 'Garage', path: 'cuba/entities/scr$Garage'}],

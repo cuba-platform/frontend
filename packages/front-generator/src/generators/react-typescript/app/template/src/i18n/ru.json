@@ -1,5 +1,13 @@
 {
   "common.alt.logo": "Лого",
+  "common.ok": "OK",
+  "common.cancel": "Отмена",
+  "common.create": "Создать",
+  "common.edit": "Изменить",
+  "common.remove": "Удалить",
+  "common.unsavedEntity": "(несохранённая сущность или сущность без имени)",
+  "common.requestFailed": "Не удалось выполнить операцию",
+
   "home.welcome": "Добро пожаловать в",
   "router.home": "Главная страница",
   "login.failed": "Не удалось войти",
@@ -11,7 +19,8 @@
   "header.logout.cancel": "Отмена",
 
   "cubaReact.dataTable.clearAllFilters": "Очистить фильтры",
-  "cubaReact.dataTable.requiredField": "Обязательное поле",
+  "cubaReact.dataTable.validation.requiredField": "Обязательное поле",
+  "cubaReact.dataTable.validation.uuid": "Не является валидным UUID",
   "cubaReact.dataTable.failedToLoadNestedEntities": "Не удалось загрузить вложенные сущности",
   "cubaReact.dataTable.loading": "Загрузка...",
 
@@ -28,6 +37,7 @@
   "cubaReact.dataTable.no": "Нет",
   "cubaReact.dataTable.ok": "ОК",
   "cubaReact.dataTable.reset": "Сбросить",
+  "cubaReact.dataTable.add": "Добавить",
 
   "cubaReact.dataTable.intervalEditor.last": "Предыдущие",
   "cubaReact.dataTable.intervalEditor.next": "Следующие",
@@ -46,9 +56,22 @@
 
   "cubaReact.dataTable.listEditor.addItem": "Добавить",
 
+  "cubaReact.file.downloading": "Скачивание файла...",
+  "cubaReact.file.downloadFailed": "Не удалось скачать файл",
+
   "cubaReact.fileUpload.replace": "Чтобы загрузить другой файл, нажмите на эту область, или перетащите в неё файл.",
   "cubaReact.fileUpload.upload": "Нажмите на эту область, или перетащите в неё файл, чтобы загрузить его",
   "cubaReact.fileUpload.uploadFailed": "Не удалось загрузить файл",
+
+  "cubaReact.imagePreview.title": "Просмотр изображения",
+  "cubaReact.imagePreview.alt": "Просмотр изображения",
+  "cubaReact.imagePreview.close": "Закрыть",
+  "cubaReact.imagePreview.download": "Скачать",
+
+  "cubaReact.nestedEntityField.create": "Создать сущность",
+  "cubaReact.nestedEntityField.delete.areYouSure": "Удалить вложенную сущность?",
+
+  "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Удалить вложенную сущность?",
 
   "antd.form.validation.default": "Ошибка валидации в поле %s.",
   "antd.form.validation.required": "Поле %s является обязательным.",

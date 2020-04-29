@@ -1,17 +1,18 @@
 {
   "name": "@cuba-platform/rest",
-  "version": "0.7.4",
+  "version": "1.0.0-alpha.1",
   "description": "JavaScript library for working with CUBA Platform's REST API v2",
   "main": "dist-node/cuba.js",
   "typings": "dist-node/cuba.d.ts",
   "scripts": {
     "lint": "tslint -c tslint.json src/**/*.ts",
-    "coverage": "nyc mocha -t 30000",
+    "test": "jest",
+    "coverage": "tsc && npm run test -- --coverage",
     "prepare-browser-test": "browserify test/cuba.test.js > test/cuba-browser.test.js",
     "compile": "tsc",
     "types:browser": "tsc --declarationDir dist-browser --emitDeclarationOnly true",
-    "dist": "npm run compile && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js",
-    "generate-docs": "typedoc --module commonjs --out ../../docs/cuba-rest-js src",
+    "dist": "npm run compile && mkdir -p dist-browser && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js",
+    "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/cuba-rest-js src",
     "prepublishOnly": "npm run dist"
   },
   "repository": {
@@ -19,26 +20,21 @@
     "url": "https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js"
   },
   "devDependencies": {
+    "babel-jest": "^25.1.0",
     "browserify": "^16.2.3",
-    "chai": "^4.2.0",
-    "mocha": "^5.1.1",
+    "jest": "^25.1.0",
     "node-fetch": "^2.6.0",
-    "nyc": "~14.1.1",
+    "source-map-support": "^0.5.16",
+    "ts-node": "^8.6.2",
     "tslint": "~5.17.0",
-    "typescript": "3.5.2"
+    "typedoc": "^0.15.3",
+    "typescript": "~3.7.4"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=12"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "nyc": {
-    "check-coverage": true,
-    "statements": 80,
-    "branches": 77,
-    "functions": 77,
-    "lines": 85
   },
   "author": "Vlad Minaev <minaev@haulmont.com>",
   "license": "Apache-2.0",

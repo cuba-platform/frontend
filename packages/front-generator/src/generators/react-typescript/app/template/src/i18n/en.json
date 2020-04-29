@@ -1,5 +1,13 @@
 {
   "common.alt.logo": "Logo",
+  "common.ok": "OK",
+  "common.cancel": "Cancel",
+  "common.create": "Create",
+  "common.edit": "Edit",
+  "common.remove": "Remove",
+  "common.unsavedEntity": "(unsaved or unnamed entity)",
+  "common.requestFailed": "Failed to perform the requested operation",
+
   "home.welcome": "Welcome to",
   "router.home": "Home",
   "login.failed": "Login failed",
@@ -11,7 +19,8 @@
   "header.logout.cancel": "Cancel",
 
   "cubaReact.dataTable.clearAllFilters": "Clear filters",
-  "cubaReact.dataTable.requiredField": "Required field",
+  "cubaReact.dataTable.validation.requiredField": "Required field",
+  "cubaReact.dataTable.validation.uuid": "Not a valid UUID",
   "cubaReact.dataTable.failedToLoadNestedEntities": "Failed to load nested entities list",
   "cubaReact.dataTable.loading": "Loading...",
 
@@ -28,6 +37,7 @@
   "cubaReact.dataTable.no": "No",
   "cubaReact.dataTable.ok": "OK",
   "cubaReact.dataTable.reset": "Reset",
+  "cubaReact.dataTable.add": "Add",
 
   "cubaReact.dataTable.intervalEditor.last": "Last",
   "cubaReact.dataTable.intervalEditor.next": "Next",
@@ -46,9 +56,22 @@
 
   "cubaReact.dataTable.listEditor.addItem": "Add Item",
 
+  "cubaReact.file.downloading": "Downloading file...",
+  "cubaReact.file.downloadFailed": "Download failed",
+
   "cubaReact.fileUpload.replace": "Upload a different file by clicking or dragging file to this area",
   "cubaReact.fileUpload.upload": "Click or drag file to this area to upload",
   "cubaReact.fileUpload.uploadFailed": "File upload failed",
+
+  "cubaReact.imagePreview.title": "Image Preview",
+  "cubaReact.imagePreview.alt": "Image Preview",
+  "cubaReact.imagePreview.close": "Close",
+  "cubaReact.imagePreview.download": "Download",
+
+  "cubaReact.nestedEntityField.create": "Create an entity",
+  "cubaReact.nestedEntityField.delete.areYouSure": "Are you sure you want to delete the nested entity?",
+
+  "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Are you sure you want to delete the nested entity?",
 
   "antd.form.validation.default": "Field %s has a validation error.",
   "antd.form.validation.required": "Field %s is mandatory.",

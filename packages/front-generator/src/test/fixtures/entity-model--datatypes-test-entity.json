@@ -1,0 +1,420 @@
+{
+  "name": "scr_DatatypesTestEntity",
+  "className": "DatatypesTestEntity",
+  "packageName": "com.company.scr.entity.test",
+  "dataStore": "_MAIN_",
+  "table": "SCR_DATATYPES_TEST_ENTITY",
+  "updatable": false,
+  "creatable": false,
+  "hasUuid": false,
+  "softDelete": false,
+  "versioned": false,
+  "embeddable": false,
+  "persistentEntity": true,
+  "replaceParent": false,
+  "systemLevel": false,
+  "namePattern": "%s|name",
+  "mappedSuperclass": false,
+  "fqn": "com.company.scr.entity.test.DatatypesTestEntity",
+  "imported": false,
+  "parentPackage": "com.haulmont.cuba.core.entity",
+  "parentClassName": "StandardEntity",
+  "attributes": [
+    {
+      "name": "bigDecimalAttr",
+      "type": {
+        "packageName": "java.math",
+        "className": "BigDecimal",
+        "fqn": "java.math.BigDecimal",
+        "label": "BigDecimal"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "BIG_DECIMAL_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "booleanAttr",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Boolean",
+        "fqn": "java.lang.Boolean",
+        "label": "Boolean"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "BOOLEAN_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "byteArrayAttr",
+      "type": {
+        "packageName": "",
+        "className": "byte[]",
+        "fqn": "byte[]",
+        "label": "ByteArray"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "BYTE_ARRAY_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "dateAttr",
+      "type": {
+        "packageName": "java.util",
+        "className": "Date",
+        "fqn": "java.util.Date",
+        "label": "Date"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "DATE_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false,
+      "temporalType": "DATE"
+    },
+    {
+      "name": "dateTimeAttr",
+      "type": {
+        "packageName": "java.util",
+        "className": "Date",
+        "fqn": "java.util.Date",
+        "label": "DateTime"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "DATE_TIME_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false,
+      "temporalType": "TIMESTAMP"
+    },
+    {
+      "name": "doubleAttr",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Double",
+        "fqn": "java.lang.Double",
+        "label": "Double"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "DOUBLE_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "integerAttr",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Integer",
+        "fqn": "java.lang.Integer",
+        "label": "Integer"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "INTEGER_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "longAttr",
+      "type": {
+        "packageName": "java.lang",
+        "className": "Long",
+        "fqn": "java.lang.Long",
+        "label": "Long"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "LONG_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "stringAttr",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "STRING_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "timeAttr",
+      "type": {
+        "packageName": "java.util",
+        "className": "Date",
+        "fqn": "java.util.Date",
+        "label": "Time"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "TIME_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false,
+      "temporalType": "TIME"
+    },
+    {
+      "name": "uuidAttr",
+      "type": {
+        "packageName": "java.util",
+        "className": "UUID",
+        "fqn": "java.util.UUID",
+        "label": "UUID"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "UUID_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "localDateTimeAttr",
+      "type": {
+        "packageName": "java.time",
+        "className": "LocalDateTime",
+        "fqn": "java.time.LocalDateTime",
+        "label": "localDateTime"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "LOCAL_DATE_TIME_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "offsetDateTimeAttr",
+      "type": {
+        "packageName": "java.time",
+        "className": "OffsetDateTime",
+        "fqn": "java.time.OffsetDateTime",
+        "label": "offsetDateTime"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "OFFSET_DATE_TIME_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "localDateAttr",
+      "type": {
+        "packageName": "java.time",
+        "className": "LocalDate",
+        "fqn": "java.time.LocalDate",
+        "label": "localDate"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "LOCAL_DATE_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "localTimeAttr",
+      "type": {
+        "packageName": "java.time",
+        "className": "LocalTime",
+        "fqn": "java.time.LocalTime",
+        "label": "localTime"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "LOCAL_TIME_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "offsetTimeAttr",
+      "type": {
+        "packageName": "java.time",
+        "className": "OffsetTime",
+        "fqn": "java.time.OffsetTime",
+        "label": "offsetTime"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "OFFSET_TIME_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "enumAttr",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "TestEnum",
+        "fqn": "com.company.scr.entity.test.TestEnum",
+        "label": "TestEnum"
+      },
+      "mappingType": "ENUM",
+      "readOnly": false,
+      "column": "ENUM_ATTR",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    },
+    {
+      "name": "associationO2Oattr",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "AssociationO2OTestEntity",
+        "fqn": "com.company.scr.entity.test.AssociationO2OTestEntity",
+        "label": "AssociationO2OTestEntity",
+        "entityName": "scr_AssociationO2OTestEntity"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "ONE_TO_ONE",
+      "readOnly": false,
+      "column": "ASSOCIATION_O2_OATTR_ID",
+      "mandatory": false,
+      "unique": false,
+      "mappedBy": "",
+      "transient": false
+    },
+    {
+      "name": "associationO2Mattr",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "AssociationO2MTestEntity",
+        "fqn": "com.company.scr.entity.test.AssociationO2MTestEntity",
+        "label": "AssociationO2MTestEntity",
+        "entityName": "scr_AssociationO2MTestEntity"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "ONE_TO_MANY",
+      "readOnly": false,
+      "mandatory": false,
+      "unique": false,
+      "mappedBy": "datatypesTestEntity",
+      "transient": false
+    },
+    {
+      "name": "associationM2Oattr",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "AssociationM2OTestEntity",
+        "fqn": "com.company.scr.entity.test.AssociationM2OTestEntity",
+        "label": "AssociationM2OTestEntity",
+        "entityName": "scr_AssociationM2OTestEntity"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "MANY_TO_ONE",
+      "readOnly": false,
+      "column": "ASSOCIATION_M2_OATTR_ID",
+      "mandatory": false,
+      "unique": false,
+      "transient": false
+    },
+    {
+      "name": "associationM2Mattr",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "AssociationM2MTestEntity",
+        "fqn": "com.company.scr.entity.test.AssociationM2MTestEntity",
+        "label": "AssociationM2MTestEntity",
+        "entityName": "scr_AssociationM2MTestEntity"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "MANY_TO_MANY",
+      "readOnly": false,
+      "mandatory": false,
+      "unique": false,
+      "mappedBy": "",
+      "transient": false
+    },
+    {
+      "name": "compositionO2Oattr",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "CompositionO2OTestEntity",
+        "fqn": "com.company.scr.entity.test.CompositionO2OTestEntity",
+        "label": "CompositionO2OTestEntity",
+        "entityName": "scr_CompositionO2OTestEntity"
+      },
+      "mappingType": "COMPOSITION",
+      "cardinality": "ONE_TO_ONE",
+      "readOnly": false,
+      "column": "COMPOSITION_O2_OATTR_ID",
+      "mandatory": false,
+      "unique": false,
+      "mappedBy": "",
+      "transient": false
+    },
+    {
+      "name": "compositionO2Mattr",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "CompositionO2MTestEntity",
+        "fqn": "com.company.scr.entity.test.CompositionO2MTestEntity",
+        "label": "CompositionO2MTestEntity",
+        "entityName": "scr_CompositionO2MTestEntity"
+      },
+      "mappingType": "COMPOSITION",
+      "cardinality": "ONE_TO_MANY",
+      "readOnly": false,
+      "mandatory": false,
+      "unique": false,
+      "mappedBy": "datatypesTestEntity",
+      "transient": false
+    },
+    {
+      "name": "name",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "NAME",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    }
+  ],
+  "path": "cuba/entities/scr_DatatypesTestEntity"
+}

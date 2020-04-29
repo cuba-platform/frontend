@@ -1,6 +1,6 @@
 import {BaseGenerator} from "../../common/base-generator";
 import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../common/cli-options";
-import {StudioProjectInfo} from "../../common/studio/studio-integration";
+import {ERR_STUDIO_NOT_CONNECTED, StudioProjectInfo} from "../../common/studio/studio-integration";
 import {expect} from "chai";
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../common/studio/studio-model";
 import {Entity} from "../../common/model/cuba-model";
@@ -35,7 +35,7 @@ const generatorParams: StudioTemplateProperty[] = [
 ];
 
 
-const model= require.resolve('../fixtures/mpg-projectModel.json');
+const model = require.resolve('../fixtures/mpg-projectModel.json');
 const answers = require('../fixtures/answers.json');
 
 const optsConfig: OptionsConfig = {
@@ -70,6 +70,10 @@ class TestGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> 
     await super._obtainAnswers();
   }
 
+  async _obtainCubaProjectModel(): Promise<void> {
+    return super._obtainCubaProjectModel();
+  }
+
   prompt(questions: Generator.Questions): Promise<Answers> {
     // mock prompt answers
     return Promise.resolve({projectInfo: 'projectInfo'} as any);
@@ -85,8 +89,8 @@ const opts = {
   model,
 };
 
-describe('BaseGenerator', function () {
-  it('should prompt or parse', async function () {
+describe('BaseGenerator', () => {
+  it('should prompt or parse', async () => {
 
     const gen = new TestGenerator([], {
       ...opts,
@@ -98,10 +102,20 @@ describe('BaseGenerator', function () {
     expect(gen.answers).not.empty;
   });
 
-  it('should obtain answers', async function () {
+  it('should obtain answers', async () => {
     const gen = new TestGenerator([], opts);
     expect(gen.answers).is.undefined;
     await gen._obtainAnswers();
     expect(gen.answers!.projectInfo).eq('projectInfo');
+  });
+
+  it('should fail on obtain project model if no cuba connection', (done) => {
+    const gen = new TestGenerator([], {...opts, model: undefined});
+    gen
+      ._obtainCubaProjectModel()
+      .catch(e => {
+        expect(e.message).eq(ERR_STUDIO_NOT_CONNECTED);
+        done();
+      });
   });
 });

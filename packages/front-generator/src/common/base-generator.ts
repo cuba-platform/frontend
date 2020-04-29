@@ -13,7 +13,12 @@ import {fromStudioProperties} from "./questions";
 import * as fs from "fs";
 import {ProjectModel} from "./model/cuba-model";
 import {findEntity, findQuery, findServiceMethod, findView} from "./model/cuba-model-utils";
-import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from './studio/studio-integration';
+import {
+  exportProjectModel,
+  getOpenedCubaProjects,
+  ERR_STUDIO_NOT_CONNECTED,
+  StudioProjectInfo
+} from './studio/studio-integration';
 import * as AutocompletePrompt from 'inquirer-autocomplete-prompt';
 import through2 = require('through2');
 import prettier = require('prettier');
@@ -31,6 +36,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   conflicter!: { force: boolean }; //patch missing in typings
 
   protected cubaProjectModel?: ProjectModel;
+  protected modelFilePath?: string;
 
   protected constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
@@ -50,23 +56,28 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       this.cubaProjectModel = readProjectModel(this.options.model);
     } else {
       const openedCubaProjects = await getOpenedCubaProjects();
-      if (openedCubaProjects.length < 1) {
-        this.env.error(Error("Please open Cuba Studio Intellij and enable Old Studio integration"));
+      if (!openedCubaProjects || openedCubaProjects.length < 1) {
+        this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+        return;
       }
 
       const projectModelAnswers: ProjectInfoAnswers = await this.prompt([{
         name: 'projectInfo',
         type: 'list',
         message: 'Please select CUBA project you want to use for generation',
-        choices: openedCubaProjects.map(p => ({
+        choices: openedCubaProjects && openedCubaProjects.map(p => ({
           name: `${p.name} [${p.path}]`,
           value: p
         }))
       }]) as ProjectInfoAnswers;
 
-      const modelFilePath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(projectModelAnswers.projectInfo.locationHash, modelFilePath);
-      this.cubaProjectModel = readProjectModel(modelFilePath);
+      this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(projectModelAnswers.projectInfo.locationHash, this.modelFilePath);
+
+      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      this.cubaProjectModel = readProjectModel(this.modelFilePath);
     }
   }
 
@@ -81,6 +92,7 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       unrefinedAnswers = JSON.parse(answersBuffer);
     } else {
       unrefinedAnswers = await this.prompt(fromStudioProperties(this._getParams(), this.cubaProjectModel)) as A;
+      unrefinedAnswers = await this._additionalPrompts(unrefinedAnswers);
       this.options.verbose && this.log('Component config:\n' + JSON.stringify(unrefinedAnswers));
     }
     this.answers = refineAnswers<A>(this.cubaProjectModel!, this._getParams(), unrefinedAnswers);
@@ -127,6 +139,16 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     return [];
   }
 
+  /**
+   * Additional dynamic prompts where questions depend on answers to initial prompt
+   *
+   * @param answers
+   * @private
+   */
+  protected async _additionalPrompts(answers: A): Promise<A> {
+    return answers;
+  }
+
   abstract writing(): void
 }
 
@@ -144,7 +166,7 @@ export function readProjectModel(modelFilePath: string): ProjectModel {
   return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
 }
 
-function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplateProperty[], answers: any): T {
+export function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplateProperty[], answers: any): T {
   const refinedAnswers: { [key: string]: any } = {};
   Object.keys(answers).forEach((key: string) => {
     const prop = props.find(p => p.code === key);

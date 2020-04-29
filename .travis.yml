@@ -3,7 +3,7 @@ language: node_js
 os: linux
 
 node_js:
-  - '10.17'
+  - '12.14.1'
 
 services:
   - postgresql
@@ -15,8 +15,8 @@ addons:
 
 env:
   global:
-    - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
-
+  - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+  - secure: OpPbpS47Vk9EEiHSQvNcBsMZZgkYDP2n1/KR7SGkbykJpMi5t2O9q08PT7TiOtKaADBuVIypZtiTrkoJPtKEgSVLWburLKGkheqt53yfa4iRt/A+J2Xw5gfK5Zi/loChton+fHr+xEQmDLswK8cz3GrbsOKVtx3v+2+C5UNkSSz3Pcdh5YVGCripZJV1mbUcq4w4+z1893+hFFnA4hnPG5rNmTSYvAJhsATWIhckF6VjZjjKKrVjm3iz3NokDnlk97Zig/pH0HF9XV/zv2UFTl344C3TV3+IlOLk2a0XalMtR03RAXHDYeIW93qWVag/+KiWVjqf5xgLI1VdmexJTcXBT04KrYJhUU5gvA2HbtuVwf9pLQr8wZmY+XTD7l7DgGl+Bl6syOwipxyMCmL3EB+E1eAB47qwcwLJ0j5F3LJZ8GMqrEbrnrJFdiLNHBDLhelKKHTg/VAzO3xl08OvkNGfbo3r8Vu0+GBbeBbjQTyzD2NOkukqxSMb2aohiSzctjrs79KPD22YCfCIhJaK1F/+y7eCwj2X/4ysVcoAqfh3xPlWDCZvekevtYh8s6iaeKQbFIA8jf6yl6YGeHAkRHBo1XzYikt9RAZQ5E7qo+knWfdswTnJd3zJax+rcx0b9Cs4xlnxULqMjaOgYwFaPyGP6Y93V5Gfts7oG6tjQgg=
 cache:
   directories:
     - $HOME/.gradle/caches/
@@ -28,13 +28,50 @@ before_script: |
 
 jobs:
   include:
-    - name: "Lint commits"
-      script: commitlint-travis
+    - name: "Dependency vulnerability check"
+      script:
+        - npm run bootstrap-react-app
+        - npm run snyk:test
 
-    - name: "Unit tests and coverage"
+    - name: "Send snapshot to Snyk"
+      if: branch = master OR branch = develop
+      script:
+        - npm run bootstrap-react-app
+        - npm run snyk:monitor
+
+    - name: "Tests on generated app"
       # setup cuba postgres user; build and run backend app
       before_install: node scripts/ci-bootstrap-backend.js
-      script: npm run lerna run coverage
+      script:
+        - npm run bootstrap-react-app
+        - npm run validate-react-app
+        - npm run build --prefix react-client-scr
+        - npm run start-react-app &
+        - sleep 60
+        - npm test react-client-scr/ --prefix test-pup
+
+    - name: "Tests on generated app - backward compatibility 7.1"
+      # setup cuba postgres user; build and run backend app
+      before_install: node scripts/ci-bootstrap-backend.js sample-car-rent-7-1
+      script:
+        - npm run bootstrap-react-app
+        - npm run start-react-app &
+        - sleep 60
+        - npm test react-client-scr/app-start.test.js --prefix test-pup
+        - npm test react-client-scr-71 --prefix test-pup
+
+    - name: "Unit tests, coverage and lint commits"
+      # setup cuba postgres user; build and run backend app
+      before_install: node scripts/ci-bootstrap-backend.js
+      script:
+        - commitlint-travis
+        - npm run lerna run coverage
+
+    - name: "front-generator - e2e - e2e:react:new-project"
+      script: npm run test:e2e:react:new-project --prefix packages/front-generator
+
+    - name: "front-generator - e2e - e2e:react:empty-model"
+      script: npm run test:e2e:react:empty-model --prefix packages/front-generator
 
     - name: "front-generator - e2e - e2e:sdk"
       script: npm run test:e2e:sdk --prefix packages/front-generator
@@ -44,23 +81,6 @@ jobs:
 
     - name: "front-generator - e2e - e2e:polymer2-ts"
       script: npm run test:e2e:polymer2-ts --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:react:scr"
-      script: npm run test:e2e:react:scr --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:react:new-project"
-      script: npm run test:e2e:react:new-project --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:react:empty-model"
-      script: npm run test:e2e:react:empty-model --prefix packages/front-generator
-
-    - name: "Puppeteer e2e tests on generated app"
-      # setup cuba postgres user; build and run backend app
-      before_install: node scripts/ci-bootstrap-backend.js
-      script:
-      - npm run bootstrap-react-app
-      - npm run start-react-app &
-      - sleep 60 && npm run test-pup
 
 #    - name: "front-generator - e2e - e2e:react:scr os: windows"
 #      os:

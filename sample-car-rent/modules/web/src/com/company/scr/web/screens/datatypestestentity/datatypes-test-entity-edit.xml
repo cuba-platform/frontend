@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.scr.web.screens.datatypestestentity">
+  <data>
+    <instance id="datatypesTestEntityDc"
+              class="com.company.scr.entity.test.DatatypesTestEntity"
+              view="datatypesTestEntity-view">
+      <loader/>
+      <instance id="compositionO2OattrDc" property="compositionO2Oattr"/>
+      <collection id="associationM2MattrDc" property="associationM2Mattr"/>
+      <collection id="compositionO2MattrDc" property="compositionO2Mattr"/>
+    </instance>
+  </data>
+  <dialogMode height="600"
+              width="800"/>
+  <layout expand="scrollBox" spacing="true">
+    <scrollBox id="scrollBox" spacing="true">
+      <form id="form" dataContainer="datatypesTestEntityDc">
+        <column width="250px">
+          <textField id="bigDecimalAttrField" property="bigDecimalAttr"/>
+          <checkBox id="booleanAttrField" property="booleanAttr"/>
+          <dateField id="dateAttrField" property="dateAttr"/>
+          <dateField id="dateTimeAttrField" property="dateTimeAttr"/>
+          <textField id="doubleAttrField" property="doubleAttr"/>
+          <textField id="integerAttrField" property="integerAttr"/>
+          <textField id="longAttrField" property="longAttr"/>
+          <textField id="stringAttrField" property="stringAttr"/>
+          <timeField id="timeAttrField" property="timeAttr"/>
+          <maskedField id="uuidAttrField" mask="hhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh" property="uuidAttr"/>
+          <dateField id="localDateTimeAttrField" property="localDateTimeAttr"/>
+          <dateField id="offsetDateTimeAttrField" property="offsetDateTimeAttr"/>
+          <dateField id="localDateAttrField" property="localDateAttr"/>
+          <timeField id="localTimeAttrField" property="localTimeAttr"/>
+          <timeField id="offsetTimeAttrField" property="offsetTimeAttr"/>
+          <lookupField id="enumAttrField" property="enumAttr"/>
+          <pickerField id="associationO2OattrField" property="associationO2Oattr">
+            <actions>
+              <action id="lookup" type="picker_lookup"/>
+              <action id="clear" type="picker_clear"/>
+            </actions>
+          </pickerField>
+          <pickerField id="associationM2OattrField" property="associationM2Oattr">
+            <actions>
+              <action id="lookup" type="picker_lookup"/>
+              <action id="clear" type="picker_clear"/>
+            </actions>
+          </pickerField>
+          <pickerField id="compositionO2OattrField" property="compositionO2Oattr">
+            <actions>
+              <action id="open_composition" type="picker_open_composition"/>
+              <action id="clear" type="picker_clear"/>
+            </actions>
+          </pickerField>
+          <textField id="nameField" property="name"/>
+        </column>
+      </form>
+      <groupBox id="associationM2MattrBox"
+                caption="msg://com.company.scr.entity.test/DatatypesTestEntity.associationM2Mattr">
+        <table id="associationM2MattrTable" dataContainer="associationM2MattrDc" width="100%" height="200px">
+          <actions>
+            <action id="add" type="add"/>
+            <action id="exclude" type="exclude"/>
+          </actions>
+          <columns>
+            <column id="name"/>
+          </columns>
+          <buttonsPanel>
+            <button action="associationM2MattrTable.add"/>
+            <button action="associationM2MattrTable.exclude"/>
+          </buttonsPanel>
+        </table>
+      </groupBox>
+      <groupBox id="compositionO2MattrBox"
+                caption="msg://com.company.scr.entity.test/DatatypesTestEntity.compositionO2Mattr">
+        <table id="compositionO2MattrTable" dataContainer="compositionO2MattrDc" width="100%" height="200px">
+          <actions>
+            <action id="create" type="create"/>
+            <action id="edit" type="edit"/>
+            <action id="remove" type="remove"/>
+          </actions>
+          <columns>
+            <column id="name"/>
+            <column id="datatypesTestEntity"/>
+          </columns>
+          <buttonsPanel>
+            <button action="compositionO2MattrTable.create"/>
+            <button action="compositionO2MattrTable.edit"/>
+            <button action="compositionO2MattrTable.remove"/>
+          </buttonsPanel>
+        </table>
+      </groupBox>
+    </scrollBox>
+    <hbox id="editActions" spacing="true">
+      <button action="windowCommitAndClose"/>
+      <button action="windowClose"/>
+    </hbox>
+  </layout>
+</window>

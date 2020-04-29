@@ -1,6 +1,6 @@
 import React, {CSSProperties} from 'react';
 import {Select} from 'antd';
-import {getMainStore} from '@cuba-platform/react';
+import {getMainStore} from '@cuba-platform/react-core';
 import './LanguageSwitcher.css';
 
 export interface LanguageSwitcherProps {

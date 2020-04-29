@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.scr.web.screens.datatypestestentity3">
+    <data>
+        <instance id="datatypesTestEntity3Dc"
+                  class="com.company.scr.entity.test.DatatypesTestEntity3"
+                  view="datatypesTestEntity3-view">
+            <loader/>
+            <collection id="datatypesTestEntityAttrDc" property="datatypesTestEntityAttr"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="datatypesTestEntity3Dc">
+            <column width="250px">
+                <textField id="nameField" property="name"/>
+            </column>
+        </form>
+        <groupBox id="datatypesTestEntityAttrBox"
+                  caption="msg://com.company.scr.entity.test/DatatypesTestEntity3.datatypesTestEntityAttr">
+            <table id="datatypesTestEntityAttrTable" dataContainer="datatypesTestEntityAttrDc" width="100%"
+                   height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="bigDecimalAttr"/>
+                    <column id="booleanAttr"/>
+                    <column id="byteArrayAttr"/>
+                    <column id="dateAttr"/>
+                    <column id="dateTimeAttr"/>
+                    <column id="doubleAttr"/>
+                    <column id="integerAttr"/>
+                    <column id="longAttr"/>
+                    <column id="stringAttr"/>
+                    <column id="timeAttr"/>
+                    <column id="uuidAttr"/>
+                    <column id="localDateTimeAttr"/>
+                    <column id="offsetDateTimeAttr"/>
+                    <column id="localDateAttr"/>
+                    <column id="localTimeAttr"/>
+                    <column id="offsetTimeAttr"/>
+                    <column id="enumAttr"/>
+                    <column id="associationO2Oattr"/>
+                    <column id="associationO2Mattr"/>
+                    <column id="associationM2Oattr"/>
+                    <column id="associationM2Mattr"/>
+                    <column id="compositionO2Oattr"/>
+                    <column id="compositionO2Mattr"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="datatypesTestEntityAttrTable.create"/>
+                    <button action="datatypesTestEntityAttrTable.edit"/>
+                    <button action="datatypesTestEntityAttrTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

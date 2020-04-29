@@ -12,8 +12,8 @@ describe('entity management generation test', function () {
     const attributes: EntityAttribute[] = [createAttr('attr1'), createAttr('attr2')];
     const relations = getRelations(projectModel, attributes);
 
-    expect(relations['attr1'].path).eq('cuba/entities/mpg$Car');
-    expect(relations['attr2'].path).eq('cuba/entities/mpg$Car');
+    expect(relations.editAssociations.attr1.path).eq('cuba/entities/mpg$Car');
+    expect(relations.editAssociations.attr2.path).eq('cuba/entities/mpg$Car');
   });
 
   it('should sort out identical items from relation imports', function () {

@@ -33,6 +33,10 @@
             <columns>
                 <column id="name"/>
                 <column id="capacity"/>
+                <column id="address"/>
+                <column id="vanEntry"/>
+                <column id="workingHoursFrom"/>
+                <column id="workingHoursTo"/>
             </columns>
             <rows datasource="garagesDs"/>
             <rowsCount/>

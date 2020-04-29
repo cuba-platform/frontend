@@ -14,7 +14,7 @@ import {
   MainStoreInjected,
   RouteItem,
   SubMenu
-} from "@cuba-platform/react";
+} from "@cuba-platform/react-core";
 import { CenteredLoader } from "./CenteredLoader";
 import {
   FormattedMessage,
@@ -56,7 +56,7 @@ class AppComponent extends React.Component<
             width={200}
             breakpoint="sm"
             collapsedWidth={0}
-            style={{ background: "#fff" }}
+            className='layout-sider'
           >
             <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
               <Menu.Item key={menuIdx}>
@@ -69,7 +69,7 @@ class AppComponent extends React.Component<
                 menuItem(item, '' + (idx + 1 + menuIdx), this.props.intl))}
             </Menu>
           </Layout.Sider>
-          <Layout style={{ padding: "24px 24px 24px" }}>
+          <Layout className='layout-content'>
             <Layout.Content>
               <Switch>
                 <Route exact={true} path="/" component={HomePage} />

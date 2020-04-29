@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="deeplyNestedTestEntitiesTable"
+        messagesPack="com.company.scr.web.screens.deeplynestedtestentity">
+  <data readOnly="true">
+    <collection id="deeplyNestedTestEntitiesDc"
+                class="com.company.scr.entity.test.DeeplyNestedTestEntity"
+                view="deeplyNestedTestEntity-view">
+      <loader id="deeplyNestedTestEntitiesDl">
+        <query>
+          <![CDATA[select e from scr_DeeplyNestedTestEntity e]]>
+        </query>
+      </loader>
+    </collection>
+  </data>
+  <dialogMode height="600"
+              width="800"/>
+  <layout expand="deeplyNestedTestEntitiesTable"
+          spacing="true">
+    <filter id="filter"
+            applyTo="deeplyNestedTestEntitiesTable"
+            dataLoader="deeplyNestedTestEntitiesDl">
+      <properties include=".*"/>
+    </filter>
+    <groupTable id="deeplyNestedTestEntitiesTable"
+                width="100%"
+                dataContainer="deeplyNestedTestEntitiesDc">
+      <actions>
+        <action id="create" type="create"/>
+        <action id="edit" type="edit"/>
+        <action id="remove" type="remove"/>
+      </actions>
+      <columns>
+        <column id="name"/>
+        <column id="associationO2Oattr"/>
+      </columns>
+      <rowsCount/>
+      <buttonsPanel id="buttonsPanel"
+                    alwaysVisible="true">
+        <button id="createBtn" action="deeplyNestedTestEntitiesTable.create"/>
+        <button id="editBtn" action="deeplyNestedTestEntitiesTable.edit"/>
+        <button id="removeBtn" action="deeplyNestedTestEntitiesTable.remove"/>
+      </buttonsPanel>
+    </groupTable>
+    <hbox id="lookupActions" spacing="true" visible="false">
+      <button action="lookupSelectAction"/>
+      <button action="lookupCancelAction"/>
+    </hbox>
+  </layout>
+</window>
