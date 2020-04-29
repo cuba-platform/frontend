@@ -1,5 +1,5 @@
 * React Client
-** xref:starter-guide.adoc[Getting Started with React Native Client]
+** xref:starter-guide.adoc[Getting Started with React Client]
 ** xref:learning-path.adoc[Where Do I Go From Here?]
 ** xref:technologies.adoc[Technologies Overview]
 ** xref:supported-browsers.adoc[Supported Browsers]
