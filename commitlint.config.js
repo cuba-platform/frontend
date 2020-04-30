@@ -3,7 +3,7 @@ module.exports = {
   rules: {
     'scope-enum': [2, 'always', [
       'React', 'React Native', 'SDK',
-      'DataTable'
+      'DataTable', 'Front Generator'
     ]],
     'scope-case': [0],
     'type-enum': [2, 'always', [

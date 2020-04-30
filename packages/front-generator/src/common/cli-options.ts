@@ -56,7 +56,7 @@ export const commonGenerationOptionsConfig: OptionsConfig = {
     type: String
   },
   verbose: {
-    alias: 'vb',
+    alias: 'b',
     description: 'log out additional info about generation process',
     type: Boolean
   }
@@ -69,7 +69,7 @@ export interface PolymerElementOptions extends CommonGenerationOptions {
 export const polymerElementOptionsConfig: OptionsConfig = {
   ...commonGenerationOptionsConfig,
   dirShift: {
-    alias: 'ds',
+    alias: 's',
     description: 'directory shift for html imports e.g ../../',
     type: String
   },
