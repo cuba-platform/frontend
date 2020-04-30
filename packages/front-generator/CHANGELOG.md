@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0-beta.0...@cuba-platform/front-generator@3.0.0-beta.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* **Front Generator:** two letter options (-vb -ds) not work in generator cli ([19c83a3](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/19c83a3d455add1e44bf80f74b9ccd32a74cc903)), closes [#175](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/175)
+* **React:** add package-lock.json to make gradle node plugin work ([ac0abae](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/ac0abae5336ef0e689a707ac23b5a9dcfb6b243c)), closes [#189](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/189)
+
+
+
+
+
 # [3.0.0-beta.0](https://github.com/cuba-platform/frontend/compare/@cuba-platform/front-generator@2.4.5...@cuba-platform/front-generator@3.0.0-beta.0) (2020-04-29)
 
 ### Bug Fixes
