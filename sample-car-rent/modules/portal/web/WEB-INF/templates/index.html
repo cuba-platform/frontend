@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>
+        Cuba Portal
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/favicon.ico}"/>
+    <link rel="icon" type="image/gif" th:href="@{/resources/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/resources/css/common.css}"/>
+</head>
+<body>
+
+<h1> Cuba Portal </h1>
+<div sec:authorize="isAuthenticated()">
+    User: <span sec:authentication="name">Username</span>
+    <br/>
+    <form method="post" action="logout" id="logoutForm">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <a href="#" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+    </form>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <a href="login">Login</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <h1>Users</h1>
+    <ul th:each="user: ${users}">
+        <li th:text="${user.login}"></li>
+    </ul>
+</div>
+</body>
+</html>
