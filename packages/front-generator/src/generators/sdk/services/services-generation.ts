@@ -40,7 +40,12 @@ function createServices(services: RestService[], ctx: ModelContext)
   const paramTypes: TypeAliasDeclaration[] = [];
   const importInfos: ImportInfo[] = [];
 
-  services.forEach(srv => {
+  services
+    .reduce((acc: RestService[], curr: RestService) => {
+      if (!acc.find(restService => restService.name === curr.name)) acc.push(curr);
+      return acc;
+    }, [] as RestService[])
+    .forEach(srv => {
     const createItemResult = createService(srv, ctx);
     assignmentList.push(createItemResult.node);
     createItemResult.methodParamsTypes.forEach(mpt => paramTypes.push(mpt));
