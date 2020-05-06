@@ -2,6 +2,7 @@ import {writeComponentI18nMessages} from '../../../../generators/react-typescrip
 import {expect, use} from 'chai';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
+import {Locale} from '../../../../common/model/cuba-model';
 
 use(sinonChai);
 
@@ -57,7 +58,7 @@ describe('i18n generation', () => {
       expectEnPath, {'router.componentClassName': 'Component Class Name'});
   });
 
-  it('should merge and write i18n messages', function () {
+  it('should merge and write i18n messages', () => {
 
     const enTemplate = {
       'key1': 'template value 1',
@@ -99,13 +100,16 @@ describe('i18n generation', () => {
     readJSON.withArgs(expectRuPath).returns(ruExisting);
     fs.readJSON = readJSON;
 
-    writeComponentI18nMessages(fs, 'testClass', './directory/shift', enTemplate, ruTemplate);
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', undefined, {
+      en: enTemplate,
+      ru: ruTemplate
+    });
 
     expect(writeJSON).calledWith(expectEnPath, enExpected);
     expect(writeJSON).calledWith(expectRuPath, ruExpected);
   });
 
-  it('should not call write method, if no rows are added', function () {
+  it('should not call write method, if no rows are added', () => {
 
     const readJSON = sinon.stub();
     fs.readJSON = readJSON;
@@ -119,21 +123,68 @@ describe('i18n generation', () => {
     expect(writeJSON).not.calledWith(expectEnPath);
 
     let enJson = { 'key1': 'predefined value 1'};
-    writeComponentI18nMessages(fs, 'testClass', './directory/shift', enJson);
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', undefined, {en: enJson});
     expect(writeJSON).not.calledWith(expectRuPath);
     expect(writeJSON).not.calledWith(expectEnPath);
 
-    writeComponentI18nMessages(fs, 'testClass', './directory/shift', enExisting, ruExisting);
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', undefined, {
+      en: enExisting,
+      ru: ruExisting
+    });
     expect(writeJSON).not.calledWith(expectRuPath);
     expect(writeJSON).not.calledWith(expectEnPath);
 
     readJSON.withArgs(expectEnPath).returns({'router.testClass':'Test Class', ...enExisting});
 
     enJson = { 'key1': 'new value 1'};
-    writeComponentI18nMessages(fs, 'testClass', './directory/shift', enJson);
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', undefined, {en: enJson});
     expect(writeJSON).not.calledWith(expectRuPath);
     expect(writeJSON).not.calledWith(expectRuPath);
   });
 
 });
 
+describe('i18n generation - project locales', () => {
+  const messages = {
+    en: { 'key0': 'new value 0'},
+    ru: { 'key0': 'новое значение 0'}
+  };
+  const enLocale: Locale = {code: 'en', caption: 'English'};
+  const ruLocale: Locale = {code: 'ru', caption: 'Русский'};
+  const projectLocalesEnRu = [enLocale, ruLocale];
+  const projectLocalesEn = [enLocale];
+  const projectLocalesRu = [ruLocale];
+
+  beforeEach(() => {
+    writeJSON = sinon.fake();
+    fs = {writeJSON} as any;
+    const readJSON = sinon.stub();
+    readJSON.withArgs(expectEnPath).returns(enExisting);
+    readJSON.withArgs(expectRuPath).returns(ruExisting);
+    fs.readJSON = readJSON;
+  });
+
+  it('should write en and ru messages if the project contains both locales', () => {
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', projectLocalesEnRu, messages);
+    expect(writeJSON).calledWith(expectEnPath);
+    expect(writeJSON).calledWith(expectRuPath);
+  });
+
+  it('should only write en messages if the project only contains en locale', () => {
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', projectLocalesEn, messages);
+    expect(writeJSON).calledWith(expectEnPath);
+    expect(writeJSON).not.calledWith(expectRuPath);
+  });
+
+  it('should only write ru messages if the project only contains ru locale', () => {
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', projectLocalesRu, messages);
+    expect(writeJSON).not.calledWith(expectEnPath);
+    expect(writeJSON).calledWith(expectRuPath);
+  });
+
+  it('should write both en and ru messages if the project locales are unknown', () => {
+    writeComponentI18nMessages(fs, 'testClass', './directory/shift', undefined, messages);
+    expect(writeJSON).calledWith(expectEnPath);
+    expect(writeJSON).calledWith(expectRuPath);
+  });
+});

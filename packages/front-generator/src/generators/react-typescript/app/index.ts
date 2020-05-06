@@ -11,6 +11,7 @@ import {
 } from "../../../common/studio/studio-integration";
 import {ownVersion} from "../../../cli";
 import {SdkAllGenerator} from "../../sdk/sdk-generator";
+import {SUPPORTED_CLIENT_LOCALES} from '../common/i18n';
 
 interface TemplateModel {
   title: string;
@@ -25,11 +26,11 @@ interface Answers {
 
 class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGenerationOptions> {
 
-  conflicter!: { force: boolean }; //missing in typings
+  conflicter!: { force: boolean }; // missing in typings
   modelPath?: string;
 
-  constructor(args: string | string[], options: CommonGenerationOptions) {
-    super(args, options);
+  constructor(args: string | string[], commonOptions: CommonGenerationOptions) {
+    super(args, commonOptions);
     this.sourceRoot(path.join(__dirname, 'template'));
     this.modelPath = this.options.model;
   }
@@ -85,8 +86,37 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
       throw new Error('Model is not provided');
     }
 
+    let clientLocales: string[];
+    const modelHasLocalesInfo = (this.model.project.locales != null);
+    if (!modelHasLocalesInfo) {
+      // Could be if using an old Studio version that doesn't export locales.
+      this.log('Project model does not contain project locales info. I18n messages will be added for all supported locales.');
+      clientLocales = SUPPORTED_CLIENT_LOCALES;
+    } else {
+      const projectLocales = this.model.project.locales.map(locale => locale.code);
+      clientLocales = projectLocales.filter(locale => SUPPORTED_CLIENT_LOCALES.includes(locale));
+      if (clientLocales.length === 0) {
+        this.log('WARNING. None of the project locales are supported by Frontend Generator.'
+          + ` Project locales: ${JSON.stringify(projectLocales)}. Supported locales: ${JSON.stringify(SUPPORTED_CLIENT_LOCALES)}.`);
+      }
+    }
+    clientLocales.forEach(locale => {
+      this.fs.copy(
+        this.templatePath() + `/i18n-message-packs/${locale}.json`,
+        this.destinationPath(`src/i18n/${locale}.json`)
+      );
+    });
+
     this.fs.copyTpl(this.templatePath() + '/public/**', this.destinationPath('public'), this.model);
-    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), this.model);
+    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), {
+      ...this.model,
+      isLocaleUsed: (locale: string) => {
+        // If project model doesn't contain locales info (could be if old Studio is used)
+        // then we add all supported locales.
+        return !modelHasLocalesInfo || clientLocales.includes(locale);
+      },
+      clientLocales
+    });
     this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
     this.fs.copyTpl(this.templatePath('.env.production.local'), this.destinationPath('.env.production.local'), this.model);
     this.fs.copyTpl(this.templatePath('.env.development.local'), this.destinationPath('.env.development.local'), this.model);
@@ -109,7 +139,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
       path: require.resolve('../../sdk/sdk-generator')
     };
 
-    //todo type not match
+    // todo type not match
     await this.composeWith(generatorOpts as any, sdkOpts);
   }
 
@@ -118,12 +148,11 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
   }
 }
 
-
 function createModel(project: ProjectInfo): TemplateModel {
   return {
     ownVersion,
     title: project.name,
-    project: project,
+    project,
     basePath: project.modulePrefix + '-front'
   };
 }
