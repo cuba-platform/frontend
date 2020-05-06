@@ -42,7 +42,7 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       this.destinationPath(className + extension), this.model
     );
 
-    let listTemplateFile = capitalizeFirst(listType) + extension;
+    const listTemplateFile = capitalizeFirst(listType) + extension;
     this.fs.copyTpl(
       this.templatePath(listTemplateFile),
       this.destinationPath(listComponentName + extension), this.model
@@ -52,7 +52,16 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       this.destinationPath(editComponentName + extension), this.model
     );
 
-    writeComponentI18nMessages(this.fs, className, this.options.dirShift, entityManagementEn, entityManagementRu);
+    writeComponentI18nMessages(
+      this.fs,
+      className,
+      this.options.dirShift,
+      this.cubaProjectModel?.project?.locales,
+      {
+        en: entityManagementEn,
+        ru: entityManagementRu
+      },
+    );
 
     if (!addToMenu(this.fs, {
       componentFileName: className,

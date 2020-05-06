@@ -1,82 +1,84 @@
 import * as path from 'path';
 import {MemFsEditor} from "yeoman-generator";
 import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
+import {Locale} from '../../../common/model/cuba-model';
+
+export const SUPPORTED_CLIENT_LOCALES = ['en', 'ru'];
 
 /**
- * Add set of en and ru component messages to existed i18n files.
- * Also, based on class name, generates and add component menu item caption in en.json file.
- * If any message already exist in file - it will be NOT overwritten with new value.
+ * Adds component i18n messages to the frontend client i18n message packs.
+ * Also adds a menu item caption to the i18n file for locale `en`. The caption is constructed from the class name.
+ * If any message already exists in the file - it will NOT be overwritten with a new value.
  *
  * @param fs - yeoman fs
  * @param className - component class name
  * @param dirShift - directory depth from project root
- * @param enJson - object with key-value i18n component captions to be added in en file
- * @param ruJson - object with key-value i18n component captions to be added in ru file
+ * @param projectLocales - locales enabled for this project.
+ * If provided, i18n messages will be added only for these locales.
+ * Otherwise, i18n messages for all locales supported by Frontend UI will be added
+ * (this situation is possible if the project model was created using an older Studio version and does not
+ * contain locales info).
+ * @param componentMessagesPerLocale - an object where keys are locale codes (such as 'en' or 'ru) and values
+ * are objects containing i18n key/value pairs for that locale.
  */
 export function writeComponentI18nMessages(
   fs: MemFsEditor,
   className: string,
   dirShift: string = './',
-  enJson: Record<string, string> = {},
-  ruJson: Record<string, string> = {},
+  projectLocales?: Locale[],
+  componentMessagesPerLocale: Record<string, Record<string, string>> = {en: {}, ru: {}}
 ) {
-  const i18nMessagesPathEn = path.join(dirShift, 'i18n/en.json');
-  const i18nMessagesPathRu = path.join(dirShift, 'i18n/ru.json');
+  Object.entries(componentMessagesPerLocale).forEach(([localeCode, componentMessages]) => {
+    if (projectLocales == null || projectLocales.some(projectLocale => projectLocale.code === localeCode)) {
+      const existingMessagesPath = path.join(dirShift, `i18n/${localeCode}.json`);
+      const existingMessages: Record<string, string> | null = fs.readJSON(existingMessagesPath);
+      const mergedMessages = mergeI18nMessages(existingMessages, componentMessages, className, localeCode);
 
-  const existingMessagesEn: Record<string, string> | null = fs.readJSON(i18nMessagesPathEn);
-  const existingMessagesRu: Record<string, string> | null = fs.readJSON(i18nMessagesPathRu);
-
-  const {enOut, ruOut} = mergeI18nMessages(existingMessagesEn, enJson, existingMessagesRu, ruJson, className);
-
-  // mergeI18nMessages could returns 'null' as out in case we don't have nor new nor changed rows in it
-  enOut && fs.writeJSON(i18nMessagesPathEn, enOut);
-  ruOut && fs.writeJSON(i18nMessagesPathRu, ruOut);
+      if (mergedMessages != null) {
+        fs.writeJSON(existingMessagesPath, mergedMessages);
+      }
+    }
+  });
 }
 
 /**
- * Method could returns null for 'en' or 'ru' out if no changes need to be made in file.
  *
- * @param enExisting en rows already existed in i18n file
- * @param enTemplate en rows to be added
- * @param ruExisting ru rows already existed in i18n file
- * @param ruTemplate ru rows to be added
- * @param className menu caption will be generated based on this name and added to en file
+ * @param existingMessages - messages that already exist in the i18n file
+ * @param componentMessages - messages required by the component
+ * @param className - component class name, menu caption will be generated based on it
+ * @param localeCode - e.g. 'en' or 'ru'
+ *
+ * @return messages to be written to the i18n file or `null` if no messages are to be added.
+ * Messages to be added are determined as messages in `componentMessages` that are not
+ * present in `existingMessages` plus (for `en` locale only) the menu caption
+ * if not already present in `existingMessages`.
  */
 function mergeI18nMessages(
-  enExisting: Record<string, string> | null,
-  enTemplate: Record<string, string>,
-  ruExisting: Record<string, string> | null,
-  ruTemplate: Record<string, string>,
-  className: string)
-  : { enOut: Record<string, string> | null, ruOut: Record<string, string> | null } {
+  existingMessages: Record<string, string> | null,
+  componentMessages: Record<string, string>,
+  className: string,
+  localeCode: string
+): Record<string, string> | null {
 
   const menuCaption = splitByCapitalLetter(capitalizeFirst(className));
 
-  enTemplate = {
-    ...enTemplate,
-    [`router.${className}`]: menuCaption
-  };
+  if (localeCode === 'en') {
+    componentMessages = {
+      ...componentMessages,
+      [`router.${className}`]: menuCaption
+    };
+  }
 
-  const enOut  = hasNewEntries(enTemplate, enExisting)
-    ? {
-    ...enTemplate,
-    ...enExisting
-  } : null;
-
-  const ruOut = hasNewEntries(ruTemplate, ruExisting)
-    ? {
-      ...ruTemplate,
-      ...ruExisting
-    } : null;
-
-  return {enOut, ruOut};
+  return hasNewEntries(componentMessages, existingMessages)
+    ? {...componentMessages, ...existingMessages}
+    : null;
 }
 
 function hasNewEntries(newVals: Record<string, string>, oldVals: Record<string, string> | null): boolean {
   const newKeys = Object.keys(newVals);
 
-  if (newKeys.length === 0) return false;
-  if (!oldVals) return true;
+  if (newKeys.length === 0) { return false; }
+  if (!oldVals) { return true; }
 
   return !newKeys.every((newK) => Object.keys(oldVals).some((oldK) => oldK === newK));
 }

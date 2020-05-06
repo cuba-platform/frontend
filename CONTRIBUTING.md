@@ -71,7 +71,7 @@ Documentation sources are located in the `docs-src` folder:
 
 #### Building the Documentation Site
 
-1. Make sure that the component descriptor (`docs-src/doc-component-repo/antora.yml`) has the correct documentation version (it corresponds to the version of Frontend Generator).
+1. Make sure that the component descriptor (`docs-src/doc-component-repo/antora.yml`) has the correct documentation version.
 
 2. Make sure that the playbook file (`docs-src/antora-playbook.yml`) has the correct repo url and branch names. For example, you may want to build the documentation from a feature branch - then you'll need to add the name of that branch. Or you may want to change the remote repo url to the local filesystem path in order to build from your local repo.
 

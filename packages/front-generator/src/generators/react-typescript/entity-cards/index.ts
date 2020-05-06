@@ -41,7 +41,9 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
       this.destinationPath(this.model.className + '.tsx.ejs'), this.model
     );
 
-    writeComponentI18nMessages(this.fs, this.model.className, this.options.dirShift);
+    writeComponentI18nMessages(
+      this.fs, this.model.className, this.options.dirShift, this.cubaProjectModel?.project?.locales
+    );
 
     if (!addToMenu(this.fs, {
       componentFileName: this.model.className,

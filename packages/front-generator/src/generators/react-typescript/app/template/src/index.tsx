@@ -18,7 +18,8 @@ import 'moment/locale/ru';
 export const cubaREST = initializeApp({
   name: '<%=project.namespace%>',
   apiUrl: CUBA_APP_URL,
-  storage: window.localStorage
+  storage: window.localStorage,
+  defaultLocale: '<%= clientLocales.length > 0 ? clientLocales[0] : 'en' %>'
 });
 
 ReactDOM.render(
