@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;ui/EntityEditor&quot; | @cuba-platform/react-ui - v1.0.0-alpha.0</title>
+	<title>&quot;ui/table/DataTableCustomFilterFields&quot; | @cuba-platform/react-ui - v1.0.0-beta.1</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cuba-platform/react-ui - v1.0.0-alpha.0</a>
+					<a href="../index.html" class="title">@cuba-platform/react-ui - v1.0.0-beta.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_ui_entityeditor_.html">&quot;ui/EntityEditor&quot;</a>
+					<a href="_ui_table_datatablecustomfilterfields_.html">&quot;ui/table/DataTableCustomFilterFields&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;ui/EntityEditor&quot;</h1>
+			<h1>External module &quot;ui/table/DataTableCustomFilterFields&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -70,98 +70,124 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Classes</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported"><a href="../classes/_ui_entityeditor_.entityeditorcomponent.html" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Component</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_ui_entityeditor_.entityeditorprops.html" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Props</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ui_entityeditor_.html#entityeditor" class="tsd-kind-icon">Entity<wbr>Editor</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_entityeditor_.html#getentityproperties" class="tsd-kind-icon">get<wbr>Entity<wbr>Properties</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ui_entityeditor_.html#isdisplayedproperty" class="tsd-kind-icon">is<wbr>Displayed<wbr>Property</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablecustomfilterfields_.html#decorateandwrapinformitem" class="tsd-kind-icon">decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablecustomfilterfields_.html#getdefaultfielddecoratoroptions" class="tsd-kind-icon">get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="entityeditor" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Entity<wbr>Editor</h3>
-					<div class="tsd-signature tsd-kind-icon">Entity<wbr>Editor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FunctionComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;injectIntl&lt;&#x27;intl&#x27;, EntityEditorProps&gt;(withLocalizedForm({onValuesChange: (theProps: any, changedValues: any) &#x3D;&gt; {// Reset server-side errors when field is editedObject.keys(changedValues).forEach((fieldName: string) &#x3D;&gt; {theProps.form.setFields({[fieldName]: {value: changedValues[fieldName]}});});}})(EntityEditorComponent))</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/EntityEditor.tsx#L243">cuba-react-ui/src/ui/EntityEditor.tsx:243</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="getentityproperties" class="tsd-anchor"></a>
-					<h3>get<wbr>Entity<wbr>Properties</h3>
+					<a name="decorateandwrapinformitem" class="tsd-anchor"></a>
+					<h3>decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Entity<wbr>Properties<span class="tsd-signature-symbol">(</span>entityName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, metadata<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MetaClassInfo</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MetaPropertyInfo</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item<span class="tsd-signature-symbol">(</span>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span>, parentId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, getFieldDecorator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, intl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IntlShape</span>, hasFeedback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">GetFieldDecoratorOptions</span>, additionalClassName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/EntityEditor.tsx#L256">cuba-react-ui/src/ui/EntityEditor.tsx:256</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableCustomFilterFields.tsx#L18">src/ui/table/DataTableCustomFilterFields.tsx:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>entityName: <span class="tsd-signature-type">string</span></h5>
+									<h5>children: <span class="tsd-signature-type">ReactNode</span></h5>
 								</li>
 								<li>
-									<h5>fields: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>parentId: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>metadata: <span class="tsd-signature-type">MetaClassInfo</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>getFieldDecorator: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-has-type-parameter tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon">&lt;T&gt;<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof T</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">GetFieldDecoratorOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-type-parameters-title">Type parameters</h4>
+													<ul class="tsd-type-parameters">
+														<li>
+															<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></h4>
+														</li>
+													</ul>
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>id: <span class="tsd-signature-type">keyof T</span></h5>
+														</li>
+														<li>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">GetFieldDecoratorOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
+													<ul class="tsd-parameters">
+														<li class="tsd-parameter-siganture">
+															<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+																<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
+															</ul>
+															<ul class="tsd-descriptions">
+																<li class="tsd-description">
+																	<h4 class="tsd-parameters-title">Parameters</h4>
+																	<ul class="tsd-parameters">
+																		<li>
+																			<h5>node: <span class="tsd-signature-type">ReactNode</span></h5>
+																		</li>
+																	</ul>
+																	<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>intl: <span class="tsd-signature-type">IntlShape</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> hasFeedback: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">GetFieldDecoratorOptions</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> additionalClassName: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">MetaPropertyInfo</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="isdisplayedproperty" class="tsd-anchor"></a>
-					<h3>is<wbr>Displayed<wbr>Property</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Displayed<wbr>Property<span class="tsd-signature-symbol">(</span>property<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MetaPropertyInfo</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="getdefaultfielddecoratoroptions" class="tsd-anchor"></a>
+					<h3>get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options<span class="tsd-signature-symbol">(</span>intl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IntlShape</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">GetFieldDecoratorOptions</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/EntityEditor.tsx#L265">cuba-react-ui/src/ui/EntityEditor.tsx:265</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableCustomFilterFields.tsx#L6">src/ui/table/DataTableCustomFilterFields.tsx:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>property: <span class="tsd-signature-type">MetaPropertyInfo</span></h5>
+									<h5>intl: <span class="tsd-signature-type">IntlShape</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">GetFieldDecoratorOptions</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -174,26 +200,17 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_ui_entityeditor_.html">&quot;ui/<wbr>Entity<wbr>Editor&quot;</a>
+						<a href="_ui_table_datatablecustomfilterfields_.html">&quot;ui/table/<wbr>Data<wbr>Table<wbr>Custom<wbr>Filter<wbr>Fields&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../classes/_ui_entityeditor_.entityeditorcomponent.html" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Component</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_ui_entityeditor_.entityeditorprops.html" class="tsd-kind-icon">Entity<wbr>Editor<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_ui_entityeditor_.html#entityeditor" class="tsd-kind-icon">Entity<wbr>Editor</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_ui_table_datatablecustomfilterfields_.html#decorateandwrapinformitem" class="tsd-kind-icon">decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_ui_entityeditor_.html#getentityproperties" class="tsd-kind-icon">get<wbr>Entity<wbr>Properties</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_ui_entityeditor_.html#isdisplayedproperty" class="tsd-kind-icon">is<wbr>Displayed<wbr>Property</a>
+						<a href="_ui_table_datatablecustomfilterfields_.html#getdefaultfielddecoratoroptions" class="tsd-kind-icon">get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options</a>
 					</li>
 				</ul>
 			</nav>
