@@ -7,7 +7,7 @@ import {ReactNode} from 'react';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {getDataTransferFormat, getDisplayFormat} from '@cuba-platform/react-core';
 import {PropertyType} from '@cuba-platform/rest';
-import {decorateAndWrapInFormItem} from './DataTableHelpers';
+import {decorateAndWrapInFormItem} from './DataTableCustomFilterFields';
 
 interface DataTableListEditorDateTimePickerProps {
   id: string;

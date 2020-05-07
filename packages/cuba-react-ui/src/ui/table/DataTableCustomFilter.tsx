@@ -27,7 +27,7 @@ import {LongInput} from "../form/LongInput";
 import {UuidInput} from '../form/UuidInput';
 import {uuidPattern} from "../../util/regex";
 import {LabeledValue} from "antd/es/select";
-import {decorateAndWrapInFormItem, getDefaultFieldDecoratorOptions} from './DataTableHelpers';
+import {decorateAndWrapInFormItem, getDefaultFieldDecoratorOptions} from './DataTableCustomFilterFields';
 
 export interface CaptionValuePair {
   caption: string;

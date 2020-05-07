@@ -1,5 +1,5 @@
 import {ColumnFilterItem, ColumnProps, FilterDropdownProps, PaginationConfig, SorterResult} from 'antd/es/table';
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {
   Condition,
   ConditionsGroup,
@@ -16,9 +16,6 @@ import {
 } from './DataTableCustomFilter';
 import { toJS } from 'mobx';
 import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
-import {Form} from 'antd';
-import { IntlShape } from 'react-intl';
 import {OperatorType} from "@cuba-platform/rest";
 import {setPagination} from "../paging/Paging";
 
@@ -294,7 +291,7 @@ export function setFilters<E>(
   mainStore: MainStore,
   dataCollection: DataCollectionStore<E>,
 ) {
-  let entityFilter: EntityFilter | undefined = undefined;
+  let entityFilter: EntityFilter | undefined;
 
   if (dataCollection.filter && dataCollection.filter.conditions && dataCollection.filter.conditions.length > 0) {
 
@@ -488,39 +485,4 @@ export function isPropertyTypeSupported(propertyInfo: MetaPropertyInfo): boolean
 
   return supportedAttributeTypes.indexOf(propertyInfo.attributeType) > -1
     || supportedTypes.indexOf(propertyInfo.type) > -1;
-}
-
-export function getDefaultFieldDecoratorOptions(intl: IntlShape): GetFieldDecoratorOptions {
-  return {
-    initialValue: null,
-    rules: [
-      {
-        required: true,
-        message: intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})
-      }
-    ]
-  };
-}
-
-export function decorateAndWrapInFormItem(
-  children: ReactNode,
-  parentId: string,
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode,
-  intl: IntlShape,
-  hasFeedback: boolean = false,
-  options?: GetFieldDecoratorOptions,
-  additionalClassName?: string,
-): ReactNode {
-  if (!options) {
-    options = getDefaultFieldDecoratorOptions(intl);
-  }
-
-  return (
-    <Form.Item hasFeedback={hasFeedback} className={`filtercontrol ${additionalClassName || ''}`}>
-      {getFieldDecorator(`${parentId}_input`, options)(
-        children
-      )}
-    </Form.Item>
-  );
 }
