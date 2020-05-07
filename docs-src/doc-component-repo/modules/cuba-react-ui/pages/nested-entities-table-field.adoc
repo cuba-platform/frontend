@@ -1,5 +1,5 @@
 = NestedEntitiesTableField
-:api_ui_NestedEntitiesTableFieldProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_nestedentitiestablefield_.nestedentitiestablefieldprops.html
+:api_ui_NestedEntitiesTableFieldProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_form_.nestedentitiestablefieldprops.html
 
 `NestedEntitiesTableField` is a form field component that is used in the context of One-to-Many Composition and represents the nested entities. It will render a xref:data-table.adoc[DataTable] with buttons to create, edit or remove nested entities. Clicking create or edit button will open an xref:entity-editor.adoc[EntityEditor]. xref:form-field.adoc[FormField] will automatically render a `NestedEntitiesTableField` for an One-to-Many Composition entity property.
 

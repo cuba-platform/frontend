@@ -1,5 +1,5 @@
 = Forms
-:api_ui_FieldProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_field_.fieldprops.html
+:api_ui_FieldProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_form_.fieldprops.html
 
 In order to facilitate data binding we use Ant Design {antDesign_base}/components/form/[Form] component and utilities. On top of that we provide a `Field` component that automatically renders a correct component depending on the property type (e.g. `DatePicker`, `Select`, etc.). See the following example:
 
