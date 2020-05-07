@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;ui/table/DataTableHelpers&quot; | @cuba-platform/react-ui - v1.0.0-alpha.0</title>
+	<title>&quot;ui/table/DataTableHelpers&quot; | @cuba-platform/react-ui - v1.0.0-beta.1</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cuba-platform/react-ui - v1.0.0-alpha.0</a>
+					<a href="../index.html" class="title">@cuba-platform/react-ui - v1.0.0-beta.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -80,12 +80,10 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#decorateandwrapinformitem" class="tsd-kind-icon">decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#entityfiltertotablefilters" class="tsd-kind-icon">entity<wbr>Filter<wbr>ToTable<wbr>Filters</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#generatecustomfilterdropdown" class="tsd-kind-icon">generate<wbr>Custom<wbr>Filter<wbr>Dropdown</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_ui_table_datatablehelpers_.html#generatedatacolumn" class="tsd-kind-icon">generate<wbr>Data<wbr>Column</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#generateenumfilter" class="tsd-kind-icon">generate<wbr>Enum<wbr>Filter</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#getdefaultfielddecoratoroptions" class="tsd-kind-icon">get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_ui_table_datatablehelpers_.html#handletablechange" class="tsd-kind-icon">handle<wbr>Table<wbr>Change</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#isconditionsgroup" class="tsd-kind-icon">is<wbr>Conditions<wbr>Group</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ui_table_datatablehelpers_.html#ispreservedcondition" class="tsd-kind-icon">is<wbr>Preserved<wbr>Condition</a></li>
@@ -101,92 +99,6 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="decorateandwrapinformitem" class="tsd-anchor"></a>
-					<h3>decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item<span class="tsd-signature-symbol">(</span>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span>, parentId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, getFieldDecorator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, intl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IntlShape</span>, hasFeedback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">GetFieldDecoratorOptions</span>, additionalClassName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L505">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:505</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>children: <span class="tsd-signature-type">ReactNode</span></h5>
-								</li>
-								<li>
-									<h5>parentId: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>getFieldDecorator: <span class="tsd-signature-type">function</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-has-type-parameter tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon">&lt;T&gt;<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof T</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">GetFieldDecoratorOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-type-parameters-title">Type parameters</h4>
-													<ul class="tsd-type-parameters">
-														<li>
-															<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></h4>
-														</li>
-													</ul>
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>id: <span class="tsd-signature-type">keyof T</span></h5>
-														</li>
-														<li>
-															<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">GetFieldDecoratorOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
-													<ul class="tsd-parameters">
-														<li class="tsd-parameter-siganture">
-															<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-																<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
-															</ul>
-															<ul class="tsd-descriptions">
-																<li class="tsd-description">
-																	<h4 class="tsd-parameters-title">Parameters</h4>
-																	<ul class="tsd-parameters">
-																		<li>
-																			<h5>node: <span class="tsd-signature-type">ReactNode</span></h5>
-																		</li>
-																	</ul>
-																	<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
-																</li>
-															</ul>
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<h5>intl: <span class="tsd-signature-type">IntlShape</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> hasFeedback: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">GetFieldDecoratorOptions</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> additionalClassName: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="entityfiltertotablefilters" class="tsd-anchor"></a>
 					<h3>entity<wbr>Filter<wbr>ToTable<wbr>Filters</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
@@ -196,7 +108,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L437">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:437</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L434">src/ui/table/DataTableHelpers.tsx:434</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -233,7 +145,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L259">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:259</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L256">src/ui/table/DataTableHelpers.tsx:256</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -334,7 +246,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L158">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:158</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L155">src/ui/table/DataTableHelpers.tsx:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -456,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L242">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:242</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L239">src/ui/table/DataTableHelpers.tsx:239</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -479,29 +391,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="getdefaultfielddecoratoroptions" class="tsd-anchor"></a>
-					<h3>get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options<span class="tsd-signature-symbol">(</span>intl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IntlShape</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">GetFieldDecoratorOptions</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L493">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:493</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>intl: <span class="tsd-signature-type">IntlShape</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">GetFieldDecoratorOptions</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 					<a name="handletablechange" class="tsd-anchor"></a>
 					<h3>handle<wbr>Table<wbr>Change</h3>
@@ -512,7 +401,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L410">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:410</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L407">src/ui/table/DataTableHelpers.tsx:407</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -552,7 +441,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L459">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:459</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L456">src/ui/table/DataTableHelpers.tsx:456</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -575,7 +464,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L473">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:473</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L470">src/ui/table/DataTableHelpers.tsx:470</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -615,7 +504,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L477">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:477</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L474">src/ui/table/DataTableHelpers.tsx:474</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -638,7 +527,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L340">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:340</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L337">src/ui/table/DataTableHelpers.tsx:337</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -670,7 +559,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L291">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:291</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L288">src/ui/table/DataTableHelpers.tsx:288</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -715,12 +604,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/3dd87c5/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L354">cuba-react-ui/src/ui/table/DataTableHelpers.tsx:354</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/6ebdc729/packages/cuba-react-ui/src/ui/table/DataTableHelpers.tsx#L351">src/ui/table/DataTableHelpers.tsx:351</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sets sort field/order on provided <code>dataCollection</code> based on current state of table <code>sorter</code></p>
+									<p>Sets sort field/order on provided <code>dataCollection</code> based on current state of table <code>sorter</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -773,9 +662,6 @@
 						<a href="../interfaces/_ui_table_datatablehelpers_.tablechangedto.html" class="tsd-kind-icon">Table<wbr>ChangeDTO</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_ui_table_datatablehelpers_.html#decorateandwrapinformitem" class="tsd-kind-icon">decorate<wbr>And<wbr>Wrap<wbr>InForm<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_ui_table_datatablehelpers_.html#entityfiltertotablefilters" class="tsd-kind-icon">entity<wbr>Filter<wbr>ToTable<wbr>Filters</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
@@ -786,9 +672,6 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_ui_table_datatablehelpers_.html#generateenumfilter" class="tsd-kind-icon">generate<wbr>Enum<wbr>Filter</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_ui_table_datatablehelpers_.html#getdefaultfielddecoratoroptions" class="tsd-kind-icon">get<wbr>Default<wbr>Field<wbr>Decorator<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_ui_table_datatablehelpers_.html#handletablechange" class="tsd-kind-icon">handle<wbr>Table<wbr>Change</a>
