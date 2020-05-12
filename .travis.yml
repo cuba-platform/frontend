@@ -29,6 +29,7 @@ before_script: |
 jobs:
   include:
     - name: "Dependency vulnerability check"
+      if: branch != master
       script:
         - npm run bootstrap-react-app
         - npm run snyk:test
