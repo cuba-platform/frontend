@@ -33,10 +33,11 @@ jobs:
         - npm run bootstrap-react-app
         - npm run snyk:test
 
-    - name: "Send snapshot to Snyk"
-      if: branch = master OR branch = develop
+    - name: "Dependency vulnerability check + send snapshot to Snyk"
+      if: branch = master
       script:
         - npm run bootstrap-react-app
+        - npm run snyk:test
         - npm run snyk:monitor
 
     - name: "Tests on generated app"
