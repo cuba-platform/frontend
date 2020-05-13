@@ -89,7 +89,9 @@ class DataTableCustomFilterComponent<E extends WithId>
   getFieldDecorator!: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
 
   set operator(operator: ComparisonType) {
+    const oldOperator: ComparisonType = this.operator;
     this.props.onOperatorChange(operator, this.props.entityProperty);
+    this.checkOperatorGroup(operator, oldOperator);
   }
 
   get operator(): ComparisonType {
@@ -168,7 +170,7 @@ class DataTableCustomFilterComponent<E extends WithId>
     e.stopPropagation();
 
     this.props.form.validateFields((err) => {
-      if (!err) {
+      if (err == null && this.value != null) {
         this.props.filterProps.setSelectedKeys!(
           [
             JSON.stringify({
@@ -182,9 +184,11 @@ class DataTableCustomFilterComponent<E extends WithId>
     });
   };
 
-  initValue = (): void => {
-    if (this.operator === 'notEmpty' || this.propertyInfoNN.type === 'boolean') {
+  initValue = (operator: ComparisonType = this.operator): void => {
+    if (operator === 'notEmpty' || this.propertyInfoNN.type === 'boolean') {
       this.value = true;
+    } else if (operator === 'in' || operator === 'notIn') {
+      this.value = [];
     } else {
       this.value = undefined;
     }
@@ -194,7 +198,6 @@ class DataTableCustomFilterComponent<E extends WithId>
   resetFilter = (): void => {
     this.props.form.resetFields();
     this.operator = this.getDefaultOperator();
-    this.initValue();
 
     // @ts-ignore
     this.props.filterProps.clearFilters!(this.props.filterProps.selectedKeys!);
@@ -202,16 +205,16 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @action
   changeOperator = (newOperator: ComparisonType): void => {
-    const oldOperator: ComparisonType = this.operator;
+    this.operator = newOperator;
+  };
 
+  checkOperatorGroup = (newOperator: ComparisonType, oldOperator: ComparisonType): void => {
     const oldOperatorGroup: OperatorGroup = determineOperatorGroup(oldOperator);
     const newOperatorGroup: OperatorGroup = determineOperatorGroup(newOperator);
 
-    this.operator = newOperator;
-
     if (oldOperatorGroup !== newOperatorGroup) {
       this.props.form.resetFields();
-      this.initValue();
+      this.initValue(newOperator);
     }
   };
 
