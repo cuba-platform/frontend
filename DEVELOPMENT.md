@@ -9,7 +9,10 @@ This is a monorepo for the following npm packages:
 
 ## Bootstrap
 
-```lerna boostrap```
+```
+npm install
+lerna boostrap
+```
 
 ## Dependencies of Generated App
 
