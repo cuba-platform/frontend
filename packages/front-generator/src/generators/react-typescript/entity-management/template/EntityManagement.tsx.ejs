@@ -1,8 +1,8 @@
 import * as React from "react";
 import {RouteComponentProps} from "react-router";
 import {observer} from "mobx-react";
-import <%= editComponentName %> from "./<%= editComponentName %>";
-import <%= listComponentName %> from "./<%= listComponentName %>";
+import <%= editComponentClass %> from "./<%= editComponentClass %>";
+import <%= listComponentClass %> from "./<%= listComponentClass %>";
 import {PaginationConfig} from "antd/es/pagination";
 import {action, observable} from "mobx";
 import {addPagingParams, createPagingConfig, defaultPagingConfig} from "@cuba-platform/react-ui";
@@ -25,8 +25,8 @@ export class <%= className %> extends React.Component<Props> {
     const {entityId} = this.props.match.params;
     return (
       entityId
-          ? < <%= editComponentName %> entityId={entityId}/>
-          : < <%= listComponentName %>
+          ? < <%= editComponentClass %> entityId={entityId}/>
+          : < <%= listComponentClass %>
 
     <% if (listType === 'list' || listType === 'cards') { %> <%# if clause will be removed after paging impleneted on other list types %>
         onPagingChange={this.onPagingChange}

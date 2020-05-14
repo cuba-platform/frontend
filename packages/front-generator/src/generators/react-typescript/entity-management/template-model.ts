@@ -17,8 +17,8 @@ export interface RelationImport {
 }
 
 export interface EntityManagementTemplateModel extends CommonTemplateModel {
-  listComponentName: string;
-  editComponentName: string;
+  listComponentClass: string;
+  editComponentClass: string;
   listType: EntityManagementListType;
   nameLiteral: string;
   entity: EntityTemplateModel;

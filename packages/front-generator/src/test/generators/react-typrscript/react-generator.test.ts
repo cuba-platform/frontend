@@ -3,7 +3,7 @@ import {generate} from "../../../init";
 import * as path from "path";
 import {promisify} from "util";
 import * as fs from "fs";
-import {assertContent, assertFiles, opts} from '../../test-commons';
+import {assertFiles, opts} from '../../test-commons';
 
 const rimraf = promisify(require('rimraf'));
 
@@ -37,6 +37,13 @@ describe('react generator test', () => {
       opts(COMPONENT_DIR, answers.blankComponent, modelPath));
 
     assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
+
+    await rimraf(`${COMPONENT_DIR}/*`);
+
+    await generate('react-typescript', 'blank-component',
+      opts(COMPONENT_DIR, answers.blankComponentLowCase, modelPath));
+
+    assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client entity-cards', async function () {
@@ -59,12 +66,18 @@ describe('react generator test', () => {
       opts(EM_DIR, answers.entityManagement2, modelPath));
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, answers.entityManagement3, modelPath));
+    await generate('react-typescript', 'entity-management',
+      opts(EM_DIR, answers.entityManagementLowCase, modelPath));
 
     assertFiles('src/app/entity-management/CarCards.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarEdit.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarList.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarTable.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarManagement.tsx', REACT_DIR, FIXTURES_DIR);
+
+    assertFiles('src/app/entity-management/CarManagementLowCase.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/CarEditLowCase.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/CarTableLowCase.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
 });

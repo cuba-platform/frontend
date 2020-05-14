@@ -22,7 +22,7 @@ onPagingChange: (current: number, pageSize: number) => void;
 
 @injectMainStore
 @observer
-class <%= listComponentName %>Component extends React.Component<Props> {
+class <%= listComponentClass %>Component extends React.Component<Props> {
 
   dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {
     view: '<%= listView.name %>',
@@ -130,6 +130,6 @@ class <%= listComponentName %>Component extends React.Component<Props> {
   }
 }
 
-const <%=listComponentName%> = injectIntl(<%=listComponentName%>Component);
+const <%=listComponentClass%> = injectIntl(<%=listComponentClass%>Component);
 
-export default <%=listComponentName%>;
+export default <%=listComponentClass%>;

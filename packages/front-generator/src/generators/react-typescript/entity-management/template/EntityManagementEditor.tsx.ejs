@@ -41,7 +41,7 @@ type EditorProps = {
 
 @injectMainStore
 @observer
-class <%= editComponentName %>Component extends React.Component<Props & WrappedComponentProps> {
+class <%= editComponentClass %>Component extends React.Component<Props & WrappedComponentProps> {
 
   dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= editView.name %>', loadImmediately: false});
 
@@ -204,4 +204,4 @@ export default injectIntl(withLocalizedForm<EditorProps>({
       })
     });
   }
-})(<%= editComponentName %>Component));
+})(<%= editComponentClass %>Component));

@@ -37,8 +37,8 @@ class CopyTplGenerator extends Base {
     ];
 
     const model = {
-      editComponentName: "CarEdit",
-      listComponentName: "CarCards",
+      editComponentClass: "CarEdit",
+      listComponentClass: "CarCards",
       className: "CarManagement",
       editAssociations: {
         garage: {className: 'Garage', path: 'cuba/entities/scr$Garage'}
