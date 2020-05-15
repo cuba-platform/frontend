@@ -1,10 +1,10 @@
 import * as React from "react";
 
-export class <%= componentName %> extends React.Component {
+export class <%= className %> extends React.Component {
   render() {
     return(
       <div>
-        <%= componentName %>
+        <%= className %>
       </div>
     )
   }

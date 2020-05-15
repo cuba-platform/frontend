@@ -34,7 +34,7 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       throw new Error('Answers not provided');
     }
     this.model = answersToManagementModel(this.answers, this.cubaProjectModel!, this.options.dirShift);
-    const {className, listComponentName, editComponentName, listType} = this.model;
+    const {className, listComponentClass, editComponentClass, listType} = this.model;
 
     const extension = '.tsx.ejs';
     this.fs.copyTpl(
@@ -45,11 +45,11 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
     const listTemplateFile = capitalizeFirst(listType) + extension;
     this.fs.copyTpl(
       this.templatePath(listTemplateFile),
-      this.destinationPath(listComponentName + extension), this.model
+      this.destinationPath(listComponentClass + extension), this.model
     );
     this.fs.copyTpl(
       this.templatePath('EntityManagementEditor' + extension),
-      this.destinationPath(editComponentName + extension), this.model
+      this.destinationPath(editComponentClass + extension), this.model
     );
 
     writeComponentI18nMessages(
@@ -127,7 +127,7 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
   }
 }
 
-export function answersToManagementModel(answers: EntityManagementAnswers,
+function answersToManagementModel(answers: EntityManagementAnswers,
                                          projectModel:ProjectModel,
                                          dirShift: string | undefined): EntityManagementTemplateModel {
   const className = elementNameToClass(answers.managementComponentName);
@@ -150,8 +150,8 @@ export function answersToManagementModel(answers: EntityManagementAnswers,
     componentName: answers.managementComponentName,
     className,
     relDirShift: dirShift || '',
-    listComponentName: answers.listComponentName,
-    editComponentName: answers.editComponentName,
+    listComponentClass: elementNameToClass(answers.listComponentName),
+    editComponentClass: elementNameToClass(answers.editComponentName),
     listType: answers.listType,
     nameLiteral: unCapitalizeFirst(className),
     entity,

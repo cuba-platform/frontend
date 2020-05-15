@@ -2,6 +2,9 @@
   "blankComponent": {
     "componentName": "BlankComponent"
   },
+  "blankComponentLowCase": {
+    "componentName": "blankComponent"
+  },
   "entityManagement": {
     "editView": {
       "name": "car-edit",
@@ -53,6 +56,23 @@
     },
     "managementComponentName": "CarManagement3"
   },
+  "entityManagementLowCase": {
+    "editView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "editComponentName": "carEditLowCase",
+    "listView": {
+      "name": "car-edit",
+      "entityName": "mpg$Car"
+    },
+    "listComponentName": "carTableLowCase",
+    "listType": "table",
+    "entity": {
+      "name": "mpg$Car"
+    },
+    "managementComponentName": "carManagementLowCase"
+  },
   "entityCards": {
     "entityView": {
       "name": "favoriteCar-view",
@@ -61,26 +81,6 @@
     "componentName": "mpg-favorite-car-cards",
     "entity": {
       "name": "mpg$FavoriteCar"
-    }
-  },
-  "entityList": {
-    "entityView": {
-      "name": "_local",
-      "entityName": "mpg$Garage"
-    },
-    "componentName": "mpg-garage-list",
-    "entity": {
-      "name": "mpg$Garage"
-    }
-  },
-  "entityEdit": {
-    "editView": {
-      "name": "car-edit",
-      "entityName": "mpg$Car"
-    },
-    "editComponentName": "mpg-car-edit",
-    "entity": {
-      "name": "mpg$Car"
     }
   },
   "queryResults": {

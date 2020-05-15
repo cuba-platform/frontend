@@ -14,7 +14,7 @@ import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 @injectMainStore
 @observer
-class <%= listComponentName %>Component extends React.Component<MainStoreInjected & WrappedComponentProps> {
+class <%= listComponentClass %>Component extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
   dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= listView.name %>', sort: '-updateTs'});
   @observable selectedRowKey: string | undefined;
@@ -104,6 +104,6 @@ class <%= listComponentName %>Component extends React.Component<MainStoreInjecte
 
 }
 
-const <%=listComponentName%> = injectIntl(<%=listComponentName%>Component);
+const <%=listComponentClass%> = injectIntl(<%=listComponentClass%>Component);
 
-export default <%=listComponentName%>;
+export default <%=listComponentClass%>;
