@@ -252,6 +252,8 @@ export function generateEnumFilter(propertyInfo: MetaPropertyInfo, mainStore: Ma
   });
 }
 
+type RefCallback = string & ((instance: WrappedFormUtils) => void);
+
 // todo - after extraction DataColumn class move this method to DataColumn and inline
 export function generateCustomFilterDropdown(
   propertyName: string,
@@ -271,7 +273,7 @@ export function generateCustomFilterDropdown(
                   onOperatorChange={onOperatorChange}
                   value={value}
                   onValueChange={onValueChange}
-                  ref={customFilterRefCallback as string & ((instance: WrappedFormUtils) => void)}
+                  ref={customFilterRefCallback as RefCallback}
     />
   )
 
