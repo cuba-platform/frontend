@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:task="http://www.springframework.org/schema/task">
+
+    <!--cuba_PortalAnonymousSessionHolder-->
+
+    <bean id="anonymousSessionPingScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+        <property name="daemon" value="true"/>
+        <property name="poolSize" value="1"/>
+    </bean>
+
+    <task:scheduled-tasks scheduler="anonymousSessionPingScheduler">
+        <!-- every 10 minutes -->
+        <task:scheduled ref="cuba_PortalAnonymousSessionHolder" method="pingSession" fixed-delay="600000"/>
+    </task:scheduled-tasks>
+    
+    <bean id="scr_proxyCreator" class="com.haulmont.cuba.portal.sys.remoting.PortalRemoteProxyBeanCreator">
+        <property name="serverSelector"
+                  ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="scr_FavoriteService"
+                       value="com.company.scr.service.FavoriteService"/>
+            </map>
+        </property>
+    </bean>
+</beans>
