@@ -31,10 +31,10 @@ const runSnykCommand = (snykExecutable, command, projectName, projectPath, inclu
   }
 
   const baseCommand = `node ${snykExecutable} ${command} -- --file=package.json --trust-policies`;
-  const runExcludingDevDeps = () => runCmdSync(baseCommand);
-  const runIncludingDevDeps = () => runCmdSync(`${baseCommand} --dev`);
+  const fullCommand = includeDevDependencies ? `${baseCommand} --dev` : baseCommand;
 
   log.info(`Running "snyk ${command}" for ${projectName} in ${process.cwd()}`);
+  log.info(fullCommand);
 
   const policyFile = '.snyk';
   if (savedPolicyFile != null) {
@@ -42,7 +42,7 @@ const runSnykCommand = (snykExecutable, command, projectName, projectPath, inclu
     fs.copySync(`${savedPolicyFile}`, policyFile);
   }
 
-  includeDevDependencies ? runIncludingDevDeps() : runExcludingDevDeps();
+  runCmdSync(fullCommand);
 
   if (savedPolicyFile != null) {
     // Save the modified Snyk policy file
@@ -68,8 +68,8 @@ const execute = (command, projectPath, includeDevDependencies, savedPolicyFile) 
   if (projectPath != null) {
     runSnykCommand(snykExecutable, command, undefined,
       projectPath,
-      includeDevDependencies && includeDevDependencies !== 'false',
-      `${basePath}/${savedPolicyFile}`);
+      !!includeDevDependencies && includeDevDependencies !== 'false',
+      savedPolicyFile != null ? `${basePath}/${savedPolicyFile}` : undefined);
     return;
   }
 
