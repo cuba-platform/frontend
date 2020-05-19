@@ -10,7 +10,8 @@ import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 import {
 <% if (Object.keys(editAssociations).length > 0) { %>
-  collection,
+  loadAssociationOptions,
+  DataCollectionStore,
 <% } %>
   instance, MainStoreInjected, injectMainStore
 } from "@cuba-platform/react-core";
@@ -45,12 +46,13 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
 
   dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= editView.name %>', loadImmediately: false});
 
-  <% Object.entries(editAssociations).forEach(([attrName, entity]) => { %>
-    <%= attrName %>sDc = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '_minimal'});
+  <% Object.entries(editAssociations).forEach(([attrName, nestedEntity]) => { %>
+    @observable <%= attrName %>sDc: DataCollectionStore<<%= nestedEntity.className %>> | undefined;
   <% }) %>
 
   @observable updated = false;
-  reactionDisposer: IReactionDisposer;
+  @observable formRef: React.RefObject<Form> = React.createRef();
+  reactionDisposers: IReactionDisposer[] = [];
 
   fields = [
   <% editAttributes.forEach(p => { -%>
@@ -59,6 +61,23 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
   ];
 
   @observable globalErrors: string[] = [];
+
+  <% if (Object.keys(editAssociations).length > 0) { %>
+  /**
+  * This method should be called after the user permissions has been loaded
+  */
+  loadAssociationOptions = () => {
+    // MainStore should exist at this point
+    if (this.props.mainStore != null) {
+      const {getAttributePermission} = this.props.mainStore.security;
+      <% Object.entries(editAssociations).forEach(([attrName, nestedEntity]) => { %>
+        this.<%= attrName %>sDc = loadAssociationOptions(
+          <%= entity.className %>.NAME, '<%= attrName %>', <%= nestedEntity.className %>.NAME, getAttributePermission, { view: "_minimal" }
+        );
+      <% }) %>
+    }
+  };
+  <% } %>
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -112,7 +131,8 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
     return (
       <Card className='narrow-layout'>
         <Form onSubmit={this.handleSubmit}
-              layout='vertical'>
+              layout='vertical'
+              ref={this.formRef}>
 
           <% editAttributes.forEach(attr => { %>
             <Field entityName={<%= entity.className %>.NAME}
@@ -177,18 +197,46 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
     } else {
       this.dataInstance.setItem(new <%= entity.className %>());
     }
-    this.reactionDisposer = reaction(
-      () => {
-        return this.dataInstance.item
+
+    <% if (Object.keys(editAssociations).length > 0) { %>
+      this.reactionDisposers.push(reaction(
+        () => this.props.mainStore?.security.effectivePermissions,
+        (perms, permsReaction) => {
+          if (perms != null) {
+            // User permissions has been loaded.
+            // We can now load association options.
+            this.loadAssociationOptions(); // Calls REST API
+            permsReaction.dispose();
+          }
+        },
+        { fireImmediately: true }
+      ));
+    <% } %>
+
+    this.reactionDisposers.push(reaction(
+      () => this.formRef.current,
+      (formRefCurrent, formRefReaction) => {
+        if (formRefCurrent != null) {
+          // The Form has been successfully created.
+          // It is now safe to set values on Form fields.
+          this.reactionDisposers.push( reaction(
+            () => this.dataInstance.item,
+            () => {
+              this.props.form.setFieldsValue(
+                this.dataInstance.getFieldValues(this.fields)
+              );
+            },
+            {fireImmediately: true}
+          ));
+          formRefReaction.dispose();
+        }
       },
-      () => {
-        this.props.form.setFieldsValue(this.dataInstance.getFieldValues(this.fields));
-      }
-    )
+      {fireImmediately: true}
+    ));
   }
 
   componentWillUnmount() {
-    this.reactionDisposer();
+    this.reactionDisposers.forEach(dispose => dispose());
   }
 
 }

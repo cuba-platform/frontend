@@ -13,7 +13,8 @@ import {
 } from "react-intl";
 
 import {
-  collection,
+  loadAssociationOptions,
+  DataCollectionStore,
   instance,
   MainStoreInjected,
   injectMainStore
@@ -52,19 +53,17 @@ class CarEditLowCaseComponent extends React.Component<
     loadImmediately: false
   });
 
-  garagesDc = collection<Garage>(Garage.NAME, { view: "_minimal" });
+  @observable garagesDc: DataCollectionStore<Garage> | undefined;
 
-  technicalCertificatesDc = collection<TechnicalCertificate>(
-    TechnicalCertificate.NAME,
-    { view: "_minimal" }
-  );
+  @observable technicalCertificatesDc:
+    | DataCollectionStore<TechnicalCertificate>
+    | undefined;
 
-  photosDc = collection<FileDescriptor>(FileDescriptor.NAME, {
-    view: "_minimal"
-  });
+  @observable photosDc: DataCollectionStore<FileDescriptor> | undefined;
 
   @observable updated = false;
-  reactionDisposer: IReactionDisposer;
+  @observable formRef: React.RefObject<Form> = React.createRef();
+  reactionDisposers: IReactionDisposer[] = [];
 
   fields = [
     "manufacturer",
@@ -84,6 +83,40 @@ class CarEditLowCaseComponent extends React.Component<
   ];
 
   @observable globalErrors: string[] = [];
+
+  /**
+   * This method should be called after the user permissions has been loaded
+   */
+  loadAssociationOptions = () => {
+    // MainStore should exist at this point
+    if (this.props.mainStore != null) {
+      const { getAttributePermission } = this.props.mainStore.security;
+
+      this.garagesDc = loadAssociationOptions(
+        Car.NAME,
+        "garage",
+        Garage.NAME,
+        getAttributePermission,
+        { view: "_minimal" }
+      );
+
+      this.technicalCertificatesDc = loadAssociationOptions(
+        Car.NAME,
+        "technicalCertificate",
+        TechnicalCertificate.NAME,
+        getAttributePermission,
+        { view: "_minimal" }
+      );
+
+      this.photosDc = loadAssociationOptions(
+        Car.NAME,
+        "photo",
+        FileDescriptor.NAME,
+        getAttributePermission,
+        { view: "_minimal" }
+      );
+    }
+  };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -155,7 +188,7 @@ class CarEditLowCaseComponent extends React.Component<
 
     return (
       <Card className="narrow-layout">
-        <Form onSubmit={this.handleSubmit} layout="vertical">
+        <Form onSubmit={this.handleSubmit} layout="vertical" ref={this.formRef}>
           <Field
             entityName={Car.NAME}
             propertyName="manufacturer"
@@ -312,20 +345,50 @@ class CarEditLowCaseComponent extends React.Component<
     } else {
       this.dataInstance.setItem(new Car());
     }
-    this.reactionDisposer = reaction(
-      () => {
-        return this.dataInstance.item;
-      },
-      () => {
-        this.props.form.setFieldsValue(
-          this.dataInstance.getFieldValues(this.fields)
-        );
-      }
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.props.mainStore?.security.effectivePermissions,
+        (perms, permsReaction) => {
+          if (perms != null) {
+            // User permissions has been loaded.
+            // We can now load association options.
+            this.loadAssociationOptions(); // Calls REST API
+            permsReaction.dispose();
+          }
+        },
+        { fireImmediately: true }
+      )
+    );
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.formRef.current,
+        (formRefCurrent, formRefReaction) => {
+          if (formRefCurrent != null) {
+            // The Form has been successfully created.
+            // It is now safe to set values on Form fields.
+            this.reactionDisposers.push(
+              reaction(
+                () => this.dataInstance.item,
+                () => {
+                  this.props.form.setFieldsValue(
+                    this.dataInstance.getFieldValues(this.fields)
+                  );
+                },
+                { fireImmediately: true }
+              )
+            );
+            formRefReaction.dispose();
+          }
+        },
+        { fireImmediately: true }
+      )
     );
   }
 
   componentWillUnmount() {
-    this.reactionDisposer();
+    this.reactionDisposers.forEach(dispose => dispose());
   }
 }
 
