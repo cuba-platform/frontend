@@ -13,7 +13,8 @@ import {
   instanceItemToFormFields, isByteArray,
   isFileProperty, isOneToManyAssociation,
   MainStoreInjected,
-  WithId
+  WithId,
+  loadAllAssociationOptions
 } from '@cuba-platform/react-core';
 import {FormComponentProps, FormItemProps} from 'antd/lib/form';
 import {GetFieldDecoratorOptions} from 'antd/lib/form/Form';
@@ -43,7 +44,8 @@ import {
   MetaClassInfo,
   MetaPropertyInfo,
   PropertyType,
-  SerializedEntityProps, View, ViewProperty
+  SerializedEntityProps, View, ViewProperty,
+  EffectivePermsInfo
 } from '@cuba-platform/rest';
 import {uuidPattern} from '../../util/regex';
 import * as React from 'react';
@@ -61,8 +63,7 @@ import {LongInput} from './LongInput';
 import {BigDecimalInput} from './BigDecimalInput';
 import {UuidInput} from './UuidInput';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
-import {computed, IReactionDisposer, observable, reaction, toJS} from 'mobx';
-import {loadAssociationOptions} from '../../util/ui-model';
+import {computed, IObservableArray, IReactionDisposer, observable, reaction, toJS} from 'mobx';
 import {FormEvent} from 'react';
 import './EntityEditor.less';
 import './NestedEntitiesTableField.less';
@@ -321,6 +322,12 @@ export interface NestedEntityFieldProps extends MainStoreInjected, WrappedCompon
   nestedEntityView: string;
 }
 
+type AssociationOptionsReactionData = [
+  string[],
+  IObservableArray<MetaClassInfo> | undefined,
+  EffectivePermsInfo | undefined
+];
+
 @injectMainStore
 @observer
 class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps> {
@@ -328,7 +335,7 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
   @observable isDrawerOpen = false;
   @observable fields: string[] = [];
   @observable dataInstance: DataInstanceStore<Partial<WithId & SerializedEntityProps>> | undefined;
-  @observable associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>>> = new Map();
+  @observable associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined> = new Map();
 
   @computed get instanceName(): string | undefined {
     const {intl} = this.props;
@@ -352,8 +359,25 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
     this.loadViewPropertyNames(nestedEntityName, nestedEntityView)
       ?.then((propertyNames: string[]) => {
         this.fields = propertyNames;
-        this.loadAssociationOptions();
       });
+
+    this.reactionDisposers.push(reaction(
+      () => [
+        this.fields,
+        this.props.mainStore?.metadata,
+        this.props.mainStore?.security.effectivePermissions
+      ] as AssociationOptionsReactionData,
+      ([fields, metadata, perms]: AssociationOptionsReactionData, thisReaction) => {
+        if (fields.length > 0 && metadata != null && perms != null && this.props.mainStore != null) {
+          const {getAttributePermission} = this.props.mainStore.security;
+          const entityProperties: MetaPropertyInfo[] = getEntityProperties(nestedEntityName, fields, metadata);
+          // Performs HTTP requests:
+          this.associationOptions = loadAllAssociationOptions(entityProperties, nestedEntityName, getAttributePermission);
+          thisReaction.dispose();
+        }
+      },
+      {fireImmediately: true}
+    ));
 
     this.reactionDisposers.push(reaction(
       () => this.props.value,
@@ -380,17 +404,6 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
         });
       });
   };
-
-  loadAssociationOptions = () => {
-    this.associationOptions = loadAssociationOptions(this.entityProperties);
-  };
-
-  get entityProperties(): MetaPropertyInfo[] {
-    const {mainStore, nestedEntityName} = this.props;
-    return (mainStore?.metadata && this.fields.length > 0)
-      ? getEntityProperties(nestedEntityName, this.fields, mainStore?.metadata)
-      : [];
-  }
 
   get isCreateMode(): boolean {
     return this.props.value == null;
@@ -525,9 +538,8 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
   @observable inverseAttributeName: string | undefined;
   @observable dataCollection: ClientSideDataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined;
   @observable editedInstance: DataInstanceStore<Partial<WithId & SerializedEntityProps>> | undefined;
-  @observable associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>>> = new Map();
+  @observable associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined> = new Map();
 
-  fieldsDataRequested = false;
   disposers: IReactionDisposer[] = [];
 
   componentDidMount(): void {
@@ -564,18 +576,34 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
     ));
 
     // Performs several HTTP requests (one per each one-to-many association).
-    // That should happen only once after requests to load the entity view and metadata are resolved.
+    // That should happen only once after the requests to load permissions and entity view and metadata are resolved.
+    this.disposers.push(reaction(
+      () => [
+        this.allFields,
+        this.props.mainStore?.metadata,
+        this.props.mainStore?.security.effectivePermissions
+      ] as AssociationOptionsReactionData,
+      ([allFields, metadata, perms]: AssociationOptionsReactionData, thisReaction) => {
+        if (allFields != null && metadata != null && perms != null && this.props.mainStore != null) {
+          const {getAttributePermission} = this.props.mainStore.security;
+          const entityProperties: MetaPropertyInfo[] = getEntityProperties(nestedEntityName, allFields, metadata);
+          // Performs HTTP requests:
+          this.associationOptions = loadAllAssociationOptions(entityProperties, nestedEntityName, getAttributePermission);
+          thisReaction.dispose();
+        }
+      },
+      {fireImmediately: true}
+    ));
+
     this.disposers.push(reaction(
       () => [this.allFields, this.props.mainStore?.metadata],
-      () => {
-        if (!this.fieldsDataRequested
-          && this.allFields != null
+      (_data, thisReaction) => {
+        if (this.allFields != null
           && this.allFields.length > 0
           && this.props.mainStore?.metadata != null
         ) {
           const entityProperties: MetaPropertyInfo[] =
             getEntityProperties(nestedEntityName, this.allFields, this.props.mainStore?.metadata);
-          this.associationOptions = loadAssociationOptions(entityProperties); // Performs HTTP requests, async
           this.inverseAttributeName = entityProperties
             .find(property => property.type === parentEntityName)
             ?.name;
@@ -592,7 +620,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
             })
             .map(property => property.name)
             .sort();
-          this.fieldsDataRequested = true;
+          thisReaction.dispose();
         }
       }
     ));
@@ -799,7 +827,7 @@ export interface EntityEditorProps extends MainStoreInjected, WrappedComponentPr
    * and values are data collections containing entity instances that can be assigned
    * to the corresponding property (i.e. possible options that can be selected in a form field)
    */
-  associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>>>;
+  associationOptions: Map<string, DataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined>;
   /**
    * A callback that is executed when the form is submitted.
    * Execution happens only after a successful client-side validation.

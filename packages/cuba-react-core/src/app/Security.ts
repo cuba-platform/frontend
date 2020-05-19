@@ -35,12 +35,13 @@ export class Security {
 
   @action loadPermissions() {
     const requestId = ++this.permissionsRequestCount;
+    this.effectivePermissions = undefined;
+    this.attrPermissionCache.clear();
 
     this.cubaREST.getEffectivePermissions()
       .then(action((effectivePermsInfo: EffectivePermsInfo) => {
         if (requestId === this.permissionsRequestCount) {
           this.effectivePermissions = effectivePermsInfo;
-          this.attrPermissionCache.clear();
         }
       }))
       .catch(reason => {
