@@ -27,18 +27,20 @@ before_script: |
   npm run lerna run prepublishOnly
 
 jobs:
+  allow_failures:
+    env:
+      - ALLOWED_TO_FAIL=true
   include:
     - name: "Dependency vulnerability check"
-      if: branch != master
       script:
         - npm run bootstrap-react-app
         - npm run snyk:test
 
-    - name: "Dependency vulnerability check + send snapshot to Snyk"
+    - name: "Send snapshot to Snyk"
       if: branch = master
+      env: ALLOWED_TO_FAIL=true
       script:
         - npm run bootstrap-react-app
-        - npm run snyk:test
         - npm run snyk:monitor
 
     - name: "Tests on generated app"
