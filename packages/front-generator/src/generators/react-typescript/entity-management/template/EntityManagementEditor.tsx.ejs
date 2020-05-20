@@ -125,7 +125,7 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
                    <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
                         nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
                    <% } %>
-                   parentEntityInstanceId={this.props.entityId}
+                   parentEntityInstanceId={this.props.entityId !== <%= className %>.NEW_SUBPATH ? this.props.entityId : undefined}
               <% } %>
 
               <% if (Object.keys(editAssociations).includes(attr.name)) { %>
