@@ -508,9 +508,9 @@ export interface NestedEntitiesTableFieldProps extends MainStoreInjected, Wrappe
    */
   parentEntityName: string;
   /**
-   * Instance id of the parent entity
+   * Instance id of the parent entity. `undefined` means that the parent entity has not been persisted yet.
    */
-  parentEntityInstanceId: string;
+  parentEntityInstanceId?: string;
 }
 
 @injectMainStore
@@ -655,12 +655,13 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
     const {parentEntityInstanceId} = this.props;
 
     if (this.editedInstance?.item?.id != null) {
-      // We are editing existing entity (loaded from server or created client-side)
+      // We are editing existing nested entity (loaded from server or created client-side)
       // Update this.editedInstance.item - this includes data transformation from Form fields to REST API format
       const instanceId = this.editedInstance?.item?.id;
 
       const patch: any = {id: instanceId, ...updatedValues};
-      if (this.inverseAttributeName != null) {
+      if (this.inverseAttributeName != null && parentEntityInstanceId != null) {
+        // parentEntityInstanceId indicates that the parent entity has been persisted already
         patch[this.inverseAttributeName] = parentEntityInstanceId;
       }
 
@@ -673,9 +674,10 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
         this.dataCollection.allItems[index] = this.editedInstance?.item;
       }
     } else {
-      // We are creating a new entity
+      // We are creating a new nested entity
       const patch: any = {id: generateTemporaryEntityId(), ...updatedValues};
-      if (this.inverseAttributeName != null) {
+      if (this.inverseAttributeName != null && parentEntityInstanceId != null) {
+        // parentEntityInstanceId indicates that the parent entity has been persisted already
         patch[this.inverseAttributeName] = parentEntityInstanceId;
       }
       // Update this.editedInstance.item - this includes data transformation from Form fields to REST API format
