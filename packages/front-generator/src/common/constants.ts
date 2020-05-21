@@ -6,5 +6,7 @@ export const ENUMS_FILE = 'enums';
 export const CUBA_APP_NAME = 'cubaApp';
 export const CUBA_APP_TYPE = 'CubaApp';
 export const FETCH_OPTIONS_TYPE = 'FetchOptions';
+export const SERIALIZED_ENTITY_TYPE = 'SerializedEntity';
+export const ENTITIES_WITH_COUNT_TYPE = 'EntitiesWithCount';
 export const FETCH_OPTIONS_NAME = 'fetchOpts';
 export const CUBA_APP_MODULE_SPEC = '@cuba-platform/rest';

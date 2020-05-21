@@ -1,20 +1,55 @@
 import {RestQuery} from "../../../common/model/cuba-model";
 import {collectMethods, createMethodParamsType, MethodWithOverloads} from "./method-params-type";
 import * as ts from "typescript";
-import {PropertyAssignment, TypeAliasDeclaration} from "typescript";
-import {createIncludes, importDeclaration, ImportInfo} from "../import-utils";
+import {ImportDeclaration, PropertyAssignment, TypeAliasDeclaration, TypeNode} from "typescript";
+import {createIncludes, entityImportInfo, importDeclaration, ImportInfo} from "../import-utils";
 import {CreateItemResult, cubaAppCallFunc} from "./services-generation";
-import {CUBA_APP_MODULE_SPEC, CUBA_APP_TYPE, FETCH_OPTIONS_TYPE} from "../../../common/constants";
+import {
+  CUBA_APP_MODULE_SPEC,
+  CUBA_APP_TYPE,
+  ENTITIES_DIR,
+  ENTITIES_WITH_COUNT_TYPE,
+  FETCH_OPTIONS_TYPE,
+  SERIALIZED_ENTITY_TYPE
+} from "../../../common/constants";
 import {renderTSNodes} from "../../../common/ts-helpers";
 import {exportModifier} from "../../../common/ts-shorthands";
-import {ModelContext} from "../model/model-utils";
+import {findEntityByName, ModelContext} from "../model/model-utils";
+import {ProjectEntityInfo} from "../model/entities-generation";
 
 const QUERIES_VAR_NAME = 'restQueries';
 
 export function generateQueries(restQueries: RestQuery[], ctx: ModelContext): string {
-  const importDec = importDeclaration([CUBA_APP_TYPE, FETCH_OPTIONS_TYPE], CUBA_APP_MODULE_SPEC);
+
+  // import declaration
+  // import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@cuba-platform/rest";
+  const importDec = importDeclaration(
+    [CUBA_APP_TYPE, FETCH_OPTIONS_TYPE, SERIALIZED_ENTITY_TYPE, ENTITIES_WITH_COUNT_TYPE],
+    CUBA_APP_MODULE_SPEC);
+
+  // compose import infos of entities, entities are used as function type parameters, i.e. 'Car' entity is used as
+  // cubaApp.query<Car>("scr$Car", "allCars", {}, fetchOpts);
+  const entityImportInfos: ImportInfo[] = restQueries
+    .map(restQuery => restQuery.entity)
+    .reduce((importInfos: ImportInfo[], entityName: string) => {
+        const entityInfo: ProjectEntityInfo | undefined = findEntityByName(entityName, ctx);
+        // do not add duplicates
+        if (entityInfo && !importInfos.find(ii => ii.className === entityInfo.entity.className)) {
+          importInfos.push(entityImportInfo(entityInfo, ENTITIES_DIR));
+        }
+        return importInfos;
+      }
+      , []);
+
   const queriesResult = createQueries(restQueries, ctx);
-  const includes = createIncludes(queriesResult.importInfos);
+
+  // includes composed from import infos of entities + import infos of types, used in parameters, i.e
+  //
+  // export type queries_FavoriteCar_allCars_params = {
+  //  car: Car;
+  // };
+  const includes: ImportDeclaration[] = createIncludes([...queriesResult.importInfos, ...entityImportInfos]);
+
   return renderTSNodes(
     [importDec, ...includes, ...queriesResult.methodParamTypes, queriesResult.node],
     '\n\n');
@@ -84,9 +119,27 @@ export function createQuery(entityName: string, queries: RestQuery[], ctx: Model
       paramTypeName = name;
     }
 
+    const typeArguments: TypeNode[] = [ts.createTypeReferenceNode(className, [])];
+
+
     ['', 'Count', 'WithCount'].forEach(suffix => {
       const qName = mwo.methodName;
-      const cubaCallFunc = cubaAppCallFunc('query' + suffix, paramTypeName, [entityName, qName]);
+
+      let functionType: TypeNode | undefined = undefined;
+      // Promise<EntitiesWithCount<ClassName>>
+      if (suffix === 'WithCount') functionType = createEntitiesWithCountQueryFunctionType(className);
+      // Promise<SerializedEntity<ClassName>[]>
+      if (suffix === '') functionType = createSerializedEntityQueryFunctionType(className);
+      // Promise<Number>
+      if (suffix === 'Count') functionType = createCountQueryFunctionType();
+
+      const cubaCallFunc = cubaAppCallFunc(
+        'query' + suffix,
+        paramTypeName,
+        functionType,
+        [entityName, qName],
+        suffix !== 'Count' ? typeArguments : []);
+
       methodAssignments.push(ts.createPropertyAssignment(qName + suffix, cubaCallFunc));
     });
 
@@ -96,6 +149,35 @@ export function createQuery(entityName: string, queries: RestQuery[], ctx: Model
 
   const node = ts.createPropertyAssignment(className, ts.createObjectLiteral(methodAssignments, true));
   return {node, methodParamsTypes, imports};
+}
+
+/**
+ * @param className name used in function type
+ * @return 'Promise<SerializedEntity<ClassName>[]>'
+ */
+function createSerializedEntityQueryFunctionType(className: string): TypeNode {
+  const entityClassTypeNode = ts.createTypeReferenceNode(className, []);
+  const entityTypeNode = ts.createTypeReferenceNode(SERIALIZED_ENTITY_TYPE, [entityClassTypeNode]);
+  const entityArrayTypeNode = ts.createArrayTypeNode(entityTypeNode);
+  return ts.createTypeReferenceNode('Promise', [entityArrayTypeNode]);
+}
+
+/**
+ * @param className name used in function type
+ * @return 'Promise<EntitiesWithCount<ClassName>>'
+ */
+function createEntitiesWithCountQueryFunctionType(className: string): TypeNode {
+  const entityClassTypeNode = ts.createTypeReferenceNode(className, []);
+  const entityTypeNode = ts.createTypeReferenceNode(ENTITIES_WITH_COUNT_TYPE, [entityClassTypeNode]);
+  return ts.createTypeReferenceNode('Promise', [entityTypeNode]);
+}
+
+/**
+ * @return 'Promise<Number>'
+ */
+function createCountQueryFunctionType(): TypeNode {
+  const numberTypeNode = ts.createTypeReferenceNode('Number', []);
+  return ts.createTypeReferenceNode('Promise', [numberTypeNode]);
 }
 
 function findClassName(entityName: string, ctx: ModelContext) {
