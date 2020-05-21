@@ -1,6 +1,8 @@
-import { CubaApp, FetchOptions } from "@cuba-platform/rest";
+import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@cuba-platform/rest";
 
 import { Car } from "./entities/scr$Car";
+
+import { FavoriteCar } from "./entities/scr$FavoriteCar";
 
 export type queries_Car_ecoCars_params =
   | {}
@@ -21,55 +23,55 @@ export type queries_FavoriteCar_allCars_params = {
 
 export var restQueries = {
   Car: {
-    allCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
-      return cubaApp.query("scr$Car", "allCars", {}, fetchOpts);
+    allCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (): Promise<SerializedEntity<Car>[]> => {
+      return cubaApp.query<Car>("scr$Car", "allCars", {}, fetchOpts);
     },
-    allCarsCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+    allCarsCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (): Promise<Number> => {
       return cubaApp.queryCount("scr$Car", "allCars", {}, fetchOpts);
     },
-    allCarsWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
-      return cubaApp.queryWithCount("scr$Car", "allCars", {}, fetchOpts);
+    allCarsWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (): Promise<EntitiesWithCount<Car>> => {
+      return cubaApp.queryWithCount<Car>("scr$Car", "allCars", {}, fetchOpts);
     },
     ecoCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_Car_ecoCars_params
-    ) => {
-      return cubaApp.query("scr$Car", "ecoCars", params, fetchOpts);
+    ): Promise<SerializedEntity<Car>[]> => {
+      return cubaApp.query<Car>("scr$Car", "ecoCars", params, fetchOpts);
     },
     ecoCarsCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_Car_ecoCars_params
-    ) => {
+    ): Promise<Number> => {
       return cubaApp.queryCount("scr$Car", "ecoCars", params, fetchOpts);
     },
     ecoCarsWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_Car_ecoCars_params
-    ) => {
-      return cubaApp.queryWithCount("scr$Car", "ecoCars", params, fetchOpts);
+    ): Promise<EntitiesWithCount<Car>> => {
+      return cubaApp.queryWithCount<Car>("scr$Car", "ecoCars", params, fetchOpts);
     },
     carsByType: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_Car_carsByType_params
-    ) => {
-      return cubaApp.query("scr$Car", "carsByType", params, fetchOpts);
+    ): Promise<SerializedEntity<Car>[]> => {
+      return cubaApp.query<Car>("scr$Car", "carsByType", params, fetchOpts);
     },
     carsByTypeCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_Car_carsByType_params
-    ) => {
+    ): Promise<Number> => {
       return cubaApp.queryCount("scr$Car", "carsByType", params, fetchOpts);
     },
     carsByTypeWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_Car_carsByType_params
-    ) => {
-      return cubaApp.queryWithCount("scr$Car", "carsByType", params, fetchOpts);
+    ): Promise<EntitiesWithCount<Car>> => {
+      return cubaApp.queryWithCount<Car>("scr$Car", "carsByType", params, fetchOpts);
     }
   },
   FavoriteCar: {
     allCars: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_FavoriteCar_allCars_params
-    ) => {
-      return cubaApp.query("scr$FavoriteCar", "allCars", params, fetchOpts);
+    ): Promise<SerializedEntity<FavoriteCar>[]> => {
+      return cubaApp.query<FavoriteCar>("scr$FavoriteCar", "allCars", params, fetchOpts);
     },
     allCarsCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_FavoriteCar_allCars_params
-    ) => {
+    ): Promise<Number> => {
       return cubaApp.queryCount(
         "scr$FavoriteCar",
         "allCars",
@@ -79,8 +81,8 @@ export var restQueries = {
     },
     allCarsWithCount: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => (
       params: queries_FavoriteCar_allCars_params
-    ) => {
-      return cubaApp.queryWithCount(
+    ): Promise<EntitiesWithCount<FavoriteCar>> => {
+      return cubaApp.queryWithCount<FavoriteCar>(
         "scr$FavoriteCar",
         "allCars",
         params,

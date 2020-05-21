@@ -17,7 +17,7 @@ export function createTestProjectEntityInfo(className: string, isBase: boolean =
   const shortName = className.split('.').pop();
   return {
     type: {className: className},
-    entity: {className: shortName, name: (isBase ? 'sys$' : 'mpg$') + shortName}
+    entity: {className: shortName, name: (isBase ? 'sys$' : 'mpg$') + shortName, fqn: className}
   } as any;
 }
 
