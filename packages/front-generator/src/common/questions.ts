@@ -42,7 +42,8 @@ export function fromStudioProperty(prop: StudioTemplateProperty, projectModel?: 
   const question: Question = {
     type: matching[prop.propertyType] || QuestionType.input,
     name: prop.code,
-    message: prop.caption
+    message: prop.caption,
+    default: prop.defaultValue
   };
 
   switch (prop.propertyType) {

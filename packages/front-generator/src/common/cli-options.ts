@@ -62,10 +62,25 @@ export const commonGenerationOptionsConfig: OptionsConfig = {
   }
 };
 
+export const appGenerationOptions: OptionsConfig = {
+  ...commonGenerationOptionsConfig,
+  answers: {
+    alias: 'a',
+    description: 'fulfilled params for generator to avoid interactive input in serialized JSON string',
+    type: String
+  }
+};
+
+/**
+ * @deprecated TODO do not use in react generators
+ */
 export interface PolymerElementOptions extends CommonGenerationOptions {
   dirShift?: string;
 }
 
+/**
+ * @deprecated TODO do not use in react generators
+ */
 export const polymerElementOptionsConfig: OptionsConfig = {
   ...commonGenerationOptionsConfig,
   dirShift: {

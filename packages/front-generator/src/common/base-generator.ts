@@ -49,6 +49,17 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     this.registerTransformStream(createFormatTransform());
   }
 
+  /**
+   * Load project model and answers. Prompting is used only if option not set in cli command.
+   * If model not provided in options - model is loaded form Studio project (list of connected Sudio projects are shown to user).
+   *
+   * @private
+   */
+  protected async _obtainModelAndAnswers() {
+    await this._obtainCubaProjectModel();
+    await this._obtainAnswers();
+  }
+
   protected async _obtainCubaProjectModel() {
     if (this.options.model) {
       this.log('Skipping project model prompts since model is provided');
@@ -82,7 +93,6 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   }
 
   protected async _obtainAnswers() {
-    await this._obtainCubaProjectModel();
 
     let unrefinedAnswers: A;
     if (this.options.answers) {
@@ -166,7 +176,10 @@ export function readProjectModel(modelFilePath: string): ProjectModel {
   return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
 }
 
-export function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplateProperty[], answers: any): T {
+function refineAnswers<T>(projectModel: ProjectModel, props: StudioTemplateProperty[], answers: any): T {
+
+  if (!answers) return {} as T;
+
   const refinedAnswers: { [key: string]: any } = {};
   Object.keys(answers).forEach((key: string) => {
     const prop = props.find(p => p.code === key);

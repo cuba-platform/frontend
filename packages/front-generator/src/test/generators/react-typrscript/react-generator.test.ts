@@ -4,6 +4,8 @@ import * as path from "path";
 import {promisify} from "util";
 import * as fs from "fs";
 import {assertFiles, opts} from '../../test-commons';
+import {normalizeSecret} from "../../../generators/react-typescript/app";
+import {expect} from "chai";
 
 const rimraf = promisify(require('rimraf'));
 
@@ -19,7 +21,7 @@ const FIXTURES_DIR = path.join(process.cwd(), `src/test/fixtures/react-client`);
 
 
 describe('react generator test', () => {
-  it('should generates React client app', async function () {
+  it('should generates React client app', async () => {
 
     await rimraf(`${REACT_DIR}/*`);
 
@@ -29,7 +31,7 @@ describe('react generator test', () => {
     assertFiles('src/index.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
-  it('should generate React client blank-component', async function () {
+  it('should generate React client blank-component', async () => {
 
     await rimraf(`${COMPONENT_DIR}/*`);
 
@@ -46,7 +48,7 @@ describe('react generator test', () => {
     assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
-  it('should generate React client entity-cards', async function () {
+  it('should generate React client entity-cards', async () => {
 
     await rimraf(`${CARDS_DIR}/*`);
 
@@ -56,7 +58,7 @@ describe('react generator test', () => {
     assertFiles('src/app/entity-cards/MpgFavoriteCarCards.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
-  it('should generate React client entity-management', async function () {
+  it('should generate React client entity-management', async () => {
 
     await rimraf(`${EM_DIR}/*`);
 
@@ -78,6 +80,20 @@ describe('react generator test', () => {
     assertFiles('src/app/entity-management/CarManagementLowCase.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarEditLowCase.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarTableLowCase.tsx', REACT_DIR, FIXTURES_DIR);
+  });
+
+  it('should normalize secret', () => {
+    let secret = normalizeSecret('{noop}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+
+    secret = normalizeSecret('{}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+
+    secret = normalizeSecret('{21879*&*^7ydtwuydtwqy}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+
+    secret = normalizeSecret('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
   });
 
 });

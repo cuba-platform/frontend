@@ -1,30 +1,23 @@
 import {ProjectInfo} from "../../../common/model/cuba-model";
-import {BaseGenerator, readProjectModel} from "../../../common/base-generator";
-import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
+import {BaseGenerator} from "../../../common/base-generator";
+import {appGenerationOptions, CommonGenerationOptions, OptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-
-import {
-  ERR_STUDIO_NOT_CONNECTED,
-  exportProjectModel,
-  getOpenedCubaProjects,
-  StudioProjectInfo
-} from "../../../common/studio/studio-integration";
 import {ownVersion} from "../../../cli";
 import {SdkAllGenerator} from "../../sdk/sdk-generator";
 import {SUPPORTED_CLIENT_LOCALES} from '../common/i18n';
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
+import {AppAnswers, appGeneratorParams} from "./params";
 
 interface TemplateModel {
   title: string;
   basePath: string;
   project: ProjectInfo;
   ownVersion: string;
+  restClientId: string;
+  restClientSecret: string;
 }
 
-interface Answers {
-  projectInfo: StudioProjectInfo;
-}
-
-class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGenerationOptions> {
+class ReactTSAppGenerator extends BaseGenerator<AppAnswers, TemplateModel, CommonGenerationOptions> {
 
   conflicter!: { force: boolean }; // missing in typings
   modelPath?: string;
@@ -35,56 +28,33 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.modelPath = this.options.model;
   }
 
-  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async prompting() {
-    if (this.options.model) {
-      this.conflicter.force = true;
-      this.log('Skipping prompts since model provided');
-      this.cubaProjectModel = readProjectModel(this.options.model);
-      return;
-    }
-
-    const openedCubaProjects = await getOpenedCubaProjects();
-    if (!openedCubaProjects || openedCubaProjects.length < 1) {
-      this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
-      return;
-    }
-
-    this.answers = await this.prompt([{
-      name: 'projectInfo',
-      type: 'list',
-      message: 'Please select CUBA project you want to use for generation',
-      choices: openedCubaProjects && openedCubaProjects.map(p => ({
-        name: `${p.name} [${p.path}]`,
-        value: p
-      }))
-    }]) as Answers;
-
+    await this._obtainModelAndAnswers();
   }
 
-  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
-  async prepareModel() {
-    if (this.cubaProjectModel) {
-      this.model = createModel(this.cubaProjectModel.project);
-    } else if (this.answers) {
-      this.modelPath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelPath);
-
-      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      this.cubaProjectModel = readProjectModel(this.modelPath);
-      this.model = createModel(this.cubaProjectModel.project);
+  protected async _obtainAnswers() {
+    if (!this.options.answers) {
+      this.log(`Please provide rest client id and secret.\
+        \nThis properties required for proper connection to rest service https://doc.cuba-platform.com/restapi-7.1/#rest_api_v2_ex_get_token.\
+        \nThis options (rest.client.id, rest.client.secret) could be found in web-app.properties of CUBA web module.\
+        \nIf no such properties exist in file (Studio version < 14), just skip questions and leave default answers (client/secret).`);
     }
+    await super._obtainAnswers();
   }
 
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   writing() {
     this.log(`Generating to ${this.destinationPath()}`);
 
-    if (!this.model) {
+    if (!this.answers) {
+      throw new Error('Answers are not provided');
+    }
+    if (!this.cubaProjectModel) {
       throw new Error('Model is not provided');
     }
+
+    const {restClientId, restClientSecret} = this.answers;
+    this.model = createModel(this.cubaProjectModel.project, restClientId, restClientSecret);
 
     let clientLocales: string[];
     const modelHasLocalesInfo = (this.model.project.locales != null);
@@ -146,17 +116,31 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
   end() {
     this.log(`CUBA React client has been successfully generated into ${this.destinationRoot()}`);
   }
+
+  _getAvailableOptions(): OptionsConfig {
+    return appGenerationOptions;
+  }
+
+  _getParams(): StudioTemplateProperty[] {
+    return appGeneratorParams;
+  }
 }
 
-function createModel(project: ProjectInfo): TemplateModel {
+function createModel(project: ProjectInfo, restClientId: string, restClientSecret: string): TemplateModel {
   return {
     ownVersion,
     title: project.name,
     project,
-    basePath: project.modulePrefix + '-front'
+    basePath: project.modulePrefix + '-front',
+    restClientId: restClientId ? restClientId : 'client',
+    restClientSecret: restClientSecret ? normalizeSecret(restClientSecret) : 'secret'
   };
 }
 
+export function normalizeSecret(restClientSecret: string): string {
+  return restClientSecret.replace(/{.*}/, '');
+}
+
 export const generator = ReactTSAppGenerator;
-export const options = commonGenerationOptionsConfig;
-export const params = [];
+export const options = appGenerationOptions;
+export const params = appGeneratorParams;

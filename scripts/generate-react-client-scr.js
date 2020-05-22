@@ -10,7 +10,10 @@ gen(
     clientDir,
     'scripts/model/projectModel-scr.json',
     [
-      { command: 'react-typescript:app' },
+      {
+        command: 'react-typescript:app',
+        answers: answers.app
+      },
       {
         command: 'react-typescript:entity-cards',
         dirShift,

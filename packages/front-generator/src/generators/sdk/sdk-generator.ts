@@ -35,6 +35,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
     this.sourceRoot(path.join(__dirname, 'template'));
   }
 
+  // todo rewrite with _obtainAnswers\_obtainCubaProjectModel
   async prompting() {
     if (this.options.model) {
       this.conflicter.force = true;

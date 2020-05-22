@@ -66,8 +66,8 @@ class TestGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> 
     return generatorParams;
   }
 
-  async _obtainAnswers() {
-    await super._obtainAnswers();
+  async _obtainModelAndAnswers() {
+    await super._obtainModelAndAnswers();
   }
 
   async _obtainCubaProjectModel(): Promise<void> {
@@ -105,7 +105,7 @@ describe('BaseGenerator', () => {
   it('should obtain answers', async () => {
     const gen = new TestGenerator([], opts);
     expect(gen.answers).is.undefined;
-    await gen._obtainAnswers();
+    await gen._obtainModelAndAnswers();
     expect(gen.answers!.projectInfo).eq('projectInfo');
   });
 

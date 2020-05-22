@@ -21,6 +21,7 @@ class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNat
     this.modelPath = this.options.model;
   }
 
+  // todo rewrite with _obtainAnswers\_obtainCubaProjectModel
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async prompting() {
     if (this.options.model) {

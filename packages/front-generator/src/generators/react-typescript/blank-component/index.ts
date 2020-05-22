@@ -18,6 +18,7 @@ class ReactComponentGenerator extends BaseGenerator<BlankComponentAnswers, Blank
     this.sourceRoot(path.join(__dirname, 'template'));
   }
 
+  // todo rewrite with _obtainAnswers\_obtainCubaProjectModel
   // noinspection JSUnusedGlobalSymbols
   async prompting() {
     await this._promptOrParse();
