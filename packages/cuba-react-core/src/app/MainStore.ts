@@ -125,10 +125,14 @@ export class MainStore {
 
   @action
   login(login: string, password: string) {
-    return this.cubaREST.login(login, password).then(action(() => {
-      this.userName = login;
-      this.authenticated = true;
-    }))
+    return this.cubaREST.login(login, password)
+      .then(action(() => {
+        this.userName = login;
+        this.authenticated = true;
+      }))
+      .catch(() => console.warn(`Login fail. 
+        If you are using project generated in CUBA Studio 14+ please make sure that correct rest clientId and secret
+        are set in environment variables.`))
   }
 
   @action
