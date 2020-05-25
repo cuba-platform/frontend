@@ -85,8 +85,8 @@ public class DatatypesTestEntity extends StandardEntity {
     protected AssociationM2OTestEntity associationM2Oattr;
 
     @JoinTable(name = "SCR_DATATYPES_TEST_ENTITY_ASSOCIATION_M2M_TEST_ENTITY_LINK",
-        joinColumns = @JoinColumn(name = "DATATYPES_TEST_ENTITY_ID"),
-        inverseJoinColumns = @JoinColumn(name = "ASSOCIATION_M2_M_TEST_ENTITY_ID"))
+            joinColumns = @JoinColumn(name = "DATATYPES_TEST_ENTITY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ASSOCIATION_M2_M_TEST_ENTITY_ID"))
     @ManyToMany
     protected List<AssociationM2MTestEntity> associationM2Mattr;
 
@@ -103,9 +103,36 @@ public class DatatypesTestEntity extends StandardEntity {
 
     @Column(name = "NAME")
     protected String name;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "INT_IDENTITY_ID_TEST_ENTITY_ASSOCIATION_O2O_ATTR_ID")
+    private IntIdentityIdTestEntity intIdentityIdTestEntityAssociationO2OAttr;
+
+    @JoinTable(name = "SCR_DATATYPES_TEST_ENTITY_INTEGER_ID_TEST_ENTITY_LINK",
+            joinColumns = @JoinColumn(name = "DATATYPES_TEST_ENTITY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "INTEGER_ID_TEST_ENTITY_ID"))
+    @ManyToMany
+    private List<IntegerIdTestEntity> integerIdTestEntityAssociationM2MAttr;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DATATYPES_TEST_ENTITY3_ID")
     protected DatatypesTestEntity3 datatypesTestEntity3;
+
+    public List<IntegerIdTestEntity> getIntegerIdTestEntityAssociationM2MAttr() {
+        return integerIdTestEntityAssociationM2MAttr;
+    }
+
+    public void setIntegerIdTestEntityAssociationM2MAttr(List<IntegerIdTestEntity> integerIdTestEntityAssociationM2MAttr) {
+        this.integerIdTestEntityAssociationM2MAttr = integerIdTestEntityAssociationM2MAttr;
+    }
+
+    public IntIdentityIdTestEntity getIntIdentityIdTestEntityAssociationO2OAttr() {
+        return intIdentityIdTestEntityAssociationO2OAttr;
+    }
+
+    public void setIntIdentityIdTestEntityAssociationO2OAttr(IntIdentityIdTestEntity intIdentityIdTestEntityAssociationO2OAttr) {
+        this.intIdentityIdTestEntityAssociationO2OAttr = intIdentityIdTestEntityAssociationO2OAttr;
+    }
 
     public DatatypesTestEntity3 getDatatypesTestEntity3() {
         return datatypesTestEntity3;

@@ -41,7 +41,8 @@ export interface Entity {
   fqn: string,
   imported: boolean,
   attributes: EntityAttribute[],
-  inheritanceType?: InheritanceType
+  inheritanceType?: InheritanceType,
+  idAttributeName?: string
 }
 
 export interface Datatype {

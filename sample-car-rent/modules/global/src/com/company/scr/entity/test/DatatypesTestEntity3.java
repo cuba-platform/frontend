@@ -23,8 +23,34 @@ public class DatatypesTestEntity3 extends StandardEntity {
     @OneToMany(mappedBy = "datatypesTestEntity3")
     protected List<DatatypesTestEntity> datatypesTestEntityAttr;
 
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "datatypesTestEntity3")
+    private List<IntegerIdTestEntity> integerIdTestEntityAttr;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "datatypesTestEntity3")
+    private List<IntIdentityIdTestEntity> intIdentityIdTestEntityAttr;
+
     @Column(name = "NAME")
     protected String name;
+
+    public List<IntIdentityIdTestEntity> getIntIdentityIdTestEntityAttr() {
+        return intIdentityIdTestEntityAttr;
+    }
+
+    public void setIntIdentityIdTestEntityAttr(List<IntIdentityIdTestEntity> intIdentityIdTestEntityAttr) {
+        this.intIdentityIdTestEntityAttr = intIdentityIdTestEntityAttr;
+    }
+
+    public List<IntegerIdTestEntity> getIntegerIdTestEntityAttr() {
+        return integerIdTestEntityAttr;
+    }
+
+    public void setIntegerIdTestEntityAttr(List<IntegerIdTestEntity> integerIdTestEntityAttr) {
+        this.integerIdTestEntityAttr = integerIdTestEntityAttr;
+    }
 
     public String getName() {
         return name;

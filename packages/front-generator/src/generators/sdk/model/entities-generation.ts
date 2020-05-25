@@ -142,23 +142,36 @@ function createEntityClassMembers(ctx: ClassCreationContext): {
 
   const allClassMembers = [...basicClassMembers, ...entity.attributes.map(entityAttr => {
     const attributeTypeInfo = createAttributeType(entityAttr, ctx);
-    if (attributeTypeInfo.importInfo) importInfos.push(attributeTypeInfo.importInfo);
+    if (attributeTypeInfo.importInfo) { importInfos.push(attributeTypeInfo.importInfo); }
 
-    return ts.createProperty(
-      undefined,
-      undefined,
-      entityAttr.name,
-      ts.createToken(ts.SyntaxKind.QuestionToken),
-      ts.createUnionTypeNode([
-        attributeTypeInfo.node,
-        ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)
-      ]),
-      undefined
-    );
+      const idAttrName = ctx.entity.idAttributeName ?? 'id';
+      // REST API always sends ids as strings
+      const typeNode = entityAttr.name === idAttrName
+        ? ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+        : createUnionWithNull(attributeTypeInfo.node);
 
-  })];
+      // REST API puts the id into the property "id" regardless of the actual attribute name.
+      const attrName = entityAttr.name === idAttrName ? 'id' : entityAttr.name;
+
+      return ts.createProperty(
+        undefined,
+        undefined,
+        attrName,
+        ts.createToken(ts.SyntaxKind.QuestionToken),
+        typeNode,
+        undefined
+      );
+    }
+  )];
 
   return {classMembers: allClassMembers, importInfos}
+}
+
+function createUnionWithNull(node: ts.TypeNode): ts.TypeNode {
+  return ts.createUnionTypeNode([
+    node,
+    ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)
+  ]);
 }
 
 function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationContext): {

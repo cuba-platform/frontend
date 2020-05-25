@@ -133,7 +133,9 @@
     },
     "managementComponentName": "Datatypes2Management",
     "nestedEntityInfo": {
-      "datatypesTestEntityAttr": "datatypesTestEntity-view"
+      "datatypesTestEntityAttr": "datatypesTestEntity-view",
+      "integerIdTestEntityAttr": "_local",
+      "intIdentityIdTestEntityAttr": "_local"
     }
   },
   "datatypes3Test": {
@@ -153,7 +155,9 @@
     },
     "managementComponentName": "Datatypes3Management",
     "nestedEntityInfo": {
-      "datatypesTestEntityAttr": "datatypesTestEntity-view"
+      "datatypesTestEntityAttr": "datatypesTestEntity-view",
+      "integerIdTestEntityAttr": "_local",
+      "intIdentityIdTestEntityAttr": "_local"
     }
   },
 

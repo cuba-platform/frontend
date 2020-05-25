@@ -18,6 +18,34 @@ public class DatatypesTestEntity2 extends StandardEntity {
     @JoinColumn(name = "DATATYPES_TEST_ENTITY_ATTR_ID")
     protected DatatypesTestEntity datatypesTestEntityAttr;
 
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "INT_IDENTITY_ID_TEST_ENTITY_ATTR_ID")
+    private IntIdentityIdTestEntity intIdentityIdTestEntityAttr;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "INTEGER_ID_TEST_ENTITY_ATTR_ID")
+    private IntegerIdTestEntity integerIdTestEntityAttr;
+
+    public IntegerIdTestEntity getIntegerIdTestEntityAttr() {
+        return integerIdTestEntityAttr;
+    }
+
+    public void setIntegerIdTestEntityAttr(IntegerIdTestEntity integerIdTestEntityAttr) {
+        this.integerIdTestEntityAttr = integerIdTestEntityAttr;
+    }
+
+    public IntIdentityIdTestEntity getIntIdentityIdTestEntityAttr() {
+        return intIdentityIdTestEntityAttr;
+    }
+
+    public void setIntIdentityIdTestEntityAttr(IntIdentityIdTestEntity intIdentityIdTestEntityAttr) {
+        this.intIdentityIdTestEntityAttr = intIdentityIdTestEntityAttr;
+    }
+
     public DatatypesTestEntity getDatatypesTestEntityAttr() {
         return datatypesTestEntityAttr;
     }

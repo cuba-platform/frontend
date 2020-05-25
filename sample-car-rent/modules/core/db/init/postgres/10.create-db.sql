@@ -261,6 +261,7 @@ create table SCR_DATATYPES_TEST_ENTITY (
     ASSOCIATION_M2_OATTR_ID uuid,
     COMPOSITION_O2_OATTR_ID uuid,
     NAME varchar(255),
+    INT_IDENTITY_ID_TEST_ENTITY_ASSOCIATION_O2O_ATTR_ID integer,
     DATATYPES_TEST_ENTITY3_ID uuid,
     --
     primary key (ID)
@@ -282,19 +283,6 @@ create table SCR_STRING_ID_TEST_ENTITY (
     primary key (IDENTIFIER)
 )^
 -- end SCR_STRING_ID_TEST_ENTITY
--- begin SCR_INT_ID_TEST_ENTITY
-create table SCR_INT_ID_TEST_ENTITY (
-    ID serial,
-    UPDATE_TS timestamp,
-    UPDATED_BY varchar(50),
-    DELETE_TS timestamp,
-    DELETED_BY varchar(50),
-    --
-    DESCRIPTION varchar(255),
-    --
-    primary key (ID)
-)^
--- end SCR_INT_ID_TEST_ENTITY
 
 -- begin SCR_DEEPLY_NESTED_TEST_ENTITY
 create table SCR_DEEPLY_NESTED_TEST_ENTITY (
@@ -325,6 +313,8 @@ create table SCR_DATATYPES_TEST_ENTITY2 (
     DELETED_BY varchar(50),
     --
     DATATYPES_TEST_ENTITY_ATTR_ID uuid,
+    INT_IDENTITY_ID_TEST_ENTITY_ATTR_ID integer,
+    INTEGER_ID_TEST_ENTITY_ATTR_ID integer,
     --
     primary key (ID)
 )^
@@ -345,3 +335,44 @@ create table SCR_DATATYPES_TEST_ENTITY3 (
     primary key (ID)
 )^
 -- end SCR_DATATYPES_TEST_ENTITY3
+-- begin SCR_INTEGER_ID_TEST_ENTITY
+create table SCR_INTEGER_ID_TEST_ENTITY (
+    ID integer,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    VERSION integer not null,
+    --
+    DESCRIPTION varchar(255),
+    DATATYPES_TEST_ENTITY3_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end SCR_INTEGER_ID_TEST_ENTITY
+-- begin SCR_INT_IDENTITY_ID_TEST_ENTITY
+create table SCR_INT_IDENTITY_ID_TEST_ENTITY (
+    ID serial,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    DESCRIPTION varchar(255),
+    DATATYPES_TEST_ENTITY3_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end SCR_INT_IDENTITY_ID_TEST_ENTITY
+-- begin SCR_DATATYPES_TEST_ENTITY_INTEGER_ID_TEST_ENTITY_LINK
+create table SCR_DATATYPES_TEST_ENTITY_INTEGER_ID_TEST_ENTITY_LINK (
+    DATATYPES_TEST_ENTITY_ID uuid,
+    INTEGER_ID_TEST_ENTITY_ID integer,
+    primary key (DATATYPES_TEST_ENTITY_ID, INTEGER_ID_TEST_ENTITY_ID)
+)^
+-- end SCR_DATATYPES_TEST_ENTITY_INTEGER_ID_TEST_ENTITY_LINK

@@ -30,7 +30,7 @@ export class DataInstanceStore<T> implements DataContainer {
   /**
    * Retrieved entity instance.
    */
-  @observable item?: T & Partial<SerializedEntityProps> & { id?: string };
+  @observable item?: T & Partial<SerializedEntityProps> & WithId;
   /**
    * @inheritDoc
    */
@@ -95,7 +95,7 @@ export class DataInstanceStore<T> implements DataContainer {
    */
   @action
   setItemToFormFields(formFields: Partial<T>) {
-    this.item = formFieldsToInstanceItem(formFields, this.entityName, toJS(this.mainStore.metadata!)) as T & Partial<SerializedEntityProps> & { id?: string };
+    this.item = formFieldsToInstanceItem(formFields, this.entityName, toJS(this.mainStore.metadata!)) as T & Partial<SerializedEntityProps> & WithId;
     this.status = "DONE";
   }
 
@@ -125,7 +125,7 @@ export class DataInstanceStore<T> implements DataContainer {
     }
     this.status = 'LOADING';
 
-    this.item = stripTemporaryIds(toJS(this.item)) as T & Partial<SerializedEntityProps> & { id?: string };
+    this.item = stripTemporaryIds(toJS(this.item)) as T & Partial<SerializedEntityProps> & WithId;
 
     return getCubaREST()!.commitEntity(this.entityName, toJS(this.item!))
       .then((updateResult) => {

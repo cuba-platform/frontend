@@ -11,6 +11,7 @@ import * as React from "react";
 import {DataContainer, DataContainerStatus} from "./DataContext";
 import {getCubaREST} from "../app/CubaAppProvider";
 import {sortEntityInstances} from '../util/collation';
+import {WithId} from '../util/metadata';
 
 /**
  * Retrieves entity instances from some source (such as the Generic REST API)
@@ -92,7 +93,7 @@ export interface DataCollectionStore<T> extends DataContainer {
    * @param e - entity instance to be deleted.
    * @returns promise that resolves when deletion is complete.
    */
-  delete: (e: T & {id?: string}) => Promise<any>;
+  delete: (e: T & WithId) => Promise<any>;
 }
 
 /**
@@ -177,7 +178,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
   };
 
   @action
-  delete = (e: T & {id?: string}): Promise<any> => {
+  delete = (e: T & WithId): Promise<any> => {
     if (e == null || e.id == null) {
       throw new Error('Unable to delete entity without ID');
     }
@@ -266,8 +267,8 @@ class ClientSideDataCollectionStoreImpl<T> extends DataCollectionStoreImpl<T> im
   };
 
   @action
-  delete = (e: T & {id?: string}): Promise<any> => {
-    this.allItems = this.allItems.filter((item: T & {id?: string}) => (item != null && item.id !== e.id));
+  delete = (e: T & WithId): Promise<any> => {
+    this.allItems = this.allItems.filter((item: T & WithId) => (item != null && item.id !== e.id));
     this.adjustItems();
     return Promise.resolve();
   };
