@@ -1,0 +1,10 @@
+{
+  "entity": {
+    "name": "scr_IntIdentityIdTestEntity"
+  },
+  "componentName": "IntIdentityIdCards",
+  "entityView": {
+    "name": "_local",
+    "entityName": "scr_IntIdentityIdTestEntity"
+  }
+}

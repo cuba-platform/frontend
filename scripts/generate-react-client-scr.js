@@ -2,7 +2,13 @@ const gen = require('./generate-client-scr');
 
 const clientDir = 'react-client-scr';
 const answers = require('./model/react-client-scr-answers');
-const intIdCardsConfig = require('./screens/int-id-cards');
+const intIdentityIdCardsConfig = require('./screens/int-identity-id-cards.json');
+const intIdentityIdManagementTableConfig = require('./screens/int-identity-id-management-table.json');
+const intIdentityIdManagementCardsConfig = require('./screens/int-identity-id-management-cards.json');
+const intIdentityIdManagementListConfig = require('./screens/int-identity-id-management-list.json');
+const intIdManagementTableConfig = require('./screens/int-id-management-table.json');
+const intIdManagementCardsConfig = require('./screens/int-id-management-cards.json');
+const intIdManagementListConfig = require('./screens/int-id-management-list.json');
 const dirShift = '../../';
 
 gen(
@@ -111,7 +117,43 @@ gen(
         command: 'react-typescript:entity-cards',
         dirShift,
         dest: 'src/app/int-id-cards',
-        answers: intIdCardsConfig
+        answers: intIdentityIdCardsConfig
       },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-id-management-table',
+        answers: intIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-id-management-cards',
+        answers: intIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-id-management-list',
+        answers: intIdManagementListConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-identity-id-management-table',
+        answers: intIdentityIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-identity-id-management-cards',
+        answers: intIdentityIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-identity-id-management-list',
+        answers: intIdentityIdManagementListConfig
+      }
     ]
 );

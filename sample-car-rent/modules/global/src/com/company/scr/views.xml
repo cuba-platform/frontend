@@ -36,14 +36,16 @@
         <property name="spareParts" view="_minimal"/>
     </view>
   <view entity="scr_DatatypesTestEntity" name="datatypesTestEntity-view" extends="_local">
-    <property name="associationO2Oattr" view="_minimal"/>
-    <property name="associationO2Mattr" view="_minimal"/>
-    <property name="associationM2Oattr" view="_minimal"/>
-    <property name="associationM2Mattr" view="_minimal"/>
-    <property name="compositionO2Oattr" view="_minimal"/>
-    <property name="compositionO2Mattr" view="_minimal">
-      <property name="datatypesTestEntity" view="_minimal"/>
-    </property>
+      <property name="associationO2Oattr" view="_minimal"/>
+      <property name="associationO2Mattr" view="_minimal"/>
+      <property name="associationM2Oattr" view="_minimal"/>
+      <property name="associationM2Mattr" view="_minimal"/>
+      <property name="compositionO2Oattr" view="_minimal"/>
+      <property name="compositionO2Mattr" view="_minimal">
+          <property name="datatypesTestEntity" view="_minimal"/>
+      </property>
+      <property name="intIdentityIdTestEntityAssociationO2OAttr" view="_minimal"/>
+      <property name="integerIdTestEntityAssociationM2MAttr" view="_minimal"/>
   </view>
   <view entity="scr_AssociationM2MTestEntity" name="associationM2MTestEntity-view" extends="_local">
     <property name="datatypesTestEntities" view="_minimal"/>
@@ -67,31 +69,33 @@
     <property name="associationO2Oattr" view="_minimal"/>
   </view>
   <view entity="scr_DatatypesTestEntity2" name="datatypesTestEntity2-view" extends="_local">
-    <property name="datatypesTestEntityAttr" view="_minimal">
-      <property name="bigDecimalAttr"/>
-      <property name="booleanAttr"/>
-      <property name="byteArrayAttr"/>
-      <property name="dateAttr"/>
-      <property name="dateTimeAttr"/>
-      <property name="doubleAttr"/>
-      <property name="integerAttr"/>
-      <property name="longAttr"/>
-      <property name="stringAttr"/>
-      <property name="timeAttr"/>
-      <property name="uuidAttr"/>
-      <property name="localDateTimeAttr"/>
-      <property name="offsetDateTimeAttr"/>
-      <property name="localDateAttr"/>
-      <property name="localTimeAttr"/>
-      <property name="offsetTimeAttr"/>
-      <property name="enumAttr"/>
-      <property name="associationO2Oattr" view="_minimal"/>
-      <property name="associationO2Mattr" view="_minimal"/>
-      <property name="associationM2Oattr" view="_minimal"/>
-      <property name="associationM2Mattr" view="_minimal"/>
-      <property name="compositionO2Oattr" view="_minimal"/>
-      <property name="compositionO2Mattr" view="_minimal"/>
-    </property>
+      <property name="datatypesTestEntityAttr" view="_minimal">
+          <property name="bigDecimalAttr"/>
+          <property name="booleanAttr"/>
+          <property name="byteArrayAttr"/>
+          <property name="dateAttr"/>
+          <property name="dateTimeAttr"/>
+          <property name="doubleAttr"/>
+          <property name="integerAttr"/>
+          <property name="longAttr"/>
+          <property name="stringAttr"/>
+          <property name="timeAttr"/>
+          <property name="uuidAttr"/>
+          <property name="localDateTimeAttr"/>
+          <property name="offsetDateTimeAttr"/>
+          <property name="localDateAttr"/>
+          <property name="localTimeAttr"/>
+          <property name="offsetTimeAttr"/>
+          <property name="enumAttr"/>
+          <property name="associationO2Oattr" view="_minimal"/>
+          <property name="associationO2Mattr" view="_minimal"/>
+          <property name="associationM2Oattr" view="_minimal"/>
+          <property name="associationM2Mattr" view="_minimal"/>
+          <property name="compositionO2Oattr" view="_minimal"/>
+          <property name="compositionO2Mattr" view="_minimal"/>
+      </property>
+      <property name="intIdentityIdTestEntityAttr" view="_minimal"/>
+      <property name="integerIdTestEntityAttr" view="_minimal"/>
   </view>
     <view entity="scr_DatatypesTestEntity3" name="datatypesTestEntity3-view" extends="_local">
         <property name="datatypesTestEntityAttr" view="_minimal">
@@ -119,5 +123,7 @@
             <property name="compositionO2Oattr" view="_minimal"/>
             <property name="compositionO2Mattr" view="_minimal"/>
         </property>
+        <property name="integerIdTestEntityAttr" view="_minimal"/>
+        <property name="intIdentityIdTestEntityAttr" view="_minimal"/>
     </view>
 </views>

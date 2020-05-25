@@ -18,9 +18,10 @@
         <class>com.company.scr.entity.test.AssociationM2OTestEntity</class>
         <class>com.company.scr.entity.test.AssociationM2MTestEntity</class>
         <class>com.company.scr.entity.test.StringIdTestEntity</class>
-        <class>com.company.scr.entity.test.IntIdTestEntity</class>
+        <class>com.company.scr.entity.test.IntIdentityIdTestEntity</class>
         <class>com.company.scr.entity.test.DeeplyNestedTestEntity</class>
         <class>com.company.scr.entity.test.DatatypesTestEntity2</class>
         <class>com.company.scr.entity.test.DatatypesTestEntity3</class>
+        <class>com.company.scr.entity.test.IntegerIdTestEntity</class>
     </persistence-unit>
 </persistence>

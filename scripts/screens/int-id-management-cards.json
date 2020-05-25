@@ -1,0 +1,17 @@
+{
+  "editView": {
+    "name": "_local",
+    "entityName": "scr_IntegerIdTestEntity"
+  },
+  "editComponentName": "IntIdMgtCardsEdit",
+  "listView": {
+    "name": "_local",
+    "entityName": "scr_IntegerIdTestEntity"
+  },
+  "listComponentName": "IntIdMgtCardsBrowse",
+  "listType": "cards",
+  "entity": {
+    "name": "scr_IntegerIdTestEntity"
+  },
+  "managementComponentName": "int-id-management-cards"
+}
