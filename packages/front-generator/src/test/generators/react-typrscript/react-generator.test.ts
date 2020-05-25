@@ -4,8 +4,8 @@ import * as path from "path";
 import {promisify} from "util";
 import * as fs from "fs";
 import {assertFiles, opts} from '../../test-commons';
-import {normalizeSecret} from "../../../generators/react-typescript/app";
 import {expect} from "chai";
+import {normalizeSecret} from "../../../generators/common/BaseTsAppGenerator";
 
 const rimraf = promisify(require('rimraf'));
 
