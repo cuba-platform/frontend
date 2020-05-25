@@ -8,7 +8,7 @@ import {SUPPORTED_CLIENT_LOCALES} from '../common/i18n';
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {AppAnswers, appGeneratorParams} from "./params";
 
-interface TemplateModel {
+export interface AppTemplateModel {
   title: string;
   basePath: string;
   project: ProjectInfo;
@@ -17,7 +17,7 @@ interface TemplateModel {
   restClientSecret: string;
 }
 
-class ReactTSAppGenerator extends BaseGenerator<AppAnswers, TemplateModel, CommonGenerationOptions> {
+class ReactTSAppGenerator extends BaseGenerator<AppAnswers, AppTemplateModel, CommonGenerationOptions> {
 
   conflicter!: { force: boolean }; // missing in typings
   modelPath?: string;
@@ -126,7 +126,8 @@ class ReactTSAppGenerator extends BaseGenerator<AppAnswers, TemplateModel, Commo
   }
 }
 
-function createModel(project: ProjectInfo, restClientId: string, restClientSecret: string): TemplateModel {
+// todo move to AppBase generator
+export function createModel(project: ProjectInfo, restClientId: string, restClientSecret: string): AppTemplateModel {
   return {
     ownVersion,
     title: project.name,

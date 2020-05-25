@@ -1,17 +1,12 @@
-import {BaseGenerator, readProjectModel} from '../../../common/base-generator';
-import {ProjectInfo} from '../../../common/model/cuba-model';
+import {BaseGenerator} from '../../../common/base-generator';
 import {SdkAllGenerator} from '../../sdk/sdk-generator';
-import {CommonGenerationOptions, commonGenerationOptionsConfig} from '../../../common/cli-options';
+import {appGenerationOptions, CommonGenerationOptions, OptionsConfig} from '../../../common/cli-options';
 import * as path from "path";
+import {AppAnswers, appGeneratorParams} from "../../react-typescript/app/params";
+import {AppTemplateModel, createModel} from "../../react-typescript/app";
+import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 
-interface ReactNativeAnswers {
-}
-
-interface ReactNativeTemplateModel {
-  project: ProjectInfo
-}
-
-class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNativeTemplateModel, CommonGenerationOptions> {
+class ReactNativeAppGenerator extends BaseGenerator<AppAnswers, AppTemplateModel, CommonGenerationOptions> {
 
   modelPath?: string;
 
@@ -21,35 +16,35 @@ class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNat
     this.modelPath = this.options.model;
   }
 
-  // todo rewrite with _obtainAnswers\_obtainCubaProjectModel
-  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async prompting() {
-    if (this.options.model) {
-      this.conflicter.force = true;
-      this.log('Skipping prompts since model provided');
-      this.cubaProjectModel = readProjectModel(this.options.model);
-      return;
-    }
-
-    await this._obtainCubaProjectModel();
+    await this._obtainModelAndAnswers();
   }
 
-  // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
-  async prepareModel() {
-    if (!this.cubaProjectModel || !this.cubaProjectModel.project) {
-      throw new Error('Model is not provided');
+  protected async _obtainAnswers() {
+    // todo code duplication with react-ts generator
+    if (!this.options.answers) {
+      this.log(`Please provide rest client id and secret.\
+        \nThis properties required for proper connection to rest service https://doc.cuba-platform.com/restapi-7.1/#rest_api_v2_ex_get_token.\
+        \nThis options (rest.client.id, rest.client.secret) could be found in web-app.properties of CUBA web module.\
+        \nIf no such properties exist in file (Studio version < 14), just skip questions and leave default answers (client/secret).`);
     }
-
-    this.model = {project: this.cubaProjectModel.project};
+    await super._obtainAnswers();
   }
 
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   writing() {
+    // todo code duplication with react-ts generator
     this.log(`Generating to ${this.destinationPath()}`);
 
-    if (!this.model) {
+    if (!this.answers) {
+      throw new Error('Answers are not provided');
+    }
+    if (!this.cubaProjectModel) {
       throw new Error('Model is not provided');
     }
+
+    const {restClientId, restClientSecret} = this.answers;
+    this.model = createModel(this.cubaProjectModel.project, restClientId, restClientSecret);
 
     this.fs.copyTpl(
       this.templatePath() + '/**',
@@ -78,8 +73,18 @@ class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNat
   end() {
     this.log(`CUBA React Native client has been successfully generated into ${this.destinationRoot()}`);
   }
+
+  // todo code duplication with react-ts generator
+  _getAvailableOptions(): OptionsConfig {
+    return appGenerationOptions;
+  }
+
+  // todo code duplication with react-ts generator
+  _getParams(): StudioTemplateProperty[] {
+    return appGeneratorParams;
+  }
 }
 
 export const generator = ReactNativeAppGenerator;
-export const options = commonGenerationOptionsConfig;
-export const params = [];
+export const options = appGenerationOptions;
+export const params = appGeneratorParams;
