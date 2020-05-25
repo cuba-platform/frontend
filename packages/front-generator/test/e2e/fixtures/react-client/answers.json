@@ -1,4 +1,8 @@
 {
+  "app": {
+    "restClientId": "client",
+    "restClientSecret": "secret"
+  },
   "blankComponent": {
     "componentName": "my-component"
   },
