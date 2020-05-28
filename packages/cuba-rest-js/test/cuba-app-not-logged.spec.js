@@ -1,14 +1,12 @@
 "use strict";
 
-const cuba = require('../dist-node/cuba.js');
+const {initApp} = require('./common');
 global.fetch = require('node-fetch');
-
-const apiUrl = 'http://localhost:8080/app/rest/';
 
 describe('CubaApp not logged in', function() {
   describe('.setSessionLocal()', function() {
     it('should fail if not logged in', function(done) {
-      const app = new cuba.CubaApp('', apiUrl);
+      const app = initApp();
       app.setSessionLocale()
         .then(() => {
           done('did not fail');

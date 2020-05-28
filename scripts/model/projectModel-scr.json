@@ -4,6 +4,8 @@
     "namespace": "scr",
     "modulePrefix": "app",
     "modelPrefix": "app",
+    "restClientId": "scr-886snZDO",
+    "restClientSecret": "{noop}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9",
     "locales": [
       {
         "code": "en",
