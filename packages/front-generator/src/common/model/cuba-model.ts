@@ -13,6 +13,8 @@ export interface ProjectInfo {
   namespace: string;
   modulePrefix: string;
   locales: Locale[];
+  restClientId?: string;
+  restClientSecret?: string;
 }
 
 export type InheritanceType = 'SINGLE_TABLE' | 'TABLE_PER_CLASS' | 'JOINED'

@@ -130,10 +130,10 @@ export class MainStore {
         this.userName = login;
         this.authenticated = true;
       }))
-      .catch(() => console.error(`Login failed.
-        If your project was generated in CUBA Studio 14+, please make sure that the correct 
-        REST API Client ID and Secret are set in environment variables.`))
-      }
+      .catch(() => console.error(`Login failed. ` +
+        `If your project was generated in CUBA Studio 14+, please make sure that the correct ` +
+        `REST API Client ID and Secret are set in environment variables.`))
+  }
 
   @action
   logout(): Promise<void> {

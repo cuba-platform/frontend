@@ -6,7 +6,7 @@ import * as path from "path";
 import {
   ERR_STUDIO_NOT_CONNECTED,
   exportProjectModel,
-  getOpenedCubaProjects,
+  getOpenedCubaProjects, normalizeSecret,
   StudioProjectInfo
 } from "../../../common/studio/studio-integration";
 import {ownVersion} from "../../../cli";
@@ -149,12 +149,16 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
 }
 
 function createModel(project: ProjectInfo): TemplateModel {
-  return {
+  const model = {
     ownVersion,
     title: project.name,
     project,
     basePath: project.modulePrefix + '-front'
   };
+
+  model.project.restClientId = project.restClientId ?? 'client';
+  model.project.restClientSecret = project.restClientSecret ? normalizeSecret(project.restClientSecret) : 'secret';
+  return model;
 }
 
 export const generator = ReactTSAppGenerator;
