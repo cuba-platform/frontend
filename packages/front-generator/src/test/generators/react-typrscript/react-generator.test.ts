@@ -27,6 +27,8 @@ describe('react generator test', () => {
     assert.ok(fs.existsSync(`entities/base`));
     assert.ok(fs.existsSync(`enums/enums.ts`));
     assertFiles('src/index.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('.env.development.local', REACT_DIR, FIXTURES_DIR);
+    assertFiles('.env.production.local', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client blank-component', async function () {
