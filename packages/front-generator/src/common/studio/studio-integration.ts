@@ -28,3 +28,7 @@ export async function getOpenedCubaProjects(port = DEFAULT_INTEGRATION_PORT): Pr
     return null;
   }
 }
+
+export function normalizeSecret(restClientSecret: string): string {
+  return restClientSecret.replace(/{.*}/, '');
+}

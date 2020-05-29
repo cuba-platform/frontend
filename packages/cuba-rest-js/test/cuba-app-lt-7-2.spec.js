@@ -3,8 +3,7 @@
 const assert = require('assert');
 const cuba = require('../dist-node/cuba.js');
 global.fetch = require('node-fetch');
-
-const apiUrl = 'http://localhost:8080/app/rest/';
+const {initApp} = require('./common');
 
 describe('CubaApp version <7.2.0', () => {
 
@@ -12,7 +11,7 @@ describe('CubaApp version <7.2.0', () => {
   const initApiVersion = '5.5.5';
 
   beforeAll(() => {
-    app = new cuba.CubaApp('', apiUrl, undefined, undefined, undefined, undefined, initApiVersion);
+    app = initApp(initApiVersion);
     return app.login('admin', 'admin');
   });
 

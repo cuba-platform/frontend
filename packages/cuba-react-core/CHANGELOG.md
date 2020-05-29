@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@1.0.0-beta.1...@cuba-platform/react-core@1.0.0-beta.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* compilation fails when entity has integer id ([0821702](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/082170259b884493bdf1f8d7b2d1158b93810064)), closes [#176](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/176)
+* **React:** editor requests association options regardless of permissions ([79be544](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/79be54417eee28be40136a43a68f4c39ee893194)), closes [#156](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/156)
+
+
+
+
+
 # [1.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@1.0.0-beta.0...@cuba-platform/react-core@1.0.0-beta.1) (2020-04-30)
 
 **Note:** Version bump only for package @cuba-platform/react-core

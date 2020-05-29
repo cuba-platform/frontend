@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.0-beta.1...@cuba-platform/react-ui@1.0.0-beta.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* **React:** editor requests association options regardless of permissions ([79be544](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/79be54417eee28be40136a43a68f4c39ee893194)), closes [#156](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/156)
+* can't save a new entity with a non-empty O2M Composition field ([3eb109c](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/3eb109c2403e0f31143217274dd42f2484acb7b4)), closes [#213](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/213)
+* circular dependencies in react-ui ([074e459](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/074e4592d48ef63585729b3df333913b71d72115)), closes [#188](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/188)
+* fix type of DataTableCustomFilter.ref [#137](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/137) ([37ae66f](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/37ae66f623c0b24c66bf2a6d60e48e8d44ee85f0))
+* fix type of DataTableCustomFilter.ref [#137](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/137) ([983efb7](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/983efb7bf033a3275b2824c8ca5741a18719ef12))
+* relax UUID validation rules ([d323866](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/d3238662edd297c9b7f814cea63450a268873a4b)), closes [#197](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/197)
+* relax UUID validation rules ([584a8df](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/584a8df7ec205ca27a4fd1901e9ac79c7db2785b)), closes [#197](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/197)
+* **DataTable:** error when applying in/notIn filter without adding items ([51abd04](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/51abd049768294c9a451917a0d2a7fbc82f207af)), closes [#111](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/111)
+
+
+### BREAKING CHANGES
+
+* Functions getDefaultFieldDecoratorOptions and decorateAndWrapInFormItem
+has been removed from public API
+
+
+
+
+
 # [1.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.0-beta.0...@cuba-platform/react-ui@1.0.0-beta.1) (2020-04-30)
 
 **Note:** Version bump only for package @cuba-platform/react-ui

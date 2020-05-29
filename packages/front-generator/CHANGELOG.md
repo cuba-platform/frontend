@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.2](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0-beta.1...@cuba-platform/front-generator@3.0.0-beta.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* compilation fails when entity has integer id ([0821702](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/082170259b884493bdf1f8d7b2d1158b93810064)), closes [#176](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/176)
+* **React:** editor requests association options regardless of permissions ([79be544](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/79be54417eee28be40136a43a68f4c39ee893194)), closes [#156](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/156)
+* can't save a new entity with a non-empty O2M Composition field ([3eb109c](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/3eb109c2403e0f31143217274dd42f2484acb7b4)), closes [#213](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/213)
+* **Front Generator:** capitalize component class names ([f5153fa](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/f5153faa200748a6b20dbeb1a9714226cc5ca602)), closes [#201](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/201)
+* **Front Generator:** sort out duplicated services in projectModel.json ([f081c23](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/f081c23c8f4656a44281c4052c765a8e5092dd6c)), closes [#184](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/184)
+* **React:** client shall only use project locales [#117](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/117) ([1537db4](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/1537db444233237b59a91a81416510fdf1247333))
+
+
+### Features
+
+* **React:** add entity as generic param to cuba app query call ([109bada](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/109bada656c17fede4862ccb48408534f1c35ba1))
+
+
+### BREAKING CHANGES
+
+* **Front Generator:** component generation - names of component classes and files will be generated in camel case notation
+with first capital letter
+
+
+
+
+
 # [3.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0-beta.0...@cuba-platform/front-generator@3.0.0-beta.1) (2020-04-30)
 
 
