@@ -1,6 +1,8 @@
 "use strict";
 
 const cuba = require('../dist-node/cuba.js');
+const {initApp} = require('./common');
+
 global.fetch = require('node-fetch');
 
 describe('CubaApp security methods', () => {
@@ -24,14 +26,14 @@ describe('CubaApp security methods', () => {
       undefinedPermissionPolicy: 'DENY'
     };
 
-    app = new cuba.CubaApp('', apiUrl);
+    app = initApp();
     await app.login('admin', 'admin');
     expect(await app.getEffectivePermissions()).toEqual(expectedAdminEffectivePerms);
   });
 
   it('should load effective perms for mechanic', async () => {
 
-    app = new cuba.CubaApp('', apiUrl);
+    app = initApp();
     await app.login('mechanic', '1');
     const perms = await app.getEffectivePermissions();
 
@@ -60,7 +62,7 @@ describe('CubaApp security methods', () => {
 
   it('should load effective perms for manager', async () => {
 
-    app = new cuba.CubaApp('', apiUrl);
+    app = initApp();
     await app.login('manager', '2');
     const perms = await app.getEffectivePermissions();
 

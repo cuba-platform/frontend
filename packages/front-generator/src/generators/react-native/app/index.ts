@@ -3,6 +3,7 @@ import {ProjectInfo} from '../../../common/model/cuba-model';
 import {SdkAllGenerator} from '../../sdk/sdk-generator';
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from '../../../common/cli-options';
 import * as path from "path";
+import {normalizeSecret} from "../../../common/studio/studio-integration";
 
 interface ReactNativeAnswers {
 }
@@ -39,7 +40,11 @@ class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNat
       throw new Error('Model is not provided');
     }
 
-    this.model = {project: this.cubaProjectModel.project};
+    const {project} = this.cubaProjectModel;
+
+    this.model = {project};
+    this.model.project.restClientId = project.restClientId ?? 'client';
+    this.model.project.restClientSecret = project.restClientSecret ? normalizeSecret(project.restClientSecret) : 'secret';
   }
 
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class

@@ -7,7 +7,7 @@ import {I18nProvider} from "@cuba-platform/react-ui";
 
 import {HashRouter, Route} from "react-router-dom";
 import {initializeApp} from "@cuba-platform/rest";
-import {CUBA_APP_URL} from "./config";
+import {CUBA_APP_URL, REST_CLIENT_ID, REST_CLIENT_SECRET} from "./config";
 
 import "antd/dist/antd.min.css";
 import "@cuba-platform/react-ui/dist/index.min.css";
@@ -18,6 +18,8 @@ import 'moment/locale/ru';
 export const cubaREST = initializeApp({
   name: '<%=project.namespace%>',
   apiUrl: CUBA_APP_URL,
+  restClientId: REST_CLIENT_ID,
+  restClientSecret: REST_CLIENT_SECRET,
   storage: window.localStorage,
   defaultLocale: '<%= clientLocales.length > 0 ? clientLocales[0] : 'en' %>'
 });

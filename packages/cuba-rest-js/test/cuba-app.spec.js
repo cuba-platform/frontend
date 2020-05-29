@@ -1,15 +1,13 @@
 "use strict";
 
 const assert = require('assert');
-const cuba = require('../dist-node/cuba.js');
 global.fetch = require('node-fetch');
-
-const apiUrl = 'http://localhost:8080/app/rest/';
+const {initApp} = require('./common');
 
 let app;
 
 beforeAll(() => {
-  app = new cuba.CubaApp('', apiUrl);
+  app = initApp();
   return app.login('admin', 'admin');
 });
 
@@ -18,7 +16,7 @@ describe('CubaApp', () => {
   let app;
   describe('.login()', () => {
     it('shouldn\'t work with bad credentials', done => {
-      const newApp = new cuba.CubaApp('', apiUrl);
+      const newApp = initApp();
       newApp.login('admin', 'admin2')
         .then(() => {
           done('works with bad credentials');
@@ -28,7 +26,7 @@ describe('CubaApp', () => {
         });
     });
     it('should not work with empty credentials', done => {
-      const newApp = new cuba.CubaApp('', apiUrl);
+      const newApp = initApp();
       newApp.login(null, null)
         .then(() => {
           done('works with empty credentials');
@@ -38,13 +36,13 @@ describe('CubaApp', () => {
         });
     });
     it('should work with right credentials', () => {
-      const newApp = new cuba.CubaApp('', apiUrl);
+      const newApp = initApp();
       return newApp.login('admin', 'admin');
     });
   });
 
   beforeAll(() => {
-    app = new cuba.CubaApp('', apiUrl);
+    app = initApp();
     return app.login('admin', 'admin');
   });
 
@@ -272,3 +270,4 @@ describe('CubaApp', () => {
   });
 
 });
+
