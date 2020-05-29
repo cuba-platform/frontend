@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 const DEFAULT_INTEGRATION_PORT = 48561;
 export const ERR_STUDIO_NOT_CONNECTED = '' +
   'Can\'t establish connection to CUBA Studio. Please open CUBA Studio Intellij and tick \'Enable Integration\' checkbox. ' +
-  'Or provide path to project model json file as cli parameter --projectModel';
+  'Or provide path to project model json file as cli parameter --model';
 
 export interface StudioProjectInfo {
   name: string;
