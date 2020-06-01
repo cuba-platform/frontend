@@ -7,6 +7,7 @@
   "common.remove": "Remove",
   "common.unsavedEntity": "(unsaved or unnamed entity)",
   "common.requestFailed": "Failed to perform the requested operation",
+  "common.retry": "Retry",
 
   "home.welcome": "Welcome to",
   "router.home": "Home",

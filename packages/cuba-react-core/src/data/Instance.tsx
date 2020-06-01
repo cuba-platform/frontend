@@ -1,10 +1,10 @@
-import {action, computed, observable, runInAction, toJS} from "mobx";
+import {action, computed, observable, reaction, runInAction, toJS} from "mobx";
 import {
   PredefinedView, SerializedEntityProps, TemporalPropertyType, MetaClassInfo, CommitMode
 } from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
-import {DataContainer, DataContainerStatus} from "./DataContext";
+import {DataContainer, DataContainerError, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
 import {MainStore} from "../app/MainStore";
 import {
@@ -38,6 +38,10 @@ export class DataInstanceStore<T> implements DataContainer {
    */
   @observable status: DataContainerStatus = "CLEAN";
   /**
+   * @inheritDoc
+   */
+  @observable lastError?: DataContainerError;
+  /**
    * Name of the view used to limit the entity graph.
    */
   @observable viewName: string;
@@ -58,6 +62,10 @@ export class DataInstanceStore<T> implements DataContainer {
               stringIdName?: string) {
     this.viewName = viewName;
     this.stringIdName = stringIdName;
+
+    reaction(() => this.status,
+      status => this.lastError = status !== "ERROR" ? undefined : this.lastError)
+
   }
 
   /**
@@ -81,7 +89,8 @@ export class DataInstanceStore<T> implements DataContainer {
       })
       .catch(() => {
         runInAction(() => {
-          this.status = "ERROR"
+          this.status = "ERROR";
+          this.lastError = "LOAD_ERROR";
         })
       })
   };
@@ -152,7 +161,7 @@ export class DataInstanceStore<T> implements DataContainer {
       .then((updateResult) => {
         runInAction(() => {
           if (updateResult.id != null && this.item != null) {
-            this.item.id = updateResult.id
+            this.item.id = updateResult.id;
             this.item._instanceName = updateResult._instanceName;
           }
           this.status = 'DONE';
@@ -161,6 +170,7 @@ export class DataInstanceStore<T> implements DataContainer {
       })
       .catch((e) => {
         this.status = 'ERROR';
+        this.lastError = 'COMMIT_ERROR';
         throw e;
       })
   };

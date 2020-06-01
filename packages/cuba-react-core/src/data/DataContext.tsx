@@ -8,6 +8,7 @@ export interface DataContainer {
 }
 
 export type DataContainerStatus = 'CLEAN' | 'LOADING' | 'DONE' | 'ERROR';
+export type DataContainerError = 'COMMIT_ERROR' | 'LOAD_ERROR';
 
 export interface Containers {
   [containerId: string]: DataContainer;
