@@ -8,8 +8,9 @@ import * as assert from 'assert';
 
 const rimraf = promisify(require('rimraf'));
 
+const TPL_FILE_NAME = 'i18nMappings.ts';
 const DEST_DIR = path.join(process.cwd(), `src/test/generated/templates`);
-const DEST_EDITOR = path.join(DEST_DIR, 'EntityManagementEditor.tsx');
+const GENERATED_FILE = path.join(DEST_DIR, TPL_FILE_NAME);
 const FIXTURES_DIR = path.join(process.cwd(), `src/test/fixtures/templates`);
 
 
@@ -17,54 +18,29 @@ class CopyTplGenerator extends Base {
 
   constructor(args: string | string[], options: {}) {
     super(args, options);
-    this.sourceRoot(path.join(__dirname, '../../../generators/react-typescript/entity-management/template'));
+    this.sourceRoot(path.join(__dirname, '../../fixtures/templates'));
   }
 
   // noinspection JSUnusedGlobalSymbols
   processTemplate() {
 
-    const fields = [
-      {
-        name: 'manufacturer',
-        mandatory: true
-      },
-      {name: 'model'},
-      {
-        name: 'wheelOnRight',
-        type: {fqn: 'java.lang.Boolean'}
-      },
-      {name: 'garage'}
-    ];
-
+    // noinspection JSUnusedGlobalSymbols
     const model = {
-      editComponentClass: "CarEdit",
-      listComponentClass: "CarCards",
-      className: "CarManagement",
-      editAssociations: {
-        garage: {className: 'Garage', path: 'cuba/entities/scr$Garage'}
-      },
-      editCompositions: {},
-      relationImports: [
-        {className: 'Car', path: 'cuba/entities/scr$Car'},
-        {className: 'Garage', path: 'cuba/entities/scr$Garage'}],
-      relDirShift: '../../',
-      entity: {className: 'Car', path: 'cuba/entities/scr$Car'},
-      editView: {name: 'car-edit', allProperties: fields},
-      editAttributes: fields
+      isLocaleUsed: () => true
     };
 
-    const tplPath = this.templatePath('EntityManagementEditor.tsx.ejs');
+    const tplPath = this.templatePath(`${TPL_FILE_NAME}.ejs`);
     console.log('process template tplPath', fs.realpathSync(tplPath));
     console.log('dest dir', fs.realpathSync(DEST_DIR));
-    this.fs.copyTpl(tplPath, DEST_EDITOR, model);
+    this.fs.copyTpl(tplPath, GENERATED_FILE, model);
   }
 
 }
 
-// todo fix will pushed in master shortly
-xdescribe('react generator template processing test', () => {
 
-  it('should process entity management editor ejs template', async () => {
+describe('react generator template processing test', () => {
+
+  it('should correct process ejs template', async () => {
 
     await rimraf(`${DEST_DIR}/*`);
     !fs.existsSync(DEST_DIR) && fs.mkdirSync(DEST_DIR, {recursive: true});
@@ -73,10 +49,10 @@ xdescribe('react generator template processing test', () => {
     env.registerStub(CopyTplGenerator, 'CopyTplGenerator');
     await env.run('CopyTplGenerator', {});
 
-    format(DEST_EDITOR);
+    format(GENERATED_FILE);
 
-    assert.strictEqual(fs.readFileSync(DEST_EDITOR, 'utf8'),
-      fs.readFileSync(path.join(FIXTURES_DIR, 'EntityManagementEditor.tsx'), 'utf8'));
+    assert.strictEqual(fs.readFileSync(GENERATED_FILE, 'utf8'),
+      fs.readFileSync(path.join(FIXTURES_DIR, TPL_FILE_NAME), 'utf8'));
   });
 
 });
