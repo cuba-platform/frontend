@@ -7,7 +7,11 @@ import {assertFiles, opts} from '../../test-commons';
 
 const rimraf = promisify(require('rimraf'));
 
-const modelPath = require.resolve('../../fixtures/mpg-projectModel.json');
+// let's test both absolute and relative path usage
+const modelPath = '../../fixtures/mpg-projectModel.json';
+const absoluteModelPath = require.resolve(modelPath);
+const componentRelativeModelPath = path.join('../../../../test/', modelPath);
+
 const answers = require('../../fixtures/answers.json');
 
 const REACT_DIR = path.join(process.cwd(), `src/test/generated/react-client`);
@@ -36,14 +40,14 @@ describe('react generator test', () => {
     await rimraf(`${COMPONENT_DIR}/*`);
 
     await generate('react-typescript', 'blank-component',
-      opts(COMPONENT_DIR, answers.blankComponent, modelPath));
+      opts(COMPONENT_DIR, answers.blankComponent, componentRelativeModelPath));
 
     assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
 
     await rimraf(`${COMPONENT_DIR}/*`);
 
     await generate('react-typescript', 'blank-component',
-      opts(COMPONENT_DIR, answers.blankComponentLowCase, modelPath));
+      opts(COMPONENT_DIR, answers.blankComponentLowCase, absoluteModelPath));
 
     assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
   });
@@ -53,7 +57,7 @@ describe('react generator test', () => {
     await rimraf(`${CARDS_DIR}/*`);
 
     await generate('react-typescript', 'entity-cards',
-      opts(CARDS_DIR, answers.entityCards, modelPath));
+      opts(CARDS_DIR, answers.entityCards, componentRelativeModelPath));
 
     assertFiles('src/app/entity-cards/MpgFavoriteCarCards.tsx', REACT_DIR, FIXTURES_DIR);
   });
@@ -63,13 +67,13 @@ describe('react generator test', () => {
     await rimraf(`${EM_DIR}/*`);
 
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement, modelPath));
+      opts(EM_DIR, answers.entityManagement, componentRelativeModelPath));
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement2, modelPath));
+      opts(EM_DIR, answers.entityManagement2, absoluteModelPath));
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement3, modelPath));
+      opts(EM_DIR, answers.entityManagement3, componentRelativeModelPath));
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagementLowCase, modelPath));
+      opts(EM_DIR, answers.entityManagementLowCase, absoluteModelPath));
 
     assertFiles('src/app/entity-management/CarCards.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarEdit.tsx', REACT_DIR, FIXTURES_DIR);

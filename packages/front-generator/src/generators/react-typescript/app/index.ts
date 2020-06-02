@@ -1,12 +1,13 @@
 import {ProjectInfo} from "../../../common/model/cuba-model";
-import {BaseGenerator, readProjectModel} from "../../../common/base-generator";
+import {BaseGenerator} from "../../../common/base-generator";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 
 import {
   ERR_STUDIO_NOT_CONNECTED,
   exportProjectModel,
-  getOpenedCubaProjects, normalizeSecret,
+  getOpenedCubaProjects,
+  normalizeSecret,
   StudioProjectInfo
 } from "../../../common/studio/studio-integration";
 import {ownVersion} from "../../../cli";
@@ -27,12 +28,10 @@ interface Answers {
 class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGenerationOptions> {
 
   conflicter!: { force: boolean }; // missing in typings
-  modelPath?: string;
 
   constructor(args: string | string[], commonOptions: CommonGenerationOptions) {
     super(args, commonOptions);
     this.sourceRoot(path.join(__dirname, 'template'));
-    this.modelPath = this.options.model;
   }
 
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
@@ -40,7 +39,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     if (this.options.model) {
       this.conflicter.force = true;
       this.log('Skipping prompts since model provided');
-      this.cubaProjectModel = readProjectModel(this.options.model);
+      this.cubaProjectModel = this._readProjectModel();
       return;
     }
 
@@ -67,13 +66,13 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     if (this.cubaProjectModel) {
       this.model = createModel(this.cubaProjectModel.project);
     } else if (this.answers) {
-      this.modelPath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelPath);
+      this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelFilePath);
 
       // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      this.cubaProjectModel = readProjectModel(this.modelPath);
+      this.cubaProjectModel = this._readProjectModel();
       this.model = createModel(this.cubaProjectModel.project);
     }
   }
@@ -130,7 +129,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     this.log(`Generate SDK model and services to ${sdkDest}`);
 
     const sdkOpts = {
-      model: this.modelPath,
+      model: this.modelFilePath,
       dest: sdkDest
     };
 

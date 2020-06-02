@@ -2,7 +2,7 @@ import {ProjectInfo} from "../../../common/model/cuba-model";
 import {Polymer2AppTemplateModel} from "./template-model";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
-import {BaseGenerator, readProjectModel} from "../../../common/base-generator";
+import {BaseGenerator} from "../../../common/base-generator";
 import {questions} from "./questions";
 import through2 = require("through2");
 
@@ -32,7 +32,7 @@ export function createPolymer2AppGenerator(templateDir = path.join(__dirname, 't
 
     prepareModel() {
       if (this.options.model) {
-        const projectModel = readProjectModel(this.options.model);
+        const projectModel = this._readProjectModel();
         this.model = createModel(projectModel.project);
       } else if (this.answers) {
         this.model = createModel(this.answers.project);

@@ -1,4 +1,4 @@
-import {BaseGenerator, readProjectModel} from '../../../common/base-generator';
+import {BaseGenerator} from '../../../common/base-generator';
 import {ProjectInfo} from '../../../common/model/cuba-model';
 import {SdkAllGenerator} from '../../sdk/sdk-generator';
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from '../../../common/cli-options';
@@ -14,12 +14,9 @@ interface ReactNativeTemplateModel {
 
 class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNativeTemplateModel, CommonGenerationOptions> {
 
-  modelPath?: string;
-
   constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
     this.sourceRoot(path.join(__dirname, 'template'));
-    this.modelPath = this.options.model;
   }
 
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
@@ -27,7 +24,7 @@ class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNat
     if (this.options.model) {
       this.conflicter.force = true;
       this.log('Skipping prompts since model provided');
-      this.cubaProjectModel = readProjectModel(this.options.model);
+      this.cubaProjectModel = this._readProjectModel();
       return;
     }
 

@@ -1,4 +1,4 @@
-import {BaseGenerator, readProjectModel} from "../../common/base-generator";
+import {BaseGenerator} from "../../common/base-generator";
 import {CommonGenerationOptions} from "../../common/cli-options";
 import * as path from "path";
 import {
@@ -39,7 +39,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
     if (this.options.model) {
       this.conflicter.force = true;
       this.log('Skipping prompts since model provided');
-      this.cubaProjectModel = readProjectModel(this.options.model);
+      this.cubaProjectModel = this._readProjectModel();
       return;
     }
 
@@ -70,7 +70,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
       // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      this.cubaProjectModel = readProjectModel(modelFilePath);
+      this.cubaProjectModel = this._readProjectModel();
     }
   }
 
