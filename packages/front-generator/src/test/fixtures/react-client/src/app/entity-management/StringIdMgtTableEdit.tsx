@@ -2,7 +2,7 @@ import * as React from "react";
 import { FormEvent } from "react";
 import { Alert, Button, Card, Form, message } from "antd";
 import { observer } from "mobx-react";
-import { CarManagement } from "./CarManagement";
+import { StringIdMgtTableManagement } from "./StringIdMgtTableManagement";
 import { FormComponentProps } from "antd/lib/form";
 import { Link, Redirect } from "react-router-dom";
 import { IReactionDisposer, observable, reaction, toJS } from "mobx";
@@ -13,8 +13,6 @@ import {
 } from "react-intl";
 
 import {
-  loadAssociationOptions,
-  DataCollectionStore,
   instance,
   MainStoreInjected,
   injectMainStore
@@ -30,10 +28,9 @@ import {
   Spinner
 } from "@cuba-platform/react-ui";
 
-import "../../app/App.css";
+import "app/App.css";
 
-import { Car } from "../../cuba/entities/scr$Car";
-import { Garage } from "../../cuba/entities/scr$Garage";
+import { StringIdTestEntity } from "cuba/entities/scr_StringIdTestEntity";
 
 type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
@@ -43,39 +40,23 @@ type EditorProps = {
 
 @injectMainStore
 @observer
-class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
-  dataInstance = instance<Car>(Car.NAME, {
-    view: "car-edit",
-    loadImmediately: false
-  });
+class StringIdMgtTableEditComponent extends React.Component<
+  Props & WrappedComponentProps
+> {
+  dataInstance = instance<StringIdTestEntity>(StringIdTestEntity.NAME, {
+    view: "_local",
+    loadImmediately: false,
 
-  @observable garagesDc: DataCollectionStore<Garage> | undefined;
+    stringIdName: "identifier"
+  });
 
   @observable updated = false;
   @observable formRef: React.RefObject<Form> = React.createRef();
   reactionDisposers: IReactionDisposer[] = [];
 
-  fields = ["manufacturer", "model", "wheelOnRight", "garage"];
+  fields = ["description", "identifier", "productCode"];
 
   @observable globalErrors: string[] = [];
-
-  /**
-   * This method should be called after the user permissions has been loaded
-   */
-  loadAssociationOptions = () => {
-    // MainStore should exist at this point
-    if (this.props.mainStore != null) {
-      const { getAttributePermission } = this.props.mainStore.security;
-
-      this.garagesDc = loadAssociationOptions(
-        Car.NAME,
-        "garage",
-        Garage.NAME,
-        getAttributePermission,
-        { view: "_minimal" }
-      );
-    }
-  };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -138,12 +119,12 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   isNewEntity = () => {
-    return this.props.entityId === CarManagement.NEW_SUBPATH;
+    return this.props.entityId === StringIdMgtTableManagement.NEW_SUBPATH;
   };
 
   render() {
     if (this.updated) {
-      return <Redirect to={CarManagement.PATH} />;
+      return <Redirect to={StringIdMgtTableManagement.PATH} />;
     }
 
     const { status } = this.dataInstance;
@@ -156,39 +137,29 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
       <Card className="narrow-layout">
         <Form onSubmit={this.handleSubmit} layout="vertical" ref={this.formRef}>
           <Field
-            entityName={Car.NAME}
-            propertyName="manufacturer"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{
-              rules: [{ required: true }]
-            }}
-          />
-
-          <Field
-            entityName={Car.NAME}
-            propertyName="model"
+            entityName={StringIdTestEntity.NAME}
+            propertyName="description"
             form={this.props.form}
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
 
           <Field
-            entityName={Car.NAME}
-            propertyName="wheelOnRight"
+            entityName={StringIdTestEntity.NAME}
+            propertyName="identifier"
             form={this.props.form}
             formItemOpts={{ style: { marginBottom: "12px" } }}
+            disabled={!this.isNewEntity()}
             getFieldDecoratorOpts={{
-              valuePropName: "checked"
+              rules: [{ required: true }]
             }}
           />
 
           <Field
-            entityName={Car.NAME}
-            propertyName="garage"
+            entityName={StringIdTestEntity.NAME}
+            propertyName="productCode"
             form={this.props.form}
             formItemOpts={{ style: { marginBottom: "12px" } }}
-            optionsContainer={this.garagesDc}
             getFieldDecoratorOpts={{}}
           />
 
@@ -201,7 +172,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
           )}
 
           <Form.Item style={{ textAlign: "center" }}>
-            <Link to={CarManagement.PATH}>
+            <Link to={StringIdMgtTableManagement.PATH}>
               <Button htmlType="button">
                 <FormattedMessage id="management.editor.cancel" />
               </Button>
@@ -223,25 +194,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
 
   componentDidMount() {
     if (this.isNewEntity()) {
-      this.dataInstance.setItem(new Car());
+      this.dataInstance.setItem(new StringIdTestEntity());
     } else {
       this.dataInstance.load(this.props.entityId);
     }
-
-    this.reactionDisposers.push(
-      reaction(
-        () => this.props.mainStore?.security.effectivePermissions,
-        (perms, permsReaction) => {
-          if (perms != null) {
-            // User permissions has been loaded.
-            // We can now load association options.
-            this.loadAssociationOptions(); // Calls REST API
-            permsReaction.dispose();
-          }
-        },
-        { fireImmediately: true }
-      )
-    );
 
     this.reactionDisposers.push(
       reaction(
@@ -286,5 +242,5 @@ export default injectIntl(
         });
       });
     }
-  })(CarEditComponent)
+  })(StringIdMgtTableEditComponent)
 );
