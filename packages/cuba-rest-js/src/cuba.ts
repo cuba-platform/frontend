@@ -159,14 +159,13 @@ export class CubaApp {
       body: "grant_type=password&username=" + encodeURIComponent(login) + "&password=" + encodeURIComponent(password),
     };
     const endpoint = options && options.tokenEndpoint ? options.tokenEndpoint : 'oauth/token';
-    const loginRes = fetch(this.apiUrl + "v2/" + endpoint, fetchOptions)
+    return fetch(this.apiUrl + "v2/" + endpoint, fetchOptions)
       .then(this.checkStatus)
-      .then((resp) => resp.json())
-      .then((data) => {
+      .then(resp => resp.json())
+      .then(data => {
         this.restApiToken = data.access_token;
         return data;
       });
-    return loginRes;
   }
 
   public logout(): Promise<any> {

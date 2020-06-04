@@ -125,10 +125,8 @@ export class MainStore {
 
   @action
   login(login: string, password: string) {
-    return this.cubaREST.login(login, password).then(action(() => {
-      this.userName = login;
-      this.authenticated = true;
-    }))
+    return this.cubaREST.login(login, password)
+      .then(() => this.initialize());
   }
 
   @action
@@ -151,6 +149,7 @@ export class MainStore {
    *
    * @returns a promise that resolves when initialization is complete.
    */
+  @action
   initialize(): Promise<void> {
     this.locale = this.cubaREST.locale;
     return this.cubaREST.getUserInfo()
