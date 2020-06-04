@@ -21,6 +21,9 @@ class <%= listComponentClass %>Component extends React.Component<MainStoreInject
       <% if (entity.updatable == true) { -%>
         sort: '-updateTs',
       <% } %>
+      <% if (locals.stringIdName != null) { %>
+        stringIdName: '<%= stringIdName %>'
+      <% } %>
     });
   @observable selectedRowKey: string | undefined;
 

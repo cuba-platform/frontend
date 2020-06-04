@@ -74,6 +74,12 @@ export interface DataCollectionStore<T> extends DataContainer {
    */
   skipCount?: boolean;
   /**
+   * Name of the ID attribute of a String ID entity.
+   * Indicates that the entity is a String ID entity.
+   * Mandatory for String ID entities, shall be omitted otherwise.
+   */
+  stringIdName?: string;
+  /**
    * Retrieves the entity instances. Once retrieval is complete, the instances will be
    * available as {@link items}.
    * When the source of entity instances is REST API, this method will by default
@@ -126,6 +132,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
   @observable offset?: number;
   @observable count?: number;
   @observable skipCount?: boolean;
+  @observable stringIdName?: string;
 
   allItems: Array<SerializedEntity<T>> = []; // Client mode only
 
@@ -224,7 +231,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
     return promise
       .then((resp) => {
         runInAction(() => {
-          this.items = resp.result;
+          this.items = fromRestModel<T>(resp.result, this.stringIdName);
           this.count = resp.count;
           this.status = 'DONE';
         })
@@ -235,7 +242,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
     return promise
       .then((resp: Array<SerializedEntity<T>>) => {
         runInAction(() => {
-          this.items = resp;
+          this.items = fromRestModel<T>(resp, this.stringIdName);
           this.count = undefined;
           this.status = 'DONE';
         })
@@ -301,6 +308,10 @@ export interface DataCollectionOptions {
    */
   filter?: EntityFilter,
   /**
+   * See {@link DataCollectionStore.stringIdName}.
+   */
+  stringIdName?: string,
+  /**
    * Whether to track the changed items. When `true`, the changes will be available via
    * {@link DataContainer.changedItems} field.
    */
@@ -317,6 +328,20 @@ export interface ClientSideDataCollectionOptions extends DataCollectionOptions {
 export const defaultOpts: DataCollectionOptions = {
   loadImmediately: true
 };
+
+export function fromRestModel<T>(items: Array<SerializedEntity<T>>, stringIdName?: string): Array<SerializedEntity<T>> {
+  if (stringIdName == null || stringIdName === 'id') {
+  return items;
+} else {
+  return items.map(i => {
+    const item = i as any;
+    if (stringIdName != null) {
+      item[stringIdName] = item.id;
+    }
+    return item;
+  });
+}
+}
 
 function createStore<E>(entityName: string, opts: DataCollectionOptions): DataCollectionStore<E> {
   const dataCollection = new DataCollectionStoreImpl<E>(entityName, !!opts.trackChanges);
@@ -348,6 +373,9 @@ function setOptionsAndLoad<E>(dataCollection: DataCollectionStore<E>, opts: Data
   }
   if (opts.offset != null) {
     dataCollection.offset = opts.offset;
+  }
+  if (opts.stringIdName != null) {
+    dataCollection.stringIdName = opts.stringIdName;
   }
   if (typeof opts.loadImmediately === 'undefined' || opts.loadImmediately) {
     dataCollection.load();

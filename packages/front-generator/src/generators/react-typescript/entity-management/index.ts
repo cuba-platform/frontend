@@ -1,6 +1,14 @@
-import {BaseGenerator} from "../../../common/base-generator";
-import {EntityManagementAnswers, entityManagementGeneratorParams} from "./params";
-import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
+import {
+  editIdPositionQuestion,
+  EntityManagementAnswers,
+  entityManagementGeneratorParams,
+  listIdPositionQuestion,
+  listShowIdQuestions
+} from "./params";
+import {
+  ComponentOptions, componentOptionsConfig,
+  OptionsConfig,
+} from "../../../common/cli-options";
 import {EditRelations, EditRelationsSplit, EntityManagementTemplateModel, RelationImport} from "./template-model";
 import * as path from "path";
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
@@ -14,10 +22,11 @@ import * as entityManagementRu from "./entity-management-ru.json";
 import {writeComponentI18nMessages} from "../common/i18n";
 import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../common/entity";
 import {fromStudioProperties} from '../../../common/questions';
+import {BaseEntityScreenGenerator, stringIdAnswersToModel} from '../common/base-entity-screen-generator';
 
-class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
+class ReactEntityManagementGenerator extends BaseEntityScreenGenerator<EntityManagementAnswers, EntityManagementTemplateModel, ComponentOptions> {
 
-  constructor(args: string | string[], options: PolymerElementOptions) {
+  constructor(args: string | string[], options: ComponentOptions) {
     super(args, options);
     this.sourceRoot(path.join(__dirname, 'template'));
   }
@@ -85,21 +94,12 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
   }
 
   _getAvailableOptions(): OptionsConfig {
-    return polymerElementOptionsConfig;
+    return componentOptionsConfig;
   }
 
   async _additionalPrompts(answers: EntityManagementAnswers): Promise<EntityManagementAnswers> {
-    if (!this.cubaProjectModel) {
-      throw Error('Additional prompt failed: cannot find project model');
-    }
-    const entityName = answers.entity.name;
-    if (!entityName) {
-      throw Error('Additional prompt failed: cannot find entity name');
-    }
-    const entity = findEntity(this.cubaProjectModel, entityName);
-    if (!entity) {
-      throw Error('Additional prompt failed: cannot find entity');
-    }
+    const entity = await this._getEntityFromAnswers(answers);
+    const stringIdAnswers = await this._stringIdPrompts(answers, entity);
 
     const nestedEntityQuestions = entity.attributes.reduce((questions: StudioTemplateProperty[], attr: EntityAttribute) => {
       if (attr.mappingType === 'COMPOSITION') {
@@ -123,7 +123,19 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       return result;
     }, {});
 
-    return {...answers, nestedEntityInfo};
+    return {...answers, ...stringIdAnswers, nestedEntityInfo};
+  }
+
+  protected _getListShowIdQuestions(): StudioTemplateProperty[] {
+    return listShowIdQuestions;
+  }
+
+  protected _getListIdPositionQuestion(): StudioTemplateProperty {
+    return listIdPositionQuestion;
+  }
+
+  protected _getEditIdPositionQuestion(): StudioTemplateProperty {
+    return editIdPositionQuestion;
   }
 }
 
@@ -133,11 +145,13 @@ function answersToManagementModel(answers: EntityManagementAnswers,
   const className = elementNameToClass(answers.managementComponentName);
   const entity: EntityTemplateModel = createEntityTemplateModel(answers.entity, projectModel);
 
-  const listAttributes: EntityAttribute[] =
-    getDisplayedAttributes(answers.listView.allProperties, entity, projectModel, ScreenType.BROWSER);
-
-  const editAttributes: EntityAttribute[] =
-    getDisplayedAttributes(answers.editView.allProperties, entity, projectModel, ScreenType.EDITOR);
+  const { stringIdName, listAttributes, editAttributes } = stringIdAnswersToModel(
+    answers,
+    projectModel,
+    entity,
+    getDisplayedAttributes(answers.listView.allProperties, entity, projectModel, ScreenType.BROWSER),
+    getDisplayedAttributes(answers.editView.allProperties, entity, projectModel, ScreenType.EDITOR)
+  );
 
   const { editAssociations, editCompositions } = getRelations(projectModel, editAttributes);
 
@@ -162,7 +176,8 @@ function answersToManagementModel(answers: EntityManagementAnswers,
     nestedEntityInfo,
     editCompositions,
     editAssociations,
-    relationImports
+    relationImports,
+    stringIdName
   }
 }
 
@@ -206,7 +221,7 @@ const description = 'CRUD (list + editor) screens for specified entity';
 
 export {
   ReactEntityManagementGenerator as generator,
-  polymerElementOptionsConfig as options,
+  componentOptionsConfig as options,
   entityManagementGeneratorParams as params,
   description
 };

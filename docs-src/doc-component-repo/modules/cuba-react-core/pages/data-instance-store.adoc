@@ -17,4 +17,13 @@ dataInstance.item.name = 'New Name';
 dataInstance.commit()
 ----
 
+For String ID entities you'll need to provide the name of the String ID attribute as a `stringIdName` parameter.
+
+[source,typescript]
+----
+dataInstance = instance<Pet>(Pet.NAME, {
+    stringIdName: 'identifier'
+});
+----
+
 API: {api_core_DataInstanceStore}[DataInstanceStore], {api_core_instance}[instance].

@@ -29,7 +29,10 @@ class <%= listComponentClass %>Component extends React.Component<Props> {
     <% if (entity.updatable == true) { -%>
       sort: '-updateTs',
     <% } %>
-    loadImmediately: false
+    loadImmediately: false,
+    <% if (locals.stringIdName != null) { %>
+      stringIdName: '<%= stringIdName %>'
+    <% } %>
   });
 
   reactionDisposers: IReactionDisposer[] = [];
