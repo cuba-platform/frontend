@@ -17,11 +17,22 @@ public class CompositionO2OTestEntity extends StandardEntity {
     @Column(name = "NAME")
     protected String name;
 
+    @Column(name = "QUANTITY")
+    private Integer quantity;
+
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NESTED_COMPOSITION_ID")
     protected DeeplyNestedTestEntity nestedComposition;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     public DeeplyNestedTestEntity getNestedComposition() {
         return nestedComposition;

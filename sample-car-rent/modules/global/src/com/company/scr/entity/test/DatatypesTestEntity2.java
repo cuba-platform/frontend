@@ -30,6 +30,34 @@ public class DatatypesTestEntity2 extends StandardEntity {
     @JoinColumn(name = "INTEGER_ID_TEST_ENTITY_ATTR_ID")
     private IntegerIdTestEntity integerIdTestEntityAttr;
 
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER")
+    private StringIdTestEntity stringIdTestEntityAttr;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "WEIRD_STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER")
+    private WeirdStringIdTestEntity weirdStringIdTestEntityAttr;
+
+    public WeirdStringIdTestEntity getWeirdStringIdTestEntityAttr() {
+        return weirdStringIdTestEntityAttr;
+    }
+
+    public void setWeirdStringIdTestEntityAttr(WeirdStringIdTestEntity weirdStringIdTestEntityAttr) {
+        this.weirdStringIdTestEntityAttr = weirdStringIdTestEntityAttr;
+    }
+
+    public StringIdTestEntity getStringIdTestEntityAttr() {
+        return stringIdTestEntityAttr;
+    }
+
+    public void setStringIdTestEntityAttr(StringIdTestEntity stringIdTestEntityAttr) {
+        this.stringIdTestEntityAttr = stringIdTestEntityAttr;
+    }
+
     public IntegerIdTestEntity getIntegerIdTestEntityAttr() {
         return integerIdTestEntityAttr;
     }

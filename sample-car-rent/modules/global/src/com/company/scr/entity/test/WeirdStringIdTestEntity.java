@@ -8,20 +8,20 @@ import javax.persistence.*;
 import java.util.Date;
 
 @NamePattern("%s|description")
-@Table(name = "SCR_STRING_ID_TEST_ENTITY")
-@Entity(name = "scr_StringIdTestEntity")
-public class StringIdTestEntity extends BaseStringIdEntity implements Updatable, Creatable, SoftDelete, Versioned {
-    private static final long serialVersionUID = -5918980569216468585L;
+@Table(name = "SCR_WEIRD_STRING_ID_TEST_ENTITY")
+@Entity(name = "scr_WeirdStringIdTestEntity")
+public class WeirdStringIdTestEntity extends BaseStringIdEntity implements Creatable, Updatable, SoftDelete, Versioned {
+    private static final long serialVersionUID = 4322820552909829781L;
 
     @Id
     @Column(name = "IDENTIFIER", nullable = false, length = 10)
-    protected String identifier;
+    private String identifier;
 
     @Column(name = "DESCRIPTION")
-    protected String description;
+    private String description;
 
-    @Column(name = "PRODUCT_CODE", length = 10)
-    private String productCode;
+    @Column(name = "ID")
+    private String id;
 
     @Column(name = "CREATE_TS")
     private Date createTs;
@@ -44,8 +44,6 @@ public class StringIdTestEntity extends BaseStringIdEntity implements Updatable,
     @Version
     @Column(name = "VERSION", nullable = false)
     private Integer version;
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "stringIdTestEntityAssociationO2O")
-    private DatatypesTestEntity datatypesTestEntity;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DATATYPES_TEST_ENTITY3_ID")
     private DatatypesTestEntity3 datatypesTestEntity3;
@@ -56,22 +54,6 @@ public class StringIdTestEntity extends BaseStringIdEntity implements Updatable,
 
     public void setDatatypesTestEntity3(DatatypesTestEntity3 datatypesTestEntity3) {
         this.datatypesTestEntity3 = datatypesTestEntity3;
-    }
-
-    public DatatypesTestEntity getDatatypesTestEntity() {
-        return datatypesTestEntity;
-    }
-
-    public void setDatatypesTestEntity(DatatypesTestEntity datatypesTestEntity) {
-        this.datatypesTestEntity = datatypesTestEntity;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
     }
 
     @Override
@@ -129,22 +111,18 @@ public class StringIdTestEntity extends BaseStringIdEntity implements Updatable,
         this.updateTs = updateTs;
     }
 
-    @Override
     public String getCreatedBy() {
         return createdBy;
     }
 
-    @Override
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    @Override
     public Date getCreateTs() {
         return createTs;
     }
 
-    @Override
     public void setCreateTs(Date createTs) {
         this.createTs = createTs;
     }

@@ -6,5 +6,7 @@
   "entityView": {
     "name": "_local",
     "entityName": "scr_StringIdTestEntity"
-  }
+  },
+  "listShowIdAttr": true,
+  "listIdAttrPos": 1
 }
