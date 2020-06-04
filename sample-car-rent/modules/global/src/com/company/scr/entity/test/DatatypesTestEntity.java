@@ -118,6 +118,30 @@ public class DatatypesTestEntity extends StandardEntity {
     @JoinColumn(name = "DATATYPES_TEST_ENTITY3_ID")
     protected DatatypesTestEntity3 datatypesTestEntity3;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "STRING_ID_TEST_ENTITY_ASSOCIATION_O2O_IDENTIFIER")
+    private StringIdTestEntity stringIdTestEntityAssociationO2O;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "STRING_ID_TEST_ENTITY_ASSOCIATION_M2O_ID")
+    private StringIdTestEntity stringIdTestEntityAssociationM2O;
+
+    public StringIdTestEntity getStringIdTestEntityAssociationO2O() {
+        return stringIdTestEntityAssociationO2O;
+    }
+
+    public void setStringIdTestEntityAssociationO2O(StringIdTestEntity stringIdTestEntityAssociationO2O) {
+        this.stringIdTestEntityAssociationO2O = stringIdTestEntityAssociationO2O;
+    }
+
+    public StringIdTestEntity getStringIdTestEntityAssociationM2O() {
+        return stringIdTestEntityAssociationM2O;
+    }
+
+    public void setStringIdTestEntityAssociationM2O(StringIdTestEntity stringIdTestEntityAssociationM2O) {
+        this.stringIdTestEntityAssociationM2O = stringIdTestEntityAssociationM2O;
+    }
+
     public List<IntegerIdTestEntity> getIntegerIdTestEntityAssociationM2MAttr() {
         return integerIdTestEntityAssociationM2MAttr;
     }

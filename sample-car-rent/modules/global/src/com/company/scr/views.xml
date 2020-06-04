@@ -40,12 +40,17 @@
       <property name="associationO2Mattr" view="_minimal"/>
       <property name="associationM2Oattr" view="_minimal"/>
       <property name="associationM2Mattr" view="_minimal"/>
-      <property name="compositionO2Oattr" view="_minimal"/>
+      <property name="compositionO2Oattr" view="_minimal">
+          <property name="quantity"/>
+      </property>
       <property name="compositionO2Mattr" view="_minimal">
           <property name="datatypesTestEntity" view="_minimal"/>
+          <property name="quantity"/>
       </property>
       <property name="intIdentityIdTestEntityAssociationO2OAttr" view="_minimal"/>
       <property name="integerIdTestEntityAssociationM2MAttr" view="_minimal"/>
+      <property name="stringIdTestEntityAssociationO2O" view="_minimal"/>
+      <property name="stringIdTestEntityAssociationM2O" view="_minimal"/>
   </view>
   <view entity="scr_AssociationM2MTestEntity" name="associationM2MTestEntity-view" extends="_local">
     <property name="datatypesTestEntities" view="_minimal"/>
@@ -96,6 +101,8 @@
       </property>
       <property name="intIdentityIdTestEntityAttr" view="_minimal"/>
       <property name="integerIdTestEntityAttr" view="_minimal"/>
+      <property name="stringIdTestEntityAttr" view="_minimal"/>
+      <property name="weirdStringIdTestEntityAttr" view="_minimal"/>
   </view>
     <view entity="scr_DatatypesTestEntity3" name="datatypesTestEntity3-view" extends="_local">
         <property name="datatypesTestEntityAttr" view="_minimal">
@@ -125,5 +132,7 @@
         </property>
         <property name="integerIdTestEntityAttr" view="_minimal"/>
         <property name="intIdentityIdTestEntityAttr" view="_minimal"/>
+        <property name="stringIdTestEntityAttr" view="_minimal"/>
+        <property name="weirdStringIdTestEntityAttr" view="_minimal"/>
     </view>
 </views>

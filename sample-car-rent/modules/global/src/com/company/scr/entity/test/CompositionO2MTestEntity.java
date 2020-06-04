@@ -15,8 +15,19 @@ public class CompositionO2MTestEntity extends StandardEntity {
     @JoinColumn(name = "DATATYPES_TEST_ENTITY_ID")
     protected DatatypesTestEntity datatypesTestEntity;
 
+    @Column(name = "QUANTITY")
+    private Integer quantity;
+
     @Column(name = "NAME")
     protected String name;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     public String getName() {
         return name;

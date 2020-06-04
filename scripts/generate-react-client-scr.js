@@ -9,6 +9,14 @@ const intIdentityIdManagementListConfig = require('./screens/int-identity-id-man
 const intIdManagementTableConfig = require('./screens/int-id-management-table.json');
 const intIdManagementCardsConfig = require('./screens/int-id-management-cards.json');
 const intIdManagementListConfig = require('./screens/int-id-management-list.json');
+const stringIdCardsConfig = require('./screens/string-id-cards.json');
+const stringIdManagementTableConfig = require('./screens/string-id-management-table.json');
+const stringIdManagementCardsConfig = require('./screens/string-id-management-cards.json');
+const stringIdManagementListConfig = require('./screens/string-id-management-list.json');
+const weirdStringIdManagementTableConfig = require('./screens/weird-string-id-management-table.json');
+const weirdStringIdManagementCardsConfig = require('./screens/weird-string-id-management-cards.json');
+const weirdStringIdManagementListConfig = require('./screens/weird-string-id-management-list.json');
+const boringStringIdManagementTableConfig = require('./screens/boring-string-id-management-table.json');
 const dirShift = '../../';
 
 gen(
@@ -17,6 +25,7 @@ gen(
     'scripts/model/projectModel-scr.json',
     [
       { command: 'react-typescript:app' },
+      // Car Service Center domain entities
       {
         command: 'react-typescript:entity-cards',
         dirShift,
@@ -41,6 +50,7 @@ gen(
         dest: 'src/app/entity-management3',
         answers: answers.entityManagement3
       },
+      // All datatypes
       {
         command: 'react-typescript:entity-management',
         dirShift,
@@ -59,6 +69,7 @@ gen(
         dest: 'src/app/datatypes-test3',
         answers: answers.datatypesTest3
       },
+      // Relations
       {
         command: 'react-typescript:entity-management',
         dirShift,
@@ -113,6 +124,7 @@ gen(
         dest: 'src/app/datatypes-test-cards',
         answers: answers.datatypesTestCards
       },
+      // Integer ID
       {
         command: 'react-typescript:entity-cards',
         dirShift,
@@ -154,6 +166,55 @@ gen(
         dirShift,
         dest: 'src/app/int-identity-id-management-list',
         answers: intIdentityIdManagementListConfig
+      },
+      // String ID
+      {
+        command: 'react-typescript:entity-cards',
+        dirShift,
+        dest: 'src/app/string-id-cards',
+        answers: stringIdCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/string-id-management-cards',
+        answers: stringIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/string-id-management-list',
+        answers: stringIdManagementListConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/string-id-management-table',
+        answers: stringIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/weird-string-id-management-cards',
+        answers: weirdStringIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/weird-string-id-management-list',
+        answers: weirdStringIdManagementListConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/weird-string-id-management-table',
+        answers: weirdStringIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/boring-string-id-management-table',
+        answers: boringStringIdManagementTableConfig
       }
     ]
 );

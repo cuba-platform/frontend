@@ -13,5 +13,5 @@
     "entity": {
       "name": "scr_IntIdentityIdTestEntity"
     },
-    "managementComponentName": "int-identity-id-management-table"
+    "managementComponentName": "int-identity-id-mgt-table-management"
 }
