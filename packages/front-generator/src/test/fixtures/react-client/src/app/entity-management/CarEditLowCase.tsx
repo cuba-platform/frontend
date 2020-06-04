@@ -130,7 +130,10 @@ class CarEditLowCaseComponent extends React.Component<
         return;
       }
       this.dataInstance
-        .update(this.props.form.getFieldsValue(this.fields))
+        .update(
+          this.props.form.getFieldsValue(this.fields),
+          this.isNewEntity() ? "create" : "edit"
+        )
         .then(() => {
           message.success(
             this.props.intl.formatMessage({ id: "management.editor.success" })
@@ -173,6 +176,10 @@ class CarEditLowCaseComponent extends React.Component<
           }
         });
     });
+  };
+
+  isNewEntity = () => {
+    return this.props.entityId === CarManagementLowCase.NEW_SUBPATH;
   };
 
   render() {
@@ -340,10 +347,10 @@ class CarEditLowCaseComponent extends React.Component<
   }
 
   componentDidMount() {
-    if (this.props.entityId !== CarManagementLowCase.NEW_SUBPATH) {
-      this.dataInstance.load(this.props.entityId);
-    } else {
+    if (this.isNewEntity()) {
       this.dataInstance.setItem(new Car());
+    } else {
+      this.dataInstance.load(this.props.entityId);
     }
 
     this.reactionDisposers.push(

@@ -1,5 +1,10 @@
-import {getDisplayedAttributes, ScreenType} from "../../../../generators/react-typescript/common/entity";
+import {
+  getDisplayedAttributes,
+  isStringIdEntity,
+  ScreenType
+} from "../../../../generators/react-typescript/common/entity";
 import {expect} from "chai";
+import {fail} from "assert";
 
 const dtViewProperties = require('../../../fixtures/view-properties--datatypes-test-entity.json');
 const o2oViewProperties = require('../../../fixtures/view-properties--association-o2o.json');
@@ -64,3 +69,28 @@ describe('getDisplayedAttributes()', () => {
     expect(o2oDisplayedFieldsBrowser).to.include.members(['name', 'datatypesTestEntity']);
   });
 });
+
+describe('isStringIdEntity()', () => {
+  it('correctly determines if an entity is a String ID entity', () => {
+    expectEntityIsStringId('scr_StringIdTestEntity').to.be.true;
+    expectEntityIsStringId('scr_WeirdStringIdTestEntity').to.be.true;
+    expectEntityIsStringId('scr_BoringStringIdTestEntity').to.be.true;
+    expectEntityIsStringId('scr_IntegerIdTestEntity').to.be.false;
+    expectEntityIsStringId('scr_IntIdentityIdTestEntity').to.be.false;
+    expectEntityIsStringId('scr_DatatypesTestEntity').to.be.false;
+    expectEntityIsStringId('scr_CompositionO2MTestEntity').to.be.false;
+    expectEntityIsStringId('scr_AssociationM2OTestEntity').to.be.false;
+  });
+});
+
+function expectEntityIsStringId(name: string) {
+  return expect(isStringIdEntity(projectModel, findTestEntity(name)));
+}
+
+function findTestEntity(name: string) {
+  const entity = projectModel.entities.find((e: any) => e.name === name);
+  if (entity == null) {
+    fail('Cannot find test entity');
+  }
+  return entity;
+}
