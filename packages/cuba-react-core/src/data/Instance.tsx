@@ -1,6 +1,6 @@
 import {action, computed, observable, runInAction, toJS} from "mobx";
 import {
-  PredefinedView, SerializedEntityProps, TemporalPropertyType, MetaClassInfo
+  PredefinedView, SerializedEntityProps, TemporalPropertyType, MetaClassInfo, CommitMode
 } from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
@@ -39,6 +39,11 @@ export class DataInstanceStore<T> implements DataContainer {
    * Name of the view used to limit the entity graph.
    */
   @observable viewName: string;
+  /**
+   * Name of the ID attribute of a String ID entity.
+   * Mandatory for String ID entities, shall be omitted otherwise.
+   */
+  @observable stringIdName?: string;
 
   /**
    * @inheritDoc
@@ -47,8 +52,10 @@ export class DataInstanceStore<T> implements DataContainer {
 
   constructor(private mainStore: MainStore,
               public readonly entityName: string,
-              viewName: string = PredefinedView.MINIMAL) {
+              viewName: string = PredefinedView.MINIMAL,
+              stringIdName?: string) {
     this.viewName = viewName;
+    this.stringIdName = stringIdName;
   }
 
   /**
@@ -95,31 +102,41 @@ export class DataInstanceStore<T> implements DataContainer {
    */
   @action
   setItemToFormFields(formFields: Partial<T>) {
-    this.item = formFieldsToInstanceItem(formFields, this.entityName, toJS(this.mainStore.metadata!)) as T & Partial<SerializedEntityProps> & WithId;
+    this.item = formFieldsToInstanceItem(formFields, this.entityName, toJS(this.mainStore.metadata!), this.stringIdName) as T & Partial<SerializedEntityProps> & WithId;
     this.status = "DONE";
   }
 
   // TODO should return Promise<Partial<T>>
+  // TODO We might want to make commitMode mandatory in a future major version
   /**
    * Updates the {@link item} using a provided `entityPatch`, then sends a request to the REST API to persist the changes.
    *
    * @param entityPatch - a `Partial` representing the changes to be made.
+   * @param commitMode - 'create' when creating a new entity or 'edit' when editing an existing one.
+   * Different REST API endpoints and HTTP methods will be used depending on whether the entity is new.
+   * IMPORTANT:
+   * If this parameter is omitted, then the entity will be considered new if it lacks the `id` attribute.
+   * This will produce incorrect results for String ID entities.
+   * Therefore using this parameter is mandatory for String ID entities.
+   *
    * @returns a promise that resolves to the update result returned by the REST API.
    */
   @action
-  update(entityPatch: Partial<T>): Promise<any> {
-    const normalizedPatch: Record<string, any> = formFieldsToInstanceItem(entityPatch, this.entityName, toJS(this.mainStore.metadata!));
+  update(entityPatch: Partial<T>, commitMode?: CommitMode): Promise<any> {
+    const normalizedPatch: Record<string, any> = formFieldsToInstanceItem(entityPatch, this.entityName, toJS(this.mainStore.metadata!), this.stringIdName);
     Object.assign(this.item, normalizedPatch);
-    return this.commit();
+    return this.commit(commitMode);
   }
 
   /**
    * Sends a request to the REST API to persist the changes made to the {@link item}.
    *
+   * @param commitMode - see {@link update}
+   *
    * @returns a promise that resolves to the update result returned by the REST API.
    */
   @action
-  commit = (): Promise<Partial<T>> => {
+  commit = (commitMode?: CommitMode): Promise<Partial<T>> => {
     if (this.item == null) {
       return Promise.reject();
     }
@@ -127,7 +144,9 @@ export class DataInstanceStore<T> implements DataContainer {
 
     this.item = stripTemporaryIds(toJS(this.item)) as T & Partial<SerializedEntityProps> & WithId;
 
-    return getCubaREST()!.commitEntity(this.entityName, toJS(this.item!))
+    const fetchOptions = commitMode != null ? {commitMode} : undefined;
+
+    return getCubaREST()!.commitEntity(this.entityName, toJS(this.item!), fetchOptions)
       .then((updateResult) => {
         runInAction(() => {
           if (updateResult.id != null && this.item) {
@@ -155,7 +174,8 @@ export class DataInstanceStore<T> implements DataContainer {
       this.item || {},
       this.entityName,
       toJS(this.mainStore!.metadata!),
-      properties
+      properties,
+      this.stringIdName
     ) as Partial<{[prop in keyof T]: any}>;
   }
 
@@ -166,11 +186,15 @@ export interface DataInstanceOptions {
    * Whether to call the {@link DataInstanceStore.load} method immediately after the
    * {@link DataInstanceStore} is constructed.
    */
-  loadImmediately?: boolean,
+  loadImmediately?: boolean;
   /**
    * See {@link DataInstanceStore.viewName}
    */
-  view?: string
+  view?: string;
+  /**
+   * See {@link DataInstanceStore.stringIdName}
+   */
+  stringIdName?: string;
 }
 
 export interface DataInstanceProps<E> extends DataInstanceOptions {
@@ -187,12 +211,12 @@ export interface DataInstanceProps<E> extends DataInstanceOptions {
  * @param opts - {@link DataInstanceStore} configuration.
  */
 export function instance<T>(entityName: string, opts: DataInstanceOptions) {
-  return new DataInstanceStore<T>(getMainStore(), entityName, opts.view);
+  return new DataInstanceStore<T>(getMainStore(), entityName, opts.view, opts.stringIdName);
 }
 
 export const withDataInstance = (entityName: string, opts: DataInstanceOptions = {loadImmediately: true}) => <T extends IReactComponent>(target: T) => {
   return inject(() => {
-    const dataInstance = new DataInstanceStore(getMainStore(), entityName, opts.view);
+    const dataInstance = new DataInstanceStore(getMainStore(), entityName, opts.view, opts.stringIdName);
     return {dataInstance}
   })(target);
 };
@@ -208,10 +232,13 @@ export class Instance<E> extends React.Component<DataInstanceProps<E>> {
 
   constructor(props: DataInstanceProps<E>) {
     super(props);
-    const {entityName, view} = this.props;
+    const {entityName, view, stringIdName} = this.props;
     this.store = new DataInstanceStore<E>(getMainStore(), entityName);
     if (view != null) {
       this.store.viewName = view;
+    }
+    if (stringIdName != null) {
+      this.store.stringIdName = stringIdName;
     }
   }
 
@@ -249,13 +276,20 @@ export function stripTemporaryIds(item: Record<string, any>): Record<string, any
  * @param formFields
  * @param entityName
  * @param metadata
+ * @param stringIdName See {@link DataInstanceStore.stringIdName}
  */
 export function formFieldsToInstanceItem<T>(
-  formFields: Record<string, any>, entityName: string, metadata: MetaClassInfo[]
+  formFields: Record<string, any>, entityName: string, metadata: MetaClassInfo[], stringIdName?: string
 ): Record<string, any> {
   const item: Record<string, any> = {...formFields};
   Object.entries(formFields).forEach(([key, value]) => {
     const propInfo = getPropertyInfo(metadata!, entityName, key);
+
+    if (key === stringIdName && stringIdName !== 'id') {
+      item.id = value;
+      delete item[stringIdName];
+      return;
+    }
 
     if (propInfo && isOneToOneComposition(propInfo) && value != null) {
       item[key] = formFieldsToInstanceItem(value, propInfo.type, metadata);
@@ -301,11 +335,15 @@ export function formFieldsToInstanceItem<T>(
  * @param entityName
  * @param metadata - entities metadata.
  * @param displayedProperties - entity properties that should be included in the result. If not provided, all properties will be included.
+ * @param stringIdName See {@link DataInstanceStore.stringIdName}
  */
 export function instanceItemToFormFields<T>(
-  item: Record<string, any> | undefined, entityName: string, metadata: MetaClassInfo[], displayedProperties?: string[]
+  item: Record<string, any> | undefined,
+  entityName: string,
+  metadata: MetaClassInfo[],
+  displayedProperties?: string[],
+  stringIdName?: string
 ): Record<string, any> {
-
   if (item == null || metadata == null) {
     return {};
   }
@@ -314,6 +352,13 @@ export function instanceItemToFormFields<T>(
 
   Object.entries(toJS(item)).forEach(([key, value]) => {
     const propInfo = getPropertyInfo(metadata, entityName, key);
+
+    const isStringIdAttr: boolean = (stringIdName != null) && (key === 'id');
+
+    if (isStringIdAttr) {
+      fields[stringIdName!] = value;
+      return;
+    }
 
     if (displayedProperties != null && displayedProperties.indexOf(key) === -1) {
       return;

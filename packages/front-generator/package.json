@@ -14,6 +14,7 @@
     "watch": "tsc -w",
     "test": "mocha",
     "coverage": "nyc npm run test",
+    "coverage:report": "npm run coverage && nyc report --reporter=lcov",
     "test:e2e": "mocha 'test/e2e/*.test.js' -g 'test:e2e:polymer2|test:e2e:sdk|test:e2e:react' --timeout 0",
     "test:e2e:sdk": "mocha 'test/e2e/sdk.test.js' -g 'test:e2e:sdk' --timeout 0",
     "test:e2e:react": "mocha 'test/e2e/react-client--*.test.js' -g 'test:e2e:react' --timeout 0",

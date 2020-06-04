@@ -80,9 +80,11 @@ export interface ResponseError extends Error {
 }
 
 export type ContentType = "text" | "json" | "blob" | "raw";
+export type CommitMode = 'create' | 'edit';
 
 export interface FetchOptions extends RequestInit {
   handleAs?: ContentType;
+  commitMode?: CommitMode;
 }
 
 export interface EntitiesLoadOptions {
@@ -252,7 +254,8 @@ export class CubaApp {
     entity: T,
     fetchOptions?: FetchOptions
   ): Promise<Partial<T>> {
-    if (entity.id) {
+    const {commitMode} = fetchOptions ?? {};
+    if (commitMode === 'edit' || (commitMode == null && entity.id != null)) {
       return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity),
         {handleAs: 'json', ...fetchOptions});
     } else {

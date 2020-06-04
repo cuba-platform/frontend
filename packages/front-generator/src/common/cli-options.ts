@@ -66,7 +66,27 @@ export interface PolymerElementOptions extends CommonGenerationOptions {
   dirShift?: string;
 }
 
+// Same as PolymerElementOptions but with a neutral name. To be used in non-Polymer generators.
+export interface ComponentOptions extends CommonGenerationOptions {
+  dirShift?: string;
+}
+
 export const polymerElementOptionsConfig: OptionsConfig = {
+  ...commonGenerationOptionsConfig,
+  dirShift: {
+    alias: 's',
+    description: 'directory shift for html imports e.g ../../',
+    type: String
+  },
+  answers: {
+    alias: 'a',
+    description: 'fulfilled params for generator to avoid interactive input in serialized JSON string',
+    type: String
+  }
+};
+
+// Same as polymerElementOptionsConfig but with a neutral name. To be used in non-Polymer generators.
+export const componentOptionsConfig: OptionsConfig = {
   ...commonGenerationOptionsConfig,
   dirShift: {
     alias: 's',

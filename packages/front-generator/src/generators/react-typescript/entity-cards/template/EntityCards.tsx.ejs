@@ -25,7 +25,10 @@ export class <%= className %> extends React.Component<Props> {
   dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {
     view: '<%=view.name%>',
     sort: '-updateTs',
-    loadImmediately: false
+    loadImmediately: false,
+    <% if (locals.stringIdName != null) { %>
+      stringIdName: '<%= stringIdName %>'
+    <% } %>
   });
 
   @observable paginationConfig: PaginationConfig = { ...defaultPagingConfig };

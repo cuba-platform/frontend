@@ -165,7 +165,8 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
       dataCollection => {
         if (this.isRowSelectionEnabled && this.selectedRowKeys.length > 0 && dataCollection.status === 'DONE') {
 
-          const displayedRowKeys = dataCollection.items.map(item => this.constructRowKey(item));
+          const items = dataCollection.items;
+          const displayedRowKeys = items.map(item => this.constructRowKey(item));
 
           const displayedSelectedKeys: string[] = [];
 
@@ -381,7 +382,8 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
   }
 
   render() {
-    const { items, status } = this.props.dataCollection;
+    const { dataCollection } = this.props;
+    const { status, items } = dataCollection;
 
     if (this.props.mainStore?.isEntityDataLoaded() !== true || (status === "LOADING" && this.firstLoad)) {
       return (

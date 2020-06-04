@@ -1,6 +1,8 @@
-import {BaseGenerator} from "../../../common/base-generator";
-import {EntityCardsAnswers, entityCardsParams} from "./params";
-import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
+import {EntityCardsAnswers, entityCardsParams, listIdPositionQuestion, listShowIdQuestions} from "./params";
+import {
+  ComponentOptions, componentOptionsConfig,
+  OptionsConfig,
+} from "../../../common/cli-options";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import * as path from "path";
 import {EntityCardsTemplateModel} from "./template-model";
@@ -10,11 +12,12 @@ import {writeComponentI18nMessages} from '../common/i18n';
 import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../common/entity";
 import {EntityTemplateModel} from "../common/template-model";
 import {ProjectModel} from "../../../common/model/cuba-model";
+import {BaseEntityScreenGenerator, stringIdAnswersToModel} from '../common/base-entity-screen-generator';
 
 
-class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCardsTemplateModel, PolymerElementOptions> {
+class EntityCardsGenerator extends BaseEntityScreenGenerator<EntityCardsAnswers, EntityCardsTemplateModel, ComponentOptions> {
 
-  constructor(args: string | string[], options: PolymerElementOptions) {
+  constructor(args: string | string[], options: ComponentOptions) {
     super(args, options);
     this.sourceRoot(path.join(__dirname, 'template'));
   }
@@ -67,7 +70,21 @@ class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCards
   }
 
   _getAvailableOptions(): OptionsConfig {
-    return polymerElementOptionsConfig;
+    return componentOptionsConfig;
+  }
+
+  async _additionalPrompts(answers: EntityCardsAnswers): Promise<EntityCardsAnswers> {
+    const entity = await this._getEntityFromAnswers(answers);
+    const stringIdAnswers = await this._stringIdPrompts(answers, entity);
+    return {...answers, ...stringIdAnswers};
+  }
+
+  protected _getListShowIdQuestions(): StudioTemplateProperty[] {
+    return listShowIdQuestions;
+  }
+
+  protected _getListIdPositionQuestion(): StudioTemplateProperty {
+    return listIdPositionQuestion;
   }
 }
 
@@ -75,15 +92,23 @@ export function entityCardsAnswersToModel(
   answers: EntityCardsAnswers, dirShift: string | undefined, entity: EntityTemplateModel, projectModel: ProjectModel
 ): EntityCardsTemplateModel {
   const className = elementNameToClass(answers.componentName);
-  const attributes = getDisplayedAttributes(answers.entityView.allProperties, entity, projectModel, ScreenType.BROWSER);
+
+  const { stringIdName, listAttributes: attributes } = stringIdAnswersToModel(
+    answers,
+    projectModel,
+    entity,
+    getDisplayedAttributes(answers.entityView.allProperties, entity, projectModel, ScreenType.BROWSER)
+  );
+
   return {
     componentName: answers.componentName,
-    className: className,
+    className,
     nameLiteral: unCapitalizeFirst(className),
     relDirShift: dirShift || '',
     entity: answers.entity,
     view: answers.entityView,
-    attributes
+    attributes,
+    stringIdName
   }
 }
 
@@ -91,7 +116,7 @@ const description = 'Read-only list of entities displayed as cards';
 
 export {
   EntityCardsGenerator as generator,
-  polymerElementOptionsConfig as options,
+  componentOptionsConfig as options,
   entityCardsParams as params,
   description
 }

@@ -35,6 +35,27 @@ export function findEntity(projectModel: ProjectModel, entityInfo: EntityInfo | 
   }
 }
 
+export function findEntityByFqn(projectModel: ProjectModel, fqn: string): Entity | undefined {
+  return getAllEntities(projectModel).find(e => e.fqn === fqn);
+}
+
+function getAllEntities(projectModel: ProjectModel): Entity[] {
+  const projectEntities = Array.isArray(projectModel.entities)
+    ? projectModel.entities
+    : Object.values(projectModel.entities);
+
+  let baseEntities: Entity[];
+  if (Array.isArray(projectModel.baseProjectEntities)) {
+    baseEntities = projectModel.baseProjectEntities;
+  } else if (projectModel.baseProjectEntities == null) {
+    baseEntities = [];
+  } else {
+    baseEntities = Object.values(projectModel.baseProjectEntities);
+  }
+
+  return [...projectEntities, ...baseEntities];
+}
+
 export function findView(projectModel: ProjectModel, view: ViewInfo) {
   return projectModel.views.find(v => v.name === view.name && v.entity === view.entityName);
 }
@@ -106,7 +127,7 @@ export function isBaseProjectEntity(entity: Entity, projectModel: ProjectModel) 
   return false
 }
 
-function composeParentFqn(parentPackage: string | undefined, parentClassName: string | undefined): string {
+export function composeParentFqn(parentPackage: string | undefined, parentClassName: string | undefined): string {
   if (!parentClassName || !parentPackage) return '';
   if (parentPackage.length == 0 || parentClassName.length == 0) return '';
   return `${parentPackage}.${parentClassName}`;
