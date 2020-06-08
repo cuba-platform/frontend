@@ -93,11 +93,15 @@ const execute = (command, projectPath, includeDevDependencies, savedPolicyFile) 
     'Frontend Generator',
     `${basePath}/packages/front-generator`,
     false);
-  runSnykCommand(snykExecutable, command,
-    'the generated frontend client',
-    `${basePath}/react-client-scr`,
-    true,
-    `${basePath}/.snyk-react-client-scr`);
+  //
+  // react-client-scr causes Snyk to crash due to the size of the dependency tree
+  // https://github.com/snyk/snyk/labels/%F0%9F%8C%B3big%20tree%20size%20%7C%20large%20project
+  //
+  // runSnykCommand(snykExecutable, command,
+  //   'the generated frontend client',
+  //   `${basePath}/react-client-scr`,
+  //   true,
+  //   `${basePath}/.snyk-react-client-scr`);
 };
 
 const commandParam = process.argv[2];
