@@ -1,11 +1,11 @@
-import {BaseGenerator} from "../../common/base-generator";
+import {BaseGenerator, refineAnswers} from "../../common/base-generator";
 import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../common/cli-options";
 import {ERR_STUDIO_NOT_CONNECTED, StudioProjectInfo} from "../../common/studio/studio-integration";
 import {expect} from "chai";
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../common/studio/studio-model";
-import {Entity} from "../../common/model/cuba-model";
-import YeomanEnvironment = require("yeoman-environment");
+import {Entity, ProjectModel} from "../../common/model/cuba-model";
 import * as Generator from "yeoman-generator";
+import YeomanEnvironment = require("yeoman-environment");
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -117,5 +117,43 @@ describe('BaseGenerator', () => {
         expect(e.message).eq(ERR_STUDIO_NOT_CONNECTED);
         done();
       });
+  });
+
+  it('should refine answers', () => {
+
+    const projectModel: ProjectModel = {
+      entities: [],
+      enums: [],
+      project: {locales: [], modulePrefix: "", name: "", namespace: ""},
+      restQueries: [],
+      restServices: [],
+      views: []
+    };
+
+    let refined = refineAnswers(projectModel, [], {intAnswer: 1.1});
+    expect(refined).eql({ intAnswer: 1.1 });
+
+    const generatorParams: StudioTemplateProperty[] = [
+      {
+        caption: "Answer type integer",
+        code: "intAnswer",
+        propertyType: StudioTemplatePropertyType.INTEGER,
+        required: true
+      },
+    ];
+    refined = refineAnswers(projectModel, generatorParams, {intAnswer: 1});
+    expect(refined).eql({ intAnswer: 1 });
+
+    refined = refineAnswers(projectModel, generatorParams, {intAnswer: 0});
+    expect(refined).eql({ intAnswer: 0 });
+
+    expect(() => refineAnswers(projectModel, generatorParams, {intAnswer: 1.1}))
+      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contain '1.1' as answer`);
+
+    expect(() => refineAnswers(projectModel, generatorParams, {intAnswer: 'not-an-int'}))
+      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contain 'not-an-int' as answer`);
+
+    expect(() => refineAnswers(projectModel, generatorParams, {intAnswer: undefined}))
+      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contain 'undefined' as answer`);
   });
 });
