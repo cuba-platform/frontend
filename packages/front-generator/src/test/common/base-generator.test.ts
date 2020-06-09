@@ -148,12 +148,12 @@ describe('BaseGenerator', () => {
     expect(refined).eql({ intAnswer: 0 });
 
     expect(() => refineAnswers(projectModel, generatorParams, {intAnswer: 1.1}))
-      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contains '1.1' as answer`);
+      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contain '1.1' as answer`);
 
     expect(() => refineAnswers(projectModel, generatorParams, {intAnswer: 'not-an-int'}))
-      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contains 'not-an-int' as answer`);
+      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contain 'not-an-int' as answer`);
 
     expect(() => refineAnswers(projectModel, generatorParams, {intAnswer: undefined}))
-      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contains 'undefined' as answer`);
+      .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contain 'undefined' as answer`);
   });
 });

@@ -196,7 +196,7 @@ export function refineAnswers<T>(projectModel: ProjectModel, generatorParams: St
         return;
       case StudioTemplatePropertyType.INTEGER:
         const value = answers[key];
-        if (!Number.isInteger(value)) throw new Error(`Question with code '${key}' has INTEGER type and can't contains '${value}' as answer`);
+        if (!Number.isInteger(value)) throw new Error(`Question with code '${key}' has INTEGER type and can't contain '${value}' as answer`);
         refinedAnswers[key] = value;
         return;
       default:
