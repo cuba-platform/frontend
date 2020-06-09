@@ -348,9 +348,9 @@ class CarEditLowCaseComponent extends React.Component<
 
     this.reactionDisposers.push(
       reaction(
-        () => this.props.mainStore?.security.effectivePermissions,
-        (perms, permsReaction) => {
-          if (perms != null) {
+        () => this.props.mainStore?.security.isDataLoaded,
+        (isDataLoaded, permsReaction) => {
+          if (isDataLoaded === true) {
             // User permissions has been loaded.
             // We can now load association options.
             this.loadAssociationOptions(); // Calls REST API

@@ -5,7 +5,7 @@ import {getAttributePermission} from '@cuba-platform/rest/dist-node/security';
 export class Security {
 
   @observable attrPermissionCache: ObservableMap<string, EntityAttrPermissionValue> = new ObservableMap();
-  @observable effectivePermissions?: EffectivePermsInfo;
+  @observable private effectivePermissions?: EffectivePermsInfo;
   @observable private restSupportEffectivePerms: boolean = true;
   permissionsRequestCount = 0;
 
