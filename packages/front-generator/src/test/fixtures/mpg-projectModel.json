@@ -145,7 +145,7 @@
       "packageName": "com.company.mpg.entity",
       "dataStore": "_MAIN_",
       "table": "MPG_CAR",
-      "updatable": false,
+      "updatable": true,
       "creatable": false,
       "hasUuid": false,
       "softDelete": false,
