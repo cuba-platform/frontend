@@ -367,7 +367,7 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
         this.props.mainStore?.security.isDataLoaded
       ] as AssociationOptionsReactionData,
       ([fields, metadata, isDataLoaded]: AssociationOptionsReactionData, thisReaction) => {
-        if (fields.length > 0 && metadata != null && isDataLoaded != null && this.props.mainStore != null) {
+        if (fields.length > 0 && metadata != null && isDataLoaded && this.props.mainStore != null) {
           const {getAttributePermission} = this.props.mainStore.security;
           const entityProperties: MetaPropertyInfo[] = getEntityProperties(nestedEntityName, fields, metadata);
           // Performs HTTP requests:
