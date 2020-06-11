@@ -11,11 +11,11 @@ import {
 } from "../../../common/cli-options";
 import {EditRelations, EditRelationsSplit, EntityManagementTemplateModel, RelationImport} from "./template-model";
 import * as path from "path";
-import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
+import {StudioTemplateProperty, StudioTemplatePropertyType, ViewInfo} from "../../../common/studio/studio-model";
 import {capitalizeFirst, elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
-import {findEntity} from "../../../common/model/cuba-model-utils";
+import {findEntity, findView} from "../../../common/model/cuba-model-utils";
 import {EntityTemplateModel, getEntityPath} from "../common/template-model";
 import * as entityManagementEn from "./entity-management-en.json";
 import * as entityManagementRu from "./entity-management-ru.json";
@@ -101,29 +101,44 @@ class ReactEntityManagementGenerator extends BaseEntityScreenGenerator<EntityMan
     const entity = await this._getEntityFromAnswers(answers);
     const stringIdAnswers = await this._stringIdPrompts(answers, entity);
 
-    const nestedEntityQuestions = entity.attributes.reduce((questions: StudioTemplateProperty[], attr: EntityAttribute) => {
-      if (attr.mappingType === 'COMPOSITION') {
-        questions.push(
-          {
-            code: 'nestedEntityView_' + attr.name,
-            caption: 'View for nested entity attribute ' + attr.name,
-            propertyType: StudioTemplatePropertyType.NESTED_ENTITY_VIEW,
-            options: [attr.name, attr.type.entityName!],
-            required: true
-          },
-        );
-      }
-      return questions;
-    }, []);
+    if (!this.cubaProjectModel) {
+      throw Error('Additional prompt failed: cannot find project model');
+    }
 
-    const nestedEntityAnswers = await this.prompt(fromStudioProperties(nestedEntityQuestions, this.cubaProjectModel));
+    const viewAttrs = getViewAttrs(this.cubaProjectModel, answers);
 
-    const nestedEntityInfo = Object.values(nestedEntityAnswers).reduce((result, answer) => {
-      result = {...result, ...answer};
-      return result;
-    }, {});
+    const nestedEntityQuestions = entity.attributes
+      .filter(attr => viewAttrs.includes(attr.name))
+      .reduce((questions: StudioTemplateProperty[], attr: EntityAttribute) => {
+        if (attr.mappingType === 'COMPOSITION') {
+          questions.push(
+            {
+              code: 'nestedEntityView_' + attr.name,
+              caption: 'View for nested entity attribute ' + attr.name,
+              propertyType: StudioTemplatePropertyType.NESTED_ENTITY_VIEW,
+              options: [attr.name, attr.type.entityName!],
+              required: true
+            },
+          );
+        }
+        return questions;
+      }, []);
 
-    return {...answers, ...stringIdAnswers, nestedEntityInfo};
+    let nestedEntityInfo;
+    if (nestedEntityQuestions.length > 0) {
+      const nestedEntityAnswers = await this.prompt(fromStudioProperties(nestedEntityQuestions, this.cubaProjectModel));
+
+      nestedEntityInfo = Object.values(nestedEntityAnswers).reduce((result, answer) => {
+        result = {...result, ...answer};
+        return result;
+      }, {});
+    }
+
+    return {
+      ...answers,
+      ...stringIdAnswers,
+      ...(nestedEntityInfo != null) && {nestedEntityInfo}
+    };
   }
 
   protected _getListShowIdQuestions(): StudioTemplateProperty[] {
@@ -215,6 +230,14 @@ export function getRelations(projectModel: ProjectModel, attributes: EntityAttri
     }
     return relations;
   }, {editAssociations: {}, editCompositions: {}});
+}
+
+export function getViewAttrs(projectModel: ProjectModel, answers: EntityManagementAnswers): string[] {
+  const listView = findView(projectModel, answers.listView as unknown as ViewInfo);
+  const editView = findView(projectModel, answers.editView as unknown as ViewInfo);
+  const listAttrs = listView?.allProperties.map(p => p.name) || [];
+  const editAttrs = editView?.allProperties.map(p => p.name) || [];
+  return [...new Set([...listAttrs, ...editAttrs])];
 }
 
 const description = 'CRUD (list + editor) screens for specified entity';
