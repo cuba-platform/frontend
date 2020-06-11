@@ -5,6 +5,8 @@ import {collectModelContext, ModelContext} from "../generators/sdk/model/model-u
 import * as fs from "fs";
 import prettier = require('prettier');
 import * as path from "path";
+import {deprecate} from "util";
+import {strictEqual} from "assert";
 
 const enumsModel: Enum[] = require('./fixtures/enums-model.json');
 const entityModel: Entity = require('./fixtures/entity-model.json');
@@ -51,8 +53,17 @@ export function opts(dir: string, answers: any, modelPath: string) {
   }
 }
 
+/**
+ * @deprecated use assertFilesPlain, which is not change file content, it is not required since we are using prettier
+ */
 export function assertFiles(filePath: string, clientDir: string, fixturesDir: string) {
   const actual = fs.readFileSync(path.join(clientDir, filePath), 'utf8');
   const expect = fs.readFileSync(path.join(fixturesDir, filePath), 'utf8');
   assertContent(actual, expect);
+}
+
+export function assertFilesPlain(filePath: string, clientDir: string, fixturesDir: string) {
+  const actual = fs.readFileSync(path.join(clientDir, filePath), 'utf8');
+  const expect = fs.readFileSync(path.join(fixturesDir, filePath), 'utf8');
+  strictEqual(actual, expect);
 }
