@@ -8,9 +8,8 @@ import {assertFiles, opts} from '../../test-commons';
 const rimraf = promisify(require('rimraf'));
 
 // let's test both absolute and relative path usage
-const modelPath = '../../fixtures/mpg-projectModel.json';
-const absoluteModelPath = require.resolve(modelPath);
-const componentRelativeModelPath = path.join('../../../../test/', modelPath);
+const absoluteModelPath = require.resolve('../../fixtures/mpg-projectModel.json');
+const componentRelativeModelPath = './src/test/fixtures/mpg-projectModel.json';
 
 const answers = require('../../fixtures/answers.json');
 
@@ -20,14 +19,18 @@ const CARDS_DIR = path.join(REACT_DIR, 'src/app/entity-cards');
 const EM_DIR = path.join(REACT_DIR, 'src/app/entity-management');
 
 const FIXTURES_DIR = path.join(process.cwd(), `src/test/fixtures/react-client`);
+const TEST_RUN_DIR = path.join(__dirname, '../../../../');
 
+// run each generator test from the same directory - we need it to test relative cli paths
+beforeEach(() => process.chdir(TEST_RUN_DIR));
 
 describe('react generator test', () => {
+
   it('should generates React client app', async function () {
 
     await rimraf(`${REACT_DIR}/*`);
 
-    await generate('react-typescript', 'app', opts(REACT_DIR, null, modelPath));
+    await generate('react-typescript', 'app', opts(REACT_DIR, null, 'src/test/fixtures/mpg-projectModel.json'));
     assert.ok(fs.existsSync(`entities/base`));
     assert.ok(fs.existsSync(`enums/enums.ts`));
     assertFiles('src/index.tsx', REACT_DIR, FIXTURES_DIR);
@@ -68,10 +71,16 @@ describe('react generator test', () => {
 
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, answers.entityManagement, componentRelativeModelPath));
+
+    process.chdir(TEST_RUN_DIR);
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, answers.entityManagement2, absoluteModelPath));
+
+    process.chdir(TEST_RUN_DIR);
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, answers.entityManagement3, componentRelativeModelPath));
+
+    process.chdir(TEST_RUN_DIR);
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, answers.entityManagementLowCase, absoluteModelPath));
 
