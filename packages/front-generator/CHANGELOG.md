@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0-beta.3...@cuba-platform/front-generator@3.0.0) (2020-06-15)
+
+**Note:** Version bump only for package @cuba-platform/front-generator
+
+
+
+
+
 # [3.0.0-beta.3](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0-beta.2...@cuba-platform/front-generator@3.0.0-beta.3) (2020-06-15)
 
 
