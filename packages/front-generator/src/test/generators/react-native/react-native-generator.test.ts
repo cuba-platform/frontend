@@ -5,7 +5,7 @@ import {assertFiles, opts} from '../../test-commons';
 
 const rimraf = promisify(require('rimraf'));
 
-const modelPath = '../../fixtures/mpg-projectModel.json';
+const modelPath = 'src/test/fixtures/mpg-projectModel.json';
 
 const CLIENT_DIR = path.join(process.cwd(), `src/test/generated/react-native-client`);
 const FIXTURES_DIR = path.join(process.cwd(), `src/test/fixtures/react-native-client`);
