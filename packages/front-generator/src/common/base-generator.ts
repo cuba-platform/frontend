@@ -40,8 +40,15 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
 
   protected constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
+
+    // store initial dir where generator invoked from, process.cwd() is changed after
+    // this.destinationRoot() called
+    const executionDir = process.cwd();
+
     this._populateOptions(this._getAvailableOptions());
     this.destinationRoot(this._getDestRoot());
+    this.modelFilePath = this._composeModelFilePath(this.options, executionDir);
+
     // @ts-ignore this.env.adapter is missing in the typings
     this.env.adapter
       .promptModule.registerPrompt('autocomplete',  AutocompletePrompt);
@@ -49,11 +56,18 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     this.registerTransformStream(createFormatTransform());
   }
 
+  protected _composeModelFilePath(options: O, executionDir: string) : string | undefined {
+    const {model} = options;
+    if (model == null) return undefined;
+
+    return path.isAbsolute(model) ? model: path.join(executionDir, model);
+  }
+
   protected async _obtainCubaProjectModel() {
-    if (this.options.model) {
+    if (this.modelFilePath) {
       this.log('Skipping project model prompts since model is provided');
       this.conflicter.force = true;
-      this.cubaProjectModel = readProjectModel(this.options.model);
+      this.cubaProjectModel = this._readProjectModel();
     } else {
       const openedCubaProjects = await getOpenedCubaProjects();
       if (!openedCubaProjects || openedCubaProjects.length < 1) {
@@ -77,8 +91,16 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      this.cubaProjectModel = readProjectModel(this.modelFilePath);
+      this.cubaProjectModel = this._readProjectModel();
     }
+  }
+
+  protected _readProjectModel(): ProjectModel {
+    const {modelFilePath} = this;
+    if (!modelFilePath || !fs.existsSync(modelFilePath)) {
+      throw new Error('Specified model file does not exist ' + modelFilePath);
+    }
+    return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
   }
 
   protected async _obtainAnswers() {
@@ -99,8 +121,8 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   }
 
   protected async _promptOrParse() {
-    if (this.options.model) {
-      this.cubaProjectModel = readProjectModel(this.options.model);
+    if (this.modelFilePath) {
+      this.cubaProjectModel = this._readProjectModel();
     }
 
     if (this.options.model && this.options.answers) { // passed from studio
@@ -161,7 +183,7 @@ export interface GeneratorExports {
 
 export function readProjectModel(modelFilePath: string): ProjectModel {
   if (!fs.existsSync(modelFilePath)) {
-    throw new Error('Specified model file does not exist');
+    throw new Error('Specified model file does not exist ' + modelFilePath);
   }
   return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
 }

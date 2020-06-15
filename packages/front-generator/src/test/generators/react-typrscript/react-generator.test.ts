@@ -7,8 +7,11 @@ import {assertFiles, opts} from '../../test-commons';
 
 const rimraf = promisify(require('rimraf'));
 
-const modelPath = require.resolve('../../fixtures/mpg-projectModel.json');
+// let's test both absolute and relative path usage
+const absoluteModelPath = require.resolve('../../fixtures/mpg-projectModel.json');
 const modelPathScr = require.resolve('../../fixtures/project-model--scr.json');
+const componentRelativeModelPath = './src/test/fixtures/mpg-projectModel.json';
+
 const answers = require('../../fixtures/answers.json');
 const stringIdAnswers = require('../../fixtures/answers/string-id-management-table.json');
 
@@ -18,14 +21,18 @@ const CARDS_DIR = path.join(REACT_DIR, 'src/app/entity-cards');
 const EM_DIR = path.join(REACT_DIR, 'src/app/entity-management');
 
 const FIXTURES_DIR = path.join(process.cwd(), `src/test/fixtures/react-client`);
+const TEST_RUN_DIR = path.join(__dirname, '../../../../');
 
+// run each generator test from the same directory - we need it to test relative cli paths
+beforeEach(() => process.chdir(TEST_RUN_DIR));
 
 describe('react generator test', () => {
+
   it('should generates React client app', async function () {
 
     await rimraf(`${REACT_DIR}/*`);
 
-    await generate('react-typescript', 'app', opts(REACT_DIR, null, modelPath));
+    await generate('react-typescript', 'app', opts(REACT_DIR, null, 'src/test/fixtures/mpg-projectModel.json'));
     assert.ok(fs.existsSync(`entities/base`));
     assert.ok(fs.existsSync(`enums/enums.ts`));
     assertFiles('src/index.tsx', REACT_DIR, FIXTURES_DIR);
@@ -38,14 +45,14 @@ describe('react generator test', () => {
     await rimraf(`${COMPONENT_DIR}/*`);
 
     await generate('react-typescript', 'blank-component',
-      opts(COMPONENT_DIR, answers.blankComponent, modelPath));
+      opts(COMPONENT_DIR, answers.blankComponent, componentRelativeModelPath));
 
     assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
 
     await rimraf(`${COMPONENT_DIR}/*`);
 
     await generate('react-typescript', 'blank-component',
-      opts(COMPONENT_DIR, answers.blankComponentLowCase, modelPath));
+      opts(COMPONENT_DIR, answers.blankComponentLowCase, absoluteModelPath));
 
     assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
   });
@@ -55,7 +62,7 @@ describe('react generator test', () => {
     await rimraf(`${CARDS_DIR}/*`);
 
     await generate('react-typescript', 'entity-cards',
-      opts(CARDS_DIR, answers.entityCards, modelPath));
+      opts(CARDS_DIR, answers.entityCards, componentRelativeModelPath));
 
     assertFiles('src/app/entity-cards/MpgFavoriteCarCards.tsx', REACT_DIR, FIXTURES_DIR);
   });
@@ -65,13 +72,19 @@ describe('react generator test', () => {
     await rimraf(`${EM_DIR}/*`);
 
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement, modelPath));
+      opts(EM_DIR, answers.entityManagement, componentRelativeModelPath));
+
+    process.chdir(TEST_RUN_DIR);
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement2, modelPath));
+      opts(EM_DIR, answers.entityManagement2, absoluteModelPath));
+
+    process.chdir(TEST_RUN_DIR);
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagement3, modelPath));
+      opts(EM_DIR, answers.entityManagement3, componentRelativeModelPath));
+
+    process.chdir(TEST_RUN_DIR);
     await generate('react-typescript', 'entity-management',
-      opts(EM_DIR, answers.entityManagementLowCase, modelPath));
+      opts(EM_DIR, answers.entityManagementLowCase, absoluteModelPath));
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, stringIdAnswers, modelPathScr));
 
