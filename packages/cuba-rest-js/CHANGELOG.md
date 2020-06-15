@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@1.0.0-beta.2...@cuba-platform/rest@1.0.0) (2020-06-15)
+
+
+### Features
+
+* support String ID entities ([18ae63b](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/18ae63baf80d6e353da276a3ec96ef1c1aa53849)), closes [#119](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/issues/119)
+
+
+### BREAKING CHANGES
+
+* (Front Generator) react-typescript:entity-management and entity-cards
+templates will fail to compile when using @cuba-platform/react-core and
+@cuba-platform/react-ui of versions 1.0.0-beta.2 and lower.
+
+
+
+
+
 # [1.0.0-beta.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@1.0.0-beta.1...@cuba-platform/rest@1.0.0-beta.2) (2020-05-28)
 
 **Note:** Version bump only for package @cuba-platform/rest

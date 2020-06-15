@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.0-beta.2...@cuba-platform/react-ui@1.0.0) (2020-06-15)
+
+
+### Bug Fixes
+
+* **Front Generator:** reaction on effective perms for CUBA 7.1 ([541478f](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/541478f903ba51fc0e57dcac9bd073005b8a915a)), closes [#238](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/238)
+
+
+### Features
+
+* support String ID entities ([18ae63b](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/18ae63baf80d6e353da276a3ec96ef1c1aa53849)), closes [#119](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/119)
+
+
+### BREAKING CHANGES
+
+* (Front Generator) react-typescript:entity-management and entity-cards
+templates will fail to compile when using @cuba-platform/react-core and
+@cuba-platform/react-ui of versions 1.0.0-beta.2 and lower.
+* **Front Generator:** effectivePermissions in cuba-react-core Security became private, use isDataLoaded for permissions
+load check
+
+
+
+
+
 # [1.0.0-beta.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.0-beta.1...@cuba-platform/react-ui@1.0.0-beta.2) (2020-05-28)
 
 
