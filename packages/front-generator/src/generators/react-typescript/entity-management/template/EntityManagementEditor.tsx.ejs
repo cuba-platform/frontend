@@ -44,7 +44,13 @@ type EditorProps = {
 @observer
 class <%= editComponentClass %>Component extends React.Component<Props & WrappedComponentProps> {
 
-  dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= editView.name %>', loadImmediately: false});
+  dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {
+    view: '<%= editView.name %>',
+    loadImmediately: false,
+    <% if (locals.stringIdName != null) { %>
+      stringIdName: '<%= stringIdName %>'
+    <% } %>
+  });
 
   <% Object.entries(editAssociations).forEach(([attrName, nestedEntity]) => { %>
     @observable <%= attrName %>sDc: DataCollectionStore<<%= nestedEntity.className %>> | undefined;
@@ -86,7 +92,8 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
         message.error(this.props.intl.formatMessage({id: 'management.editor.validationError'}));
         return;
       }
-      this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
+      this.dataInstance
+        .update(this.props.form.getFieldsValue(this.fields), this.isNewEntity() ? 'create' : 'edit')
         .then(() => {
           message.success(this.props.intl.formatMessage({id: 'management.editor.success'}));
           this.updated = true;
@@ -116,6 +123,10 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
     });
   };
 
+  isNewEntity = () => {
+    return this.props.entityId === <%= className %>.NEW_SUBPATH;
+  };
+
   render() {
 
     if (this.updated) {
@@ -140,6 +151,9 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
                    form={ this.props.form }
                    formItemOpts={ {style: {marginBottom: "12px"} } }
 
+              <% if (attr.name === locals.stringIdName) { %>
+                disabled={!this.isNewEntity()}
+              <% } %>
 
               <% if (Object.keys(editCompositions).includes(attr.name)) { %>
                    <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
@@ -192,10 +206,10 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
   }
 
   componentDidMount() {
-    if (this.props.entityId !== <%= className %>.NEW_SUBPATH) {
-      this.dataInstance.load(this.props.entityId);
-    } else {
+    if (this.isNewEntity()) {
       this.dataInstance.setItem(new <%= entity.className %>());
+    } else {
+      this.dataInstance.load(this.props.entityId);
     }
 
     <% if (Object.keys(editAssociations).length > 0) { %>

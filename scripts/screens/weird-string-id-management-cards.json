@@ -1,0 +1,20 @@
+{
+  "editView": {
+    "name": "_local",
+    "entityName": "scr_WeirdStringIdTestEntity"
+  },
+  "editComponentName": "WeirdStringIdMgtCardsEdit",
+  "editIdAttrPos": 1,
+  "listView": {
+    "name": "_local",
+    "entityName": "scr_WeirdStringIdTestEntity"
+  },
+  "listComponentName": "WeirdStringIdMgtCardsBrowse",
+  "listType": "cards",
+  "listShowIdAttr": true,
+  "listIdAttrPos": 2,
+  "entity": {
+    "name": "scr_WeirdStringIdTestEntity"
+  },
+  "managementComponentName": "weird-string-id-mgt-cards-management"
+}

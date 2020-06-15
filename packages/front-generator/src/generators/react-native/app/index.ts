@@ -67,7 +67,7 @@ class ReactNativeAppGenerator extends BaseGenerator<ReactNativeAnswers, ReactNat
     this.log(`Generating SDK model and services in ${sdkDest}`);
 
     const sdkOpts = {
-      model: this.modelPath,
+      model: this.modelFilePath,
       dest: sdkDest
     };
 

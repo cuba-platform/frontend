@@ -1,5 +1,5 @@
 import {Entity, EntityAttribute, ProjectModel, ViewProperty} from "../../../common/model/cuba-model";
-import {collectAttributesFromHierarchy} from "../../../common/model/cuba-model-utils";
+import {collectAttributesFromHierarchy, composeParentFqn, findEntityByFqn} from "../../../common/model/cuba-model-utils";
 import {EntityTemplateModel, getEntityPath} from "./template-model";
 
 export enum ScreenType {
@@ -12,6 +12,32 @@ export function createEntityTemplateModel(entity: Entity, projectModel: ProjectM
     ...entity,
     path: getEntityPath(entity, projectModel)
   };
+}
+
+/**
+ *
+ * @param projectModel
+ * @param entity
+ * @returns `true` if a given entity is a descendant of `BaseStringIdEntity`
+ */
+export function isStringIdEntity(projectModel: ProjectModel, entity: Entity): boolean {
+
+  if (entity.fqn === 'com.haulmont.cuba.core.entity.BaseStringIdEntity') {
+    return true;
+  }
+
+  if (entity.parentPackage == null || entity.parentClassName == null) {
+    return false;
+  }
+
+  const parentFqn = composeParentFqn(entity.parentPackage, entity.parentClassName);
+  const parentEntity = findEntityByFqn(projectModel, parentFqn);
+
+  if (parentEntity == null) {
+    return false;
+  }
+
+  return isStringIdEntity(projectModel, parentEntity);
 }
 
 export function getDisplayedAttributes(

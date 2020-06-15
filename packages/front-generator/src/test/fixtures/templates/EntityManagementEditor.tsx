@@ -89,7 +89,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
         return;
       }
       this.dataInstance
-        .update(this.props.form.getFieldsValue(this.fields))
+        .update(
+          this.props.form.getFieldsValue(this.fields),
+          this.isNewEntity() ? "create" : "edit"
+        )
         .then(() => {
           message.success(
             this.props.intl.formatMessage({ id: "management.editor.success" })
@@ -132,6 +135,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
           }
         });
     });
+  };
+
+  isNewEntity = () => {
+    return this.props.entityId === CarManagement.NEW_SUBPATH;
   };
 
   render() {
@@ -215,10 +222,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   }
 
   componentDidMount() {
-    if (this.props.entityId !== CarManagement.NEW_SUBPATH) {
-      this.dataInstance.load(this.props.entityId);
-    } else {
+    if (this.isNewEntity()) {
       this.dataInstance.setItem(new Car());
+    } else {
+      this.dataInstance.load(this.props.entityId);
     }
 
     this.reactionDisposers.push(

@@ -23,5 +23,7 @@
         <class>com.company.scr.entity.test.DatatypesTestEntity2</class>
         <class>com.company.scr.entity.test.DatatypesTestEntity3</class>
         <class>com.company.scr.entity.test.IntegerIdTestEntity</class>
+        <class>com.company.scr.entity.test.WeirdStringIdTestEntity</class>
+        <class>com.company.scr.entity.test.BoringStringIdTestEntity</class>
     </persistence-unit>
 </persistence>

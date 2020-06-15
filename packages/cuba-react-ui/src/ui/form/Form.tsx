@@ -95,7 +95,10 @@ export interface FieldProps extends MainStoreInjected, FormComponentProps {
    * It is an id of the enclosing entity instance.
    */
   parentEntityInstanceId?: string;
-
+  /**
+   * When `true`, the field will be non-editable.
+   */
+  disabled?: boolean;
   /**
    * The value that will be assigned to {@link https://3x.ant.design/components/form/ | Form.Item} `key` property.
    * If not provided, {@link propertyName} will be used instead.
@@ -130,7 +133,7 @@ export const Field = injectMainStore(observer((props: FieldProps) => {
 
   const {
     entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps,
-    nestedEntityView, parentEntityInstanceId
+    nestedEntityView, parentEntityInstanceId, disabled
   } = props;
 
   const formItemOpts: FormItemProps = {... props.formItemOpts};
@@ -148,7 +151,7 @@ export const Field = injectMainStore(observer((props: FieldProps) => {
         )(
           <FormField entityName={entityName}
                      propertyName={propertyName}
-                     disabled={isReadOnly}
+                     disabled={isReadOnly || disabled}
                      optionsContainer={optionsContainer}
                      nestedEntityView={nestedEntityView}
                      parentEntityInstanceId={parentEntityInstanceId}

@@ -16,7 +16,15 @@ import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 @observer
 class <%= listComponentClass %>Component extends React.Component<MainStoreInjected & WrappedComponentProps> {
 
-  dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= listView.name %>', sort: '-updateTs'});
+  dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {
+      view: '<%= listView.name %>',
+      <% if (entity.updatable == true) { -%>
+        sort: '-updateTs',
+      <% } %>
+      <% if (locals.stringIdName != null) { %>
+        stringIdName: '<%= stringIdName %>'
+      <% } %>
+    });
   @observable selectedRowKey: string | undefined;
 
   fields = [

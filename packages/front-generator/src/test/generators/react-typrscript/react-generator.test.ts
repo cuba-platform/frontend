@@ -8,7 +8,9 @@ import {assertFiles, opts} from '../../test-commons';
 const rimraf = promisify(require('rimraf'));
 
 const modelPath = require.resolve('../../fixtures/mpg-projectModel.json');
+const modelPathScr = require.resolve('../../fixtures/project-model--scr.json');
 const answers = require('../../fixtures/answers.json');
+const stringIdAnswers = require('../../fixtures/answers/string-id-management-table.json');
 
 const REACT_DIR = path.join(process.cwd(), `src/test/generated/react-client`);
 const COMPONENT_DIR = path.join(REACT_DIR, 'src/app/component');
@@ -70,6 +72,8 @@ describe('react generator test', () => {
       opts(EM_DIR, answers.entityManagement3, modelPath));
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, answers.entityManagementLowCase, modelPath));
+    await generate('react-typescript', 'entity-management',
+      opts(EM_DIR, stringIdAnswers, modelPathScr));
 
     assertFiles('src/app/entity-management/CarCards.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarEdit.tsx', REACT_DIR, FIXTURES_DIR);
@@ -80,6 +84,10 @@ describe('react generator test', () => {
     assertFiles('src/app/entity-management/CarManagementLowCase.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarEditLowCase.tsx', REACT_DIR, FIXTURES_DIR);
     assertFiles('src/app/entity-management/CarTableLowCase.tsx', REACT_DIR, FIXTURES_DIR);
+
+    assertFiles('src/app/entity-management/StringIdMgtTableManagement.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/StringIdMgtTableEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFiles('src/app/entity-management/StringIdMgtTableBrowse.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
 });

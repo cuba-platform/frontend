@@ -19,5 +19,6 @@
       <item screen="scr_DeeplyNestedTestEntity.browse"/>
       <item screen="scr_DatatypesTestEntity2.browse"/>
         <item screen="scr_DatatypesTestEntity3.browse"/>
+        <item screen="scr_StringIdTestEntity.browse" caption="mainMsg://menu_config.scr_StringIdTestEntity.browse"/>
     </menu>
 </menu-config>

@@ -206,8 +206,9 @@ create table SCR_COMPOSITION_O2M_TEST_ENTITY (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    NAME varchar(255),
     DATATYPES_TEST_ENTITY_ID uuid,
+    QUANTITY integer,
+    NAME varchar(255),
     --
     primary key (ID)
 )^
@@ -224,6 +225,7 @@ create table SCR_COMPOSITION_O2O_TEST_ENTITY (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
+    QUANTITY integer,
     NESTED_COMPOSITION_ID uuid,
     --
     primary key (ID)
@@ -263,6 +265,8 @@ create table SCR_DATATYPES_TEST_ENTITY (
     NAME varchar(255),
     INT_IDENTITY_ID_TEST_ENTITY_ASSOCIATION_O2O_ATTR_ID integer,
     DATATYPES_TEST_ENTITY3_ID uuid,
+    STRING_ID_TEST_ENTITY_ASSOCIATION_O2O_IDENTIFIER varchar(10),
+    STRING_ID_TEST_ENTITY_ASSOCIATION_M2O_ID varchar(10),
     --
     primary key (ID)
 )^
@@ -277,8 +281,17 @@ create table SCR_DATATYPES_TEST_ENTITY_ASSOCIATION_M2M_TEST_ENTITY_LINK (
 -- begin SCR_STRING_ID_TEST_ENTITY
 create table SCR_STRING_ID_TEST_ENTITY (
     IDENTIFIER varchar(10),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    VERSION integer not null,
     --
     DESCRIPTION varchar(255),
+    PRODUCT_CODE varchar(10),
+    DATATYPES_TEST_ENTITY3_ID uuid,
     --
     primary key (IDENTIFIER)
 )^
@@ -315,6 +328,8 @@ create table SCR_DATATYPES_TEST_ENTITY2 (
     DATATYPES_TEST_ENTITY_ATTR_ID uuid,
     INT_IDENTITY_ID_TEST_ENTITY_ATTR_ID integer,
     INTEGER_ID_TEST_ENTITY_ATTR_ID integer,
+    STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER varchar(10),
+    WEIRD_STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER varchar(10),
     --
     primary key (ID)
 )^
@@ -376,3 +391,39 @@ create table SCR_DATATYPES_TEST_ENTITY_INTEGER_ID_TEST_ENTITY_LINK (
     primary key (DATATYPES_TEST_ENTITY_ID, INTEGER_ID_TEST_ENTITY_ID)
 )^
 -- end SCR_DATATYPES_TEST_ENTITY_INTEGER_ID_TEST_ENTITY_LINK
+-- begin SCR_WEIRD_STRING_ID_TEST_ENTITY
+create table SCR_WEIRD_STRING_ID_TEST_ENTITY (
+    IDENTIFIER varchar(10),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    VERSION integer not null,
+    --
+    DESCRIPTION varchar(255),
+    ID varchar(255),
+    DATATYPES_TEST_ENTITY3_ID uuid,
+    --
+    primary key (IDENTIFIER)
+)^
+-- end SCR_WEIRD_STRING_ID_TEST_ENTITY
+
+-- begin SCR_BORING_STRING_ID_TEST_ENTITY
+create table SCR_BORING_STRING_ID_TEST_ENTITY (
+    ID varchar(10),
+    UUID uuid,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    DESCRIPTION varchar(255),
+    --
+    primary key (ID)
+)^
+-- end SCR_BORING_STRING_ID_TEST_ENTITY

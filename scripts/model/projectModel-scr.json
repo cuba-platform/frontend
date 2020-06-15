@@ -1022,6 +1022,190 @@
       ]
     },
     {
+      "name": "scr_BoringStringIdTestEntity",
+      "className": "BoringStringIdTestEntity",
+      "packageName": "com.company.scr.entity.test",
+      "dataStore": "_MAIN_",
+      "table": "SCR_BORING_STRING_ID_TEST_ENTITY",
+      "updatable": true,
+      "creatable": true,
+      "hasUuid": true,
+      "softDelete": true,
+      "versioned": true,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": false,
+      "namePattern": "%s|description",
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.test.BoringStringIdTestEntity",
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseStringIdEntity",
+      "idAttributeName": "id",
+      "attributes": [
+        {
+          "name": "id",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "ID",
+          "mandatory": true,
+          "unique": false,
+          "length": "10",
+          "transient": false
+        },
+        {
+          "name": "description",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DESCRIPTION",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "createTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "createdBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "deleteTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DELETE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "deletedBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DELETED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "updateTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UPDATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "updatedBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UPDATED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "version",
+          "type": {
+            "packageName": "java.lang",
+            "className": "Integer",
+            "fqn": "java.lang.Integer",
+            "label": "Integer"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "VERSION",
+          "mandatory": true,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "uuid",
+          "type": {
+            "packageName": "java.util",
+            "className": "UUID",
+            "fqn": "java.util.UUID",
+            "label": "UUID"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UUID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        }
+      ]
+    },
+    {
       "name": "scr_CompositionO2MTestEntity",
       "className": "CompositionO2MTestEntity",
       "packageName": "com.company.scr.entity.test",
@@ -1604,6 +1788,41 @@
           "mandatory": false,
           "unique": false,
           "transient": false
+        },
+        {
+          "name": "stringIdTestEntityAssociationO2O",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "StringIdTestEntity",
+            "fqn": "com.company.scr.entity.test.StringIdTestEntity",
+            "label": "StringIdTestEntity",
+            "entityName": "scr_StringIdTestEntity"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "column": "STRING_ID_TEST_ENTITY_ASSOCIATION_O2O_IDENTIFIER",
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "",
+          "transient": false
+        },
+        {
+          "name": "stringIdTestEntityAssociationM2O",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "StringIdTestEntity",
+            "fqn": "com.company.scr.entity.test.StringIdTestEntity",
+            "label": "StringIdTestEntity",
+            "entityName": "scr_StringIdTestEntity"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "MANY_TO_ONE",
+          "readOnly": false,
+          "column": "STRING_ID_TEST_ENTITY_ASSOCIATION_M2O_ID",
+          "mandatory": false,
+          "unique": false,
+          "transient": false
         }
       ]
     },
@@ -1681,6 +1900,42 @@
           "unique": false,
           "mappedBy": "",
           "transient": false
+        },
+        {
+          "name": "stringIdTestEntityAttr",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "StringIdTestEntity",
+            "fqn": "com.company.scr.entity.test.StringIdTestEntity",
+            "label": "StringIdTestEntity",
+            "entityName": "scr_StringIdTestEntity"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "column": "STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER",
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "",
+          "transient": false
+        },
+        {
+          "name": "weirdStringIdTestEntityAttr",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "WeirdStringIdTestEntity",
+            "fqn": "com.company.scr.entity.test.WeirdStringIdTestEntity",
+            "label": "WeirdStringIdTestEntity",
+            "entityName": "scr_WeirdStringIdTestEntity"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "column": "WEIRD_STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER",
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "",
+          "transient": false
         }
       ]
     },
@@ -1748,6 +2003,40 @@
             "fqn": "com.company.scr.entity.test.IntIdentityIdTestEntity",
             "label": "IntIdentityIdTestEntity",
             "entityName": "scr_IntIdentityIdTestEntity"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_MANY",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "datatypesTestEntity3",
+          "transient": false
+        },
+        {
+          "name": "stringIdTestEntityAttr",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "StringIdTestEntity",
+            "fqn": "com.company.scr.entity.test.StringIdTestEntity",
+            "label": "StringIdTestEntity",
+            "entityName": "scr_StringIdTestEntity"
+          },
+          "mappingType": "COMPOSITION",
+          "cardinality": "ONE_TO_MANY",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "datatypesTestEntity3",
+          "transient": false
+        },
+        {
+          "name": "weirdStringIdTestEntityAttr",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "WeirdStringIdTestEntity",
+            "fqn": "com.company.scr.entity.test.WeirdStringIdTestEntity",
+            "label": "WeirdStringIdTestEntity",
+            "entityName": "scr_WeirdStringIdTestEntity"
           },
           "mappingType": "COMPOSITION",
           "cardinality": "ONE_TO_MANY",
@@ -2211,11 +2500,11 @@
       "packageName": "com.company.scr.entity.test",
       "dataStore": "_MAIN_",
       "table": "SCR_STRING_ID_TEST_ENTITY",
-      "updatable": false,
-      "creatable": false,
+      "updatable": true,
+      "creatable": true,
       "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
+      "softDelete": true,
+      "versioned": true,
       "embeddable": false,
       "persistentEntity": true,
       "replaceParent": false,
@@ -2257,6 +2546,369 @@
           "mandatory": false,
           "unique": false,
           "length": "255",
+          "transient": false
+        },
+        {
+          "name": "productCode",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "PRODUCT_CODE",
+          "mandatory": false,
+          "unique": false,
+          "length": "10",
+          "transient": false
+        },
+        {
+          "name": "createTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "createdBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "updateTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UPDATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "updatedBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UPDATED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "deleteTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DELETE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "deletedBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DELETED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "version",
+          "type": {
+            "packageName": "java.lang",
+            "className": "Integer",
+            "fqn": "java.lang.Integer",
+            "label": "Integer"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "VERSION",
+          "mandatory": true,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "datatypesTestEntity",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "DatatypesTestEntity",
+            "fqn": "com.company.scr.entity.test.DatatypesTestEntity",
+            "label": "DatatypesTestEntity",
+            "entityName": "scr_DatatypesTestEntity"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "ONE_TO_ONE",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "mappedBy": "stringIdTestEntityAssociationO2O",
+          "transient": false
+        },
+        {
+          "name": "datatypesTestEntity3",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "DatatypesTestEntity3",
+            "fqn": "com.company.scr.entity.test.DatatypesTestEntity3",
+            "label": "DatatypesTestEntity3",
+            "entityName": "scr_DatatypesTestEntity3"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "MANY_TO_ONE",
+          "readOnly": false,
+          "column": "DATATYPES_TEST_ENTITY3_ID",
+          "mandatory": false,
+          "unique": false,
+          "transient": false
+        }
+      ]
+    },
+    {
+      "name": "scr_WeirdStringIdTestEntity",
+      "className": "WeirdStringIdTestEntity",
+      "packageName": "com.company.scr.entity.test",
+      "dataStore": "_MAIN_",
+      "table": "SCR_WEIRD_STRING_ID_TEST_ENTITY",
+      "updatable": true,
+      "creatable": true,
+      "hasUuid": false,
+      "softDelete": true,
+      "versioned": true,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": false,
+      "namePattern": "%s|description",
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.test.WeirdStringIdTestEntity",
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseStringIdEntity",
+      "idAttributeName": "identifier",
+      "attributes": [
+        {
+          "name": "identifier",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "IDENTIFIER",
+          "mandatory": true,
+          "unique": false,
+          "length": "10",
+          "transient": false
+        },
+        {
+          "name": "description",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DESCRIPTION",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "id",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "ID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "createTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "createdBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "CREATED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "updateTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UPDATE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "updatedBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UPDATED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "deleteTs",
+          "type": {
+            "packageName": "java.util",
+            "className": "Date",
+            "fqn": "java.util.Date",
+            "label": "Date"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DELETE_TS",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "deletedBy",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "DELETED_BY",
+          "mandatory": false,
+          "unique": false,
+          "length": "50",
+          "transient": false
+        },
+        {
+          "name": "version",
+          "type": {
+            "packageName": "java.lang",
+            "className": "Integer",
+            "fqn": "java.lang.Integer",
+            "label": "Integer"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "VERSION",
+          "mandatory": true,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "datatypesTestEntity3",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "DatatypesTestEntity3",
+            "fqn": "com.company.scr.entity.test.DatatypesTestEntity3",
+            "label": "DatatypesTestEntity3",
+            "entityName": "scr_DatatypesTestEntity3"
+          },
+          "mappingType": "ASSOCIATION",
+          "cardinality": "MANY_TO_ONE",
+          "readOnly": false,
+          "column": "DATATYPES_TEST_ENTITY3_ID",
+          "mandatory": false,
+          "unique": false,
           "transient": false
         }
       ]
@@ -14339,6 +14991,63 @@
     },
     {
       "name": "_base",
+      "entity": "scr_BoringStringIdTestEntity",
+      "classFqn": "com.company.scr.entity.test.BoringStringIdTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "description",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "description",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "scr_BoringStringIdTestEntity",
+      "classFqn": "com.company.scr.entity.test.BoringStringIdTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "description",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "description",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "scr_BoringStringIdTestEntity",
+      "classFqn": "com.company.scr.entity.test.BoringStringIdTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "description",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "description",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_base",
       "entity": "scr_CompositionO2MTestEntity",
       "classFqn": "com.company.scr.entity.test.CompositionO2MTestEntity",
       "overwrite": false,
@@ -14879,6 +15588,16 @@
           "name": "integerIdTestEntityAssociationM2MAttr",
           "entity": "scr_IntegerIdTestEntity",
           "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAssociationO2O",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAssociationM2O",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -14993,6 +15712,16 @@
           "name": "integerIdTestEntityAssociationM2MAttr",
           "entity": "scr_IntegerIdTestEntity",
           "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAssociationO2O",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAssociationM2O",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
         }
       ]
     },
@@ -15045,6 +15774,16 @@
           "name": "integerIdTestEntityAttr",
           "entity": "scr_IntegerIdTestEntity",
           "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAttr",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "weirdStringIdTestEntityAttr",
+          "entity": "scr_WeirdStringIdTestEntity",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -15061,6 +15800,16 @@
         {
           "name": "integerIdTestEntityAttr",
           "entity": "scr_IntegerIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAttr",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "weirdStringIdTestEntityAttr",
+          "entity": "scr_WeirdStringIdTestEntity",
           "lazy": false
         }
       ]
@@ -15144,6 +15893,16 @@
           "name": "intIdentityIdTestEntityAttr",
           "entity": "scr_IntIdentityIdTestEntity",
           "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAttr",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "weirdStringIdTestEntityAttr",
+          "entity": "scr_WeirdStringIdTestEntity",
+          "lazy": false
         }
       ],
       "allProperties": [
@@ -15164,6 +15923,16 @@
         {
           "name": "intIdentityIdTestEntityAttr",
           "entity": "scr_IntIdentityIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "stringIdTestEntityAttr",
+          "entity": "scr_StringIdTestEntity",
+          "lazy": false
+        },
+        {
+          "name": "weirdStringIdTestEntityAttr",
+          "entity": "scr_WeirdStringIdTestEntity",
           "lazy": false
         }
       ]
@@ -15375,17 +16144,52 @@
         {
           "name": "description",
           "lazy": false
+        },
+        {
+          "name": "productCode",
+          "lazy": false
         }
       ],
       "allProperties": [
         {
           "name": "description",
           "lazy": false
+        },
+        {
+          "name": "productCode",
+          "lazy": false
         }
       ]
     },
     {
       "name": "_local",
+      "entity": "scr_StringIdTestEntity",
+      "classFqn": "com.company.scr.entity.test.StringIdTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "productCode",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "productCode",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
       "entity": "scr_StringIdTestEntity",
       "classFqn": "com.company.scr.entity.test.StringIdTestEntity",
       "overwrite": false,
@@ -15404,9 +16208,63 @@
       ]
     },
     {
+      "name": "_base",
+      "entity": "scr_WeirdStringIdTestEntity",
+      "classFqn": "com.company.scr.entity.test.WeirdStringIdTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "id",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "id",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "scr_WeirdStringIdTestEntity",
+      "classFqn": "com.company.scr.entity.test.WeirdStringIdTestEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "id",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "description",
+          "lazy": false
+        },
+        {
+          "name": "id",
+          "lazy": false
+        }
+      ]
+    },
+    {
       "name": "_minimal",
-      "entity": "scr_StringIdTestEntity",
-      "classFqn": "com.company.scr.entity.test.StringIdTestEntity",
+      "entity": "scr_WeirdStringIdTestEntity",
+      "classFqn": "com.company.scr.entity.test.WeirdStringIdTestEntity",
       "overwrite": false,
       "systemProperties": false,
       "properties": [

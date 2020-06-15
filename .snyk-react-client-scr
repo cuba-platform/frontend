@@ -10486,4 +10486,12 @@ ignore:
     - react-scripts > webpack-dev-server > yargs > yargs-parser:
         reason: No upgrade available
         expires: '2020-06-07T16:29:29.193Z'
+  SNYK-JS-SERIALIZEJAVASCRIPT-570062:
+    - react-scripts > terser-webpack-plugin > serialize-javascript:
+        reason: No upgrade available
+        expires: '2020-07-03T08:56:04.065Z'
+    - react-scripts > webpack > terser-webpack-plugin > serialize-javascript:
+        reason: No upgrade available
+        expires: '2020-07-03T08:56:04.065Z'
+# patches apply the minimum changes required to fix a vulnerability
 patch: {}

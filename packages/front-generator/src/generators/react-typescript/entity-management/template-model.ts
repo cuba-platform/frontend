@@ -1,6 +1,7 @@
-import {CommonTemplateModel, EntityTemplateModel} from "../common/template-model";
+import {EntityTemplateModel} from "../common/template-model";
 import {EntityManagementListType} from "./params";
 import {EntityAttribute, View} from "../../../common/model/cuba-model";
+import {BaseEntityScreenTemplateModel} from '../common/base-entity-screen-generator/template-model';
 
 export interface EditRelations {
   [propName: string]: EntityTemplateModel
@@ -16,7 +17,7 @@ export interface RelationImport {
   path: string
 }
 
-export interface EntityManagementTemplateModel extends CommonTemplateModel {
+export interface EntityManagementTemplateModel extends BaseEntityScreenTemplateModel {
   listComponentClass: string;
   editComponentClass: string;
   listType: EntityManagementListType;
@@ -28,6 +29,6 @@ export interface EntityManagementTemplateModel extends CommonTemplateModel {
   editAttributes: EntityAttribute[];
   editCompositions: EditRelations;
   editAssociations: EditRelations;
-  nestedEntityInfo: Record<string, string>;
+  nestedEntityInfo?: Record<string, string>;
   relationImports: RelationImport[];
 }

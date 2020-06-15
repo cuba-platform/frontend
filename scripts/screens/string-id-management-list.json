@@ -1,0 +1,20 @@
+{
+  "editView": {
+    "name": "_local",
+    "entityName": "scr_StringIdTestEntity"
+  },
+  "editComponentName": "StringIdMgtListEdit",
+  "editIdAttrPos": 1,
+  "listView": {
+    "name": "_local",
+    "entityName": "scr_StringIdTestEntity"
+  },
+  "listComponentName": "StringIdMgtListBrowse",
+  "listType": "list",
+  "listShowIdAttr": true,
+  "listIdAttrPos": 2,
+  "entity": {
+    "name": "scr_StringIdTestEntity"
+  },
+  "managementComponentName": "string-id-mgt-list-management"
+}
