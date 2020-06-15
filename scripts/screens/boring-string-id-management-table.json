@@ -1,0 +1,20 @@
+{
+  "editView": {
+    "name": "_local",
+    "entityName": "scr_BoringStringIdTestEntity"
+  },
+  "editComponentName": "BoringStringIdMgtTableEdit",
+  "editIdAttrPos": 1,
+  "listView": {
+    "name": "_local",
+    "entityName": "scr_BoringStringIdTestEntity"
+  },
+  "listComponentName": "BoringStringIdMgtTableBrowse",
+  "listType": "table",
+  "listShowIdAttr": true,
+  "listIdAttrPos": 2,
+  "entity": {
+    "name": "scr_BoringStringIdTestEntity"
+  },
+  "managementComponentName": "boring-string-id-management-table"
+}

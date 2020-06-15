@@ -17,7 +17,17 @@ dataCollection = collection<Pet>(Pet.NAME, {
 );
 ----
 
-Typically it is used to display a list of entities. Since it's reactive, any changes in `items` and `status` will trigger re-render of `@observer` components:
+`DataCollectionStore` will consider an entity to be a String ID entity when `stringIdName` parameter is provided:
+
+[source,typescript]
+----
+dataCollection = collection<Pet>(Pet.NAME, {
+    stringIdName: 'identifier'
+  }
+);
+----
+
+Typically a `DataCollectionStore` is used to display a list of entities. Since it's reactive, any changes in `items` and `status` will trigger a re-render of `@observer` components:
 
 [source,typescript]
 ----

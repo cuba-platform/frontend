@@ -45,7 +45,6 @@ import {
   MetaPropertyInfo,
   PropertyType,
   SerializedEntityProps, View, ViewProperty,
-  EffectivePermsInfo
 } from '@cuba-platform/rest';
 import {uuidPattern} from '../../util/regex';
 import * as React from 'react';
@@ -96,7 +95,10 @@ export interface FieldProps extends MainStoreInjected, FormComponentProps {
    * It is an id of the enclosing entity instance.
    */
   parentEntityInstanceId?: string;
-
+  /**
+   * When `true`, the field will be non-editable.
+   */
+  disabled?: boolean;
   /**
    * The value that will be assigned to {@link https://3x.ant.design/components/form/ | Form.Item} `key` property.
    * If not provided, {@link propertyName} will be used instead.
@@ -131,11 +133,11 @@ export const Field = injectMainStore(observer((props: FieldProps) => {
 
   const {
     entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps,
-    nestedEntityView, parentEntityInstanceId
+    nestedEntityView, parentEntityInstanceId, disabled
   } = props;
 
   const formItemOpts: FormItemProps = {... props.formItemOpts};
-  if (!formItemOpts.label) { formItemOpts.label = <Msg entityName={entityName} propertyName={propertyName}/> };
+  if (!formItemOpts.label) { formItemOpts.label = <Msg entityName={entityName} propertyName={propertyName}/> }
 
   return (
     <FieldPermissionContainer entityName={entityName} propertyName={propertyName} renderField={(isReadOnly: boolean) => {
@@ -149,7 +151,7 @@ export const Field = injectMainStore(observer((props: FieldProps) => {
         )(
           <FormField entityName={entityName}
                      propertyName={propertyName}
-                     disabled={isReadOnly}
+                     disabled={isReadOnly || disabled}
                      optionsContainer={optionsContainer}
                      nestedEntityView={nestedEntityView}
                      parentEntityInstanceId={parentEntityInstanceId}
@@ -325,7 +327,7 @@ export interface NestedEntityFieldProps extends MainStoreInjected, WrappedCompon
 type AssociationOptionsReactionData = [
   string[],
   IObservableArray<MetaClassInfo> | undefined,
-  EffectivePermsInfo | undefined
+  boolean | undefined
 ];
 
 @injectMainStore
@@ -365,10 +367,10 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
       () => [
         this.fields,
         this.props.mainStore?.metadata,
-        this.props.mainStore?.security.effectivePermissions
+        this.props.mainStore?.security.isDataLoaded
       ] as AssociationOptionsReactionData,
-      ([fields, metadata, perms]: AssociationOptionsReactionData, thisReaction) => {
-        if (fields.length > 0 && metadata != null && perms != null && this.props.mainStore != null) {
+      ([fields, metadata, isDataLoaded]: AssociationOptionsReactionData, thisReaction) => {
+        if (fields.length > 0 && metadata != null && isDataLoaded && this.props.mainStore != null) {
           const {getAttributePermission} = this.props.mainStore.security;
           const entityProperties: MetaPropertyInfo[] = getEntityProperties(nestedEntityName, fields, metadata);
           // Performs HTTP requests:
@@ -581,10 +583,10 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
       () => [
         this.allFields,
         this.props.mainStore?.metadata,
-        this.props.mainStore?.security.effectivePermissions
+        this.props.mainStore?.security.isDataLoaded
       ] as AssociationOptionsReactionData,
-      ([allFields, metadata, perms]: AssociationOptionsReactionData, thisReaction) => {
-        if (allFields != null && metadata != null && perms != null && this.props.mainStore != null) {
+      ([allFields, metadata, isDataLoaded]: AssociationOptionsReactionData, thisReaction) => {
+        if (allFields != null && metadata != null && isDataLoaded === true && this.props.mainStore != null) {
           const {getAttributePermission} = this.props.mainStore.security;
           const entityProperties: MetaPropertyInfo[] = getEntityProperties(nestedEntityName, allFields, metadata);
           // Performs HTTP requests:

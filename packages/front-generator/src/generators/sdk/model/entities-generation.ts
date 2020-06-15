@@ -140,28 +140,38 @@ function createEntityClassMembers(ctx: ClassCreationContext): {
 
   const importInfos: ImportInfo[] = [];
 
-  const allClassMembers = [...basicClassMembers, ...entity.attributes.map(entityAttr => {
-    const attributeTypeInfo = createAttributeType(entityAttr, ctx);
-    if (attributeTypeInfo.importInfo) { importInfos.push(attributeTypeInfo.importInfo); }
+  const allClassMembers = [...basicClassMembers, ...entity.attributes
+    .filter(entityAttr => {
+      if (entity.idAttributeName == null || entity.idAttributeName === 'id' || entityAttr.name === entity.idAttributeName) {
+        return true;
+      } else {
+        // An edge case when we have a non-ID string attribute named "id", and a differently named ID attribute.
+        // We don't include the former to the TS class, so that we don't end up with two properties named "id".
+        return entityAttr.name !== 'id';
+      }
+    })
+    .map(entityAttr => {
+      const attributeTypeInfo = createAttributeType(entityAttr, ctx);
+      if (attributeTypeInfo.importInfo) { importInfos.push(attributeTypeInfo.importInfo); }
 
-      const idAttrName = ctx.entity.idAttributeName ?? 'id';
-      // REST API always sends ids as strings
-      const typeNode = entityAttr.name === idAttrName
-        ? ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
-        : createUnionWithNull(attributeTypeInfo.node);
+        const idAttrName = ctx.entity.idAttributeName ?? 'id';
+        // REST API always sends ids as strings
+        const typeNode = entityAttr.name === idAttrName
+          ? ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+          : createUnionWithNull(attributeTypeInfo.node);
 
-      // REST API puts the id into the property "id" regardless of the actual attribute name.
-      const attrName = entityAttr.name === idAttrName ? 'id' : entityAttr.name;
+        // REST API puts the id into the property "id" regardless of the actual attribute name.
+        const attrName = entityAttr.name === idAttrName ? 'id' : entityAttr.name;
 
-      return ts.createProperty(
-        undefined,
-        undefined,
-        attrName,
-        ts.createToken(ts.SyntaxKind.QuestionToken),
-        typeNode,
-        undefined
-      );
-    }
+        return ts.createProperty(
+          undefined,
+          undefined,
+          attrName,
+          ts.createToken(ts.SyntaxKind.QuestionToken),
+          typeNode,
+          undefined
+        );
+      }
   )];
 
   return {classMembers: allClassMembers, importInfos}
