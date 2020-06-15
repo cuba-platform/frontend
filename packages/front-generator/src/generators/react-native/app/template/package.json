@@ -10,8 +10,8 @@
     "eject": "node node_modules/expo/bin/cli.js eject"
   },
   "dependencies": {
-    "@cuba-platform/react-core": "^1.0.0-alpha.0",
-    "@cuba-platform/rest": "^1.0.0-alpha.0",
+    "@cuba-platform/react-core": "^1.0.0",
+    "@cuba-platform/rest": "^1.0.0",
     "@react-native-community/async-storage": "^1.7.1",
     "base-64": "^0.1.0",
     "expo": "~36.0.0",
