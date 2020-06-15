@@ -5,26 +5,26 @@ ignore:
   SNYK-JS-LODASH-567746:
     - yeoman-environment > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
     - yeoman-generator > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
     - yeoman-environment > grouped-queue > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
     - yeoman-environment > inquirer > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
     - yeoman-generator > yeoman-environment > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
     - yeoman-generator > async > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
     - yeoman-generator > yeoman-environment > grouped-queue > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
     - yeoman-generator > yeoman-environment > inquirer > lodash:
         reason: No upgrade available
-        expires: '2020-06-11T12:38:31.585Z'
+        expires: '2020-07-15T12:32:29.788Z'
 patch: {}
