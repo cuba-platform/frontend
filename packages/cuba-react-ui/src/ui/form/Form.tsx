@@ -45,7 +45,6 @@ import {
   MetaPropertyInfo,
   PropertyType,
   SerializedEntityProps, View, ViewProperty,
-  EffectivePermsInfo
 } from '@cuba-platform/rest';
 import {uuidPattern} from '../../util/regex';
 import * as React from 'react';
@@ -138,7 +137,7 @@ export const Field = injectMainStore(observer((props: FieldProps) => {
   } = props;
 
   const formItemOpts: FormItemProps = {... props.formItemOpts};
-  if (!formItemOpts.label) { formItemOpts.label = <Msg entityName={entityName} propertyName={propertyName}/> };
+  if (!formItemOpts.label) { formItemOpts.label = <Msg entityName={entityName} propertyName={propertyName}/> }
 
   return (
     <FieldPermissionContainer entityName={entityName} propertyName={propertyName} renderField={(isReadOnly: boolean) => {
@@ -328,7 +327,7 @@ export interface NestedEntityFieldProps extends MainStoreInjected, WrappedCompon
 type AssociationOptionsReactionData = [
   string[],
   IObservableArray<MetaClassInfo> | undefined,
-  EffectivePermsInfo | undefined
+  boolean | undefined
 ];
 
 @injectMainStore
@@ -368,10 +367,10 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
       () => [
         this.fields,
         this.props.mainStore?.metadata,
-        this.props.mainStore?.security.effectivePermissions
+        this.props.mainStore?.security.isDataLoaded
       ] as AssociationOptionsReactionData,
-      ([fields, metadata, perms]: AssociationOptionsReactionData, thisReaction) => {
-        if (fields.length > 0 && metadata != null && perms != null && this.props.mainStore != null) {
+      ([fields, metadata, isDataLoaded]: AssociationOptionsReactionData, thisReaction) => {
+        if (fields.length > 0 && metadata != null && isDataLoaded && this.props.mainStore != null) {
           const {getAttributePermission} = this.props.mainStore.security;
           const entityProperties: MetaPropertyInfo[] = getEntityProperties(nestedEntityName, fields, metadata);
           // Performs HTTP requests:
@@ -584,10 +583,10 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
       () => [
         this.allFields,
         this.props.mainStore?.metadata,
-        this.props.mainStore?.security.effectivePermissions
+        this.props.mainStore?.security.isDataLoaded
       ] as AssociationOptionsReactionData,
-      ([allFields, metadata, perms]: AssociationOptionsReactionData, thisReaction) => {
-        if (allFields != null && metadata != null && perms != null && this.props.mainStore != null) {
+      ([allFields, metadata, isDataLoaded]: AssociationOptionsReactionData, thisReaction) => {
+        if (allFields != null && metadata != null && isDataLoaded === true && this.props.mainStore != null) {
           const {getAttributePermission} = this.props.mainStore.security;
           const entityProperties: MetaPropertyInfo[] = getEntityProperties(nestedEntityName, allFields, metadata);
           // Performs HTTP requests:
