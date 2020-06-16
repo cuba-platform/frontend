@@ -14,6 +14,66 @@ It means that files ```EntityManagementEditor.tsx.ejs``` and ```EntityManagement
 
 <a name="react-client-testing"/>
 
+### Coding Conventions
+
+> NOTE: This section is under construction.
+
+#### TypeScript
+
+##### Use Semantically Correct Idioms
+
+Nullish checking:
+
+```typescript
+// wrong
+if (foo) {}
+
+// correct
+if (foo != null) {}
+``` 
+
+Nullish coalescing:
+
+```typescript
+// wrong
+const foo = bar || baz;
+
+// correct
+const foo = bar ?? baz;
+```
+
+Optional chaining:
+
+```typescript
+// wrong
+const foobar = foo && foo.bar && foo.bar.baz;
+
+// correct
+const foobar = foo?.bar?.baz;
+```
+
+#### CSS
+
+We are using RSCSS methodology. Detailed methodology guide can be found [here](https://rscss.io) (~1 hour read).
+
+Additional requirements:
+
+- [Components](https://rscss.io/components.html) and [Helpers](https://rscss.io/helpers.html) in the libraries should be namespaced with `cuba-` prefix (`_cuba-` for Helpers) in order to avoid clashing with user's classes: `.cuba-article-card`, `._cuba-some-helper`.
+-  It is allowed to have [Components](https://rscss.io/components.html) with more than 2 words (just keep the classes readable).
+- It is allowed to apply default base rules directly to the elements (like Base Rules in SMACSS):
+
+```css
+html, body, #root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: @list-header-background;
+}
+```
+
 ### Testing
 
 This section explains how to test the generator.
