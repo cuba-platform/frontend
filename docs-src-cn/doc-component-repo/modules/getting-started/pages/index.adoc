@@ -1,0 +1,12 @@
+= Getting Started
+
+First of all, install the {manual_studio}/#installation[CUBA Studio].
+
+Your learning path will vary depending on what kind of frontend client you want to build (e.g. React, React Native, etc.). However, the common starting point will be the *Frontend Generator*. There are two ways to use it:
+
+- from Studio UI
+- from command line interface using project model file exported via Studio
+
+CAUTION: Majority of features provided by CLI are supported by the Studio, but there are few exceptions. Check xref:generator:commands-reference.adoc[Frontend Generator Reference] to see which features are supported. Also you will want to use CLI if you prefer to have your frontend client as a separate project rather than as part of your CUBA project (e.g. you may have different teams working on frontend and backend).
+
+If you want to use the Frontend Generator from CLI, check xref:cli-specific-instructions.adoc[here] for CLI-specific instructions. Otherwise, proceed to xref:learning-path.adoc[this section].

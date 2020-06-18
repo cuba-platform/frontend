@@ -1,0 +1,8 @@
+= FileUpload
+:api_ui_FileUploadProps: link:../api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html
+
+`FileUpload` is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via xref:image-preview.adoc[ImagePreview] component.  xref:form-field.adoc[FormField] will automatically render a `FileUpload` for a `FileDescriptor` entity property.
+
+image:FileUploadAndImagePreviewDemo.gif[FileUpload and ImagePreview demo]
+
+API: {api_ui_FileUploadProps}[FileUploadProps].

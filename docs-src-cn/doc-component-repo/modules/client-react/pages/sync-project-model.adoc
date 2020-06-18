@@ -1,0 +1,8 @@
+= Synchronizing the Project Model
+
+In order to sync up with the changes on the backend, you can re-generate the project model using the following command:
+
+[source,bash]
+----
+$ npm run `update-model`
+----

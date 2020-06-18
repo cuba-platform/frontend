@@ -1,0 +1,27 @@
+= Creating React Components
+
+It is highly recommended to read full https://reactjs.org/docs/getting-started.html[React documentation]. In React, like in many modern frameworks, everything is a component. We use components to create reusable blocks, as well as particular pages and screens.
+
+Let's create our first component: place the `Button.tsx` file into the `src` directory:
+
+[source,typescript]
+----
+import React, { Component } from 'react';
+
+export class Button extends Component {
+  render() {
+    <button>Click me</button>;
+  }
+}
+----
+
+Alternatively, you can create the component using a function:
+
+[source,typescript]
+----
+export function Button(props) {
+  return <button>{props.name}</button>;
+}
+----
+
+There are some useful components provided in xref:cuba-react-core:index.adoc[CUBA React Core] and xref:cuba-react-ui:index.adoc[CUBA React UI] libraries. Please see the corresponding sections for more details.

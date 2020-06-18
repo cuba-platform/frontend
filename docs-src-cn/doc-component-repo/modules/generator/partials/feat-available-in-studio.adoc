@@ -1,0 +1,1 @@
+TIP: This feature is also available in CUBA Studio, see {manual_studio_frontendUi}[Studio Manual].

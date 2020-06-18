@@ -1,0 +1,14 @@
+= Technologies Overview
+
+React client is based on the following frameworks and libraries:
+
+* https://reactjs.org/[React] - UI rendering.
+* https://mobx.js.org/[MobX] - reactive state management.
+* {antDesign_base}/docs/react/introduce[Ant Design] - UI components.
+* https://reacttraining.com/react-router/[React Router] - routing.
+* xref:cuba-react-core:index.adoc[CUBA React Core] - CUBA React core components and utilities.
+* xref:cuba-react-ui:index.adoc[CUBA React UI] - CUBA React UI components and utilities.
+* {api_rest}[CUBA REST JS] - interaction with СUBA generic REST API.
+* https://facebook.github.io/create-react-app/[Create React App] - build scripts and configuration.
+
+React client is written in link:https://www.typescriptlang.org/[TypeScript].

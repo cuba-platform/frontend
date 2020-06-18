@@ -1,0 +1,48 @@
+<!--This Source Code Form is subject to the terms of the Mozilla Public-->
+<!--License, v. 2.0. If a copy of the MPL was not distributed with this-->
+<!--file, You can obtain one at http://mozilla.org/MPL/2.0/.-->
+<style>
+    .cuba-header.navbar {
+        background: #0b6ec7;
+    }
+    .navbar-item.has-dropdown:hover .navbar-link.cuba-header-item,
+    .navbar-end>a.navbar-item.cuba-header-item:hover {
+        background-color: #0963b3;
+    }
+</style>
+<header class="header">
+  <nav class="navbar cuba-header">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{{or site.url (or siteRootUrl siteRootPath)}}">CUBA Frontend UI</a>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+          <div class="navbar-end">
+              <div class="navbar-item">
+                  <input id="search-input"
+                         placeholder="Search docs"
+                         onfocusout="this.value=''"
+                         style="font-size: 16px;"
+                  />
+              </div>
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <div class="navbar-link cuba-header-item">Libraries API Reference</div>
+                  <div class="navbar-dropdown">
+                      <a class="navbar-item is-hoverable" href="../api-reference/cuba-rest-js/index.html" target="_blank">
+                          CUBA REST JS
+                      </a>
+                      <a class="navbar-item is-hoverable" href="../api-reference/cuba-react-core/index.html" target="_blank">
+                          CUBA React Core
+                      </a>
+                      <a class="navbar-item is-hoverable" href="../api-reference/cuba-react-ui/index.html" target="_blank">
+                          CUBA React UI
+                      </a>
+                  </div>
+              </div>
+              <a class="navbar-item is-hoverable cuba-header-item" href="https://github.com/cuba-platform/frontend" target="_blank">
+                  GitHub Home
+              </a>
+           </div>
+          </div>
+    </div>
+  </nav>
+</header>

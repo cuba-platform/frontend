@@ -1,0 +1,37 @@
+= Backend Model
+
+`src/cuba` directory contains TypeScript representation of project's entities, views and facades to access REST services and queries. See more details in xref:typescript-sdk:index.adoc[TypeScript SDK] section. Here is the layout of the directory:
+
+* `entities` - project entities and views;
+* `entities/base` - framework and addons entities;
+* `enums` - project enums;
+* `services.ts` - middleware services exposed to REST;
+* `queries.ts` - REST queries.
+
+Consider the `Role` entity class of CUBA Framework generated in typescript:
+
+`src/cuba/entities/base/sec$Role.ts`
+
+[source,typescript]
+----
+export class Role extends StandardEntity {
+    static NAME = "sec$Role";
+    name?: string | null;
+    locName?: string | null;
+    description?: string | null;
+    type?: any | null;
+    defaultRole?: boolean | null;
+    permissions?: Permission[] | null;
+}
+----
+
+* You can easily access the entity name using static `NAME` property: `Role.NAME`,
+* The `Role` class contains all properties of the domain model entity including ones from the class hierarchy. Reference fields has corresponding types as well so that you can work with them in a type-safe manner:
+
+[source,typescript]
+----
+function changeRole(role: Role) {
+  role.defaultRole = true;   // ok
+  role.defaultRole = 'foo';  // compilation fails
+}
+----
