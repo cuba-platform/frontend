@@ -2,5 +2,5 @@
 node_modules
 react-client-scr/**
 react-native-client-scr/**
-docs-build/**
+docs-build*/**
 _testgen/**

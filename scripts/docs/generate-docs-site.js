@@ -1,57 +1,84 @@
-const {runCmdSync} = require('../common');
+const {runCmdSync, log} = require('../common');
 const yaml = require('js-yaml');
 const fse = require('fs-extra');
 
-const highlight = '\x1b[34m%s\x1b[0m';
-const success = '\x1b[32m%s\x1b[0m';
+function generateSite(docsSrcPath) {
+    const playbookFilePath = `${docsSrcPath}/antora-playbook.yml`;
+    const playbook = yaml.safeLoad(fse.readFileSync(playbookFilePath));
 
-console.log(highlight, 'Generating site...');
-const playbookFile = yaml.safeLoad(fse.readFileSync('docs-src/antora-playbook.yml'));
-// Clean
-const buildDir = playbookFile.output.dir;
-fse.emptyDirSync(buildDir);
-// Generate the site from asciidoc
-runCmdSync('npm run antora:gen');
-// Add API Reference documentation
-// - Determine the branches corresponding to versions that will be documented on the site
-const repo = playbookFile.content.sources[0].url;
-const branches = playbookFile.content.sources[0].branches;
-console.log('Repo:', repo);
-console.log('Branches containing documentation:', branches);
-// - Checkout the repo to a temporary directory
-const projectRootDir = process.cwd();
-const gitTempDir = 'docs-src/_temp';
-runCmdSync(`mkdir ${gitTempDir}`);
-process.chdir(gitTempDir);
-runCmdSync(`git clone ${repo}`);
-process.chdir('frontend');
-// - For each branch copy the API reference files to the built site
-branches.forEach(branch => {
-    runCmdSync(`git checkout ${branch}`);
-    // Determine version number for this branch
-    const componentDescriptorFile = yaml.safeLoad(fse.readFileSync('docs-src/doc-component-repo/antora.yml'));
-    const version = componentDescriptorFile.version;
-    console.log(`Copying API reference documentation for version ${version}...`);
-    fse.copySync(
-        'docs-src/api-reference',
-        `${projectRootDir}/${buildDir}/cuba-frontend-docs/${version}/api-reference`
-    );
-});
-// - Cleanup
-process.chdir(projectRootDir);
-fse.removeSync(gitTempDir);
+    clean(playbook);
+    transformAsciiDoc(playbookFilePath);
+    copyApiReference(playbook, docsSrcPath);
+    createRedirectFiles(playbook, docsSrcPath);
 
-// Create redirect files
-// - Determine the latest version. Assumes that the script is run from the branch containing the last version.
-const lastVersionComponentDescriptorFile = yaml.safeLoad(fse.readFileSync('docs-src/doc-component-repo/antora.yml'));
-const lastVersion = lastVersionComponentDescriptorFile.version;
-// - Create and write files
-let template = fse.readFileSync('docs-src/redirect-page-template.html').toString();
-// -- this file redirects to the latest version of CUBA REST JS API reference. The link to it is in the CUBA REST JS README.
-const redirectLatestCubaRest = template
-    .replace(/\{REDIRECT_PATH\}/g, 'cuba-frontend-docs/{DOCUMENTATION_VERSION}/api-reference/cuba-rest-js/index.html')
-    .replace(/\{DOCUMENTATION_VERSION\}/g, lastVersion);
+    log.success('Documentation site has been generated successfully');
+}
 
-fse.writeFileSync(`${buildDir}/latest-cuba-rest-js.html`, redirectLatestCubaRest);
+function clean(playbook) {
+    log.info('Cleaning build dir');
+    const buildDir = playbook.output.dir;
+    fse.emptyDirSync(buildDir);
+}
 
-console.log(success, 'Documentation site has been generated successfully');
+function transformAsciiDoc(playbookFilePath) {
+    log.info('Transforming AsciiDoc');
+    runCmdSync(`npm run antora:gen -- ${playbookFilePath}`);
+}
+
+function copyApiReference(playbook, docsSrcPath) {
+    log.info('Adding API Reference documentation');
+
+    // Determine the branches corresponding to versions that will be documented on the site
+    const repo = playbook.content.sources[0].url;
+    const branches = playbook.content.sources[0].branches;
+    log.info(`Repo: ${repo}`);
+    log.info(`Branches containing documentation: ${branches}`);
+
+    // Checkout the repo to a temporary directory
+    const projectRootDir = process.cwd();
+    const gitTempDir = `${docsSrcPath}/_temp`;
+    runCmdSync(`mkdir ${gitTempDir}`);
+    process.chdir(gitTempDir);
+    runCmdSync(`git clone ${repo}`);
+    process.chdir('frontend');
+
+    // For each branch copy the API reference files to the built site
+    branches.forEach(branch => {
+        runCmdSync(`git checkout ${branch}`);
+        // Determine version number for this branch
+        const componentDescriptor = yaml.safeLoad(fse.readFileSync(`${docsSrcPath}/doc-component-repo/antora.yml`));
+        const version = componentDescriptor.version;
+        log.info(`Copying API reference documentation for version ${version}`);
+        const buildDir = playbook.output.dir;
+        fse.copySync(
+          'docs-src/api-reference',
+          `${projectRootDir}/${buildDir}/cuba-frontend-docs/${version}/api-reference`
+        );
+    });
+
+    // Cleanup
+    process.chdir(projectRootDir);
+    fse.removeSync(gitTempDir);
+}
+
+function createRedirectFiles(playbook, docsSrcPath) {
+    log.info('Creating redirect files');
+
+    // Determine the latest version. Assumes that the script is run from the branch containing the last version.
+    const lastVersionComponentDescriptor = yaml.safeLoad(fse.readFileSync(`${docsSrcPath}/doc-component-repo/antora.yml`));
+    const lastVersion = lastVersionComponentDescriptor.version;
+
+    // Create and write files
+    let template = fse.readFileSync(`${docsSrcPath}/redirect-page-template.html`).toString();
+
+    // This file redirects to the latest version of CUBA REST JS API reference. The link to it is in the CUBA REST JS README.
+    const redirectLatestCubaRest = template
+      .replace(/\{REDIRECT_PATH\}/g, 'cuba-frontend-docs/{DOCUMENTATION_VERSION}/api-reference/cuba-rest-js/index.html')
+      .replace(/\{DOCUMENTATION_VERSION\}/g, lastVersion);
+
+    const buildDir = playbook.output.dir;
+    fse.writeFileSync(`${buildDir}/latest-cuba-rest-js.html`, redirectLatestCubaRest);
+}
+
+const docsSrcPath = process.argv[2] || 'docs-src';
+generateSite(docsSrcPath);
