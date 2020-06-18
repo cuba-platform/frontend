@@ -56,6 +56,7 @@
     "snyk:wizard-scr": "export NODE_OPTIONS=--max-old-space-size=8192 && node scripts/audit/snyk.js wizard react-client-scr true .snyk-react-client-scr",
     "doc:site": "node scripts/docs/generate-docs-site.js",
     "doc:site-cn": "node scripts/docs/generate-docs-site.js docs-src-cn",
+    "doc:manual-cn": "node scripts/docs/generate-docs-site.js docs-src-cn manualOnly",
     "doc:src": "node scripts/docs/update-docs-src.js",
     "validate-react-app": "prettier --check react-client-scr/**/*.ts && CI=true npm test --prefix react-client-scr",
     "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits"

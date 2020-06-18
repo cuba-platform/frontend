@@ -2,13 +2,15 @@ const {runCmdSync, log} = require('../common');
 const yaml = require('js-yaml');
 const fse = require('fs-extra');
 
-function generateSite(docsSrcPath) {
+function generateSite(docsSrcPath, mode) {
     const playbookFilePath = `${docsSrcPath}/antora-playbook.yml`;
     const playbook = yaml.safeLoad(fse.readFileSync(playbookFilePath));
 
     clean(playbook);
     transformAsciiDoc(playbookFilePath);
-    copyApiReference(playbook, docsSrcPath);
+    if (mode !== 'manualOnly') {
+        copyApiReference(playbook, docsSrcPath);
+    }
     createRedirectFiles(playbook, docsSrcPath);
 
     log.success('Documentation site has been generated successfully');
@@ -81,4 +83,5 @@ function createRedirectFiles(playbook, docsSrcPath) {
 }
 
 const docsSrcPath = process.argv[2] || 'docs-src';
-generateSite(docsSrcPath);
+const mode = process.argv[3];
+generateSite(docsSrcPath, mode);
