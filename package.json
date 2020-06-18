@@ -25,7 +25,7 @@
   "scripts": {
     "lerna": "lerna",
     "antora": "antora",
-    "antora:gen": "antora docs-src/antora-playbook.yml --fetch",
+    "antora:gen": "antora --fetch",
     "commit": "node_modules/commitizen/bin/git-cz",
     "pack-given-client-libs": "node scripts/pack-given-client-libs.js",
     "pack-react-client-libs": "node scripts/pack-react-client-libs.js",
@@ -55,6 +55,7 @@
     "snyk:wizard": "export NODE_OPTIONS=--max-old-space-size=8192 && node scripts/audit/snyk.js wizard",
     "snyk:wizard-scr": "export NODE_OPTIONS=--max-old-space-size=8192 && node scripts/audit/snyk.js wizard react-client-scr true .snyk-react-client-scr",
     "doc:site": "node scripts/docs/generate-docs-site.js",
+    "doc:site-cn": "node scripts/docs/generate-docs-site.js docs-src-cn",
     "doc:src": "node scripts/docs/update-docs-src.js",
     "validate-react-app": "prettier --check react-client-scr/**/*.ts && CI=true npm test --prefix react-client-scr",
     "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits"
