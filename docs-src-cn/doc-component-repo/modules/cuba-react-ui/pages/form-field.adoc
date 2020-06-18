@@ -1,0 +1,22 @@
+= FormField
+:api_ui_FormFieldProps: link:../api-reference/cuba-react-ui/modules/_ui_form_form_.html#formfieldprops
+
+`FormField` component automatically creates a correct Form UI component based on entity and property names:
+
+[source,typescript]
+----
+<FormField entityName={Pet.NAME} propertyName='birthDate'/>
+----
+
+For the attributes with relationship type Association it's possible to provide an instance of DataCollectionStore via `optionsContainer` prop to render an options list.
+
+[source,typescript]
+----
+petTypesDc = collection<PetType>(PetType.NAME, {view: '_minimal', sort: 'name'});
+...
+<FormField entityName={Pet.NAME}
+           propertyName='type'
+           optionsContainer={this.petTypesDc}/>
+----
+
+API: {api_ui_FormFieldProps}[FormFieldProps].

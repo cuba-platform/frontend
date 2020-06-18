@@ -1,0 +1,53 @@
+= CLI-specific instructions
+
+[[installation-cli]]
+== Installation
+
+Install https://nodejs.org/en/download/[Node.js] 12+ and npm 6+ (usually comes with node).
+
+Install the generator CLI tool using npm:
+
+[source,bash]
+----
+npm install -g @cuba-platform/front-generator
+----
+
+Check if installation was successful by running the following command:
+
+[source,bash]
+----
+gen-cuba-front
+----
+
+This will display the usage info.
+
+Alternatively, you can run the generator without installation using https://www.npmjs.com/package/npx[npx]:
+
+[source,bash]
+----
+npx @cuba-platform/front-generator
+----
+
+[[exporting-project-model-file]]
+== Project Metadata
+
+The generator CLI tool will require the project metadata: information about your project's entities, views, etc. You can pass this information to the generator using CUBA Studio. There are two ways of doing that.
+
+[[passing-project-metadata-from-cuba-studio]]
+=== Passing Project Metadata Automatically
+
+* Open your project in CUBA Studio.
+* Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA`.
+* Tick the `Enable integration` checkbox:
++
+image:generator:studio-integration.png[Enabling Studio integration]
+
+Now the generator will be able to automatically detect CUBA projects opened
+in Studio.
+
+[[passing-project-metadata-manually]]
+=== Passing Project Metadata Manually
+
+You can export the project model manually. Select `CUBA > Advanced > Export project model` in the main menu. Studio will generate `projectModel.json` file.
+
+IMPORTANT: When the project model changes (e.g. an entity has been altered, a view has been added, etc.), you will need to re-generate the project model file and update the project model in already generated code. In order to do the latter you can use a convenience npm script: `npm run update-model`.

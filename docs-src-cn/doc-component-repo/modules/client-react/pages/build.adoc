@@ -1,0 +1,5 @@
+= Building the Client
+
+`npm run build` command builds your app for production use. See `build` folder.
+
+See https://facebook.github.io/create-react-app/docs/available-scripts[available scripts] in Create React App documentation.
