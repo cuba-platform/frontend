@@ -28,6 +28,7 @@ import {UuidInput} from '../form/UuidInput';
 import {uuidPattern} from "../../util/regex";
 import {LabeledValue} from "antd/es/select";
 import {decorateAndWrapInFormItem, getDefaultFieldDecoratorOptions} from './DataTableCustomFilterFields';
+import {stripMilliseconds} from '@cuba-platform/react-core';
 
 export interface CaptionValuePair {
   caption: string;
@@ -223,22 +224,23 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @action
   onDatePickerChange = (date: Moment | null, _dateString: string): void => {
-    if (date) {
+    if (date != null) {
       this.value = date.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
     }
   };
 
   @action
   onTimePickerChange = (time: Moment | null, _timeString: string): void => {
-    if (time) {
+    if (time != null) {
       this.value = time.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
     }
   };
 
   @action
   onDateTimePickerChange = (dateTime: Moment, _timeString: string): void => {
-    if (dateTime) {
-      this.value = dateTime.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
+    if (dateTime != null) {
+      const normalizedDateTime = stripMilliseconds(dateTime);
+      this.value = normalizedDateTime.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
     }
   };
 

@@ -110,6 +110,12 @@ describe('formFieldsToInstanceItem', () => {
     const normalizedPatch = formFieldsToInstanceItem(patch, 'test', MOCK_METADATA);
     expect(normalizedPatch.stringAttr).toEqual('some string');
   });
+
+  it('strips milliseconds', () => {
+    const patch = {dateTimeAttr: moment('2012-01-02 14:15:16.123', 'YYYY-MM-DD HH:mm:ss.SSS')};
+    const normalizedPatch = formFieldsToInstanceItem(patch, 'test', MOCK_METADATA);
+    expect(normalizedPatch.dateTimeAttr).toEqual('2012-01-02 14:15:16.000');
+  });
 });
 
 describe('instanceItemToFormFields', () => {
@@ -291,6 +297,18 @@ const MOCK_METADATA = [
         name: 'dateAttr',
         attributeType: 'DATATYPE' as AttributeType,
         type: 'date',
+        cardinality: "NONE" as Cardinality,
+        // --
+        mandatory: false,
+        readOnly: false,
+        description: "description",
+        persistent: true,
+        isTransient: false,
+      },
+      {
+        name: 'dateTimeAttr',
+        attributeType: 'DATATYPE' as AttributeType,
+        type: 'dateTime',
         cardinality: "NONE" as Cardinality,
         // --
         mandatory: false,

@@ -11,4 +11,5 @@ export * from './util/collation';
 export * from './util/metadata';
 export * from './util/data';
 export * from './util/formats';
+export * from './util/temporal';
 export * from './util/errorHandling';
