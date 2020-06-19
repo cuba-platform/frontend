@@ -64,8 +64,8 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
   // noinspection JSUnusedGlobalSymbols
   async prepareModel() {
     if (!this.cubaProjectModel && this.answers) {
-      const modelFilePath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(this.answers.projectInfo.locationHash, modelFilePath);
+      this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelFilePath);
 
       // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
       await new Promise(resolve => setTimeout(resolve, 2000));
