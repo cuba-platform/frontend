@@ -18,6 +18,7 @@ import moment from 'moment';
 import {
   getDataTransferFormat,
 } from '../util/formats';
+import {stripMilliseconds} from '../util/temporal';
 import {TEMPORARY_ENTITY_ID_PREFIX} from "..";
 
 /**
@@ -314,7 +315,8 @@ export function formFieldsToInstanceItem<T>(
     }
 
     if (propInfo && isTemporalProperty(propInfo) && moment.isMoment(value)) {
-      item[key] = value?.format(getDataTransferFormat(propInfo.type as TemporalPropertyType));
+      const normalizedValue = stripMilliseconds(value);
+      item[key] = normalizedValue?.format(getDataTransferFormat(propInfo.type as TemporalPropertyType));
       return;
     }
 

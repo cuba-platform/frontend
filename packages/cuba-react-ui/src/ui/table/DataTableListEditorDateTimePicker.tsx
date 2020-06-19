@@ -8,6 +8,7 @@ import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {getDataTransferFormat, getDisplayFormat} from '@cuba-platform/react-core';
 import {PropertyType} from '@cuba-platform/rest';
 import {decorateAndWrapInFormItem} from './DataTableCustomFilterFields';
+import {stripMilliseconds} from '@cuba-platform/react-core';
 
 interface DataTableListEditorDateTimePickerProps {
   id: string;
@@ -23,8 +24,8 @@ class DataTableListEditorDateTimePickerComponent extends React.Component<DataTab
 
   @action
   onMomentChange = (newMoment: Moment | null, _dateString: string): void => {
-    if (newMoment) {
-      this.moment = newMoment;
+    if (newMoment != null) {
+      this.moment = stripMilliseconds(newMoment);
     }
   };
 
