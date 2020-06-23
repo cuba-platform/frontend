@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.1...@cuba-platform/react-ui@1.0.2) (2020-06-23)
+
+
+### Bug Fixes
+
+* datetime is saved with "random" amount of milliseconds [#113](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/113) ([dea79d0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/dea79d089dea58bece9034ae89a0b041213e2a24))
+
+
+
+
+
 ## [1.0.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.0...@cuba-platform/react-ui@1.0.1) (2020-06-15)
 
 **Note:** Version bump only for package @cuba-platform/react-ui

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0...@cuba-platform/front-generator@3.0.1) (2020-06-23)
+
+
+### Bug Fixes
+
+* error when generating sdk:all [#261](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/261) ([480d8fd](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/480d8fd40a41a3f63b3686e20ffc601d015bff09))
+* layout breaks when side menu is bigger than the viewport ([9378b95](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/9378b9556632df4747f38381b811bfdae54ef5db)), closes [#210](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/210)
+* unnecessary question during the entity-management generation ([5406e6b](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/5406e6b643d0a0a8fec39f88a7960f39bf95f602)), closes [#212](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/212)
+
+
+
+
+
 # [3.0.0](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0-beta.3...@cuba-platform/front-generator@3.0.0) (2020-06-15)
 
 **Note:** Version bump only for package @cuba-platform/front-generator
