@@ -98,6 +98,7 @@
           <property name="associationM2Mattr" view="_minimal"/>
           <property name="compositionO2Oattr" view="_minimal"/>
           <property name="compositionO2Mattr" view="_minimal"/>
+          <property name="readOnlyStringAttr"/>
       </property>
       <property name="intIdentityIdTestEntityAttr" view="_minimal"/>
       <property name="integerIdTestEntityAttr" view="_minimal"/>
@@ -129,6 +130,7 @@
             <property name="associationM2Mattr" view="_minimal"/>
             <property name="compositionO2Oattr" view="_minimal"/>
             <property name="compositionO2Mattr" view="_minimal"/>
+            <property name="readOnlyStringAttr"/>
         </property>
         <property name="integerIdTestEntityAttr" view="_minimal"/>
         <property name="intIdentityIdTestEntityAttr" view="_minimal"/>
