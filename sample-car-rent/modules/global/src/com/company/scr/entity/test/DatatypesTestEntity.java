@@ -126,6 +126,13 @@ public class DatatypesTestEntity extends StandardEntity {
     @JoinColumn(name = "STRING_ID_TEST_ENTITY_ASSOCIATION_M2O_ID")
     private StringIdTestEntity stringIdTestEntityAssociationM2O;
 
+    @Column(name = "READ_ONLY_STRING_ATTR")
+    protected String readOnlyStringAttr;
+
+    public String getReadOnlyStringAttr() {
+        return readOnlyStringAttr;
+    }
+
     public StringIdTestEntity getStringIdTestEntityAssociationO2O() {
         return stringIdTestEntityAssociationO2O;
     }

@@ -251,6 +251,7 @@ create table SCR_DATATYPES_TEST_ENTITY (
     INTEGER_ATTR integer,
     LONG_ATTR bigint,
     STRING_ATTR varchar(255),
+    READ_ONLY_STRING_ATTR varchar(255),
     TIME_ATTR time,
     UUID_ATTR uuid,
     LOCAL_DATE_TIME_ATTR timestamp,
