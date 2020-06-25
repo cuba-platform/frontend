@@ -20,6 +20,7 @@ import {
 } from '../util/formats';
 import {stripMilliseconds} from '../util/temporal';
 import {TEMPORARY_ENTITY_ID_PREFIX} from "..";
+import { prepareForCommit } from "../util/internal/data";
 
 /**
  * Retrieves an entity instance using Generic REST API.
@@ -143,14 +144,14 @@ export class DataInstanceStore<T> implements DataContainer {
     }
     this.status = 'LOADING';
 
-    this.item = stripTemporaryIds(toJS(this.item)) as T & Partial<SerializedEntityProps> & WithId;
+    const commitItem = prepareForCommit(this.item, this.entityName, this.mainStore!.metadata!);
 
     const fetchOptions = commitMode != null ? {commitMode} : undefined;
 
-    return getCubaREST()!.commitEntity(this.entityName, toJS(this.item!), fetchOptions)
+    return getCubaREST()!.commitEntity(this.entityName, commitItem, fetchOptions)
       .then((updateResult) => {
         runInAction(() => {
-          if (updateResult.id != null && this.item) {
+          if (updateResult.id != null && this.item != null) {
             this.item.id = updateResult.id
             this.item._instanceName = updateResult._instanceName;
           }
@@ -254,6 +255,12 @@ export class Instance<E> extends React.Component<DataInstanceProps<E>> {
   }
 }
 
+// TODO Remove in the next major version
+/**
+ * @deprecated To be removed from public API
+ *
+ * @param item
+ */
 export function stripTemporaryIds(item: Record<string, any>): Record<string, any> {
   if (item != null && typeof item === 'object') {
     if ('id' in item && typeof item.id === 'string' && item.id.startsWith(TEMPORARY_ENTITY_ID_PREFIX)) {
@@ -272,7 +279,9 @@ export function stripTemporaryIds(item: Record<string, any>): Record<string, any
 
 /**
  * Transforms the antd Form fields values into format expected by Instance item, which is generally the same as the format
- * expected by REST API, except that Instance item may have a temporary id created client-side and stripped before commit
+ * expected by REST API, except that Instance item may have the following properties that are stripped before the commit:
+ * - a temporary id created client-side
+ * - read-only attributes
  *
  * @param formFields
  * @param entityName

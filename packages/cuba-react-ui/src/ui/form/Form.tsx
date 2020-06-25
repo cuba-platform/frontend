@@ -387,7 +387,11 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
         if (this.props.value == null) {
           this.dataInstance?.setItem({});
         } else {
+          const id = this.dataInstance?.item?.id;
           this.dataInstance?.setItemToFormFields(this.props.value);
+          if (id != null && this.dataInstance?.item != null) {
+            this.dataInstance.item.id = id;
+          }
         }
       },
       {fireImmediately: true}
@@ -726,8 +730,11 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
 
     if (onChange) {
       const newValue = this.dataCollection?.allItems.map(item => {
+        const id = item.id;
         const formFields = instanceItemToFormFields(item, nestedEntityName, toJS(mainStore!.metadata!), this.allFields || []);
-        if (formFields != null && !('id' in formFields)) {
+        if (id != null) {
+          formFields.id = id;
+        } else {
           formFields.id = generateTemporaryEntityId();
         }
         return formFields;
@@ -1018,6 +1025,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
           formItemOpts={{ style: { marginBottom: "12px" } }}
           getFieldDecoratorOpts={this.getFieldDecoratorOpts(property)}
           optionsContainer={this.getOptionsContainer(property.type)}
+          disabled={property.readOnly}
         />
       );
     });

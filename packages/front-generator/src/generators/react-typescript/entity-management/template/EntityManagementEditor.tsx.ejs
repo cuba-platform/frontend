@@ -151,7 +151,9 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
                    form={ this.props.form }
                    formItemOpts={ {style: {marginBottom: "12px"} } }
 
-              <% if (attr.name === locals.stringIdName) { %>
+              <% if (readOnlyFields.includes(attr.name)) { %>
+                disabled={true}
+              <% } else if (attr.name === locals.stringIdName) { %>
                 disabled={!this.isNewEntity()}
               <% } %>
 
