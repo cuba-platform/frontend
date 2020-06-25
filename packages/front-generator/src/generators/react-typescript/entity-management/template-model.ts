@@ -27,6 +27,7 @@ export interface EntityManagementTemplateModel extends BaseEntityScreenTemplateM
   listAttributes: EntityAttribute[];
   editView: View;
   editAttributes: EntityAttribute[];
+  readOnlyFields: string[];
   editCompositions: EditRelations;
   editAssociations: EditRelations;
   nestedEntityInfo?: Record<string, string>;

@@ -168,6 +168,10 @@ function answersToManagementModel(answers: EntityManagementAnswers,
     getDisplayedAttributes(answers.editView.allProperties, entity, projectModel, ScreenType.EDITOR)
   );
 
+  const readOnlyFields = editAttributes
+    .filter((attr: EntityAttribute) => attr.readOnly)
+    .map((attr: EntityAttribute) => attr.name);
+
   const { editAssociations, editCompositions } = getRelations(projectModel, editAttributes);
 
   const nestedEntityInfo = answers.nestedEntityInfo;
@@ -188,6 +192,7 @@ function answersToManagementModel(answers: EntityManagementAnswers,
     listAttributes,
     editView: answers.editView,
     editAttributes,
+    readOnlyFields,
     nestedEntityInfo,
     editCompositions,
     editAssociations,

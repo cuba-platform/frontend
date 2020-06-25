@@ -1,6 +1,7 @@
-import {formFieldsToInstanceItem, instanceItemToFormFields, stripTemporaryIds} from './Instance';
+import {formFieldsToInstanceItem, instanceItemToFormFields} from './Instance';
 import {AttributeType, Cardinality} from '@cuba-platform/rest';
 import moment from 'moment';
+import {prepareForCommit} from '../util/internal/data';
 
 describe('formFieldsToInstanceItem', () => {
   it('does not remove temporary id', () => {
@@ -246,22 +247,48 @@ describe('instanceItemToFormFields', () => {
   });
 });
 
-describe('stripTemporaryIds', () => {
+describe('prepareForCommit()', () => {
   it('removes temporary id', () => {
     const item = {
       stringAttr: 'some value',
       id: '_CUBA_TEMPORARY_ENTITY_ID_7283974224'
     };
-    expect(stripTemporaryIds(item)).toEqual({
+    expect(prepareForCommit(item, 'test', MOCK_METADATA)).toEqual({
       stringAttr: 'some value'
     });
   });
+
   it('does not remove normal id', () => {
     const item = {
       stringAttr: 'some value',
       id: '9b4188bf-c382-4b89-aedf-b6bcee6f2f76'
     };
-    expect(stripTemporaryIds(item)).toEqual(item);
+    expect(prepareForCommit(item, 'test', MOCK_METADATA)).toEqual(item);
+  });
+
+  it('removes read-only properties', () => {
+    const item = {
+      stringAttr: 'some value',
+      id: '9b4188bf-c382-4b89-aedf-b6bcee6f2f76',
+      readOnlyStringAttr: 'init'
+    };
+    const expected = {
+      stringAttr: 'some value',
+      id: '9b4188bf-c382-4b89-aedf-b6bcee6f2f76',
+    };
+    const actual = prepareForCommit(item, 'test', MOCK_METADATA);
+    expect(actual).toEqual(expected);
+
+    const item2 = {
+      stringAttr: 'some value',
+      id: '_CUBA_TEMPORARY_ENTITY_ID_7283974224',
+      readOnlyStringAttr: 'init'
+    };
+    const expected2 = {
+      stringAttr: 'some value',
+    };
+    const actual2 = prepareForCommit(item2, 'test', MOCK_METADATA);
+    expect(actual2).toEqual(expected2);
   });
 });
 
@@ -289,6 +316,18 @@ const MOCK_METADATA = [
         // --
         mandatory: false,
         readOnly: false,
+        description: "description",
+        persistent: true,
+        isTransient: false,
+      },
+      {
+        name: "readOnlyStringAttr",
+        attributeType: "DATATYPE" as AttributeType,
+        type: "string",
+        cardinality: "NONE" as Cardinality,
+        // --
+        mandatory: false,
+        readOnly: true,
         description: "description",
         persistent: true,
         isTransient: false,
