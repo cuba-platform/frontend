@@ -3,7 +3,7 @@ import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from 
 import {blankComponentParams} from "./params";
 import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
-import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath, unCapitalizeFirst} from "../../../common/utils";
 import {CommonTemplateModel} from "../../polymer2/common/template-model";
 import {addToMenu} from "../common/menu";
 
@@ -70,7 +70,7 @@ export function blankComponentAnswersToModel(answers: BlankComponentAnswers, dir
   return {
     className,
     componentName: answers.componentName,
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     nameLiteral: unCapitalizeFirst(className)
   }
 }

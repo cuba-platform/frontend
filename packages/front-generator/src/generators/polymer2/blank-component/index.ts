@@ -4,7 +4,7 @@ import {blankComponentParams} from "./params";
 import {Polymer2ComponentTemplateModel} from "./template-model";
 import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath} from "../../../common/utils";
 
 export interface BlankComponentAnswers {
   componentName: string
@@ -54,7 +54,7 @@ export function blankComponentAnswersToModel(answers: BlankComponentAnswers, dir
   return {
     componentName: answers.componentName,
     className: elementNameToClass(answers.componentName),
-    relDirShift: dirShift || ''
+    relDirShift: normalizeRelativePath(dirShift)
   }
 }
 

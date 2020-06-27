@@ -4,7 +4,7 @@ import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from 
 import {EntityManagementTemplateModel} from "./template-model";
 import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath} from "../../../common/utils";
 import {EntityListTemplateModel} from "../entity-list/template-model";
 import {EntityCardsTemplateModel} from "../entity-cards/template-model";
 import {EntityEditTemplateModel} from "../entity-edit/template-model";
@@ -60,7 +60,7 @@ export function answersToManagementModel(answers: EntityManagementAnswers, dirSh
   return {
     componentName: answers.managementComponentName,
     className: elementNameToClass(answers.managementComponentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     listComponentName: answers.listComponentName,
     editComponentName: answers.editComponentName,
     listType: answers.listType
@@ -71,7 +71,7 @@ export function answersToListModel(answers: EntityManagementAnswers, dirShift: s
   return {
     componentName: answers.listComponentName,
     className: elementNameToClass(answers.listComponentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     entity: answers.entity,
     view: answers.listView
   }
@@ -84,7 +84,7 @@ export function answersToEditModel(answers: EntityManagementAnswers, dirShift: s
     imports,
     componentName: answers.editComponentName,
     className: elementNameToClass(answers.editComponentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     view: answers.editView,
     entity: answers.entity,
   }

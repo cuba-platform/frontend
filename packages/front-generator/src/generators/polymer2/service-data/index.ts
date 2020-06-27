@@ -4,7 +4,7 @@ import {ServiceDataAnswers, serviceDataParams} from "./params";
 import {PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {ServiceDataTemplateModel} from "./template-model";
 import * as path from "path";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath} from "../../../common/utils";
 import {composeParamFields} from "../service-form";
 import {RestService} from "../../../common/model/cuba-model";
 
@@ -51,7 +51,7 @@ function answersToModel(answers: ServiceDataAnswers, dirShift: string | undefine
     fields: composeParamFields(answers.serviceMethod.method.params),
     componentName: answers.componentName,
     className: elementNameToClass(answers.componentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     method: answers.serviceMethod.method,
     service: answers.serviceMethod.service
   };

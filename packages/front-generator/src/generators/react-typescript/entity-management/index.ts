@@ -12,7 +12,7 @@ import {
 import {EditRelations, EditRelationsSplit, EntityManagementTemplateModel, RelationImport} from "./template-model";
 import * as path from "path";
 import {StudioTemplateProperty, StudioTemplatePropertyType, ViewInfo} from "../../../common/studio/studio-model";
-import {capitalizeFirst, elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
+import {capitalizeFirst, elementNameToClass, normalizeRelativePath, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
 import {findEntity, findView} from "../../../common/model/cuba-model-utils";
@@ -178,7 +178,7 @@ function answersToManagementModel(answers: EntityManagementAnswers,
   return {
     componentName: answers.managementComponentName,
     className,
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     listComponentClass: elementNameToClass(answers.listComponentName),
     editComponentClass: elementNameToClass(answers.editComponentName),
     listType: answers.listType,

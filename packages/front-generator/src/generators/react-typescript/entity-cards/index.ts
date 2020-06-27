@@ -6,7 +6,7 @@ import {
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import * as path from "path";
 import {EntityCardsTemplateModel} from "./template-model";
-import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {writeComponentI18nMessages} from '../common/i18n';
 import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../common/entity";
@@ -104,7 +104,7 @@ export function entityCardsAnswersToModel(
     componentName: answers.componentName,
     className,
     nameLiteral: unCapitalizeFirst(className),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     entity: answers.entity,
     view: answers.entityView,
     attributes,
