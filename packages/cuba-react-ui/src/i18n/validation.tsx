@@ -1,8 +1,8 @@
 import {IntlShape, WrappedComponentProps} from 'react-intl';
-import { Form } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { FormComponentProps, FormCreateOption } from '@ant-design/compatible/es/form';
 import * as React from 'react';
-import {FormCreateOption} from 'antd/lib/form';
 
 export function withLocalizedForm<P>(options?: FormCreateOption<P>) {
   return (Component: React.ComponentType<P>) => {

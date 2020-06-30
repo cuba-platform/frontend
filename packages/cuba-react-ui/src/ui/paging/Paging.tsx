@@ -1,4 +1,4 @@
-import {PaginationConfig} from "antd/lib/table";
+import {PaginationConfig} from "antd/es/pagination";
 import {DataCollectionStore} from "@cuba-platform/react-core";
 import React from "react";
 import queryString from "query-string"

@@ -1,4 +1,4 @@
-import {WrappedFormUtils} from 'antd/es/form/Form';
+import { WrappedFormUtils } from '@ant-design/compatible/es/form/Form';
 
 /**
  * Clears errors in antd form fields

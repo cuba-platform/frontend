@@ -1,6 +1,9 @@
 import * as React from "react";
 import {ChangeEvent, FormEvent} from "react";
-import {Button, Form, Icon, Input, message} from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {Button, Input, message} from "antd";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
 import {injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
@@ -54,7 +57,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
                    placeholder={this.props.intl.formatMessage({id: 'login.placeholder.login'})}
                    onChange={this.changeLogin}
                    value={this.login}
-                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                   prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }}/>}
                    size='large'/>
           </Form.Item>
           <Form.Item>
@@ -63,7 +66,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
                    onChange={this.changePassword}
                    value={this.password}
                    type='password'
-                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                   prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }}/>}
                    size='large'/>
           </Form.Item>
           <Form.Item>

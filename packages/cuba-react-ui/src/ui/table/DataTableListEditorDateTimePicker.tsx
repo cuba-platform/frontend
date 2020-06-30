@@ -1,8 +1,10 @@
-import {Button, DatePicker, Form, TimePicker} from 'antd';
+import { Form } from '@ant-design/compatible';
+import { GetFieldDecoratorOptions } from '@ant-design/compatible/es/form'
+import '@ant-design/compatible/assets/index.css';
+import { Button, DatePicker, TimePicker } from 'antd';
 import moment, {Moment} from 'moment';
 import * as React from 'react';
 import {action, observable} from 'mobx';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {ReactNode} from 'react';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {getDataTransferFormat, getDisplayFormat} from '@cuba-platform/react-core';

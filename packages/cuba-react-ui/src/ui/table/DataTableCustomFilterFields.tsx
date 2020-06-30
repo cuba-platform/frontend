@@ -1,7 +1,8 @@
 import {IntlShape} from 'react-intl';
 import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import React, {ReactNode} from 'react';
-import {Form} from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 
 export function getDefaultFieldDecoratorOptions(intl: IntlShape): GetFieldDecoratorOptions {
   return {

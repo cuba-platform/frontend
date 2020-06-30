@@ -1,6 +1,9 @@
 import * as React from "react";
 import {action, observable, computed} from "mobx";
-import {DatePicker, Form, Icon, Input, InputNumber, Select, Tag, TimePicker, Tooltip} from "antd";
+import { PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { DatePicker, Input, InputNumber, Select, Tag, TimePicker, Tooltip } from "antd";
 import {observer} from "mobx-react";
 import moment, {Moment} from "moment";
 import {CaptionValuePair} from "./DataTableCustomFilter";
@@ -198,7 +201,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
              color='blue'
              className='cuba-list-editor-input'
           >
-            <Icon type="plus" />
+            <PlusOutlined />
             &nbsp;
             <FormattedMessage id='cubaReact.dataTable.listEditor.addItem'/>
           </Tag>

@@ -1,7 +1,10 @@
 import React, {FormEvent, ReactNode} from 'react';
-import {Button, DatePicker, Divider, Form, Input, message, Select, Spin, TimePicker} from 'antd';
-import {FormComponentProps} from 'antd/es/form';
-import {FilterDropdownProps} from 'antd/es/table';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, DatePicker, Divider, Input, message, Select, Spin, TimePicker } from 'antd';
+import { FormComponentProps } from '@ant-design/compatible/es/form';
+import {GetFieldDecoratorOptions} from '@ant-design/compatible/es/form/Form';
+import {FilterDropdownProps} from 'antd/es/table/hooks/useFilter/FilterDropdown';
 import {observer} from 'mobx-react';
 import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@cuba-platform/rest';
 import {action, computed, observable} from 'mobx';
@@ -10,7 +13,6 @@ import {DataTableListEditor} from './DataTableListEditor';
 import {DataTableIntervalEditor, TemporalInterval} from './DataTableIntervalEditor';
 import './DataTableCustomFilter.less';
 import './DataTableFilterControlLayout.less';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {injectIntl, WrappedComponentProps, FormattedMessage} from 'react-intl';
 import {
   MainStoreInjected,

@@ -1,13 +1,15 @@
 import {observer} from 'mobx-react';
 import React, {ReactNode} from 'react';
 import {action, computed, observable} from 'mobx';
-import {Checkbox, Form, InputNumber, Radio, Select} from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import {GetFieldDecoratorOptions} from '@ant-design/compatible/es/form';
+import { Checkbox, InputNumber, Radio, Select } from 'antd';
 import {RadioChangeEvent} from 'antd/es/radio';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {determineLastNextXInterval, determinePredefinedInterval} from './DataTableIntervalFunctions';
 import './DataTableIntervalEditor.less';
 import './DataTableFilterControlLayout.less';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {PropertyType} from '@cuba-platform/rest';
 

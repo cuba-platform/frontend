@@ -16,11 +16,16 @@ import {
   WithId,
   loadAllAssociationOptions
 } from '@cuba-platform/react-core';
-import {FormComponentProps, FormItemProps} from 'antd/lib/form';
-import {GetFieldDecoratorOptions} from 'antd/lib/form/Form';
+import { FormComponentProps } from '@ant-design/compatible/lib/form';
+import { GetFieldDecoratorOptions } from '@ant-design/compatible/lib/form/Form';
+import { FormItemProps } from 'antd/lib/form';
+import {} from 'antd/lib/form/Form';
 import {observer} from 'mobx-react';
 import {Msg} from '../Msg';
 import {FieldPermissionContainer} from './FieldPermssionContainer';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import {
   Alert,
   Button,
@@ -28,14 +33,12 @@ import {
   Checkbox,
   DatePicker,
   Drawer,
-  Form,
-  Icon,
   Input,
   message,
   Modal,
   Select,
   Spin,
-  TimePicker
+  TimePicker,
 } from 'antd';
 import {
   Cardinality,
@@ -48,12 +51,12 @@ import {
 } from '@cuba-platform/rest';
 import {uuidPattern} from '../../util/regex';
 import * as React from 'react';
-import {SelectProps} from 'antd/lib/select';
-import {InputProps} from 'antd/lib/input/Input';
-import {InputNumberProps} from 'antd/lib/input-number';
-import {CheckboxProps} from 'antd/lib/checkbox/Checkbox';
-import {DatePickerProps} from 'antd/lib/date-picker/interface';
-import {TimePickerProps} from 'antd/lib/time-picker';
+import {SelectProps, SelectValue} from 'antd/es/select';
+import {InputProps} from 'antd/es/input/Input';
+import {InputNumberProps} from 'antd/es/input-number';
+import {CheckboxProps} from 'antd/es/checkbox/Checkbox';
+import {DatePickerProps} from 'antd/es/date-picker';
+import {TimePickerProps} from 'antd/es/time-picker';
 import {FileUpload, FileUploadProps} from '../FileUpload';
 import {EntitySelectField} from '../EntitySelectField';
 import {IntegerInput} from './IntegerInput';
@@ -183,7 +186,7 @@ function getDefaultOptions(metadata: MetaClassInfo[] | undefined, entityName: st
   return {};
 }
 
-export type FormFieldComponentProps = SelectProps | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
+export type FormFieldComponentProps = SelectProps<SelectValue> | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
   | NestedEntityFieldProps | NestedEntitiesTableFieldProps;
 
 // TODO We should probably make it an interface as it is not convenient to document type declarations with TSDoc.
@@ -227,8 +230,8 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
       if (nestedEntityView) {
-        const nestedEntityName = mainStore.metadata.find(metaClass => metaClass.entityName === entityName)?.properties
-          .find(property => property.name === propertyName)?.type;
+        const nestedEntityName = mainStore.metadata.find((metaClass: MetaClassInfo) => metaClass.entityName === entityName)?.properties
+          .find((property: MetaPropertyInfo) => property.name === propertyName)?.type;
 
         if (nestedEntityName) {
           if (propertyInfo.cardinality === 'ONE_TO_ONE') {
@@ -458,43 +461,37 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
       return <Spin size='small'/>;
     }
 
-    return (
-      <>
-        {this.isCreateMode && (
-          <Button type='link'
-                  onClick={this.openDrawer}
-          >
-            <FormattedMessage id='cubaReact.nestedEntityField.create' />
-          </Button>
-        )}
-        {this.isEditMode && (
-          <span>
-            <span>{this.instanceName}</span>
-            <Icon type='delete'
-                  className='cuba-nested-entity-editor-icon'
-                  onClick={this.showDeletionDialog}
-            />
-            <Icon type='edit'
-                  className='cuba-nested-entity-editor-icon'
-                  onClick={this.openDrawer}
-            />
-          </span>
-        )}
-        <Drawer visible={this.isDrawerOpen}
-                width='90%'
-                onClose={this.closeDrawer}
+    return <>
+      {this.isCreateMode && (
+        <Button type='link'
+                onClick={this.openDrawer}
         >
-          <EntityEditor entityName={nestedEntityName}
-                        fields={this.fields}
-                        dataInstance={this.dataInstance}
-                        associationOptions={this.associationOptions}
-                        onSubmit={this.handleSubmit}
-                        onCancel={this.closeDrawer}
-                        submitButtonText='common.ok'
-          />
-        </Drawer>
-      </>
-    );
+          <FormattedMessage id='cubaReact.nestedEntityField.create' />
+        </Button>
+      )}
+      {this.isEditMode && (
+        <span>
+          <span>{this.instanceName}</span>
+          <DeleteOutlined
+            className='cuba-nested-entity-editor-icon'
+            onClick={this.showDeletionDialog} />
+          <EditOutlined className='cuba-nested-entity-editor-icon' onClick={this.openDrawer} />
+        </span>
+      )}
+      <Drawer visible={this.isDrawerOpen}
+              width='90%'
+              onClose={this.closeDrawer}
+      >
+        <EntityEditor entityName={nestedEntityName}
+                      fields={this.fields}
+                      dataInstance={this.dataInstance}
+                      associationOptions={this.associationOptions}
+                      onSubmit={this.handleSubmit}
+                      onCancel={this.closeDrawer}
+                      submitButtonText='common.ok'
+        />
+      </Drawer>
+    </>;
   }
 }
 
@@ -748,64 +745,62 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
       return <Spin size='small'/>;
     }
 
-    return (
-      <>
-        <div className='cuba-nested-entity-editor-buttons'>
-          <Button
-            htmlType="button"
-            className='button'
-            type="primary"
-            icon="plus"
-            key='create'
-            onClick={this.createEntity}
-          >
-            <span>
-              <FormattedMessage id="management.browser.create" />
-            </span>
-          </Button>
-          <Button
-            htmlType="button"
-            className='button'
-            disabled={!this.selectedRowKey}
-            type="default"
-            key='edit'
-            onClick={this.editEntity}
-          >
-            <FormattedMessage id="management.browser.edit" />
-          </Button>
-          <Button
-            htmlType="button"
-            className='button'
-            disabled={!this.selectedRowKey}
-            onClick={this.showDeletionDialog}
-            key="remove"
-            type="default"
-          >
-            <FormattedMessage id="management.browser.remove" />
-          </Button>
-        </div>
-        <DataTable dataCollection={this.dataCollection}
-                   columnDefinitions={this.tableFields}
-                   hideSelectionColumn={true}
-                   onRowSelectionChange={this.handleRowSelectionChange}
-                   enableFiltersOnColumns={[]} // TODO Remove once client-side filtering is implemented
-        />
-        <Drawer visible={this.isDrawerOpen}
-                width='90%'
-                onClose={this.closeDrawer}
+    return <>
+      <div className='cuba-nested-entity-editor-buttons'>
+        <Button
+          htmlType="button"
+          className='button'
+          type="primary"
+          icon={<PlusOutlined />}
+          key='create'
+          onClick={this.createEntity}
         >
-          {this.editedInstance &&
-          <EntityEditor entityName={nestedEntityName}
-                        fields={this.editorFields}
-                        dataInstance={this.editedInstance}
-                        associationOptions={this.associationOptions}
-                        onSubmit={this.handleSubmitInstance}
-                        onCancel={this.closeDrawer}
-                        submitButtonText='common.ok'
-          />}
-        </Drawer>
-      </>
-    );
+          <span>
+            <FormattedMessage id="management.browser.create" />
+          </span>
+        </Button>
+        <Button
+          htmlType="button"
+          className='button'
+          disabled={!this.selectedRowKey}
+          type="default"
+          key='edit'
+          onClick={this.editEntity}
+        >
+          <FormattedMessage id="management.browser.edit" />
+        </Button>
+        <Button
+          htmlType="button"
+          className='button'
+          disabled={!this.selectedRowKey}
+          onClick={this.showDeletionDialog}
+          key="remove"
+          type="default"
+        >
+          <FormattedMessage id="management.browser.remove" />
+        </Button>
+      </div>
+      <DataTable dataCollection={this.dataCollection}
+                 columnDefinitions={this.tableFields}
+                 hideSelectionColumn={true}
+                 onRowSelectionChange={this.handleRowSelectionChange}
+                 enableFiltersOnColumns={[]} // TODO Remove once client-side filtering is implemented
+      />
+      <Drawer visible={this.isDrawerOpen}
+              width='90%'
+              onClose={this.closeDrawer}
+      >
+        {this.editedInstance &&
+        <EntityEditor entityName={nestedEntityName}
+                      fields={this.editorFields}
+                      dataInstance={this.editedInstance}
+                      associationOptions={this.associationOptions}
+                      onSubmit={this.handleSubmitInstance}
+                      onCancel={this.closeDrawer}
+                      submitButtonText='common.ok'
+        />}
+      </Drawer>
+    </>;
   }
 }
 
@@ -1025,7 +1020,8 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
 
 }
 
-const EntityEditor = injectIntl<'intl', EntityEditorProps>(withLocalizedForm({
+// TODO temporarily using withLocalizedForm<any>
+const EntityEditor = injectIntl<'intl', EntityEditorProps>(withLocalizedForm<any>({
   onValuesChange: (theProps: any, changedValues: any) => {
     // Reset server-side errors when field is edited
     Object.keys(changedValues).forEach((fieldName: string) => {

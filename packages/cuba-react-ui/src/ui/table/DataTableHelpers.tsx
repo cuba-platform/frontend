@@ -15,9 +15,10 @@ import {
 } from './DataTableCustomFilter';
 import { toJS } from 'mobx';
 import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
-import {WrappedFormUtils} from 'antd/es/form/Form';
+import { WrappedFormUtils } from '@ant-design/compatible/es/form/Form';
 import {OperatorType} from "@cuba-platform/rest";
 import {setPagination} from "../paging/Paging";
+import {Key} from 'antd/es/table/interface';
 
 // todo we should not use '*Helpers' in class name in case of lack semantic. This class need to be split
 //  to different files like 'DataColumn', 'Conditions', 'Filters', 'Paging' ot something like this
@@ -378,7 +379,7 @@ export interface TableChangeDTO<E> {
   /**
    * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
    */
-  filters: Record<string, string[]>,
+  filters: Record<string, Key[] | null>,
   /**
    * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
    */
