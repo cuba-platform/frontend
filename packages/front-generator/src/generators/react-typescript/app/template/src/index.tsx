@@ -10,6 +10,7 @@ import {initializeApp} from "@cuba-platform/rest";
 import {CUBA_APP_URL, REST_CLIENT_ID, REST_CLIENT_SECRET} from "./config";
 
 import "antd/dist/antd.min.css";
+import '@ant-design/compatible/assets/index.css';
 import "@cuba-platform/react-ui/dist/index.min.css";
 import './index.css';
 import {antdLocaleMapping, messagesMapping} from './i18n/i18nMappings';

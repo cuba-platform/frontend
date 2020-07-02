@@ -2,15 +2,14 @@ import * as React from "react";
 import {action, observable, computed} from "mobx";
 import { PlusOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { DatePicker, Input, InputNumber, Select, Tag, TimePicker, Tooltip } from "antd";
+import { DatePicker, Input, Select, Tag, TimePicker, Tooltip, InputNumber } from "antd";
 import {observer} from "mobx-react";
 import moment, {Moment} from "moment";
 import {CaptionValuePair} from "./DataTableCustomFilter";
 import {DataTableListEditorDateTimePicker} from './DataTableListEditorDateTimePicker';
 import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
 import {ReactNode, Ref} from 'react';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
+import { GetFieldDecoratorOptions } from '@ant-design/compatible/es/form/Form';
 import {FormattedMessage} from 'react-intl';
 import {IntegerInput} from '../form/IntegerInput';
 import {DoubleInput} from '../form/DoubleInput';
@@ -123,8 +122,8 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
-  onTimePickerChange = (time: Moment, _timeString: string): void => {
-    if (time) {
+  onTimePickerChange = (time: Moment | null, _timeString: string): void => {
+    if (time != null) {
       const timeParam = time.format(getDataTransferFormat(this.props.propertyInfo.type as PropertyType));
       this.handleInputChange(timeParam);
     }
@@ -156,7 +155,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
-  handleInputNumberChange = (value: number | undefined): void => {
+  handleInputNumberChange = (value: string | number | undefined): void => {
     if (value != null) {
       this.inputModel.value = value;
       this.inputModel.caption = String(value);
@@ -301,7 +300,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
     }
   }
 
-  getInputNumberProps(): InputNumberProps & {ref: Ref<InputNumber>} {
+  getInputNumberProps(): InputNumberProps & {ref: Ref<typeof InputNumber>} {
     return {
       ref: this.trapFocus,
       type: 'text',
@@ -315,10 +314,12 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
 
   @computed
   get selectFieldOptions(): ReactNode {
-    return this.availableOptions.map((option) => {
+    return this.availableOptions
+      .filter(option => option.value != null)
+      .map((option) => {
       return (
         <Select.Option title={option.caption}
-                       value={option.value}
+                       value={option.value!}
                        key={option.value}
                        className={`cuba-filter-value-${option.value}`}
         >

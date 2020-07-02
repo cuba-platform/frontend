@@ -12,8 +12,10 @@ export interface ConditionsGroup {
   conditions: Condition[];
 }
 
+export type FilterValue = string | number | string[] | number[] | null;
+
 export interface Condition {
   property: string;
   operator: OperatorType;
-  value: string | number | string[] | number[] | null;
+  value: FilterValue;
 }

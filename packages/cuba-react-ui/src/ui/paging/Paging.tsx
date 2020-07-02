@@ -4,6 +4,7 @@ import React from "react";
 import queryString from "query-string"
 import {Pagination} from "antd";
 import {toJS} from "mobx";
+import { TablePaginationConfig } from "antd/es/table";
 
 type Props = {
   paginationConfig: PaginationConfig;
@@ -89,7 +90,7 @@ export function addPagingParams(url: string, current: number | undefined, pageSi
  * @param dataCollection -page size and current page will be set to this collection data store
  * @param reload - reload collection data store, if needsr
  */
-export function setPagination<E>(pagination: PaginationConfig, dataCollection: DataCollectionStore<E>, reload: boolean = false) {
+export function setPagination<E>(pagination: PaginationConfig | TablePaginationConfig, dataCollection: DataCollectionStore<E>, reload: boolean = false) {
 
   const {disabled, pageSize, current} = pagination;
 

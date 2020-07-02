@@ -2,8 +2,7 @@ import {observer} from 'mobx-react';
 import React, {ReactNode} from 'react';
 import {action, computed, observable} from 'mobx';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import {GetFieldDecoratorOptions} from '@ant-design/compatible/es/form';
+import {GetFieldDecoratorOptions} from '@ant-design/compatible/es/form/Form';
 import { Checkbox, InputNumber, Radio, Select } from 'antd';
 import {RadioChangeEvent} from 'antd/es/radio';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
@@ -63,8 +62,8 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   };
 
   @action
-  onIntervalNumberChanged = (value: number | undefined) => {
-    if (value) {
+  onIntervalNumberChanged = (value: string | number | undefined) => {
+    if (value != null && typeof value === 'number' && isFinite(value)) {
       this.numberOfUnits = value;
       this.props.onChange(this.interval);
     }

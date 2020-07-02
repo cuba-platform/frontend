@@ -18,6 +18,8 @@ export default {
     }
   ],
   external: [
+    '@ant-design/icons',
+    '@ant-design/compatible',
     '@cuba-platform/rest',
     '@cuba-platform/react-core',
     'antd',
@@ -26,13 +28,15 @@ export default {
     'moment',
     'react',
     'react-intl',
+    'react-input-mask',
     'react-dom',
     'react-router',
     'react-router-dom',
     'react-testing-library',
+    'query-string'
   ],
   plugins: [
-    resolve(),
+    resolve({only: [/^\.{0,2}\//]}), // Exclude node_modules
     commonjs({
       namedExports: {
         'invariant': ['default'],

@@ -1,6 +1,5 @@
 import { Form } from '@ant-design/compatible';
-import { GetFieldDecoratorOptions } from '@ant-design/compatible/es/form'
-import '@ant-design/compatible/assets/index.css';
+import { GetFieldDecoratorOptions } from '@ant-design/compatible/es/form/Form';
 import { Button, DatePicker, TimePicker } from 'antd';
 import moment, {Moment} from 'moment';
 import * as React from 'react';

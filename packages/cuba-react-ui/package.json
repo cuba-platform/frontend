@@ -9,7 +9,7 @@
     "dist/"
   ],
   "dependencies": {
-    "moment": "^2.24.0",
+    "moment": "^2.25.3",
     "query-string": "^6.11.0"
   },
   "peerDependencies": {
@@ -32,7 +32,6 @@
     "@cuba-platform/react-core": "^1.0.2",
     "@cuba-platform/rest": "^1.0.0",
     "@types/jest": "^24.0.18",
-    "@types/moment-timezone": "^0.5.12",
     "@types/query-string": "^6.3.0",
     "@types/react": "^16.9.41",
     "@types/react-input-mask": "^2.0.5",

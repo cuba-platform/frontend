@@ -1,7 +1,6 @@
 import * as React from "react";
 import {ChangeEvent, FormEvent} from "react";
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {Button, Input, message} from "antd";
 import {observer} from "mobx-react";

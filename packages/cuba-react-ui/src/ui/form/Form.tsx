@@ -25,7 +25,6 @@ import {Msg} from '../Msg';
 import {FieldPermissionContainer} from './FieldPermssionContainer';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
 import {
   Alert,
   Button,
@@ -262,7 +261,7 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
     case 'dateTime':
     case 'localDateTime':
     case 'offsetDateTime':
-      return <DatePicker showTime={true} {...(rest as DatePickerProps)}/>;
+      return <DatePicker showTime={true} {...(rest as DatePickerProps & {showTime?: boolean | object})}/>;
     case 'time':
     case 'localTime':
     case 'offsetTime':

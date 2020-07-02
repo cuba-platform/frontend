@@ -1,6 +1,5 @@
 import {IntlShape, WrappedComponentProps} from 'react-intl';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
 import { FormComponentProps, FormCreateOption } from '@ant-design/compatible/es/form';
 import * as React from 'react';
 

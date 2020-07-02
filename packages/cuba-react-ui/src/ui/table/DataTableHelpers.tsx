@@ -1,5 +1,6 @@
-import {ColumnFilterItem, ColumnProps, FilterDropdownProps, PaginationConfig, SorterResult} from 'antd/es/table';
-import React from 'react';
+import {ColumnProps, TablePaginationConfig} from 'antd/es/table';
+import {SorterResult, ColumnFilterItem, FilterDropdownProps} from 'antd/es/table/interface';
+import React, { ReactText } from 'react';
 import {
   Condition,
   ConditionsGroup,
@@ -16,7 +17,7 @@ import {
 import { toJS } from 'mobx';
 import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
 import { WrappedFormUtils } from '@ant-design/compatible/es/form/Form';
-import {OperatorType} from "@cuba-platform/rest";
+import {OperatorType, FilterValue} from "@cuba-platform/rest";
 import {setPagination} from "../paging/Paging";
 import {Key} from 'antd/es/table/interface';
 
@@ -289,7 +290,7 @@ export function generateCustomFilterDropdown(
  * @param dataCollection
  */
 export function setFilters<E>(
-  tableFilters: Record<string, string[]>,
+  tableFilters: Record<string, ReactText[] | null>,
   fields: string[],
   mainStore: MainStore,
   dataCollection: DataCollectionStore<E>,
@@ -310,7 +311,10 @@ export function setFilters<E>(
 
   if (tableFilters) {
     fields.forEach((propertyName: string) => {
-      if (tableFilters.hasOwnProperty(propertyName) && tableFilters[propertyName] && tableFilters[propertyName].length > 0) {
+      if (tableFilters.hasOwnProperty(propertyName)
+          && tableFilters[propertyName]
+          && tableFilters[propertyName] != null
+          && tableFilters[propertyName]!.length > 0) {
         if (!entityFilter) {
           entityFilter = {
             conditions: []
@@ -321,7 +325,7 @@ export function setFilters<E>(
         if (propertyInfoNN.attributeType === 'ENUM') {
           pushCondition(entityFilter, propertyName, 'in', tableFilters[propertyName]);
         } else {
-          const {operator, value} = JSON.parse(tableFilters[propertyName][0]);
+          const {operator, value} = JSON.parse(String(tableFilters[propertyName]![0]));
           if (operator === 'inInterval') {
             const {minDate, maxDate} = value;
             pushCondition(entityFilter, propertyName, '>=', minDate);
@@ -338,7 +342,8 @@ export function setFilters<E>(
 }
 
 function pushCondition(ef: EntityFilter, property: string, operator: OperatorType,
-                       value: string | number | string[] | number[] | null) {
+                       val: ReactText | ReactText[] | null) {
+  const value = val as FilterValue;
   ef.conditions.push({property, operator, value});
 }
 
@@ -351,15 +356,15 @@ function pushCondition(ef: EntityFilter, property: string, operator: OperatorTyp
  * @param dataCollection
  */
 // todo could we make defaultSort of type defined as properties keys of 'E' ?
-export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | undefined, dataCollection: DataCollectionStore<E>) {
-  if (sorter && sorter.order) {
+export function setSorter<E>(sorter: SorterResult<E> | Array<SorterResult<E>>, defaultSort: string | undefined, dataCollection: DataCollectionStore<E>) {
+  if (sorter != null && !Array.isArray(sorter) && sorter.order != null) {
     const sortOrderPrefix: string = (sorter.order === 'descend') ? '-' : '+';
 
     let sortField: string;
-    if (sorter.field.endsWith('._instanceName')) {
+    if (typeof sorter.field === 'string' && sorter.field.endsWith('._instanceName')) {
       sortField = sorter.field.substring(0, sorter.field.indexOf('.'));
     } else {
-      sortField = sorter.field;
+      sortField = String(sorter.field);
     }
 
     dataCollection.sort = sortOrderPrefix + sortField;
@@ -375,7 +380,7 @@ export interface TableChangeDTO<E> {
   /**
    * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
    */
-  pagination: PaginationConfig,
+  pagination: TablePaginationConfig,
   /**
    * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
    */
@@ -383,7 +388,7 @@ export interface TableChangeDTO<E> {
   /**
    * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
    */
-  sorter: SorterResult<E>,
+  sorter: SorterResult<E> | Array<SorterResult<E>>,
   /**
    * Default sort order.
    * Property name opionally preceeded by `+` or `-` character.

@@ -1,10 +1,9 @@
 import React, {FormEvent, ReactNode} from 'react';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
 import { Button, DatePicker, Divider, Input, message, Select, Spin, TimePicker } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/es/form';
 import {GetFieldDecoratorOptions} from '@ant-design/compatible/es/form/Form';
-import {FilterDropdownProps} from 'antd/es/table/hooks/useFilter/FilterDropdown';
+import {FilterDropdownProps} from 'antd/es/table/interface';
 import {observer} from 'mobx-react';
 import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@cuba-platform/rest';
 import {action, computed, observable} from 'mobx';
@@ -165,17 +164,19 @@ class DataTableCustomFilterComponent<E extends WithId>
     e.preventDefault();
     e.stopPropagation();
 
-    this.props.form.validateFields((err) => {
+    this.props.form.validateFields((err: any) => {
       if (err == null && this.value != null) {
-        this.props.filterProps.setSelectedKeys!(
-          [
-            JSON.stringify({
-              operator: this.operator,
-              value: this.value
-            })
-          ]
-        );
-        this.props.filterProps.confirm!();
+        // TODO
+        // const filterState =
+        // this.props.filterProps.setSelectedKeys!(
+        //   [
+        //     JSON.stringify({
+        //       operator: this.operator,
+        //       value: this.value
+        //     })
+        //   ]
+        // );
+        // this.props.filterProps.confirm!();
       }
     });
   };
@@ -220,7 +221,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
-  onNumberInputChange = (value: number | undefined): void => {
+  onNumberInputChange = (value: string | number | undefined): void => {
     this.value = value;
   };
 
@@ -239,7 +240,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
-  onDateTimePickerChange = (dateTime: Moment, _timeString: string): void => {
+  onDateTimePickerChange = (dateTime: Moment | null, _timeString: string): void => {
     if (dateTime != null) {
       const normalizedDateTime = stripMilliseconds(dateTime);
       this.value = normalizedDateTime.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
@@ -586,17 +587,19 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @computed
   get selectFieldOptions(): ReactNode {
-    return this.nestedEntityOptions.map((option) => {
-      return (
-        <Select.Option title={option.caption}
-                       value={option.value}
-                       key={option.value}
-                       className={`cuba-filter-value-${option.value}`}
-        >
-          {option.caption}
-        </Select.Option>
-      );
-    })
+    return this.nestedEntityOptions
+      .filter(option => option.value != null)
+      .map((option) => {
+        return (
+          <Select.Option title={option.caption}
+                         value={option.value!} // Nullish values are expected to be filtered out by now
+                         key={option.value}
+                         className={`cuba-filter-value-${option.value}`}
+          >
+            {option.caption}
+          </Select.Option>
+        );
+      })
   }
 
   @computed
