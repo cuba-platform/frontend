@@ -399,6 +399,7 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
       onChange: this.onChange,
       pagination: this.paginationConfig,
       rowKey: record => this.constructRowKey(record),
+      scroll: {x: true}
     };
 
     if (this.isRowSelectionEnabled) {

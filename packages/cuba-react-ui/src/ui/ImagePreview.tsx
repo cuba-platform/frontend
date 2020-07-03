@@ -5,6 +5,7 @@ import {Spinner} from './Spinner';
 import './ImagePreview.less';
 import {saveFile} from '../util/files';
 import {ButtonProps} from 'antd/es/button';
+import { DownloadOutlined } from '@ant-design/icons';
 
 export interface ImagePreviewProps extends WrappedComponentProps {
   /**
@@ -35,7 +36,7 @@ class ImagePreviewComponent extends React.Component<ImagePreviewProps> {
     const {isLoading} = this.props;
     return {
       disabled: isLoading,
-      icon: 'download'
+      icon: <DownloadOutlined />
     }
   }
 

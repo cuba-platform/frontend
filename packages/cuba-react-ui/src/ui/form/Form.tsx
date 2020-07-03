@@ -18,8 +18,7 @@ import {
 } from '@cuba-platform/react-core';
 import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import { GetFieldDecoratorOptions } from '@ant-design/compatible/lib/form/Form';
-import { FormItemProps } from 'antd/lib/form';
-import {} from 'antd/lib/form/Form';
+import { FormItemProps } from 'antd/es/form';
 import {observer} from 'mobx-react';
 import {Msg} from '../Msg';
 import {FieldPermissionContainer} from './FieldPermssionContainer';

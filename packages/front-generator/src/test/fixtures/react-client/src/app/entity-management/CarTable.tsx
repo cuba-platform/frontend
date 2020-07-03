@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { observable } from "mobx";
 import { Modal, Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 import {
   collection,
@@ -79,7 +80,7 @@ class CarTableComponent extends React.Component<
           htmlType="button"
           style={{ margin: "0 12px 12px 0" }}
           type="primary"
-          icon="plus"
+          icon={<PlusOutlined />}
         >
           <span>
             <FormattedMessage id="management.browser.create" />

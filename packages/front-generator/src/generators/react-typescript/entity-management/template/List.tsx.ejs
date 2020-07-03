@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import {Link} from "react-router-dom";
 import {IReactionDisposer, reaction} from "mobx";
 
-import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {Modal, Button, List, message} from "antd";
 
 import {collection, injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
@@ -92,7 +92,7 @@ class <%= listComponentClass %>Component extends React.Component<Props> {
           <Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH}>
             <Button htmlType='button'
                     type='primary'
-                    icon='plus'>
+                    icon={<PlusOutlined />}>
               <span><FormattedMessage id='management.browser.create'/></span>
             </Button>
           </Link>

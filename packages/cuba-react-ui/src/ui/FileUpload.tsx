@@ -1,7 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import * as React from 'react';
-import {UploadChangeParam} from 'antd/lib/upload';
+import {UploadChangeParam} from 'antd/es/upload';
 import {IReactionDisposer, observable, reaction} from 'mobx';
 import {observer} from 'mobx-react';
 import {UploadProps} from 'antd/es/upload';

@@ -1,9 +1,10 @@
 import * as React from "react";
 import { FormEvent } from "react";
-import { Alert, Button, Card, Form, message } from "antd";
+import { Form } from "@ant-design/compatible";
+import { Alert, Button, Card, message } from "antd";
 import { observer } from "mobx-react";
 import { CarManagement } from "./CarManagement";
-import { FormComponentProps } from "antd/lib/form";
+import { FormComponentProps } from "@ant-design/compatible/es/form";
 import { Link, Redirect } from "react-router-dom";
 import { IReactionDisposer, observable, reaction, toJS } from "mobx";
 import {

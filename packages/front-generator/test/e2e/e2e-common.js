@@ -4,6 +4,7 @@ const {promisify} = require('util');
 const exec = promisify(require('child_process').exec);
 const fs = require('fs');
 const prettier = require('prettier');
+const updateClientLibs = require('../../../../scripts/update-client-libs')
 
 const EXPECT_DIR = path.join('test', 'e2e', 'expect');
 const GENERATED_DIR = path.join('test', 'e2e', 'generated');
@@ -92,9 +93,8 @@ module.exports = function (generatorName, logFileSuffix) {
     const logCaption = `e2e:react-client:${suffix}:`;
     console.log(`${logCaption} generation complete, start compilation`);
 
-    await cmd(`cd ${appDir} && npm install`,
-      `${logCaption} start install packages for react-client after generation  - npm install, path: ${fs.realpathSync(appDir)}`,
-      `${logCaption} install packages for react-client - DONE`);
+    // Do not use the libs from npm as it may lead to compatibility issues.
+    await updateClientLibs(appDir, ['rest', 'react-core', 'react-ui'], false, path.join(process.cwd(), '..'));
 
     const buildCommand = addEnvVars('npm run build');
     await cmd(`cd ${appDir} && ${buildCommand}`,
