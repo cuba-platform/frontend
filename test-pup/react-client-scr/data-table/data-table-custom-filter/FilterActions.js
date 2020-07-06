@@ -53,14 +53,15 @@ class FilterActions {
   };
 
   openFilter = async (columnIndex) => {
-    const filterSelector = `.ant-table-thead > tr > th:nth-child(${columnIndex + 2}) > i`;
+    const filterSelector = `.ant-table-thead > tr > th:nth-child(${columnIndex + 2}) .ant-table-filter-trigger.ant-dropdown-trigger`;
     await this.page.$eval(filterSelector, e => e.click());
     await this.page.waitForSelector('.ant-dropdown:not(.ant-dropdown-hidden)');
   };
 
   typeTextIntoInput = async (selector, text) => {
     await this.page.waitForSelector(selector);
-    await this.page.type(selector, text);
+    const inputElement = await this.page.$(selector);
+    await inputElement.type(text);
   };
 
   setInputValue = async (attr, value) => {
@@ -71,32 +72,41 @@ class FilterActions {
   setSelectValue = async (attr, value) => {
     const inputSelector = `#${attr}_input`;
     // Open the dropdown.
-    await this.page.$eval(inputSelector, element => element.click());
+    await this.page.waitForSelector(inputSelector);
+    const inputElement = await this.page.$(inputSelector);
+    await inputElement.click();
     const dropdownSelector = `.cuba-value-dropdown-${attr}`;
     const optionClassName = `cuba-filter-value-${value}`;
     const optionSelector = `${dropdownSelector} .${optionClassName}`;
-    await this.page.$eval(optionSelector, element => element.click());
+    await this.page.waitForSelector(optionSelector);
+    const optionElement = await this.page.$(optionSelector);
+    await optionElement.click();
     await this.page.waitForSelector(`.cuba-value-dropdown-${attr}.ant-select-dropdown-hidden`);
   };
 
   setOperator = async (attr, operator) => {
-    await this.page.$eval(`#${attr}_operatorsDropdown`, element => element.click()); // Opens dropdown.
+    const selectElement = await this.page.$(`#${attr}_operatorsDropdown`);
+    await selectElement.click(); // Open dropdown
     const dropdownSelector = `.cuba-operator-dropdown-${attr}`;
     const optionClassName = `cuba-operator-${operator}`;
     const optionSelector = `${dropdownSelector} .${optionClassName}`;
-    await this.page.$eval(optionSelector, element => element.click());
+    await this.page.waitForSelector(optionSelector);
+    const optionElement = await this.page.$(optionSelector);
+    optionElement.click();
     await this.page.waitForSelector(`.cuba-operator-dropdown-${attr}.ant-select-dropdown-hidden`);
   };
 
   applyFilter = async () => {
     const submitBtnSelector = '.ant-dropdown:not(.ant-dropdown-hidden) .cuba-table-filter > .footer > button[type="submit"]';
-    await this.page.$eval(submitBtnSelector, e => e.click());
+    const submitBtnElement = await this.page.$(submitBtnSelector);
+    await submitBtnElement.click();
     await this.page.waitForSelector('.ant-spin'); // Wait to start loading.
     await this.page.waitForSelector('.ant-spin', {hidden: true}); // Wait to finish loading.
   };
 
   expectResults = async (columnIndex, resultsArray, areResultsWrappedInDivs = true) => {
     const table = await this.readTable();
+    table.shift(); // First column is empty values (selection column)
     resultsArray.forEach((result, index) => {
       expect(table[index][columnIndex]).toEqual(areResultsWrappedInDivs ? inDiv(result) : result);
     });

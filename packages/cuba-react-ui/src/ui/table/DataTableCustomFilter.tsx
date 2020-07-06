@@ -166,17 +166,15 @@ class DataTableCustomFilterComponent<E extends WithId>
 
     this.props.form.validateFields((err: any) => {
       if (err == null && this.value != null) {
-        // TODO
-        // const filterState =
-        // this.props.filterProps.setSelectedKeys!(
-        //   [
-        //     JSON.stringify({
-        //       operator: this.operator,
-        //       value: this.value
-        //     })
-        //   ]
-        // );
-        // this.props.filterProps.confirm!();
+        this.props.filterProps.setSelectedKeys!(
+          [
+            JSON.stringify({
+              operator: this.operator,
+              value: this.value
+            })
+          ]
+        );
+        this.props.filterProps.confirm!();
       }
     });
   };
