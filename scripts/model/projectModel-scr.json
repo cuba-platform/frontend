@@ -573,6 +573,21 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "currentCars",
+          "type": {
+            "packageName": "com.company.scr.entity",
+            "className": "Car",
+            "fqn": "com.company.scr.entity.Car",
+            "label": "Car",
+            "entityName": "scr$Car"
+          },
+          "mappingType": "ASSOCIATION",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
         }
       ]
     },
@@ -27274,75 +27289,6 @@
     }
   ],
   "restServices": [
-    {
-      "name": "scr_FavoriteService",
-      "methods": [
-        {
-          "name": "addFavorite",
-          "returnType": "com.company.scr.entity.FavoriteCar",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "car",
-              "type": "com.company.scr.entity.Car"
-            },
-            {
-              "name": "notes",
-              "type": "java.lang.String"
-            }
-          ]
-        },
-        {
-          "name": "addFavorite",
-          "returnType": "com.company.scr.entity.FavoriteCar",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "favInfo",
-              "type": "com.company.scr.service.FavoriteService.FavInfo"
-            }
-          ]
-        },
-        {
-          "name": "addFavorite",
-          "returnType": "void",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "carId",
-              "type": "java.util.UUID"
-            },
-            {
-              "name": "notes",
-              "type": "java.lang.String"
-            }
-          ]
-        },
-        {
-          "name": "getFavorites",
-          "returnType": "java.util.List<com.company.scr.entity.FavoriteCar>",
-          "restInvocationAllowed": true,
-          "params": []
-        },
-        {
-          "name": "getFavoritesByType",
-          "returnType": "java.util.List<com.company.scr.entity.FavoriteCar>",
-          "restInvocationAllowed": true,
-          "params": [
-            {
-              "name": "carType",
-              "type": "com.company.scr.entity.CarType"
-            }
-          ]
-        },
-        {
-          "name": "refreshCache",
-          "returnType": "void",
-          "restInvocationAllowed": true,
-          "params": []
-        }
-      ]
-    },
     {
       "name": "scr_FavoriteService",
       "methods": [
