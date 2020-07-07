@@ -16,14 +16,11 @@ import {
   WithId,
   loadAllAssociationOptions
 } from '@cuba-platform/react-core';
-import { FormComponentProps } from '@ant-design/compatible/lib/form';
-import { GetFieldDecoratorOptions } from '@ant-design/compatible/lib/form/Form';
-import { FormItemProps } from 'antd/es/form';
+import { FormItemProps, FormInstance } from 'antd/es/form';
 import {observer} from 'mobx-react';
 import {Msg} from '../Msg';
 import {FieldPermissionContainer} from './FieldPermssionContainer';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Form } from '@ant-design/compatible';
 import {
   Alert,
   Button,
@@ -37,6 +34,7 @@ import {
   Select,
   Spin,
   TimePicker,
+  Form,
 } from 'antd';
 import {
   Cardinality,
@@ -64,7 +62,7 @@ import {BigDecimalInput} from './BigDecimalInput';
 import {UuidInput} from './UuidInput';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {computed, IObservableArray, IReactionDisposer, observable, reaction, toJS} from 'mobx';
-import {FormEvent} from 'react';
+import {RefObject} from 'react';
 import './EntityEditor.less';
 import './NestedEntitiesTableField.less';
 import './NestedEntityField.less';
@@ -74,10 +72,10 @@ import {clearFieldErrors, constructFieldsWithErrors, extractServerValidationErro
 import {MultilineText} from '../MultilineText';
 import {Spinner} from '../Spinner';
 // noinspection ES6PreferShortImport Importing from ../../index.ts will cause a circular dependency
-import {withLocalizedForm} from '../../i18n/validation';
+import {createAntdFormValidationMessages, withLocalizedForm} from '../../i18n/validation';
 
 
-export interface FieldProps extends MainStoreInjected, FormComponentProps {
+export interface FieldProps extends MainStoreInjected {
   entityName: string;
   propertyName: string;
   /**
@@ -101,25 +99,9 @@ export interface FieldProps extends MainStoreInjected, FormComponentProps {
    */
   disabled?: boolean;
   /**
-   * The value that will be assigned to {@link https://3x.ant.design/components/form/ | Form.Item} `key` property.
-   * If not provided, {@link propertyName} will be used instead.
+   * TODO docs
    */
-  formItemKey?: string;
-  /**
-   * Props that will be passed through to {@link https://3x.ant.design/components/form/ | Form.Item} component.
-   */
-  formItemOpts?: FormItemProps;
-
-  /**
-   * Will be passed as `id` argument to {@link https://3x.ant.design/components/form/ | getFieldDecorator}.
-   * If not provided, {@link propertyName} will be used instead.
-   */
-  fieldDecoratorId?: string;
-  /**
-   * Will be spread into the default options object
-   * and passed as `options` argument to {@link https://3x.ant.design/components/form/ | getFieldDecorator}.
-   */
-  getFieldDecoratorOpts?: GetFieldDecoratorOptions;
+  formItemProps?: FormItemProps;
   /**
    * Props that will be passed through to the underlying component (i.e. the actual component
    * that will be rendered, such as `DatePicker` or `Select`).
@@ -130,58 +112,49 @@ export interface FieldProps extends MainStoreInjected, FormComponentProps {
 // noinspection JSUnusedGlobalSymbols
 export const Field = injectMainStore(observer((props: FieldProps) => {
 
-  const {getFieldDecorator} = props.form;
-
   const {
-    entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps,
-    nestedEntityView, parentEntityInstanceId, disabled
+    entityName, propertyName, optionsContainer, mainStore, componentProps,
+    nestedEntityView, parentEntityInstanceId, disabled, formItemProps
   } = props;
-
-  const formItemOpts: FormItemProps = {... props.formItemOpts};
-  if (!formItemOpts.label) { formItemOpts.label = <Msg entityName={entityName} propertyName={propertyName}/> }
 
   return (
     <FieldPermissionContainer entityName={entityName} propertyName={propertyName} renderField={(isReadOnly: boolean) => {
 
-      return <Form.Item key={formItemKey ? formItemKey : propertyName}
-                        {...formItemOpts}>
-
-        {getFieldDecorator(
-          fieldDecoratorId ? fieldDecoratorId : propertyName,
-          {...getDefaultOptions(mainStore?.metadata, entityName, propertyName), ...getFieldDecoratorOpts}
-        )(
-          <FormField entityName={entityName}
-                     propertyName={propertyName}
-                     disabled={isReadOnly || disabled}
-                     optionsContainer={optionsContainer}
-                     nestedEntityView={nestedEntityView}
-                     parentEntityInstanceId={parentEntityInstanceId}
-                     {...componentProps}
-          />
-        )}
+      return <Form.Item {...{...getDefaultFormItemProps(mainStore?.metadata, entityName, propertyName), ...formItemProps}}>
+        <FormField entityName={entityName}
+                   propertyName={propertyName}
+                   disabled={isReadOnly || disabled}
+                   optionsContainer={optionsContainer}
+                   nestedEntityView={nestedEntityView}
+                   parentEntityInstanceId={parentEntityInstanceId}
+                   {...componentProps}
+        />
       </Form.Item>
 
     }}/>);
 
 }));
 
-function getDefaultOptions(metadata: MetaClassInfo[] | undefined, entityName: string, propertyName: string): GetFieldDecoratorOptions {
+function getDefaultFormItemProps(metadata: MetaClassInfo[] | undefined, entityName: string, propertyName: string): FormItemProps {
+  const formItemProps: FormItemProps = {
+    name: propertyName,
+    label: <Msg entityName={entityName} propertyName={propertyName}/>
+  };
+
   if (!metadata) {
-    return {};
+    return formItemProps;
   }
 
   const propertyInfo = getPropertyInfo(metadata, entityName, propertyName);
 
   if (propertyInfo?.type === 'uuid') {
-    return {
-      rules: [
+    formItemProps.rules = [
         { pattern: uuidPattern }
-      ],
-      validateTrigger: 'onSubmit'
-    };
+      ];
+    formItemProps.validateTrigger = 'onSubmit'; // TODO
   }
 
-  return {};
+  return formItemProps;
 }
 
 export type FormFieldComponentProps = SelectProps<SelectValue> | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
@@ -857,21 +830,24 @@ export interface EntityEditorProps extends MainStoreInjected, WrappedComponentPr
 
 @injectMainStore
 @observer
-class EntityEditorComponent extends React.Component<EntityEditorProps & FormComponentProps> {
+class EntityEditorComponent extends React.Component<EntityEditorProps> {
 
   @observable globalErrors: string[] = [];
 
+  formRef: RefObject<FormInstance> = React.createRef<FormInstance>();
   reactionDisposers: IReactionDisposer[] = [];
 
   componentDidMount(): void {
-    const {form, dataInstance, fields} = this.props;
+    const {dataInstance, fields} = this.props;
 
     this.reactionDisposers.push(reaction(
-      () => dataInstance.item,
+      () => [dataInstance.item, this.formRef.current],
       () => {
-        form.setFieldsValue(
-          dataInstance.getFieldValues(fields)
-        );
+        if (this.formRef.current != null) {
+          this.formRef.current.setFieldsValue(
+            dataInstance.getFieldValues(fields)
+          );
+        }
       },
       {fireImmediately: true}
     ));
@@ -889,48 +865,47 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
       : [];
   }
 
-  handleSubmit = (event: FormEvent) => {
-    const {form, intl, fields, onSubmit} = this.props;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    form.validateFields((clientError: any) => {
-      if (clientError) {
-        message.error(intl.formatMessage({id: "management.editor.validationError"}));
-        return;
-      }
-
-      if (onSubmit) {
-        onSubmit(form.getFieldsValue(fields));
-      } else {
-        this.defaultOnSubmit();
-      }
-    });
+  handleFinish = (values: {[field: string]: any}) => {
+    const {onSubmit} = this.props;
+    if (onSubmit) {
+      onSubmit(values);
+    } else {
+      this.defaultOnSubmit(values);
+    }
   };
 
-  defaultOnSubmit = () => {
-    const {form, fields, dataInstance, intl} = this.props;
+  handleFinishFailed = () => {
+    const {intl} = this.props;
+    message.error(intl.formatMessage({id: "management.editor.validationError"}));
+  };
+
+  defaultOnSubmit = (values: {[field: string]: any}) => {
+    const {dataInstance, intl} = this.props;
+
+    if (this.formRef.current != null) { // Normally it should not be null at this point
+      clearFieldErrors(this.formRef.current);
+    }
 
     dataInstance
-      .update(form.getFieldsValue(fields))
+      .update(values)
       .then(() => {
         message.success(intl.formatMessage({ id: "management.editor.success" }));
       })
       .catch((serverError: any) => {
         if (serverError.response && typeof serverError.response.json === "function") {
           serverError.response.json().then((response: any) => {
-            clearFieldErrors(form);
-            const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
-            this.globalErrors = globalErrors;
-            if (fieldErrors.size > 0) {
-              form.setFields(constructFieldsWithErrors(fieldErrors, form));
-            }
+            if (this.formRef.current != null) { // Normally it should not be null at this point
+              const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
+              this.globalErrors = globalErrors;
+              if (fieldErrors.size > 0) {
+                this.formRef.current.setFields(constructFieldsWithErrors(fieldErrors, this.formRef.current));
+              }
 
-            if (fieldErrors.size > 0 || globalErrors.length > 0) {
-              message.error(intl.formatMessage({id: "management.editor.validationError"}));
-            } else {
-              message.error(intl.formatMessage({id: "management.editor.error"}));
+              if (fieldErrors.size > 0 || globalErrors.length > 0) {
+                message.error(intl.formatMessage({id: "management.editor.validationError"}));
+              } else {
+                message.error(intl.formatMessage({id: "management.editor.error"}));
+              }
             }
           });
         } else {
@@ -946,21 +921,23 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
     return associationOptions.get(entityName);
   };
 
-  getFieldDecoratorOpts = (property: MetaPropertyInfo): GetFieldDecoratorOptions => {
-    const opts: GetFieldDecoratorOptions = {};
+  getFormItemProps = (property: MetaPropertyInfo): FormItemProps => {
+    const formItemProps: FormItemProps = {
+      style: { marginBottom: "12px" }
+    };
 
     if (property.mandatory) {
-      opts.rules = [{required: true}];
+      formItemProps.rules = [{required: true}];
     }
     if (property.type === 'boolean') {
-      opts.valuePropName = 'checked';
+      formItemProps.valuePropName = 'checked';
     }
 
-    return opts;
+    return formItemProps;
   };
 
   render() {
-    const {mainStore, dataInstance, onCancel, submitButtonText} = this.props;
+    const {mainStore, dataInstance, onCancel, submitButtonText, intl} = this.props;
 
     if (!mainStore?.isEntityDataLoaded()) { return <Spinner/> }
 
@@ -968,7 +945,13 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
 
     return (
       <Card className="narrow-layout">
-        <Form onSubmit={this.handleSubmit} layout="vertical" className={'cuba-entity-editor'}>
+        <Form onFinish={this.handleFinish}
+              onFinishFailed={this.handleFinishFailed}
+              layout="vertical"
+              className={'cuba-entity-editor'}
+              ref={this.formRef}
+              validateMessages={createAntdFormValidationMessages(intl)}
+        >
           {this.renderFields()}
           {this.globalErrors.length > 0 && (
             <Alert
@@ -999,7 +982,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
   }
 
   renderFields() {
-    const {entityName, form} = this.props;
+    const {entityName} = this.props;
 
     return this.entityProperties.map(property => {
       return (
@@ -1007,9 +990,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
           entityName={entityName}
           propertyName={property.name}
           key={property.name}
-          form={form}
-          formItemOpts={{ style: { marginBottom: "12px" } }}
-          getFieldDecoratorOpts={this.getFieldDecoratorOpts(property)}
+          formItemProps={this.getFormItemProps(property)}
           optionsContainer={this.getOptionsContainer(property.type)}
         />
       );
@@ -1018,19 +999,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
 
 }
 
-// TODO temporarily using withLocalizedForm<any>
-const EntityEditor = injectIntl<'intl', EntityEditorProps>(withLocalizedForm<any>({
-  onValuesChange: (theProps: any, changedValues: any) => {
-    // Reset server-side errors when field is edited
-    Object.keys(changedValues).forEach((fieldName: string) => {
-      theProps.form.setFields({
-        [fieldName]: {
-          value: changedValues[fieldName]
-        }
-      });
-    });
-  }
-})(EntityEditorComponent));
+const EntityEditor = injectIntl<'intl', EntityEditorProps>(EntityEditorComponent);
 
 export function getEntityProperties(entityName: string, fields: string[], metadata: MetaClassInfo[]): MetaPropertyInfo[] {
   const allProperties = metadata.find((classInfo: MetaClassInfo) => classInfo.entityName === entityName)

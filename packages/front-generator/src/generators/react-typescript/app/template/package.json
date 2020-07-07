@@ -7,7 +7,6 @@
     "@cuba-platform/react-ui": "^1.0.0",
     "@cuba-platform/rest": "^1.0.0",
     "@ant-design/icons": "^4.0.0",
-    "@ant-design/compatible": "^1.0.0",
     "antd": "^4.0.0",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
