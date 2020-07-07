@@ -20,7 +20,15 @@ export type ClassCreationContext = ModelContext & {
   isBaseProjectEntity: boolean
 }
 
-
+/**
+ *
+ * Generate TS entity classes from ProjectModel, write generated files to destDir
+ *
+ * @param projectModel project model entities generated from
+ * @param destDir where created TS files should be placed, also need to compute correct imports in generated TS files
+ * @param fs Yeoman MemFs editor
+ * @return model context contains entity and enum maps with fqn as key
+ */
 export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): ModelContext {
   const {entitiesMap, enumsMap} = collectModelContext(projectModel);
   for (const [, entityInfo] of entitiesMap) {
@@ -184,6 +192,12 @@ function createUnionWithNull(node: ts.TypeNode): ts.TypeNode {
   ]);
 }
 
+/**
+ * TS attribute type - could be primitive, enum or entity class (single or array, depends on relation cardinality)
+ *
+ * @param entityAttr attribute which type should be computed
+ * @param ctx context of attribute owner class
+ */
 function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationContext): {
   node: ts.TypeNode
   importInfo: ImportInfo | undefined
