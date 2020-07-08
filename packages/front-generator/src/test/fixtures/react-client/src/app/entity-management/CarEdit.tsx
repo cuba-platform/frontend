@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FormEvent } from "react";
-import { Form } from "@ant-design/compatible";
+import { Form } from "antd";
 import { Alert, Button, Card, message } from "antd";
 import { observer } from "mobx-react";
 import { CarManagement } from "./CarManagement";

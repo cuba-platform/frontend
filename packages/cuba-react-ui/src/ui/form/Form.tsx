@@ -60,7 +60,7 @@ import {DoubleInput} from './DoubleInput';
 import {LongInput} from './LongInput';
 import {BigDecimalInput} from './BigDecimalInput';
 import {UuidInput} from './UuidInput';
-import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+import {FormattedMessage, injectIntl, WrappedComponentProps, IntlShape} from 'react-intl';
 import {computed, IObservableArray, IReactionDisposer, observable, reaction, toJS} from 'mobx';
 import {RefObject} from 'react';
 import './EntityEditor.less';
@@ -68,11 +68,16 @@ import './NestedEntitiesTableField.less';
 import './NestedEntityField.less';
 import {DataTable} from '../table/DataTable';
 // noinspection ES6PreferShortImport Importing from ../../index.ts will cause a circular dependency
-import {clearFieldErrors, constructFieldsWithErrors, extractServerValidationErrors} from '../../util/errorHandling';
+import {
+  clearFieldErrors,
+  constructFieldsWithErrors,
+  extractServerValidationErrors
+} from '../../util/errorHandling';
 import {MultilineText} from '../MultilineText';
 import {Spinner} from '../Spinner';
 // noinspection ES6PreferShortImport Importing from ../../index.ts will cause a circular dependency
-import {createAntdFormValidationMessages, withLocalizedForm} from '../../i18n/validation';
+import {createAntdFormValidationMessages} from '../../i18n/validation';
+import {CommitMode} from '@cuba-platform/rest';
 
 
 export interface FieldProps extends MainStoreInjected {
@@ -833,8 +838,8 @@ export interface EntityEditorProps extends MainStoreInjected, WrappedComponentPr
 class EntityEditorComponent extends React.Component<EntityEditorProps> {
 
   @observable globalErrors: string[] = [];
+  @observable formRef: RefObject<FormInstance> = React.createRef<FormInstance>();
 
-  formRef: RefObject<FormInstance> = React.createRef<FormInstance>();
   reactionDisposers: IReactionDisposer[] = [];
 
   componentDidMount(): void {
@@ -866,54 +871,21 @@ class EntityEditorComponent extends React.Component<EntityEditorProps> {
   }
 
   handleFinish = (values: {[field: string]: any}) => {
-    const {onSubmit} = this.props;
+    const {onSubmit, dataInstance, intl} = this.props;
     if (onSubmit) {
       onSubmit(values);
     } else {
-      this.defaultOnSubmit(values);
+      if (this.formRef.current != null) {
+        defaultHandleFinish(values, dataInstance, intl, this.formRef.current).then(({globalErrors}) => {
+          this.globalErrors = globalErrors;
+        });
+      }
     }
   };
 
   handleFinishFailed = () => {
     const {intl} = this.props;
     message.error(intl.formatMessage({id: "management.editor.validationError"}));
-  };
-
-  defaultOnSubmit = (values: {[field: string]: any}) => {
-    const {dataInstance, intl} = this.props;
-
-    if (this.formRef.current != null) { // Normally it should not be null at this point
-      clearFieldErrors(this.formRef.current);
-    }
-
-    dataInstance
-      .update(values)
-      .then(() => {
-        message.success(intl.formatMessage({ id: "management.editor.success" }));
-      })
-      .catch((serverError: any) => {
-        if (serverError.response && typeof serverError.response.json === "function") {
-          serverError.response.json().then((response: any) => {
-            if (this.formRef.current != null) { // Normally it should not be null at this point
-              const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
-              this.globalErrors = globalErrors;
-              if (fieldErrors.size > 0) {
-                this.formRef.current.setFields(constructFieldsWithErrors(fieldErrors, this.formRef.current));
-              }
-
-              if (fieldErrors.size > 0 || globalErrors.length > 0) {
-                message.error(intl.formatMessage({id: "management.editor.validationError"}));
-              } else {
-                message.error(intl.formatMessage({id: "management.editor.error"}));
-              }
-            }
-          });
-        } else {
-          message.error(
-            intl.formatMessage({ id: "management.editor.error" })
-          );
-        }
-      });
   };
 
   getOptionsContainer = (entityName: string): DataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined => {
@@ -998,6 +970,46 @@ class EntityEditorComponent extends React.Component<EntityEditorProps> {
   }
 
 }
+
+export const defaultHandleFinish = <E extends unknown>(
+  values: Record<string, any>,
+  dataInstance: DataInstanceStore<E>,
+  intl: IntlShape,
+  formInstance: FormInstance,
+  commitMode?: CommitMode,
+): Promise<{success: boolean, globalErrors: string[]}> => {
+  clearFieldErrors(formInstance);
+
+  return dataInstance
+    .update(values, commitMode)
+    .then(() => {
+      message.success(intl.formatMessage({ id: "management.editor.success" }));
+      return {success: true, globalErrors: []};
+    })
+    .catch((serverError: any) => {
+      if (serverError.response && typeof serverError.response.json === "function") {
+        return serverError.response.json().then((response: any) => {
+          const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
+          if (fieldErrors.size > 0) {
+            formInstance.setFields(constructFieldsWithErrors(fieldErrors, formInstance));
+          }
+
+          if (fieldErrors.size > 0 || globalErrors.length > 0) {
+            message.error(intl.formatMessage({id: "management.editor.validationError"}));
+          } else {
+            message.error(intl.formatMessage({id: "management.editor.error"}));
+          }
+
+          return {success: false, globalErrors};
+        });
+      } else {
+        message.error(
+          intl.formatMessage({ id: "management.editor.error" })
+        );
+        return {success: false, globalErrors: []};
+      }
+    });
+};
 
 const EntityEditor = injectIntl<'intl', EntityEditorProps>(EntityEditorComponent);
 

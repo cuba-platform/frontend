@@ -16,10 +16,10 @@ import {
 } from './DataTableCustomFilter';
 import { toJS } from 'mobx';
 import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
-import { WrappedFormUtils } from '@ant-design/compatible/es/form/Form';
 import {OperatorType, FilterValue} from "@cuba-platform/rest";
 import {setPagination} from "../paging/Paging";
 import {Key} from 'antd/es/table/interface';
+import { FormInstance } from 'antd/es/form';
 
 // todo we should not use '*Helpers' in class name in case of lack semantic. This class need to be split
 //  to different files like 'DataColumn', 'Conditions', 'Filters', 'Paging' ot something like this
@@ -54,9 +54,9 @@ export interface DataColumnConfig {
   enableSorter: boolean,
   mainStore: MainStore,
   /**
-   * See {@link DataTableCustomFilterProps.ref}
+   * See {@link DataTableCustomFilterProps.formRef}
    */
-  customFilterRef?: (instance: WrappedFormUtils) => void
+  customFilterRef?: (instance: FormInstance) => void
 }
 
 /**
@@ -254,8 +254,6 @@ export function generateEnumFilter(propertyInfo: MetaPropertyInfo, mainStore: Ma
   });
 }
 
-type RefCallback = string & ((instance: WrappedFormUtils) => void);
-
 // todo - after extraction DataColumn class move this method to DataColumn and inline
 export function generateCustomFilterDropdown(
   propertyName: string,
@@ -264,7 +262,7 @@ export function generateCustomFilterDropdown(
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
   value: any,
   onValueChange: (value: any, propertyName: string) => void,
-  customFilterRefCallback?: (instance: WrappedFormUtils) => void,
+  customFilterRefCallback?: (instance: FormInstance) => void,
 ): (props: FilterDropdownProps) => React.ReactNode {
 
   return (props: FilterDropdownProps) => (
@@ -275,7 +273,7 @@ export function generateCustomFilterDropdown(
                   onOperatorChange={onOperatorChange}
                   value={value}
                   onValueChange={onValueChange}
-                  ref={customFilterRefCallback as RefCallback}
+                  ref={customFilterRefCallback}
     />
   )
 

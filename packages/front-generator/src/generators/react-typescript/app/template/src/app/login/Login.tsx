@@ -1,6 +1,6 @@
 import * as React from "react";
-import {ChangeEvent, FormEvent} from "react";
-import { Form } from '@ant-design/compatible';
+import {ChangeEvent} from "react";
+import { Form } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {Button, Input, message} from "antd";
 import {observer} from "mobx-react";
@@ -30,8 +30,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
   };
 
   @action
-  doLogin = (e: FormEvent) => {
-    e.preventDefault();
+  doLogin = () => {
     this.performingLoginRequest = true;
     this.props.mainStore!.login(this.login, this.password)
       .then(action(() => {
@@ -50,7 +49,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
         <div className='title'>
           <%= title %>
         </div>
-        <Form layout='vertical' onSubmit={this.doLogin}>
+        <Form layout='vertical' onFinish={this.doLogin}>
           <Form.Item>
             <Input id='input_login'
                    placeholder={this.props.intl.formatMessage({id: 'login.placeholder.login'})}

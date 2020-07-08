@@ -1,10 +1,8 @@
-import { Form } from '@ant-design/compatible';
-import { GetFieldDecoratorOptions } from '@ant-design/compatible/es/form/Form';
+import { Form } from 'antd';
 import { Button, DatePicker, TimePicker } from 'antd';
 import moment, {Moment} from 'moment';
 import * as React from 'react';
 import {action, observable} from 'mobx';
-import {ReactNode} from 'react';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {getDataTransferFormat, getDisplayFormat} from '@cuba-platform/react-core';
 import {PropertyType} from '@cuba-platform/rest';
@@ -13,8 +11,6 @@ import {stripMilliseconds} from '@cuba-platform/react-core';
 
 interface DataTableListEditorDateTimePickerProps {
   id: string;
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
   onInputChange: (value: string, caption: string) => void;
   onInputConfirm: () => void;
   propertyType: PropertyType;
@@ -45,7 +41,7 @@ class DataTableListEditorDateTimePickerComponent extends React.Component<DataTab
       />
     );
     const datePickerInput = decorateAndWrapInFormItem(
-      datePicker, this.props.id, this.props.getFieldDecorator, this.props.intl, true
+      datePicker, this.props.id, this.props.intl, true
     );
 
     const timePicker = (
@@ -55,7 +51,7 @@ class DataTableListEditorDateTimePickerComponent extends React.Component<DataTab
       />
     );
     const timePickerInput = decorateAndWrapInFormItem(
-      timePicker, this.props.id, this.props.getFieldDecorator, this.props.intl, true
+      timePicker, this.props.id, this.props.intl, true
     );
 
     return (

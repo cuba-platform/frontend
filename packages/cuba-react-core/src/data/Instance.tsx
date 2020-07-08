@@ -123,7 +123,7 @@ export class DataInstanceStore<T> implements DataContainer {
    * @returns a promise that resolves to the update result returned by the REST API.
    */
   @action
-  update(entityPatch: Partial<T>, commitMode?: CommitMode): Promise<any> {
+  update(entityPatch: Record<string, any>, commitMode?: CommitMode): Promise<any> {
     const normalizedPatch: Record<string, any> = formFieldsToInstanceItem(entityPatch, this.entityName, toJS(this.mainStore.metadata!), this.stringIdName);
     Object.assign(this.item, normalizedPatch);
     return this.commit(commitMode);

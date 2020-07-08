@@ -1,13 +1,12 @@
 import * as React from "react";
-import {FormEvent} from "react";
-import {Form} from '@ant-design/compatible';
-import {Alert, Button, Card, message} from "antd";
+import {Form, Alert, Button, Card, message} from "antd";
+import {FormInstance} from "antd/es/form";
 import {observer} from "mobx-react";
 import {<%= className %>} from "./<%= className %>";
-import {FormComponentProps} from '@ant-design/compatible/es/form';
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+import {defaultHandleFinish, createAntdFormValidationMessages} from '@cuba-platform/react-ui';
 
 import {
 <% if (Object.keys(editAssociations).length > 0) { %>
@@ -21,10 +20,6 @@ import {
 <% if (editAttributes.length > 0) { %>
   Field,
 <% } %>
-  withLocalizedForm,
-  extractServerValidationErrors,
-  constructFieldsWithErrors,
-  clearFieldErrors,
   MultilineText,
   Spinner
 } from "@cuba-platform/react-ui";
@@ -35,7 +30,7 @@ import "<%= relDirShift %>app/App.css";
   import {<%= relationImport.className %>} from "<%= relDirShift %><%= relationImport.path %>";
 <% }) %>
 
-type Props = FormComponentProps & EditorProps & MainStoreInjected;
+type Props = EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
@@ -58,7 +53,7 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
   <% }) %>
 
   @observable updated = false;
-  @observable formRef: React.RefObject<Form> = React.createRef();
+  @observable formRef: React.RefObject<FormInstance> = React.createRef<FormInstance>();
   reactionDisposers: IReactionDisposer[] = [];
 
   fields = [
@@ -86,42 +81,25 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
   };
   <% } %>
 
-  handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (err) {
-        message.error(this.props.intl.formatMessage({id: 'management.editor.validationError'}));
-        return;
-      }
-      this.dataInstance
-        .update(this.props.form.getFieldsValue(this.fields), this.isNewEntity() ? 'create' : 'edit')
-        .then(() => {
-          message.success(this.props.intl.formatMessage({id: 'management.editor.success'}));
-          this.updated = true;
-        })
-        .catch((e: any) => {
-          if (e.response && typeof e.response.json === "function") {
-            e.response.json().then((response: any) => {
-              clearFieldErrors(this.props.form);
-              const { globalErrors, fieldErrors } = extractServerValidationErrors(response);
-              this.globalErrors = globalErrors;
-              if (fieldErrors.size > 0) {
-                this.props.form.setFields(constructFieldsWithErrors(fieldErrors, this.props.form));
-              }
+  handleFinishFailed = () => {
+    const {intl} = this.props;
+    message.error(intl.formatMessage({id: "management.editor.validationError"}));
+  };
 
-              if (fieldErrors.size > 0 || globalErrors.length > 0) {
-                message.error(this.props.intl.formatMessage({id: "management.editor.validationError"}));
-              } else {
-                message.error(this.props.intl.formatMessage({id: "management.editor.error"}));
-              }
-            });
-          } else {
-            message.error(
-              this.props.intl.formatMessage({ id: "management.editor.error" })
-            );
-          }
-        });
-    });
+  handleFinish = (values: {[field: string]: any}) => {
+    const {intl} = this.props;
+
+    if (this.formRef.current != null) {
+      defaultHandleFinish(
+        values, this.dataInstance, intl, this.formRef.current, this.isNewEntity() ? 'create' : 'edit'
+      ).then(({success, globalErrors}) => {
+        if (success) {
+          this.updated = true;
+        } else {
+          this.globalErrors = globalErrors;
+        }
+      });
+    }
   };
 
   isNewEntity = () => {
@@ -135,22 +113,23 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
     }
 
     const {status} = this.dataInstance;
-    const {mainStore} = this.props;
+    const {mainStore, intl} = this.props;
     if (mainStore == null || !mainStore.isEntityDataLoaded()) {
       return <Spinner/>;
     }
 
     return (
       <Card className='narrow-layout'>
-        <Form onSubmit={this.handleSubmit}
+        <Form onFinish={this.handleFinish}
+              onFinishFailed={this.handleFinishFailed}
               layout='vertical'
-              ref={this.formRef}>
+              ref={this.formRef}
+              validateMessages={createAntdFormValidationMessages(intl)}
+        >
 
           <% editAttributes.forEach(attr => { %>
             <Field entityName={<%= entity.className %>.NAME}
                    propertyName="<%= attr.name %>"
-                   form={ this.props.form }
-                   formItemOpts={ {style: {marginBottom: "12px"} } }
 
               <% if (attr.name === locals.stringIdName) { %>
                 disabled={!this.isNewEntity()}
@@ -167,13 +146,14 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
                    optionsContainer={this.<%= attr.name %>sDc}
               <% } %>
 
-                   getFieldDecoratorOpts={{
-            <% if (attr.mandatory) { %>
-                   rules: [{required: true}],
-              <% } %>
-            <% if (attr.type && attr.type.fqn === 'java.lang.Boolean') { %>
-                   valuePropName: "checked",
-              <% } %>
+                   formItemProps={{
+                     style: {marginBottom: "12px"},
+                   <% if (attr.mandatory) { %>
+                     rules: [{required: true}],
+                   <% } %>
+                   <% if (attr.type && attr.type.fqn === 'java.lang.Boolean') { %>
+                     valuePropName: "checked",
+                   <% } %>
                    }}
             /> <%# end Field %>
           <% }) %>
@@ -237,7 +217,7 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
           this.reactionDisposers.push( reaction(
             () => this.dataInstance.item,
             () => {
-              this.props.form.setFieldsValue(
+              formRefCurrent.setFieldsValue(
                 this.dataInstance.getFieldValues(this.fields)
               );
             },
@@ -256,15 +236,4 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
 
 }
 
-export default injectIntl(withLocalizedForm<EditorProps>({
-  onValuesChange: (props: any, changedValues: any) => {
-    // Reset server-side errors when field is edited
-    Object.keys(changedValues).forEach((fieldName: string) => {
-      props.form.setFields({
-        [fieldName]: {
-          value: changedValues[fieldName]
-        }
-      })
-    });
-  }
-})(<%= editComponentClass %>Component));
+export default injectIntl(<%= editComponentClass %>Component);

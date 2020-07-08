@@ -1,10 +1,10 @@
 import {IntlShape} from 'react-intl';
-import { GetFieldDecoratorOptions } from '@ant-design/compatible/es/form/Form';
 import React, {ReactNode} from 'react';
-import { Form } from '@ant-design/compatible';
+import { Form } from 'antd';
+import { FormItemProps } from 'antd/es/form';
 
-export function getDefaultFieldDecoratorOptions(intl: IntlShape): GetFieldDecoratorOptions {
-  return {
+export function getDefaultFormItemProps(intl: IntlShape, name?: string): FormItemProps {
+  const formItemProps: FormItemProps = {
     initialValue: null,
     rules: [
       {
@@ -13,27 +13,27 @@ export function getDefaultFieldDecoratorOptions(intl: IntlShape): GetFieldDecora
       }
     ]
   };
+  if (name != null) {
+    formItemProps.name = name;
+  }
+  return formItemProps;
 }
 
 export function decorateAndWrapInFormItem(
   children: ReactNode,
   parentId: string,
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode,
   intl: IntlShape,
   hasFeedback: boolean = false,
-  options?: GetFieldDecoratorOptions,
+  formItemProps?: FormItemProps,
   additionalClassName?: string,
 ): ReactNode {
-  if (!options) {
-    options = getDefaultFieldDecoratorOptions(intl);
+  if (!formItemProps) {
+    formItemProps = getDefaultFormItemProps(intl, parentId);
   }
 
   return (
-    <Form.Item hasFeedback={hasFeedback} className={`filtercontrol ${additionalClassName || ''}`}>
-      {getFieldDecorator(`${parentId}_input`, options)(
-        children
-      )}
+    <Form.Item hasFeedback={hasFeedback} className={`filtercontrol ${additionalClassName || ''}`} {...formItemProps}>
+      {children}
     </Form.Item>
   );
 }

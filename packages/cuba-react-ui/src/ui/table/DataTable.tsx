@@ -14,7 +14,7 @@ import {
   handleTableChange,
   isPreservedCondition
 } from './DataTableHelpers';
-import {Condition, ConditionsGroup, EntityAttrPermissionValue} from "@cuba-platform/rest";
+import {Condition, ConditionsGroup, EntityAttrPermissionValue, SerializedEntity} from "@cuba-platform/rest";
 import {
   MainStoreInjected,
   DataCollectionStore,
@@ -23,7 +23,7 @@ import {
   getPropertyInfoNN,
   WithId
 } from '@cuba-platform/react-core';
-import { WrappedFormUtils } from '@ant-design/compatible/es/form/Form';
+import { FormInstance } from 'antd/es/form';
 
 /**
  * @typeparam E - entity type.
@@ -132,7 +132,7 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
   disposers: IReactionDisposer[] = [];
 
   firstLoad: boolean = true;
-  customFilterForms: Map<string, WrappedFormUtils> = new Map<string, WrappedFormUtils>();
+  customFilterForms: Map<string, FormInstance> = new Map<string, FormInstance>();
   // todo introduce Sort type
   defaultSort: string | undefined;
 
@@ -163,7 +163,7 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
         if (this.isRowSelectionEnabled && this.selectedRowKeys.length > 0 && dataCollection.status === 'DONE') {
 
           const items = dataCollection.items;
-          const displayedRowKeys = items.map(item => this.constructRowKey(item));
+          const displayedRowKeys = items.map((item: SerializedEntity<E>) => this.constructRowKey(item));
 
           const displayedSelectedKeys: string[] = [];
 
@@ -350,7 +350,7 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
       }
     });
 
-    this.customFilterForms.forEach(form => {
+    this.customFilterForms.forEach((form: FormInstance) => {
       form.resetFields(); // Reset Ant Form in CustomFilter
     });
 
@@ -453,7 +453,7 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
     const {filter} =  this.props.dataCollection;
 
     return filter != null && filter.conditions != null
-      && filter.conditions.some(condition => !isPreservedCondition(condition, this.fields));
+      && filter.conditions.some((condition: Condition | ConditionsGroup) => !isPreservedCondition(condition, this.fields));
   }
 
   @computed
@@ -493,7 +493,7 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
             onValueChange: this.handleFilterValueChange,
             enableSorter: true,
             mainStore: mainStore!,
-            customFilterRef: (instance: WrappedFormUtils) => this.customFilterForms.set(propertyName, instance)
+            customFilterRef: (instance: FormInstance) => this.customFilterForms.set(propertyName, instance)
           });
 
           return {

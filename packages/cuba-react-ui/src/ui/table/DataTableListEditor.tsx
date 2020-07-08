@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action, observable, computed} from "mobx";
 import { PlusOutlined } from '@ant-design/icons';
-import { Form } from '@ant-design/compatible';
+import { Form } from 'antd';
 import { DatePicker, Input, Select, Tag, TimePicker, Tooltip, InputNumber } from "antd";
 import {observer} from "mobx-react";
 import moment, {Moment} from "moment";
@@ -9,7 +9,6 @@ import {CaptionValuePair} from "./DataTableCustomFilter";
 import {DataTableListEditorDateTimePicker} from './DataTableListEditorDateTimePicker';
 import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
 import {ReactNode, Ref} from 'react';
-import { GetFieldDecoratorOptions } from '@ant-design/compatible/es/form/Form';
 import {FormattedMessage} from 'react-intl';
 import {IntegerInput} from '../form/IntegerInput';
 import {DoubleInput} from '../form/DoubleInput';
@@ -23,8 +22,6 @@ interface DataTableListEditorProps {
   onChange: (items: string[] | number []) => void,
   id: string,
   propertyInfo: MetaPropertyInfo,
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode,
   nestedEntityOptions: CaptionValuePair[]
 }
 
@@ -85,12 +82,8 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
     }
   }
 
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator!: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
-
   componentDidMount(): void {
     this.availableOptions = [ ...this.props.nestedEntityOptions ];
-    this.getFieldDecorator = this.props.getFieldDecorator;
   }
 
   @action
@@ -277,8 +270,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         );
       case DataTableListEditorType.DATETIME:
         return (
-          <DataTableListEditorDateTimePicker getFieldDecorator={this.getFieldDecorator}
-                                             id={this.props.id}
+          <DataTableListEditorDateTimePicker id={this.props.id}
                                              onInputChange={this.handleInputChange}
                                              onInputConfirm={this.handleInputConfirm}
                                              propertyType={this.props.propertyInfo.type as PropertyType}

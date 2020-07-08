@@ -19,7 +19,6 @@ export default {
   ],
   external: [
     '@ant-design/icons',
-    '@ant-design/compatible',
     '@cuba-platform/rest',
     '@cuba-platform/react-core',
     'antd',
