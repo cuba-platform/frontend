@@ -54,7 +54,7 @@ export interface DataColumnConfig {
   enableSorter: boolean,
   mainStore: MainStore,
   /**
-   * See {@link DataTableCustomFilterProps.formRef}
+   * See {@link DataTableCustomFilterProps.customFilterRef}
    */
   customFilterRef?: (instance: FormInstance) => void
 }
@@ -273,7 +273,7 @@ export function generateCustomFilterDropdown(
                   onOperatorChange={onOperatorChange}
                   value={value}
                   onValueChange={onValueChange}
-                  ref={customFilterRefCallback}
+                  customFilterRef={customFilterRefCallback}
     />
   )
 

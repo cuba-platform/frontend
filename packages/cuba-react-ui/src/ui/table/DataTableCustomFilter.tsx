@@ -1,4 +1,4 @@
-import React, {ReactNode, RefObject} from 'react';
+import React, {ReactNode} from 'react';
 import { Form } from 'antd';
 import { Button, DatePicker, Divider, Input, message, Select, Spin, TimePicker } from 'antd';
 import {FilterDropdownProps} from 'antd/es/table/interface';
@@ -61,7 +61,7 @@ export interface DataTableCustomFilterProps extends MainStoreInjected {
    */
   value: CustomFilterInputValue,
   onValueChange: (value: CustomFilterInputValue, propertyName: string) => void,
-  formRef: (formInstance: FormInstance) => void
+  customFilterRef?: (formInstance: FormInstance) => void
 }
 
 export type ComparisonType = OperatorType | 'inInterval';
@@ -81,7 +81,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @observable nestedEntityOptions: CaptionValuePair[] = [];
   @observable loading = true;
 
-  formRef: RefObject<FormInstance> = React.createRef();
+  formInstance: FormInstance | undefined;
 
   set operator(operator: ComparisonType) {
     const oldOperator: ComparisonType = this.operator;
@@ -177,7 +177,27 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   setFormRef = (formInstance: FormInstance) => {
-    this.formRef
+    const {customFilterRef} = this.props;
+    if (customFilterRef != null) {
+      customFilterRef(formInstance);
+    }
+    this.formInstance = formInstance;
+  };
+
+  resetFormFields = (newOperator: ComparisonType) => {
+    if (this.formInstance != null) {
+      const fieldsToReset: string[] = [];
+      if (!isComplexOperator(newOperator)) {
+        fieldsToReset.push(this.props.entityProperty);
+      } else if (newOperator === 'inInterval') {
+        // TODO We have a bunch of `Form.Item`s without `name`s - can they be removed?
+        fieldsToReset.push(
+          `${this.props.entityProperty}_predefined`,
+          `${this.props.entityProperty}_number`,
+        );
+      }
+      this.formInstance.resetFields(fieldsToReset);
+    }
   };
 
   initValue = (operator: ComparisonType = this.operator): void => {
@@ -194,7 +214,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   resetFilter = (): void => {
     const {filterProps} = this.props;
 
-    this.formRef.current?.resetFields();
+    this.formInstance?.resetFields();
     this.operator = this.getDefaultOperator();
 
     // @ts-ignore TODO
@@ -210,8 +230,8 @@ class DataTableCustomFilterComponent<E extends WithId>
     const oldOperatorGroup: OperatorGroup = determineOperatorGroup(oldOperator);
     const newOperatorGroup: OperatorGroup = determineOperatorGroup(newOperator);
 
-    if (oldOperatorGroup !== newOperatorGroup && this.formRef.current != null) {
-      this.formRef.current.resetFields();
+    if (oldOperatorGroup !== newOperatorGroup && this.formInstance != null) {
+      this.resetFormFields(newOperator);
       this.initValue(newOperator);
     }
   };
