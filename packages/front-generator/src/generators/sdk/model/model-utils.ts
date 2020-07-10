@@ -8,6 +8,10 @@ export type ModelContext = {
   enumsMap: Map<string, EnumDeclaration>
 }
 
+/**
+ * @param projectModel model context collected from
+ * @return entity and enum map with fqn as key
+ */
 export function collectModelContext(projectModel: ProjectModel) {
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
   const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);

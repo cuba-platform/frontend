@@ -577,6 +577,21 @@
           "unique": false,
           "length": "255",
           "transient": false
+        },
+        {
+          "name": "currentCars",
+          "type": {
+            "packageName": "com.company.scr.entity",
+            "className": "Car",
+            "fqn": "com.company.scr.entity.Car",
+            "label": "Car",
+            "entityName": "scr$Car"
+          },
+          "mappingType": "ASSOCIATION",
+          "readOnly": false,
+          "mandatory": false,
+          "unique": false,
+          "transient": true
         }
       ]
     },

@@ -1,5 +1,6 @@
 package com.company.scr.entity;
 
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.OnDelete;
@@ -40,6 +41,18 @@ public class Garage extends StandardEntity {
 
     @Column(name = "WORKING_HOURS_TO")
     protected LocalTime workingHoursTo;
+
+    @Transient
+    @MetaProperty
+    protected List<Car> currentCars;
+
+    public List<Car> getCurrentCars() {
+        return currentCars;
+    }
+
+    public void setCurrentCars(List<Car> currentCars) {
+        this.currentCars = currentCars;
+    }
 
     public LocalTime getWorkingHoursTo() {
         return workingHoursTo;

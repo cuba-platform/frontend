@@ -10,7 +10,6 @@ import {
 import {generateEntities} from "./model/entities-generation";
 import {generateServices} from "./services/services-generation";
 import {generateQueries} from "./services/queries-generation";
-import {collectModelContext} from "./model/model-utils";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -81,9 +80,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
       const runMode = this.runMode.toString().toLowerCase();
       this.log(`Generating sdk:${runMode} to ${this.destinationPath()}`);
 
-      generateEntities(this.cubaProjectModel, path.join(this.destinationRoot()), this.fs);
-
-      const ctx = collectModelContext(this.cubaProjectModel);
+      const ctx = generateEntities(this.cubaProjectModel, path.join(this.destinationRoot()), this.fs);
 
       if (this.runMode == RunMode.ALL) {
         const services = generateServices(restServices, ctx);
