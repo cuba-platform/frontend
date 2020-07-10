@@ -11,7 +11,6 @@ import {collectAttributesFromHierarchy, findEntity} from "../../../common/model/
 import {EntityTemplateModel, getEntityPath} from "../common/template-model";
 import * as entityManagementEn from "./entity-management-en.json";
 import * as entityManagementRu from "./entity-management-ru.json";
-import * as entityManagementFr from "./entity-management-fr.json";
 import {writeI18nMessages} from "../common/i18n";
 
 class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswers, EntityManagementTemplateModel, PolymerElementOptions> {
@@ -49,7 +48,7 @@ class ReactEntityManagementGenerator extends BaseGenerator<EntityManagementAnswe
       this.destinationPath(editComponentName + extension), this.model
     );
 
-    writeI18nMessages(this.fs, className, this.options.dirShift, entityManagementEn, entityManagementRu,entityManagementFr);
+    writeI18nMessages(this.fs, className, this.options.dirShift, entityManagementEn, entityManagementRu);
 
     if (!addToMenu(this.fs, {
       componentFileName: className,
