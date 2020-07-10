@@ -80,7 +80,7 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
 
   render() {
     return (
-      <div className='cuba-filter-controls-layout'>
+      <div className='cuba-filter-controls-layout cuba-table-filter-interval'>
         {this.modeSelect}
         {(this.mode === 'predefined') ? this.predefinedIntervals : this.intervalInput}
       </div>

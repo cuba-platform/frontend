@@ -21,14 +21,14 @@ export function getDefaultFormItemProps(intl: IntlShape, name?: string): FormIte
 
 export function decorateAndWrapInFormItem(
   children: ReactNode,
-  parentId: string,
+  name: string,
   intl: IntlShape,
   hasFeedback: boolean = false,
   formItemProps?: FormItemProps,
   additionalClassName?: string,
 ): ReactNode {
   if (!formItemProps) {
-    formItemProps = getDefaultFormItemProps(intl, parentId);
+    formItemProps = getDefaultFormItemProps(intl, name);
   }
 
   return (

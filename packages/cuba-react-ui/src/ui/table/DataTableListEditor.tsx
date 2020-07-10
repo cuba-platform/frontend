@@ -17,6 +17,7 @@ import {BigDecimalInput} from '../form/BigDecimalInput';
 import {assertNever, getDataTransferFormat} from '@cuba-platform/react-core';
 import {InputNumberProps} from 'antd/es/input-number';
 import {LabeledValue} from 'antd/es/select';
+import './DataTableListEditor.less';
 
 interface DataTableListEditorProps {
   onChange: (items: string[] | number []) => void,
@@ -175,7 +176,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
 
   render() {
     return (
-      <div>
+      <div className='cuba-table-filter-list'>
         {
           this.items.map((item: CaptionValuePair) => {
             return item.value != null
@@ -184,14 +185,14 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
           })
         }
         {this.inputVisible && (
-          <Form.Item className='filtercontrol'>
+          <Form.Item className='cuba-table-filter-list-input filtercontrol'>
             {this.input}
           </Form.Item>
         )}
         {!this.inputVisible && (
           <Tag onClick={this.showInput}
              color='blue'
-             className='cuba-list-editor-input'
+             className='cuba-table-filter-list-new'
           >
             <PlusOutlined />
             &nbsp;
@@ -262,7 +263,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         return (
           <div>
             <TimePicker placeholder='HH:mm:ss'
-                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                  defaultValue={moment('00:00:00', 'HH:mm:ss')}
                   onChange={this.onTimePickerChange}
                   onOpenChange={this.onTimePickerOpenChange}
             />

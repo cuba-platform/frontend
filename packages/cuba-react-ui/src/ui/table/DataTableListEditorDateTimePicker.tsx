@@ -46,7 +46,7 @@ class DataTableListEditorDateTimePickerComponent extends React.Component<DataTab
 
     const timePicker = (
       <TimePicker placeholder='HH:mm:ss'
-                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                  defaultValue={moment('00:00:00', 'HH:mm:ss')}
                   onChange={this.onMomentChange}
       />
     );

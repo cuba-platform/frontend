@@ -63,12 +63,12 @@ class ImagePreviewComponent extends React.Component<ImagePreviewProps> {
              width='80vw'
       >
         {isLoading && (
-          <div className='image-preview-spinner'>
+          <div className='cuba-image-preview-spinner'>
             <Spinner/>
           </div>
         )}
         {!isLoading && objectUrl != null && fileName != null && (
-          <div className='image-preview'>
+          <div className='cuba-image-preview'>
             <div className='title'>
               {fileName}
             </div>

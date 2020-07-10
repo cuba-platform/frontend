@@ -38,6 +38,16 @@ export interface CaptionValuePair {
 
 export type CustomFilterInputValue = string | number | boolean | string[] | number[] | TemporalInterval | undefined;
 
+type DateTimePatch = {
+  year: number,
+  month: number,
+  date: number,
+} | {
+  hour: number,
+  minute: number,
+  second: number,
+}
+
 export interface DataTableCustomFilterProps extends MainStoreInjected {
   entityName: string,
   entityProperty: string,
@@ -261,10 +271,40 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
-  onDateTimePickerChange = (dateTime: Moment | null, _timeString: string): void => {
-    if (dateTime != null) {
-      const normalizedDateTime = stripMilliseconds(dateTime);
-      this.value = normalizedDateTime.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
+  updateDateTimeValue = (dateTimePatch: DateTimePatch): void => {
+    if (typeof this.value === 'string') {
+      const oldValueMoment = moment(this.value, this.getFormat(), true);
+      if (oldValueMoment.isValid()) {
+        this.value = oldValueMoment.set(dateTimePatch).format(this.getFormat());
+        return;
+      }
+    }
+
+    this.value = moment().set({
+      ...dateTimePatch,
+      milliseconds: 0
+    }).format(this.getFormat());
+  };
+
+  @action
+  onDateTimePickerDateChange = (date: Moment | null): void => {
+    if (date != null) {
+      this.updateDateTimeValue({
+        year: date.get('year'),
+        month: date.get('month'),
+        date: date.get('date')
+      });
+    }
+  };
+
+  @action
+  onDateTimePickerTimeChange = (time: Moment | null): void => {
+    if (time != null) {
+      this.updateDateTimeValue({
+        hour: time.get('hour'),
+        minute: time.get('minute'),
+        second: time.get('second')
+      });
     }
   };
 
@@ -276,6 +316,10 @@ class DataTableCustomFilterComponent<E extends WithId>
   @action
   onSelectChange = (value: string | number | LabeledValue): void => {
     this.value = value as string;
+  };
+
+  getFormat = () => {
+    return getDataTransferFormat(this.propertyInfoNN.type as PropertyType);
   };
 
   render() {
@@ -683,7 +727,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   get timePickerField(): ReactNode {
     const component = (
       <TimePicker placeholder='HH:mm:ss'
-                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                  defaultValue={moment('00:00:00', 'HH:mm:ss')}
                   onChange={this.onTimePickerChange}/>
     );
     return this.createFilterInput(component, true);
@@ -692,16 +736,20 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get dateTimePickerField(): ReactNode {
     const datePicker = (
-      <DatePicker placeholder='YYYY-MM-DD'/>
+      <DatePicker placeholder='YYYY-MM-DD'
+                  onChange={this.onDateTimePickerDateChange}
+      />
     );
-    const filterDatePicker = this.createFilterInput(datePicker, true);
+    const filterDatePicker = this.createFilterInput(
+      datePicker, true, undefined, undefined, `${this.props.entityProperty}_date`);
 
     const timePicker = (
       <TimePicker placeholder='HH:mm:ss'
-                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                  onChange={this.onDateTimePickerChange}/>
+                  onChange={this.onDateTimePickerTimeChange}
+      />
     );
-    const filterTimePicker = this.createFilterInput(timePicker, true);
+    const filterTimePicker = this.createFilterInput(
+      timePicker, true, undefined, undefined, `${this.props.entityProperty}_time`);
 
     return (
       <Form.Item hasFeedback={true} className='filtercontrol'>
@@ -714,10 +762,10 @@ class DataTableCustomFilterComponent<E extends WithId>
   }
 
   createFilterInput(
-    component: ReactNode, hasFeedback: boolean = false, formItemProps?: FormItemProps, additionalClassName?: string
+    component: ReactNode, hasFeedback: boolean = false, formItemProps?: FormItemProps, additionalClassName?: string, name?: string
   ): ReactNode {
     return decorateAndWrapInFormItem(
-      component, this.props.entityProperty, this.props.intl, hasFeedback, formItemProps, additionalClassName
+      component, name || this.props.entityProperty, this.props.intl, hasFeedback, formItemProps, additionalClassName
     );
   }
 
