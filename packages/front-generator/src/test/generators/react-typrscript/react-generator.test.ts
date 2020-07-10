@@ -97,13 +97,10 @@ describe('react generator test', () => {
     assertFilesPlain('src/app/entity-management/CarManagementLowCase.tsx', REACT_DIR, FIXTURES_DIR);
     assertFilesPlain('src/app/entity-management/CarEditLowCase.tsx', REACT_DIR, FIXTURES_DIR);
     assertFilesPlain('src/app/entity-management/CarTableLowCase.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarManagementLowCase.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarEditLowCase.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarTableLowCase.tsx', REACT_DIR, FIXTURES_DIR);
 
-    assertFiles('src/app/entity-management/StringIdMgtTableManagement.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/StringIdMgtTableEdit.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/StringIdMgtTableBrowse.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/StringIdMgtTableManagement.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/StringIdMgtTableEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/StringIdMgtTableBrowse.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
 });
