@@ -4,7 +4,7 @@ import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from 
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import * as path from "path";
 import {EntityCardsTemplateModel} from "./template-model";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath} from "../../../common/utils";
 
 
 class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCardsTemplateModel, PolymerElementOptions> {
@@ -49,7 +49,7 @@ export function entityCardsAnswersToModel(answers: EntityCardsAnswers, dirShift:
   return {
     componentName: answers.componentName,
     className: elementNameToClass(answers.componentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     entity: answers.entity,
     view: answers.entityView
   }

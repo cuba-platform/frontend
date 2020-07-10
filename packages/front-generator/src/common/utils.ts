@@ -50,5 +50,17 @@ export function getEntityModulePath(entity: Entity, prefix: string = ''): string
   return path.posix.join(prefix, modulePath);
 }
 
+export function isBlank(str: string | undefined): boolean {
+  return (str == null || /^\s*$/.test(str));
+}
+
+/**
+ * Verify that trailing slash exist in relPath
+ * @param relPath
+ */
+export function normalizeRelativePath(relPath: string | undefined): string {
+  return isBlank(relPath) ? '' : path.join(relPath!, '/');
+}
+
 
 

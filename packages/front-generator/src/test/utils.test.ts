@@ -1,4 +1,10 @@
-import {convertToUnixPath, elementNameToClass, fqnToName, splitByCapitalLetter} from "../common/utils";
+import {
+  convertToUnixPath,
+  elementNameToClass,
+  fqnToName,
+  normalizeRelativePath,
+  splitByCapitalLetter
+} from "../common/utils";
 import * as assert from "assert";
 import { expect } from "chai";
 
@@ -28,6 +34,20 @@ describe('utils', () => {
     expect(splitByCapitalLetter('split123It')).eq('split123 It');
     expect(splitByCapitalLetter('split$It')).eq('split$ It');
     expect(splitByCapitalLetter('split_It')).eq('split_ It');
+  });
+
+  it('should normalize relative path', () => {
+    expect(normalizeRelativePath("..")).eq("../");
+    expect(normalizeRelativePath("../")).eq("../");
+    expect(normalizeRelativePath("../..")).eq("../../");
+    expect(normalizeRelativePath("../../")).eq("../../");
+    expect(normalizeRelativePath("")).eq("");
+    expect(normalizeRelativePath(".")).eq("./");
+    expect(normalizeRelativePath("./")).eq("./");
+    expect(normalizeRelativePath("./../")).eq("../");
+    expect(normalizeRelativePath("/")).eq("/");
+    expect(normalizeRelativePath("   ")).eq("");
+    expect(normalizeRelativePath(undefined)).eq("");
   });
 
 });

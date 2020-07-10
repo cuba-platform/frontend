@@ -4,7 +4,7 @@ import {ServiceFormAnswers, serviceFormParams} from "./params";
 import {ServiceFormTemplateModel} from "./template-model";
 import * as path from "path";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath} from "../../../common/utils";
 import {RestParam} from "../../../common/model/cuba-model";
 import {getRestParamFieldModel} from "../common/fields/rest-params";
 import {getFieldHtml} from "../common/fields";
@@ -61,7 +61,7 @@ function answersToModel(answers: ServiceFormAnswers, dirShift: string | undefine
     fields,
     componentName: answers.componentName,
     className: elementNameToClass(answers.componentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     method: answers.serviceMethod.method,
     service: answers.serviceMethod.service
   };
