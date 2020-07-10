@@ -4,7 +4,7 @@ import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {OptionsConfig, PolymerElementOptions, polymerElementOptionsConfig} from "../../../common/cli-options";
 import {EntityListTemplateModel} from "./template-model";
 import * as path from "path";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath} from "../../../common/utils";
 
 class EntityListGenerator extends BaseGenerator<EntityListAnswers, EntityListTemplateModel, PolymerElementOptions> {
 
@@ -48,7 +48,7 @@ export function entityListAnswersToModel(answers: EntityListAnswers, dirShift: s
   return {
     componentName: answers.componentName,
     className: elementNameToClass(answers.componentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     entity: answers.entity,
     view: answers.entityView
   }

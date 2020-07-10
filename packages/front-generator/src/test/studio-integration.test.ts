@@ -1,5 +1,5 @@
 import * as path from "path";
-import {exportProjectModel, getOpenedCubaProjects} from "../common/studio/studio-integration";
+import {exportProjectModel, getOpenedCubaProjects, normalizeSecret} from "../common/studio/studio-integration";
 import {expect} from "chai";
 import nock = require('nock');
 import * as fs from 'fs';
@@ -37,13 +37,26 @@ describe('studio-integration', function () {
       })
   });
 
-
   it('prints cuba projects', function () {
     getOpenedCubaProjects()
       .then((projects) => {
         CI_MODE ?
-        expect(projects[0].locationHash === 'd50df17f')
+        expect(projects && projects[0].locationHash === 'd50df17f')
         :console.log(JSON.stringify(projects));
       })
-  })
+  });
+
+  it('should normalize secret', () => {
+    let secret = normalizeSecret('{noop}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+
+    secret = normalizeSecret('{}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+
+    secret = normalizeSecret('{21879*&*^7ydtwuydtwqy}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+
+    secret = normalizeSecret('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+    expect(secret).eq('bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9');
+  });
 });

@@ -16,5 +16,6 @@
             </map>
         </property>
     </bean>
+<!--    <bean class="com.company.scr.web.ScrApp" name="cuba_App" scope="prototype"/>-->
     <gui:screens base-packages="com.company.scr.web"/>
 </beans>

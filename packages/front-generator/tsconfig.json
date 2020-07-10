@@ -5,7 +5,12 @@
     "outDir": "./lib",
     "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "inquirer-autocomplete-prompt": ["custom_types/inquirer-autocomplete-prompt"],
+      "yeoman-environment": ["custom_types/yeoman-environment"]
+    }
   },
   "include": [
     "src/**/*.ts",
@@ -14,6 +19,7 @@
   ],
   "exclude": [
     "src/generators/*/*/template/**",
-    "src/test/generated/**"
+    "src/test/generated/**",
+    "src/test/fixtures/**"
   ]
 }

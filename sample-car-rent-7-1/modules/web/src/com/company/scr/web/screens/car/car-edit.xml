@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.scr.web.screens.car">
+    <data>
+        <instance id="carDc"
+                  class="com.company.scr.entity.Car"
+                  view="_local">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="scrollBox" spacing="true">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="carDc">
+                <column width="250px">
+                    <textField id="manufacturerField" property="manufacturer"/>
+                    <textField id="modelField" property="model"/>
+                    <textField id="regNumberField" property="regNumber"/>
+                    <dateField id="purchaseDateField" property="purchaseDate"/>
+                    <dateField id="manufactureDateField" property="manufactureDate"/>
+                    <checkBox id="wheelOnRightField" property="wheelOnRight"/>
+                    <lookupField id="carTypeField" property="carType"/>
+                    <lookupField id="ecoRankField" property="ecoRank"/>
+                    <textField id="maxPassengersField" property="maxPassengers"/>
+                    <textField id="priceField" property="price"/>
+                    <textField id="mileageField" property="mileage"/>
+                </column>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

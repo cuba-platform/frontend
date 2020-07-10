@@ -9,7 +9,10 @@ This is a monorepo for the following npm packages:
 
 ## Bootstrap
 
-```lerna boostrap```
+```
+npm install
+lerna boostrap
+```
 
 ## Dependencies of Generated App
 
@@ -38,8 +41,17 @@ npm run start-react-app
 npm run react-all
 ```
 
-## Rebuild and install dependencies during development
+## Rebuild and Install Dependencies During Development
 ```bash
 npm run update-client-libs
 ```
 
+## Dependency Audit
+
+Use Snyk wizard to resolve the issues detected by Snyk:
+
+```bash
+npm run snyk:wizard -- projectPath
+```
+
+where `projectPath` is a relative path to the project, e.g. `packages/cuba-react-ui`.

@@ -1,0 +1,37 @@
+= CubaAppProvider
+:api_core_CubaAppProviderProps: link:../api-reference/cuba-react-core/interfaces/_app_cubaappprovider_.cubaappproviderprops.html
+:api_rest_PropertyType: link:../api-reference/cuba-rest-js/modules/_model_.html#propertytype
+
+`CubaAppProvider` initializes main CUBA React Core components and provides them to the client application. It receives an instance of REST API service and an optional config object which has the following interface:
+
+[source,typescript]
+----
+import {PropertyType} from "@cuba-platform/rest";
+
+export interface CubaAppConfig {
+  dataTransferFormats?: Partial<Record<PropertyType, string>>;
+  displayFormats?: Partial<Record<PropertyType, string>>;
+}
+----
+
+* `dataTransferFormats` can be used to override the default formats used to (de)serialize the data transferred by REST API.
+* `displayFormats` can be used to override the formats used for data presentation.
+
+See {api_rest_PropertyType}[PropertyType] in CUBA REST JS API docs for the list of available property types.
+
+NOTE: Only formats for temporal types can currently be overridden this way.
+
+[source,typescript]
+----
+<CubaAppProvider cubaREST={cubaREST}
+                 config={{
+                   dataTransferFormats: {
+                     localDateTime: 'DD/MM/YYYY HH:mm:ss'
+                   }
+                 }}
+>
+   // App component tree
+</CubaAppProvider>
+----
+
+API: {api_core_CubaAppProviderProps}[CubaAppProviderProps].

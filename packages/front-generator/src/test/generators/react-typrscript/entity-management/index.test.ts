@@ -1,10 +1,11 @@
 import {EntityAttribute} from "../../../../common/model/cuba-model";
-import {getRelationImports, getRelations} from "../../../../generators/react-typescript/entity-management";
+import {getRelationImports, getRelations, getViewAttrs} from "../../../../generators/react-typescript/entity-management";
 import {expect} from "chai";
 import {EditRelations} from "../../../../generators/react-typescript/entity-management/template-model";
 import {EntityTemplateModel} from "../../../../generators/react-typescript/common/template-model";
 
 const projectModel = require('../../../fixtures/mpg-projectModel.json');
+const projectModelScr = require('../../../fixtures/project-model--scr.json');
 
 describe('entity management generation test', function () {
 
@@ -12,8 +13,8 @@ describe('entity management generation test', function () {
     const attributes: EntityAttribute[] = [createAttr('attr1'), createAttr('attr2')];
     const relations = getRelations(projectModel, attributes);
 
-    expect(relations['attr1'].path).eq('cuba/entities/mpg$Car');
-    expect(relations['attr2'].path).eq('cuba/entities/mpg$Car');
+    expect(relations.editAssociations.attr1.path).eq('cuba/entities/mpg$Car');
+    expect(relations.editAssociations.attr2.path).eq('cuba/entities/mpg$Car');
   });
 
   it('should sort out identical items from relation imports', function () {
@@ -26,6 +27,36 @@ describe('entity management generation test', function () {
     expect(relationImports.length).eq(1);
     expect(relationImports[0].className).eq('Car');
     expect(relationImports[0].path).eq('cuba/entities/mpg$Car');
+  });
+
+  it('should determine view attributes', () => {
+    const localView = {name: '_local', entityName: 'scr_DatatypesTestEntity'};
+    const viewWithCompositions = {name: 'datatypesTestEntity-view', entityName: 'scr_DatatypesTestEntity'};
+    const answers1: any = {
+      listView: localView,
+      editView: localView
+    };
+    const answers2: any = {
+      listView: viewWithCompositions,
+      editView: viewWithCompositions
+    };
+    const answers3: any = {
+      listView: localView,
+      editView: viewWithCompositions
+    }
+
+    const viewAttrs1 = getViewAttrs(projectModelScr, answers1);
+    expect(viewAttrs1.length).to.equal(new Set(viewAttrs1).size);
+    expect(viewAttrs1).to.not.contain('compositionO2Oattr');
+    expect(viewAttrs1).to.not.contain('compositionO2Mattr');
+
+    const viewAttrs2 = getViewAttrs(projectModelScr, answers2);
+    expect(viewAttrs2).to.contain('compositionO2Oattr');
+    expect(viewAttrs2).to.contain('compositionO2Mattr');
+
+    const viewAttrs3 = getViewAttrs(projectModelScr, answers3);
+    expect(viewAttrs3).to.contain('compositionO2Oattr');
+    expect(viewAttrs3).to.contain('compositionO2Mattr');
   });
 });
 

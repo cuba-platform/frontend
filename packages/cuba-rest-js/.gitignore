@@ -6,3 +6,5 @@ npm-debug.log
 coverage
 .gradle
 cuba-platform-rest-*.tgz
+dist-browser
+dist-node

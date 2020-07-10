@@ -1,11 +1,18 @@
 import {ProjectInfo} from "../../../common/model/cuba-model";
-import {BaseGenerator, readProjectModel} from "../../../common/base-generator";
+import {BaseGenerator} from "../../../common/base-generator";
 import {CommonGenerationOptions, commonGenerationOptionsConfig} from "../../../common/cli-options";
 import * as path from "path";
 
-import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../../common/studio/studio-integration";
+import {
+  ERR_STUDIO_NOT_CONNECTED,
+  exportProjectModel,
+  getOpenedCubaProjects,
+  normalizeSecret,
+  StudioProjectInfo
+} from "../../../common/studio/studio-integration";
 import {ownVersion} from "../../../cli";
 import {SdkAllGenerator} from "../../sdk/sdk-generator";
+import {SUPPORTED_CLIENT_LOCALES} from '../common/i18n';
 
 interface TemplateModel {
   title: string;
@@ -20,13 +27,11 @@ interface Answers {
 
 class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGenerationOptions> {
 
-  conflicter!: { force: boolean }; //missing in typings
-  modelPath?: string;
+  conflicter!: { force: boolean }; // missing in typings
 
-  constructor(args: string | string[], options: CommonGenerationOptions) {
-    super(args, options);
+  constructor(args: string | string[], commonOptions: CommonGenerationOptions) {
+    super(args, commonOptions);
     this.sourceRoot(path.join(__dirname, 'template'));
-    this.modelPath = this.options.model;
   }
 
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
@@ -34,20 +39,21 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     if (this.options.model) {
       this.conflicter.force = true;
       this.log('Skipping prompts since model provided');
-      this.cubaProjectModel = readProjectModel(this.options.model);
+      this.cubaProjectModel = this._readProjectModel();
       return;
     }
 
     const openedCubaProjects = await getOpenedCubaProjects();
-    if (openedCubaProjects.length < 1) {
-      this.env.error(Error("Please open Cuba Studio Intellij and enable Old Studio integration"));
+    if (!openedCubaProjects || openedCubaProjects.length < 1) {
+      this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+      return;
     }
 
     this.answers = await this.prompt([{
       name: 'projectInfo',
       type: 'list',
       message: 'Please select CUBA project you want to use for generation',
-      choices: openedCubaProjects.map(p => ({
+      choices: openedCubaProjects && openedCubaProjects.map(p => ({
         name: `${p.name} [${p.path}]`,
         value: p
       }))
@@ -60,9 +66,13 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
     if (this.cubaProjectModel) {
       this.model = createModel(this.cubaProjectModel.project);
     } else if (this.answers) {
-      this.modelPath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelPath);
-      this.cubaProjectModel = readProjectModel(this.modelPath);
+      this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelFilePath);
+
+      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      this.cubaProjectModel = this._readProjectModel();
       this.model = createModel(this.cubaProjectModel.project);
     }
   }
@@ -75,8 +85,37 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
       throw new Error('Model is not provided');
     }
 
+    let clientLocales: string[];
+    const modelHasLocalesInfo = (this.model.project.locales != null);
+    if (!modelHasLocalesInfo) {
+      // Could be if using an old Studio version that doesn't export locales.
+      this.log('Project model does not contain project locales info. I18n messages will be added for all supported locales.');
+      clientLocales = SUPPORTED_CLIENT_LOCALES;
+    } else {
+      const projectLocales = this.model.project.locales.map(locale => locale.code);
+      clientLocales = projectLocales.filter(locale => SUPPORTED_CLIENT_LOCALES.includes(locale));
+      if (clientLocales.length === 0) {
+        this.log('WARNING. None of the project locales are supported by Frontend Generator.'
+          + ` Project locales: ${JSON.stringify(projectLocales)}. Supported locales: ${JSON.stringify(SUPPORTED_CLIENT_LOCALES)}.`);
+      }
+    }
+    clientLocales.forEach(locale => {
+      this.fs.copy(
+        this.templatePath() + `/i18n-message-packs/${locale}.json`,
+        this.destinationPath(`src/i18n/${locale}.json`)
+      );
+    });
+
     this.fs.copyTpl(this.templatePath() + '/public/**', this.destinationPath('public'), this.model);
-    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), this.model);
+    this.fs.copyTpl(this.templatePath() + '/src/**', this.destinationPath('src'), {
+      ...this.model,
+      isLocaleUsed: (locale: string) => {
+        // If project model doesn't contain locales info (could be if old Studio is used)
+        // then we add all supported locales.
+        return !modelHasLocalesInfo || clientLocales.includes(locale);
+      },
+      clientLocales
+    });
     this.fs.copyTpl(this.templatePath() + '/*.*', this.destinationPath(), this.model);
     this.fs.copyTpl(this.templatePath('.env.production.local'), this.destinationPath('.env.production.local'), this.model);
     this.fs.copyTpl(this.templatePath('.env.development.local'), this.destinationPath('.env.development.local'), this.model);
@@ -87,10 +126,10 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
   // noinspection JSUnusedGlobalSymbols - yeoman runs all methods from class
   async generateSdk() {
     const sdkDest = 'src/cuba';
-    this.log(`Generate sdk model and services to ${sdkDest}`);
+    this.log(`Generate SDK model and services to ${sdkDest}`);
 
     const sdkOpts = {
-      model: this.modelPath,
+      model: this.modelFilePath,
       dest: sdkDest
     };
 
@@ -99,7 +138,7 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
       path: require.resolve('../../sdk/sdk-generator')
     };
 
-    //todo type not match
+    // todo type not match
     await this.composeWith(generatorOpts as any, sdkOpts);
   }
 
@@ -108,14 +147,17 @@ class ReactTSAppGenerator extends BaseGenerator<Answers, TemplateModel, CommonGe
   }
 }
 
-
 function createModel(project: ProjectInfo): TemplateModel {
-  return {
+  const model = {
     ownVersion,
     title: project.name,
-    project: project,
+    project,
     basePath: project.modulePrefix + '-front'
   };
+
+  model.project.restClientId = project.restClientId ?? 'client';
+  model.project.restClientSecret = project.restClientSecret ? normalizeSecret(project.restClientSecret) : 'secret';
+  return model;
 }
 
 export const generator = ReactTSAppGenerator;

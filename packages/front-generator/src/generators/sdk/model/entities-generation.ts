@@ -20,7 +20,15 @@ export type ClassCreationContext = ModelContext & {
   isBaseProjectEntity: boolean
 }
 
-
+/**
+ *
+ * Generate TS entity classes from ProjectModel, write generated files to destDir
+ *
+ * @param projectModel project model entities generated from
+ * @param destDir where created TS files should be placed, also need to compute correct imports in generated TS files
+ * @param fs Yeoman MemFs editor
+ * @return model context contains entity and enum maps with fqn as key
+ */
 export function generateEntities(projectModel: ProjectModel, destDir: string, fs: Generator.MemFsEditor): ModelContext {
   const {entitiesMap, enumsMap} = collectModelContext(projectModel);
   for (const [, entityInfo] of entitiesMap) {
@@ -140,27 +148,56 @@ function createEntityClassMembers(ctx: ClassCreationContext): {
 
   const importInfos: ImportInfo[] = [];
 
-  const allClassMembers = [...basicClassMembers, ...entity.attributes.map(entityAttr => {
-    const attributeTypeInfo = createAttributeType(entityAttr, ctx);
-    if (attributeTypeInfo.importInfo) importInfos.push(attributeTypeInfo.importInfo);
+  const allClassMembers = [...basicClassMembers, ...entity.attributes
+    .filter(entityAttr => {
+      if (entity.idAttributeName == null || entity.idAttributeName === 'id' || entityAttr.name === entity.idAttributeName) {
+        return true;
+      } else {
+        // An edge case when we have a non-ID string attribute named "id", and a differently named ID attribute.
+        // We don't include the former to the TS class, so that we don't end up with two properties named "id".
+        return entityAttr.name !== 'id';
+      }
+    })
+    .map(entityAttr => {
+      const attributeTypeInfo = createAttributeType(entityAttr, ctx);
+      if (attributeTypeInfo.importInfo) { importInfos.push(attributeTypeInfo.importInfo); }
 
-    return ts.createProperty(
-      undefined,
-      undefined,
-      entityAttr.name,
-      ts.createToken(ts.SyntaxKind.QuestionToken),
-      ts.createUnionTypeNode([
-        attributeTypeInfo.node,
-        ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)
-      ]),
-      undefined
-    );
+        const idAttrName = ctx.entity.idAttributeName ?? 'id';
+        // REST API always sends ids as strings
+        const typeNode = entityAttr.name === idAttrName
+          ? ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+          : createUnionWithNull(attributeTypeInfo.node);
 
-  })];
+        // REST API puts the id into the property "id" regardless of the actual attribute name.
+        const attrName = entityAttr.name === idAttrName ? 'id' : entityAttr.name;
+
+        return ts.createProperty(
+          undefined,
+          undefined,
+          attrName,
+          ts.createToken(ts.SyntaxKind.QuestionToken),
+          typeNode,
+          undefined
+        );
+      }
+  )];
 
   return {classMembers: allClassMembers, importInfos}
 }
 
+function createUnionWithNull(node: ts.TypeNode): ts.TypeNode {
+  return ts.createUnionTypeNode([
+    node,
+    ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)
+  ]);
+}
+
+/**
+ * TS attribute type - could be primitive, enum or entity class (single or array, depends on relation cardinality)
+ *
+ * @param entityAttr attribute which type should be computed
+ * @param ctx context of attribute owner class
+ */
 function createAttributeType(entityAttr: EntityAttribute, ctx: ClassCreationContext): {
   node: ts.TypeNode
   importInfo: ImportInfo | undefined

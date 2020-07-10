@@ -1,9 +1,10 @@
 import * as React from "react";
 import {ReactNode} from "react";
+import './Centered.css';
 
 export default function Centered({children}: {children?: ReactNode}) {
   return (
-    <div style={{width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+    <div className='_centered'>
       {children}
     </div>
   )

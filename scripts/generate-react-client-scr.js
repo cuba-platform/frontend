@@ -1,72 +1,220 @@
-const path = require('path');
-const fs = require('fs');
-const {promisify} = require('util');
-const exec = promisify(require('child_process').exec);
-const rimraf = promisify(require('rimraf'));
+const gen = require('./generate-client-scr');
 
-const pathToModel = path.join(process.cwd(), 'scripts/model/projectModel-scr.json');
+const clientDir = 'react-client-scr';
 const answers = require('./model/react-client-scr-answers');
+const intIdentityIdCardsConfig = require('./screens/int-identity-id-cards.json');
+const intIdentityIdManagementTableConfig = require('./screens/int-identity-id-management-table.json');
+const intIdentityIdManagementCardsConfig = require('./screens/int-identity-id-management-cards.json');
+const intIdentityIdManagementListConfig = require('./screens/int-identity-id-management-list.json');
+const intIdManagementTableConfig = require('./screens/int-id-management-table.json');
+const intIdManagementCardsConfig = require('./screens/int-id-management-cards.json');
+const intIdManagementListConfig = require('./screens/int-id-management-list.json');
+const stringIdCardsConfig = require('./screens/string-id-cards.json');
+const stringIdManagementTableConfig = require('./screens/string-id-management-table.json');
+const stringIdManagementCardsConfig = require('./screens/string-id-management-cards.json');
+const stringIdManagementListConfig = require('./screens/string-id-management-list.json');
+const weirdStringIdManagementTableConfig = require('./screens/weird-string-id-management-table.json');
+const weirdStringIdManagementCardsConfig = require('./screens/weird-string-id-management-cards.json');
+const weirdStringIdManagementListConfig = require('./screens/weird-string-id-management-list.json');
+const boringStringIdManagementTableConfig = require('./screens/boring-string-id-management-table.json');
+const dirShift = '../../';
 
-const SCR_APP_DIR = path.join(process.cwd(), 'react-client-scr');
-
-const encodeAnswers = (answers) => {
-  return Buffer.from(JSON.stringify(answers)).toString('base64')
-};
-
-const generateReactClientScr = async () => {
-
-  console.log('generating react client scr - build front-generator first');
-
-  await exec(`lerna run --scope @cuba-platform/front-generator prepublishOnly`);
-
-  console.log('start generating react client scr into', SCR_APP_DIR);
-
-  !fs.existsSync(SCR_APP_DIR) && fs.mkdirSync(SCR_APP_DIR);
-  await rimraf(`${SCR_APP_DIR}/*`);
-
-  const genCubaFrontCmd = `node ../packages/front-generator/bin/gen-cuba-front`;
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:app` +
-    ` --model ${pathToModel}`);
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-cards` +
-    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/entity-cards` +
-    ` --answers ${encodeAnswers(answers.entityCards)}`);
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
-    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/entity-management` +
-    ` --answers ${encodeAnswers(answers.entityManagement)}`);
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
-    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/entity-management2` +
-    ` --answers ${encodeAnswers(answers.entityManagement2)}`);
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
-    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/entity-management3` +
-    ` --answers ${encodeAnswers(answers.entityManagement3)}`);
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
-    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/spare-parts1` +
-    ` --answers ${encodeAnswers(answers.spareParts1)}`);
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
-    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/spare-parts2` +
-    ` --answers ${encodeAnswers(answers.spareParts2)}`);
-
-  await exec('' +
-    `cd ${SCR_APP_DIR} && ${genCubaFrontCmd} react-typescript:entity-management` +
-    ` --model ${pathToModel} --dirShift ../../ --dest ${SCR_APP_DIR}/src/app/spare-parts3` +
-    ` --answers ${encodeAnswers(answers.spareParts3)}`);
-  
-  console.log('react client scr generation - DONE')
-};
-
-// noinspection JSIgnoredPromiseFromCall
-generateReactClientScr();
+gen(
+    'React client SCR',
+    clientDir,
+    'scripts/model/projectModel-scr.json',
+    [
+      { command: 'react-typescript:app' },
+      // Car Service Center domain entities
+      {
+        command: 'react-typescript:entity-cards',
+        dirShift,
+        dest: 'src/app/entity-cards',
+        answers: answers.entityCards
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/entity-management',
+        answers: answers.entityManagement
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/entity-management2',
+        answers: answers.entityManagement2
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/entity-management3',
+        answers: answers.entityManagement3
+      },
+      // All datatypes
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/datatypes-test1',
+        answers: answers.datatypesTest1
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/datatypes-test2',
+        answers: answers.datatypesTest2
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/datatypes-test3',
+        answers: answers.datatypesTest3
+      },
+      // Relations
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/associationO2O',
+        answers: answers.associationO2O
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/associationO2M',
+        answers: answers.associationO2M
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/associationM2O',
+        answers: answers.associationM2O
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/associationM2M',
+        answers: answers.associationM2M
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/compositionO2O',
+        answers: answers.compositionO2O
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/compositionO2M',
+        answers: answers.compositionO2M
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/datatypes2',
+        answers: answers.datatypes2Test
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/datatypes3',
+        answers: answers.datatypes3Test
+      },
+      {
+        command: 'react-typescript:entity-cards',
+        dirShift,
+        dest: 'src/app/datatypes-test-cards',
+        answers: answers.datatypesTestCards
+      },
+      // Integer ID
+      {
+        command: 'react-typescript:entity-cards',
+        dirShift,
+        dest: 'src/app/int-id-cards',
+        answers: intIdentityIdCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-id-management-table',
+        answers: intIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-id-management-cards',
+        answers: intIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-id-management-list',
+        answers: intIdManagementListConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-identity-id-management-table',
+        answers: intIdentityIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-identity-id-management-cards',
+        answers: intIdentityIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/int-identity-id-management-list',
+        answers: intIdentityIdManagementListConfig
+      },
+      // String ID
+      {
+        command: 'react-typescript:entity-cards',
+        dirShift,
+        dest: 'src/app/string-id-cards',
+        answers: stringIdCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/string-id-management-cards',
+        answers: stringIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/string-id-management-list',
+        answers: stringIdManagementListConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/string-id-management-table',
+        answers: stringIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/weird-string-id-management-cards',
+        answers: weirdStringIdManagementCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/weird-string-id-management-list',
+        answers: weirdStringIdManagementListConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/weird-string-id-management-table',
+        answers: weirdStringIdManagementTableConfig
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/boring-string-id-management-table',
+        answers: boringStringIdManagementTableConfig
+      }
+    ]
+);

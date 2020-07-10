@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc">
+
+    <mvc:annotation-driven/>
+
+    <mvc:view-controller path="/maintain"/>
+
+    <context:component-scan base-package="com.company.scr.portal.controllers"/>
+
+    <!-- Static resources -->
+    <!--suppress SpringModelInspection -->
+    <mvc:resources mapping="/resources/**" location="/resources/" cache-period="0"/>
+
+    <!-- Default exception handlers from CUBA -->
+    <bean class="com.haulmont.cuba.portal.sys.exceptions.PortalExceptionResolver">
+        <property name="noUserSessionUrl" value="/login"/>
+        <property name="noMiddlewareConnectionUrl" value="/maintain"/>
+    </bean>
+
+</beans>

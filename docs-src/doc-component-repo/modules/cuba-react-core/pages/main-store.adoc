@@ -1,0 +1,37 @@
+= MainStore
+:api_core_MainStore: link:../api-reference/cuba-react-core/modules/_app_mainstore_.html
+
+`MainStore` contains common application data. It is initialized by xref:cuba-app-provider.adoc[CubaAppProvider]. You can inject it in any component using `@injectMainStore` decorator:
+
+[source,typescript]
+----
+@injectMainStore
+@observer
+export class AppInfo extends React.Component<MainStoreInjected> {
+  render() {
+    if (!this.props.mainStore) {
+      return null;
+    }
+    const {
+      initialized,
+      authenticated,
+      userName,
+      metadata,
+      messages,
+      enums
+    } = this.props.mainStore;
+    return (
+      <ul>
+        <li>App initialized: {initialized ? 'yes' : 'no'}</li>
+        <li>User authenticated: {authenticated ? 'yes' : 'no'}</li>
+        <li>User name: {userName}</li>
+        <li>Metadata: {JSON.stringify(metadata)}</li>
+        <li>Messages: {JSON.stringify(messages)}</li>
+        <li>Enums: {JSON.stringify(enums)}</li>
+      </ul>
+    )
+  }
+}
+----
+
+API: {api_core_MainStore}[MainStore].

@@ -8,5 +8,17 @@
         <item id="scr$CarRent.browse"/>
         <item id="scr$TechnicalCertificate.browse"/>
         <item screen="scr$SparePart.browse"/>
+      <item screen="scr_DatatypesTestEntity.browse"/>
+      <item screen="scr_AssociationM2MTestEntity.browse"/>
+      <item screen="scr_AssociationM2OTestEntity.browse"/>
+      <item screen="scr_AssociationO2MTestEntity.browse"/>
+      <item screen="scr_CompositionO2OTestEntity.browse"/>
+      <item screen="scr_CompositionO2MTestEntity.browse"/>
+      <item screen="scr_AssociationO2OTestEntity.browse"/>
+      <item screen="scr_CompositionO2OTestEntity2.browse"/>
+      <item screen="scr_DeeplyNestedTestEntity.browse"/>
+      <item screen="scr_DatatypesTestEntity2.browse"/>
+        <item screen="scr_DatatypesTestEntity3.browse"/>
+        <item screen="scr_StringIdTestEntity.browse" caption="mainMsg://menu_config.scr_StringIdTestEntity.browse"/>
     </menu>
 </menu-config>

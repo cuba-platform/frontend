@@ -4,7 +4,7 @@ import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {EntityEditAnswers, entityEditParams} from "./params";
 import {EntityEditTemplateModel} from "./template-model";
 import * as path from "path";
-import {elementNameToClass} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath} from "../../../common/utils";
 import {Entity, EntityAttribute, View} from "../../../common/model/cuba-model";
 import {fieldDependencies, FieldModel, getFieldHtml, getFieldModel} from "../common/fields";
 
@@ -83,7 +83,7 @@ export function entityEditAnswersToModel(answers: EntityEditAnswers, dirShift: s
     imports,
     componentName: answers.editComponentName,
     className: elementNameToClass(answers.editComponentName),
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     view: answers.editView,
     entity: answers.entity,
   }

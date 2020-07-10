@@ -1,0 +1,9 @@
+= Configuration
+
+By default, client deployed to Tomcat is built with production preset and aimed to be served under `app-front` context. Use `PUBLIC_URL` env variable to change this behavior (see `.env.production.local`).
+
+The client served from development server has absolute URL of REST API specified in `REACT_APP_CUBA_URL` (see `.env.development.local`).
+
+See the https://facebook.github.io/create-react-app/docs/advanced-configuration[list of all available environment variables].
+
+See `src/config.ts` for full list of common application settings used in runtime.

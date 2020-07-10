@@ -1,0 +1,20 @@
+= I18n
+
+i18n is powered by https://github.com/formatjs/react-intl[react-intl] library. Out of the box React client supports `en` and `ru` locales.
+
+== Adding New Localized Content
+
+* Add new messages to `src/i18n/<locale>.json` files
+* Refer to them from your code using standard `react-intl` components or API (see https://github.com/formatjs/react-intl/blob/master/docs/README.md[react-intl documentation])
+
+== Overriding Existing Messages
+
+Simply replace existing messages in `src/i18n/<locale>.json` files. This way you can override the messages in the client app, xref:cuba-react-ui:index.adoc[CUBA React UI] components and some of the messages in the Ant Design components.
+
+== Adding Support for New Locales
+
+* Add a corresponding `<locale>.json` message pack. Note that it shall contain messages for xref:cuba-react-ui:index.adoc[CUBA React UI] components (keys starting with `cuba-react`) and Ant Design `Form` validation messages (keys starting with `antd.form.validation`).
+* Create a mapping between the locale and the message pack by modifying `messagesMapping` in `src/i18n/i18nMappings.ts`.
+* Create a mapping between the locale and `antd/es/locale-provider/Locale` object by modifying `antdLocaleMapping` in `src/i18n/i18nMappings.ts`. This is required because most of the messages in Ant Design components are translated by telling Ant Design to use one of the predefined locales. An extensive list of locales supported by Ant Design can be found {antDesign_base}/docs/react/i18n[here].
+* Add an import of a corresponding https://github.com/moment/moment[moment] locale to `index.tsx`, e.g. `import 'moment/locale/ru';`. This is required because some of the Ant Design components use localized messages from `moment`.
+* Add means of switching to the new locale. E.g. if you are using the default `LanguageSwitcher` - add a locale option into it.

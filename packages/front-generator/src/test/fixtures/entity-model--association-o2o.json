@@ -1,0 +1,58 @@
+{
+  "name": "scr_AssociationO2OTestEntity",
+  "className": "AssociationO2OTestEntity",
+  "packageName": "com.company.scr.entity.test",
+  "dataStore": "_MAIN_",
+  "table": "SCR_ASSOCIATION_O2O_TEST_ENTITY",
+  "updatable": false,
+  "creatable": false,
+  "hasUuid": false,
+  "softDelete": false,
+  "versioned": false,
+  "embeddable": false,
+  "persistentEntity": true,
+  "replaceParent": false,
+  "systemLevel": false,
+  "namePattern": "%s|name",
+  "mappedSuperclass": false,
+  "fqn": "com.company.scr.entity.test.AssociationO2OTestEntity",
+  "imported": false,
+  "parentPackage": "com.haulmont.cuba.core.entity",
+  "parentClassName": "StandardEntity",
+  "attributes": [
+    {
+      "name": "datatypesTestEntity",
+      "type": {
+        "packageName": "com.company.scr.entity.test",
+        "className": "DatatypesTestEntity",
+        "fqn": "com.company.scr.entity.test.DatatypesTestEntity",
+        "label": "DatatypesTestEntity",
+        "entityName": "scr_DatatypesTestEntity"
+      },
+      "mappingType": "ASSOCIATION",
+      "cardinality": "ONE_TO_ONE",
+      "readOnly": false,
+      "mandatory": false,
+      "unique": false,
+      "mappedBy": "associationO2Oattr",
+      "transient": false
+    },
+    {
+      "name": "name",
+      "type": {
+        "packageName": "java.lang",
+        "className": "String",
+        "fqn": "java.lang.String",
+        "label": "String"
+      },
+      "mappingType": "DATATYPE",
+      "readOnly": false,
+      "column": "NAME",
+      "mandatory": false,
+      "unique": false,
+      "length": "255",
+      "transient": false
+    }
+  ],
+  "path": "cuba/entities/scr_AssociationO2OTestEntity"
+}

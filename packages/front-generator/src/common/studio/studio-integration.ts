@@ -1,6 +1,9 @@
-import * as http from "http";
+import fetch from 'node-fetch'
 
 const DEFAULT_INTEGRATION_PORT = 48561;
+export const ERR_STUDIO_NOT_CONNECTED = '' +
+  'Can\'t establish connection to CUBA Studio. Please open CUBA Studio Intellij and tick \'Enable Integration\' checkbox. ' +
+  'Or provide path to project model json file as cli parameter --model';
 
 export interface StudioProjectInfo {
   name: string;
@@ -9,28 +12,23 @@ export interface StudioProjectInfo {
 }
 
 export async function exportProjectModel(projectLocationHash: string, dest: string, port = DEFAULT_INTEGRATION_PORT): Promise<any> {
-  return get(`http://localhost:${port}/?exportModelProjectDest=${encodeURIComponent(dest)}&exportModelProjectHash=${projectLocationHash}`);
+  try {
+  const params = `exportModelProjectDest=${encodeURIComponent(dest)}&exportModelProjectHash=${projectLocationHash}`;
+  return await fetch(`http://localhost:${port}/?${params}`);
+  } catch {
+    throw Error(ERR_STUDIO_NOT_CONNECTED);
+  }
 }
 
-export async function getOpenedCubaProjects(port = DEFAULT_INTEGRATION_PORT): Promise<StudioProjectInfo[]> {
-  return get(`http://localhost:${port}/?printCubaProjects`)
-    .then(resp => JSON.parse(resp));
+export async function getOpenedCubaProjects(port = DEFAULT_INTEGRATION_PORT): Promise<StudioProjectInfo[] | null> {
+  try {
+    const resp = await fetch(`http://localhost:${port}/?printCubaProjects`);
+    return resp.json();
+  } catch {
+    return null;
+  }
 }
 
-function get(url: string): Promise<any> {
-  return new Promise((resolve, reject) => {
-    http.get(url, res => {
-      res.setEncoding("utf8");
-      let body = "";
-      res.on("data", data => {
-        body += data;
-      });
-      res.on("end", () => {
-        resolve(body)
-      });
-      res.on("error", () => {
-        reject();
-      })
-    });
-  });
+export function normalizeSecret(restClientSecret: string): string {
+  return restClientSecret.replace(/{.*}/, '');
 }

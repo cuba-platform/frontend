@@ -1,0 +1,15 @@
+name: cuba-frontend-docs
+title: CUBA Frontend UI Manual
+version: v20.1
+nav:
+  - modules/overview/nav.adoc
+  - modules/getting-started/nav.adoc
+  - modules/client-react/nav.adoc
+  - modules/client-react-native/nav.adoc
+  - modules/client-polymer/nav.adoc
+  - modules/cuba-react-core/nav.adoc
+  - modules/cuba-react-ui/nav.adoc
+  - modules/typescript-sdk/nav.adoc
+  - modules/generator/nav.adoc
+  - modules/cuba-rest-js/nav.adoc
+  - modules/libs/nav.adoc

@@ -11,43 +11,57 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+
 import {
-  collection,
-  Field,
+  loadAssociationOptions,
+  DataCollectionStore,
   instance,
+  MainStoreInjected,
+  injectMainStore
+} from "@cuba-platform/react-core";
+
+import {
+  Field,
   withLocalizedForm,
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
-  MultilineText
-} from "@cuba-platform/react";
+  MultilineText,
+  Spinner
+} from "@cuba-platform/react-ui";
+
 import "app/App.css";
+
 import { Car } from "cuba/entities/mpg$Car";
 import { Garage } from "cuba/entities/mpg$Garage";
 import { TechnicalCertificate } from "cuba/entities/mpg$TechnicalCertificate";
 import { FileDescriptor } from "cuba/entities/base/sys$FileDescriptor";
-type Props = FormComponentProps & EditorProps;
+
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
+
 type EditorProps = {
   entityId: string;
 };
+
+@injectMainStore
 @observer
 class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   dataInstance = instance<Car>(Car.NAME, {
     view: "car-edit",
     loadImmediately: false
   });
-  garagesDc = collection<Garage>(Garage.NAME, { view: "_minimal" });
-  technicalCertificatesDc = collection<TechnicalCertificate>(
-    TechnicalCertificate.NAME,
-    { view: "_minimal" }
-  );
-  photosDc = collection<FileDescriptor>(FileDescriptor.NAME, {
-    view: "_minimal"
-  });
 
-  @observable
-  updated = false;
-  reactionDisposer: IReactionDisposer;
+  @observable garagesDc: DataCollectionStore<Garage> | undefined;
+
+  @observable technicalCertificatesDc:
+    | DataCollectionStore<TechnicalCertificate>
+    | undefined;
+
+  @observable photosDc: DataCollectionStore<FileDescriptor> | undefined;
+
+  @observable updated = false;
+  @observable formRef: React.RefObject<Form> = React.createRef();
+  reactionDisposers: IReactionDisposer[] = [];
 
   fields = [
     "manufacturer",
@@ -66,8 +80,41 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     "photo"
   ];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
+
+  /**
+   * This method should be called after the user permissions has been loaded
+   */
+  loadAssociationOptions = () => {
+    // MainStore should exist at this point
+    if (this.props.mainStore != null) {
+      const { getAttributePermission } = this.props.mainStore.security;
+
+      this.garagesDc = loadAssociationOptions(
+        Car.NAME,
+        "garage",
+        Garage.NAME,
+        getAttributePermission,
+        { view: "_minimal" }
+      );
+
+      this.technicalCertificatesDc = loadAssociationOptions(
+        Car.NAME,
+        "technicalCertificate",
+        TechnicalCertificate.NAME,
+        getAttributePermission,
+        { view: "_minimal" }
+      );
+
+      this.photosDc = loadAssociationOptions(
+        Car.NAME,
+        "photo",
+        FileDescriptor.NAME,
+        getAttributePermission,
+        { view: "_minimal" }
+      );
+    }
+  };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -81,7 +128,10 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
         return;
       }
       this.dataInstance
-        .update(this.props.form.getFieldsValue(this.fields))
+        .update(
+          this.props.form.getFieldsValue(this.fields),
+          this.isNewEntity() ? "create" : "edit"
+        )
         .then(() => {
           message.success(
             this.props.intl.formatMessage({ id: "management.editor.success" })
@@ -96,9 +146,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
                 globalErrors,
                 fieldErrors
               } = extractServerValidationErrors(response);
-
               this.globalErrors = globalErrors;
-
               if (fieldErrors.size > 0) {
                 this.props.form.setFields(
                   constructFieldsWithErrors(fieldErrors, this.props.form)
@@ -128,16 +176,38 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
     });
   };
 
+  isNewEntity = () => {
+    return this.props.entityId === CarManagement.NEW_SUBPATH;
+  };
+
   render() {
     if (this.updated) {
       return <Redirect to={CarManagement.PATH} />;
     }
 
-    const { status } = this.dataInstance;
+    const { status, lastError, load } = this.dataInstance;
+    const { mainStore, entityId } = this.props;
+    if (mainStore == null || !mainStore.isEntityDataLoaded()) {
+      return <Spinner />;
+    }
+
+    // do not stop on "COMMIT_ERROR" - it could be bean validation, so we should show fields with errors
+    if (status === "ERROR" && lastError === "LOAD_ERROR") {
+      return (
+        <>
+          <FormattedMessage id="common.requestFailed" />.
+          <br />
+          <br />
+          <Button htmlType="button" onClick={() => load(entityId)}>
+            <FormattedMessage id="common.retry" />
+          </Button>
+        </>
+      );
+    }
 
     return (
       <Card className="narrow-layout">
-        <Form onSubmit={this.handleSubmit} layout="vertical">
+        <Form onSubmit={this.handleSubmit} layout="vertical" ref={this.formRef}>
           <Field
             entityName={Car.NAME}
             propertyName="manufacturer"
@@ -147,6 +217,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               rules: [{ required: true }]
             }}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="model"
@@ -154,6 +225,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="regNumber"
@@ -161,6 +233,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="purchaseDate"
@@ -168,6 +241,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="manufactureDate"
@@ -175,6 +249,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="wheelOnRight"
@@ -184,6 +259,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               valuePropName: "checked"
             }}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="carType"
@@ -193,6 +269,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
               rules: [{ required: true }]
             }}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="ecoRank"
@@ -200,6 +277,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="maxPassengers"
@@ -207,6 +285,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="price"
@@ -214,6 +293,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="mileage"
@@ -221,6 +301,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             formItemOpts={{ style: { marginBottom: "12px" } }}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="garage"
@@ -229,6 +310,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             optionsContainer={this.garagesDc}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="technicalCertificate"
@@ -237,6 +319,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             optionsContainer={this.technicalCertificatesDc}
             getFieldDecoratorOpts={{}}
           />
+
           <Field
             entityName={Car.NAME}
             propertyName="photo"
@@ -263,7 +346,7 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
             <Button
               type="primary"
               htmlType="submit"
-              disabled={status !== "DONE" && status !== "ERROR"}
+              disabled={status !== "DONE"}
               loading={status === "LOADING"}
               style={{ marginLeft: "8px" }}
             >
@@ -276,25 +359,67 @@ class CarEditComponent extends React.Component<Props & WrappedComponentProps> {
   }
 
   componentDidMount() {
-    if (this.props.entityId !== CarManagement.NEW_SUBPATH) {
-      this.dataInstance.load(this.props.entityId);
-    } else {
+    if (this.isNewEntity()) {
       this.dataInstance.setItem(new Car());
+    } else {
+      this.dataInstance.load(this.props.entityId);
     }
-    this.reactionDisposer = reaction(
-      () => {
-        return this.dataInstance.item;
-      },
-      () => {
-        this.props.form.setFieldsValue(
-          this.dataInstance.getFieldValues(this.fields)
-        );
-      }
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.dataInstance.status,
+        () => {
+          const { intl } = this.props;
+          if (this.dataInstance.lastError != null) {
+            message.error(intl.formatMessage({ id: "common.requestFailed" }));
+          }
+        }
+      )
+    );
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.props.mainStore?.security.isDataLoaded,
+        (isDataLoaded, permsReaction) => {
+          if (isDataLoaded === true) {
+            // User permissions has been loaded.
+            // We can now load association options.
+            this.loadAssociationOptions(); // Calls REST API
+            permsReaction.dispose();
+          }
+        },
+        { fireImmediately: true }
+      )
+    );
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.formRef.current,
+        (formRefCurrent, formRefReaction) => {
+          if (formRefCurrent != null) {
+            // The Form has been successfully created.
+            // It is now safe to set values on Form fields.
+            this.reactionDisposers.push(
+              reaction(
+                () => this.dataInstance.item,
+                () => {
+                  this.props.form.setFieldsValue(
+                    this.dataInstance.getFieldValues(this.fields)
+                  );
+                },
+                { fireImmediately: true }
+              )
+            );
+            formRefReaction.dispose();
+          }
+        },
+        { fireImmediately: true }
+      )
     );
   }
 
   componentWillUnmount() {
-    this.reactionDisposer();
+    this.reactionDisposers.forEach(dispose => dispose());
   }
 }
 

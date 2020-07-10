@@ -3,7 +3,7 @@ import {ChangeEvent, FormEvent} from "react";
 import {Button, Form, Icon, Input, message} from "antd";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
-import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
+import {injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
 import './Login.css';
 import logo from './logo.png';
 import {LanguageSwitcher} from '../../i18n/LanguageSwitcher';
@@ -67,7 +67,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
                    size='large'/>
           </Form.Item>
           <Form.Item>
-            <div style={{float: 'right'}}>
+            <div className='language-switcher-container'>
               <LanguageSwitcher className='language-switcher' />
             </div>
           </Form.Item>

@@ -3,10 +3,9 @@ import {OptionsConfig, polymerElementOptionsConfig, PolymerElementOptions} from 
 import {blankComponentParams} from "./params";
 import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
-import {elementNameToClass, unCapitalizeFirst} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath, unCapitalizeFirst} from "../../../common/utils";
 import {CommonTemplateModel} from "../../polymer2/common/template-model";
 import {addToMenu} from "../common/menu";
-import {Entity, View} from "../../../common/model/cuba-model";
 
 export interface BlankComponentAnswers {
   componentName: string
@@ -33,7 +32,7 @@ class ReactComponentGenerator extends BaseGenerator<BlankComponentAnswers, Blank
     this.model = blankComponentAnswersToModel(this.answers, this.options.dirShift);
     this.fs.copyTpl(
       this.templatePath('Component.tsx'),
-      this.destinationPath(this.model.componentName + '.tsx'), this.model
+      this.destinationPath(this.model.className + '.tsx'), this.model
     );
     if (!addToMenu(this.fs, {
       componentFileName: this.model.className,
@@ -71,7 +70,7 @@ export function blankComponentAnswersToModel(answers: BlankComponentAnswers, dir
   return {
     className,
     componentName: answers.componentName,
-    relDirShift: dirShift || '',
+    relDirShift: normalizeRelativePath(dirShift),
     nameLiteral: unCapitalizeFirst(className)
   }
 }

@@ -8,6 +8,10 @@ export type ModelContext = {
   enumsMap: Map<string, EnumDeclaration>
 }
 
+/**
+ * @param projectModel model context collected from
+ * @return entity and enum map with fqn as key
+ */
 export function collectModelContext(projectModel: ProjectModel) {
   const entities: Entity[] = getEntitiesArray(projectModel.entities);
   const baseProjectEntities: Entity[] = getEntitiesArray(projectModel.baseProjectEntities);
@@ -26,5 +30,10 @@ export function collectModelContext(projectModel: ProjectModel) {
   entities.forEach(addEntityToMap(entitiesMap));
   baseProjectEntities.forEach(addEntityToMap(entitiesMap, true));
   return {entitiesMap, enumsMap}
+}
+
+export function findEntityByName(entityName: string, ctx: ModelContext): ProjectEntityInfo | undefined {
+  return [...ctx.entitiesMap.values()]
+    .find(entityInfo => entityInfo.entity.name === entityName);
 }
 

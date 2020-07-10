@@ -1,0 +1,26 @@
+= ClientSideDataCollectionStore
+:api_core_ClientSideDataCollectionStore: link:../api-reference/cuba-react-core/interfaces/_data_collection_.clientsidedatacollectionstore.html
+:api_core_clientSideCollection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#clientsidecollection
+
+`ClientSideDataCollectionStore` is a variant of `DataCollectionStore` intended for situations when data shall be operated client-side. It is useful for example when handling {compositionGuide}[Composition relationship]. `ClientSideDataCollectionStore` can be created via {api_core_clientSideCollection}[clientSideCollection] initializer function.
+
+[source,typescript]
+----
+dataCollection = clientSideCollection<Pet>(Pet.NAME, {
+    allItems: entityInstancesArray,
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);
+----
+
+`ClientSideDataCollectionStore` inteface extends `DataCollectionStore` adding the following members:
+
+- `allItems` field - array of entity instances with default sort order and no filtering applied.
+- `adjustItems` method - sets `items` based on `allItems` and other conditions. Currently it only performs the client-side sorting based on `sort` field, client-side filtering is not currently supported.
+
+API: {api_core_ClientSideDataCollectionStore}[ClientSideDataCollectionStore], {api_core_clientSideCollection}[clientSideCollection].

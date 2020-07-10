@@ -1,11 +1,15 @@
-import {BaseGenerator, readProjectModel} from "../../common/base-generator";
+import {BaseGenerator} from "../../common/base-generator";
 import {CommonGenerationOptions} from "../../common/cli-options";
 import * as path from "path";
-import {exportProjectModel, getOpenedCubaProjects, StudioProjectInfo} from "../../common/studio/studio-integration";
+import {
+  ERR_STUDIO_NOT_CONNECTED,
+  exportProjectModel,
+  getOpenedCubaProjects,
+  StudioProjectInfo
+} from "../../common/studio/studio-integration";
 import {generateEntities} from "./model/entities-generation";
 import {generateServices} from "./services/services-generation";
 import {generateQueries} from "./services/queries-generation";
-import {collectModelContext} from "./model/model-utils";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -34,20 +38,21 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
     if (this.options.model) {
       this.conflicter.force = true;
       this.log('Skipping prompts since model provided');
-      this.cubaProjectModel = readProjectModel(this.options.model);
+      this.cubaProjectModel = this._readProjectModel();
       return;
     }
 
     const openedCubaProjects = await getOpenedCubaProjects();
-    if (openedCubaProjects.length < 1) {
-      this.env.error(Error("Please open Cuba Studio Intellij and enable Old Studio integration"));
+    if (!openedCubaProjects || openedCubaProjects.length < 1)  {
+      this.env.error(Error(ERR_STUDIO_NOT_CONNECTED));
+      return;
     }
 
     this.answers = await this.prompt([{
       name: 'projectInfo',
       type: 'list',
       message: 'Please select CUBA project you want to use for generation',
-      choices: openedCubaProjects.map(p => ({
+      choices: openedCubaProjects && openedCubaProjects.map(p => ({
         name: `${p.name} [${p.path}]`,
         value: p
       }))
@@ -58,9 +63,13 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
   // noinspection JSUnusedGlobalSymbols
   async prepareModel() {
     if (!this.cubaProjectModel && this.answers) {
-      const modelFilePath = path.join(process.cwd(), 'projectModel.json');
-      await exportProjectModel(this.answers.projectInfo.locationHash, modelFilePath);
-      this.cubaProjectModel = readProjectModel(modelFilePath);
+      this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
+      await exportProjectModel(this.answers.projectInfo.locationHash, this.modelFilePath);
+
+      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      this.cubaProjectModel = this._readProjectModel();
     }
   }
 
@@ -71,9 +80,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
       const runMode = this.runMode.toString().toLowerCase();
       this.log(`Generating sdk:${runMode} to ${this.destinationPath()}`);
 
-      generateEntities(this.cubaProjectModel, path.join(this.destinationRoot()), this.fs);
-
-      const ctx = collectModelContext(this.cubaProjectModel);
+      const ctx = generateEntities(this.cubaProjectModel, path.join(this.destinationRoot()), this.fs);
 
       if (this.runMode == RunMode.ALL) {
         const services = generateServices(restServices, ctx);
@@ -84,7 +91,7 @@ class SdkGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> {
       }
 
     } else {
-      this.env.error({name: 'No project model', message: 'Skip sdk generation - no project model provided'});
+      this.env.error(Error('Skip sdk generation - no project model provided'));
     }
   }
 

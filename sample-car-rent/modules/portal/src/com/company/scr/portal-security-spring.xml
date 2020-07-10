@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans">
+
+    <beans:bean name="portal_AuthProvider" class="com.haulmont.cuba.portal.security.PortalAuthenticationProvider"/>
+
+    <!-- Logout from middleware on logout -->
+    <beans:bean id="cuba_PortalLogoutHandler" class="com.haulmont.cuba.portal.sys.security.PortalLogoutHandler">
+        <beans:property name="targetUrlParameter" value="/login"/>
+    </beans:bean>
+
+    <!-- REST-API has separate spring-security configuration -->
+    <http pattern="/resources/**" security="none"/>
+
+    <http auto-config="true"
+          use-expressions="true"
+          authentication-manager-ref="portalAuthenticationManager">
+        <!-- login & registration -->
+        <intercept-url pattern="/login" access="permitAll"/>
+
+        <!-- index page -->
+        <intercept-url pattern="/" access="permitAll"/>
+
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+
+        <form-login login-page='/login'
+                    username-parameter="login"
+                    password-parameter="password"
+                    login-processing-url="/login"
+                    default-target-url='/'
+                    always-use-default-target='true'
+                    authentication-failure-url="/login?error"/>
+
+        <!--logout, do not invalidate session, it makes cuba_PortalLogoutHandler-->
+        <logout invalidate-session="false"
+                logout-url="/logout"
+                success-handler-ref="cuba_PortalLogoutHandler"/>
+    </http>
+    <authentication-manager alias="portalAuthenticationManager">
+        <authentication-provider ref="portal_AuthProvider"/>
+    </authentication-manager>
+</beans:beans>

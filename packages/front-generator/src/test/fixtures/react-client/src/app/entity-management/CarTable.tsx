@@ -3,12 +3,14 @@ import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { observable } from "mobx";
 import { Modal, Button } from "antd";
+
 import {
   collection,
   injectMainStore,
-  MainStoreInjected,
-  DataTable
-} from "@cuba-platform/react";
+  MainStoreInjected
+} from "@cuba-platform/react-core";
+import { DataTable, Spinner } from "@cuba-platform/react-ui";
+
 import { Car } from "cuba/entities/mpg$Car";
 import { SerializedEntity } from "@cuba-platform/rest";
 import { CarManagement3 } from "./CarManagement3";
@@ -27,6 +29,8 @@ class CarTableComponent extends React.Component<
     view: "car-edit",
     sort: "-updateTs"
   });
+  @observable selectedRowKey: string | undefined;
+
   fields = [
     "manufacturer",
     "model",
@@ -43,8 +47,6 @@ class CarTableComponent extends React.Component<
     "technicalCertificate",
     "photo"
   ];
-
-  @observable selectedRowKey: string | undefined;
 
   showDeletionDialog = (e: SerializedEntity<Car>) => {
     Modal.confirm({
@@ -66,6 +68,8 @@ class CarTableComponent extends React.Component<
   };
 
   render() {
+    if (this.props.mainStore?.isEntityDataLoaded() !== true) return <Spinner />;
+
     const buttons = [
       <Link
         to={CarManagement3.PATH + "/" + CarManagement3.NEW_SUBPATH}

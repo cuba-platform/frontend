@@ -1,0 +1,26 @@
+<% if (isLocaleUsed('en')) { -%>
+  import en from './en.json';
+  import enUs from 'antd/es/locale/en_US';
+<% } -%>
+<% if (isLocaleUsed('ru')) { -%>
+  import ru from './ru.json';
+  import ruRu from 'antd/es/locale/ru_RU';
+<% } -%>
+
+export const antdLocaleMapping = {
+  <% if (isLocaleUsed('en')) { -%>
+    'en': enUs,
+  <% } -%>
+  <% if (isLocaleUsed('ru')) { -%>
+    'ru': ruRu,
+  <% } -%>
+};
+
+export const messagesMapping = {
+  <% if (isLocaleUsed('en')) { -%>
+    'en': en,
+  <% } -%>
+  <% if (isLocaleUsed('ru')) { -%>
+    'ru': ru,
+  <% } -%>
+};

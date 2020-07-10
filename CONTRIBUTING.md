@@ -14,6 +14,66 @@ It means that files ```EntityManagementEditor.tsx.ejs``` and ```EntityManagement
 
 <a name="react-client-testing"/>
 
+### Coding Conventions
+
+> NOTE: This section is under construction.
+
+#### TypeScript
+
+##### Use Semantically Correct Idioms
+
+Nullish checking:
+
+```typescript
+// wrong
+if (foo) {}
+
+// correct
+if (foo != null) {}
+``` 
+
+Nullish coalescing:
+
+```typescript
+// wrong
+const foo = bar || baz;
+
+// correct
+const foo = bar ?? baz;
+```
+
+Optional chaining:
+
+```typescript
+// wrong
+const foobar = foo && foo.bar && foo.bar.baz;
+
+// correct
+const foobar = foo?.bar?.baz;
+```
+
+#### CSS
+
+We are using RSCSS methodology. Detailed methodology guide can be found [here](https://rscss.io) (~1 hour read).
+
+Additional requirements:
+
+- [Components](https://rscss.io/components.html) and [Helpers](https://rscss.io/helpers.html) in the libraries should be namespaced with `cuba-` prefix (`_cuba-` for Helpers) in order to avoid clashing with user's classes: `.cuba-article-card`, `._cuba-some-helper`.
+-  It is allowed to have [Components](https://rscss.io/components.html) with more than 2 words (just keep the classes readable).
+- It is allowed to apply default base rules directly to the elements (like Base Rules in SMACSS):
+
+```css
+html, body, #root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: @list-header-background;
+}
+```
+
 ### Testing
 
 This section explains how to test the generator.
@@ -58,6 +118,26 @@ test:e2e:polymer2-ts
 ```
 
 <a name="commits"/>
+
+### Documentation
+
+We use [Antora](https://antora.org/) to generate the [documentation site](https://doc.cuba-platform.com/frontend). Antora uses [AsciiDoc](http://asciidoc.org/) syntax.
+
+Documentation sources are located in the `docs-src` folder:
+
+- `docs-src/api-reference` folder contains the API Reference documentation that is generated from the TSDoc comments.
+
+- The rest of `docs-src` folder are the source files used by Antora.
+
+#### Building the Documentation Site
+
+1. Make sure that the component descriptor (`docs-src/doc-component-repo/antora.yml`) has the correct documentation version.
+
+2. Make sure that the playbook file (`docs-src/antora-playbook.yml`) has the correct repo url and branch names. For example, you may want to build the documentation from a feature branch - then you'll need to add the name of that branch. Or you may want to change the remote repo url to the local filesystem path in order to build from your local repo.
+
+3. Update the API Reference with `npm run doc:src`. Commit the changes (and push them if you have specified the remote repo in the playbook file).
+
+4. Run `npm run doc:site`. This will build a site using the repo and the branches specified in the playbook file. The generated site will be placed to the `docs` folder.  
 
 ### Making a Commit
 

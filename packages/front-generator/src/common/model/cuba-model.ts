@@ -13,6 +13,8 @@ export interface ProjectInfo {
   namespace: string;
   modulePrefix: string;
   locales: Locale[];
+  restClientId?: string;
+  restClientSecret?: string;
 }
 
 export type InheritanceType = 'SINGLE_TABLE' | 'TABLE_PER_CLASS' | 'JOINED'
@@ -41,7 +43,8 @@ export interface Entity {
   fqn: string,
   imported: boolean,
   attributes: EntityAttribute[],
-  inheritanceType?: InheritanceType
+  inheritanceType?: InheritanceType,
+  idAttributeName?: string
 }
 
 export interface Datatype {
@@ -76,7 +79,8 @@ export interface EntityAttribute {
   column: string;
   mandatory: boolean;
   unique: boolean;
-  length: number;
+  length: number; // TODO VP: should be optional, but that would break polymer generator
+  mappedBy?: string;
   transient: boolean;
   temporalType?: TemporalType;
 }

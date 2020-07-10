@@ -1,0 +1,94 @@
+[
+  {
+    "name": "bigDecimalAttr",
+    "lazy": false
+  },
+  {
+    "name": "booleanAttr",
+    "lazy": false
+  },
+  {
+    "name": "byteArrayAttr",
+    "lazy": false
+  },
+  {
+    "name": "dateAttr",
+    "lazy": false
+  },
+  {
+    "name": "dateTimeAttr",
+    "lazy": false
+  },
+  {
+    "name": "doubleAttr",
+    "lazy": false
+  },
+  {
+    "name": "integerAttr",
+    "lazy": false
+  },
+  {
+    "name": "longAttr",
+    "lazy": false
+  },
+  {
+    "name": "stringAttr",
+    "lazy": false
+  },
+  {
+    "name": "timeAttr",
+    "lazy": false
+  },
+  {
+    "name": "uuidAttr",
+    "lazy": false
+  },
+  {
+    "name": "localDateTimeAttr",
+    "lazy": false
+  },
+  {
+    "name": "offsetDateTimeAttr",
+    "lazy": false
+  },
+  {
+    "name": "localDateAttr",
+    "lazy": false
+  },
+  {
+    "name": "localTimeAttr",
+    "lazy": false
+  },
+  {
+    "name": "offsetTimeAttr",
+    "lazy": false
+  },
+  {
+    "name": "enumAttr",
+    "lazy": false
+  },
+  {
+    "name": "name",
+    "lazy": false
+  },
+  {
+    "name": "associationO2Oattr",
+    "entity": "scr_AssociationO2OTestEntity",
+    "lazy": false
+  },
+  {
+    "name": "associationO2Mattr",
+    "entity": "scr_AssociationO2MTestEntity",
+    "lazy": false
+  },
+  {
+    "name": "associationM2Oattr",
+    "entity": "scr_AssociationM2OTestEntity",
+    "lazy": false
+  },
+  {
+    "name": "associationM2Mattr",
+    "entity": "scr_AssociationM2MTestEntity",
+    "lazy": false
+  }
+]

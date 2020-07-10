@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.scr.web.screens.datatypestestentity2">
+    <data>
+        <instance id="datatypesTestEntity2Dc"
+                  class="com.company.scr.entity.test.DatatypesTestEntity2"
+                  view="datatypesTestEntity2-view">
+            <loader/>
+            <instance id="datatypesTestEntityAttrDc" property="datatypesTestEntityAttr"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="datatypesTestEntity2Dc">
+            <column width="250px">
+                <pickerField id="datatypesTestEntityAttrField" property="datatypesTestEntityAttr">
+                    <actions>
+                        <action id="open_composition" type="picker_open_composition"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

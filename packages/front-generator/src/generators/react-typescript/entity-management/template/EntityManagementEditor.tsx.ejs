@@ -9,19 +9,24 @@ import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
 import {
-<% if (Object.keys(editRelations).length > 0) { %>
-  collection,
+<% if (Object.keys(editAssociations).length > 0) { %>
+  loadAssociationOptions,
+  DataCollectionStore,
 <% } %>
+  instance, MainStoreInjected, injectMainStore
+} from "@cuba-platform/react-core";
+
+import {
 <% if (editAttributes.length > 0) { %>
   Field,
 <% } %>
-  instance,
   withLocalizedForm,
   extractServerValidationErrors,
   constructFieldsWithErrors,
   clearFieldErrors,
-  MultilineText
-} from "@cuba-platform/react";
+  MultilineText,
+  Spinner
+} from "@cuba-platform/react-ui";
 
 import "<%= relDirShift %>app/App.css";
 
@@ -29,34 +34,56 @@ import "<%= relDirShift %>app/App.css";
   import {<%= relationImport.className %>} from "<%= relDirShift %><%= relationImport.path %>";
 <% }) %>
 
-type Props = FormComponentProps & EditorProps;
+type Props = FormComponentProps & EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
 };
 
-
+@injectMainStore
 @observer
-class <%= editComponentName %>Component extends React.Component<Props & WrappedComponentProps> {
+class <%= editComponentClass %>Component extends React.Component<Props & WrappedComponentProps> {
 
-  dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '<%= editView.name %>', loadImmediately: false});
+  dataInstance = instance<<%= entity.className %>>(<%= entity.className %>.NAME, {
+    view: '<%= editView.name %>',
+    loadImmediately: false,
+    <% if (locals.stringIdName != null) { %>
+      stringIdName: '<%= stringIdName %>'
+    <% } %>
+  });
 
-  <% Object.entries(editRelations).forEach(([attrName, entity]) => { %>
-    <%= attrName %>sDc = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {view: '_minimal'});
+  <% Object.entries(editAssociations).forEach(([attrName, nestedEntity]) => { %>
+    @observable <%= attrName %>sDc: DataCollectionStore<<%= nestedEntity.className %>> | undefined;
   <% }) %>
 
-  @observable
-  updated = false;
-  reactionDisposer: IReactionDisposer;
+  @observable updated = false;
+  @observable formRef: React.RefObject<Form> = React.createRef();
+  reactionDisposers: IReactionDisposer[] = [];
 
   fields = [
-  <% editView.allProperties.forEach(p => { %>
+  <% editAttributes.forEach(p => { -%>
     '<%= p.name %>',
   <% }) %>
   ];
 
-  @observable
-  globalErrors: string[] = [];
+  @observable globalErrors: string[] = [];
+
+  <% if (Object.keys(editAssociations).length > 0) { %>
+  /**
+  * This method should be called after the user permissions has been loaded
+  */
+  loadAssociationOptions = () => {
+    // MainStore should exist at this point
+    if (this.props.mainStore != null) {
+      const {getAttributePermission} = this.props.mainStore.security;
+      <% Object.entries(editAssociations).forEach(([attrName, nestedEntity]) => { %>
+        this.<%= attrName %>sDc = loadAssociationOptions(
+          <%= entity.className %>.NAME, '<%= attrName %>', <%= nestedEntity.className %>.NAME, getAttributePermission, { view: "_minimal" }
+        );
+      <% }) %>
+    }
+  };
+  <% } %>
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -65,7 +92,8 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
         message.error(this.props.intl.formatMessage({id: 'management.editor.validationError'}));
         return;
       }
-      this.dataInstance.update(this.props.form.getFieldsValue(this.fields))
+      this.dataInstance
+        .update(this.props.form.getFieldsValue(this.fields), this.isNewEntity() ? 'create' : 'edit')
         .then(() => {
           message.success(this.props.intl.formatMessage({id: 'management.editor.success'}));
           this.updated = true;
@@ -95,18 +123,39 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
     });
   };
 
+  isNewEntity = () => {
+    return this.props.entityId === <%= className %>.NEW_SUBPATH;
+  };
+
   render() {
 
     if (this.updated) {
       return <Redirect to={<%= className %>.PATH}/>
     }
 
-    const {status} = this.dataInstance;
+    const {status, lastError, load} = this.dataInstance;
+    const {mainStore, entityId} = this.props;
+    if (mainStore == null || !mainStore.isEntityDataLoaded()) {
+      return <Spinner/>;
+    }
+
+    // do not stop on "COMMIT_ERROR" - it could be bean validation, so we should show fields with errors
+    if (status === "ERROR" && lastError === "LOAD_ERROR") {
+      return <>
+        <FormattedMessage id="common.requestFailed" />.
+        <br/><br/>
+        <Button htmlType="button"
+                onClick={() => load(entityId)}>
+          <FormattedMessage id="common.retry" />
+        </Button>
+        </>;
+    }
 
     return (
       <Card className='narrow-layout'>
         <Form onSubmit={this.handleSubmit}
-              layout='vertical'>
+              layout='vertical'
+              ref={this.formRef}>
 
           <% editAttributes.forEach(attr => { %>
             <Field entityName={<%= entity.className %>.NAME}
@@ -114,7 +163,20 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
                    form={ this.props.form }
                    formItemOpts={ {style: {marginBottom: "12px"} } }
 
-              <% if (Object.keys(editRelations).includes(attr.name)) { %>
+              <% if (readOnlyFields.includes(attr.name)) { %>
+                disabled={true}
+              <% } else if (attr.name === locals.stringIdName) { %>
+                disabled={!this.isNewEntity()}
+              <% } %>
+
+              <% if (Object.keys(editCompositions).includes(attr.name)) { %>
+                   <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
+                        nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
+                   <% } %>
+                   parentEntityInstanceId={this.props.entityId !== <%= className %>.NEW_SUBPATH ? this.props.entityId : undefined}
+              <% } %>
+
+              <% if (Object.keys(editAssociations).includes(attr.name)) { %>
                    optionsContainer={this.<%= attr.name %>sDc}
               <% } %>
 
@@ -146,7 +208,7 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
             </Link>
             <Button type="primary"
                     htmlType="submit"
-                    disabled={status !== "DONE" && status !== "ERROR"}
+                    disabled={status !== "DONE"}
                     loading={status === "LOADING"}
                     style={{marginLeft: '8px'}}>
               <FormattedMessage id='management.editor.submit'/>
@@ -158,23 +220,63 @@ class <%= editComponentName %>Component extends React.Component<Props & WrappedC
   }
 
   componentDidMount() {
-    if (this.props.entityId !== <%= className %>.NEW_SUBPATH) {
-      this.dataInstance.load(this.props.entityId);
-    } else {
+    if (this.isNewEntity()) {
       this.dataInstance.setItem(new <%= entity.className %>());
+    } else {
+      this.dataInstance.load(this.props.entityId);
     }
-    this.reactionDisposer = reaction(
-      () => {
-        return this.dataInstance.item
+
+    this.reactionDisposers.push(
+      reaction(
+        () => this.dataInstance.status,
+        () => {
+          const { intl } = this.props;
+          if (this.dataInstance.lastError != null) {
+            message.error(intl.formatMessage({ id: "common.requestFailed" }));
+          }
+        }
+      )
+    );
+
+    <% if (Object.keys(editAssociations).length > 0) { %>
+      this.reactionDisposers.push(reaction(
+        () => this.props.mainStore?.security.isDataLoaded,
+        (isDataLoaded, permsReaction) => {
+          if (isDataLoaded === true) {
+            // User permissions has been loaded.
+            // We can now load association options.
+            this.loadAssociationOptions(); // Calls REST API
+            permsReaction.dispose();
+          }
+        },
+        { fireImmediately: true }
+      ));
+    <% } %>
+
+    this.reactionDisposers.push(reaction(
+      () => this.formRef.current,
+      (formRefCurrent, formRefReaction) => {
+        if (formRefCurrent != null) {
+          // The Form has been successfully created.
+          // It is now safe to set values on Form fields.
+          this.reactionDisposers.push( reaction(
+            () => this.dataInstance.item,
+            () => {
+              this.props.form.setFieldsValue(
+                this.dataInstance.getFieldValues(this.fields)
+              );
+            },
+            {fireImmediately: true}
+          ));
+          formRefReaction.dispose();
+        }
       },
-      () => {
-        this.props.form.setFieldsValue(this.dataInstance.getFieldValues(this.fields));
-      }
-    )
+      {fireImmediately: true}
+    ));
   }
 
   componentWillUnmount() {
-    this.reactionDisposer();
+    this.reactionDisposers.forEach(dispose => dispose());
   }
 
 }
@@ -190,4 +292,4 @@ export default injectIntl(withLocalizedForm<EditorProps>({
       })
     });
   }
-})(<%= editComponentName %>Component));
+})(<%= editComponentClass %>Component));

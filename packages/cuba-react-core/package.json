@@ -1,0 +1,59 @@
+{
+  "name": "@cuba-platform/react-core",
+  "version": "1.0.2",
+  "description": "CUBA Platform core utilities and components for React",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "moment": "^2.24.0"
+  },
+  "peerDependencies": {
+    "@cuba-platform/rest": "^1.0.0",
+    "mobx": "^4.13.0 || ^5.13.0",
+    "mobx-react": "^5.4.4",
+    "react": "^16.7.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@cuba-platform/rest": "^1.0.0",
+    "@types/jest": "^24.0.18",
+    "@types/react": "^16.7.18",
+    "@types/react-test-renderer": "^16.9.2",
+    "babel-jest": "^25.1.0",
+    "jest": "^25.1.0",
+    "mobx": "^4.13.0",
+    "mobx-react": "^5.4.4",
+    "react": "^16.11.0",
+    "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0",
+    "rollup": "~1.17.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "ts-jest": "^25.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "typedoc": "^0.15.3",
+    "typescript": "~3.7.4"
+  },
+  "scripts": {
+    "compile": "npm run clean && tsc && rollup -c",
+    "clean": "rm -rf dist && rm -rf dist-transpiled",
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
+    "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/cuba-react-core src",
+    "prepublishOnly": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core"
+  },
+  "author": "CUBA Platform Team <info@cuba-platform.com>",
+  "license": "Apache-2.0"
+}
