@@ -28,7 +28,7 @@ class <%= listComponentClass %>Component extends React.Component<Props> {
     view: '<%= listView.name %>',
     <% if (entity.updatable == true) { -%>
       sort: '-updateTs',
-    <% } %>
+    <% } -%>
     loadImmediately: false,
     <% if (locals.stringIdName != null) { %>
       stringIdName: '<%= stringIdName %>'

@@ -3,7 +3,7 @@ import {generate} from "../../../init";
 import * as path from "path";
 import {promisify} from "util";
 import * as fs from "fs";
-import {assertFiles, opts} from '../../test-commons';
+import {assertFilesPlain, opts} from '../../test-commons';
 
 const rimraf = promisify(require('rimraf'));
 
@@ -35,9 +35,9 @@ describe('react generator test', () => {
     await generate('react-typescript', 'app', opts(REACT_DIR, null, 'src/test/fixtures/mpg-projectModel.json'));
     assert.ok(fs.existsSync(`entities/base`));
     assert.ok(fs.existsSync(`enums/enums.ts`));
-    assertFiles('src/index.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('.env.development.local', REACT_DIR, FIXTURES_DIR);
-    assertFiles('.env.production.local', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/index.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('.env.development.local', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('.env.production.local', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client blank-component', async function () {
@@ -47,14 +47,14 @@ describe('react generator test', () => {
     await generate('react-typescript', 'blank-component',
       opts(COMPONENT_DIR, answers.blankComponent, componentRelativeModelPath));
 
-    assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
 
     await rimraf(`${COMPONENT_DIR}/*`);
 
     await generate('react-typescript', 'blank-component',
       opts(COMPONENT_DIR, answers.blankComponentLowCase, absoluteModelPath));
 
-    assertFiles('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/component/BlankComponent.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client entity-cards', async function () {
@@ -64,7 +64,7 @@ describe('react generator test', () => {
     await generate('react-typescript', 'entity-cards',
       opts(CARDS_DIR, answers.entityCards, componentRelativeModelPath));
 
-    assertFiles('src/app/entity-cards/MpgFavoriteCarCards.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-cards/MpgFavoriteCarCards.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
   it('should generate React client entity-management', async function () {
@@ -88,19 +88,19 @@ describe('react generator test', () => {
     await generate('react-typescript', 'entity-management',
       opts(EM_DIR, stringIdAnswers, modelPathScr));
 
-    assertFiles('src/app/entity-management/CarCards.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarEdit.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarList.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarTable.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarManagement.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarCards.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarList.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarTable.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarManagement.tsx', REACT_DIR, FIXTURES_DIR);
 
-    assertFiles('src/app/entity-management/CarManagementLowCase.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarEditLowCase.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/CarTableLowCase.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarManagementLowCase.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarEditLowCase.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/CarTableLowCase.tsx', REACT_DIR, FIXTURES_DIR);
 
-    assertFiles('src/app/entity-management/StringIdMgtTableManagement.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/StringIdMgtTableEdit.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFiles('src/app/entity-management/StringIdMgtTableBrowse.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/StringIdMgtTableManagement.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/StringIdMgtTableEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/StringIdMgtTableBrowse.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
 });

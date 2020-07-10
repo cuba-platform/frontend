@@ -8,7 +8,7 @@ import {
 } from "@cuba-platform/rest";
 import {inject, IReactComponent, observer} from "mobx-react";
 import * as React from "react";
-import {DataContainer, DataContainerStatus} from "./DataContext";
+import {DataContainer, DataContainerError, DataContainerStatus} from "./DataContext";
 import {getCubaREST} from "../app/CubaAppProvider";
 import {sortEntityInstances} from '../util/collation';
 import {WithId} from '../util/metadata';
@@ -125,6 +125,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
 
   @observable items: Array<SerializedEntity<T>> = [];
   @observable status: DataContainerStatus = "CLEAN";
+  @observable lastError?: DataContainerError;
   @observable view: string;
   @observable sort?: string;
   @observable filter?: EntityFilter;
@@ -155,6 +156,10 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
         }
       )
     }
+
+    reaction(() => this.status,
+      status => this.lastError = status !== "ERROR" ? undefined : this.lastError)
+
   }
 
   @action
@@ -172,7 +177,10 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
       loadingPromise = this.handleLoadingWithCount(getCubaREST()!.loadEntitiesWithCount<T>(this.entityName, this.entitiesLoadOptions));
     }
 
-    loadingPromise.catch(() => runInAction(() => this.status = 'ERROR'));
+    loadingPromise.catch(() => runInAction(() => {
+      this.status = 'ERROR';
+      this.lastError = 'LOAD_ERROR';
+    }));
 
     return loadingPromise;
   };
@@ -197,6 +205,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
       }))
       .catch(action(() => {
         this.status = "ERROR";
+        this.lastError = "COMMIT_ERROR";
         return true;
       }));
   };
