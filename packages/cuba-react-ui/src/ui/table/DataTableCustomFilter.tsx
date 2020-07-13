@@ -5,7 +5,7 @@ import {FilterDropdownProps} from 'antd/es/table/interface';
 import {observer} from 'mobx-react';
 import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@cuba-platform/rest';
 import {action, computed, observable} from 'mobx';
-import moment, {Moment} from 'moment';
+import {Moment} from 'moment';
 import {DataTableListEditor} from './DataTableListEditor';
 import {DataTableIntervalEditor, TemporalInterval} from './DataTableIntervalEditor';
 import './DataTableCustomFilter.less';
@@ -18,7 +18,7 @@ import {
   getCubaREST,
   getPropertyInfo,
   assertNever,
-  getDataTransferFormat,
+  applyDataTransferFormat,
   stripMilliseconds
 } from '@cuba-platform/react-core';
 import {IntegerInput} from "../form/IntegerInput";
@@ -37,16 +37,6 @@ export interface CaptionValuePair {
 }
 
 export type CustomFilterInputValue = string | number | boolean | string[] | number[] | TemporalInterval | undefined;
-
-type DateTimePatch = {
-  year: number,
-  month: number,
-  date: number,
-} | {
-  hour: number,
-  minute: number,
-  second: number,
-}
 
 export interface DataTableCustomFilterProps extends MainStoreInjected {
   entityName: string,
@@ -257,56 +247,11 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
-  onDatePickerChange = (date: Moment | null, _dateString: string): void => {
-    if (date != null) {
-      this.value = date.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
+  onTemporalPickerChange = (value: Moment | null) => {
+    if (value != null) {
+      this.value = applyDataTransferFormat(stripMilliseconds(value), this.propertyInfoNN.type as PropertyType);
     }
-  };
-
-  @action
-  onTimePickerChange = (time: Moment | null, _timeString: string): void => {
-    if (time != null) {
-      this.value = time.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
-    }
-  };
-
-  @action
-  updateDateTimeValue = (dateTimePatch: DateTimePatch): void => {
-    if (typeof this.value === 'string') {
-      const oldValueMoment = moment(this.value, this.getFormat(), true);
-      if (oldValueMoment.isValid()) {
-        this.value = oldValueMoment.set(dateTimePatch).format(this.getFormat());
-        return;
-      }
-    }
-
-    this.value = moment().set({
-      ...dateTimePatch,
-      milliseconds: 0
-    }).format(this.getFormat());
-  };
-
-  @action
-  onDateTimePickerDateChange = (date: Moment | null): void => {
-    if (date != null) {
-      this.updateDateTimeValue({
-        year: date.get('year'),
-        month: date.get('month'),
-        date: date.get('date')
-      });
-    }
-  };
-
-  @action
-  onDateTimePickerTimeChange = (time: Moment | null): void => {
-    if (time != null) {
-      this.updateDateTimeValue({
-        hour: time.get('hour'),
-        minute: time.get('minute'),
-        second: time.get('second')
-      });
-    }
-  };
+  }
 
   @action
   onYesNoSelectChange = (value: string | number | LabeledValue): void => {
@@ -316,10 +261,6 @@ class DataTableCustomFilterComponent<E extends WithId>
   @action
   onSelectChange = (value: string | number | LabeledValue): void => {
     this.value = value as string;
-  };
-
-  getFormat = () => {
-    return getDataTransferFormat(this.propertyInfoNN.type as PropertyType);
   };
 
   render() {
@@ -607,7 +548,9 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @computed
   get uuidInputField(): ReactNode {
-    const options = getDefaultFormItemProps(this.props.intl);
+    const {entityProperty} = this.props;
+
+    const options = getDefaultFormItemProps(this.props.intl, entityProperty);
 
     if (!options.rules) {
       options.rules = [];
@@ -718,7 +661,9 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get datePickerField(): ReactNode {
     const component = (
-      <DatePicker placeholder='YYYY-MM-DD' onChange={this.onDatePickerChange}/>
+      <DatePicker placeholder='YYYY-MM-DD'
+                  onChange={this.onTemporalPickerChange}
+      />
     );
     return this.createFilterInput(component, true);
   }
@@ -727,38 +672,20 @@ class DataTableCustomFilterComponent<E extends WithId>
   get timePickerField(): ReactNode {
     const component = (
       <TimePicker placeholder='HH:mm:ss'
-                  defaultValue={moment('00:00:00', 'HH:mm:ss')}
-                  onChange={this.onTimePickerChange}/>
+                  onChange={this.onTemporalPickerChange}/>
     );
     return this.createFilterInput(component, true);
   }
 
   @computed
   get dateTimePickerField(): ReactNode {
-    const datePicker = (
-      <DatePicker placeholder='YYYY-MM-DD'
-                  onChange={this.onDateTimePickerDateChange}
+    const component = (
+      <DatePicker placeholder='YYYY-MM-DD HH:mm:ss'
+                  showTime={true}
+                  onChange={this.onTemporalPickerChange}
       />
     );
-    const filterDatePicker = this.createFilterInput(
-      datePicker, true, undefined, undefined, `${this.props.entityProperty}_date`);
-
-    const timePicker = (
-      <TimePicker placeholder='HH:mm:ss'
-                  onChange={this.onDateTimePickerTimeChange}
-      />
-    );
-    const filterTimePicker = this.createFilterInput(
-      timePicker, true, undefined, undefined, `${this.props.entityProperty}_time`);
-
-    return (
-      <Form.Item hasFeedback={true} className='filtercontrol'>
-        <div className='cuba-filter-controls-layout'>
-          {filterDatePicker}
-          {filterTimePicker}
-        </div>
-      </Form.Item>
-    );
+    return this.createFilterInput(component, true);
   }
 
   createFilterInput(

@@ -4,9 +4,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Form } from 'antd';
 import { DatePicker, Input, Select, Tag, TimePicker, Tooltip, InputNumber } from "antd";
 import {observer} from "mobx-react";
-import moment, {Moment} from "moment";
+import {Moment} from "moment";
 import {CaptionValuePair} from "./DataTableCustomFilter";
-import {DataTableListEditorDateTimePicker} from './DataTableListEditorDateTimePicker';
 import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
 import {ReactNode, Ref} from 'react';
 import {FormattedMessage} from 'react-intl';
@@ -14,7 +13,7 @@ import {IntegerInput} from '../form/IntegerInput';
 import {DoubleInput} from '../form/DoubleInput';
 import {LongInput} from '../form/LongInput';
 import {BigDecimalInput} from '../form/BigDecimalInput';
-import {assertNever, getDataTransferFormat} from '@cuba-platform/react-core';
+import {assertNever, applyDataTransferFormat, applyDisplayFormat, stripMilliseconds} from '@cuba-platform/react-core';
 import {InputNumberProps} from 'antd/es/input-number';
 import {LabeledValue} from 'antd/es/select';
 import './DataTableListEditor.less';
@@ -108,17 +107,33 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
-  onDatePickerChange = (date: Moment | null, _dateString: string): void => {
-    if (date) {
-      this.handleInputChange(date.format(getDataTransferFormat(this.props.propertyInfo.type as PropertyType)));
-      this.handleInputConfirm()
+  onDatePickerChange = (date: Moment | null): void => {
+    if (date != null) {
+      const normalizedDate = stripMilliseconds(date);
+      this.handleInputChange(applyDataTransferFormat(normalizedDate, this.props.propertyInfo.type as PropertyType));
+      this.handleInputConfirm();
+    }
+  };
+
+  @action
+  onDateTimePickerChange = (date: Moment | null): void => {
+    if (date != null) {
+      const {propertyInfo} = this.props;
+      const propertyType = propertyInfo.type as PropertyType;
+      const normalizedDate = stripMilliseconds(date);
+      this.handleInputChange(
+        applyDataTransferFormat(normalizedDate, propertyType),
+        applyDisplayFormat(normalizedDate, propertyType)
+      );
+      this.handleInputConfirm();
     }
   };
 
   @action
   onTimePickerChange = (time: Moment | null, _timeString: string): void => {
     if (time != null) {
-      const timeParam = time.format(getDataTransferFormat(this.props.propertyInfo.type as PropertyType));
+      const normalizedTime = stripMilliseconds(time);
+      const timeParam = applyDataTransferFormat(normalizedTime, this.props.propertyInfo.type as PropertyType);
       this.handleInputChange(timeParam);
     }
   };
@@ -263,7 +278,6 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         return (
           <div>
             <TimePicker placeholder='HH:mm:ss'
-                  defaultValue={moment('00:00:00', 'HH:mm:ss')}
                   onChange={this.onTimePickerChange}
                   onOpenChange={this.onTimePickerOpenChange}
             />
@@ -271,11 +285,12 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         );
       case DataTableListEditorType.DATETIME:
         return (
-          <DataTableListEditorDateTimePicker id={this.props.id}
-                                             onInputChange={this.handleInputChange}
-                                             onInputConfirm={this.handleInputConfirm}
-                                             propertyType={this.props.propertyInfo.type as PropertyType}
-          />
+          <div>
+            <DatePicker showTime={true}
+                        placeholder='YYYY-MM-DD HH:mm:ss'
+                        onChange={this.onDateTimePickerChange}
+            />
+          </div>
         );
       case DataTableListEditorType.SELECT:
         return (

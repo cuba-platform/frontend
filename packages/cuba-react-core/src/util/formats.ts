@@ -1,5 +1,6 @@
 import {PropertyType} from '@cuba-platform/rest';
 import {getCubaAppConfig} from '..';
+import { Moment } from 'moment';
 
 export const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 export const DEFAULT_TIME_FORMAT = 'HH:mm:ss';
@@ -38,6 +39,14 @@ export function getDataTransferFormat(type: PropertyType): string | undefined {
   return getCubaAppConfig()?.dataTransferFormats?.[type] || defaultDataTransferFormats[type];
 }
 
+export function applyDataTransferFormat(value: Moment, type: PropertyType): string {
+  return value.format(getDataTransferFormat(type));
+}
+
 export function getDisplayFormat(type: PropertyType): string | undefined {
   return getCubaAppConfig()?.displayFormats?.[type] || defaultDisplayFormats[type];
+}
+
+export function applyDisplayFormat(value: Moment, type: PropertyType): string {
+  return value.format(getDisplayFormat(type));
 }
