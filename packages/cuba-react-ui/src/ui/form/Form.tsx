@@ -843,14 +843,13 @@ class EntityEditorComponent extends React.Component<EntityEditorProps> {
   reactionDisposers: IReactionDisposer[] = [];
 
   componentDidMount(): void {
-    const {dataInstance, fields} = this.props;
-
     this.reactionDisposers.push(reaction(
-      () => [dataInstance.item, this.formRef.current],
+      () => [this.props.dataInstance, this.formRef.current],
       () => {
         if (this.formRef.current != null) {
+          this.formRef.current.resetFields(); // TODO
           this.formRef.current.setFieldsValue(
-            dataInstance.getFieldValues(fields)
+            this.props.dataInstance.getFieldValues(this.props.fields)
           );
         }
       },

@@ -268,16 +268,13 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
       case DataTableListEditorType.DATE:
         return (
           <div>
-            <DatePicker
-              placeholder='YYYY-MM-DD'
-              onChange={this.onDatePickerChange}
-            />
+            <DatePicker onChange={this.onDatePickerChange}/>
           </div>
         );
       case DataTableListEditorType.TIME:
         return (
           <div>
-            <TimePicker placeholder='HH:mm:ss'
+            <TimePicker
                   onChange={this.onTimePickerChange}
                   onOpenChange={this.onTimePickerOpenChange}
             />
@@ -287,7 +284,6 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         return (
           <div>
             <DatePicker showTime={true}
-                        placeholder='YYYY-MM-DD HH:mm:ss'
                         onChange={this.onDateTimePickerChange}
             />
           </div>

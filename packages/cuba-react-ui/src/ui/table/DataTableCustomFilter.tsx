@@ -661,9 +661,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get datePickerField(): ReactNode {
     const component = (
-      <DatePicker placeholder='YYYY-MM-DD'
-                  onChange={this.onTemporalPickerChange}
-      />
+      <DatePicker onChange={this.onTemporalPickerChange}/>
     );
     return this.createFilterInput(component, true);
   }
@@ -671,8 +669,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get timePickerField(): ReactNode {
     const component = (
-      <TimePicker placeholder='HH:mm:ss'
-                  onChange={this.onTemporalPickerChange}/>
+      <TimePicker onChange={this.onTemporalPickerChange}/>
     );
     return this.createFilterInput(component, true);
   }
@@ -680,8 +677,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get dateTimePickerField(): ReactNode {
     const component = (
-      <DatePicker placeholder='YYYY-MM-DD HH:mm:ss'
-                  showTime={true}
+      <DatePicker showTime={true}
                   onChange={this.onTemporalPickerChange}
       />
     );
