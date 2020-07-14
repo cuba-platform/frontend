@@ -3,7 +3,7 @@ import {MemFsEditor} from "yeoman-generator";
 import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
 import {Locale} from '../../../common/model/cuba-model';
 
-export const SUPPORTED_CLIENT_LOCALES = ['en', 'ru'];
+export const SUPPORTED_CLIENT_LOCALES = ['en', 'fr', 'ru'];
 
 /**
  * Adds component i18n messages to the frontend client i18n message packs.
