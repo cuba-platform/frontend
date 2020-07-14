@@ -1,4 +1,4 @@
-import {writeComponentI18nMessages} from '../../../../generators/react-typescript/common/i18n';
+import {writeComponentI18nMessages, SUPPORTED_CLIENT_LOCALES} from '../../../../generators/react-typescript/common/i18n';
 import {expect, use} from 'chai';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
@@ -188,3 +188,134 @@ describe('i18n generation - project locales', () => {
     expect(writeJSON).calledWith(expectRuPath);
   });
 });
+
+describe('i18n message packs', async () => {
+  it('has the same keys', async () => {
+    for (const locale of SUPPORTED_CLIENT_LOCALES) {
+      const appMessagePack =
+        await import(`../../../../generators/react-typescript/app/template/i18n-message-packs/${locale}.json`);
+      const entityManagementMessagePack =
+        await import(`../../../../generators/react-typescript/entity-management/entity-management-${locale}.json`);
+      const mergedMessagePack = {...appMessagePack, ...entityManagementMessagePack};
+      const keys = Object.keys(mergedMessagePack);
+      expect(keys.length).to.equal(ALL_I18N_KEYS.length, `Number of keys is mismatched for locale ${locale}`);
+      keys.forEach((key) => {
+        expect(ALL_I18N_KEYS.includes(key), `${locale} does not include key ${key}`).to.be.true;
+      });
+    }
+  });
+});
+
+const ALL_I18N_KEYS = [
+  // Main message pack
+  "common.alt.logo",
+  "common.ok",
+  "common.cancel",
+  "common.create",
+  "common.edit",
+  "common.remove",
+  "common.unsavedEntity",
+  "common.requestFailed",
+  "common.retry",
+  "home.welcome",
+  "router.home",
+  "login.failed",
+  "login.placeholder.login",
+  "login.placeholder.password",
+  "login.loginBtn",
+  "header.logout.areYouSure",
+  "header.logout.ok",
+  "header.logout.cancel",
+  "cubaReact.dataTable.clearAllFilters",
+  "cubaReact.dataTable.validation.requiredField",
+  "cubaReact.dataTable.validation.uuid",
+  "cubaReact.dataTable.failedToLoadNestedEntities",
+  "cubaReact.dataTable.loading",
+  "cubaReact.dataTable.operator.startsWith",
+  "cubaReact.dataTable.operator.endsWith",
+  "cubaReact.dataTable.operator.contains",
+  "cubaReact.dataTable.operator.doesNotContain",
+  "cubaReact.dataTable.operator.in",
+  "cubaReact.dataTable.operator.notIn",
+  "cubaReact.dataTable.operator.notEmpty",
+  "cubaReact.dataTable.operator.inInterval",
+  "cubaReact.dataTable.yes",
+  "cubaReact.dataTable.no",
+  "cubaReact.dataTable.ok",
+  "cubaReact.dataTable.reset",
+  "cubaReact.dataTable.add",
+  "cubaReact.dataTable.intervalEditor.last",
+  "cubaReact.dataTable.intervalEditor.next",
+  "cubaReact.dataTable.intervalEditor.predefined",
+  "cubaReact.dataTable.intervalEditor.today",
+  "cubaReact.dataTable.intervalEditor.yesterday",
+  "cubaReact.dataTable.intervalEditor.tomorrow",
+  "cubaReact.dataTable.intervalEditor.lastMonth",
+  "cubaReact.dataTable.intervalEditor.thisMonth",
+  "cubaReact.dataTable.intervalEditor.nextMonth",
+  "cubaReact.dataTable.intervalEditor.days",
+  "cubaReact.dataTable.intervalEditor.hours",
+  "cubaReact.dataTable.intervalEditor.minutes",
+  "cubaReact.dataTable.intervalEditor.months",
+  "cubaReact.dataTable.intervalEditor.includingCurrent",
+  "cubaReact.dataTable.listEditor.addItem",
+  "cubaReact.file.downloading",
+  "cubaReact.file.downloadFailed",
+  "cubaReact.fileUpload.replace",
+  "cubaReact.fileUpload.upload",
+  "cubaReact.fileUpload.uploadFailed",
+  "cubaReact.imagePreview.title",
+  "cubaReact.imagePreview.alt",
+  "cubaReact.imagePreview.close",
+  "cubaReact.imagePreview.download",
+  "cubaReact.nestedEntityField.create",
+  "cubaReact.nestedEntityField.delete.areYouSure",
+  "cubaReact.nestedEntitiesTableField.delete.areYouSure",
+  "antd.form.validation.default",
+  "antd.form.validation.required",
+  "antd.form.validation.enum",
+  "antd.form.validation.whitespace",
+  "antd.form.validation.date.format",
+  "antd.form.validation.date.parse",
+  "antd.form.validation.date.invalid",
+  "antd.form.validation.types.string",
+  "antd.form.validation.types.method",
+  "antd.form.validation.types.array",
+  "antd.form.validation.types.object",
+  "antd.form.validation.types.number",
+  "antd.form.validation.types.date",
+  "antd.form.validation.types.boolean",
+  "antd.form.validation.types.integer",
+  "antd.form.validation.types.float",
+  "antd.form.validation.types.regexp",
+  "antd.form.validation.types.email",
+  "antd.form.validation.types.url",
+  "antd.form.validation.types.hex",
+  "antd.form.validation.string.len",
+  "antd.form.validation.string.min",
+  "antd.form.validation.string.max",
+  "antd.form.validation.string.range",
+  "antd.form.validation.number.len",
+  "antd.form.validation.number.min",
+  "antd.form.validation.number.max",
+  "antd.form.validation.number.range",
+  "antd.form.validation.array.len",
+  "antd.form.validation.array.min",
+  "antd.form.validation.array.max",
+  "antd.form.validation.array.range",
+  "antd.form.validation.pattern.mismatch",
+
+  // Entity management
+  "management.browser.delete.areYouSure",
+  "management.browser.delete.ok",
+  "management.browser.delete.cancel",
+  "management.browser.create",
+  "management.browser.edit",
+  "management.browser.remove",
+  "management.browser.noItems",
+  "management.editor.validationError",
+  "management.editor.success",
+  "management.editor.error",
+  "management.editor.cancel",
+  "management.editor.submit",
+];
