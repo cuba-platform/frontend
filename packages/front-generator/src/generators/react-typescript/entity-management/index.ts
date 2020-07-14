@@ -18,6 +18,7 @@ import {EntityAttribute, ProjectModel} from "../../../common/model/cuba-model";
 import {findEntity, findView} from "../../../common/model/cuba-model-utils";
 import {EntityTemplateModel, getEntityPath} from "../common/template-model";
 import * as entityManagementEn from "./entity-management-en.json";
+import * as entityManagementFr from "./entity-management-fr.json";
 import * as entityManagementRu from "./entity-management-ru.json";
 import {writeComponentI18nMessages} from "../common/i18n";
 import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../common/entity";
@@ -68,6 +69,7 @@ class ReactEntityManagementGenerator extends BaseEntityScreenGenerator<EntityMan
       this.cubaProjectModel?.project?.locales,
       {
         en: entityManagementEn,
+        fr: entityManagementFr,
         ru: entityManagementRu
       },
     );
