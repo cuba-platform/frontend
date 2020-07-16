@@ -40,7 +40,7 @@ class <%= listComponentClass %>Component extends React.Component<MainStoreInject
         {instanceName: e._instanceName}
       ),
       okText: this.props.intl.formatMessage({id: 'management.browser.delete.ok'}),
-      cancelText: this.props.intl.formatMessage({id:'management.browser.delete.cancel'}),
+      cancelText: this.props.intl.formatMessage({id:'common.cancel'}),
       onOk: () => {
         this.selectedRowKey = undefined;
         return this.dataCollection.delete(e);
@@ -59,7 +59,7 @@ class <%= listComponentClass %>Component extends React.Component<MainStoreInject
                   style={{margin: '0 12px 12px 0'}}
                   type='primary'
                   icon='plus'>
-            <span><FormattedMessage id='management.browser.create'/></span>
+            <span><FormattedMessage id='common.create'/></span>
           </Button>
         </Link>),
         (<Link to={<%= className %>.PATH + '/' + this.selectedRowKey} key='edit'>
@@ -67,7 +67,7 @@ class <%= listComponentClass %>Component extends React.Component<MainStoreInject
                   style={{margin: '0 12px 12px 0'}}
                   disabled={!this.selectedRowKey}
                   type='default'>
-            <FormattedMessage id='management.browser.edit'/>
+            <FormattedMessage id='common.edit'/>
           </Button>
         </Link>),
         (<Button htmlType='button'
@@ -76,7 +76,7 @@ class <%= listComponentClass %>Component extends React.Component<MainStoreInject
                  onClick={this.deleteSelectedRow}
                  key='remove'
                  type='default'>
-          <FormattedMessage id='management.browser.remove'/>
+          <FormattedMessage id='common.remove'/>
         </Button>),
       ]
     );

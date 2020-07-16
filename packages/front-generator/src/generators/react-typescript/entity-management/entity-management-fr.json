@@ -1,14 +1,8 @@
 {
     "management.browser.delete.areYouSure": "Êtes-vous sûr de vouloir supprimer {instanceName}?",
     "management.browser.delete.ok": "Supprimer",
-    "management.browser.delete.cancel": "Annuler",
-    "management.browser.create": "Créer",
-    "management.browser.edit": "Editer",
-    "management.browser.remove": "Supprimer",
     "management.browser.noItems": "Aucune donnée",
     "management.editor.validationError": "Erreur de validation. Veuillez vérifier votre saisie.",
     "management.editor.success": "L'entité a été mise à jour",
-    "management.editor.error": "Erreur",
-    "management.editor.cancel": "Annuler",
-    "management.editor.submit": "Envoyer"
+    "management.editor.error": "Erreur"
   }
