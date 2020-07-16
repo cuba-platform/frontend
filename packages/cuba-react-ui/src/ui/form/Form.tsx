@@ -767,7 +767,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
             onClick={this.createEntity}
           >
             <span>
-              <FormattedMessage id="management.browser.create" />
+              <FormattedMessage id="common.create" />
             </span>
           </Button>
           <Button
@@ -778,7 +778,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
             key='edit'
             onClick={this.editEntity}
           >
-            <FormattedMessage id="management.browser.edit" />
+            <FormattedMessage id="common.edit" />
           </Button>
           <Button
             htmlType="button"
@@ -788,7 +788,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
             key="remove"
             type="default"
           >
-            <FormattedMessage id="management.browser.remove" />
+            <FormattedMessage id="common.remove" />
           </Button>
         </div>
         <DataTable dataCollection={this.dataCollection}
@@ -995,7 +995,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
             <Button htmlType="button"
                     onClick={onCancel}
             >
-              <FormattedMessage id="management.editor.cancel" />
+              <FormattedMessage id="common.cancel" />
             </Button>
             <Button
               type="primary"
@@ -1004,7 +1004,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
               loading={status === "LOADING"}
               className='submitbutton'
             >
-              <FormattedMessage id={submitButtonText || 'management.editor.submit'} />
+              <FormattedMessage id={submitButtonText || 'common.submit'} />
             </Button>
           </Form.Item>
         </Form>

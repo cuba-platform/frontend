@@ -84,7 +84,7 @@ class <%= listComponentClass %>Component extends React.Component<Props> {
         {instanceName: e._instanceName}
       ),
       okText: this.props.intl.formatMessage({id: 'management.browser.delete.ok'}),
-      cancelText: this.props.intl.formatMessage({id:'management.browser.delete.cancel'}),
+      cancelText: this.props.intl.formatMessage({id:'common.cancel'}),
       onOk: () => {
         return this.dataCollection.delete(e);
       }
@@ -106,7 +106,7 @@ class <%= listComponentClass %>Component extends React.Component<Props> {
             <Button htmlType='button'
                     type='primary'
                     icon='plus'>
-              <span><FormattedMessage id='management.browser.create'/></span>
+              <span><FormattedMessage id='common.create'/></span>
             </Button>
           </Link>
         </div>

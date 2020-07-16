@@ -5,6 +5,7 @@
   "common.create": "Create",
   "common.edit": "Edit",
   "common.remove": "Remove",
+  "common.submit": "Submit",
   "common.unsavedEntity": "(unsaved or unnamed entity)",
   "common.requestFailed": "Failed to perform the requested operation",
   "common.retry": "Retry",

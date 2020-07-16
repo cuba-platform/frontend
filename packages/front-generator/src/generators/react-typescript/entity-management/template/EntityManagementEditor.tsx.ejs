@@ -203,7 +203,7 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
           <Form.Item style={{textAlign: 'center'}}>
             <Link to={<%= className %>.PATH}>
               <Button htmlType="button">
-                <FormattedMessage id='management.editor.cancel'/>
+                <FormattedMessage id='common.cancel'/>
               </Button>
             </Link>
             <Button type="primary"
@@ -211,7 +211,7 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
                     disabled={status !== "DONE"}
                     loading={status === "LOADING"}
                     style={{marginLeft: '8px'}}>
-              <FormattedMessage id='management.editor.submit'/>
+              <FormattedMessage id='common.submit'/>
             </Button>
           </Form.Item>
         </Form>

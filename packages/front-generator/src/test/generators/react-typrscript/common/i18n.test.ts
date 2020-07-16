@@ -214,6 +214,7 @@ const ALL_I18N_KEYS = [
   "common.create",
   "common.edit",
   "common.remove",
+  "common.submit",
   "common.unsavedEntity",
   "common.requestFailed",
   "common.retry",
@@ -308,14 +309,8 @@ const ALL_I18N_KEYS = [
   // Entity management
   "management.browser.delete.areYouSure",
   "management.browser.delete.ok",
-  "management.browser.delete.cancel",
-  "management.browser.create",
-  "management.browser.edit",
-  "management.browser.remove",
   "management.browser.noItems",
   "management.editor.validationError",
   "management.editor.success",
   "management.editor.error",
-  "management.editor.cancel",
-  "management.editor.submit",
 ];
