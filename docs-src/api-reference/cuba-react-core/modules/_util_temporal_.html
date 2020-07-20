@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;util/errorHandling&quot; | @cuba-platform/react-core - v1.0.2</title>
+	<title>&quot;util/temporal&quot; | @cuba-platform/react-core - v1.0.2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_util_errorhandling_.html">&quot;util/errorHandling&quot;</a>
+					<a href="_util_temporal_.html">&quot;util/temporal&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;util/errorHandling&quot;</h1>
+			<h1>External module &quot;util/temporal&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_errorhandling_.html#assertnever" class="tsd-kind-icon">assert<wbr>Never</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_util_temporal_.html#stripmilliseconds" class="tsd-kind-icon">strip<wbr>Milliseconds</a></li>
 							</ul>
 						</section>
 					</div>
@@ -81,42 +81,41 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="assertnever" class="tsd-anchor"></a>
-					<h3>assert<wbr>Never</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">assert<wbr>Never<span class="tsd-signature-symbol">(</span>argumentName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, argument<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="stripmilliseconds" class="tsd-anchor"></a>
+					<h3>strip<wbr>Milliseconds</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">strip<wbr>Milliseconds&lt;P, R&gt;<span class="tsd-signature-symbol">(</span>momentInstance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5094691/packages/cuba-react-core/src/util/errorHandling.ts#L11">src/util/errorHandling.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5094691/packages/cuba-react-core/src/util/temporal.ts#L10">src/util/temporal.ts:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>To be used in (supposedly) unreachable code after exhaustive check of <code>argument</code>.</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>remarks</dt>
-									<dd><p>Will cause a compile-time error if <code>argument</code> was not exhaustively checked.
-										Will cause a runtime error if reached.</p>
-									</dd>
-								</dl>
 							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>P<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Moment</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+								</li>
+								<li>
+									<h4>R</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>argumentName: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>argument: <span class="tsd-signature-type">never</span></h5>
+									<h5>momentInstance: <span class="tsd-signature-type">P</span></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">never</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
+							<p>a clone of provided Moment instance with milliseconds set to zero,
+							or <code>undefined</code> if a nullish value was provided.</p>
 						</li>
 					</ul>
 				</section>
@@ -170,7 +169,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_util_data_.html">&quot;util/data&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="_util_errorhandling_.html">&quot;util/error<wbr>Handling&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -182,15 +181,15 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_util_metadata_.html">&quot;util/metadata&quot;</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="_util_temporal_.html">&quot;util/temporal&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_util_errorhandling_.html#assertnever" class="tsd-kind-icon">assert<wbr>Never</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_util_temporal_.html#stripmilliseconds" class="tsd-kind-icon">strip<wbr>Milliseconds</a>
 					</li>
 				</ul>
 			</nav>
