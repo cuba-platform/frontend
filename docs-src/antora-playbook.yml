@@ -26,7 +26,7 @@ asciidoc:
     compositionGuide: 'https://www.cuba-platform.com/guides/data-modelling-composition'
     petclinic: 'https://github.com/cuba-platform/cuba-petclinic'
     # TODO Change this link to https://ant.design once https://github.com/cuba-platform/frontend/issues/168 is implemented
-    antDesign_base: 'https://3x.ant.design'
+    antDesign_base: 'https://ant.design'
     npm_frontendGenerator: 'https://www.npmjs.com/package/@cuba-platform/front-generator'
     npm_cubaReactCore: 'https://www.npmjs.com/package/@cuba-platform/react-core'
     npm_cubaReactUi: 'https://www.npmjs.com/package/@cuba-platform/react-ui'
