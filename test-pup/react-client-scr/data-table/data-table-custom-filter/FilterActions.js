@@ -27,12 +27,25 @@ class FilterActions {
       this.page.goto('http://localhost:3000/#/datatypesManagement3'),
       this.page.waitForNavigation()
     ]);
-    await this.page.waitForSelector('.ant-table-tbody:not(:empty)'); // Wait until the data is loaded.
+    await this.waitForSelector('.ant-table-tbody:not(:empty)'); // Wait until the data is loaded.
   };
 
   afterAll = async () => {
     await this.page.close();
     await this.browser.close();
+  };
+
+  waitForSelector = async (selector, options) => {
+    console.log(`Waiting for selector ${selector}`);
+    await this.page.waitForSelector(selector, options);
+  };
+
+  click = async (selector) => {
+    console.log(`Clicking ${selector}`);
+    await this.waitForSelector(selector, { visible: true });
+    const element = await this.page.$(selector);
+    await element.hover();
+    await element.click();
   };
 
   /**
@@ -53,14 +66,15 @@ class FilterActions {
   };
 
   openFilter = async (columnIndex) => {
-    const filterSelector = `.ant-table-thead > tr > th:nth-child(${columnIndex + 2}) > i`;
+    const filterSelector = `.ant-table-thead > tr > th:nth-child(${columnIndex + 2}) .ant-table-filter-trigger.ant-dropdown-trigger`;
     await this.page.$eval(filterSelector, e => e.click());
-    await this.page.waitForSelector('.ant-dropdown:not(.ant-dropdown-hidden)');
+    await this.waitForSelector('.ant-dropdown:not(.ant-dropdown-hidden)', {visible: true});
   };
 
   typeTextIntoInput = async (selector, text) => {
-    await this.page.waitForSelector(selector);
-    await this.page.type(selector, text);
+    await this.waitForSelector(selector);
+    const inputElement = await this.page.$(selector);
+    await inputElement.type(text);
   };
 
   setInputValue = async (attr, value) => {
@@ -71,32 +85,30 @@ class FilterActions {
   setSelectValue = async (attr, value) => {
     const inputSelector = `#${attr}_input`;
     // Open the dropdown.
-    await this.page.$eval(inputSelector, element => element.click());
-    const dropdownSelector = `.cuba-value-dropdown-${attr}`;
-    const optionClassName = `cuba-filter-value-${value}`;
-    const optionSelector = `${dropdownSelector} .${optionClassName}`;
-    await this.page.$eval(optionSelector, element => element.click());
-    await this.page.waitForSelector(`.cuba-value-dropdown-${attr}.ant-select-dropdown-hidden`);
+    await this.click(inputSelector);
+    // Click the option.
+    await this.click(`.cuba-value-dropdown-${attr} .cuba-filter-value-${value}`);
+    await this.waitForSelector(`.cuba-value-dropdown-${attr}.ant-select-dropdown-hidden`);
   };
 
   setOperator = async (attr, operator) => {
-    await this.page.$eval(`#${attr}_operatorsDropdown`, element => element.click()); // Opens dropdown.
-    const dropdownSelector = `.cuba-operator-dropdown-${attr}`;
-    const optionClassName = `cuba-operator-${operator}`;
-    const optionSelector = `${dropdownSelector} .${optionClassName}`;
-    await this.page.$eval(optionSelector, element => element.click());
-    await this.page.waitForSelector(`.cuba-operator-dropdown-${attr}.ant-select-dropdown-hidden`);
+    await this.click(`#${attr}_operatorsDropdown`); // Open dropdown
+    const optionSelector = `.cuba-operator-dropdown-${attr} .cuba-operator-${operator}`;
+    await this.waitForSelector(optionSelector);
+
+    await this.click(optionSelector);
+    await this.waitForSelector(`.cuba-operator-dropdown-${attr}.ant-select-dropdown-hidden`);
   };
 
   applyFilter = async () => {
-    const submitBtnSelector = '.ant-dropdown:not(.ant-dropdown-hidden) .cuba-table-filter > .footer > button[type="submit"]';
-    await this.page.$eval(submitBtnSelector, e => e.click());
-    await this.page.waitForSelector('.ant-spin'); // Wait to start loading.
-    await this.page.waitForSelector('.ant-spin', {hidden: true}); // Wait to finish loading.
+    await this.click('.ant-dropdown:not(.ant-dropdown-hidden) .cuba-table-filter > .footer > button[type="submit"]');
+    await this.waitForSelector('.ant-spin'); // Wait to start loading.
+    await this.waitForSelector('.ant-spin', {hidden: true}); // Wait to finish loading.
   };
 
   expectResults = async (columnIndex, resultsArray, areResultsWrappedInDivs = true) => {
     const table = await this.readTable();
+    table.shift(); // First column is empty values (selection column)
     resultsArray.forEach((result, index) => {
       expect(table[index][columnIndex]).toEqual(areResultsWrappedInDivs ? inDiv(result) : result);
     });
@@ -105,7 +117,7 @@ class FilterActions {
 
   // noinspection JSUnusedLocalSymbols
   $TAKE_DEBUG_SCREENSHOT = async () => {
-    await this.page.screenshot({path: 'debug-screenshot.png', fullPage: true});
+    await this.page.screenshot({path: `debug-screenshot-${Date.now()}.png`, fullPage: true});
   };
 
   applyTextFilter = async (columnIndex, attr, operator, value) => {
@@ -123,11 +135,11 @@ class FilterActions {
   };
 
   addListItem = async (attr, value) => {
-    await this.page.$eval('.cuba-list-editor-input', e => e.click()); // Clicking on "+ Add Item"
+    await this.page.$eval('.cuba-table-filter-list-new', e => e.click()); // Clicking on "+ Add Item"
     const listInputSelector = '.filtercontrol.-complex-editor input';
     await this.typeTextIntoInput(listInputSelector, value);
     await this.page.keyboard.press('Enter');
-    await this.page.waitForSelector('.cuba-list-editor-input'); // Wait until "+ Add Item" button appears again.
+    await this.waitForSelector('.cuba-table-filter-list-new'); // Wait until "+ Add Item" button appears again.
   };
 
   applyListFilter = async (columnIndex, attr, operator, values) => {
@@ -162,7 +174,7 @@ class FilterActions {
 
   addSelectListItem = async(attr, value) => {
     // Click "+ Add Item". Dropdown appears.
-    await this.page.$eval('.cuba-list-editor-input', e => e.click());
+    await this.page.$eval('.cuba-table-filter-list-new', e => e.click());
     // Open dropdown
     const listInputSelector = '.filtercontrol.-complex-editor .ant-select-selection';
     await this.page.click(listInputSelector);
@@ -172,37 +184,37 @@ class FilterActions {
     const optionSelector = `${dropdownSelector} .${optionClassName}`;
     await this.page.$eval(optionSelector, element => element.click());
     // Wait until "+ Add Item" button appears again.
-    await this.page.waitForSelector('.cuba-list-editor-input');
+    await this.waitForSelector('.cuba-table-filter-list-new');
   };
 
   addDateListItem = async (attr, date) => {
     // Click "+ Add Item". Dropdown appears.
-    await this.page.$eval('.cuba-list-editor-input', e => e.click());
+    await this.page.$eval('.cuba-table-filter-list-new', e => e.click());
     // Open DatePicker
     const listInputSelector = '.filtercontrol.-complex-editor .ant-calendar-picker-input';
     await this.page.$eval(listInputSelector, e => e.click());
-    await this.page.waitForSelector('.ant-calendar-input', {hidden: false});
+    await this.waitForSelector('.ant-calendar-input', {hidden: false});
     await this.page.type('.ant-calendar-input', date);
-    await this.page.waitForSelector('.ant-calendar-input', {hidden: true});
-    await this.page.waitForSelector('.cuba-list-editor-input'); // Wait until "+ Add Item" button appears again.
+    await this.waitForSelector('.ant-calendar-input', {hidden: true});
+    await this.waitForSelector('.cuba-table-filter-list-new'); // Wait until "+ Add Item" button appears again.
   };
 
   setDate = async (attr, date) => {
     const dateInputSelector = `#${attr}_input > div > input`;
     await this.page.click(dateInputSelector);
-    await this.page.waitForSelector('.ant-calendar-input', {hidden: false});
+    await this.waitForSelector('.ant-calendar-input', {hidden: false});
     await this.page.type('.ant-calendar-input', date);
     await this.page.keyboard.press('Enter');
-    await this.page.waitForSelector('.ant-calendar-input', {hidden: true});
+    await this.waitForSelector('.ant-calendar-input', {hidden: true});
   };
 
   setTime = async (attr, time) => {
     const timeInputSelector = `input#${attr}_input`;
     await this.page.click(timeInputSelector);
-    await this.page.waitForSelector('.ant-time-picker-panel-combobox', {hidden: false});
+    await this.waitForSelector('.ant-time-picker-panel-combobox', {hidden: false});
     await this.page.type('.ant-time-picker-panel-input', time);
     await this.page.keyboard.press('Escape');
-    await this.page.waitForSelector('.ant-time-picker-panel-combobox', {hidden: true});
+    await this.waitForSelector('.ant-time-picker-panel-combobox', {hidden: true});
   };
 
   applyDateFilter = async (columnIndex, attr, operator, date) => {

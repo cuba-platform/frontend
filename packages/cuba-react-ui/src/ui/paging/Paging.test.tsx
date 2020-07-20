@@ -8,7 +8,7 @@ import {
   setPagination
 } from "./Paging";
 import renderer from 'react-test-renderer';
-import {PaginationConfig} from "antd/lib/pagination";
+import {PaginationConfig} from "antd/es/pagination";
 
 describe('Paging component', () => {
 

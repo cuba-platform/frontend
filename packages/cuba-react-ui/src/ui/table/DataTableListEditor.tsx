@@ -1,28 +1,27 @@
 import * as React from "react";
 import {action, observable, computed} from "mobx";
-import {DatePicker, Form, Icon, Input, InputNumber, Select, Tag, TimePicker, Tooltip} from "antd";
+import { PlusOutlined } from '@ant-design/icons';
+import { Form } from 'antd';
+import { DatePicker, Input, Select, Tag, TimePicker, Tooltip, InputNumber } from "antd";
 import {observer} from "mobx-react";
-import moment, {Moment} from "moment";
+import {Moment} from "moment";
 import {CaptionValuePair} from "./DataTableCustomFilter";
-import {DataTableListEditorDateTimePicker} from './DataTableListEditorDateTimePicker';
 import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
 import {ReactNode, Ref} from 'react';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {FormattedMessage} from 'react-intl';
 import {IntegerInput} from '../form/IntegerInput';
 import {DoubleInput} from '../form/DoubleInput';
 import {LongInput} from '../form/LongInput';
 import {BigDecimalInput} from '../form/BigDecimalInput';
-import {assertNever, getDataTransferFormat} from '@cuba-platform/react-core';
+import {assertNever, applyDataTransferFormat, applyDisplayFormat, stripMilliseconds} from '@cuba-platform/react-core';
 import {InputNumberProps} from 'antd/es/input-number';
 import {LabeledValue} from 'antd/es/select';
+import './DataTableListEditor.less';
 
 interface DataTableListEditorProps {
   onChange: (items: string[] | number []) => void,
   id: string,
   propertyInfo: MetaPropertyInfo,
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode,
   nestedEntityOptions: CaptionValuePair[]
 }
 
@@ -83,12 +82,8 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
     }
   }
 
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator!: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
-
   componentDidMount(): void {
     this.availableOptions = [ ...this.props.nestedEntityOptions ];
-    this.getFieldDecorator = this.props.getFieldDecorator;
   }
 
   @action
@@ -112,17 +107,33 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
-  onDatePickerChange = (date: Moment | null, _dateString: string): void => {
-    if (date) {
-      this.handleInputChange(date.format(getDataTransferFormat(this.props.propertyInfo.type as PropertyType)));
-      this.handleInputConfirm()
+  onDatePickerChange = (date: Moment | null): void => {
+    if (date != null) {
+      const normalizedDate = stripMilliseconds(date);
+      this.handleInputChange(applyDataTransferFormat(normalizedDate, this.props.propertyInfo.type as PropertyType));
+      this.handleInputConfirm();
     }
   };
 
   @action
-  onTimePickerChange = (time: Moment, _timeString: string): void => {
-    if (time) {
-      const timeParam = time.format(getDataTransferFormat(this.props.propertyInfo.type as PropertyType));
+  onDateTimePickerChange = (date: Moment | null): void => {
+    if (date != null) {
+      const {propertyInfo} = this.props;
+      const propertyType = propertyInfo.type as PropertyType;
+      const normalizedDate = stripMilliseconds(date);
+      this.handleInputChange(
+        applyDataTransferFormat(normalizedDate, propertyType),
+        applyDisplayFormat(normalizedDate, propertyType)
+      );
+      this.handleInputConfirm();
+    }
+  };
+
+  @action
+  onTimePickerChange = (time: Moment | null, _timeString: string): void => {
+    if (time != null) {
+      const normalizedTime = stripMilliseconds(time);
+      const timeParam = applyDataTransferFormat(normalizedTime, this.props.propertyInfo.type as PropertyType);
       this.handleInputChange(timeParam);
     }
   };
@@ -153,7 +164,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
   };
 
   @action
-  handleInputNumberChange = (value: number | undefined): void => {
+  handleInputNumberChange = (value: string | number | undefined): void => {
     if (value != null) {
       this.inputModel.value = value;
       this.inputModel.caption = String(value);
@@ -180,7 +191,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
 
   render() {
     return (
-      <div>
+      <div className='cuba-table-filter-list'>
         {
           this.items.map((item: CaptionValuePair) => {
             return item.value != null
@@ -189,16 +200,16 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
           })
         }
         {this.inputVisible && (
-          <Form.Item className='filtercontrol'>
+          <Form.Item className='cuba-table-filter-list-input filtercontrol'>
             {this.input}
           </Form.Item>
         )}
         {!this.inputVisible && (
           <Tag onClick={this.showInput}
              color='blue'
-             className='cuba-list-editor-input'
+             className='cuba-table-filter-list-new'
           >
-            <Icon type="plus" />
+            <PlusOutlined />
             &nbsp;
             <FormattedMessage id='cubaReact.dataTable.listEditor.addItem'/>
           </Tag>
@@ -257,17 +268,13 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
       case DataTableListEditorType.DATE:
         return (
           <div>
-            <DatePicker
-              placeholder='YYYY-MM-DD'
-              onChange={this.onDatePickerChange}
-            />
+            <DatePicker onChange={this.onDatePickerChange}/>
           </div>
         );
       case DataTableListEditorType.TIME:
         return (
           <div>
-            <TimePicker placeholder='HH:mm:ss'
-                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+            <TimePicker
                   onChange={this.onTimePickerChange}
                   onOpenChange={this.onTimePickerOpenChange}
             />
@@ -275,12 +282,11 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         );
       case DataTableListEditorType.DATETIME:
         return (
-          <DataTableListEditorDateTimePicker getFieldDecorator={this.getFieldDecorator}
-                                             id={this.props.id}
-                                             onInputChange={this.handleInputChange}
-                                             onInputConfirm={this.handleInputConfirm}
-                                             propertyType={this.props.propertyInfo.type as PropertyType}
-          />
+          <div>
+            <DatePicker showTime={true}
+                        onChange={this.onDateTimePickerChange}
+            />
+          </div>
         );
       case DataTableListEditorType.SELECT:
         return (
@@ -298,7 +304,7 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
     }
   }
 
-  getInputNumberProps(): InputNumberProps & {ref: Ref<InputNumber>} {
+  getInputNumberProps(): InputNumberProps & {ref: Ref<typeof InputNumber>} {
     return {
       ref: this.trapFocus,
       type: 'text',
@@ -312,10 +318,12 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
 
   @computed
   get selectFieldOptions(): ReactNode {
-    return this.availableOptions.map((option) => {
+    return this.availableOptions
+      .filter(option => option.value != null)
+      .map((option) => {
       return (
         <Select.Option title={option.caption}
-                       value={option.value}
+                       value={option.value!}
                        key={option.value}
                        className={`cuba-filter-value-${option.value}`}
         >

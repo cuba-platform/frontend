@@ -1,18 +1,28 @@
-import {WrappedFormUtils} from 'antd/es/form/Form';
+import { FormInstance } from 'antd/es/form';
+import { NamePath } from 'antd/es/form/interface';
+
+type FieldData = {
+  name: NamePath,
+  [key: string]: any
+};
 
 /**
  * Clears errors in antd form fields
  *
- * @param form
+ * @param formInstance
  */
-export function clearFieldErrors<V>(form: WrappedFormUtils<V>): void {
-  const currentValues: {[field: string]: any} = form.getFieldsValue();
-  const fields: Record<string, any> = {};
-  Object.keys(currentValues).forEach((fieldName: string) => {
-    const value: any = currentValues[fieldName];
-    fields[fieldName] = { value };
+export function clearFieldErrors(formInstance: FormInstance): void {
+  const currentValues: {[field: string]: any} = formInstance.getFieldsValue();
+  const fields: FieldData[] = [];
+  Object.keys(currentValues).forEach((name: string) => {
+    const value: any = currentValues[name];
+    fields.push({
+      value,
+      name,
+      errors: []
+    });
   });
-  form.setFields(fields);
+  formInstance.setFields(fields);
 }
 
 export type ServerValidationErrors = {
@@ -54,22 +64,20 @@ export function extractServerValidationErrors(response: any): ServerValidationEr
  * Constructs antd form fields object containing given errors
  *
  * @param fieldErrors
- * @param form
+ * @param formInstance
  */
-export function constructFieldsWithErrors<V>(
+export function constructFieldsWithErrors(
   fieldErrors: Map<string, string[]>,
-  form: WrappedFormUtils<V>
-): Record<string, { value: any, errors: Error[] }> {
-  const fields: Record<string, any> = {};
+  formInstance: FormInstance
+): FieldData[] {
+  const fields: FieldData[] = [];
 
   fieldErrors.forEach((errorMessages: string[], fieldName: string) => {
-    const combinedErrorMessages: string =
-      errorMessages.reduce((accumulator: string, current: string) => `${accumulator}, ${current}`);
-
-    fields[fieldName] = {
-      value: form.getFieldValue(fieldName),
-      errors: [new Error(combinedErrorMessages)]
-    }
+    fields.push({
+      name: fieldName,
+      value: formInstance.getFieldValue(fieldName),
+      errors: errorMessages
+    });
   });
 
   return fields;
