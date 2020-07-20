@@ -16,11 +16,11 @@ import {
   WithId,
   loadAllAssociationOptions
 } from '@cuba-platform/react-core';
-import {FormComponentProps, FormItemProps} from 'antd/lib/form';
-import {GetFieldDecoratorOptions} from 'antd/lib/form/Form';
+import { FormItemProps, FormInstance } from 'antd/es/form';
 import {observer} from 'mobx-react';
 import {Msg} from '../Msg';
 import {FieldPermissionContainer} from './FieldPermssionContainer';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   Alert,
   Button,
@@ -28,14 +28,13 @@ import {
   Checkbox,
   DatePicker,
   Drawer,
-  Form,
-  Icon,
   Input,
   message,
   Modal,
   Select,
   Spin,
-  TimePicker
+  TimePicker,
+  Form,
 } from 'antd';
 import {
   Cardinality,
@@ -48,12 +47,12 @@ import {
 } from '@cuba-platform/rest';
 import {uuidPattern} from '../../util/regex';
 import * as React from 'react';
-import {SelectProps} from 'antd/lib/select';
-import {InputProps} from 'antd/lib/input/Input';
-import {InputNumberProps} from 'antd/lib/input-number';
-import {CheckboxProps} from 'antd/lib/checkbox/Checkbox';
-import {DatePickerProps} from 'antd/lib/date-picker/interface';
-import {TimePickerProps} from 'antd/lib/time-picker';
+import {SelectProps, SelectValue} from 'antd/es/select';
+import {InputProps} from 'antd/es/input/Input';
+import {InputNumberProps} from 'antd/es/input-number';
+import {CheckboxProps} from 'antd/es/checkbox/Checkbox';
+import {DatePickerProps} from 'antd/es/date-picker';
+import {TimePickerProps} from 'antd/es/time-picker';
 import {FileUpload, FileUploadProps} from '../FileUpload';
 import {EntitySelectField} from '../EntitySelectField';
 import {IntegerInput} from './IntegerInput';
@@ -61,22 +60,27 @@ import {DoubleInput} from './DoubleInput';
 import {LongInput} from './LongInput';
 import {BigDecimalInput} from './BigDecimalInput';
 import {UuidInput} from './UuidInput';
-import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
+import {FormattedMessage, injectIntl, WrappedComponentProps, IntlShape} from 'react-intl';
 import {computed, IObservableArray, IReactionDisposer, observable, reaction, toJS} from 'mobx';
-import {FormEvent} from 'react';
+import {RefObject} from 'react';
 import './EntityEditor.less';
 import './NestedEntitiesTableField.less';
 import './NestedEntityField.less';
 import {DataTable} from '../table/DataTable';
 // noinspection ES6PreferShortImport Importing from ../../index.ts will cause a circular dependency
-import {clearFieldErrors, constructFieldsWithErrors, extractServerValidationErrors} from '../../util/errorHandling';
+import {
+  clearFieldErrors,
+  constructFieldsWithErrors,
+  extractServerValidationErrors
+} from '../../util/errorHandling';
 import {MultilineText} from '../MultilineText';
 import {Spinner} from '../Spinner';
 // noinspection ES6PreferShortImport Importing from ../../index.ts will cause a circular dependency
-import {withLocalizedForm} from '../../i18n/validation';
+import {createAntdFormValidationMessages} from '../../i18n/validation';
+import {CommitMode} from '@cuba-platform/rest';
 
 
-export interface FieldProps extends MainStoreInjected, FormComponentProps {
+export interface FieldProps extends MainStoreInjected {
   entityName: string;
   propertyName: string;
   /**
@@ -100,25 +104,9 @@ export interface FieldProps extends MainStoreInjected, FormComponentProps {
    */
   disabled?: boolean;
   /**
-   * The value that will be assigned to {@link https://3x.ant.design/components/form/ | Form.Item} `key` property.
-   * If not provided, {@link propertyName} will be used instead.
+   * Props that will be passed through to {@link https://ant.design/components/form/ | Form.Item} component.
    */
-  formItemKey?: string;
-  /**
-   * Props that will be passed through to {@link https://3x.ant.design/components/form/ | Form.Item} component.
-   */
-  formItemOpts?: FormItemProps;
-
-  /**
-   * Will be passed as `id` argument to {@link https://3x.ant.design/components/form/ | getFieldDecorator}.
-   * If not provided, {@link propertyName} will be used instead.
-   */
-  fieldDecoratorId?: string;
-  /**
-   * Will be spread into the default options object
-   * and passed as `options` argument to {@link https://3x.ant.design/components/form/ | getFieldDecorator}.
-   */
-  getFieldDecoratorOpts?: GetFieldDecoratorOptions;
+  formItemProps?: FormItemProps;
   /**
    * Props that will be passed through to the underlying component (i.e. the actual component
    * that will be rendered, such as `DatePicker` or `Select`).
@@ -129,61 +117,52 @@ export interface FieldProps extends MainStoreInjected, FormComponentProps {
 // noinspection JSUnusedGlobalSymbols
 export const Field = injectMainStore(observer((props: FieldProps) => {
 
-  const {getFieldDecorator} = props.form;
-
   const {
-    entityName, propertyName, optionsContainer, fieldDecoratorId, getFieldDecoratorOpts, formItemKey, mainStore, componentProps,
-    nestedEntityView, parentEntityInstanceId, disabled
+    entityName, propertyName, optionsContainer, mainStore, componentProps,
+    nestedEntityView, parentEntityInstanceId, disabled, formItemProps
   } = props;
-
-  const formItemOpts: FormItemProps = {... props.formItemOpts};
-  if (!formItemOpts.label) { formItemOpts.label = <Msg entityName={entityName} propertyName={propertyName}/> }
 
   return (
     <FieldPermissionContainer entityName={entityName} propertyName={propertyName} renderField={(isReadOnly: boolean) => {
 
-      return <Form.Item key={formItemKey ? formItemKey : propertyName}
-                        {...formItemOpts}>
-
-        {getFieldDecorator(
-          fieldDecoratorId ? fieldDecoratorId : propertyName,
-          {...getDefaultOptions(mainStore?.metadata, entityName, propertyName), ...getFieldDecoratorOpts}
-        )(
-          <FormField entityName={entityName}
-                     propertyName={propertyName}
-                     disabled={isReadOnly || disabled}
-                     optionsContainer={optionsContainer}
-                     nestedEntityView={nestedEntityView}
-                     parentEntityInstanceId={parentEntityInstanceId}
-                     {...componentProps}
-          />
-        )}
+      return <Form.Item {...{...getDefaultFormItemProps(mainStore?.metadata, entityName, propertyName), ...formItemProps}}>
+        <FormField entityName={entityName}
+                   propertyName={propertyName}
+                   disabled={isReadOnly || disabled}
+                   optionsContainer={optionsContainer}
+                   nestedEntityView={nestedEntityView}
+                   parentEntityInstanceId={parentEntityInstanceId}
+                   {...componentProps}
+        />
       </Form.Item>
 
     }}/>);
 
 }));
 
-function getDefaultOptions(metadata: MetaClassInfo[] | undefined, entityName: string, propertyName: string): GetFieldDecoratorOptions {
+function getDefaultFormItemProps(metadata: MetaClassInfo[] | undefined, entityName: string, propertyName: string): FormItemProps {
+  const formItemProps: FormItemProps = {
+    name: propertyName,
+    label: <Msg entityName={entityName} propertyName={propertyName}/>
+  };
+
   if (!metadata) {
-    return {};
+    return formItemProps;
   }
 
   const propertyInfo = getPropertyInfo(metadata, entityName, propertyName);
 
   if (propertyInfo?.type === 'uuid') {
-    return {
-      rules: [
+    formItemProps.rules = [
         { pattern: uuidPattern }
-      ],
-      validateTrigger: 'onSubmit'
-    };
+      ];
+    formItemProps.validateTrigger = 'onSubmit';
   }
 
-  return {};
+  return formItemProps;
 }
 
-export type FormFieldComponentProps = SelectProps | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
+export type FormFieldComponentProps = SelectProps<SelectValue> | InputProps | InputNumberProps | CheckboxProps | DatePickerProps | TimePickerProps | FileUploadProps
   | NestedEntityFieldProps | NestedEntitiesTableFieldProps;
 
 // TODO We should probably make it an interface as it is not convenient to document type declarations with TSDoc.
@@ -227,8 +206,8 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
     case 'COMPOSITION':
       if (nestedEntityView) {
-        const nestedEntityName = mainStore.metadata.find(metaClass => metaClass.entityName === entityName)?.properties
-          .find(property => property.name === propertyName)?.type;
+        const nestedEntityName = mainStore.metadata.find((metaClass: MetaClassInfo) => metaClass.entityName === entityName)?.properties
+          .find((property: MetaPropertyInfo) => property.name === propertyName)?.type;
 
         if (nestedEntityName) {
           if (propertyInfo.cardinality === 'ONE_TO_ONE') {
@@ -259,7 +238,7 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
     case 'dateTime':
     case 'localDateTime':
     case 'offsetDateTime':
-      return <DatePicker showTime={true} {...(rest as DatePickerProps)}/>;
+      return <DatePicker showTime={true} {...(rest as DatePickerProps & {showTime?: boolean | object})}/>;
     case 'time':
     case 'localTime':
     case 'offsetTime':
@@ -462,43 +441,37 @@ class NestedEntityFieldComponent extends React.Component<NestedEntityFieldProps>
       return <Spin size='small'/>;
     }
 
-    return (
-      <>
-        {this.isCreateMode && (
-          <Button type='link'
-                  onClick={this.openDrawer}
-          >
-            <FormattedMessage id='cubaReact.nestedEntityField.create' />
-          </Button>
-        )}
-        {this.isEditMode && (
-          <span>
-            <span>{this.instanceName}</span>
-            <Icon type='delete'
-                  className='cuba-nested-entity-editor-icon'
-                  onClick={this.showDeletionDialog}
-            />
-            <Icon type='edit'
-                  className='cuba-nested-entity-editor-icon'
-                  onClick={this.openDrawer}
-            />
-          </span>
-        )}
-        <Drawer visible={this.isDrawerOpen}
-                width='90%'
-                onClose={this.closeDrawer}
+    return <>
+      {this.isCreateMode && (
+        <Button type='link'
+                onClick={this.openDrawer}
         >
-          <EntityEditor entityName={nestedEntityName}
-                        fields={this.fields}
-                        dataInstance={this.dataInstance}
-                        associationOptions={this.associationOptions}
-                        onSubmit={this.handleSubmit}
-                        onCancel={this.closeDrawer}
-                        submitButtonText='common.ok'
-          />
-        </Drawer>
-      </>
-    );
+          <FormattedMessage id='cubaReact.nestedEntityField.create' />
+        </Button>
+      )}
+      {this.isEditMode && (
+        <span>
+          <span>{this.instanceName}</span>
+          <DeleteOutlined
+            className='cuba-nested-entity-editor-icon'
+            onClick={this.showDeletionDialog} />
+          <EditOutlined className='cuba-nested-entity-editor-icon' onClick={this.openDrawer} />
+        </span>
+      )}
+      <Drawer visible={this.isDrawerOpen}
+              width='90%'
+              onClose={this.closeDrawer}
+      >
+        <EntityEditor entityName={nestedEntityName}
+                      fields={this.fields}
+                      dataInstance={this.dataInstance}
+                      associationOptions={this.associationOptions}
+                      onSubmit={this.handleSubmit}
+                      onCancel={this.closeDrawer}
+                      submitButtonText='common.ok'
+        />
+      </Drawer>
+    </>;
   }
 }
 
@@ -762,7 +735,7 @@ class NestedEntitiesTableFieldComponent extends React.Component<NestedEntitiesTa
             htmlType="button"
             className='button'
             type="primary"
-            icon="plus"
+            icon={<PlusOutlined />}
             key='create'
             onClick={this.createEntity}
           >
@@ -845,7 +818,7 @@ export interface EntityEditorProps extends MainStoreInjected, WrappedComponentPr
    * This prop can be used to override the default behavior which is to send
    * a request to REST API to update the entity.
    *
-   * @param fieldValues - the values of antd {@link https://3x.ant.design/components/form/ Form} fields.
+   * @param fieldValues - the values of antd {@link https://ant.design/components/form/ Form} fields.
    * It can be obtained via antd Form's `getFieldsValue(fields)` method.
    * `fields` parameter of this method is a list of entity properties for which
    * the form field values should be collected.
@@ -871,21 +844,23 @@ export interface EntityEditorProps extends MainStoreInjected, WrappedComponentPr
 
 @injectMainStore
 @observer
-class EntityEditorComponent extends React.Component<EntityEditorProps & FormComponentProps> {
+class EntityEditorComponent extends React.Component<EntityEditorProps> {
 
   @observable globalErrors: string[] = [];
+  @observable formRef: RefObject<FormInstance> = React.createRef<FormInstance>();
 
   reactionDisposers: IReactionDisposer[] = [];
 
   componentDidMount(): void {
-    const {form, dataInstance, fields} = this.props;
-
     this.reactionDisposers.push(reaction(
-      () => dataInstance.item,
+      () => [this.props.dataInstance, this.formRef.current],
       () => {
-        form.setFieldsValue(
-          dataInstance.getFieldValues(fields)
-        );
+        if (this.formRef.current != null) {
+          this.formRef.current.resetFields();
+          this.formRef.current.setFieldsValue(
+            this.props.dataInstance.getFieldValues(this.props.fields)
+          );
+        }
       },
       {fireImmediately: true}
     ));
@@ -903,56 +878,22 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
       : [];
   }
 
-  handleSubmit = (event: FormEvent) => {
-    const {form, intl, fields, onSubmit} = this.props;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    form.validateFields((clientError: any) => {
-      if (clientError) {
-        message.error(intl.formatMessage({id: "management.editor.validationError"}));
-        return;
+  handleFinish = (values: {[field: string]: any}) => {
+    const {onSubmit, dataInstance, intl} = this.props;
+    if (onSubmit) {
+      onSubmit(values);
+    } else {
+      if (this.formRef.current != null) {
+        defaultHandleFinish(values, dataInstance, intl, this.formRef.current).then(({globalErrors}) => {
+          this.globalErrors = globalErrors;
+        });
       }
-
-      if (onSubmit) {
-        onSubmit(form.getFieldsValue(fields));
-      } else {
-        this.defaultOnSubmit();
-      }
-    });
+    }
   };
 
-  defaultOnSubmit = () => {
-    const {form, fields, dataInstance, intl} = this.props;
-
-    dataInstance
-      .update(form.getFieldsValue(fields))
-      .then(() => {
-        message.success(intl.formatMessage({ id: "management.editor.success" }));
-      })
-      .catch((serverError: any) => {
-        if (serverError.response && typeof serverError.response.json === "function") {
-          serverError.response.json().then((response: any) => {
-            clearFieldErrors(form);
-            const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
-            this.globalErrors = globalErrors;
-            if (fieldErrors.size > 0) {
-              form.setFields(constructFieldsWithErrors(fieldErrors, form));
-            }
-
-            if (fieldErrors.size > 0 || globalErrors.length > 0) {
-              message.error(intl.formatMessage({id: "management.editor.validationError"}));
-            } else {
-              message.error(intl.formatMessage({id: "management.editor.error"}));
-            }
-          });
-        } else {
-          message.error(
-            intl.formatMessage({ id: "management.editor.error" })
-          );
-        }
-      });
+  handleFinishFailed = () => {
+    const {intl} = this.props;
+    message.error(intl.formatMessage({id: "management.editor.validationError"}));
   };
 
   getOptionsContainer = (entityName: string): DataCollectionStore<Partial<WithId & SerializedEntityProps>> | undefined => {
@@ -960,21 +901,23 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
     return associationOptions.get(entityName);
   };
 
-  getFieldDecoratorOpts = (property: MetaPropertyInfo): GetFieldDecoratorOptions => {
-    const opts: GetFieldDecoratorOptions = {};
+  getFormItemProps = (property: MetaPropertyInfo): FormItemProps => {
+    const formItemProps: FormItemProps = {
+      style: { marginBottom: "12px" }
+    };
 
     if (property.mandatory) {
-      opts.rules = [{required: true}];
+      formItemProps.rules = [{required: true}];
     }
     if (property.type === 'boolean') {
-      opts.valuePropName = 'checked';
+      formItemProps.valuePropName = 'checked';
     }
 
-    return opts;
+    return formItemProps;
   };
 
   render() {
-    const {mainStore, dataInstance, onCancel, submitButtonText} = this.props;
+    const {mainStore, dataInstance, onCancel, submitButtonText, intl} = this.props;
 
     if (!mainStore?.isEntityDataLoaded()) { return <Spinner/> }
 
@@ -982,7 +925,13 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
 
     return (
       <Card className="narrow-layout">
-        <Form onSubmit={this.handleSubmit} layout="vertical" className={'cuba-entity-editor'}>
+        <Form onFinish={this.handleFinish}
+              onFinishFailed={this.handleFinishFailed}
+              layout="vertical"
+              className={'cuba-entity-editor'}
+              ref={this.formRef}
+              validateMessages={createAntdFormValidationMessages(intl)}
+        >
           {this.renderFields()}
           {this.globalErrors.length > 0 && (
             <Alert
@@ -1013,7 +962,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
   }
 
   renderFields() {
-    const {entityName, form} = this.props;
+    const {entityName} = this.props;
 
     return this.entityProperties.map(property => {
       return (
@@ -1021,9 +970,7 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
           entityName={entityName}
           propertyName={property.name}
           key={property.name}
-          form={form}
-          formItemOpts={{ style: { marginBottom: "12px" } }}
-          getFieldDecoratorOpts={this.getFieldDecoratorOpts(property)}
+          formItemProps={this.getFormItemProps(property)}
           optionsContainer={this.getOptionsContainer(property.type)}
           disabled={property.readOnly}
         />
@@ -1033,18 +980,47 @@ class EntityEditorComponent extends React.Component<EntityEditorProps & FormComp
 
 }
 
-const EntityEditor = injectIntl<'intl', EntityEditorProps>(withLocalizedForm({
-  onValuesChange: (theProps: any, changedValues: any) => {
-    // Reset server-side errors when field is edited
-    Object.keys(changedValues).forEach((fieldName: string) => {
-      theProps.form.setFields({
-        [fieldName]: {
-          value: changedValues[fieldName]
-        }
-      });
+export const defaultHandleFinish = <E extends unknown>(
+  values: Record<string, any>,
+  dataInstance: DataInstanceStore<E>,
+  intl: IntlShape,
+  formInstance: FormInstance,
+  commitMode?: CommitMode,
+): Promise<{success: boolean, globalErrors: string[]}> => {
+  clearFieldErrors(formInstance);
+
+  return dataInstance
+    .update(values, commitMode)
+    .then(() => {
+      message.success(intl.formatMessage({ id: "management.editor.success" }));
+      return {success: true, globalErrors: []};
+    })
+    .catch((serverError: any) => {
+      if (serverError.response && typeof serverError.response.json === "function") {
+        return serverError.response.json().then((response: any) => {
+          const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
+          if (fieldErrors.size > 0) {
+            formInstance.setFields(constructFieldsWithErrors(fieldErrors, formInstance));
+          }
+
+          if (fieldErrors.size > 0 || globalErrors.length > 0) {
+            message.error(intl.formatMessage({id: "management.editor.validationError"}));
+          } else {
+            message.error(intl.formatMessage({id: "management.editor.error"}));
+          }
+
+          return {success: false, globalErrors};
+        });
+      } else {
+        message.error(
+          intl.formatMessage({ id: "management.editor.error" })
+        );
+        return {success: false, globalErrors: []};
+      }
     });
-  }
-})(EntityEditorComponent));
+};
+
+const EntityEditor = injectIntl<'intl', EntityEditorProps>(EntityEditorComponent);
 
 export function getEntityProperties(entityName: string, fields: string[], metadata: MetaClassInfo[]): MetaPropertyInfo[] {
   const allProperties = metadata.find((classInfo: MetaClassInfo) => classInfo.entityName === entityName)

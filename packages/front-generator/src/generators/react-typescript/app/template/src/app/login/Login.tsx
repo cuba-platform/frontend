@@ -1,6 +1,8 @@
 import * as React from "react";
-import {ChangeEvent, FormEvent} from "react";
-import {Button, Form, Icon, Input, message} from "antd";
+import {ChangeEvent} from "react";
+import { Form } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {Button, Input, message} from "antd";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
 import {injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
@@ -28,8 +30,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
   };
 
   @action
-  doLogin = (e: FormEvent) => {
-    e.preventDefault();
+  doLogin = () => {
     this.performingLoginRequest = true;
     this.props.mainStore!.login(this.login, this.password)
       .then(action(() => {
@@ -48,13 +49,13 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
         <div className='title'>
           <%= title %>
         </div>
-        <Form layout='vertical' onSubmit={this.doLogin}>
+        <Form layout='vertical' onFinish={this.doLogin}>
           <Form.Item>
             <Input id='input_login'
                    placeholder={this.props.intl.formatMessage({id: 'login.placeholder.login'})}
                    onChange={this.changeLogin}
                    value={this.login}
-                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                   prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }}/>}
                    size='large'/>
           </Form.Item>
           <Form.Item>
@@ -63,7 +64,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
                    onChange={this.changePassword}
                    value={this.password}
                    type='password'
-                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                   prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }}/>}
                    size='large'/>
           </Form.Item>
           <Form.Item>

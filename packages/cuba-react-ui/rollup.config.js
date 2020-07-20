@@ -18,6 +18,7 @@ export default {
     }
   ],
   external: [
+    '@ant-design/icons',
     '@cuba-platform/rest',
     '@cuba-platform/react-core',
     'antd',
@@ -26,10 +27,12 @@ export default {
     'moment',
     'react',
     'react-intl',
+    'react-input-mask',
     'react-dom',
     'react-router',
     'react-router-dom',
     'react-testing-library',
+    'query-string'
   ],
   plugins: [
     resolve(),

@@ -107,9 +107,9 @@ export class DataInstanceStore<T> implements DataContainer {
   }
 
   /**
-   * Sets the {@link item} based on provided values of Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   * Sets the {@link item} based on provided values of Ant Design {@link https://ant.design/components/form/ | Form} fields.
    *
-   * @param formFields - a object representing the values of Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   * @param formFields - a object representing the values of Ant Design {@link https://ant.design/components/form/ | Form} fields.
    */
   @action
   setItemToFormFields(formFields: Partial<T>) {
@@ -133,7 +133,7 @@ export class DataInstanceStore<T> implements DataContainer {
    * @returns a promise that resolves to the update result returned by the REST API.
    */
   @action
-  update(entityPatch: Partial<T>, commitMode?: CommitMode): Promise<any> {
+  update(entityPatch: Record<string, any>, commitMode?: CommitMode): Promise<any> {
     const normalizedPatch: Record<string, any> = formFieldsToInstanceItem(entityPatch, this.entityName, toJS(this.mainStore.metadata!), this.stringIdName);
     Object.assign(this.item, normalizedPatch);
     return this.commit(commitMode);
@@ -176,10 +176,10 @@ export class DataInstanceStore<T> implements DataContainer {
   };
 
   /**
-   * Transforms the {@link item} into the format expected by Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   * Transforms the {@link item} into the format expected by Ant Design {@link https://ant.design/components/form/ | Form} fields.
    *
    * @param properties - entity properties that should be included in the result.
-   * @returns entity instance transformed into the format expected by Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+   * @returns entity instance transformed into the format expected by Ant Design {@link https://ant.design/components/form/ | Form} fields.
    */
   getFieldValues(properties: string[]): Partial<{[prop in keyof T]: any}> {
     return instanceItemToFormFields<T>(
@@ -348,7 +348,7 @@ export function formFieldsToInstanceItem<T>(
 }
 
 /**
- * Transforms the provided `item` into the format expected by Ant Design {@link https://3x.ant.design/components/form/ | Form} fields.
+ * Transforms the provided `item` into the format expected by Ant Design {@link https://ant.design/components/form/ | Form} fields.
  *
  * @typeparam T - entity type.
  *

@@ -1,13 +1,13 @@
 import {observer} from 'mobx-react';
 import React, {ReactNode} from 'react';
 import {action, computed, observable} from 'mobx';
-import {Checkbox, Form, InputNumber, Radio, Select} from 'antd';
+import { Form } from 'antd';
+import { Checkbox, InputNumber, Radio, Select } from 'antd';
 import {RadioChangeEvent} from 'antd/es/radio';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {determineLastNextXInterval, determinePredefinedInterval} from './DataTableIntervalFunctions';
 import './DataTableIntervalEditor.less';
 import './DataTableFilterControlLayout.less';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {PropertyType} from '@cuba-platform/rest';
 
@@ -18,8 +18,6 @@ export interface TemporalInterval {
 
 interface DataTableIntervalEditorProps {
   onChange: (value: TemporalInterval) => void,
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode,
   id: string,
   propertyType: PropertyType
 }
@@ -61,8 +59,8 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   };
 
   @action
-  onIntervalNumberChanged = (value: number | undefined) => {
-    if (value) {
+  onIntervalNumberChanged = (value: string | number | undefined) => {
+    if (value != null && typeof value === 'number' && isFinite(value)) {
       this.numberOfUnits = value;
       this.props.onChange(this.interval);
     }
@@ -82,7 +80,7 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
 
   render() {
     return (
-      <div className='cuba-filter-controls-layout'>
+      <div className='cuba-filter-controls-layout cuba-table-filter-interval'>
         {this.modeSelect}
         {(this.mode === 'predefined') ? this.predefinedIntervals : this.intervalInput}
       </div>
@@ -112,35 +110,37 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   @computed
   get predefinedIntervals(): ReactNode {
     return (
-      <Form.Item className='filtercontrol'>
-        {this.props.getFieldDecorator(`${this.props.id}_predefined`, {
-          initialValue: this.option,
-          rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}],
-        })(
-          <Select onChange={this.onPredefinedIntervalOptionChanged}
-                  dropdownMatchSelectWidth={false}
-                  className='cuba-interval-predefined-select'
-          >
-            <Select.Option value={'today'}>
-              <FormattedMessage id='cubaReact.dataTable.intervalEditor.today' />
-            </Select.Option>
-            <Select.Option value={'yesterday'}>
-              <FormattedMessage id='cubaReact.dataTable.intervalEditor.yesterday' />
-            </Select.Option>
-            <Select.Option value={'tomorrow'}>
-              <FormattedMessage id='cubaReact.dataTable.intervalEditor.tomorrow' />
-            </Select.Option>
-            <Select.Option value={'lastMonth'}>
-              <FormattedMessage id='cubaReact.dataTable.intervalEditor.lastMonth' />
-            </Select.Option>
-            <Select.Option value={'thisMonth'}>
-              <FormattedMessage id='cubaReact.dataTable.intervalEditor.thisMonth' />
-            </Select.Option>
-            <Select.Option value={'nextMonth'}>
-              <FormattedMessage id='cubaReact.dataTable.intervalEditor.nextMonth' />
-            </Select.Option>
-          </Select>
-        )}
+      <Form.Item className='filtercontrol'
+                 name={`${this.props.id}_predefined`}
+                 initialValue={this.option}
+                 rules={[{
+                   required: true,
+                   message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})
+                 }]}
+      >
+        <Select onChange={this.onPredefinedIntervalOptionChanged}
+                dropdownMatchSelectWidth={false}
+                className='cuba-interval-predefined-select'
+        >
+          <Select.Option value={'today'}>
+            <FormattedMessage id='cubaReact.dataTable.intervalEditor.today' />
+          </Select.Option>
+          <Select.Option value={'yesterday'}>
+            <FormattedMessage id='cubaReact.dataTable.intervalEditor.yesterday' />
+          </Select.Option>
+          <Select.Option value={'tomorrow'}>
+            <FormattedMessage id='cubaReact.dataTable.intervalEditor.tomorrow' />
+          </Select.Option>
+          <Select.Option value={'lastMonth'}>
+            <FormattedMessage id='cubaReact.dataTable.intervalEditor.lastMonth' />
+          </Select.Option>
+          <Select.Option value={'thisMonth'}>
+            <FormattedMessage id='cubaReact.dataTable.intervalEditor.thisMonth' />
+          </Select.Option>
+          <Select.Option value={'nextMonth'}>
+            <FormattedMessage id='cubaReact.dataTable.intervalEditor.nextMonth' />
+          </Select.Option>
+        </Select>
       </Form.Item>
     );
   };
@@ -149,13 +149,16 @@ class DataTableIntervalEditorComponent extends React.Component<DataTableInterval
   get intervalInput(): ReactNode {
     return (
       <div className='cuba-filter-controls-layout'>
-        <Form.Item key={`${this.props.id}.wrap.number`} className='filtercontrol'>
-          {this.props.getFieldDecorator(`${this.props.id}_number`, {
-            initialValue: this.numberOfUnits,
-            rules: [{required: true, message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})}],
-          })(
-            <InputNumber onChange={this.onIntervalNumberChanged}/>
-          )}
+        <Form.Item key={`${this.props.id}.wrap.number`}
+                   className='filtercontrol'
+                   name={`${this.props.id}_number`}
+                   initialValue={this.numberOfUnits}
+                   rules={[{
+                     required: true,
+                     message: this.props.intl.formatMessage({id: 'cubaReact.dataTable.validation.requiredField'})
+                   }]}
+        >
+          <InputNumber onChange={this.onIntervalNumberChanged}/>
         </Form.Item>
         <Form.Item key={`${this.props.id}.wrap.unit`} className='filtercontrol'>
           <Select defaultValue={this.timeUnit}

@@ -6,13 +6,13 @@ const dirNames = {
   'react-ui': 'cuba-react-ui',
 };
 
-const updateClientLibs = async (clientDir, libs, updateCubaLibsOnly) => {
+const updateClientLibs = async (clientDir, libs, updateCubaLibsOnly, packagesDir = '../packages') => {
   console.log('*** Updating client libs ***');
 
   for (const lib of libs) {
     console.log(`updating @cuba-platform/${lib}...`);
-    const version = require(`../packages/${dirNames[lib]}/package.json`).version;
-    cmd(clientDir, `npm install ../packages/${dirNames[lib]}/cuba-platform-${lib}-${version}.tgz`);
+    const version = require(`${packagesDir}/${dirNames[lib]}/package.json`).version;
+    cmd(clientDir, `npm install ${packagesDir}/${dirNames[lib]}/cuba-platform-${lib}-${version}.tgz`);
     console.log(`@cuba-platform/${lib} updated`);
   }
 

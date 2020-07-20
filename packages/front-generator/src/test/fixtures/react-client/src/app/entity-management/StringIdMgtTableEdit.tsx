@@ -1,9 +1,8 @@
 import * as React from "react";
-import { FormEvent } from "react";
-import { Alert, Button, Card, Form, message } from "antd";
+import { Form, Alert, Button, Card, message } from "antd";
+import { FormInstance } from "antd/es/form";
 import { observer } from "mobx-react";
 import { StringIdMgtTableManagement } from "./StringIdMgtTableManagement";
-import { FormComponentProps } from "antd/lib/form";
 import { Link, Redirect } from "react-router-dom";
 import { IReactionDisposer, observable, reaction, toJS } from "mobx";
 import {
@@ -11,6 +10,10 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+import {
+  defaultHandleFinish,
+  createAntdFormValidationMessages
+} from "@cuba-platform/react-ui";
 
 import {
   instance,
@@ -18,21 +21,13 @@ import {
   injectMainStore
 } from "@cuba-platform/react-core";
 
-import {
-  Field,
-  withLocalizedForm,
-  extractServerValidationErrors,
-  constructFieldsWithErrors,
-  clearFieldErrors,
-  MultilineText,
-  Spinner
-} from "@cuba-platform/react-ui";
+import { Field, MultilineText, Spinner } from "@cuba-platform/react-ui";
 
 import "app/App.css";
 
 import { StringIdTestEntity } from "cuba/entities/scr_StringIdTestEntity";
 
-type Props = FormComponentProps & EditorProps & MainStoreInjected;
+type Props = EditorProps & MainStoreInjected;
 
 type EditorProps = {
   entityId: string;
@@ -46,76 +41,42 @@ class StringIdMgtTableEditComponent extends React.Component<
   dataInstance = instance<StringIdTestEntity>(StringIdTestEntity.NAME, {
     view: "_local",
     loadImmediately: false,
-
     stringIdName: "identifier"
   });
 
   @observable updated = false;
-  @observable formRef: React.RefObject<Form> = React.createRef();
+  @observable formRef: React.RefObject<FormInstance> = React.createRef();
   reactionDisposers: IReactionDisposer[] = [];
 
   fields = ["description", "identifier", "productCode"];
 
   @observable globalErrors: string[] = [];
 
-  handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (err) {
-        message.error(
-          this.props.intl.formatMessage({
-            id: "management.editor.validationError"
-          })
-        );
-        return;
-      }
-      this.dataInstance
-        .update(
-          this.props.form.getFieldsValue(this.fields),
-          this.isNewEntity() ? "create" : "edit"
-        )
-        .then(() => {
-          message.success(
-            this.props.intl.formatMessage({ id: "management.editor.success" })
-          );
-          this.updated = true;
-        })
-        .catch((e: any) => {
-          if (e.response && typeof e.response.json === "function") {
-            e.response.json().then((response: any) => {
-              clearFieldErrors(this.props.form);
-              const {
-                globalErrors,
-                fieldErrors
-              } = extractServerValidationErrors(response);
-              this.globalErrors = globalErrors;
-              if (fieldErrors.size > 0) {
-                this.props.form.setFields(
-                  constructFieldsWithErrors(fieldErrors, this.props.form)
-                );
-              }
+  handleFinishFailed = () => {
+    const { intl } = this.props;
+    message.error(
+      intl.formatMessage({ id: "management.editor.validationError" })
+    );
+  };
 
-              if (fieldErrors.size > 0 || globalErrors.length > 0) {
-                message.error(
-                  this.props.intl.formatMessage({
-                    id: "management.editor.validationError"
-                  })
-                );
-              } else {
-                message.error(
-                  this.props.intl.formatMessage({
-                    id: "management.editor.error"
-                  })
-                );
-              }
-            });
-          } else {
-            message.error(
-              this.props.intl.formatMessage({ id: "management.editor.error" })
-            );
-          }
-        });
-    });
+  handleFinish = (values: { [field: string]: any }) => {
+    const { intl } = this.props;
+
+    if (this.formRef.current != null) {
+      defaultHandleFinish(
+        values,
+        this.dataInstance,
+        intl,
+        this.formRef.current,
+        this.isNewEntity() ? "create" : "edit"
+      ).then(({ success, globalErrors }) => {
+        if (success) {
+          this.updated = true;
+        } else {
+          this.globalErrors = globalErrors;
+        }
+      });
+    }
   };
 
   isNewEntity = () => {
@@ -128,7 +89,7 @@ class StringIdMgtTableEditComponent extends React.Component<
     }
 
     const { status, lastError, load } = this.dataInstance;
-    const { mainStore, entityId } = this.props;
+    const { mainStore, entityId, intl } = this.props;
     if (mainStore == null || !mainStore.isEntityDataLoaded()) {
       return <Spinner />;
     }
@@ -149,22 +110,27 @@ class StringIdMgtTableEditComponent extends React.Component<
 
     return (
       <Card className="narrow-layout">
-        <Form onSubmit={this.handleSubmit} layout="vertical" ref={this.formRef}>
+        <Form
+          onFinish={this.handleFinish}
+          onFinishFailed={this.handleFinishFailed}
+          layout="vertical"
+          ref={this.formRef}
+          validateMessages={createAntdFormValidationMessages(intl)}
+        >
           <Field
             entityName={StringIdTestEntity.NAME}
             propertyName="description"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
+            formItemProps={{
+              style: { marginBottom: "12px" }
+            }}
           />
 
           <Field
             entityName={StringIdTestEntity.NAME}
             propertyName="identifier"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
             disabled={!this.isNewEntity()}
-            getFieldDecoratorOpts={{
+            formItemProps={{
+              style: { marginBottom: "12px" },
               rules: [{ required: true }]
             }}
           />
@@ -172,9 +138,9 @@ class StringIdMgtTableEditComponent extends React.Component<
           <Field
             entityName={StringIdTestEntity.NAME}
             propertyName="productCode"
-            form={this.props.form}
-            formItemOpts={{ style: { marginBottom: "12px" } }}
-            getFieldDecoratorOpts={{}}
+            formItemProps={{
+              style: { marginBottom: "12px" }
+            }}
           />
 
           {this.globalErrors.length > 0 && (
@@ -194,7 +160,7 @@ class StringIdMgtTableEditComponent extends React.Component<
             <Button
               type="primary"
               htmlType="submit"
-              disabled={status !== "DONE"}
+              disabled={status !== "DONE" && status !== "ERROR"}
               loading={status === "LOADING"}
               style={{ marginLeft: "8px" }}
             >
@@ -218,7 +184,10 @@ class StringIdMgtTableEditComponent extends React.Component<
         () => this.dataInstance.status,
         () => {
           const { intl } = this.props;
-          if (this.dataInstance.lastError != null) {
+          if (
+            this.dataInstance.lastError != null &&
+            this.dataInstance.lastError !== "COMMIT_ERROR"
+          ) {
             message.error(intl.formatMessage({ id: "common.requestFailed" }));
           }
         }
@@ -236,7 +205,7 @@ class StringIdMgtTableEditComponent extends React.Component<
               reaction(
                 () => this.dataInstance.item,
                 () => {
-                  this.props.form.setFieldsValue(
+                  formRefCurrent.setFieldsValue(
                     this.dataInstance.getFieldValues(this.fields)
                   );
                 },
@@ -256,17 +225,4 @@ class StringIdMgtTableEditComponent extends React.Component<
   }
 }
 
-export default injectIntl(
-  withLocalizedForm<EditorProps>({
-    onValuesChange: (props: any, changedValues: any) => {
-      // Reset server-side errors when field is edited
-      Object.keys(changedValues).forEach((fieldName: string) => {
-        props.form.setFields({
-          [fieldName]: {
-            value: changedValues[fieldName]
-          }
-        });
-      });
-    }
-  })(StringIdMgtTableEditComponent)
-);
+export default injectIntl(StringIdMgtTableEditComponent);

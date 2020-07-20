@@ -1,6 +1,7 @@
-import {Icon, message, Upload} from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { message, Upload } from 'antd';
 import * as React from 'react';
-import {UploadChangeParam} from 'antd/lib/upload';
+import {UploadChangeParam} from 'antd/es/upload';
 import {IReactionDisposer, observable, reaction} from 'mobx';
 import {observer} from 'mobx-react';
 import {UploadProps} from 'antd/es/upload';
@@ -26,7 +27,7 @@ export interface FileUploadProps {
   enableFullWidth?: boolean,
   disabled?: boolean,
   /**
-   * UploadProps object that is passed through to the underlying antd {@link https://3x.ant.design/components/upload/ Upload} component
+   * UploadProps object that is passed through to the underlying antd {@link https://ant.design/components/upload/ Upload} component
    */
   uploadProps?: UploadProps,
   /**
@@ -204,7 +205,7 @@ function FileUploadDropArea(props: FileUploadDropAreaProps) {
   return props.fileInfo
     ? (
       <div className='cuba-file-drop-area'>
-        <Icon className='replaceicon' type='upload' />
+        <UploadOutlined className='replaceicon' />
         <span className='replacetext'>
           <FormattedMessage id='cubaReact.fileUpload.replace'/>
         </span>
@@ -212,7 +213,7 @@ function FileUploadDropArea(props: FileUploadDropAreaProps) {
     )
     : (
       <div className='cuba-file-drop-area'>
-        <Icon className='uploadicon' type='upload' />
+        <UploadOutlined className='uploadicon' />
         <div className='uploadtext'>
           <FormattedMessage id='cubaReact.fileUpload.upload'/>
         </div>

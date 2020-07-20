@@ -1,7 +1,8 @@
 import * as React from "react";
 import "./App.css";
 
-import { Icon, Layout, Menu } from "antd";
+import { BarsOutlined, HomeOutlined } from '@ant-design/icons';
+import { Layout, Menu } from "antd";
 import { observer } from "mobx-react";
 import Login from "./login/Login";
 import Centered from "./common/Centered";
@@ -61,7 +62,7 @@ class AppComponent extends React.Component<
             <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
               <Menu.Item key={menuIdx}>
                 <NavLink to={"/"}>
-                  <Icon type="home" />
+                  <HomeOutlined />
                   <FormattedMessage id="router.home" />
                 </NavLink>
               </Menu.Item>
@@ -115,7 +116,7 @@ function menuItem(item: RouteItem | SubMenu, keyString: string, intl: IntlFormat
   return (
     <Menu.Item key={keyString}>
       <NavLink to={menuLink}>
-        <Icon type="bars" />
+        <BarsOutlined />
         <FormattedMessage id={"router." + item.caption} />
       </NavLink>
     </Menu.Item>

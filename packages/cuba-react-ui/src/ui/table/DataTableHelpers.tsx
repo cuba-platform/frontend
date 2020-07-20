@@ -1,5 +1,6 @@
-import {ColumnFilterItem, ColumnProps, FilterDropdownProps, PaginationConfig, SorterResult} from 'antd/es/table';
-import React from 'react';
+import {ColumnProps, TablePaginationConfig} from 'antd/es/table';
+import {SorterResult, ColumnFilterItem, FilterDropdownProps} from 'antd/es/table/interface';
+import React, { ReactText } from 'react';
 import {
   Condition,
   ConditionsGroup,
@@ -15,9 +16,10 @@ import {
 } from './DataTableCustomFilter';
 import { toJS } from 'mobx';
 import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
-import {WrappedFormUtils} from 'antd/es/form/Form';
-import {OperatorType} from "@cuba-platform/rest";
+import {OperatorType, FilterValue} from "@cuba-platform/rest";
 import {setPagination} from "../paging/Paging";
+import {Key} from 'antd/es/table/interface';
+import { FormInstance } from 'antd/es/form';
 
 // todo we should not use '*Helpers' in class name in case of lack semantic. This class need to be split
 //  to different files like 'DataColumn', 'Conditions', 'Filters', 'Paging' ot something like this
@@ -31,7 +33,7 @@ export interface DataColumnConfig {
    */
   enableFilter: boolean,
   /**
-   * An object received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback,
+   * An object received in antd {@link https://ant.design/components/table | Table}'s `onChange` callback,
    * it is a mapping between column names and currently applied filters.
    */
   filters: Record<string, any> | undefined,
@@ -52,9 +54,9 @@ export interface DataColumnConfig {
   enableSorter: boolean,
   mainStore: MainStore,
   /**
-   * See {@link DataTableCustomFilterProps.ref}
+   * See {@link DataTableCustomFilterProps.customFilterRef}
    */
-  customFilterRef?: (instance: WrappedFormUtils) => void
+  customFilterRef?: (instance: FormInstance) => void
 }
 
 /**
@@ -167,13 +169,13 @@ export function generateDataColumn<EntityType>(config: DataColumnConfig): Column
     customFilterRef
   } = config;
 
-  let dataIndex: string;
+  let dataIndex: string | string[];
   const propertyInfo = getPropertyInfoNN(propertyName as string, entityName, mainStore!.metadata!);
 
   switch(propertyInfo.attributeType) {
     case 'COMPOSITION':
     case 'ASSOCIATION':
-      dataIndex = `${propertyName}._instanceName`;
+      dataIndex = [propertyName, '_instanceName'];
       break;
     default:
       dataIndex = propertyName as string;
@@ -252,8 +254,6 @@ export function generateEnumFilter(propertyInfo: MetaPropertyInfo, mainStore: Ma
   });
 }
 
-type RefCallback = string & ((instance: WrappedFormUtils) => void);
-
 // todo - after extraction DataColumn class move this method to DataColumn and inline
 export function generateCustomFilterDropdown(
   propertyName: string,
@@ -262,7 +262,7 @@ export function generateCustomFilterDropdown(
   onOperatorChange: (operator: ComparisonType, propertyName: string) => void,
   value: any,
   onValueChange: (value: any, propertyName: string) => void,
-  customFilterRefCallback?: (instance: WrappedFormUtils) => void,
+  customFilterRefCallback?: (instance: FormInstance) => void,
 ): (props: FilterDropdownProps) => React.ReactNode {
 
   return (props: FilterDropdownProps) => (
@@ -273,7 +273,7 @@ export function generateCustomFilterDropdown(
                   onOperatorChange={onOperatorChange}
                   value={value}
                   onValueChange={onValueChange}
-                  ref={customFilterRefCallback as RefCallback}
+                  customFilterRef={customFilterRefCallback}
     />
   )
 
@@ -288,7 +288,7 @@ export function generateCustomFilterDropdown(
  * @param dataCollection
  */
 export function setFilters<E>(
-  tableFilters: Record<string, string[]>,
+  tableFilters: Record<string, ReactText[] | null>,
   fields: string[],
   mainStore: MainStore,
   dataCollection: DataCollectionStore<E>,
@@ -309,7 +309,9 @@ export function setFilters<E>(
 
   if (tableFilters) {
     fields.forEach((propertyName: string) => {
-      if (tableFilters.hasOwnProperty(propertyName) && tableFilters[propertyName] && tableFilters[propertyName].length > 0) {
+      if (tableFilters.hasOwnProperty(propertyName)
+          && tableFilters[propertyName] != null
+          && tableFilters[propertyName]!.length > 0) {
         if (!entityFilter) {
           entityFilter = {
             conditions: []
@@ -320,7 +322,7 @@ export function setFilters<E>(
         if (propertyInfoNN.attributeType === 'ENUM') {
           pushCondition(entityFilter, propertyName, 'in', tableFilters[propertyName]);
         } else {
-          const {operator, value} = JSON.parse(tableFilters[propertyName][0]);
+          const {operator, value} = JSON.parse(String(tableFilters[propertyName]![0]));
           if (operator === 'inInterval') {
             const {minDate, maxDate} = value;
             pushCondition(entityFilter, propertyName, '>=', minDate);
@@ -336,8 +338,11 @@ export function setFilters<E>(
   dataCollection.filter = entityFilter;
 }
 
-function pushCondition(ef: EntityFilter, property: string, operator: OperatorType,
-                       value: string | number | string[] | number[] | null) {
+function pushCondition(ef: EntityFilter,
+                       property: string,
+                       operator: OperatorType,
+                       val: ReactText | ReactText[] | null) {
+  const value = val as FilterValue;
   ef.conditions.push({property, operator, value});
 }
 
@@ -350,15 +355,15 @@ function pushCondition(ef: EntityFilter, property: string, operator: OperatorTyp
  * @param dataCollection
  */
 // todo could we make defaultSort of type defined as properties keys of 'E' ?
-export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | undefined, dataCollection: DataCollectionStore<E>) {
-  if (sorter && sorter.order) {
+export function setSorter<E>(sorter: SorterResult<E> | Array<SorterResult<E>>, defaultSort: string | undefined, dataCollection: DataCollectionStore<E>) {
+  if (sorter != null && !Array.isArray(sorter) && sorter.order != null) {
     const sortOrderPrefix: string = (sorter.order === 'descend') ? '-' : '+';
 
     let sortField: string;
-    if (sorter.field.endsWith('._instanceName')) {
+    if (typeof sorter.field === 'string' && sorter.field.endsWith('._instanceName')) {
       sortField = sorter.field.substring(0, sorter.field.indexOf('.'));
     } else {
-      sortField = sorter.field;
+      sortField = String(sorter.field);
     }
 
     dataCollection.sort = sortOrderPrefix + sortField;
@@ -372,17 +377,17 @@ export function setSorter<E>(sorter: SorterResult<E>, defaultSort: string | unde
  */
 export interface TableChangeDTO<E> {
   /**
-   * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+   * Received in antd {@link https://ant.design/components/table | Table}'s `onChange` callback
    */
-  pagination: PaginationConfig,
+  pagination: TablePaginationConfig,
   /**
-   * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+   * Received in antd {@link https://ant.design/components/table | Table}'s `onChange` callback
    */
-  filters: Record<string, string[]>,
+  filters: Record<string, Key[] | null>,
   /**
-   * Received in antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+   * Received in antd {@link https://ant.design/components/table | Table}'s `onChange` callback
    */
-  sorter: SorterResult<E>,
+  sorter: SorterResult<E> | Array<SorterResult<E>>,
   /**
    * Default sort order.
    * Property name opionally preceeded by `+` or `-` character.
@@ -399,7 +404,7 @@ export interface TableChangeDTO<E> {
 }
 
 /**
- * When called from antd {@link https://3x.ant.design/components/table | Table}'s `onChange` callback
+ * When called from antd {@link https://ant.design/components/table | Table}'s `onChange` callback
  * this function will reload data collection taking into account `Table`'s filters, sorter and pagination.
  *
  * @typeparam E - entity type.
