@@ -1,6 +1,7 @@
 const FilterActions = require('./FilterActions');
 
-describe('DataTable - no filters', () => {
+// TODO https://github.com/cuba-platform/frontend/issues/284
+xdescribe('DataTable - no filters', () => {
   let fa = new FilterActions();
   beforeAll(fa.beforeAll);
   beforeEach(fa.beforeEach);

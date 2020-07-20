@@ -33,4 +33,4 @@ asciidoc:
     npm_cubaRestJs: 'https://www.npmjs.com/package/@cuba-platform/rest'
     forum: 'https://www.cuba-platform.com/discuss'
     api_rest: 'link:../api-reference/cuba-rest-js/index.html'
-    git_frontendUi: 'https://github.com/cuba-platform/frontend.git'
+    git_frontendUi: 'https://github.com/cuba-platform/frontend'

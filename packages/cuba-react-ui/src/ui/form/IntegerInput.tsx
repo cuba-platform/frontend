@@ -4,7 +4,7 @@ import './InputNumber.less';
 import {forwardRef, Ref} from 'react';
 import {InputNumberProps} from 'antd/es/input-number';
 
-export const IntegerInput = forwardRef((props: InputNumberProps, ref: Ref<InputNumber>) => {
+export const IntegerInput = forwardRef((props: InputNumberProps, ref: Ref<typeof InputNumber>) => {
   return (
     <InputNumber min={JAVA_INTEGER_MIN_VALUE}
                  max={JAVA_INTEGER_MAX_VALUE}

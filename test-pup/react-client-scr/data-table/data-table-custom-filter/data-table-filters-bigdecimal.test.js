@@ -1,6 +1,7 @@
 const FilterActions = require('./FilterActions');
 
-describe('DataTable - filters, BigDecimal field', () => {
+// TODO https://github.com/cuba-platform/frontend/issues/284
+xdescribe('DataTable - filters, BigDecimal field', () => {
   let fa = new FilterActions();
   beforeAll(fa.beforeAll);
   beforeEach(fa.beforeEach);

@@ -1,17 +1,15 @@
 @import '~antd/es/style/themes/default';
 @import '../style/palette';
 
-._cuba-file-upload-full-width-enabled span.ant-upload {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
+._cuba-file-upload-full-width-enabled .ant-upload.ant-upload-select {
+  display: block;
 }
 
 .cuba-file-drop-area {
   background-color: @mono-tint-90;
   border: dashed @border-width-base @mono-tint-30;
   cursor: pointer;
-  display: table-cell;
+  display: block;
   padding: @padding-sm;
   text-align: center;
   transition: all @animation-duration-base;

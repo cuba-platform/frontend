@@ -1,22 +1,4 @@
-import {IntlShape, WrappedComponentProps} from 'react-intl';
-import { Form } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import * as React from 'react';
-import {FormCreateOption} from 'antd/lib/form';
-
-export function withLocalizedForm<P>(options?: FormCreateOption<P>) {
-  return (Component: React.ComponentType<P>) => {
-    return (props: P & WrappedComponentProps) => {
-      const ComponentWithForm = Form.create<P & WrappedComponentProps & FormComponentProps>({
-        validateMessages: createAntdFormValidationMessages(props.intl),
-        ...options
-      // @ts-ignore TODO expects different type here, investigate why
-      })(Component);
-
-      return <ComponentWithForm {...props as unknown as P & WrappedComponentProps & FormComponentProps } />;
-    };
-  };
-}
+import {IntlShape} from 'react-intl';
 
 export function createAntdFormValidationMessages(intl: IntlShape) {
   return {

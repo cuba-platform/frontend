@@ -1,6 +1,7 @@
 const FilterActions = require('./FilterActions');
 
-describe('DataTable - filters, OffsetTime', () => {
+// TODO https://github.com/cuba-platform/frontend/issues/284
+xdescribe('DataTable - filters, OffsetTime', () => {
   let fa = new FilterActions();
   beforeAll(fa.beforeAll);
   beforeEach(fa.beforeEach);

@@ -1,11 +1,8 @@
-import React, {ReactNode} from 'react';
-import {Button, Icon, message, Spin, Table} from 'antd';
-import {
-  ColumnProps,
-  PaginationConfig, RowSelectionType,
-  SorterResult, TableEventListeners,
-  TableProps
-} from 'antd/es/table';
+import React, {ReactNode, ReactText} from 'react';
+import { FilterOutlined } from '@ant-design/icons';
+import { Button, message, Spin, Table } from 'antd';
+import {ColumnProps, TableProps} from 'antd/es/table';
+import {Key, RowSelectionType, SorterResult, TablePaginationConfig} from 'antd/es/table/interface';
 import {action, computed, IReactionDisposer, observable, reaction, toJS} from 'mobx';
 import {observer} from 'mobx-react';
 import {ComparisonType, CustomFilterInputValue} from './DataTableCustomFilter';
@@ -17,7 +14,7 @@ import {
   handleTableChange,
   isPreservedCondition
 } from './DataTableHelpers';
-import {Condition, ConditionsGroup, EntityAttrPermissionValue} from "@cuba-platform/rest";
+import {Condition, ConditionsGroup, EntityAttrPermissionValue, SerializedEntity} from "@cuba-platform/rest";
 import {
   MainStoreInjected,
   DataCollectionStore,
@@ -26,12 +23,12 @@ import {
   getPropertyInfoNN,
   WithId
 } from '@cuba-platform/react-core';
-import {WrappedFormUtils} from 'antd/es/form/Form';
+import { FormInstance } from 'antd/es/form';
 
 /**
  * @typeparam E - entity type.
  */
-export interface DataTableProps<E> extends MainStoreInjected, WrappedComponentProps {
+export interface DataTableProps<E extends object> extends MainStoreInjected, WrappedComponentProps {
   dataCollection: DataCollectionStore<E>,
   /**
    * @deprecated use `columnDefinitions` instead. If used together, `columnDefinitions` will take precedence.
@@ -64,14 +61,14 @@ export interface DataTableProps<E> extends MainStoreInjected, WrappedComponentPr
    */
   rowSelectionMode?: 'single' | 'multi' | 'none',
   /**
-   * When `true`, hides the {@link https://3x.ant.design/components/table | selection column}.
+   * When `true`, hides the {@link https://ant.design/components/table | selection column}.
    * Default: `false`.
    */
   hideSelectionColumn?: boolean;
   /**
    * When `true`, a row can be selected by clicking on it.
    * When `false`, a row can only be selected using
-   * the {@link https://3x.ant.design/components/table | selection column}.
+   * the {@link https://ant.design/components/table | selection column}.
    * Default: `true`.
    */
   canSelectRowByClick?: boolean,
@@ -81,7 +78,7 @@ export interface DataTableProps<E> extends MainStoreInjected, WrappedComponentPr
   buttons?: JSX.Element[],
   /**
    * Can be used to override any of the underlying
-   * {@link https://3x.ant.design/components/table/#Table | Table properties}.
+   * {@link https://ant.design/components/table/#Table | Table properties}.
    */
   tableProps?: TableProps<E>,
   /**
@@ -122,7 +119,7 @@ export interface ColumnDefinition<E> {
 
 @injectMainStore
 @observer
-class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
+class DataTableComponent<E extends object> extends React.Component<DataTableProps<E>> {
 
   static readonly NO_COLUMN_DEF_ERROR = 'You need to provide either columnDefinitions or fields prop';
 
@@ -135,7 +132,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
   disposers: IReactionDisposer[] = [];
 
   firstLoad: boolean = true;
-  customFilterForms: Map<string, WrappedFormUtils> = new Map<string, WrappedFormUtils>();
+  customFilterForms: Map<string, FormInstance> = new Map<string, FormInstance>();
   // todo introduce Sort type
   defaultSort: string | undefined;
 
@@ -166,7 +163,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
         if (this.isRowSelectionEnabled && this.selectedRowKeys.length > 0 && dataCollection.status === 'DONE') {
 
           const items = dataCollection.items;
-          const displayedRowKeys = items.map(item => this.constructRowKey(item));
+          const displayedRowKeys = items.map((item: SerializedEntity<E>) => this.constructRowKey(item));
 
           const displayedSelectedKeys: string[] = [];
 
@@ -261,7 +258,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
     throw new Error(`${this.errorContext} ${DataTableComponent.NO_COLUMN_DEF_ERROR}`);
   }
 
-  @computed get paginationConfig(): PaginationConfig {
+  @computed get paginationConfig(): TablePaginationConfig {
     return {
       showSizeChanger: true,
       total: this.props.dataCollection.count,
@@ -279,7 +276,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
   };
 
   @action
-  onChange = (pagination: PaginationConfig, filters: Record<string, any>, sorter: SorterResult<E>): void => {
+  onChange = (pagination: TablePaginationConfig, filters: Record<string, Key[] | null>, sorter: SorterResult<E> | Array<SorterResult<E>>): void => {
     this.tableFilters = filters;
 
     const {defaultSort, fields} = this;
@@ -325,14 +322,14 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
   };
 
   @action
-  onRowSelectionColumnClicked = (selectedRowKeys: string[] | number[]): void => {
+  onRowSelectionColumnClicked = (selectedRowKeys: ReactText[]): void => {
     if (this.isRowSelectionEnabled) {
       this.selectedRowKeys = selectedRowKeys as string[];
     }
   };
 
   @action
-  onRow = (record: E): TableEventListeners => {
+  onRow = (record: E): React.HTMLAttributes<HTMLElement> => {
     return {
       onClick: () => this.onRowClicked(record)
     }
@@ -353,7 +350,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
       }
     });
 
-    this.customFilterForms.forEach(form => {
+    this.customFilterForms.forEach((form: FormInstance) => {
       form.resetFields(); // Reset Ant Form in CustomFilter
     });
 
@@ -396,13 +393,13 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
     this.firstLoad = false;
 
     let defaultTableProps: TableProps<E> = {
-      bodyStyle: { overflowX: 'auto' },
       loading: status === 'LOADING',
       columns: this.generateColumnProps,
       dataSource: toJS(items),
       onChange: this.onChange,
       pagination: this.paginationConfig,
       rowKey: record => this.constructRowKey(record),
+      scroll: {x: true}
     };
 
     if (this.isRowSelectionEnabled) {
@@ -443,7 +440,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
                 className='cuba-data-table-clear-filters'
                 onClick={this.clearFilters}
                 type='link'>
-          <Icon type='filter' />
+          <FilterOutlined />
           <span><FormattedMessage id='cubaReact.dataTable.clearAllFilters'/></span>
         </Button>
       );
@@ -456,7 +453,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
     const {filter} =  this.props.dataCollection;
 
     return filter != null && filter.conditions != null
-      && filter.conditions.some(condition => !isPreservedCondition(condition, this.fields));
+      && filter.conditions.some((condition: Condition | ConditionsGroup) => !isPreservedCondition(condition, this.fields));
   }
 
   @computed
@@ -496,7 +493,7 @@ class DataTableComponent<E> extends React.Component<DataTableProps<E>> {
             onValueChange: this.handleFilterValueChange,
             enableSorter: true,
             mainStore: mainStore!,
-            customFilterRef: (instance: WrappedFormUtils) => this.customFilterForms.set(propertyName, instance)
+            customFilterRef: (instance: FormInstance) => this.customFilterForms.set(propertyName, instance)
           });
 
           return {

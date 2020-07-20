@@ -1,16 +1,15 @@
-import React, {FormEvent, ReactNode} from 'react';
-import {Button, DatePicker, Divider, Form, Input, message, Select, Spin, TimePicker} from 'antd';
-import {FormComponentProps} from 'antd/es/form';
-import {FilterDropdownProps} from 'antd/es/table';
+import React, {ReactNode, ReactNodeArray} from 'react';
+import { Form } from 'antd';
+import { Button, DatePicker, Divider, Input, message, Select, Spin, TimePicker } from 'antd';
+import {FilterDropdownProps} from 'antd/es/table/interface';
 import {observer} from 'mobx-react';
 import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@cuba-platform/rest';
 import {action, computed, observable} from 'mobx';
-import moment, {Moment} from 'moment';
+import {Moment} from 'moment';
 import {DataTableListEditor} from './DataTableListEditor';
 import {DataTableIntervalEditor, TemporalInterval} from './DataTableIntervalEditor';
 import './DataTableCustomFilter.less';
 import './DataTableFilterControlLayout.less';
-import {GetFieldDecoratorOptions} from 'antd/es/form/Form';
 import {injectIntl, WrappedComponentProps, FormattedMessage} from 'react-intl';
 import {
   MainStoreInjected,
@@ -18,7 +17,9 @@ import {
   WithId,
   getCubaREST,
   getPropertyInfo,
-  assertNever, getDataTransferFormat
+  assertNever,
+  applyDataTransferFormat,
+  stripMilliseconds
 } from '@cuba-platform/react-core';
 import {IntegerInput} from "../form/IntegerInput";
 import {BigDecimalInput} from "../form/BigDecimalInput";
@@ -27,8 +28,8 @@ import {LongInput} from "../form/LongInput";
 import {UuidInput} from '../form/UuidInput';
 import {uuidPattern} from "../../util/regex";
 import {LabeledValue} from "antd/es/select";
-import {decorateAndWrapInFormItem, getDefaultFieldDecoratorOptions} from './DataTableCustomFilterFields';
-import {stripMilliseconds} from '@cuba-platform/react-core';
+import {wrapInFormItem, getDefaultFilterFormItemProps} from './DataTableCustomFilterFields';
+import { FormInstance, FormItemProps } from 'antd/es/form';
 
 export interface CaptionValuePair {
   caption: string;
@@ -37,11 +38,11 @@ export interface CaptionValuePair {
 
 export type CustomFilterInputValue = string | number | boolean | string[] | number[] | TemporalInterval | undefined;
 
-export interface DataTableCustomFilterProps extends FormComponentProps, MainStoreInjected {
+export interface DataTableCustomFilterProps extends MainStoreInjected {
   entityName: string,
   entityProperty: string,
   /**
-   * See `filterDropdown` in antd {@link https://3x.ant.design/components/table/#Column | Column} documentation
+   * See `filterDropdown` in antd {@link https://ant.design/components/table/#Column | Column} documentation
    */
   filterProps: FilterDropdownProps,
   /**
@@ -60,6 +61,7 @@ export interface DataTableCustomFilterProps extends FormComponentProps, MainStor
    */
   value: CustomFilterInputValue,
   onValueChange: (value: CustomFilterInputValue, propertyName: string) => void,
+  customFilterRef?: (formInstance: FormInstance) => void
 }
 
 export type ComparisonType = OperatorType | 'inInterval';
@@ -79,8 +81,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @observable nestedEntityOptions: CaptionValuePair[] = [];
   @observable loading = true;
 
-  // tslint:disable-next-line:ban-types
-  getFieldDecorator!: <T extends Object = {}>(id: keyof T, options?: GetFieldDecoratorOptions | undefined) => (node: ReactNode) => ReactNode;
+  formInstance: FormInstance | undefined;
 
   set operator(operator: ComparisonType) {
     const oldOperator: ComparisonType = this.operator;
@@ -159,23 +160,45 @@ class DataTableCustomFilterComponent<E extends WithId>
   }
 
   @action
-  handleSubmit = (e: FormEvent): void => {
-    e.preventDefault();
-    e.stopPropagation();
+  handleFinish = (): void => {
+    if (this.value != null) {
+      const {filterProps} = this.props;
 
-    this.props.form.validateFields((err) => {
-      if (err == null && this.value != null) {
-        this.props.filterProps.setSelectedKeys!(
-          [
-            JSON.stringify({
-              operator: this.operator,
-              value: this.value
-            })
-          ]
+      filterProps.setSelectedKeys!(
+        [
+          JSON.stringify({
+            operator: this.operator,
+            value: this.value
+          })
+        ]
+      );
+      filterProps.confirm!();
+    }
+  };
+
+  setFormRef = (formInstance: FormInstance) => {
+    const {customFilterRef} = this.props;
+    if (customFilterRef != null) {
+      customFilterRef(formInstance);
+    }
+    this.formInstance = formInstance;
+  };
+
+  resetFormFields = (newOperator: ComparisonType) => {
+    if (this.formInstance != null) {
+      const fieldsToReset: string[] = [];
+      if (!isComplexOperator(newOperator)) {
+        fieldsToReset.push(`${this.props.entityProperty}_input`);
+      } else if (newOperator === 'inInterval') {
+        fieldsToReset.push(
+          `${this.props.entityProperty}_predefined`,
+          `${this.props.entityProperty}_number`,
         );
-        this.props.filterProps.confirm!();
       }
-    });
+      if (fieldsToReset.length > 0) {
+        this.formInstance.resetFields(fieldsToReset);
+      }
+    }
   };
 
   initValue = (operator: ComparisonType = this.operator): void => {
@@ -190,11 +213,12 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @action
   resetFilter = (): void => {
-    this.props.form.resetFields();
+    const {filterProps} = this.props;
+
+    this.formInstance?.resetFields();
     this.operator = this.getDefaultOperator();
 
-    // @ts-ignore
-    this.props.filterProps.clearFilters!(this.props.filterProps.selectedKeys!);
+    filterProps.clearFilters!();
   };
 
   @action
@@ -207,7 +231,7 @@ class DataTableCustomFilterComponent<E extends WithId>
     const newOperatorGroup: OperatorGroup = determineOperatorGroup(newOperator);
 
     if (oldOperatorGroup !== newOperatorGroup) {
-      this.props.form.resetFields();
+      this.resetFormFields(newOperator);
       this.initValue(newOperator);
     }
   };
@@ -218,31 +242,16 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   @action
-  onNumberInputChange = (value: number | undefined): void => {
+  onNumberInputChange = (value: string | number | undefined): void => {
     this.value = value;
   };
 
   @action
-  onDatePickerChange = (date: Moment | null, _dateString: string): void => {
-    if (date != null) {
-      this.value = date.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
+  onTemporalPickerChange = (value: Moment | null) => {
+    if (value != null) {
+      this.value = applyDataTransferFormat(stripMilliseconds(value), this.propertyInfoNN.type as PropertyType);
     }
-  };
-
-  @action
-  onTimePickerChange = (time: Moment | null, _timeString: string): void => {
-    if (time != null) {
-      this.value = time.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
-    }
-  };
-
-  @action
-  onDateTimePickerChange = (dateTime: Moment, _timeString: string): void => {
-    if (dateTime != null) {
-      const normalizedDateTime = stripMilliseconds(dateTime);
-      this.value = normalizedDateTime.format(getDataTransferFormat(this.propertyInfoNN.type as PropertyType));
-    }
-  };
+  }
 
   @action
   onYesNoSelectChange = (value: string | number | LabeledValue): void => {
@@ -255,8 +264,6 @@ class DataTableCustomFilterComponent<E extends WithId>
   };
 
   render() {
-    this.getFieldDecorator = this.props.form.getFieldDecorator;
-
     if (this.loading) {
       return (
         <Spin
@@ -267,24 +274,24 @@ class DataTableCustomFilterComponent<E extends WithId>
     }
 
     return (
-      <Form layout='inline' onSubmit={this.handleSubmit}>
+      <Form layout='inline' onFinish={this.handleFinish} ref={this.setFormRef}>
         <div className='cuba-table-filter'>
           <div className='settings'>
             <div className='cuba-filter-controls-layout'>
               <Form.Item className='filtercontrol -property-caption'>
                 {this.propertyCaption}
               </Form.Item>
-              <Form.Item className='filtercontrol'>
-                {this.getFieldDecorator(
-                  `${this.props.entityProperty}_operatorsDropdown`,
-                  {initialValue: this.getDefaultOperator()})(
-                  <Select
-                    dropdownClassName={`cuba-operator-dropdown-${this.props.entityProperty}`}
-                    dropdownMatchSelectWidth={false}
-                    onChange={(operator: ComparisonType) => this.changeOperator(operator)}>
+              <Form.Item className='filtercontrol'
+                         initialValue={this.getDefaultOperator()}
+                         name={`${this.props.entityProperty}_operatorsDropdown`}
+              >
+                <Select
+                  dropdownClassName={`cuba-operator-dropdown-${this.props.entityProperty}`}
+                  dropdownMatchSelectWidth={false}
+                  onChange={(operator: ComparisonType) => this.changeOperator(operator)}
+                >
                     {this.operatorTypeOptions}
-                  </Select>
-                )}
+                </Select>
               </Form.Item>
               {this.simpleFilterEditor}
             </div>
@@ -541,7 +548,9 @@ class DataTableCustomFilterComponent<E extends WithId>
 
   @computed
   get uuidInputField(): ReactNode {
-    const options = getDefaultFieldDecoratorOptions(this.props.intl);
+    const {entityProperty} = this.props;
+
+    const options = getDefaultFilterFormItemProps(this.props.intl, entityProperty);
 
     if (!options.rules) {
       options.rules = [];
@@ -583,22 +592,26 @@ class DataTableCustomFilterComponent<E extends WithId>
   }
 
   @computed
-  get selectFieldOptions(): ReactNode {
-    return this.nestedEntityOptions.map((option) => {
-      return (
-        <Select.Option title={option.caption}
-                       value={option.value}
-                       key={option.value}
-                       className={`cuba-filter-value-${option.value}`}
-        >
-          {option.caption}
-        </Select.Option>
-      );
-    })
+  get selectFieldOptions(): ReactNodeArray {
+    return this.nestedEntityOptions
+      .filter(option => option.value != null)
+      .map((option) => {
+        return (
+          <Select.Option title={option.caption}
+                         value={option.value!} // Nullish values are expected to be filtered out by now
+                         key={option.value}
+                         className={`cuba-filter-value-${option.value}`}
+          >
+            {option.caption}
+          </Select.Option>
+        );
+      })
   }
 
   @computed
   get yesNoSelectField(): ReactNode {
+    const {entityProperty} = this.props;
+
     const component = (
       <Select dropdownMatchSelectWidth={false}
               dropdownClassName={`cuba-value-dropdown-${this.props.entityProperty}`}
@@ -617,7 +630,11 @@ class DataTableCustomFilterComponent<E extends WithId>
       </Select>
     );
 
-    return this.createFilterInput(component, false, {initialValue: 'true', rules: [{required: true}]});
+    return this.createFilterInput(component, false, {
+      name: `${entityProperty}_yesNoSelect`,
+      initialValue: 'true',
+      rules: [{required: true}]
+    });
   }
 
   @computed
@@ -627,7 +644,6 @@ class DataTableCustomFilterComponent<E extends WithId>
         <DataTableListEditor onChange={(value: string[] | number[]) => this.value = value}
                              id={this.props.entityProperty}
                              propertyInfo={this.propertyInfoNN}
-                             getFieldDecorator={this.props.form.getFieldDecorator}
                              nestedEntityOptions={this.nestedEntityOptions}
         />
       </Form.Item>
@@ -640,7 +656,6 @@ class DataTableCustomFilterComponent<E extends WithId>
       <Form.Item className='filtercontrol -complex-editor'>
         <DataTableIntervalEditor onChange={(value: TemporalInterval) => this.value = value}
                                  id={this.props.entityProperty}
-                                 getFieldDecorator={this.props.form.getFieldDecorator}
                                  propertyType={this.propertyInfoNN.type as PropertyType}
         />
       </Form.Item>
@@ -650,7 +665,7 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get datePickerField(): ReactNode {
     const component = (
-      <DatePicker placeholder='YYYY-MM-DD' onChange={this.onDatePickerChange}/>
+      <DatePicker onChange={this.onTemporalPickerChange}/>
     );
     return this.createFilterInput(component, true);
   }
@@ -658,43 +673,35 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get timePickerField(): ReactNode {
     const component = (
-      <TimePicker placeholder='HH:mm:ss'
-                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                  onChange={this.onTimePickerChange}/>
+      <TimePicker onChange={this.onTemporalPickerChange}/>
     );
     return this.createFilterInput(component, true);
   }
 
   @computed
   get dateTimePickerField(): ReactNode {
-    const datePicker = (
-      <DatePicker placeholder='YYYY-MM-DD'/>
+    const component = (
+      <DatePicker showTime={true}
+                  onChange={this.onTemporalPickerChange}
+      />
     );
-    const filterDatePicker = this.createFilterInput(datePicker, true);
-
-    const timePicker = (
-      <TimePicker placeholder='HH:mm:ss'
-                  defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                  onChange={this.onDateTimePickerChange}/>
-    );
-    const filterTimePicker = this.createFilterInput(timePicker, true);
-
-    return (
-      <Form.Item hasFeedback={true} className='filtercontrol'>
-        <div className='cuba-filter-controls-layout'>
-          {filterDatePicker}
-          {filterTimePicker}
-        </div>
-      </Form.Item>
-    );
+    return this.createFilterInput(component, true);
   }
 
   createFilterInput(
-    component: ReactNode, hasFeedback: boolean = false, options?: GetFieldDecoratorOptions, additionalClassName?: string
+    component: ReactNode, hasFeedback: boolean = false, formItemProps?: FormItemProps, additionalClassName?: string
   ): ReactNode {
-    return decorateAndWrapInFormItem(
-      component, this.props.entityProperty, this.getFieldDecorator, this.props.intl, hasFeedback, options, additionalClassName
-    );
+    const {intl, entityProperty} = this.props;
+
+    const name = `${entityProperty}_input`;
+
+    if (formItemProps == null) {
+      formItemProps = getDefaultFilterFormItemProps(intl, name);
+    } else if (formItemProps.name == null) {
+      formItemProps.name = name;
+    }
+
+    return wrapInFormItem(component, hasFeedback, formItemProps, additionalClassName);
   }
 
 }
@@ -793,11 +800,6 @@ export function operatorToOptionClassName(operator: ComparisonType): string {
   return className;
 }
 
-const dataTableCustomFilter =
-  Form.create<DataTableCustomFilterProps>()(
-    injectIntl(
-      DataTableCustomFilterComponent
-    )
-  );
+const dataTableCustomFilter = injectIntl(DataTableCustomFilterComponent);
 
 export {dataTableCustomFilter as DataTableCustomFilter};
