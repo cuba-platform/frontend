@@ -24,7 +24,9 @@ export class <%= className %> extends React.Component<Props> {
 
   dataCollection = collection<<%= entity.className %>>(<%= entity.className %>.NAME, {
     view: '<%=view.name%>',
-    sort: '-updateTs',
+    <% if (entity.updatable == true) { -%>
+        sort: '-updateTs',
+    <% } -%>
     loadImmediately: false,
     <% if (locals.stringIdName != null) { %>
       stringIdName: '<%= stringIdName %>'

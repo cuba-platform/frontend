@@ -28,7 +28,6 @@ type Props = MainStoreInjected & RouteComponentProps;
 export class MpgFavoriteCarCards extends React.Component<Props> {
   dataCollection = collection<FavoriteCar>(FavoriteCar.NAME, {
     view: "favoriteCar-view",
-    sort: "-updateTs",
     loadImmediately: false
   });
 
