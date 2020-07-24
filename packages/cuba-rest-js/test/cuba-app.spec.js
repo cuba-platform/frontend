@@ -84,18 +84,17 @@ describe('CubaApp', () => {
     });
 
     it('should update existing entity', async () => {
-      const managersRole = {
-        id: '91099ca3-194e-6ba5-7aa6-15b03bcef05a',
-        description: 'Updated role description'
+      const managersUser = {
+        id: '62864fc8-0273-7c57-890d-314c1fd2fde3',
+        email: 'ivan-the-II@example.com'
       };
-
       const fetchOptions = {
         commitMode: 'edit'
       }
 
-      return app.commitEntity('sec$Role', managersRole, fetchOptions)
-        .then(() => app.loadEntity('sec$Role', managersRole.id))
-        .then((updatedRole) => assert(updatedRole.description === 'Updated role description'));
+      return app.commitEntity('sec$User', managersUser, fetchOptions)
+        .then(() => app.loadEntity('sec$User', managersUser.id))
+        .then((updatedRole) => assert(updatedRole.email === 'ivan-the-II@example.com'));
     });
   });
 

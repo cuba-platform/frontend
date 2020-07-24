@@ -54,7 +54,6 @@ describe('CubaApp security methods', () => {
     ]));
 
     expect(perms.explicitPermissions.specific).toEqual(expect.arrayContaining([
-      { target: 'cuba.gui.loginToClient', value: 1 },
       { target: 'cuba.restApi.enabled', value: 1 },
       { target: 'cuba.restApi.fileUpload.enabled', value: 1 }
     ]));
@@ -83,7 +82,6 @@ describe('CubaApp security methods', () => {
     ]));
 
     expect(perms.explicitPermissions.specific).toEqual(expect.arrayContaining([
-      { target: 'cuba.gui.loginToClient', value: 1 },
       { target: 'cuba.restApi.enabled', value: 1 },
       { target: 'cuba.restApi.fileUpload.enabled', value: 1 }
     ]));
