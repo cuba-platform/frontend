@@ -1,7 +1,9 @@
 import {action, autorun, computed, IObservableArray, observable} from "mobx";
 import {CubaApp, EntityMessages, EnumInfo, MetaClassInfo, UserInfo} from "@cuba-platform/rest";
-import {inject, IReactComponent, IWrappedComponent} from "mobx-react";
+import {inject, IWrappedComponent, MobXProviderContext} from "mobx-react";
+import {IReactComponent} from "mobx-react/dist/types/IReactComponent";
 import {Security} from './Security';
+import React from "react";
 
 export class MainStore {
 
@@ -201,3 +203,11 @@ export interface MainStoreInjected {
 export function injectMainStore<T extends IReactComponent>(target: T): T & IWrappedComponent<T> {
   return inject(MainStore.NAME)(target);
 }
+
+/**
+ * A hook returning a {@link MainStore}
+ */
+export const useMainStore = (): MainStore => {
+  const {mainStore} = React.useContext(MobXProviderContext);
+  return mainStore;
+};

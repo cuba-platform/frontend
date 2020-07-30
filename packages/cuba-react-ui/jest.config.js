@@ -21,5 +21,9 @@ module.exports = {
   },
   "collectCoverageFrom": [
     "src/**/*.{ts,tsx}",
-  ]
+  ],
+  "moduleNameMapper": {
+    "^react$": "<rootDir>/../cuba-react-core/node_modules/react",
+    "^mobx-react$": "<rootDir>/../cuba-react-core/node_modules/mobx-react"
+  }
 };

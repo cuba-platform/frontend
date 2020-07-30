@@ -11,6 +11,9 @@
       "coverage/lcov-report/*.js"
     ]
   },
+  "plugins": [
+    "react-hooks"
+  ],
   "rules": {
     "indent": [ true, "spaces", 2 ],
     "ordered-imports": false,
@@ -23,6 +26,8 @@
     "variable-name": false,
     "interface-over-type-literal": false,
     "no-unnecessary-initializer": false,
-    "curly": [true, "ignore-same-line"]
+    "curly": [true, "ignore-same-line"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }

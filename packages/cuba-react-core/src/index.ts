@@ -13,3 +13,4 @@ export * from './util/data';
 export * from './util/formats';
 export * from './util/temporal';
 export * from './util/errorHandling';
+export * from './util/stateManagement';

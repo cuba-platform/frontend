@@ -10,7 +10,7 @@ describe('init', function () {
     const genCountOfClient: Map<string, number> = new Map();
     genCountOfClient.set('polymer2', 9);
     genCountOfClient.set('polymer2-typescript', 6);
-    genCountOfClient.set('react-typescript', 4);
+    genCountOfClient.set('react-typescript', 5);
     genCountOfClient.set('react-native', 1);
     genCountOfClient.set('sdk', 2);
 
