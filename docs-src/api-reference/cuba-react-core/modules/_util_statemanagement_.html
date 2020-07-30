@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DataCollectionInjected | @cuba-platform/react-core - v1.0.2</title>
+	<title>&quot;util/stateManagement&quot; | @cuba-platform/react-core - v1.0.2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,59 +56,118 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_data_collection_.html">&quot;data/Collection&quot;</a>
-				</li>
-				<li>
-					<a href="_data_collection_.datacollectioninjected.html">DataCollectionInjected</a>
+					<a href="_util_statemanagement_.html">&quot;util/stateManagement&quot;</a>
 				</li>
 			</ul>
-			<h1>Interface DataCollectionInjected&lt;E&gt;</h1>
+			<h1>External module &quot;util/stateManagement&quot;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-type-parameters">
-				<h3>Type parameters</h3>
-				<ul class="tsd-type-parameters">
-					<li>
-						<h4>E</h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
-				<ul class="tsd-hierarchy">
-					<li>
-						<span class="target">DataCollectionInjected</span>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_data_collection_.datacollectioninjected.html#datacollection" class="tsd-kind-icon">data<wbr>Collection</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_util_statemanagement_.html#usereaction" class="tsd-kind-icon">use<wbr>Reaction</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="datacollection" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> data<wbr>Collection</h3>
-					<div class="tsd-signature tsd-kind-icon">data<wbr>Collection<span class="tsd-signature-symbol">:</span> <a href="_data_collection_.datacollectionstore.html" class="tsd-signature-type">DataCollectionStore</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/data/Collection.tsx#L448">src/data/Collection.tsx:448</a></li>
-						</ul>
-					</aside>
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="usereaction" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> use<wbr>Reaction</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">use<wbr>Reaction&lt;T&gt;<span class="tsd-signature-symbol">(</span>expression<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, effect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IReactionOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/util/stateManagement.ts#L16">src/util/stateManagement.ts:16</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A simple convenience hook that creates a reaction with provided <code>expression</code>, <code>effect</code> and <code>options</code>.
+										Reaction will be created only once (will not be disposed/recreated between renders).
+										Reaction will be automatically disposed when the component is unmounted.
+										If this reaction creates other reactions, those reactions will NOT be disposed.
+										In that case create a reaction manually inside a <code>useEffect</code> hook as described in
+									<a href="https://mobx-react.js.org/recipes-effects " class="external"> mobx-react documentation </a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>expression: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>reactionObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IReactionPublic</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>reactionObject: <span class="tsd-signature-type">IReactionPublic</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>effect: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>expressionResult<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, reactionObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IReactionPublic</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>expressionResult: <span class="tsd-signature-type">T</span></h5>
+														</li>
+														<li>
+															<h5>reactionObject: <span class="tsd-signature-type">IReactionPublic</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">IReactionOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -119,131 +178,71 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_app_cubaappprovider_.html">&quot;app/<wbr>Cuba<wbr>App<wbr>Provider&quot;</a>
+						<a href="_app_cubaappprovider_.html">&quot;app/<wbr>Cuba<wbr>App<wbr>Provider&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_app_mainstore_.html">&quot;app/<wbr>Main<wbr>Store&quot;</a>
+						<a href="_app_mainstore_.html">&quot;app/<wbr>Main<wbr>Store&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_app_menuconfig_.html">&quot;app/<wbr>Menu<wbr>Config&quot;</a>
+						<a href="_app_menuconfig_.html">&quot;app/<wbr>Menu<wbr>Config&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_app_security_.html">&quot;app/<wbr>Security&quot;</a>
+						<a href="_app_security_.html">&quot;app/<wbr>Security&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_data_association_.html">&quot;data/<wbr>Association&quot;</a>
+						<a href="_data_association_.html">&quot;data/<wbr>Association&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_collection_.html">&quot;data/<wbr>Collection&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_collection_test_.html">&quot;data/<wbr>Collection.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_datacontext_.html">&quot;data/<wbr>Data<wbr>Context&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_instance_.html">&quot;data/<wbr>Instance&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_data_instance_test_.html">&quot;data/<wbr>Instance.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_collation_.html">&quot;util/collation&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_collation_test_.html">&quot;util/collation.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_data_.html">&quot;util/data&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_errorhandling_.html">&quot;util/error<wbr>Handling&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_formats_.html">&quot;util/formats&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_internal_data_.html">&quot;util/internal/data&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_util_metadata_.html">&quot;util/metadata&quot;</a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_data_collection_.html">&quot;data/<wbr>Collection&quot;</a>
+						<a href="_util_statemanagement_.html">&quot;util/state<wbr>Management&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_data_collection_test_.html">&quot;data/<wbr>Collection.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_data_datacontext_.html">&quot;data/<wbr>Data<wbr>Context&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_data_instance_.html">&quot;data/<wbr>Instance&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_data_instance_test_.html">&quot;data/<wbr>Instance.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_collation_.html">&quot;util/collation&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_collation_test_.html">&quot;util/collation.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_data_.html">&quot;util/data&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_errorhandling_.html">&quot;util/error<wbr>Handling&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_formats_.html">&quot;util/formats&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_internal_data_.html">&quot;util/internal/data&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_metadata_.html">&quot;util/metadata&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_statemanagement_.html">&quot;util/state<wbr>Management&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_util_temporal_.html">&quot;util/temporal&quot;</a>
+						<a href="_util_temporal_.html">&quot;util/temporal&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../classes/_data_collection_.clientsidedatacollectionstoreimpl.html" class="tsd-kind-icon">Client<wbr>Side<wbr>Data<wbr>Collection<wbr>Store<wbr>Impl</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_data_collection_.collection.html" class="tsd-kind-icon">Collection</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../classes/_data_collection_.datacollectionstoreimpl.html" class="tsd-kind-icon">Data<wbr>Collection<wbr>Store<wbr>Impl</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_data_collection_.clientsidedatacollectionoptions.html" class="tsd-kind-icon">Client<wbr>Side<wbr>Data<wbr>Collection<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_data_collection_.clientsidedatacollectionstore.html" class="tsd-kind-icon">Client<wbr>Side<wbr>Data<wbr>Collection<wbr>Store</a>
-					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_data_collection_.datacollectioninjected.html" class="tsd-kind-icon">Data<wbr>Collection<wbr>Injected</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_data_collection_.datacollectioninjected.html#datacollection" class="tsd-kind-icon">data<wbr>Collection</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_data_collection_.datacollectionoptions.html" class="tsd-kind-icon">Data<wbr>Collection<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_data_collection_.datacollectionprops.html" class="tsd-kind-icon">Data<wbr>Collection<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_data_collection_.datacollectionstore.html" class="tsd-kind-icon">Data<wbr>Collection<wbr>Store</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_data_collection_.html#clientsidecollection" class="tsd-kind-icon">client<wbr>Side<wbr>Collection</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_data_collection_.html#collection-1" class="tsd-kind-icon">collection</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../modules/_data_collection_.html#createclientsidestore" class="tsd-kind-icon">create<wbr>Client<wbr>Side<wbr>Store</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../modules/_data_collection_.html#createstore" class="tsd-kind-icon">create<wbr>Store</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_data_collection_.html#fromrestmodel" class="tsd-kind-icon">from<wbr>Rest<wbr>Model</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../modules/_data_collection_.html#setoptionsandload" class="tsd-kind-icon">set<wbr>Options<wbr>And<wbr>Load</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_data_collection_.html#usecollection" class="tsd-kind-icon">use<wbr>Collection</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_data_collection_.html#withdatacollection" class="tsd-kind-icon">with<wbr>Data<wbr>Collection</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
-						<a href="../modules/_data_collection_.html#defaultopts" class="tsd-kind-icon">default<wbr>Opts</a>
+						<a href="_util_statemanagement_.html#usereaction" class="tsd-kind-icon">use<wbr>Reaction</a>
 					</li>
 				</ul>
 			</nav>

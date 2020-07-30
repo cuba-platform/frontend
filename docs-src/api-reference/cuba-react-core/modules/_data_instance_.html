@@ -92,6 +92,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_data_instance_.html#instance-1" class="tsd-kind-icon">instance</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_data_instance_.html#instanceitemtoformfields" class="tsd-kind-icon">instance<wbr>Item<wbr>ToForm<wbr>Fields</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_data_instance_.html#striptemporaryids" class="tsd-kind-icon">strip<wbr>Temporary<wbr>Ids</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_data_instance_.html#useinstance" class="tsd-kind-icon">use<wbr>Instance</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_data_instance_.html#withdatainstance" class="tsd-kind-icon">with<wbr>Data<wbr>Instance</a></li>
 							</ul>
 						</section>
@@ -110,7 +111,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5094691/packages/cuba-react-core/src/data/Instance.tsx#L301">src/data/Instance.tsx:301</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/data/Instance.tsx#L320">src/data/Instance.tsx:320</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -161,7 +162,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5094691/packages/cuba-react-core/src/data/Instance.tsx#L225">src/data/Instance.tsx:225</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/data/Instance.tsx#L226">src/data/Instance.tsx:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -207,7 +208,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5094691/packages/cuba-react-core/src/data/Instance.tsx#L361">src/data/Instance.tsx:361</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/data/Instance.tsx#L380">src/data/Instance.tsx:380</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -268,7 +269,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5094691/packages/cuba-react-core/src/data/Instance.tsx#L274">src/data/Instance.tsx:274</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/data/Instance.tsx#L293">src/data/Instance.tsx:293</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -290,6 +291,52 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="useinstance" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> use<wbr>Instance</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">use<wbr>Instance&lt;T&gt;<span class="tsd-signature-symbol">(</span>entityName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_data_instance_.datainstanceoptions.html" class="tsd-signature-type">DataInstanceOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MutableRefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_data_instance_.datainstancestore.html" class="tsd-signature-type">DataInstanceStore</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/data/Instance.tsx#L247">src/data/Instance.tsx:247</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A hook that returns a mutable ref object containing a <a href="../classes/_data_instance_.datainstancestore.html">DataInstanceStore</a>
+										initialized with provided entity name and options. The <a href="../classes/_data_instance_.datainstancestore.html">DataInstanceStore</a>
+									value will be preserved between renders.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">__type</span></h4>
+									<div class="tsd-comment tsd-typography">
+										<p>entity type.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>entityName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>opts: <a href="../interfaces/_data_instance_.datainstanceoptions.html" class="tsd-signature-type">DataInstanceOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">MutableRefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_data_instance_.datainstancestore.html" class="tsd-signature-type">DataInstanceStore</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="withdatainstance" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> with<wbr>Data<wbr>Instance</h3>
@@ -300,7 +347,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/5094691/packages/cuba-react-core/src/data/Instance.tsx#L229">src/data/Instance.tsx:229</a></li>
+									<li>Defined in <a href="https://github.com/cuba-platform/frontend/blob/bf2642e/packages/cuba-react-core/src/data/Instance.tsx#L230">src/data/Instance.tsx:230</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -379,6 +426,9 @@
 						<a href="_util_metadata_.html">&quot;util/metadata&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="_util_statemanagement_.html">&quot;util/state<wbr>Management&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="_util_temporal_.html">&quot;util/temporal&quot;</a>
 					</li>
 				</ul>
@@ -411,6 +461,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_data_instance_.html#striptemporaryids" class="tsd-kind-icon">strip<wbr>Temporary<wbr>Ids</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_data_instance_.html#useinstance" class="tsd-kind-icon">use<wbr>Instance</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_data_instance_.html#withdatainstance" class="tsd-kind-icon">with<wbr>Data<wbr>Instance</a>
