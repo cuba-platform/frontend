@@ -6,7 +6,8 @@ import {
   PredefinedView,
   SerializedEntity
 } from "@cuba-platform/rest";
-import {inject, IReactComponent, observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
+import { IReactComponent } from "mobx-react/dist/types/IReactComponent";
 import * as React from "react";
 import {DataContainer, DataContainerError, DataContainerStatus} from "./DataContext";
 import {getCubaREST} from "../app/CubaAppProvider";
@@ -215,7 +216,7 @@ class DataCollectionStoreImpl<T> implements DataCollectionStore<T> {
     return toJS(this.items)
   }
 
-  @computed // todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
+  @computed // todo
   get properties(): string[] {
     return [];
   }
@@ -391,12 +392,29 @@ function setOptionsAndLoad<E>(dataCollection: DataCollectionStore<E>, opts: Data
   }
 }
 
-// todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
 export const withDataCollection = (entityName: string, opts: DataCollectionOptions = defaultOpts) => <T extends IReactComponent>(target: T) => {
   return inject(() => {
     const dataCollection = createStore(entityName, opts);
     return {dataCollection}
   })(target);
+};
+
+/**
+ * A hook that returns a mutable ref object containing a {@link DataCollectionStore}
+ * initialized with provided entity name and options. The {@link DataCollectionStore}
+ * value will be preserved between renders.
+ *
+ * @typeparam T - entity type.
+ *
+ * @param entityName
+ * @param opts
+ */
+export const useCollection = <T extends {}>(
+  entityName: string, opts: DataCollectionOptions
+): React.MutableRefObject<DataCollectionStore<T>> => {
+  return React.useRef(
+    collection<T>(entityName, opts)
+  );
 };
 
 /**
@@ -426,7 +444,6 @@ export const clientSideCollection = <E extends {}>(
   return createClientSideStore<E>(entityName, opts);
 };
 
-// todo will be reworked as part of https://github.com/cuba-platform/frontend/issues/4
 export interface DataCollectionInjected<E> {
   dataCollection?: DataCollectionStore<E>
 }

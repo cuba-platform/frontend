@@ -132,7 +132,7 @@ const client = '' + `
           },
           {
             "code": "managementComponentName",
-            "caption": "CRUD component class",
+            "caption": "CRUD component name",
             "propertyType": "POLYMER_COMPONENT_NAME",
             "defaultValue": "Management",
             "required": true
@@ -150,7 +150,7 @@ const client = '' + `
           },
           {
             "code": "listComponentName",
-            "caption": "List component class",
+            "caption": "List component name",
             "propertyType": "POLYMER_COMPONENT_NAME",
             "defaultValue": "List",
             "required": true
@@ -164,7 +164,7 @@ const client = '' + `
           },
           {
             "code": "editComponentName",
-            "caption": "Edit component class name",
+            "caption": "Edit component name",
             "propertyType": "POLYMER_COMPONENT_NAME",
             "defaultValue": "Edit",
             "required": true
@@ -193,7 +193,7 @@ describe('export client list', function () {
     exportList(clients, {save: SAVE_CLIENTS_DIR + '/available-clients.json'});
 
     const res = fs.readFileSync(`${SAVE_CLIENTS_DIR}/available-clients.json`, 'utf8');
-    expect(res.length).to.eq(3093);
+    expect(res.length).to.eq(3085);
   });
 
 });

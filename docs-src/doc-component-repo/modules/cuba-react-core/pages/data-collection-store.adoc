@@ -1,6 +1,7 @@
 = DataCollectionStore
 :api_core_DataCollectionStore: link:../api-reference/cuba-react-core/interfaces/_data_collection_.datacollectionstore.html
 :api_core_collection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#collection-1
+:api_core_useCollection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#usecollection
 
 `DataCollectionStore` is a MobX based store that can be used to retrieve entity collections. It can be created via {api_core_collection}[collection] initializer function:
 
@@ -15,6 +16,27 @@ dataCollection = collection<Pet>(Pet.NAME, {
     loadImmediately: true, // true by default
   }
 );
+----
+
+In a functional component you'll need to wrap the call to `collection` in https://reactjs.org/docs/hooks-reference.html#useref[React.useRef] or use a convenience hook {api_core_useCollection}[useCollection].
+
+[source,typescript]
+----
+const dataCollection = useCollection<Pet>(
+  Pet.NAME,
+  {
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // true by default
+  }
+);
+
+// Note that `dataCollection` in this case is a React's `MutableRefObject`.
+// The `DataCollectionStore` is contained in its `current` property.
+dataCollection.current.delete(e);
 ----
 
 `DataCollectionStore` will consider an entity to be a String ID entity when `stringIdName` parameter is provided:
@@ -47,4 +69,4 @@ class CarList extends React.Component {
 }
 ----
 
-API: {api_core_DataCollectionStore}[DataCollectionStore], {api_core_collection}[collection].
+API: {api_core_DataCollectionStore}[DataCollectionStore], {api_core_collection}[collection], {api_core_useCollection}[useCollection].

@@ -11,7 +11,7 @@ export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
   },
   {
     code: 'managementComponentName',
-    caption: 'CRUD component class',
+    caption: 'CRUD component name',
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     defaultValue: "Management",
     required: true
@@ -26,7 +26,7 @@ export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
   },
   {
     code: 'listComponentName',
-    caption: 'List component class',
+    caption: 'List component name',
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     defaultValue: "List",
     required: true
@@ -40,7 +40,7 @@ export const entityManagementGeneratorParams: StudioTemplateProperty[] = [
   },
   {
     code: 'editComponentName',
-    caption: 'Edit component class name',
+    caption: 'Edit component name',
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     defaultValue: 'Edit',
     required: true

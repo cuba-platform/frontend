@@ -1,0 +1,21 @@
+{
+  "editView": {
+    "name": "datatypesTestEntity-view",
+    "entityName": "scr_DatatypesTestEntity"
+  },
+  "editComponentName": "HooksPOCEdit",
+  "listView": {
+    "name": "datatypesTestEntity-view",
+    "entityName": "scr_DatatypesTestEntity"
+  },
+  "listComponentName": "HooksPOCList",
+  "listType": "table",
+  "entity": {
+    "name": "scr_DatatypesTestEntity"
+  },
+  "managementComponentName": "HooksPOCManagement",
+  "nestedEntityInfo": {
+    "compositionO2Oattr": "compositionO2OTestEntity-view",
+    "compositionO2Mattr": "compositionO2MTestEntity-view"
+  }
+}

@@ -1,5 +1,5 @@
 import {PropertyType} from '@cuba-platform/rest';
-import {getCubaAppConfig} from '..';
+import {getCubaAppConfig} from '../app/CubaAppProvider';
 import { Moment } from 'moment';
 
 export const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';

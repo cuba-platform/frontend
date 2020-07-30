@@ -25,7 +25,7 @@ import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../
 import {fromStudioProperties} from '../../../common/questions';
 import {BaseEntityScreenGenerator, stringIdAnswersToModel} from '../common/base-entity-screen-generator';
 
-class ReactEntityManagementGenerator extends BaseEntityScreenGenerator<EntityManagementAnswers, EntityManagementTemplateModel, ComponentOptions> {
+export class ReactEntityManagementGenerator extends BaseEntityScreenGenerator<EntityManagementAnswers, EntityManagementTemplateModel, ComponentOptions> {
 
   constructor(args: string | string[], options: ComponentOptions) {
     super(args, options);

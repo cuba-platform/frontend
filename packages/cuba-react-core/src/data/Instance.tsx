@@ -2,7 +2,8 @@ import {action, computed, observable, reaction, runInAction, toJS} from "mobx";
 import {
   PredefinedView, SerializedEntityProps, TemporalPropertyType, MetaClassInfo, CommitMode
 } from "@cuba-platform/rest";
-import {inject, IReactComponent, observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
+import { IReactComponent } from "mobx-react/dist/types/IReactComponent";
 import * as React from "react";
 import {DataContainer, DataContainerError, DataContainerStatus} from "./DataContext";
 import {getCubaREST, getMainStore} from "../app/CubaAppProvider";
@@ -19,7 +20,7 @@ import {
   getDataTransferFormat,
 } from '../util/formats';
 import {stripMilliseconds} from '../util/temporal';
-import {TEMPORARY_ENTITY_ID_PREFIX} from "..";
+import {TEMPORARY_ENTITY_ID_PREFIX} from "../util/data";
 import { prepareForCommit } from "../util/internal/data";
 
 /**
@@ -231,6 +232,24 @@ export const withDataInstance = (entityName: string, opts: DataInstanceOptions =
     const dataInstance = new DataInstanceStore(getMainStore(), entityName, opts.view, opts.stringIdName);
     return {dataInstance}
   })(target);
+};
+
+/**
+ * A hook that returns a mutable ref object containing a {@link DataInstanceStore}
+ * initialized with provided entity name and options. The {@link DataInstanceStore}
+ * value will be preserved between renders.
+ *
+ * @typeparam T - entity type.
+ *
+ * @param entityName
+ * @param opts
+ */
+export const useInstance = <T extends {}>(
+  entityName: string, opts: DataInstanceOptions
+): React.MutableRefObject<DataInstanceStore<T>> => {
+  return React.useRef(
+    instance<T>(entityName, opts)
+  );
 };
 
 export interface DataInstanceInjected<E> {

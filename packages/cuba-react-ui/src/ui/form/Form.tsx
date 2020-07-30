@@ -179,7 +179,9 @@ export type FormFieldProps = MainStoreInjected & {
   parentEntityInstanceId?: string;
 } & FormFieldComponentProps;
 
-export const FormField = injectMainStore(observer((props: FormFieldProps) => {
+// forwardRef is required to avoid a console warning
+// as Form.Item will attempt to pass a ref
+export const FormField = injectMainStore(observer(React.forwardRef((props: FormFieldProps, _ref: any) => {
 
   const {
     entityName, propertyName, optionsContainer, mainStore, nestedEntityView, parentEntityInstanceId,
@@ -200,7 +202,7 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
 
   switch (propertyInfo.attributeType) {
     case 'ENUM':
-      return <EnumField enumClass={propertyInfo.type} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
+      return <EnumField enumClass={propertyInfo.type} allowClear={getAllowClear(propertyInfo)} {...rest as SelectProps<SelectValue> & MainStoreInjected}/>;
     case 'ASSOCIATION':
       const mode = getSelectMode(propertyInfo.cardinality);
       return <EntitySelectField {...{mode, optionsContainer}} allowClear={getAllowClear(propertyInfo)} {...rest}/>;
@@ -255,10 +257,13 @@ export const FormField = injectMainStore(observer((props: FormFieldProps) => {
       return <UuidInput {...(rest as InputProps)}/>
   }
   return <Input {...(rest as InputProps)}/>;
-}));
+})));
 
+type EnumFieldProps = MainStoreInjected & SelectProps<SelectValue> & {
+  enumClass: string;
+};
 
-export const EnumField = injectMainStore(observer(({enumClass, mainStore, ...rest}) => {
+export const EnumField = injectMainStore(observer(({enumClass, mainStore, ...rest}: EnumFieldProps) => {
   let enumValues: EnumValueInfo[] = [];
   if (mainStore!.enums != null) {
     const enumInfo = mainStore!.enums.find((enm: EnumInfo) => enm.name === enumClass);

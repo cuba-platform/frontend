@@ -59,17 +59,17 @@ image:client-react:data-table-demo.gif[Data table showcase]
       "name": "car-edit", // Name of view that will be used in Editor screen
       "entityName": "mpg$Car" // Entity name
     },
-    "editComponentName": "CarEdit", // Editor component class name
+    "editComponentName": "CarEdit", // Editor component name
     "listView": {
       "name": "car-edit", // Name of view that will be used in Browser screen
       "entityName": "mpg$Car" // Entity name
     },
-    "listComponentName": "CarCards", // List component class name
+    "listComponentName": "CarCards", // List component name
     "listType": "cards", // List type: list, cards or table
     "entity": {
       "name": "mpg$Car" // Entity name
     },
-    "managementComponentName": "CarManagement" // Management component class name (renders either Editor or Browser depending on current route)
+    "managementComponentName": "CarManagement" // Management component name (renders either Editor or Browser depending on current route)
     }
 }
 ....
