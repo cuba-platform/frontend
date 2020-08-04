@@ -55,11 +55,17 @@ export function isBlank(str: string | undefined): boolean {
 }
 
 /**
- * Verify that trailing slash exist in relPath
+ * Ensure that the path contains only forward slashes and no backward slashes, and has a trailing forward slash.
+ *
  * @param relPath
  */
 export function normalizeRelativePath(relPath: string | undefined): string {
-  return isBlank(relPath) ? '' : path.join(relPath!, '/');
+  if (relPath == null || isBlank(relPath)) {
+    return '';
+  }
+
+  const relPathPosix = relPath.replace(/\\/g, '/');
+  return path.posix.join(relPathPosix, '/');
 }
 
 
