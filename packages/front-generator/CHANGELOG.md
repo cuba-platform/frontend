@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.1...@cuba-platform/front-generator@3.1.0) (2020-08-04)
+
+
+### Bug Fixes
+
+* entity-management: reuse i18n messages from main message pack ([1cbea10](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/1cbea104f3fe3edc221c2f2e1e5800741a90dd41))
+* **React:** editor behavior when backend can't be reached ([50168cb](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/50168cbeb2bb55a129792b0961edbf6870083ddf)), closes [#154](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/154)
+* layout breaks when side menu is bigger than the viewport ([9030dbc](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/9030dbc69a69ae320414c1c8e8092659fe257726)), closes [#210](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/210)
+* **Front Generator:** fix model relative path used in ejs templates ([d2b19c9](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/d2b19c93a90d3bc68be04174c5591cb5226f0850)), closes [#268](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/268)
+
+
+### Features
+
+* add French translation ([f641a0d](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/f641a0d1a1be5e0fcd36bd1e253c49b93a9815ca)), closes [#275](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/275)
+* **Front Generator:** french translation ([76a2e9c](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/76a2e9c9e586200a2157f807a24b4f146b9e6deb)), closes [#277](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/277)
+* support read-only attributes ([69fcbbe](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/69fcbbed31a949a710ddaab27a444a4f2f6394a3)), closes [#190](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/190)
+
+
+### Reverts
+
+* Revert "fix: layout breaks when side menu is bigger than the viewport" ([61034f1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/61034f18abbd0794d0cf19fc2a44d0382f3b9964))
+
+
+
+
+
 ## [3.0.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.0...@cuba-platform/front-generator@3.0.1) (2020-06-23)
 
 

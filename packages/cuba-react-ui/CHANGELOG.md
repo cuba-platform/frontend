@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.2...@cuba-platform/react-ui@1.1.0) (2020-08-04)
+
+
+### Bug Fixes
+
+* entity-management: reuse i18n messages from main message pack ([1cbea10](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/1cbea104f3fe3edc221c2f2e1e5800741a90dd41))
+
+
+### Features
+
+* support read-only attributes ([69fcbbe](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/69fcbbed31a949a710ddaab27a444a4f2f6394a3)), closes [#190](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/190)
+
+
+
+
+
 ## [1.0.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@1.0.1...@cuba-platform/react-ui@1.0.2) (2020-06-23)
 
 

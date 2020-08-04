@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@1.0.2...@cuba-platform/react-core@1.1.0) (2020-08-04)
+
+
+### Bug Fixes
+
+* **React:** editor behavior when backend can't be reached ([50168cb](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/50168cbeb2bb55a129792b0961edbf6870083ddf)), closes [#154](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/154)
+
+
+### Features
+
+* support read-only attributes ([69fcbbe](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/69fcbbed31a949a710ddaab27a444a4f2f6394a3)), closes [#190](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/190)
+
+
+
+
+
 ## [1.0.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@1.0.1...@cuba-platform/react-core@1.0.2) (2020-06-23)
 
 
