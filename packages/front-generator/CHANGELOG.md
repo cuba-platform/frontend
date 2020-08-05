@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.1.0...@cuba-platform/front-generator@3.1.1) (2020-08-05)
+
+
+### Bug Fixes
+
+* backslashes are written to "import" statements on Windows ([80fa7b9](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/80fa7b97546a51b632ef2d95b69b7413d2b23f42)), closes [#293](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/293)
+
+
+
+
+
 # [3.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.0.1...@cuba-platform/front-generator@3.1.0) (2020-08-04)
 
 
