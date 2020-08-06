@@ -2598,7 +2598,7 @@
       "persistentEntity": true,
       "replaceParent": false,
       "systemLevel": false,
-      "namePattern": "%s|description",
+      "namePattern": "%s|identifier",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.StringIdTestEntity",
       "imported": false,
@@ -16354,6 +16354,10 @@
       "systemProperties": false,
       "properties": [
         {
+          "name": "identifier",
+          "lazy": false
+        },
+        {
           "name": "description",
           "lazy": false
         },
@@ -16363,6 +16367,10 @@
         }
       ],
       "allProperties": [
+        {
+          "name": "identifier",
+          "lazy": false
+        },
         {
           "name": "description",
           "lazy": false
@@ -16408,13 +16416,13 @@
       "systemProperties": false,
       "properties": [
         {
-          "name": "description",
+          "name": "identifier",
           "lazy": false
         }
       ],
       "allProperties": [
         {
-          "name": "description",
+          "name": "identifier",
           "lazy": false
         }
       ]
