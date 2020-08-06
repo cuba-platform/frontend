@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Date;
 
-@NamePattern("%s|description")
+@NamePattern("%s|identifier")
 @Table(name = "SCR_STRING_ID_TEST_ENTITY")
 @Entity(name = "scr_StringIdTestEntity")
 public class StringIdTestEntity extends BaseStringIdEntity implements Updatable, Creatable, SoftDelete, Versioned {
