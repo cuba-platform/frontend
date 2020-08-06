@@ -8,14 +8,14 @@ const VIEW_NAME_TYPE_PARAMETER = 'V';
 const excludes = ['SearchFolder', 'AppFolder']; // todo fix model export
 
 export function createEntityViewTypes(entity: Entity, projectModel: ProjectModel): ts.Node[] {
-  const {name: entityName, className} = entity;
+  const {name: entityName, className, idAttributeName} = entity;
   if (!entityName || excludes.indexOf(className) > -1) {
     return [];
   }
   const views = findViews(entityName, projectModel);
   return [
     createViewNamesType(className, views),
-    createEntityViewType(className, views, collectAttributesFromHierarchy(entity, projectModel))
+    createEntityViewType(className, views, collectAttributesFromHierarchy(entity, projectModel), idAttributeName)
   ];
 }
 
@@ -55,8 +55,11 @@ function createViewNamesType(className: string, views: View[]): ts.TypeAliasDecl
  * @param views
  * @param allowedAttrs As of CUBA specific - project model could contains properties from inheritors, we need to
  * filter out such properties from generated views
+ * @param idAttributeName
  */
-function createEntityViewType(className: string, views: View[], allowedAttrs: EntityAttribute[]): ts.TypeAliasDeclaration {
+function createEntityViewType(
+  className: string, views: View[], allowedAttrs: EntityAttribute[], idAttributeName?: string
+): ts.TypeAliasDeclaration {
   const typeNode: ts.TypeNode = views
     .filter(view => view.allProperties.length > 0)
     .reduceRight(
@@ -66,7 +69,7 @@ function createEntityViewType(className: string, views: View[], allowedAttrs: En
           ts.createLiteralTypeNode(
             ts.createLiteral(view.name)
           ),
-          createPickPropertiesType(className, view, allowedAttrs),
+          createPickPropertiesType(className, view, allowedAttrs, idAttributeName),
           typeExpr
         )
       },
@@ -98,16 +101,27 @@ function createEntityViewType(className: string, views: View[], allowedAttrs: En
  * @param view
  * @param allowedAttrs As of CUBA specific - project model could contains properties from inheritors, we need to
  * filter out such properties from generated views
+ * @param idAttributeName
  */
-function createPickPropertiesType(className: string, view: View, allowedAttrs: EntityAttribute[]): ts.TypeReferenceNode {
+function createPickPropertiesType(
+  className: string, view: View, allowedAttrs: EntityAttribute[], idAttributeName: string = 'id'
+): ts.TypeReferenceNode {
 
-  const viewProperties = [...view.allProperties];
-  if (!viewProperties.find(nameEqId) && allowedAttrs.find(nameEqId)) {
+  const viewProperties = idAttributeName === 'id'
+    ? [...view.allProperties]
+    : view.allProperties.filter(property => property.name !== idAttributeName);
+
+  if (!viewProperties.find(nameEqId) && allowedAttrs.find(nameEqIdAttrName(idAttributeName))) {
     viewProperties.unshift({name: 'id'});
   }
 
   const viewTypeNodes: LiteralTypeNode[] = viewProperties
-    .filter(viewProperty => allowedAttrs.some(attr => attr.name === viewProperty.name))
+    .filter(viewProperty => allowedAttrs.some(attr => {
+      const name = (idAttributeName !== 'id' && viewProperty.name === 'id')
+        ? idAttributeName
+        : viewProperty.name;
+      return attr.name === name;
+    }))
     .map(property =>
       ts.createLiteralTypeNode(
         ts.createLiteral(property.name)
@@ -130,6 +144,10 @@ function findViews(name: string, projectModel: ProjectModel): View[] {
   return projectModel.views.filter((view) => view.entity === name);
 }
 
-function nameEqId({name}: {name: string}) {
-  return name === 'id';
+const nameEqId = nameEqIdAttrName('id');
+
+function nameEqIdAttrName(idAttrName: string) {
+  return ({name}: {name: string}) => {
+    return name === idAttrName;
+  }
 }
