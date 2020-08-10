@@ -1,2 +1,0 @@
-alter table SCR_CAR add constraint FK_SCR_CAR_APPLIED_PROMO_CODE foreign key (APPLIED_PROMO_CODE_ID) references SCR_PROMO_CODE(ID);
-create index IDX_SCR_CAR_APPLIED_PROMO_CODE on SCR_CAR (APPLIED_PROMO_CODE_ID);
