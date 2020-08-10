@@ -6,6 +6,7 @@ import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, normalizeRelativePath, unCapitalizeFirst} from "../../../common/utils";
 import {CommonTemplateModel} from "../../polymer2/common/template-model";
 import {addToMenu} from "../common/menu";
+import {writeComponentI18nMessages} from '../common/i18n';
 
 export interface BlankComponentAnswers {
   componentName: string
@@ -34,6 +35,11 @@ class ReactComponentGenerator extends BaseGenerator<BlankComponentAnswers, Blank
       this.templatePath('Component.tsx'),
       this.destinationPath(this.model.className + '.tsx'), this.model
     );
+
+    writeComponentI18nMessages(
+      this.fs, this.model.className, this.options.dirShift, this.cubaProjectModel?.project?.locales
+    );
+
     if (!addToMenu(this.fs, {
       componentFileName: this.model.className,
       componentClassName: this.model.className,
