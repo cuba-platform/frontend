@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.1.1...@cuba-platform/front-generator@3.1.2) (2020-08-11)
+
+
+### Bug Fixes
+
+* compile error when String ID entity view contains ID attribute ([5c3d455](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/5c3d4557897c7dd6193d2ef87f07169054ffafa5)), closes [#253](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/253)
+* creating blank component doesn't add i18n key/value ([d5d4285](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/d5d42852c12bfb64b57c63bc139dbe4a955e4e52)), closes [#39](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/39)
+
+
+
+
+
 ## [3.1.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.1.0...@cuba-platform/front-generator@3.1.1) (2020-08-05)
 
 
