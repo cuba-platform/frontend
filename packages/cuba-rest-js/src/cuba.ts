@@ -16,6 +16,7 @@ import {base64encode, encodeGetParams, matchesVersion} from "./util";
 export * from './model';
 export * from './storage';
 export * from './filter';
+export * from './security';
 
 const apps: CubaApp[] = [];
 
