@@ -13,6 +13,10 @@ describe('security', () => {
     expect(security.getAttributePermission('scr$Car', 'mileage', perms))
       .toBe('MODIFY');
 
+    perms.undefinedPermissionPolicy = 'DENY';
+    expect(security.getAttributePermission('scr$Car', 'mileage', perms))
+      .toBe('DENY');
+
     perms.explicitPermissions.entityAttributes.push({target: '*:*', value: 1});
     expect(security.getAttributePermission('scr$Car', 'mileage', perms))
       .toBe('VIEW');
@@ -58,5 +62,52 @@ describe('security', () => {
     expect(security.isOperationAllowed('scr$Car', 'read', perms))
       .toBe(true);
 
+  });
+
+  describe('isSpecificPermissionGranted()', () => {
+    const PERM_NAME = 'cuba.restApi.fileUpload.enabled';
+    let perms;
+
+    beforeEach(() => {
+      perms = {
+        explicitPermissions: {
+          entities: [],
+          entityAttributes: [],
+          specific: []
+        },
+        undefinedPermissionPolicy: 'DENY'
+      };
+    });
+
+    it('should return false for null or undefined perms', () => {
+      expect(security.isSpecificPermissionGranted(PERM_NAME, null)).toBe(false);
+      expect(security.isSpecificPermissionGranted(PERM_NAME, undefined)).toBe(false);
+    });
+
+    it('should return false if no permission is given', () => {
+      expect(security.isSpecificPermissionGranted(PERM_NAME, perms)).toBe(false);
+    });
+
+    it('should return true if wildcard permission is granted', () => {
+      perms.explicitPermissions.specific = [
+        {target: '*', value: 1}
+      ];
+      expect(security.isSpecificPermissionGranted(PERM_NAME, perms)).toBe(true);
+    });
+
+    it('should return true if explicit permission is granted', () => {
+      perms.explicitPermissions.specific = [
+        {target: PERM_NAME, value: 1}
+      ];
+      expect(security.isSpecificPermissionGranted(PERM_NAME, perms)).toBe(true);
+    });
+
+    it('should prefer explicit permission to wildcard', () => {
+      perms.explicitPermissions.specific = [
+        {target: '*', value: 0},
+        {target: PERM_NAME, value: 1}
+      ];
+      expect(security.isSpecificPermissionGranted(PERM_NAME, perms)).toBe(true);
+    });
   });
 });
