@@ -1,4 +1,4 @@
-import {Icon, message, Upload} from 'antd';
+import {Icon, message, Upload, Spin} from 'antd';
 import * as React from 'react';
 import {UploadChangeParam} from 'antd/lib/upload';
 import {IReactionDisposer, observable, reaction} from 'mobx';
@@ -7,11 +7,11 @@ import {UploadProps} from 'antd/es/upload';
 import {UploadFile} from 'antd/es/upload/interface';
 import './FileUpload.less';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
-import { getCubaREST } from '@cuba-platform/react-core';
+import {getCubaREST, injectMainStore, MainStoreInjected, MainStore} from '@cuba-platform/react-core';
 import {ImagePreview} from './ImagePreview';
 import {saveFile} from '../util/files';
 
-export interface FileUploadProps {
+export interface FileUploadProps extends MainStoreInjected {
   /**
    * Сoming from antd Form field decorator
    */
@@ -47,6 +47,7 @@ export interface FileInfo {
   name: string,
 }
 
+@injectMainStore
 @observer
 class FileUploadComponent extends React.Component<FileUploadProps & WrappedComponentProps> {
 
@@ -158,7 +159,27 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
     this.previewFileName = undefined;
   };
 
+  dropArea = (mainStore: MainStore) => {
+    const {disabled, render, value} = this.props;
+
+    if (disabled || !mainStore.security.canUploadAndLinkFile()) {
+      return null;
+    }
+
+    if (render != null) {
+      return render(value);
+    }
+
+    return <FileUploadDropArea fileInfo={value}/>;
+  };
+
   render() {
+    const {mainStore, disabled, enableFullWidth, uploadProps: passedUploadProps} = this.props;
+
+    if (mainStore == null || !mainStore.security.isDataLoaded) {
+      return <Spin size="small"/>;
+    }
+
     const defaultUploadProps: UploadProps = {
       action: getCubaREST()!.getFileUploadURL(),
       headers: {'Authorization': 'Bearer ' + getCubaREST()!.restApiToken},
@@ -166,23 +187,23 @@ class FileUploadComponent extends React.Component<FileUploadProps & WrappedCompo
       onChange: this.handleChange,
       onPreview: this.handlePreview,
       onRemove: this.handleRemove,
-      disabled: this.props.disabled,
+      disabled,
       showUploadList: {
         showDownloadIcon: false,
         showPreviewIcon: true,
         showRemoveIcon: true,
       },
-      className: this.props.enableFullWidth ? '_cuba-file-upload-full-width-enabled' : '',
+      className: enableFullWidth ? '_cuba-file-upload-full-width-enabled' : '',
     };
 
-    const uploadProps: UploadProps = { ...defaultUploadProps, ...this.props.uploadProps };
+    const mergedUploadProps: UploadProps = { ...defaultUploadProps, ...passedUploadProps };
 
     return (
       <>
         <Upload
-          { ...uploadProps }
+          { ...mergedUploadProps }
         >
-          { this.props.render ? this.props.render(this.props.value) : <FileUploadDropArea fileInfo={this.props.value}/> }
+          { this.dropArea(mainStore) }
         </Upload>
         <ImagePreview isVisible={this.isPreviewVisible}
                       isLoading={this.isPreviewLoading}

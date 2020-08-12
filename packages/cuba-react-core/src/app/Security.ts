@@ -1,6 +1,13 @@
 import {action, computed, observable, ObservableMap} from 'mobx';
-import {CubaApp, EntityAttrPermissionValue, EffectivePermsInfo} from '@cuba-platform/rest';
-import {getAttributePermission} from '@cuba-platform/rest/dist-node/security';
+import {
+  CubaApp,
+  EntityAttrPermissionValue,
+  EffectivePermsInfo,
+  getAttributePermission,
+  isOperationAllowed,
+  isSpecificPermissionGranted
+} from '@cuba-platform/rest';
+
 
 export class Security {
 
@@ -33,12 +40,24 @@ export class Security {
     return perm;
   };
 
-  @action loadPermissions() {
+  canUploadAndLinkFile = (): boolean => {
+    if (!this.isDataLoaded) {
+      return false;
+    }
+    if (!this.restSupportEffectivePerms) {
+      return true;
+    }
+
+    return isOperationAllowed('sys$FileDescriptor', 'create', this.effectivePermissions)
+      && isSpecificPermissionGranted('cuba.restApi.fileUpload.enabled', this.effectivePermissions);
+  };
+
+  @action loadPermissions(): Promise<void> {
     const requestId = ++this.permissionsRequestCount;
     this.effectivePermissions = undefined;
     this.attrPermissionCache.clear();
 
-    this.cubaREST.getEffectivePermissions()
+    return this.cubaREST.getEffectivePermissions()
       .then(action((effectivePermsInfo: EffectivePermsInfo) => {
         if (requestId === this.permissionsRequestCount) {
           this.effectivePermissions = effectivePermsInfo;

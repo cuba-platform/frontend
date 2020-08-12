@@ -65,9 +65,37 @@ export function isOperationAllowed(entityName: string,
   explicitPerm = entities.find(perm => perm.target === `${entityName}:*`);
   if (explicitPerm != null) return explicitPerm.value === 1;
 
+  // find entity wildcard perm match '*:read'
+  explicitPerm = entities.find(perm => perm.target === `*:${operation}`);
+  if (explicitPerm != null) return explicitPerm.value === 1;
+
   // find pure wildcard perm match '*:*'
   explicitPerm = entities.find(perm => perm.target === `*:*`);
   if (explicitPerm != null) return explicitPerm.value === 1;
+
+  return perms.undefinedPermissionPolicy === 'ALLOW';
+}
+
+export function isSpecificPermissionGranted(permTarget: string, perms?: EffectivePermsInfo): boolean {
+  if (perms == null) {
+    return false;
+  }
+
+  let wildcardPermValue: EntityPermissionValue;
+
+  for (const perm of perms.explicitPermissions.specific) {
+    if (perm.target === permTarget) {
+      return perm.value === 1;
+    }
+
+    if (perm.target === '*') {
+      wildcardPermValue = perm.value;
+    }
+  }
+
+  if (wildcardPermValue != null) {
+    return wildcardPermValue === 1;
+  }
 
   return perms.undefinedPermissionPolicy === 'ALLOW';
 }
