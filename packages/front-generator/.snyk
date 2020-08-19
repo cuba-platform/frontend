@@ -27,4 +27,29 @@ ignore:
     - yeoman-generator > yeoman-environment > inquirer > lodash:
         reason: No upgrade available
         expires: '2020-07-15T12:32:29.788Z'
+  SNYK-JS-LODASH-590103:
+    - yeoman-environment > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
+    - yeoman-environment > grouped-queue > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
+    - yeoman-environment > inquirer > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
+    - yeoman-generator > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
+    - yeoman-generator > yeoman-environment > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
+    - yeoman-generator > async > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
+    - yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
+    - yeoman-generator > yeoman-environment > inquirer > lodash:
+        reason: No remediation available
+        expires: '2020-09-18T11:47:47.238Z'
 patch: {}
