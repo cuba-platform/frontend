@@ -6,12 +6,12 @@
     "npm": ">=6"
   },
   "devDependencies": {
-    "@antora/cli": "^2.2.0",
-    "@antora/site-generator-default": "^2.3.0",
+    "@antora/cli": "^2.3.3",
+    "@antora/site-generator-default": "^2.3.3",
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^8.3.4",
     "@commitlint/travis-cli": "^8.3.4",
-    "commitizen": "^4.0.3",
+    "commitizen": "^4.1.2",
     "cz-lerna-changelog": "^2.0.2",
     "fs-extra": "^8.1.0",
     "husky": "^4.0.6",
