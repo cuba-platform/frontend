@@ -60,8 +60,9 @@
     "typescript": "~3.7.4"
   },
   "scripts": {
-    "copyless": "copyfiles -u 1 './src/**/*.less'",
-    "compile": "npm run clean && tsc && npm run copyless -- './dist-transpiled' && rollup -c && npm run copyless -- './dist'",
+    "copyless": "copyfiles -u 1 \"./src/**/*.less\" \"./dist\"",
+    "copyless-transpiled": "copyfiles -u 1 \"./src/**/*.less\" \"./dist-transpiled\"",
+    "compile": "npm run clean && tsc && npm run copyless-transpiled && rollup -c && npm run copyless",
     "clean": "rm -rf dist && rm -rf dist-transpiled",
     "test": "jest",
     "coverage": "npm test -- --coverage",
