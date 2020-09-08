@@ -22,6 +22,11 @@ module.exports = {
   "collectCoverageFrom": [
     "src/**/*.{ts,tsx}",
   ],
+
+  // The reason behind this: due to the fact that cuba-react-core is symlinked,
+  // it will use it's own instance of React, while the tests will use the one from cuba-react-ui/node_modules.
+  // In case of FieldPermissionContainer.test.tsx that would result in an Invalid Hook Call,
+  // apparently because the test transitively imports MainStore, which declares a custom hook.
   "moduleNameMapper": {
     "^react$": "<rootDir>/../cuba-react-core/node_modules/react",
     "^mobx-react$": "<rootDir>/../cuba-react-core/node_modules/mobx-react"
