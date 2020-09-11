@@ -14,7 +14,9 @@ const componentRelativeModelPath = './src/test/fixtures/mpg-projectModel.json';
 
 const answers = require('../../fixtures/answers.json');
 const stringIdAnswers = require('../../fixtures/answers/string-id-management-table.json');
-const hooksPOCAnswers = require('../../fixtures/answers/hooks-poc.json');
+const hooksEMTable = require('../../fixtures/answers/hooks-management-table.json');
+const hooksEMCards = require('../../fixtures/answers/hooks-management-cards.json');
+const hooksEMList = require('../../fixtures/answers/hooks-management-list.json');
 
 const REACT_DIR = path.join(process.cwd(), `src/test/generated/react-client`);
 const COMPONENT_DIR = path.join(REACT_DIR, 'src/app/component');
@@ -93,7 +95,15 @@ describe('react generator test', () => {
 
     process.chdir(TEST_RUN_DIR);
     await generate('react-typescript', 'entity-management-hooks',
-      opts(EM_DIR, hooksPOCAnswers, modelPathScr));
+      opts(EM_DIR, hooksEMCards, modelPathScr));
+
+    process.chdir(TEST_RUN_DIR);
+    await generate('react-typescript', 'entity-management-hooks',
+      opts(EM_DIR, hooksEMList, modelPathScr));
+
+    process.chdir(TEST_RUN_DIR);
+    await generate('react-typescript', 'entity-management-hooks',
+      opts(EM_DIR, hooksEMTable, modelPathScr));
 
     assertFilesPlain('src/app/entity-management/CarCards.tsx', REACT_DIR, FIXTURES_DIR);
     assertFilesPlain('src/app/entity-management/CarEdit.tsx', REACT_DIR, FIXTURES_DIR);
@@ -109,7 +119,17 @@ describe('react generator test', () => {
     assertFilesPlain('src/app/entity-management/StringIdMgtTableEdit.tsx', REACT_DIR, FIXTURES_DIR);
     assertFilesPlain('src/app/entity-management/StringIdMgtTableBrowse.tsx', REACT_DIR, FIXTURES_DIR);
 
-    assertFilesPlain('src/app/entity-management/HooksPOCEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/HooksEMCardsEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/HooksEMCardsBrowse.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/HooksEMCardsMgt.tsx', REACT_DIR, FIXTURES_DIR);
+
+    assertFilesPlain('src/app/entity-management/HooksEMListEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/HooksEMListBrowse.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/HooksEMListMgt.tsx', REACT_DIR, FIXTURES_DIR);
+
+    assertFilesPlain('src/app/entity-management/HooksEMTableEdit.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/HooksEMTableBrowse.tsx', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('src/app/entity-management/HooksEMTableMgt.tsx', REACT_DIR, FIXTURES_DIR);
   });
 
 });

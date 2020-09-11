@@ -18,7 +18,7 @@ class ReactEntityManagementHooksGenerator extends ReactEntityManagementGenerator
   end() { super.end(); }
 }
 
-const description = 'CRUD (list + editor) screens for specified entity, editor component is implemented using hooks';
+const description = 'CRUD (list + editor) screens for specified entity (hooks based)';
 
 export {
   ReactEntityManagementHooksGenerator as generator,

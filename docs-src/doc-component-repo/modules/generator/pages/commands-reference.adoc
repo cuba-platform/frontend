@@ -74,6 +74,10 @@ image:client-react:data-table-demo.gif[Data table showcase]
 }
 ....
 
+== react-typescript:entity-management-hooks
+
+Same as link:#react-typescript-entity-management[react-typescript:entity-management] but implemented using https://reactjs.org/docs/hooks-intro.html[React Hooks] rather than classes.
+
 == react-typescript:entity-cards
 
 include::partial$feat-available-in-studio.adoc[]
