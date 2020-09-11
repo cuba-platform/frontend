@@ -18,7 +18,7 @@
     "@cuba-platform/rest": "^1.0.0",
     "antd": "^4.4.0",
     "mobx": "^4.13.0 || ^5.13.0",
-    "mobx-react": "^6.2.2",
+    "mobx-react": "^6.3.0",
     "react": "^16.9.0",
     "react-input-mask": "^2.0.4",
     "react-intl": "^3.3.2"
@@ -41,7 +41,7 @@
     "jest": "^25.1.0",
     "less": "^3.10.3",
     "mobx": "^4.13.0",
-    "mobx-react": "^6.2.2",
+    "mobx-react": "^6.3.0",
     "moment-timezone": "^0.5.26",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
