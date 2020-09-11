@@ -17,7 +17,9 @@ const weirdStringIdManagementTableConfig = require('./screens/weird-string-id-ma
 const weirdStringIdManagementCardsConfig = require('./screens/weird-string-id-management-cards.json');
 const weirdStringIdManagementListConfig = require('./screens/weird-string-id-management-list.json');
 const boringStringIdManagementTableConfig = require('./screens/boring-string-id-management-table.json');
-const hooksPOC = require('./screens/hooks-poc.json');
+const hooksMgtTableConfig = require('./screens/hooks-management-table.json');
+const hooksMgtCardsConfig = require('./screens/hooks-management-cards.json');
+const hooksMgtListConfig = require('./screens/hooks-management-list.json');
 const dirShift = '../../';
 
 gen(
@@ -73,8 +75,20 @@ gen(
       {
         command: 'react-typescript:entity-management-hooks',
         dirShift,
-        dest: 'src/app/hooks-poc',
-        answers: hooksPOC
+        dest: 'src/app/hooks-em-cards',
+        answers: hooksMgtCardsConfig
+      },
+      {
+        command: 'react-typescript:entity-management-hooks',
+        dirShift,
+        dest: 'src/app/hooks-em-list',
+        answers: hooksMgtListConfig
+      },
+      {
+        command: 'react-typescript:entity-management-hooks',
+        dirShift,
+        dest: 'src/app/hooks-em-table',
+        answers: hooksMgtTableConfig
       },
       // Relations
       {

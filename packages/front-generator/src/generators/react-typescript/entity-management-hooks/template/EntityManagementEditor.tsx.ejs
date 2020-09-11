@@ -3,7 +3,7 @@ import {Form, Alert, Button, Card, message} from "antd";
 import {FormInstance} from "antd/es/form";
 import useForm from "antd/lib/form/hooks/useForm";
 import {useLocalStore, useObserver} from "mobx-react";
-import {<%= className %>} from "./<%= className %>";
+import {PATH, NEW_SUBPATH} from "./<%= className %>";
 import {Link, Redirect} from "react-router-dom";
 import {toJS} from "mobx";
 import {FormattedMessage, useIntl} from 'react-intl';
@@ -53,7 +53,7 @@ const FIELDS = [
 ]
 
 const isNewEntity = (entityId: string) => {
-  return entityId === <%= className %>.NEW_SUBPATH;
+  return entityId === NEW_SUBPATH;
 };
 
 const getAssociationOptions = (mainStore: MainStore): <%= editComponentClass %>AssociationOptions => {
@@ -181,7 +181,7 @@ const <%= editComponentClass %> = (props: Props) => {
 
   return useObserver(() => {
     if (store.updated) {
-      return <Redirect to={<%= className %>.PATH}/>;
+      return <Redirect to={PATH}/>;
     }
 
     if (!mainStore.isEntityDataLoaded()) {
@@ -228,7 +228,7 @@ const <%= editComponentClass %> = (props: Props) => {
                    <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
                         nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
                    <% } %>
-                   parentEntityInstanceId={entityId !== <%= className %>.NEW_SUBPATH ? entityId : undefined}
+                   parentEntityInstanceId={entityId !== NEW_SUBPATH ? entityId : undefined}
               <% } %>
 
               <% if (Object.keys(editAssociations).includes(attr.name)) { %>
@@ -256,7 +256,7 @@ const <%= editComponentClass %> = (props: Props) => {
           )}
 
           <Form.Item style={{textAlign: 'center'}}>
-            <Link to={<%= className %>.PATH}>
+            <Link to={PATH}>
               <Button htmlType="button">
                 <FormattedMessage id='common.cancel'/>
               </Button>

@@ -9,51 +9,67 @@ import {
   EntityPermAccessControl
 } from "@cuba-platform/react-core";
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
-import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
-import {PATH, NEW_SUBPATH} from "./<%= className %>";
-import {FormattedMessage, useIntl} from 'react-intl';
+import { DatatypesTestEntity } from "cuba/entities/scr_DatatypesTestEntity";
+import { SerializedEntity } from "@cuba-platform/rest";
+import { PATH, NEW_SUBPATH } from "./HooksEMTableMgt";
+import { FormattedMessage, useIntl } from "react-intl";
 
-type <%= listComponentClass %>LocalStore = {
+type HooksEMTableBrowseLocalStore = {
   selectedRowKey?: string;
 };
 
 const FIELDS = [
-<% listAttributes.forEach(p => { -%>
-  '<%= p.name %>',
-<% }) %>
+  "bigDecimalAttr",
+  "booleanAttr",
+  "dateAttr",
+  "dateTimeAttr",
+  "doubleAttr",
+  "integerAttr",
+  "longAttr",
+  "stringAttr",
+  "timeAttr",
+  "uuidAttr",
+  "localDateTimeAttr",
+  "offsetDateTimeAttr",
+  "localDateAttr",
+  "localTimeAttr",
+  "offsetTimeAttr",
+  "enumAttr",
+  "name",
+  "associationO2Oattr",
+  "associationM2Oattr",
+  "compositionO2Oattr",
+  "intIdentityIdTestEntityAssociationO2OAttr",
+  "stringIdTestEntityAssociationO2O",
+  "stringIdTestEntityAssociationM2O",
+  "readOnlyStringAttr"
 ];
 
-const <%= listComponentClass %> = () => {
+const HooksEMTableBrowse = () => {
   const intl = useIntl();
   const mainStore = useMainStore();
 
-  const dataCollection = useCollection<<%= entity.className %>>(
-    <%= entity.className %>.NAME,
+  const dataCollection = useCollection<DatatypesTestEntity>(
+    DatatypesTestEntity.NAME,
     {
-      view: '<%= listView.name %>',
-      <% if (entity.updatable == true) { -%>
-        sort: '-updateTs',
-      <% } %>
-      <% if (locals.stringIdName != null) { %>
-        stringIdName: '<%= stringIdName %>'
-      <% } %>
+      view: "datatypesTestEntity-view",
+      sort: "-updateTs"
     }
   );
 
-  const store: <%= listComponentClass %>LocalStore = useLocalStore(() => ({
-    selectedRowKey: undefined,
+  const store: HooksEMTableBrowseLocalStore = useLocalStore(() => ({
+    selectedRowKey: undefined
   }));
 
   const showDeletionDialog = useCallback(
-    (e: SerializedEntity<<%= entity.className %>>) => {
+    (e: SerializedEntity<DatatypesTestEntity>) => {
       Modal.confirm({
         title: intl.formatMessage(
-          {id: "management.browser.delete.areYouSure"},
-          {instanceName: e._instanceName}
+          { id: "management.browser.delete.areYouSure" },
+          { instanceName: e._instanceName }
         ),
-        okText: intl.formatMessage({id: "management.browser.delete.ok"}),
-        cancelText: intl.formatMessage({id: "common.cancel"}),
+        okText: intl.formatMessage({ id: "management.browser.delete.ok" }),
+        cancelText: intl.formatMessage({ id: "common.cancel" }),
         onOk: () => {
           store.selectedRowKey = undefined;
           return dataCollection.current.delete(e);
@@ -64,8 +80,12 @@ const <%= listComponentClass %> = () => {
   );
 
   const getRecordById = useCallback(
-    (id: string): SerializedEntity<<%= entity.className %>> => {
-      const record: SerializedEntity<<%= entity.className %>> | undefined = dataCollection.current.items.find(record => record.id === id);
+    (id: string): SerializedEntity<DatatypesTestEntity> => {
+      const record:
+        | SerializedEntity<DatatypesTestEntity>
+        | undefined = dataCollection.current.items.find(
+        record => record.id === id
+      );
 
       if (!record) {
         throw new Error("Cannot find entity with id " + id);
@@ -76,14 +96,11 @@ const <%= listComponentClass %> = () => {
     [dataCollection]
   );
 
-  const deleteSelectedRow = useCallback(
-    () => {
-      if (store.selectedRowKey != null) {
-        showDeletionDialog(getRecordById(store.selectedRowKey));
-      }
-    },
-    [getRecordById, showDeletionDialog, store.selectedRowKey]
-  );
+  const deleteSelectedRow = useCallback(() => {
+    if (store.selectedRowKey != null) {
+      showDeletionDialog(getRecordById(store.selectedRowKey));
+    }
+  }, [getRecordById, showDeletionDialog, store.selectedRowKey]);
 
   const handleRowSelectionChange = useCallback(
     (selectedRowKeys: string[]) => {
@@ -98,11 +115,12 @@ const <%= listComponentClass %> = () => {
     }
 
     const buttons = [
-      (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='create' key='create'>
-        <Link
-          to={PATH + "/" + NEW_SUBPATH}
-          key="create"
-        >
+      <EntityPermAccessControl
+        entityName={DatatypesTestEntity.NAME}
+        operation="create"
+        key="create"
+      >
+        <Link to={PATH + "/" + NEW_SUBPATH} key="create">
           <Button
             htmlType="button"
             style={{ margin: "0 12px 12px 0" }}
@@ -113,9 +131,14 @@ const <%= listComponentClass %> = () => {
               <FormattedMessage id="common.create" />
             </span>
           </Button>
-        </Link>,
-      </EntityPermAccessControl>),
-      (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='update' key='update'>
+        </Link>
+        ,
+      </EntityPermAccessControl>,
+      <EntityPermAccessControl
+        entityName={DatatypesTestEntity.NAME}
+        operation="update"
+        key="update"
+      >
         <Link to={PATH + "/" + store.selectedRowKey} key="edit">
           <Button
             htmlType="button"
@@ -125,9 +148,14 @@ const <%= listComponentClass %> = () => {
           >
             <FormattedMessage id="common.edit" />
           </Button>
-        </Link>,
-      </EntityPermAccessControl>),
-      (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='delete' key='delete'>
+        </Link>
+        ,
+      </EntityPermAccessControl>,
+      <EntityPermAccessControl
+        entityName={DatatypesTestEntity.NAME}
+        operation="delete"
+        key="delete"
+      >
         <Button
           htmlType="button"
           style={{ margin: "0 12px 12px 0" }}
@@ -138,7 +166,7 @@ const <%= listComponentClass %> = () => {
         >
           <FormattedMessage id="common.remove" />
         </Button>
-      </EntityPermAccessControl>),
+      </EntityPermAccessControl>
     ];
 
     return (
@@ -151,6 +179,6 @@ const <%= listComponentClass %> = () => {
       />
     );
   });
-}
+};
 
-export default <%= listComponentClass %>;
+export default HooksEMTableBrowse;

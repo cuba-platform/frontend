@@ -1,0 +1,21 @@
+{
+  "editView": {
+    "name": "datatypesTestEntity-view",
+    "entityName": "scr_DatatypesTestEntity"
+  },
+  "editComponentName": "HooksEMTableEdit",
+  "listView": {
+    "name": "datatypesTestEntity-view",
+    "entityName": "scr_DatatypesTestEntity"
+  },
+  "listComponentName": "HooksEMTableBrowse",
+  "listType": "table",
+  "entity": {
+    "name": "scr_DatatypesTestEntity"
+  },
+  "managementComponentName": "HooksEMTableMgt",
+  "nestedEntityInfo": {
+    "compositionO2Oattr": "compositionO2OTestEntity-view",
+    "compositionO2Mattr": "compositionO2MTestEntity-view"
+  }
+}

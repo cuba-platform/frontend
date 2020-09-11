@@ -3,7 +3,7 @@ import { Form, Alert, Button, Card, message } from "antd";
 import { FormInstance } from "antd/es/form";
 import useForm from "antd/lib/form/hooks/useForm";
 import { useLocalStore, useObserver } from "mobx-react";
-import { HooksPOCManagement } from "./HooksPOCManagement";
+import { PATH, NEW_SUBPATH } from "./HooksEMTableMgt";
 import { Link, Redirect } from "react-router-dom";
 import { toJS } from "mobx";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -33,7 +33,7 @@ type Props = {
   entityId: string;
 };
 
-type HooksPOCEditAssociationOptions = {
+type HooksEMTableEditAssociationOptions = {
   associationO2OattrsDc?: DataCollectionStore<AssociationO2OTestEntity>;
   associationM2OattrsDc?: DataCollectionStore<AssociationM2OTestEntity>;
   associationM2MattrsDc?: DataCollectionStore<AssociationM2MTestEntity>;
@@ -47,7 +47,7 @@ type HooksPOCEditAssociationOptions = {
   stringIdTestEntityAssociationM2OsDc?: DataCollectionStore<StringIdTestEntity>;
 };
 
-type HooksPOCEditLocalStore = HooksPOCEditAssociationOptions & {
+type HooksEMTableEditLocalStore = HooksEMTableEditAssociationOptions & {
   updated: boolean;
   globalErrors: string[];
   formRef: RefObject<FormInstance>;
@@ -84,14 +84,14 @@ const FIELDS = [
 ];
 
 const isNewEntity = (entityId: string) => {
-  return entityId === HooksPOCManagement.NEW_SUBPATH;
+  return entityId === NEW_SUBPATH;
 };
 
 const getAssociationOptions = (
   mainStore: MainStore
-): HooksPOCEditAssociationOptions => {
+): HooksEMTableEditAssociationOptions => {
   const { getAttributePermission } = mainStore.security;
-  const associationOptions: HooksPOCEditAssociationOptions = {};
+  const associationOptions: HooksEMTableEditAssociationOptions = {};
 
   associationOptions.associationO2OattrsDc = loadAssociationOptions(
     DatatypesTestEntity.NAME,
@@ -152,7 +152,7 @@ const getAssociationOptions = (
   return associationOptions;
 };
 
-const HooksPOCEdit = (props: Props) => {
+const HooksEMTableEdit = (props: Props) => {
   const { entityId } = props;
 
   const intl = useIntl();
@@ -167,7 +167,7 @@ const HooksPOCEdit = (props: Props) => {
     }
   );
 
-  const store: HooksPOCEditLocalStore = useLocalStore(() => ({
+  const store: HooksEMTableEditLocalStore = useLocalStore(() => ({
     // Association options
     associationO2OattrsDc: undefined,
     associationM2OattrsDc: undefined,
@@ -260,7 +260,7 @@ const HooksPOCEdit = (props: Props) => {
 
   return useObserver(() => {
     if (store.updated) {
-      return <Redirect to={HooksPOCManagement.PATH} />;
+      return <Redirect to={PATH} />;
     }
 
     if (!mainStore.isEntityDataLoaded()) {
@@ -462,7 +462,7 @@ const HooksPOCEdit = (props: Props) => {
             propertyName="compositionO2Oattr"
             nestedEntityView="compositionO2OTestEntity-view"
             parentEntityInstanceId={
-              entityId !== HooksPOCManagement.NEW_SUBPATH ? entityId : undefined
+              entityId !== NEW_SUBPATH ? entityId : undefined
             }
             formItemProps={{
               style: { marginBottom: "12px" }
@@ -474,7 +474,7 @@ const HooksPOCEdit = (props: Props) => {
             propertyName="compositionO2Mattr"
             nestedEntityView="compositionO2MTestEntity-view"
             parentEntityInstanceId={
-              entityId !== HooksPOCManagement.NEW_SUBPATH ? entityId : undefined
+              entityId !== NEW_SUBPATH ? entityId : undefined
             }
             formItemProps={{
               style: { marginBottom: "12px" }
@@ -537,7 +537,7 @@ const HooksPOCEdit = (props: Props) => {
           )}
 
           <Form.Item style={{ textAlign: "center" }}>
-            <Link to={HooksPOCManagement.PATH}>
+            <Link to={PATH}>
               <Button htmlType="button">
                 <FormattedMessage id="common.cancel" />
               </Button>
@@ -558,4 +558,4 @@ const HooksPOCEdit = (props: Props) => {
   });
 };
 
-export default HooksPOCEdit;
+export default HooksEMTableEdit;

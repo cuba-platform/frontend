@@ -1,7 +1,7 @@
-import React, {useEffect, useCallback} from "react";
+import React, { useEffect, useCallback } from "react";
 import { useObserver } from "mobx-react";
 import { Link } from "react-router-dom";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { Modal, Button, Card, message } from "antd";
 import {
   useCollection,
@@ -15,10 +15,10 @@ import {
   setPagination,
   Spinner
 } from "@cuba-platform/react-ui";
-import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
-import {PATH, NEW_SUBPATH} from "./<%= className %>";
-import {FormattedMessage, useIntl} from "react-intl";
+import { DatatypesTestEntity } from "cuba/entities/scr_DatatypesTestEntity";
+import { SerializedEntity } from "@cuba-platform/rest";
+import { PATH, NEW_SUBPATH } from "./HooksEMCardsMgt";
+import { FormattedMessage, useIntl } from "react-intl";
 import { PaginationConfig } from "antd/es/pagination";
 
 type Props = {
@@ -27,27 +27,46 @@ type Props = {
 };
 
 const FIELDS = [
-<% listAttributes.forEach(p => { -%>
-  '<%= p.name %>',
-<% }) %>
+  "bigDecimalAttr",
+  "booleanAttr",
+  "dateAttr",
+  "dateTimeAttr",
+  "doubleAttr",
+  "integerAttr",
+  "longAttr",
+  "stringAttr",
+  "timeAttr",
+  "uuidAttr",
+  "localDateTimeAttr",
+  "offsetDateTimeAttr",
+  "localDateAttr",
+  "localTimeAttr",
+  "offsetTimeAttr",
+  "enumAttr",
+  "name",
+  "associationO2Oattr",
+  "associationM2Oattr",
+  "compositionO2Oattr",
+  "intIdentityIdTestEntityAssociationO2OAttr",
+  "stringIdTestEntityAssociationO2O",
+  "stringIdTestEntityAssociationM2O",
+  "readOnlyStringAttr"
 ];
 
-const <%= listComponentClass %> = (props: Props) => {
+const HooksEMCardsBrowse = (props: Props) => {
   const { paginationConfig, onPagingChange } = props;
 
   const intl = useIntl();
   const mainStore = useMainStore();
 
-  const dataCollection = useCollection<<%= entity.className %>>(<%= entity.className %>.NAME, {
-    view: '<%= listView.name %>',
-    <% if (entity.updatable == true) { -%>
-      sort: '-updateTs',
-    <% } -%>
-    loadImmediately: false,
-    <% if (locals.stringIdName != null) { %>
-      stringIdName: '<%= stringIdName %>'
-    <% } %>
-  });
+  const dataCollection = useCollection<DatatypesTestEntity>(
+    DatatypesTestEntity.NAME,
+    {
+      view: "datatypesTestEntity-view",
+      sort: "-updateTs",
+      loadImmediately: false
+    }
+  );
 
   useEffect(() => {
     setPagination(paginationConfig, dataCollection.current, true);
@@ -63,7 +82,7 @@ const <%= listComponentClass %> = (props: Props) => {
   );
 
   const showDeletionDialog = useCallback(
-    (e: SerializedEntity<<%= entity.className %>>) => {
+    (e: SerializedEntity<DatatypesTestEntity>) => {
       Modal.confirm({
         title: intl.formatMessage(
           { id: "management.browser.delete.areYouSure" },
@@ -77,7 +96,8 @@ const <%= listComponentClass %> = (props: Props) => {
           return dataCollection.current.delete(e);
         }
       });
-    }, [intl, dataCollection]
+    },
+    [intl, dataCollection]
   );
 
   return useObserver(() => {
@@ -89,7 +109,10 @@ const <%= listComponentClass %> = (props: Props) => {
 
     return (
       <div className="narrow-layout">
-        <EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='create'>
+        <EntityPermAccessControl
+          entityName={DatatypesTestEntity.NAME}
+          operation="create"
+        >
           <div style={{ marginBottom: "12px" }}>
             <Link to={PATH + "/" + NEW_SUBPATH}>
               <Button htmlType="button" type="primary" icon={<PlusOutlined />}>
@@ -122,7 +145,7 @@ const <%= listComponentClass %> = (props: Props) => {
           >
             {FIELDS.map(p => (
               <EntityProperty
-                entityName={<%= entity.className %>.NAME}
+                entityName={DatatypesTestEntity.NAME}
                 propertyName={p}
                 value={e[p]}
                 key={p}
@@ -145,4 +168,4 @@ const <%= listComponentClass %> = (props: Props) => {
   });
 };
 
-export default <%=listComponentClass%>;
+export default HooksEMCardsBrowse;

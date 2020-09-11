@@ -1,8 +1,8 @@
-import React, {useEffect, useCallback} from "react";
+import React, { useEffect, useCallback } from "react";
 import { useObserver } from "mobx-react";
 import { Link } from "react-router-dom";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Modal, Button, Card, message } from "antd";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { Modal, Button, List, message } from "antd";
 import {
   useCollection,
   useMainStore,
@@ -15,10 +15,10 @@ import {
   setPagination,
   Spinner
 } from "@cuba-platform/react-ui";
-import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
-import {PATH, NEW_SUBPATH} from "./<%= className %>";
-import {FormattedMessage, useIntl} from "react-intl";
+import { DatatypesTestEntity } from "cuba/entities/scr_DatatypesTestEntity";
+import { SerializedEntity } from "@cuba-platform/rest";
+import { PATH, NEW_SUBPATH } from "./HooksEMListMgt";
+import { FormattedMessage, useIntl } from "react-intl";
 import { PaginationConfig } from "antd/es/pagination";
 
 type Props = {
@@ -27,27 +27,46 @@ type Props = {
 };
 
 const FIELDS = [
-<% listAttributes.forEach(p => { -%>
-  '<%= p.name %>',
-<% }) %>
+  "bigDecimalAttr",
+  "booleanAttr",
+  "dateAttr",
+  "dateTimeAttr",
+  "doubleAttr",
+  "integerAttr",
+  "longAttr",
+  "stringAttr",
+  "timeAttr",
+  "uuidAttr",
+  "localDateTimeAttr",
+  "offsetDateTimeAttr",
+  "localDateAttr",
+  "localTimeAttr",
+  "offsetTimeAttr",
+  "enumAttr",
+  "name",
+  "associationO2Oattr",
+  "associationM2Oattr",
+  "compositionO2Oattr",
+  "intIdentityIdTestEntityAssociationO2OAttr",
+  "stringIdTestEntityAssociationO2O",
+  "stringIdTestEntityAssociationM2O",
+  "readOnlyStringAttr"
 ];
 
-const <%= listComponentClass %> = (props: Props) => {
+const HooksEMListBrowse = (props: Props) => {
   const { paginationConfig, onPagingChange } = props;
 
   const intl = useIntl();
   const mainStore = useMainStore();
 
-  const dataCollection = useCollection<<%= entity.className %>>(<%= entity.className %>.NAME, {
-    view: '<%= listView.name %>',
-    <% if (entity.updatable == true) { -%>
-      sort: '-updateTs',
-    <% } -%>
-    loadImmediately: false,
-    <% if (locals.stringIdName != null) { %>
-      stringIdName: '<%= stringIdName %>'
-    <% } %>
-  });
+  const dataCollection = useCollection<DatatypesTestEntity>(
+    DatatypesTestEntity.NAME,
+    {
+      view: "datatypesTestEntity-view",
+      sort: "-updateTs",
+      loadImmediately: false
+    }
+  );
 
   useEffect(() => {
     setPagination(paginationConfig, dataCollection.current, true);
@@ -63,7 +82,7 @@ const <%= listComponentClass %> = (props: Props) => {
   );
 
   const showDeletionDialog = useCallback(
-    (e: SerializedEntity<<%= entity.className %>>) => {
+    (e: SerializedEntity<DatatypesTestEntity>) => {
       Modal.confirm({
         title: intl.formatMessage(
           { id: "management.browser.delete.areYouSure" },
@@ -77,7 +96,8 @@ const <%= listComponentClass %> = (props: Props) => {
           return dataCollection.current.delete(e);
         }
       });
-    }, [intl, dataCollection]
+    },
+    [intl, dataCollection]
   );
 
   return useObserver(() => {
@@ -89,7 +109,10 @@ const <%= listComponentClass %> = (props: Props) => {
 
     return (
       <div className="narrow-layout">
-        <EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='create'>
+        <EntityPermAccessControl
+          entityName={DatatypesTestEntity.NAME}
+          operation="create"
+        >
           <div style={{ marginBottom: "12px" }}>
             <Link to={PATH + "/" + NEW_SUBPATH}>
               <Button htmlType="button" type="primary" icon={<PlusOutlined />}>
@@ -100,36 +123,36 @@ const <%= listComponentClass %> = (props: Props) => {
             </Link>
           </div>
         </EntityPermAccessControl>
-        {items == null || items.length === 0 ? (
-          <p>
-            <FormattedMessage id="management.browser.noItems" />
-          </p>
-        ) : null}
-        {items.map(e => (
-          <Card
-            title={e._instanceName}
-            key={e.id ? e.id : undefined}
-            style={{ marginBottom: "12px" }}
-            actions={[
-              <DeleteOutlined
-                key="delete"
-                onClick={() => showDeletionDialog(e)}
-              />,
-              <Link to={PATH + "/" + e.id} key="edit">
-                <EditOutlined />
-              </Link>
-            ]}
-          >
-            {FIELDS.map(p => (
-              <EntityProperty
-                entityName={<%= entity.className %>.NAME}
-                propertyName={p}
-                value={e[p]}
-                key={p}
-              />
-            ))}
-          </Card>
-        ))}
+
+        <List
+          itemLayout="horizontal"
+          bordered
+          dataSource={items}
+          renderItem={item => (
+            <List.Item
+              actions={[
+                <DeleteOutlined
+                  key="delete"
+                  onClick={() => showDeletionDialog(item)}
+                />,
+                <Link to={PATH + "/" + item.id} key="edit">
+                  <EditOutlined />
+                </Link>
+              ]}
+            >
+              <div style={{ flexGrow: 1 }}>
+                {FIELDS.map(p => (
+                  <EntityProperty
+                    entityName={DatatypesTestEntity.NAME}
+                    propertyName={p}
+                    value={item[p]}
+                    key={p}
+                  />
+                ))}
+              </div>
+            </List.Item>
+          )}
+        />
 
         {!paginationConfig.disabled && (
           <div style={{ margin: "12px 0 12px 0", float: "right" }}>
@@ -145,4 +168,4 @@ const <%= listComponentClass %> = (props: Props) => {
   });
 };
 
-export default <%=listComponentClass%>;
+export default HooksEMListBrowse;

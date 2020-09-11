@@ -3,17 +3,17 @@
     "name": "datatypesTestEntity-view",
     "entityName": "scr_DatatypesTestEntity"
   },
-  "editComponentName": "HooksPOCEdit",
+  "editComponentName": "HooksEMListEdit",
   "listView": {
     "name": "datatypesTestEntity-view",
     "entityName": "scr_DatatypesTestEntity"
   },
-  "listComponentName": "HooksPOCList",
-  "listType": "table",
+  "listComponentName": "HooksEMListBrowse",
+  "listType": "list",
   "entity": {
     "name": "scr_DatatypesTestEntity"
   },
-  "managementComponentName": "HooksPOCManagement",
+  "managementComponentName": "HooksEMListMgt",
   "nestedEntityInfo": {
     "compositionO2Oattr": "compositionO2OTestEntity-view",
     "compositionO2Mattr": "compositionO2MTestEntity-view"
