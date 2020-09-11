@@ -9,7 +9,7 @@
     "@ant-design/icons": "^4.0.0",
     "antd": "^4.0.0",
     "mobx": "^4.13.0",
-    "mobx-react": "^6.2.2",
+    "mobx-react": "^6.3.0",
     "moment": "^2.25.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
