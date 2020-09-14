@@ -9,9 +9,9 @@ export default {
   test: /\.less$/,
   async process({code}) {
     const lessFilePath = this.id;
-    const from = path.posix.dirname(lessFilePath);
+    const from = path.dirname(lessFilePath);
     const to = './node_modules/';
-    const relativePath = path.posix.relative(from, to);
+    const relativePath = path.relative(from, to);
 
     const modifiedInput = code.replace(/(@import ['"])(~)([a-zA-Z0-9\/]*['"];\n)/g, `$1${relativePath}/$3`);
 
