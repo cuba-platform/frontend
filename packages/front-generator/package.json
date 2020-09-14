@@ -32,7 +32,7 @@
     "@types/prettier": "~1.19.0",
     "commander": "~2.13.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "prettier": "~1.19.1",
     "through2": "^2.0.5",
     "typescript": "~3.7.4",
