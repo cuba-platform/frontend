@@ -813,7 +813,7 @@ Now you can place your overrides in `src/theme.less`:
 
 You can use `antd` variables in your code like this:
 ```less
-@import "~antd/es/style/themes/default";
+@import "antd/es/style/themes/default";
 body {
   background: @list-header-background;
 }

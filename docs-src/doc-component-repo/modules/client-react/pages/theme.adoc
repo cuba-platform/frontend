@@ -45,7 +45,7 @@ You can use Ant Design variables in your code like this:
 
 [source,less]
 ----
-@import "~antd/es/style/themes/default";
+@import "antd/es/style/themes/default";
 body {
   background: @list-header-background;
 }
