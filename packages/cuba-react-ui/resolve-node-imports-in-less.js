@@ -15,6 +15,8 @@ export default {
 
     const modifiedInput = code.replace(/(@import ['"])(~)([a-zA-Z0-9\/]*['"];\n)/g, `$1${relativePath}/$3`);
 
+    console.log(modifiedInput);
+
     return {
       code: modifiedInput,
     };
