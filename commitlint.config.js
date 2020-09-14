@@ -4,7 +4,7 @@ module.exports = {
     'scope-enum': [2, 'always', [
       'React', 'React Native', 'SDK',
       'DataTable', 'Front Generator',
-      'deps'
+      'deps', 'deps-dev'
     ]],
     'scope-case': [0],
     'type-enum': [2, 'always', [
