@@ -2,7 +2,8 @@
   "name": "@cuba-platform/front-generator",
   "version": "3.1.1",
   "description": "CUBA Platform front-end clients generator",
-  "main": "lib/cli.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "bin": {
     "gen-cuba-front": "bin/gen-cuba-front.js"
   },
@@ -10,7 +11,7 @@
     "node": ">=12"
   },
   "scripts": {
-    "build": "rimraf lib && tsc && node scripts/copy-templates.js",
+    "build": "rimraf lib && tsc && tsc --project tsconfig.declarations.json && node scripts/copy-templates.js",
     "watch": "tsc -w",
     "test": "mocha",
     "coverage": "nyc npm run test",
@@ -32,7 +33,7 @@
     "@types/prettier": "~1.19.0",
     "commander": "~2.13.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "prettier": "~1.19.1",
     "through2": "^2.0.5",
     "typescript": "~3.7.4",
