@@ -9,4 +9,4 @@ process.on('unhandledRejection', (reason, p) => {
   process.exit(1);
 });
 
-require('../lib/cli');
+require('../lib/cli').createAndLaunchCli();

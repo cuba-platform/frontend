@@ -37,6 +37,9 @@ export function pickOptions(cmd: {[key:string]: any}, availableOptions?: Options
   return passedOptions;
 }
 
+/**
+ * @alpha
+ */
 export interface CommonGenerationOptions {
   dest?: string;
   model?: string;
@@ -44,6 +47,9 @@ export interface CommonGenerationOptions {
   verbose?: boolean;
 }
 
+/**
+ * @alpha
+ */
 export const commonGenerationOptionsConfig: OptionsConfig = {
   dest: {
     alias: 'd',
@@ -66,7 +72,11 @@ export interface PolymerElementOptions extends CommonGenerationOptions {
   dirShift?: string;
 }
 
-// Same as PolymerElementOptions but with a neutral name. To be used in non-Polymer generators.
+/**
+ * Same as PolymerElementOptions but with a neutral name. To be used in non-Polymer generators.
+ *
+ * @alpha
+ */
 export interface ComponentOptions extends CommonGenerationOptions {
   dirShift?: string;
 }

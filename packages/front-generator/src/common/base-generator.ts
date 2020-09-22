@@ -27,6 +27,9 @@ interface ProjectInfoAnswers {
   projectInfo: StudioProjectInfo;
 }
 
+/**
+ * @alpha
+ */
 export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> extends Base {
 
   options: O = ({} as O);
@@ -95,12 +98,10 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
     }
   }
 
+  // TODO Remove method, use readProjectModel() function directly
   protected _readProjectModel(): ProjectModel {
     const {modelFilePath} = this;
-    if (!modelFilePath || !fs.existsSync(modelFilePath)) {
-      throw new Error('Specified model file does not exist ' + modelFilePath);
-    }
-    return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
+    return readProjectModel(modelFilePath);
   }
 
   protected async _obtainAnswers() {
@@ -181,8 +182,8 @@ export interface GeneratorExports {
   description?: string;
 }
 
-export function readProjectModel(modelFilePath: string): ProjectModel {
-  if (!fs.existsSync(modelFilePath)) {
+export function readProjectModel(modelFilePath?: string): ProjectModel {
+  if (!modelFilePath || !fs.existsSync(modelFilePath)) {
     throw new Error('Specified model file does not exist ' + modelFilePath);
   }
   return JSON.parse(fs.readFileSync(modelFilePath, "utf8"));
