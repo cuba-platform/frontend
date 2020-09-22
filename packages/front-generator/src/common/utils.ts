@@ -1,3 +1,4 @@
+import * as Base from "yeoman-generator";
 import * as path from "path";
 import {Entity} from "./model/cuba-model";
 
@@ -66,6 +67,22 @@ export function normalizeRelativePath(relPath: string | undefined): string {
 
   const relPathPosix = relPath.replace(/\\/g, '/');
   return path.posix.join(relPathPosix, '/');
+}
+
+/**
+ * The preferable method of throwing an error in Yeoman is using Environment.error() method.
+ * It will prevent execution of the subsequent code, however, TypeScript compiler doesn't know about that.
+ * Therefore, using Environment.error() in a function that returns a value will require e.g. throwing an error manually
+ * or returning an empty value.
+ * In such cases this helper function can be used. It returns `never`, which means that compiler won't consider
+ * the code after this function reachable.
+ *
+ * @param generator
+ * @param error
+ */
+export function throwError(generator: Pick<Base, 'env'>, error: string): never {
+  generator.env.error(Error(error)); // This will throw an error and the subsequent code will never be reached
+  throw error; // This code will never be reached and exists only to allow to return `never`
 }
 
 

@@ -9,6 +9,9 @@ const GENERATORS_DIR_NAME = 'generators';
 const GENERATOR_FILE_NAME = 'index.js';
 const INFO_FILE_NAME = 'info.json';
 
+/**
+ * @alpha
+ */
 export interface GeneratedClientInfo {
   bundled: boolean;
   name: string
@@ -32,21 +35,33 @@ export interface GeneratorInfo {
 export function collectClients(generatorFileName?: string): GeneratedClientInfo[] {
   const clientsDirPath = path.join(__dirname, GENERATORS_DIR_NAME);
   return readdirSync(clientsDirPath).map((clientDirName): GeneratedClientInfo => {
-    const info:ProvidedClientInfo = require(path.join(clientsDirPath, clientDirName, INFO_FILE_NAME));
-    return {
-      bundled: true,
-      name: clientDirName,
-      bower: info.bower,
-      clientBaseTech: info.clientBaseTech,
-      generators: collectGenerators(path.join(clientsDirPath, clientDirName), generatorFileName)
-    }
+    return readClient(clientsDirPath, clientDirName, generatorFileName);
   });
 }
 
-export async function generate(generatorName: string, subGeneratorName: string, options?: {}): Promise<void> {
+/**
+ * @alpha
+ */
+export function readClient(clientsDirPath: string, clientDirName: string, generatorFileName?: string) {
+  const info:ProvidedClientInfo = require(path.join(clientsDirPath, clientDirName, INFO_FILE_NAME));
+  return {
+    bundled: true,
+    name: clientDirName,
+    bower: info.bower,
+    clientBaseTech: info.clientBaseTech,
+    generators: collectGenerators(path.join(clientsDirPath, clientDirName), generatorFileName)
+  }
+}
+
+export async function generate(
+  generatorName: string,
+  subGeneratorName: string,
+  options?: {},
+  baseDir: string = __dirname
+): Promise<void> {
   const env = new YeomanEnvironment();
 
-  const {generator} = await import(path.join(__dirname, GENERATORS_DIR_NAME, generatorName, subGeneratorName));
+  const {generator} = await import(path.join(baseDir, GENERATORS_DIR_NAME, generatorName, subGeneratorName));
   env.registerStub(generator, generator.name);
   return env.run(generator.name, options);
 }

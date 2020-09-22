@@ -4,41 +4,67 @@ import {Command} from 'commander';
 import {exportList} from "./list";
 import {extractAvailableOptions, pickOptions} from "./common/cli-options";
 
-const program: Command = require('commander');
-
 export const ownVersion = require('../package').version;
 
-program.version(ownVersion, '-v, --version')
-  .usage('[command] [options]');
+/**
+ * @alpha
+ */
+export function createAndLaunchCli() {
+  const clients: GeneratedClientInfo[] = collectClients();
+  const program: Command = createCli(ownVersion, clients);
+  launchCli(program);
+}
 
-const clients: GeneratedClientInfo[] = collectClients();
+/**
+ * @alpha
+ */
+export function createCli(
+  version: string,
+  clients: GeneratedClientInfo[],
+  customClientNames?: string[],
+  customClientsBaseDir?: string
+): Command {
+  const program: Command = require('commander');
 
-program
-  .command('list')
-  .description('List all available clients and their clients')
-  .option('-s, --save [saveTo]', 'Save information about clients ')
-  .action((cmd) => exportList(clients, cmd));
+  program.version(version, '-v, --version')
+    .usage('[command] [options]');
 
-clients.forEach(client => {
-  client.generators.forEach(function (generator) {
+  program
+    .command('list')
+    .description('List all available clients and their clients')
+    .option('-s, --save [saveTo]', 'Save information about clients ')
+    .action((cmd) => exportList(clients, cmd));
 
-    const generationCommand = program
-      .command(`${client.name}:${generator.name}`)
-      .description(`Generates ${client.name} ${generator.name}`);
+  clients.forEach(client => {
+    client.generators.forEach(function (generator) {
 
-    extractAvailableOptions(generator.options).forEach(({pattern, description}) => {
-      generationCommand.option(pattern, description);
-    });
+      const generationCommand = program
+        .command(`${client.name}:${generator.name}`)
+        .description(`Generates ${client.name} ${generator.name}`);
 
-    generationCommand.action(function (cmd) {
-      return generate(client.name, generator.name, pickOptions(cmd, generator.options));
+      extractAvailableOptions(generator.options).forEach(({pattern, description}) => {
+        generationCommand.option(pattern, description);
+      });
+
+      const baseDir = customClientNames?.includes(client.name) ? customClientsBaseDir : undefined;
+
+      generationCommand.action(function (cmd) {
+        return generate(client.name, generator.name, pickOptions(cmd, generator.options), baseDir);
+      })
+
     })
+  });
 
-  })
-});
+  return program;
+}
 
-program.parse(process.argv);
+/**
+ * @alpha
+ */
+export function launchCli(program: Command) {
+  program.parse(process.argv); // invokes provided command
 
-if (!process.argv.slice(2).length) {
-  program.outputHelp()
+  if (!process.argv.slice(2).length) {
+    program.outputHelp()
+  }
 }
