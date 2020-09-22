@@ -30,26 +30,26 @@ ignore:
   SNYK-JS-LODASH-590103:
     - yeoman-environment > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
     - yeoman-environment > grouped-queue > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
     - yeoman-environment > inquirer > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
     - yeoman-generator > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
     - yeoman-generator > yeoman-environment > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
     - yeoman-generator > async > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
     - yeoman-generator > yeoman-environment > grouped-queue > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
     - yeoman-generator > yeoman-environment > inquirer > lodash:
         reason: No remediation available
-        expires: '2020-09-18T11:47:47.238Z'
+        expires: '2020-10-22T14:51:49.929Z'
 patch: {}
