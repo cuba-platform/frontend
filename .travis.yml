@@ -57,7 +57,7 @@ jobs:
         - npm run validate-react-app
         - npm run build --prefix react-client-scr
         - npm run start-react-app &
-        - sleep 60
+        - sleep 120
         - npm test react-client-scr/ --prefix test-pup
 
     - name: "Tests on generated app - backward compatibility 7.1"
@@ -66,7 +66,7 @@ jobs:
       script:
         - npm run bootstrap-react-app
         - npm run start-react-app &
-        - sleep 60
+        - sleep 120
         - npm test react-client-scr/app-start.test.js --prefix test-pup
         - npm test react-client-scr-71 --prefix test-pup
 
