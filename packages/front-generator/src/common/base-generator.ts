@@ -91,9 +91,6 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
       this.modelFilePath = path.join(process.cwd(), 'projectModel.json');
       await exportProjectModel(projectModelAnswers.projectInfo.locationHash, this.modelFilePath);
 
-      // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
       this.cubaProjectModel = this._readProjectModel();
     }
   }
