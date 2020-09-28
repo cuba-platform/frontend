@@ -98,8 +98,6 @@ export async function prepareProjectModel(
     const modelFilePath = path.join(process.cwd(), 'projectModel.json');
 
     await exportProjectModel(gen.answers.projectInfo.locationHash, modelFilePath);
-    // TODO exportProjectModel is resolved before the file is created. Timeout is a temporary workaround.
-    await new Promise(resolve => setTimeout(resolve, 2000));
 
     const cubaProjectModel = readProjectModel(modelFilePath);
     const model = createModel(cubaProjectModel.project);
