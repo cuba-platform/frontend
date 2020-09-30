@@ -42,4 +42,8 @@ In a functional component you can utilize {api_core_useMainStore}[useMainStore] 
 const mainStore = useMainStore();
 ----
 
+The security service can be accessed via `mainStore.security`. See more details xref:security.adoc[here].
+
+---
+
 API: {api_core_MainStore}[MainStore], {api_core_useMainStore}[useMainStore].

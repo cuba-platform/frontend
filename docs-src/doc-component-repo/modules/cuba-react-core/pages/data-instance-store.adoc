@@ -44,4 +44,6 @@ dataInstance = instance<Pet>(Pet.NAME, {
 });
 ----
 
+'''
+
 API: {api_core_DataInstanceStore}[DataInstanceStore], {api_core_instance}[instance], {api_core_useInstance}[useInstance].

@@ -30,4 +30,6 @@ User will be able to upload the file (and link it with the entity) when the foll
 - User has *create* permission on `sys$FileDescriptor` system entity.
 - User has *Upload files using REST API* specific permission.
 
+'''
+
 API: {api_ui_FileUploadProps}[FileUploadProps].

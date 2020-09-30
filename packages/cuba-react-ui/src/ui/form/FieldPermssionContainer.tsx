@@ -1,7 +1,6 @@
 import * as React from "react";
 import {observer} from 'mobx-react';
-import {EntityAttrPermissionValue} from '@cuba-platform/rest';
-import { MainStoreInjected, injectMainStore } from "@cuba-platform/react-core";
+import { MainStoreInjected, injectMainStore, AccessControl, AccessControlRequirements } from "@cuba-platform/react-core";
 
 type Props = MainStoreInjected & {
   entityName: string
@@ -11,17 +10,29 @@ type Props = MainStoreInjected & {
 
 export const FieldPermissionContainer = injectMainStore(observer((props: Props) => {
 
-  if (!props.mainStore) return null;
+  const {entityName, propertyName, renderField} = props;
 
-  const {entityName, propertyName} = props;
-  const {getAttributePermission} = props.mainStore.security;
+  const displayReqs: AccessControlRequirements = {
+    attrReqs: [{
+      entityName,
+      attrName: propertyName,
+      requiredAttrPerm: 'VIEW'
+    }]
+  };
 
-  const perm: EntityAttrPermissionValue = getAttributePermission(entityName, propertyName);
-  const isAllowed = perm === 'MODIFY';
-  const isReadOnly = perm === 'VIEW';
+  const modifyReqs: AccessControlRequirements = {
+    attrReqs: [{
+      entityName,
+      attrName: propertyName,
+      requiredAttrPerm: 'MODIFY'
+    }]
+  };
 
-  if (!isAllowed && !isReadOnly) return null;
-
-  return <>{props.renderField(isReadOnly)}</>
+  return (
+    <AccessControl displayReqs={displayReqs}
+                   modifyReqs={modifyReqs}
+                   render={renderField}
+    />
+  );
 
 }));

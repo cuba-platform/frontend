@@ -5,7 +5,7 @@ import {IReactionDisposer, reaction} from "mobx";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {Modal, Button, List, message} from "antd";
 
-import {collection, injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
+import {collection, injectMainStore, MainStoreInjected, EntityPermAccessControl} from "@cuba-platform/react-core";
 import {EntityProperty, Paging, setPagination, Spinner} from "@cuba-platform/react-ui";
 
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
@@ -87,15 +87,17 @@ class <%= listComponentClass %>Component extends React.Component<Props> {
 
     return (
       <div className='narrow-layout'>
-        <div style={{marginBottom: '12px'}}>
-          <Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH}>
-            <Button htmlType='button'
-                    type='primary'
-                    icon={<PlusOutlined />}>
-              <span><FormattedMessage id='common.create'/></span>
-            </Button>
-          </Link>
-        </div>
+        <EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='create'>
+          <div style={{marginBottom: '12px'}}>
+            <Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH}>
+              <Button htmlType='button'
+                      type='primary'
+                      icon={<PlusOutlined />}>
+                <span><FormattedMessage id='common.create'/></span>
+              </Button>
+            </Link>
+          </div>
+        </EntityPermAccessControl>
 
         <List itemLayout="horizontal"
               bordered

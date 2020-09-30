@@ -1,0 +1,44 @@
+= EntityPermAccessControl
+:api_core_EntityPermAccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_entitypermaccesscontrol_.entitypermaccesscontrolprops.html
+:experimental:
+
+`EntityPermAccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on a single entity operation permission. A common use case is conditionally hiding btn:[Create] / btn:[Edit] / btn:[Delete] buttons in an entity list.
+
+Use this component either by wrapping access-controlled components in it:
+
+[source,typescript]
+----
+<EntityPermAccessControl entityName='scr$Car' operation='create'>
+  <button>Do Something</button>
+</EntityPermAccessControl>
+----
+
+or by providing a https://reactjs.org/docs/render-props.html[render prop]:
+
+[source,typescript]
+----
+<EntityPermAccessControl entityName='scr$Car'
+                         operation='create'
+                         render={disabled => <button disabled={disabled}>Do Something</button>}
+/>
+----
+
+If both are provided, render prop takes precedence.
+
+In either example the button will only be shown if the user has a permission to create `scr$Car` entity instances.
+
+Instead of hiding the access-controlled components you can specify to render them as disabled by setting `mode` prop to `disable`. If `mode` is `disable`:
+
+* If render prop is used, it will receive `true` as its `disabled` parameter.
+* Otherwise a prop with name `disabled` (can be configured via `disabledPropName` prop) and value `true` (can be configured via `disabledPropValue` prop) will be passed to each child.
+
+'''
+
+API: {api_core_EntityPermAccessControlProps}[EntityPermAccessControlProps].
+
+See also:
+
+* xref:access-control.adoc[AccessControl]
+* xref:attr-perm-access-control.adoc[AttrPermAccessControl]
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
+* link:{manual_platform}/permissions.html[Permissions in CUBA]

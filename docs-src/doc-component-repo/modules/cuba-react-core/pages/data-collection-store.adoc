@@ -69,4 +69,6 @@ class CarList extends React.Component {
 }
 ----
 
+'''
+
 API: {api_core_DataCollectionStore}[DataCollectionStore], {api_core_collection}[collection], {api_core_useCollection}[useCollection].
