@@ -8,7 +8,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import {
   collection,
   injectMainStore,
-  MainStoreInjected
+  MainStoreInjected,
+  EntityPermAccessControl
 } from "@cuba-platform/react-core";
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
 
@@ -70,41 +71,55 @@ class CarTableComponent extends React.Component<
     if (this.props.mainStore?.isEntityDataLoaded() !== true) return <Spinner />;
 
     const buttons = [
-      <Link
-        to={CarManagement3.PATH + "/" + CarManagement3.NEW_SUBPATH}
+      <EntityPermAccessControl
+        entityName={Car.NAME}
+        operation="create"
         key="create"
       >
-        <Button
-          htmlType="button"
-          style={{ margin: "0 12px 12px 0" }}
-          type="primary"
-          icon={<PlusOutlined />}
-        >
-          <span>
-            <FormattedMessage id="common.create" />
-          </span>
-        </Button>
-      </Link>,
-      <Link to={CarManagement3.PATH + "/" + this.selectedRowKey} key="edit">
+        <Link to={CarManagement3.PATH + "/" + CarManagement3.NEW_SUBPATH}>
+          <Button
+            htmlType="button"
+            style={{ margin: "0 12px 12px 0" }}
+            type="primary"
+            icon={<PlusOutlined />}
+          >
+            <span>
+              <FormattedMessage id="common.create" />
+            </span>
+          </Button>
+        </Link>
+      </EntityPermAccessControl>,
+      <EntityPermAccessControl
+        entityName={Car.NAME}
+        operation="update"
+        key="update"
+      >
+        <Link to={CarManagement3.PATH + "/" + this.selectedRowKey}>
+          <Button
+            htmlType="button"
+            style={{ margin: "0 12px 12px 0" }}
+            disabled={!this.selectedRowKey}
+            type="default"
+          >
+            <FormattedMessage id="common.edit" />
+          </Button>
+        </Link>
+      </EntityPermAccessControl>,
+      <EntityPermAccessControl
+        entityName={Car.NAME}
+        operation="delete"
+        key="delete"
+      >
         <Button
           htmlType="button"
           style={{ margin: "0 12px 12px 0" }}
           disabled={!this.selectedRowKey}
+          onClick={this.deleteSelectedRow}
           type="default"
         >
-          <FormattedMessage id="common.edit" />
+          <FormattedMessage id="common.remove" />
         </Button>
-      </Link>,
-      <Button
-        htmlType="button"
-        style={{ margin: "0 12px 12px 0" }}
-        disabled={!this.selectedRowKey}
-        onClick={this.deleteSelectedRow}
-        key="remove"
-        type="default"
-      >
-        <FormattedMessage id="common.remove" />
-      </Button>
+      </EntityPermAccessControl>
     ];
 
     return (

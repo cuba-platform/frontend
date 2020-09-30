@@ -110,4 +110,6 @@ There are 3 ways you can define a column:
 If you need even more control, you may want to start with a vanilla Ant Design {antDesign_base}/components/table/[Table] and take a look into exported functions in `DataTableHelpers`. These functions are used to create `DataTable` custom functionality such as custom filters. You may also want to look into using `DataTableCustomFilter` directly. Note that both these approaches may require a deeper understanding of how `DataTable` works internally.
 ****
 
+'''
+
 API: {api_ui_DataTableProps}[DataTableProps], {api_ui_DataTableCustomFilterProps}[DataTableCustomFilterProps], {api_ui_DataTableHelpers}[DataTableHelpers].

@@ -23,4 +23,6 @@ dataCollection = clientSideCollection<Pet>(Pet.NAME, {
 - `allItems` field - array of entity instances with default sort order and no filtering applied.
 - `adjustItems` method - sets `items` based on `allItems` and other conditions. Currently it only performs the client-side sorting based on `sort` field, client-side filtering is not currently supported.
 
+'''
+
 API: {api_core_ClientSideDataCollectionStore}[ClientSideDataCollectionStore], {api_core_clientSideCollection}[clientSideCollection].

@@ -8,7 +8,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import {
   collection,
   injectMainStore,
-  MainStoreInjected
+  MainStoreInjected,
+  EntityPermAccessControl
 } from "@cuba-platform/react-core";
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
 
@@ -57,48 +58,61 @@ class StringIdMgtTableBrowseComponent extends React.Component<
     if (this.props.mainStore?.isEntityDataLoaded() !== true) return <Spinner />;
 
     const buttons = [
-      <Link
-        to={
-          StringIdMgtTableManagement.PATH +
-          "/" +
-          StringIdMgtTableManagement.NEW_SUBPATH
-        }
+      <EntityPermAccessControl
+        entityName={StringIdTestEntity.NAME}
+        operation="create"
         key="create"
       >
-        <Button
-          htmlType="button"
-          style={{ margin: "0 12px 12px 0" }}
-          type="primary"
-          icon={<PlusOutlined />}
+        <Link
+          to={
+            StringIdMgtTableManagement.PATH +
+            "/" +
+            StringIdMgtTableManagement.NEW_SUBPATH
+          }
         >
-          <span>
-            <FormattedMessage id="common.create" />
-          </span>
-        </Button>
-      </Link>,
-      <Link
-        to={StringIdMgtTableManagement.PATH + "/" + this.selectedRowKey}
-        key="edit"
+          <Button
+            htmlType="button"
+            style={{ margin: "0 12px 12px 0" }}
+            type="primary"
+            icon={<PlusOutlined />}
+          >
+            <span>
+              <FormattedMessage id="common.create" />
+            </span>
+          </Button>
+        </Link>
+      </EntityPermAccessControl>,
+      <EntityPermAccessControl
+        entityName={StringIdTestEntity.NAME}
+        operation="update"
+        key="update"
+      >
+        <Link to={StringIdMgtTableManagement.PATH + "/" + this.selectedRowKey}>
+          <Button
+            htmlType="button"
+            style={{ margin: "0 12px 12px 0" }}
+            disabled={!this.selectedRowKey}
+            type="default"
+          >
+            <FormattedMessage id="common.edit" />
+          </Button>
+        </Link>
+      </EntityPermAccessControl>,
+      <EntityPermAccessControl
+        entityName={StringIdTestEntity.NAME}
+        operation="delete"
+        key="delete"
       >
         <Button
           htmlType="button"
           style={{ margin: "0 12px 12px 0" }}
           disabled={!this.selectedRowKey}
+          onClick={this.deleteSelectedRow}
           type="default"
         >
-          <FormattedMessage id="common.edit" />
+          <FormattedMessage id="common.remove" />
         </Button>
-      </Link>,
-      <Button
-        htmlType="button"
-        style={{ margin: "0 12px 12px 0" }}
-        disabled={!this.selectedRowKey}
-        onClick={this.deleteSelectedRow}
-        key="remove"
-        type="default"
-      >
-        <FormattedMessage id="common.remove" />
-      </Button>
+      </EntityPermAccessControl>
     ];
 
     return (

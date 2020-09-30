@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { Modal, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
-import {collection, injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
+import {collection, injectMainStore, MainStoreInjected, EntityPermAccessControl} from "@cuba-platform/react-core";
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
 
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
@@ -55,30 +55,35 @@ class <%= listComponentClass %>Component extends React.Component<MainStoreInject
 
     const buttons = (
       [
-        (<Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH} key='create'>
+        (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='create' key='create'>
+          <Link to={<%= className %>.PATH + '/' + <%= className %>.NEW_SUBPATH}>
+            <Button htmlType='button'
+                    style={{margin: '0 12px 12px 0'}}
+                    type='primary'
+                    icon={<PlusOutlined />}>
+              <span><FormattedMessage id='common.create'/></span>
+            </Button>
+          </Link>
+        </EntityPermAccessControl>),
+        (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='update' key='update'>
+          <Link to={<%= className %>.PATH + '/' + this.selectedRowKey}>
+            <Button htmlType='button'
+                    style={{margin: '0 12px 12px 0'}}
+                    disabled={!this.selectedRowKey}
+                    type='default'>
+              <FormattedMessage id='common.edit'/>
+            </Button>
+          </Link>
+        </EntityPermAccessControl>),
+        (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='delete' key='delete'>
           <Button htmlType='button'
-                  style={{margin: '0 12px 12px 0'}}
-                  type='primary'
-                  icon={<PlusOutlined />}>
-            <span><FormattedMessage id='common.create'/></span>
+                   style={{margin: '0 12px 12px 0'}}
+                   disabled={!this.selectedRowKey}
+                   onClick={this.deleteSelectedRow}
+                   type='default'>
+            <FormattedMessage id='common.remove'/>
           </Button>
-        </Link>),
-        (<Link to={<%= className %>.PATH + '/' + this.selectedRowKey} key='edit'>
-          <Button htmlType='button'
-                  style={{margin: '0 12px 12px 0'}}
-                  disabled={!this.selectedRowKey}
-                  type='default'>
-            <FormattedMessage id='common.edit'/>
-          </Button>
-        </Link>),
-        (<Button htmlType='button'
-                 style={{margin: '0 12px 12px 0'}}
-                 disabled={!this.selectedRowKey}
-                 onClick={this.deleteSelectedRow}
-                 key='remove'
-                 type='default'>
-          <FormattedMessage id='common.remove'/>
-        </Button>),
+        </EntityPermAccessControl>),
       ]
     );
 
