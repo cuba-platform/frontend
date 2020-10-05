@@ -12,11 +12,13 @@ import {
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
 import {base64encode, encodeGetParams, matchesVersion} from "./util";
+import { restEventEmitter } from './event_emitter';
 
 export * from './model';
 export * from './storage';
 export * from './filter';
 export * from './security';
+export * from './event_emitter';
 
 const apps: CubaApp[] = [];
 
@@ -97,6 +99,11 @@ export interface EntitiesLoadOptions {
 
 export interface LoginOptions {
   tokenEndpoint: string;
+}
+
+interface ICubaRestCheckStatusError {
+  message: string;
+  response: Response;
 }
 
 export class CubaApp {
@@ -402,7 +409,9 @@ export class CubaApp {
 
     const fetchRes = fetch(url, settings).then(this.checkStatus);
 
-    fetchRes.catch((error) => {
+    fetchRes.catch((error: ICubaRestCheckStatusError) => {
+      restEventEmitter.emit('fetch_fail', error);
+
       if (this.isTokenExpiredResponse(error.response)) {
         this.clearAuthData();
         this.tokenExpiryListeners.forEach((l) => l());
