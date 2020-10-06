@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@1.0.1...@cuba-platform/rest@1.0.2) (2020-10-06)
+
+
+### Bug Fixes
+
+* hide FileUpload drop area when not having sufficient permissions ([f3f0511](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/f3f051191f932f38f5db64a47601baf3bc5a58f5)), closes [#286](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/issues/286)
+
+
+
+
+
 ## [1.0.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@1.0.0...@cuba-platform/rest@1.0.1) (2020-08-04)
 
 **Note:** Version bump only for package @cuba-platform/rest

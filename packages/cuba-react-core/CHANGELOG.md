@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@1.1.0...@cuba-platform/react-core@1.1.1) (2020-10-06)
+
+
+### Bug Fixes
+
+* hide FileUpload drop area when not having sufficient permissions ([f3f0511](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/f3f051191f932f38f5db64a47601baf3bc5a58f5)), closes [#286](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/286)
+
+
+
+
+
 # [1.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@1.0.2...@cuba-platform/react-core@1.1.0) (2020-08-04)
 
 
