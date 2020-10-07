@@ -15,16 +15,24 @@ interface ComponentInfo {
   caption: string;
 }
 
-export function addToMenu(fs: Generator.MemFsEditor,
-                          {
-                            destRoot,
-                            dirShift,
-                            caption,
-                            menuLink,
-                            pathPattern,
-                            componentFileName,
-                            componentClassName
-                          }: AddToMenuOpts & ComponentInfo): boolean {
+export function addToMenu<T>(
+  fs: Generator.MemFsEditor,
+  {
+    destRoot,
+    dirShift,
+    caption,
+    menuLink,
+    pathPattern,
+    componentFileName,
+    componentClassName
+  }: AddToMenuOpts & ComponentInfo,
+  addRouteCallback: (
+    routingContents: string,
+    routeInfo: RouteInfo,
+    customComponentParams?: {[param: string]: unknown}
+  ) => string = addRoute,
+  customComponentParams?: {[param: string]: unknown}
+): boolean {
 
   const routingDir = path.join(destRoot, dirShift ? dirShift : '');
   const routingPath = path.join(routingDir, 'routing.ts');
@@ -32,20 +40,26 @@ export function addToMenu(fs: Generator.MemFsEditor,
 
   if (fs.exists(routingPath)) {
     const routingContents = fs.read(routingPath);
-    fs.write(routingPath, addRoute(routingContents, {caption, menuLink, pathPattern, componentClassName, componentFileName, componentPath}));
+    fs.write(
+      routingPath,
+      addRouteCallback(
+        routingContents,
+        {caption, menuLink, pathPattern, componentClassName, componentFileName, componentPath},
+        customComponentParams
+      ));
     return true;
   } else {
     return false;
   }
 }
 
-type RouteInfo = ComponentInfo & {
+export type RouteInfo = ComponentInfo & {
   componentPath: string,
   pathPattern: string
 }
 
 
-const addRoute = (routingContents: string,
+export const addRoute = (routingContents: string,
                   {
                     caption,
                     pathPattern,

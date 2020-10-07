@@ -1,8 +1,8 @@
 import {EntityAttribute} from "../../../../common/model/cuba-model";
-import {getRelationImports, getRelations, getViewAttrs} from "../../../../generators/react-typescript/entity-management";
 import {expect} from "chai";
 import {EditRelations} from "../../../../generators/react-typescript/entity-management/template-model";
 import {EntityTemplateModel} from "../../../../generators/react-typescript/common/template-model";
+import { getRelations, getRelationImports, getViewAttrs } from "../../../../../src/generators/react-typescript/entity-management/shared";
 
 const projectModel = require('../../../fixtures/mpg-projectModel.json');
 const projectModelScr = require('../../../fixtures/project-model--scr.json');

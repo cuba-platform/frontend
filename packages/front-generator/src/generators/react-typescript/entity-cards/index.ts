@@ -6,16 +6,18 @@ import {
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import * as path from "path";
 import {EntityCardsTemplateModel} from "./template-model";
-import {elementNameToClass, normalizeRelativePath, unCapitalizeFirst} from "../../../common/utils";
+import {elementNameToClass, normalizeRelativePath, throwError, unCapitalizeFirst} from "../../../common/utils";
 import {addToMenu} from "../common/menu";
 import {writeComponentI18nMessages} from '../common/i18n';
 import {createEntityTemplateModel, getDisplayedAttributes, ScreenType} from "../common/entity";
 import {EntityTemplateModel} from "../common/template-model";
 import {ProjectModel} from "../../../common/model/cuba-model";
-import {BaseEntityScreenGenerator, stringIdAnswersToModel} from '../common/base-entity-screen-generator';
+import {stringIdAnswersToModel, getEntityFromAnswers, stringIdPrompts} from '../common/base-entity-screen-generator';
+// noinspection ES6PreferShortImport
+import { BaseGenerator } from "../../../common/base-generator";
 
 
-class EntityCardsGenerator extends BaseEntityScreenGenerator<EntityCardsAnswers, EntityCardsTemplateModel, ComponentOptions> {
+class EntityCardsGenerator extends BaseGenerator<EntityCardsAnswers, EntityCardsTemplateModel, ComponentOptions> {
 
   constructor(args: string | string[], options: ComponentOptions) {
     super(args, options);
@@ -74,17 +76,19 @@ class EntityCardsGenerator extends BaseEntityScreenGenerator<EntityCardsAnswers,
   }
 
   async _additionalPrompts(answers: EntityCardsAnswers): Promise<EntityCardsAnswers> {
-    const entity = await this._getEntityFromAnswers(answers);
-    const stringIdAnswers = await this._stringIdPrompts(answers, entity);
+    if (this.cubaProjectModel == null) {
+      throwError(this, 'Additional prompt failed: cannot find project model');
+    }
+
+    const entity = await getEntityFromAnswers(answers, this.cubaProjectModel);
+    const stringIdAnswers = await stringIdPrompts(
+      this,
+      entity,
+      this.cubaProjectModel,
+      listShowIdQuestions,
+      listIdPositionQuestion
+    );
     return {...answers, ...stringIdAnswers};
-  }
-
-  protected _getListShowIdQuestions(): StudioTemplateProperty[] {
-    return listShowIdQuestions;
-  }
-
-  protected _getListIdPositionQuestion(): StudioTemplateProperty {
-    return listIdPositionQuestion;
   }
 }
 
