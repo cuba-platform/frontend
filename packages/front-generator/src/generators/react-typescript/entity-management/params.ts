@@ -87,9 +87,9 @@ export const editIdPositionQuestion = {
 
 export type EntityManagementListType = 'table' | 'list' | 'cards';
 
-export interface EntityManagementAnswers extends BaseEntityScreenAnswers {
+export interface EntityManagementAnswers<T extends string> extends BaseEntityScreenAnswers {
   managementComponentName: string;
-  listType: EntityManagementListType;
+  listType: T;
   listComponentName: string;
   listView: View;
   editComponentName: string;

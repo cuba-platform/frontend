@@ -1,10 +1,11 @@
 import { expect } from "chai";
-import {stringIdAnswersToModel, BaseEntityScreenGenerator} from '../../../../../generators/react-typescript/common/base-entity-screen-generator';
+import {stringIdAnswersToModel, getEntityFromAnswers, stringIdPrompts} from '../../../../../generators/react-typescript/common/base-entity-screen-generator';
 import {MappingType, Entity} from '../../../../../common/model/cuba-model';
 import {StudioTemplateProperty, StudioTemplatePropertyType} from '../../../../../common/studio/studio-model';
 import {ComponentOptions} from '../../../../../common/cli-options';
 import { expectRejectedPromise } from "../../../../common/test-utils";
 import sinon = require("sinon");
+import {BaseGenerator} from '../../../../../common/base-generator';
 
 const projectModel = require('../../../../fixtures/project-model--scr.json');
 const projectModelNoIdAttr = require('../../../../fixtures/project-model--scr-no-id-attr.json');
@@ -106,63 +107,39 @@ const editAttrsImpostorId = [
   }
 ];
 
-class TestEntityScreenGenerator extends BaseEntityScreenGenerator<any, any, any> {
+const listIdPositionQuestion: StudioTemplateProperty = {
+  code: 'listIdAttrPos',
+  caption: 'Position of the ID attribute in the List component ' +
+      '(e.g. enter 1 for the ID to appear as the first row/column).',
+  propertyType: StudioTemplatePropertyType.INTEGER,
+  required: true
+};
+
+const listShowIdQuestions: StudioTemplateProperty[] = [
+  {
+    code: 'listShowIdAttr',
+    caption: 'Show ID attribute in the List component?',
+    propertyType: StudioTemplatePropertyType.BOOLEAN,
+    required: true
+  }
+];
+
+const editIdPositionQuestion: StudioTemplateProperty = {
+  code: 'editIdAttrPos',
+  caption: 'Position of the ID attribute in the Edit component ' +
+    '(e.g. enter 1 for the ID to appear as the first field of the form).',
+  propertyType: StudioTemplatePropertyType.INTEGER,
+  required: true
+};
+
+class TestEntityScreenGenerator extends BaseGenerator<any, any, any> {
   constructor(args: string | string[], options: ComponentOptions) {
     super(args, options);
   }
 
   entity: any;
 
-  protected _getListIdPositionQuestion(): StudioTemplateProperty {
-    return   {
-      code: 'listIdAttrPos',
-      caption: 'Position of the ID attribute in the List component ' +
-        '(e.g. enter 1 for the ID to appear as the first row/column).',
-      propertyType: StudioTemplatePropertyType.INTEGER,
-      required: true
-    };
-  }
-
-  protected _getListShowIdQuestions(): StudioTemplateProperty[] {
-    return [
-      {
-        code: 'listShowIdAttr',
-        caption: 'Show ID attribute in the List component?',
-        propertyType: StudioTemplatePropertyType.BOOLEAN,
-        required: true
-      }
-    ]
-  }
-
   writing(): void {}
-
-  __setModel(model: any) {
-    this.cubaProjectModel = model;
-  }
-
-  async _getEntityFromAnswers(answers: any): Promise<any> {
-    return super._getEntityFromAnswers(answers);
-  }
-
-  async _stringIdPrompts(answers: any, entity: Entity): Promise<Partial<any>> {
-    return super._stringIdPrompts(answers, entity);
-  }
-}
-
-class TestEntityScreenGeneratorWithEdit extends TestEntityScreenGenerator {
-  constructor(args: string | string[], options: ComponentOptions) {
-    super(args, options);
-  }
-
-  protected _getEditIdPositionQuestion() {
-    return {
-      code: 'editIdAttrPos',
-      caption: 'Position of the ID attribute in the Edit component ' +
-        '(e.g. enter 1 for the ID to appear as the first field of the form).',
-      propertyType: StudioTemplatePropertyType.INTEGER,
-      required: true
-    };
-  }
 }
 
 describe('BaseEntityScreenGenerator', () => {
@@ -172,73 +149,52 @@ describe('BaseEntityScreenGenerator', () => {
     gen = new TestEntityScreenGenerator([], {});
   });
 
-  it('_getEntityFromAnswers() - no project model', async () => {
+  it('getEntityFromAnswers() - no entity name', async () => {
     return expectRejectedPromise(
-      async () => gen._getEntityFromAnswers({}),
-      'Additional prompt failed: cannot find project model'
-    );
-  });
-
-  it('_getEntityFromAnswers() - no entity name', async () => {
-    gen.__setModel(projectModel);
-    return expectRejectedPromise(
-      async () => gen._getEntityFromAnswers({entity: {}}),
+      async () => getEntityFromAnswers({entity: {}} as any, projectModel),
       'Additional prompt failed: cannot find entity name'
     );
   });
 
-  it('_getEntityFromAnswers() - unexisting entity name', async () => {
-    gen.__setModel(projectModel);
+  it('getEntityFromAnswers() - unexisting entity name', async () => {
     return expectRejectedPromise(
-      async () => gen._getEntityFromAnswers({entity: {name: 'Unexisting entity name'}}),
+      async () => getEntityFromAnswers({entity: {name: 'Unexisting entity name'}} as any, projectModel),
       'Additional prompt failed: cannot find entity'
     );
   });
 
-  it('_getEntityFromAnswers() - entity found', async () => {
-    gen.__setModel(projectModel);
-    const entity = await gen._getEntityFromAnswers({entity: {name: 'scr$Car'}});
+  it('getEntityFromAnswers() - entity found', async () => {
+    const entity = await getEntityFromAnswers({entity: {name: 'scr$Car'}} as any, projectModel);
     expect(entity.name).to.equal('scr$Car');
     expect(entity.fqn).to.equal('com.company.scr.entity.Car');
   });
 
-  it('_stringIdPrompts() -  no project model', async () => {
-    const entity = projectModel.entities.find((e: any) => e.name === 'scr_StringIdTestEntity');;
-    return expectRejectedPromise(
-      async () => gen._stringIdPrompts({}, entity),
-      'Additional prompt failed: cannot find project model'
-    );
-  });
-
-  it('_stringIdPrompts() - not a String ID entity', async () => {
+  it('stringIdPrompts() - not a String ID entity', async () => {
     const entity = projectModel.entities.find((e: any) => e.name === 'scr_IntegerIdTestEntity');
-    gen.__setModel(projectModel);
-    const answers = await gen._stringIdPrompts({}, entity);
+    sinon.stub(gen, 'prompt').callsFake(createPromptFake());
+    const answers = await stringIdPrompts(gen, entity, projectModel, listShowIdQuestions, listIdPositionQuestion);
     expect(answers).to.deep.equal({});
   });
 
-  it('_stringIdPrompts() - String ID entity, no ID attribute name in project model (older Studio)', async () => {
+  it('stringIdPrompts() - String ID entity, no ID attribute name in project model (older Studio)', async () => {
     const entity = projectModelNoIdAttr.entities.find((e: any) => e.name === 'scr_StringIdTestEntity');
-    gen.__setModel(projectModelNoIdAttr);
     sinon.stub(gen, 'prompt').callsFake(createPromptFake());
-    const answers = await gen._stringIdPrompts({entity: {}}, entity);
+    const answers = await stringIdPrompts(gen, entity,projectModel, listShowIdQuestions, listIdPositionQuestion);
     expect(answers.idAttrName).to.equal('test_identifier');
   });
 
-  it('_stringIdPrompts() - String ID entity with ID attribute name in project model', async () => {
+  it('stringIdPrompts() - String ID entity with ID attribute name in project model', async () => {
     const entity = projectModel.entities.find((e: any) => e.name === 'scr_StringIdTestEntity');
-    gen.__setModel(projectModel);
     sinon.stub(gen, 'prompt').callsFake(createPromptFake());
-    const answers = await gen._stringIdPrompts({entity: {idAttributeName: 'projectModelIdName'}}, entity);
+    const answers = await stringIdPrompts(gen, entity,projectModel, listShowIdQuestions, listIdPositionQuestion);
     // tslint:disable-next-line:no-unused-expression
     expect(answers.idAttrName).to.be.undefined;
   });
 
-  it('_stringIdPrompts() - String ID entity, questions about showing ID', async () => {
+  it('stringIdPrompts() - String ID entity, questions about showing ID', async () => {
     const entity = projectModel.entities.find((e: any) => e.name === 'scr_StringIdTestEntity');
-    gen.__setModel(projectModel);
     sinon.stub(gen, 'prompt').callsFake(createPromptFake());
-    const answers = await gen._stringIdPrompts({entity: {}}, entity);
+    const answers = await stringIdPrompts(gen, entity, projectModel, listShowIdQuestions, listIdPositionQuestion);
     expect(answers.listShowIdAttr).to.equal(true);
     expect(answers.listIdAttrPos).to.equal(42);
     // tslint:disable-next-line:no-unused-expression
@@ -249,7 +205,7 @@ describe('BaseEntityScreenGenerator', () => {
     sinon.stub(gen, 'prompt').callsFake(createPromptFake({
       listShowIdAttr: false
     }));
-    const answers2 = await gen._stringIdPrompts({entity: {}}, entity);
+    const answers2 = await stringIdPrompts(gen, entity,projectModel, listShowIdQuestions, listIdPositionQuestion);
     expect(answers2.listShowIdAttr).to.equal(false);
     expect(answers2.listIdAttrPos).to.equal(undefined);
     // tslint:disable-next-line:no-unused-expression
@@ -258,10 +214,8 @@ describe('BaseEntityScreenGenerator', () => {
 
   it('_stringIdPrompts() - String ID entity, with Edit component', async () => {
     const entity = projectModel.entities.find((e: any) => e.name === 'scr_StringIdTestEntity');
-    const gen2 = new TestEntityScreenGeneratorWithEdit([], {});
-    gen2.__setModel(projectModel);
-    sinon.stub(gen2, 'prompt').callsFake(createPromptFake());
-    const answers = await gen2._stringIdPrompts({entity: {}}, entity);
+    sinon.stub(gen, 'prompt').callsFake(createPromptFake());
+    const answers = await stringIdPrompts(gen, entity,projectModel, listShowIdQuestions, listIdPositionQuestion, editIdPositionQuestion);
     expect(answers.editIdAttrPos).to.equal(42);
   });
 });

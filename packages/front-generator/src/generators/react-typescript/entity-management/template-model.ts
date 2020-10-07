@@ -1,6 +1,6 @@
 import {EntityTemplateModel} from "../common/template-model";
-import {EntityManagementListType} from "./params";
 import {EntityAttribute, View} from "../../../common/model/cuba-model";
+// noinspection ES6PreferShortImport
 import {BaseEntityScreenTemplateModel} from '../common/base-entity-screen-generator/template-model';
 
 export interface EditRelations {
@@ -17,10 +17,10 @@ export interface RelationImport {
   path: string
 }
 
-export interface EntityManagementTemplateModel extends BaseEntityScreenTemplateModel {
+export interface EntityManagementTemplateModel<T extends string> extends BaseEntityScreenTemplateModel {
   listComponentClass: string;
   editComponentClass: string;
-  listType: EntityManagementListType;
+  listType: T;
   nameLiteral: string;
   entity: EntityTemplateModel;
   listView: View;
