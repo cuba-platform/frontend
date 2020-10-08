@@ -3,12 +3,12 @@ import {
   EffectivePermsLoadOptions,
   EntitiesWithCount,
   EntityMessages,
-  EnumInfo,
+  EnumInfo, ICubaRestCheckStatusError,
   MetaClassInfo,
   SerializedEntity,
   UserInfo,
-  View
-} from "./model";
+  View,
+} from './model';
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
 import {base64encode, encodeGetParams, matchesVersion} from "./util";
@@ -99,11 +99,6 @@ export interface EntitiesLoadOptions {
 
 export interface LoginOptions {
   tokenEndpoint: string;
-}
-
-interface ICubaRestCheckStatusError {
-  message: string;
-  response: Response;
 }
 
 export class CubaApp {

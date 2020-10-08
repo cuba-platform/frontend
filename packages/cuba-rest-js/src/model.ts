@@ -18,6 +18,11 @@ export interface SerializedEntityProps {
   _instanceName?: string;
 }
 
+export interface ICubaRestCheckStatusError {
+  message?: string;
+  response?: Response;
+}
+
 export type SerializedEntity<T> = SerializedEntityProps & T;
 
 export interface EntitiesWithCount<T> {
