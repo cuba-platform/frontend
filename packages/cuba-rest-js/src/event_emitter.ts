@@ -1,11 +1,14 @@
-interface IKeyFuncVal {
-    [k: string]: (...args) => any;
+import { ICubaRestCheckStatusError } from './model';
+
+interface IRestEvents {
+    'fetch_fail': (error: ICubaRestCheckStatusError) => any;
 }
+type EventKeys = keyof IRestEvents;
 
-class EventEmitter<Events extends IKeyFuncVal, Key extends keyof Events = keyof Events> {
-    private listeners: Map<Key, Set<Events[Key]>> = new Map();
+class EventEmitter {
+    private listeners: Map<EventKeys, Set<IRestEvents[EventKeys]>> = new Map();
 
-    emit<K extends Key>(eventName: K, ...restParams: Parameters<Events[K]>) {
+    public emit<K extends EventKeys>(eventName: K, ...restParams: Parameters<IRestEvents[K]>) {
         const events = this.listeners.get(eventName);
 
         if (events) {
@@ -15,7 +18,7 @@ class EventEmitter<Events extends IKeyFuncVal, Key extends keyof Events = keyof 
         }
     }
 
-    on<K extends Key>(eventName: K, fn: Events[K]): () => void {
+    public on<K extends EventKeys>(eventName: K, fn: IRestEvents[K]): () => void {
         if (!this.listeners.get(eventName)) {
             this.listeners.set(eventName, new Set());
         }
@@ -28,31 +31,20 @@ class EventEmitter<Events extends IKeyFuncVal, Key extends keyof Events = keyof 
         return this.off.bind(this, eventName, fn);
     }
 
-    once<K extends Key>(eventName: K, fn: Events[K]): () => void {
-        // @ts-ignore
+    public once<K extends EventKeys>(eventName: K, fn: IRestEvents[K]): () => void {
         const unsubscribe = this.on(eventName, (...args: any[]) => {
-            fn(...args);
+            fn.apply(null, args);
             unsubscribe();
         });
 
         return unsubscribe;
     }
 
-    off<K extends Key>(eventName: K, fn: Events[K]) {
+    public off<K extends EventKeys>(eventName: K, fn: IRestEvents[K]) {
         const events = this.listeners.get(eventName);
 
         if (events) events.delete(fn);
     }
 }
 
-interface ICubaRestCheckStatusError {
-    message: string;
-    response: Response;
-}
-
-type REST_EMITTERS_CALLBACKS_PARAMS = {
-    'fetch_fail': (error: ICubaRestCheckStatusError) => any;
-};
-
-
-export const restEventEmitter = new EventEmitter<REST_EMITTERS_CALLBACKS_PARAMS>();
+export const restEventEmitter = new EventEmitter();
