@@ -35,7 +35,8 @@ const matching: {[key: string]: QuestionType} = {
   [StudioTemplatePropertyType.MULTI_OPTION]: QuestionType.list,
   [StudioTemplatePropertyType.REST_QUERY]: QuestionType.list,
   [StudioTemplatePropertyType.REST_SERVICE_METHOD]: QuestionType.list,
-  [StudioTemplatePropertyType.POLYMER_COMPONENT_NAME]: QuestionType.input
+  [StudioTemplatePropertyType.POLYMER_COMPONENT_NAME]: QuestionType.input,
+  [StudioTemplatePropertyType.PASSWORD]: QuestionType.password
 };
 
 export function fromStudioProperty(prop: StudioTemplateProperty, projectModel?: ProjectModel): Question {
