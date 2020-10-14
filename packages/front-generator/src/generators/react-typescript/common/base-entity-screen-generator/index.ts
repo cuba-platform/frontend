@@ -11,7 +11,7 @@ import {StudioTemplateProperty} from '../../../../common/studio/studio-model';
 export function getEntityFromAnswers<A extends BaseEntityScreenAnswers>(
   answers: A,
   cubaProjectModel: ProjectModel
-) {
+): Entity {
   const entityName = answers.entity.name;
   if (!entityName) {
     throw Error('Additional prompt failed: cannot find entity name');
