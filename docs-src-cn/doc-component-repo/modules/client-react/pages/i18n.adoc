@@ -1,6 +1,15 @@
 = I18n
 
-i18n is powered by https://github.com/formatjs/react-intl[react-intl] library. Out of the box React client supports `en` and `ru` locales.
+i18n is powered by https://github.com/formatjs/react-intl[react-intl] library. React client supports several languages out of the box.
+
+The following translations are maintained by the core development team. It means that each time a new version is released, these translations are guaranteed to be up to date.
+
+* English
+* Russian
+
+The following translations are provided by the community. It means that these translations might need time to catch up with the latest changes. Help us to keep the translations up to date by {git_frontendUi}[opening a PR]!
+
+* French
 
 == Adding New Localized Content
 

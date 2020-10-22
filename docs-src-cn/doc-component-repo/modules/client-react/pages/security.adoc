@@ -1,8 +1,38 @@
 = Security
+:api_core_Security: link:../api-reference/cuba-react-core/classes/_app_security_.security.html
+:api_rest_security: link:../api-reference/cuba-rest-js/modules/_security_.html
+:api_rest_getEffectivePermissions: link:../api-reference/cuba-rest-js/classes/_cuba_.cubaapp.html#geteffectivepermissions
+:experimental:
 
 Since React client uses Generic REST API endpoints, the backend (CUBA) application should have properly configured Security Roles and Access groups. See the {manual_restApi}/#security[corresponding chapter] in the REST API documentation.
 
-{api_rest}[CUBA REST JS] package provides methods that allow to check user runtime security permissions for entity attributes and operations.
+== Permissions and Access Control
 
-* `getAttributePermission` checks entity attribute permission and returns `DENY`, `VIEW` or `MODIFY`.
-* `isOperationAllowed` checks entity operation permission and returns `true` or `false`.
+NOTE: Check link:{manual_platform}/permissions.html[CUBA Platform manual] to learn more about how permissions work in CUBA.
+
+=== Access Control Components (CUBA React Core)
+
+You may want to hide certain UI elements (or render them as disabled) when the user doesn't have the necessary permissions. For example, you may want to hide the btn:[Create], btn:[Edit] and btn:[Remove] buttons in an entity list when the user doesn't have the corresponding entity operation permissions, or hide a button launching a business method when the user doesn't have a certain specific permission. This can be achieved with access control components which are part of CUBA React Core library. Use:
+
+* xref:cuba-react-core:entity-perm-access-control.adoc[EntityPermAccessControl] when condition involves a single entity operation permission,
+* xref:cuba-react-core:attr-perm-access-control.adoc[AttrPermAccessControl] when condition involves a single entity attribute permission,
+* xref:cuba-react-core:specific-perm-access-control.adoc[SpecificPermAccessControl] when condition involves one or more specific permissions,
+* xref:cuba-react-core:access-control.adoc[AccessControl] when you have a complex condition.
+
+=== Security Service (CUBA React Core)
+
+You can manually check the user runtime security permissions by using {api_core_Security}[Security service] in CUBA React Core library. It contains methods that return a boolean value indicating whether a given permission is granted:
+
+* `isOperationPermissionGranted` for entity operation permissions.
+* `isAttributePermissionGranted` for entity attribute permissions.
+* `isSpecificPermissionGranted` for specific permissions.
+
+=== CUBA REST JS Utility Methods
+
+Alternatively you can use the {api_rest_security}[corresponding methods] in CUBA REST JS library:
+
+* `getAttributePermission` checks an entity attribute permission and returns `DENY`, `VIEW` or `MODIFY`.
+* `isOperationAllowed` checks an entity operation permission and returns `true` or `false`.
+* `isSpecificPermissionGranted` checks a specific permission and returns `true` of `false`.
+
+Unlike Security service methods, these methods require an object containing current user permissions to be passed as argument. You can obtain the permissions object by using {api_rest_getEffectivePermissions}[getEffectivePermissions] method.

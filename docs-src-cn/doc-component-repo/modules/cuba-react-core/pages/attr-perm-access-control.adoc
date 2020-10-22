@@ -1,0 +1,44 @@
+= AttrPermAccessControl
+:api_core_AttrPermAccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_attrpermaccesscontrol_.attrpermaccesscontrolprops.html
+
+`AttrPermAccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on a single entity attribute permission.
+
+Use this component either by wrapping access-controlled components in it:
+
+[source,typescript]
+----
+<AttrPermAccessControl entityName='scr$Car' attrName='manufacturer' requiredAttrPerm='VIEW'>
+  <button>Do Something</button>
+</AttrPermAccessControl>
+----
+
+or by providing a https://reactjs.org/docs/render-props.html[render prop]:
+
+[source,typescript]
+----
+<AttrPermAccessControl entityName='scr$Car'
+                       attrName='manufacturer'
+                       requiredAttrPerm='VIEW'
+                       render={disabled => <button disabled={disabled}>Do Something</button>}
+/>
+----
+
+If both are provided, render prop takes precedence.
+
+In either example the button will only be shown when a user has at least a read-only permission on attribute `manufacturer` of `scr$Car` entity.
+
+Instead of hiding the access-controlled components you can specify to render them as disabled by setting `mode` prop to `disable`. If `mode` is `disable`:
+
+* If render prop is used, it will receive `true` as its `disabled` parameter.
+* Otherwise a prop with name `disabled` (can be configured via `disabledPropName` prop) and value `true` (can be configured via `disabledPropValue` prop) will be passed to each child.
+
+'''
+
+API: {api_core_AttrPermAccessControlProps}[AttrPermAccessControlProps]
+
+See also:
+
+* xref:access-control.adoc[AccessControl]
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl]
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
+* link:{manual_platform}/permissions.html[Permissions in CUBA]
