@@ -131,11 +131,11 @@ The generator will ask you several questions:
 
 - Select a project (this won't be asked if you have supplied a project model file).
 - Select an entity for which the components shall be generated.
-- Enter a name for the CRUD component class, it is a component that renders a List component (i.e. an entity browser) or an Edit component (i.e. an entity editor) depending on which route is active.
+- Enter a name for the CRUD component, it is a component that renders a List component (i.e. an entity browser) or an Edit component (i.e. an entity editor) depending on which route is active.
 - Select a list type, i.e. how your List component shall look like (for now just select `table`).
-- Name the List component class.
+- Name the List component.
 - Select a view for the List component.
-- Name the Edit component class.
+- Name the Edit component.
 - Select a view for the editor component.
 
 If you are using Petclinic sample project you can enter the following values:
@@ -143,11 +143,11 @@ If you are using Petclinic sample project you can enter the following values:
 [subs=+quotes]
 ----
 ? *Entity* petclinic_Pet
-? *CRUD component class* PetManagement
+? *CRUD component name* PetManagement
 ? *List type* table
-? *List component class* PetBrowser
+? *List component name* PetBrowser
 ? *List view* _minimal
-? *Edit component class name* PetEditor
+? *Edit component name* PetEditor
 ? *Edit view* pet-with-owner-and-type
 ----
 

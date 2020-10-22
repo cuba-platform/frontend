@@ -3,4 +3,6 @@
 
 `ImagePreview` allows to preview or download an image. It works with an link:https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL[object URL].
 
+'''
+
 API: {api_ui_ImagePreviewProps}[ImagePreviewProps].

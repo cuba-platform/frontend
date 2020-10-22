@@ -1,0 +1,107 @@
+= AccessControl
+:api_core_AccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_accesscontrol_.accesscontrolprops.html
+
+`AccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on user permissions and other conditions. This component is intended to be used in complex cases (such as when requirements includes multiple types of permissions, e.g. an entity permission and a specific permission). In most cases simpler components should be used instead:
+
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl] when condition involves a single entity operation permission.
+* xref:attr-perm-access-control.adoc[AttrPermAccessControl] when condition involves a single entity attribute permission.
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl] when condition involves one or more specific permissions.
+
+Use this component either by wrapping access-controlled components in it:
+
+[source,typescript]
+----
+<AccessControl modifyReqs={{entityReqs: [{entityName: 'scr$Car'}]}}>
+  <button>Do Something</button>
+</AccessControl>
+----
+
+or by providing a https://reactjs.org/docs/render-props.html[render prop]:
+
+[source,typescript]
+----
+<AccessControl modifyReqs={{entityReqs: [{entityName: 'scr$Car'}]}}
+               render={disabled => <button disabled={disabled}>Do Something</button>}
+/>
+----
+
+If both are provided, render prop takes precedence.
+
+In either case to define the requirements use `displayReqs` and `modifyReqs` props.
+
+`displayReqs` contains the requirements that shall be fulfilled in order for access-controlled components to be rendered. If these requirements are not met then `AccessControl` won't render anything. If `displayReqs` is missing, then access-controlled components will always be rendered.
+
+`modifyReqs` contains requirements that shall be fulfilled in order for rendered access-controlled components to be modifiable (i.e. to not be disabled). If these requirements are not met then `AccessControl` will disable the access-controlled components:
+
+* If render prop is used, it will receive `true` as its `disabled` parameter.
+* Otherwise a prop with name `disabled` (can be configured via `disabledPropName` prop) and value `true` (can be configured via `disabledPropValue` prop) will be passed to each child.
+
+Both `displayReqs` and `modifyReqs` are of the same type:
+
+[source,typescript]
+----
+{
+    entityReqs: [
+      {entityName: 'scr$Car', operation: 'create' as const},
+      {entityName: 'scr$Garage', operation: 'read' as const}
+    ],
+    attrReqs: [
+      {entityName: 'scr$Car', attrName: 'manufacturer', requiredAttrPerm: 'MODIFY' as const},
+      {entityName: 'scr$Garage', attrName: 'name', requiredAttrPerm: 'VIEW' as const}
+    ],
+    specificReqs: [
+      'cuba.restApi.fileUpload.enabled',
+      'some.custom.specific.permission'
+    ],
+    customReqs: () => {
+      // Some custom logic here.
+      return true;
+    }
+}
+----
+
+`entityReqs` contains required entity operation permissions, `attrReqs` - entity attribute permissions and `specificReqs` - specific permissions. `customReqs` function can be used to implement custom conditions / complex logic. For example, you might have a button that shall be visible when user has either of two specific permissions (in that case you will need to use the methods from xref:cuba-react-core:security.adoc[Security service] to manually check the permissions). Or, the condition might be something entirely different than permissions.
+
+.Low-Level Details About Matching Permissions
+****
+*Entity (CRUD) permissions (`entityReqs`)*
+
+A requirement is considered fulfilled when there is an entity permission with
+
+* target:
+** `{$entityName}:{$operation}`
+** or `{$entityName}:*`
+** or `*:{$operation}`
+** or `\*:*`
+* and value `1`.
+
+*Entity attribute permissions (`attrReqs`)*
+
+A requirement is considered fulfilled when there is an entity attribute permission with
+
+* target:
+** `{$entityName}:{$attrName}`
+** or `{$entityName}:*`
+** or `\*:*`
+* and value:
+** `1` or `2` when `requiredAttrPerm` is `VIEW`
+** or `2` when `requiredAttrPerm` is `MODIFY`.
+
+*Specific permissions (`specificReqs`)*
+
+A requirement is considered fulfilled when there is a specific permission with
+
+* a given target
+* and value `1`.
+****
+
+'''
+
+API: {api_core_AccessControlProps}[AccessControlProps].
+
+See also:
+
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl]
+* xref:attr-perm-access-control.adoc[AttrPermAccessControl]
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
+* link:{manual_platform}/permissions.html[Permissions in CUBA]

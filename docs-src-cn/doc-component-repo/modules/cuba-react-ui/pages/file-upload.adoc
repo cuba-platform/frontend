@@ -5,4 +5,31 @@
 
 image:FileUploadAndImagePreviewDemo.gif[FileUpload and ImagePreview demo]
 
+== Permissions
+
+View and download::
+
+User will be able to see the file name and download the file when the following conditions are met:
+
+- User has at least *read-only* permission on the corresponding entity attribute.
+- User has *read* permission on `sys$FileDescriptor` system entity and at least *read-only* permission on its attributes.
+
+Remove::
+
+User will be able to remove the file when the following conditions are met:
+
+- User has *modify* permission on the corresponding entity attribute.
+
+NOTE: "Removing the file" actually doesn't physically remove the file from server. It just removes the association between the entity and the file descriptor.
+
+Upload::
+
+User will be able to upload the file (and link it with the entity) when the following conditions are met:
+
+- User has *modify* permission on the corresponding entity attribute.
+- User has *create* permission on `sys$FileDescriptor` system entity.
+- User has *Upload files using REST API* specific permission.
+
+'''
+
 API: {api_ui_FileUploadProps}[FileUploadProps].

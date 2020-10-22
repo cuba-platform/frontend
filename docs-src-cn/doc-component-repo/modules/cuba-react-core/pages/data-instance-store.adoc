@@ -1,12 +1,30 @@
 = DataInstanceStore
 :api_core_DataInstanceStore: link:../api-reference/cuba-react-core/classes/_data_instance_.datainstancestore.html
 :api_core_instance: link:../api-reference/cuba-react-core/modules/_data_instance_.html#instance-1
+:api_core_useInstance: link:../api-reference/cuba-react-core/modules/_data_instance_.html#useinstance
 
 `DataInstanceStore` is used to work with a single instance of some Entity. It can be created via {api_core_instance}[instance] initializer function:
 
 [source,typescript]
 ----
 dataInstance = instance<Pet>(Pet.NAME, {view: 'pet-with-owner-and-type', loadImmediately: false});
+----
+
+In a functional component you'll need to wrap the call to `instance` in https://reactjs.org/docs/hooks-reference.html#useref[React.useRef] or use a convenience hook {api_core_useInstance}[useInstance].
+
+[source,typescript]
+----
+const dataInstance = useInstance<Pet>(
+  Pet.NAME,
+  {
+    view: 'pet-with-owner-and-type',
+    loadImmediately: false
+  }
+);
+
+// Note that `dataInstance` in this case is a React's `MutableRefObject`.
+// The `DataInstanceStore` is contained in its `current` property.
+dataInstance.current.load(entityId);
 ----
 
 Use `dataInstance.commit()` method to perform entity update:
@@ -26,4 +44,6 @@ dataInstance = instance<Pet>(Pet.NAME, {
 });
 ----
 
-API: {api_core_DataInstanceStore}[DataInstanceStore], {api_core_instance}[instance].
+'''
+
+API: {api_core_DataInstanceStore}[DataInstanceStore], {api_core_instance}[instance], {api_core_useInstance}[useInstance].
