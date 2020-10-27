@@ -1,14 +1,14 @@
-= Technologies Overview
+= 技术概览
 
-React client is based on the following frameworks and libraries:
+React client 基于下面的框架和库开发：
 
-* https://reactjs.org/[React] - UI rendering.
-* https://mobx.js.org/[MobX] - reactive state management.
-* {antDesign_base}/docs/react/introduce[Ant Design] - UI components.
-* https://reacttraining.com/react-router/[React Router] - routing.
-* xref:cuba-react-core:index.adoc[CUBA React Core] - CUBA React core components and utilities.
-* xref:cuba-react-ui:index.adoc[CUBA React UI] - CUBA React UI components and utilities.
-* {api_rest}[CUBA REST JS] - interaction with СUBA generic REST API.
-* https://facebook.github.io/create-react-app/[Create React App] - build scripts and configuration.
+* https://reactjs.org/[React] - UI 渲染
+* https://mobx.js.org/[MobX] - 响应式状态管理
+* {antDesign_base}/docs/react/introduce[Ant Design] - UI 组件
+* https://reacttraining.com/react-router/[React Router] - 路由
+* xref:cuba-react-core:index.adoc[CUBA React Core] - CUBA React core 组件和工具
+* xref:cuba-react-ui:index.adoc[CUBA React UI] - CUBA React UI 组件和工具
+* {api_rest}[CUBA REST JS] - 与 СUBA 通用 REST API 交互
+* https://facebook.github.io/create-react-app/[Create React App] - 构建脚本及配置
 
-React client is written in link:https://www.typescriptlang.org/[TypeScript].
+React client 使用 link:https://www.typescriptlang.org/[TypeScript] 开发。

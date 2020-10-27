@@ -1,38 +1,38 @@
-= Security
+= 安全
 :api_core_Security: link:../api-reference/cuba-react-core/classes/_app_security_.security.html
 :api_rest_security: link:../api-reference/cuba-rest-js/modules/_security_.html
 :api_rest_getEffectivePermissions: link:../api-reference/cuba-rest-js/classes/_cuba_.cubaapp.html#geteffectivepermissions
 :experimental:
 
-Since React client uses Generic REST API endpoints, the backend (CUBA) application should have properly configured Security Roles and Access groups. See the {manual_restApi}/#security[corresponding chapter] in the REST API documentation.
+由于 React 客户端使用了通用 REST API endpoints，所以后台（CUBA）应用程序需要正确的配置安全角色和访问组。参考 REST API 文档的 {manual_restApi}/#security[相应章节]。
 
-== Permissions and Access Control
+== 许可和访问控制
 
-NOTE: Check link:{manual_platform}/permissions.html[CUBA Platform manual] to learn more about how permissions work in CUBA.
+NOTE: 参考 link:{manual_platform}/permissions.html[CUBA 平台手册] 了解 CUBA 中许可机制如何运行。
 
-=== Access Control Components (CUBA React Core)
+=== 访问控制组件（CUBA React Core）
 
-You may want to hide certain UI elements (or render them as disabled) when the user doesn't have the necessary permissions. For example, you may want to hide the btn:[Create], btn:[Edit] and btn:[Remove] buttons in an entity list when the user doesn't have the corresponding entity operation permissions, or hide a button launching a business method when the user doesn't have a certain specific permission. This can be achieved with access control components which are part of CUBA React Core library. Use:
+当用户权限不足时，您可能需要隐藏某些 UI 元素（或者显式为禁用状态）。比如，当用户没有实体的增删改操作权限时，您需要隐藏 btn:[Create], btn:[Edit] and btn:[Remove] 按钮；或者，如果用户没有某些业务权限，您可能需要隐藏调用该业务逻辑的按钮。通过 CUBA React Core 中的访问控制组件即可实现该需求：
 
-* xref:cuba-react-core:entity-perm-access-control.adoc[EntityPermAccessControl] when condition involves a single entity operation permission,
-* xref:cuba-react-core:attr-perm-access-control.adoc[AttrPermAccessControl] when condition involves a single entity attribute permission,
-* xref:cuba-react-core:specific-perm-access-control.adoc[SpecificPermAccessControl] when condition involves one or more specific permissions,
-* xref:cuba-react-core:access-control.adoc[AccessControl] when you have a complex condition.
+* xref:cuba-react-core:entity-perm-access-control.adoc[EntityPermAccessControl] 当判断是否有单个实体操作权限时
+* xref:cuba-react-core:attr-perm-access-control.adoc[AttrPermAccessControl] 当判断实体属性权限时
+* xref:cuba-react-core:specific-perm-access-control.adoc[SpecificPermAccessControl] 当判断特殊权限时
+* xref:cuba-react-core:access-control.adoc[AccessControl] 当判断条件很复杂时
 
-=== Security Service (CUBA React Core)
+=== 安全服务 （CUBA React Core）
 
-You can manually check the user runtime security permissions by using {api_core_Security}[Security service] in CUBA React Core library. It contains methods that return a boolean value indicating whether a given permission is granted:
+通过 CUBA React Core 库内的 {api_core_Security}[Security service] 您可以手动检查用户的运行时安全许可。其包含检查许可权限并返回是否授权的布尔类型方法：
 
-* `isOperationPermissionGranted` for entity operation permissions.
-* `isAttributePermissionGranted` for entity attribute permissions.
-* `isSpecificPermissionGranted` for specific permissions.
+* `isOperationPermissionGranted` - 检查实体操作权限
+* `isAttributePermissionGranted` - 检查实体属性权限
+* `isSpecificPermissionGranted` - 检查特殊权限
 
-=== CUBA REST JS Utility Methods
+=== CUBA REST JS 工具类方法
 
-Alternatively you can use the {api_rest_security}[corresponding methods] in CUBA REST JS library:
+或者，也可以使用 CUBA REST JS 库中的 {api_rest_security}[相应方法]：
 
-* `getAttributePermission` checks an entity attribute permission and returns `DENY`, `VIEW` or `MODIFY`.
-* `isOperationAllowed` checks an entity operation permission and returns `true` or `false`.
-* `isSpecificPermissionGranted` checks a specific permission and returns `true` of `false`.
+* `getAttributePermission` 检查实体属性权限，并返回 `DENY`，`VIEW` 或 `MODIFY`。
+* `isOperationAllowed` 检查实体操作权限，并返回 `true` 或 `false`。
+* `isSpecificPermissionGranted` 检查特殊权限，并返回 `true` 或 `false`。
 
-Unlike Security service methods, these methods require an object containing current user permissions to be passed as argument. You can obtain the permissions object by using {api_rest_getEffectivePermissions}[getEffectivePermissions] method.
+与安全服务方法不同，浙西额方法需要以参数传递一个包含当前用户权限的对象。可以通过 {api_rest_getEffectivePermissions}[getEffectivePermissions] 方法获取该对象。

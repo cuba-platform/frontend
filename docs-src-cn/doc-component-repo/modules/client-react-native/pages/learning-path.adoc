@@ -1,5 +1,5 @@
-= Where Do I Go From Here?
+= 然后怎么办？
 
-Check xref:cuba-react-core:index.adoc[CUBA React Core] section to see what components are available to you and how to use them.
+查阅 xref:cuba-react-core:index.adoc[CUBA React Core] 章节了解可用的组件以及如何使用。
 
-Check {api_rest}[CUBA REST JS] to see how your components can communicate with the {manual_restApi}[Generic REST API].
+查阅 {api_rest}[CUBA REST JS] 了解您的组件如何与 {manual_restApi}[Generic REST API] 通信。

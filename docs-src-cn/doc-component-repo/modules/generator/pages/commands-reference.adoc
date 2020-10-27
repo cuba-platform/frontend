@@ -5,7 +5,7 @@
 
 include::partial$feat-available-in-studio.adoc[]
 
-Generates a React starter app. See xref:client-react:starter-guide.adoc[Getting Started with React Client].
+Generates a React starter app. See xref:client-react:starter-guide.adoc[开始使用 React Client].
 
 ....
   Options:
@@ -131,7 +131,7 @@ Generates a blank component.
 
 == react-native:app
 
-Generates a React Native starter app. See xref:client-react-native:starter-guide.adoc[Getting Started with React Native Client].
+Generates a React Native starter app. See xref:client-react-native:starter-guide.adoc[开始使用 React Native Client].
 
 ....
   Options:
