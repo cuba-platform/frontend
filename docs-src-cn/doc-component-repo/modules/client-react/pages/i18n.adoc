@@ -1,29 +1,29 @@
-= I18n
+= 国际化
 
-i18n is powered by https://github.com/formatjs/react-intl[react-intl] library. React client supports several languages out of the box.
+语言国际化通过 https://github.com/formatjs/react-intl[react-intl] 库实现。React 客户端开箱支持几种语言。
 
-The following translations are maintained by the core development team. It means that each time a new version is released, these translations are guaranteed to be up to date.
+下列翻译由核心开发团队维护。也就是说，每次一个新版本发布，这些翻译也能及时更新。
 
-* English
-* Russian
+* 英语
+* 俄语
 
-The following translations are provided by the community. It means that these translations might need time to catch up with the latest changes. Help us to keep the translations up to date by {git_frontendUi}[opening a PR]!
+下列翻译由社区提供。即，这些翻译可能需要一些时间才能更新。通过 {git_frontendUi}[提PR] 的方式帮助我们更新。
 
 * French
 
-== Adding New Localized Content
+== 添加新的本地化内容
 
-* Add new messages to `src/i18n/<locale>.json` files
-* Refer to them from your code using standard `react-intl` components or API (see https://github.com/formatjs/react-intl/blob/master/docs/README.md[react-intl documentation])
+* 添加本地化消息至 `src/i18n/<locale>.json` 文件
+* 使用标准的 `react-intl` 组件或 API 在您的代码中使用国际化翻译，参考 https://github.com/formatjs/react-intl/blob/master/docs/README.md[react-intl 文档]。
 
-== Overriding Existing Messages
+== 重写已有消息
 
-Simply replace existing messages in `src/i18n/<locale>.json` files. This way you can override the messages in the client app, xref:cuba-react-ui:index.adoc[CUBA React UI] components and some of the messages in the Ant Design components.
+直接在 `src/i18n/<locale>.json` 文件内修改即可。通过这种方式可以覆盖客户端 App、xref:cuba-react-ui:index.adoc[CUBA React UI] 组件甚至一些 Ant Design 组件内的消息。
 
-== Adding Support for New Locales
+== 添加对新本地化的支持
 
-* Add a corresponding `<locale>.json` message pack. Note that it shall contain messages for xref:cuba-react-ui:index.adoc[CUBA React UI] components (keys starting with `cuba-react`) and Ant Design `Form` validation messages (keys starting with `antd.form.validation`).
-* Create a mapping between the locale and the message pack by modifying `messagesMapping` in `src/i18n/i18nMappings.ts`.
-* Create a mapping between the locale and `antd/es/locale-provider/Locale` object by modifying `antdLocaleMapping` in `src/i18n/i18nMappings.ts`. This is required because most of the messages in Ant Design components are translated by telling Ant Design to use one of the predefined locales. An extensive list of locales supported by Ant Design can be found {antDesign_base}/docs/react/i18n[here].
-* Add an import of a corresponding https://github.com/moment/moment[moment] locale to `index.tsx`, e.g. `import 'moment/locale/ru';`. This is required because some of the Ant Design components use localized messages from `moment`.
-* Add means of switching to the new locale. E.g. if you are using the default `LanguageSwitcher` - add a locale option into it.
+* 添加对应的 `<locale>.json` 消息包。注意需要包含 xref:cuba-react-ui:index.adoc[CUBA React UI] 组件（以 `cuba-react` 开头的键值）以及 Ant Design `Form` 验证的消息（以 ``antd.form.validation`` 开头的键值）
+* 修改 `src/i18n/i18nMappings.ts` 内的 `messagesMapping` 创建一个 locale 和消息包的映射。
+* 修改 `src/i18n/i18nMappings.ts` 内的 `antdLocaleMapping` 创建一个 locale 和 `antd/es/locale-provider/Locale` 的映射。因为 Antd 组件中文本翻译都是通过高速 Antd 使用一个预定义的 locale 设置而实现的。Antd 支持的 locales 可以在 {antDesign_base}/docs/react/i18n[这里] 找到。
+* 在 `index.tsx` 中添加对应的 https://github.com/moment/moment[moment] locale 引入。比如 `import 'moment/locale/ru';`。由于部分 Antd 组件使用了 `moment` 中的本地消息。
+* 添加切换至新 locale 的文本，比如，使用默认的 `LanguageSwitcher` 时，为其添加一个新的选项。

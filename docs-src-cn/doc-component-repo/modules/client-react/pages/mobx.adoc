@@ -1,8 +1,8 @@
-= Observable State with MobX
+= MobX 处理 Observable State
 
-https://mobx.js.org/intro/overview.html[MobX] is a library for reactive state management that allows to work with state in a convenient and concise way.
+https://mobx.js.org/intro/overview.html[MobX] 是一个管理响应式状态（reactive state）的库，能以非常方便且简洁的方式管理组件状态。
 
-Consider the following example:
+以下是一个例子：
 
 [source,typescript]
 ----
@@ -32,4 +32,4 @@ class Counter extends React.Component {
 }
 ----
 
-As soon as we decorate a class or a function component with https://mobx.js.org/refguide/observer-component.html[observer] decorator, it automatically subscribes to changes of any https://mobx.js.org/refguide/observable.html[observable] value or object. I.e. in the example above changing `count` property will result in automatic re-render of the component.
+一旦我们使用 https://mobx.js.org/refguide/observer-component.html[observer] 注解标注一个类或者函数组件，它将能自动订阅 https://mobx.js.org/refguide/observable.html[observable] 值或者对象发生的变化。比如，在上面的例子中，对 `count` 的修改能导致组件的自动重新渲染。

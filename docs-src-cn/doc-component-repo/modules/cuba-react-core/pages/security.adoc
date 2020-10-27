@@ -1,4 +1,4 @@
-= Security
+= 安全
 :api_core_Security: link:../api-reference/cuba-react-core/classes/_app_security_.security.html
 
 Security service can be accessed via xref:main-store.adoc[MainStore]:
@@ -25,6 +25,6 @@ Note that in most cases you shouldn't need to check permissions manually. Instea
 
 '''
 
-API: {api_core_Security}[Security].
+API: {api_core_Security}[安全].
 
 See also: link:{manual_platform}/permissions.html[Permissions in CUBA]

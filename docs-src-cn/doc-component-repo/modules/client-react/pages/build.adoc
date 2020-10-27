@@ -1,5 +1,5 @@
-= Building the Client
+= 构建客户端
 
-`npm run build` command builds your app for production use. See `build` folder.
+`npm run build` 命令可以构建生产环境版本。构建结果在 `build` 文件夹。
 
-See https://facebook.github.io/create-react-app/docs/available-scripts[available scripts] in Create React App documentation.
+参考 React 文档了解更多支持的 https://facebook.github.io/create-react-app/docs/available-scripts[可用脚本]。

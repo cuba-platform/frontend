@@ -1,11 +1,11 @@
-= Technologies Overview
+= 技术概览
 
-The client is based on the following frameworks and libraries:
+React Native client 基于下面的框架和库开发：
 
-* https://facebook.github.io/react-native/[React Native] - UI rendering;
-* https://mobx.js.org/[MobX] - reactive state management;
-* xref:cuba-react-core:index.adoc[CUBA React Core] - CUBA React core components and utilities;
-* {api_rest}[CUBA REST JS] - interaction with СUBA generic REST API;
-* https://expo.io/[Expo] - development tools for React Native;
+* https://facebook.github.io/react-native/[React Native] - UI 渲染
+* https://mobx.js.org/[MobX] - 响应式状态管理
+* xref:cuba-react-core:index.adoc[CUBA React Core] - CUBA React core 组件和工具
+* {api_rest}[CUBA REST JS] - 与 СUBA 通用 REST API 交互
+* https://expo.io/[Expo] - React Native 的开发工具
 
-React Native client is written in link:https://www.typescriptlang.org/[TypeScript].
+React Native client 使用 link:https://www.typescriptlang.org/[TypeScript] 开发。

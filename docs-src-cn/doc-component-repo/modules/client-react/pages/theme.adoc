@@ -1,19 +1,20 @@
-= Customizing Theme
+= 自定义主题
 
-Ant Design provides a possibility to {antDesign_base}/docs/react/customize-theme[customize theme] using `less` and overriding built-in variables. You can also use these variables in your own code.
+使用 Ant Design 可以 {antDesign_base}/docs/react/customize-theme[自定义主题]，使用 `less` 样式表并覆盖自带的样式变量即可。在您自己的代码中，也可以使用这些变量。
 
-In order to do so, you will need to make some modifications to the generated app.
+如需自定义主题，则需要对生成的 app 做一些修改。
 
-CAUTION: You will have to enable deprecated inline Javascript in `less` as Ant Design makes heavy use of it. link:http://lesscss.org/usage/#less-options-strict-units[Reasons for deprecation.]
+CAUTION: 在 `less` 中，您需要启用废弃的 inline JavaScript，因为 Antd 重度依赖这个功能。link:http://lesscss.org/usage/#less-options-strict-units[废弃的原因]。
 
-- Install the required dependencies. Note that we are using https://github.com/timarney/react-app-rewired[react-app-rewired] to modify the webpack config without having to link:https://create-react-app.dev/docs/available-scripts#npm-run-eject[eject].
+- 安装需要的依赖。注意，我们使用 https://github.com/timarney/react-app-rewired[react-app-rewired] 来修改 webpack 的配置，这样就不需要 link:https://create-react-app.dev/docs/available-scripts#npm-run-eject[eject]。
+
 +
 [source,bash]
 ----
 npm i react-app-rewired less less-loader customize-cra babel-plugin-import --save-dev
 ----
 
-- Create `config-overrides.js` file in the app root. The file shall look like this.
+- 在 App 根目录创建 `config-overrides.js` 文件，内容如下：
 +
 [source,typescript]
 ----
@@ -34,14 +35,14 @@ module.exports = override(
 );
 ----
 
-Now you can place your overrides in `src/theme.less`:
+然后在 `src/theme.less` 内添加自己想覆盖的内容：
 
 [source,less]
 ----
 @primary-color: #1DA57A;
 ----
 
-You can use Ant Design variables in your code like this:
+在您的代码中也可以使用 Antd 的变量：
 
 [source,less]
 ----
@@ -51,10 +52,10 @@ body {
 }
 ----
 
-References:
+参考：
 
-- detailed {antDesign_base}/docs/react/use-with-create-react-app#Customize-Theme[documentation] on Ant Design website
+- Ant Design 网页上详细的 {antDesign_base}/docs/react/use-with-create-react-app#Customize-Theme[文档]
 
-== CSS Methodology
+== CSS 方法论
 
-Both the generated client and xref:cuba-react-ui:index.adoc[CUBA React UI] follow http://rscss.io[RSCSS methodology]. Additionally, we adopt Base Rules from http://smacss.com/book/type-base[SMACSS methodology].
+生成的客户端代码和 xref:cuba-react-ui:index.adoc[CUBA React UI] 都遵循 http://rscss.io[RSCSS 方法论]。另外，我们也从 http://smacss.com/book/type-base[SMACSS 方法论] 借鉴基本规则。

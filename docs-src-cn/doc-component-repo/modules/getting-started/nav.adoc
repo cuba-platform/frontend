@@ -1,3 +1,3 @@
-* xref:index.adoc[Getting Started]
-** xref:cli-specific-instructions.adoc[CLI-Specific Instructions]
-** xref:learning-path.adoc[Choosing a Learning Path]
+* xref:index.adoc[开始使用]
+** xref:cli-specific-instructions.adoc[CLI 特性介绍]
+** xref:learning-path.adoc[选择学习路径]

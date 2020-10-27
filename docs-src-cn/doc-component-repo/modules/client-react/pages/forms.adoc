@@ -1,7 +1,7 @@
-= Forms
+= 表单
 :api_ui_FieldProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_form_.fieldprops.html
 
-In order to facilitate data binding we use Ant Design {antDesign_base}/components/form/[Form] component and utilities. On top of that we provide a `Field` component that automatically renders a correct component depending on the property type (e.g. `DatePicker`, `Select`, etc.). See the following example:
+为了使用表单数据绑定的功能，我们用了 Ant Design {antDesign_base}/components/form/[表单] 组件及工具类。基于这个组件，我们提供了一个 `Field` 组件，可以根据属性类型（比如 `DatePicker`，`Select` 等）渲染出正确的组件。示例：
 
 [source,typescript]
 ----
@@ -19,6 +19,6 @@ In order to facilitate data binding we use Ant Design {antDesign_base}/component
   />
 ----
 
-You can customize underlying components, validation rules and binding using `getFieldDecoratorOpts` and `componentProps` properties.
+您也可以通过 `getFieldDecoratorOpts` 和 `componentProps` 属性自定义底层的组件、校验规则以及数据绑定。
 
 API: {api_ui_FieldProps}[FieldProps].

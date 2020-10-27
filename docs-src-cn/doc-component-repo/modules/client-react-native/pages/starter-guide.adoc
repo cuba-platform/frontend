@@ -1,111 +1,111 @@
-= Getting Started with React Native Client
+= 开始使用 React Native Client
 
 include::overview:partial$getting-started-note.adoc[]
 
-In this guide we will use the Frontend Generator to create a starter React Native client. You can try it with your own CUBA project, or you can use {petclinic}[Petclinic] sample project.
+在本向导中，我们将使用 Frontend Generator 创建 React Native client 的初始化程序。您可以使用您的 CUBA 项目试试，或者使用 {petclinic}[Petclinic] 示例项目。
 
-If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.
+如果您想自动传递项目模型，则需要在 Studio 中打开您的 CUBA 项目，然后在终端运行如下命令：
 
 [source,bash]
 ----
 gen-cuba-front react-native:app
 ----
 
-Generator will prompt you to select one of the currently opened CUBA projects.
+Generator 会提示您选择一个已经在 Studio 中打开的 CUBA 项目。
 
-image:generator:interactive-projects.png[Interactive project selection]
+image:generator:interactive-projects.png[交互式的项目选择]
 
-If you are using the exported project model file, use `--model` parameter to pass it to generator.
+如果您使用已经导出的项目模型，则可以用 `--model` 将文件传递给 generator。
 
 [source,bash]
 ----
 gen-cuba-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json
 ----
 
-Either way, your starter React Native client will be generated.
+使用任何一种方式，都能为您生成 React Native 客户端。
 
-== Running the Client
+== 运行客户端
 
-Install the dependencies:
+安装依赖：
 
 [source,bash]
 ----
 npm install
 ----
 
-The client uses https://expo.io/[Expo]. You may prefer to install Expo CLI globally and use it from the command line directly, or use it via npm scripts, which doesn't require global installation.
+客户端使用了 https://expo.io/[Expo]。您也许倾向安装全局的 Expo CLI 以便直接从命令行使用，或者通过 npm 脚本使用，这样不需要全局安装。
 
 [source,bash]
 ----
-# with Expo CLI installed globally
+# 已安装全局 Expo CLI
 expo [command] [options]
 
-# without global installation
+# 没有全局安装
 npm run expo -- [command] [options]
 ----
 
-To install Expo CLI globally:
+全局安装 Expo CLI：
 
 [source,bash]
 ----
 npm install -g expo-cli
 ----
 
-See https://expo.io/[Expo documentation] for details on the available commands and options. If you are running Expo via npm scripts, note that there are convenience scripts for the most frequently used commands:
+参考 https://expo.io/[Expo 文档] 了解所有可用命令和参数信息。如果通过 npm 脚本运行，则可以使用下面的常用脚本：
 
 [source,bash]
 ----
-# start (restart) a local server for the app:
-# with Expo CLI installed globally:
+# 启动（重启）本地 app 服务：
+# 已全局安装 Expo CLI：
 expo start
-# via generic npm script:
+# 通过通用 npm 脚本：
 npm run expo -- start
-# via convenience npm script:
+# 通过方便的 npm 脚本：
 npm run start
 
-# run the project in the browser:
-# with Expo CLI installed globally:
+# 在浏览器运行项目：
+# 已全局安装 Expo CLI：
 expo start --web
-# via generic npm script:
+# 通过通用 npm 脚本：
 npm run expo -- start --web
-# via convenience npm script:
+# 通过方便的 npm 脚本：
 npm run web
 
-# run the project on an Android device or emulator:
-# with Expo CLI installed globally:
+# 在 Android 设备或模拟器运行：
+# 已全局安装 Expo CLI：
 expo start --android
-# via generic npm script:
+# 通过通用 npm 脚本：
 npm run expo -- start --android
-# via convenience npm script:
+# 通过方便的 npm 脚本：
 npm run android
 
-# run the project in an iOS simulator:
-# with Expo CLI installed globally:
+# 在 iOS 模拟器运行
+# 已全局安装 Expo CLI：
 expo start --ios
-# via generic npm script:
+# 通过通用 npm 脚本：
 npm run expo -- start --ios
-# via convenience npm script:
+# 通过方便的 npm 脚本：
 npm run ios
 
 # eject:
-# with Expo CLI installed globally:
+# 已全局安装 Expo CLI：
 expo eject
-# via generic npm script:
+# 通过通用 npm 脚本：
 npm run expo -- eject
-# via convenience npm script:
+# 通过方便的 npm 脚本：
 npm run eject
 
-# passing options to a convenience script:
+# 为方便脚本传递参数
 npm run android -- --clear
-# which would be the same as:
+# 上面这条脚本与下面这个意思一样：
 expo start --android --clear
 ----
 
-TIP: In order to run the app on an emulator/simulator you may need to change `REACT_NATIVE_APP_CUBA_URL` in `.env` file from `localhost` to your IP address. You may need to clear the React Native Packager cache for the change to take effect (e.g. `expo start --android --clear` or `npm run android -- --clear`).
+TIP: 如果需要在仿真器、模拟器上运行 App，您可能需要修改 `.env` 文件中的 `REACT_NATIVE_APP_CUBA_URL` 值，从 `localhost` 修改为您的 IP 地址。有时候需要清除 React Native 打包的缓存才能使改动生效 （`expo start --android --clear` 或 `npm run android -- --clear`）。
 
-Run the client using one of the commands above. This is what you shall be able to see:
+使用上面任何一个命令运行客户端，您将能看到：
 
-image:RNDemo.gif[React Native showcase]
+image:RNDemo.gif[React Native 示例]
 
-That's it!
+不错吧！
 

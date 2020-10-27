@@ -1,4 +1,4 @@
-= Frontend Generator Reference
+= Frontend Generator 参考
 
 include::overview:partial$getting-started-note.adoc[]
 

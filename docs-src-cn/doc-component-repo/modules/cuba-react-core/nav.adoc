@@ -7,5 +7,5 @@
 ** xref:data-instance-store.adoc[DataInstanceStore]
 ** xref:entity-perm-access-control.adoc[EntityPermAccessControl]
 ** xref:main-store.adoc[MainStore]
-** xref:security.adoc[Security]
+** xref:security.adoc[安全]
 ** xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
