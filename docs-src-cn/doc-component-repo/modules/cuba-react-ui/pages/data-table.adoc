@@ -3,19 +3,19 @@
 :api_ui_DataTableCustomFilterProps: link:../api-reference/cuba-react-ui/interfaces/_ui_table_datatablecustomfilter_.datatablecustomfilterprops.html
 :api_ui_DataTableHelpers: link:../api-reference/cuba-react-ui/modules/_ui_table_datatablehelpers_.html
 
-`DataTable` is used to present data in tabular form.
+`DataTable` 用来以表格的形式展示数据。
 
-image:client-react:data-table-demo.gif[Data table showcase]
+image:client-react:data-table-demo.gif[Data table 示例]
 
-It uses Ant Design {antDesign_base}/components/table/[Table] under the hood and provides the following additional benefits:
+底层使用 Ant Design {antDesign_base}/components/table/[Table] 开发，但是提供了以下附加的功能：
 
-* out-of-the-box integration with `DataCollectionStore`
-* powerful filters
-* support for action buttons (e.g. for CRUD operations)
+* 开箱支持 `DataCollectionStore`
+* 强大的过滤器
+* 支持操作按钮（即 CRUD 操作）
 
-At the same time `<DataTable>` provides developer with a full access to underlying `Table` via its `tableProps` and `columnDefinitions` properties (see below).
+同时，`<DataTable>` 通过 `tableProps` 和 `columnDefinitions` 属性为开发者提供了底层 `Table` 的完全访问（见下例）。
 
-Example of using `<DataTable>` API:
+使用 `<DataTable>` API 示例：
 
 [source,typescript]
 ----
@@ -30,7 +30,7 @@ Example of using `<DataTable>` API:
                }
              }
            ]}
-           onSelectedRowChange={this.onSelectedRowChange}
+           onRowSelectionChange={this.handleRowSelectionChange}
            buttons={buttons}
            tableProps={{
              bordered: true
@@ -38,26 +38,26 @@ Example of using `<DataTable>` API:
 />
 ----
 
-* `dataCollection` - instance of `DataCollectionStore`.
-* `columnDefinitions` - describes the columns to be displayed. See more details below.
-* `onRowSelectionChange` - callback that takes the ids of the selected rows, can be used together with `buttons` e.g. to facilitate CRUD operations.
-* `buttons` - array of React elements representing the controls that will be rendered above the table.
-* `tableProps` - can be used to override any of the underlying {antDesign_base}/components/table/#Table[Table properties].
+* `dataCollection` - `DataCollectionStore` 实例
+* `columnDefinitions` - 描述需要展示的列。下面有更详细解释。
+* `onRowSelectionChange` - 回调函数，使用当前选中行（可以是多行）的 id 作为参数。能与 `buttons` 一起使用，比如进行 CRUD 操作。
+* `buttons` - React 元素数组，表示要添加到表格上方的控制按钮
+* `tableProps` - 可以用来覆盖任何底层 {antDesign_base}/components/table/#Table[表格的属性]
 
-Deprecated props (use `columnDefinitions` instead):
+废弃的属性（使用 `columnDefinitions` 替换）：
 
-* `fields` - names of properties that shall be displayed.
-* `columnProps` - can be used to override underlying {antDesign_base}/components/table/#Column[Column properties]. Applied to every column.
+* `fields` - 需要展示的属性名称
+* `columnProps` - 可以用来覆盖底层 {antDesign_base}/components/table/#Column[列属性]，应用到每一列
 
-TIP: `columnDefinitions` is more flexible and provides greater ability to customize the columns. `columnDefinitions` will take precedence over `fields` and `columnProps` if used simultaneously.
+TIP: `columnDefinitions` 更灵活并且提供了更强大自定义列的功能。如果同时使用，`columnDefinitions` 的配置将会覆盖 `fields` 和 `columnProps` 的配置。
 
 == columnDefinitions
 
-`columnDefinitions` describes the columns to be displayed. The columns can represent entity properties or have arbitrary content (for example: an action button column, a calculated field column).
+`columnDefinitions` 描述需要显示的列。列可以展示实体的属性，也可以展示其他内容（比如，操作按钮列、计算字段列等）。
 
-There are 3 ways you can define a column:
+有三种定义列的方式：
 
-. Simply put an entity property name as a `string`. In this case `DataTable` will render a column with default settings for that property.
+. 直接设置 `字符串` 类型的属性名称。此时，`DataTable` 会用默认的配置渲染该属性列。
 +
 [source,typescript]
 ----
@@ -65,13 +65,12 @@ There are 3 ways you can define a column:
        dataCollection={this.dataCollection}
        columnDefinitions={[
          'manufacturer',
-         // more columns
+         // 其他列
        ]}
 />
 ----
 
-. If you want to customize the default column, use a `ColumnDefinition` object where `field` is an entity property name and
-`columnProps` is an Ant Design {antDesign_base}/components/table/#Column[ColumnProps] object. The properties you put in `columnProps` will override the default properties.
+. 如果您希望自定义默认列，可以使用 `ColumnDefinition` 对象，其中 `field` 是属性名称，`columnProps` 是 Antd {antDesign_base}/components/table/#Column[ColumnProps] 对象。设置在 `columnProps` 的属性名称会覆盖默认的属性。
 +
 [source,typescript]
 ----
@@ -79,17 +78,17 @@ There are 3 ways you can define a column:
        dataCollection={this.dataCollection}
        columnDefinitions={[
          {
-           field: 'manufacturer', // property name
-           columnProps: { // Ant Design ColumnProps object
+           field: 'manufacturer', // 属性名
+           columnProps: { // Ant Design ColumnProps 对象
              align: 'right'
            }
          },
-         // more columns
+         // 其他列
        ]}
 />
 ----
 
-. If you want a column not bound to an entity field, create it from scratch using `columnProps` and do not specify a `field`.
+. 如果对于某些列，您不需要绑定至实体属性，可以用 `columnProps` 单独创建，不要指定 `field` 即可。
 +
 [source,typescript]
 ----
@@ -97,17 +96,17 @@ There are 3 ways you can define a column:
        dataCollection={this.dataCollection}
        columnDefinitions={[
          {
-           columnProps: { // Ant Design ColumnProps object
-             render: (text, record) => { /* render some custom content */ }
+           columnProps: { // Ant Design ColumnProps 对象
+             render: (text, record) => { /* 渲染一些自定义的内容 */ }
            }
          },
-         // more columns
+         // 其他列
        ]}
 />
 ----
 
 ****
-If you need even more control, you may want to start with a vanilla Ant Design {antDesign_base}/components/table/[Table] and take a look into exported functions in `DataTableHelpers`. These functions are used to create `DataTable` custom functionality such as custom filters. You may also want to look into using `DataTableCustomFilter` directly. Note that both these approaches may require a deeper understanding of how `DataTable` works internally.
+如果您需要控制更底层的东西，比如您想使用 vanilla Antd {antDesign_base}/components/table/[Table]，可以看看 `DataTableHelpers` 中 export 出来的函数。这些函数用来创建 `DataTable` 的自定义功能，比如自定义过滤器。或许您也可以直接查阅 `DataTableCustomFilter`。注意，这两个方案都需要对 `DataTable` 的内部工作原理有深入了解。
 ****
 
 '''

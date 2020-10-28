@@ -2,4 +2,4 @@
 
 `npm run build` 命令可以构建生产环境版本。构建结果在 `build` 文件夹。
 
-参考 React 文档了解更多支持的 https://facebook.github.io/create-react-app/docs/available-scripts[可用脚本]。
+参阅 React 文档了解更多支持的 https://facebook.github.io/create-react-app/docs/available-scripts[可用脚本]。

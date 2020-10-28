@@ -9,4 +9,4 @@
 
 CAUTION: CLI 支持的大部分功能 Studio 都能支持，但是有一些不是。查看 xref:generator:commands-reference.adoc[Frontend Generator 参考] 了解具体支持哪些功能。另外，如果您希望您的前端项目独立于 CUBA 项目（比如前后端由不同团队开发），那么也需要在前端项目使用 CLI。
 
-如果您需要再 CLI 使用 Frontend Generator，请参考 xref:cli-specific-instructions.adoc[CLI 特性介绍]。否则，继续阅读 xref:learning-path.adoc[这章]。
+如果您需要再 CLI 使用 Frontend Generator，请参阅 xref:cli-specific-instructions.adoc[CLI 特性介绍]。否则，继续阅读 xref:learning-path.adoc[这章]。

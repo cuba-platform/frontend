@@ -51,7 +51,7 @@ npm run expo -- [command] [options]
 npm install -g expo-cli
 ----
 
-参考 https://expo.io/[Expo 文档] 了解所有可用命令和参数信息。如果通过 npm 脚本运行，则可以使用下面的常用脚本：
+参阅 https://expo.io/[Expo 文档] 了解所有可用命令和参数信息。如果通过 npm 脚本运行，则可以使用下面的常用脚本：
 
 [source,bash]
 ----

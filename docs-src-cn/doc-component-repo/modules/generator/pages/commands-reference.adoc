@@ -1,96 +1,96 @@
-= Commands Description
+= 命令参考
 
 [[react-typescript-app]]
 == react-typescript:app
 
-include::partial$feat-available-in-studio.adoc[]
+include::generator:partials$feat-available-in-studio.adoc[]
 
-Generates a React starter app. See xref:client-react:starter-guide.adoc[开始使用 React Client].
+生成一个 React 初始化 app。参阅 xref:client-react:starter-guide.adoc[开始使用 React Client]。
 
 ....
   Options:
 
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information
+    -d, --dest [dest]    destination directory - 目标文件夹
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked - 指定项目模型路径，如果提供则不使用交互式
+    -h, --help           output usage information - 输出使用说明
 ....
 
 [[react-typescript-entity-management]]
 == react-typescript:entity-management
 
-include::partial$feat-available-in-studio.adoc[]
+include::generator:partials$feat-available-in-studio.adoc[]
 
-Generates:
+生成：
 
-- Route / main menu item
-- *Edit component* - allows to edit an entity instance.
-- *List component* - allows to view the list of entities and open the Edit component for a selected entity instance.
-- *CRUD component* - component that renders a List component or an Edit component depending on whether the route path contains an `entityId` parameter (see https://reacttraining.com/react-router/[React Router] documentation for more details on how routing works in React client).
+- 路由、主菜单项
+- *Edit component* - 可以编辑实体实例。
+- *List component* - 可以查看实体列表并为选中的实体打开 Edit component
+- *CRUD component* - 根据路由路径是否带 `entityId` 参数，如不带，则渲染为 List component，如有，则渲染为 Edit component。参阅 https://reacttraining.com/react-router/[React Router] 文档了解更多关于 React 客户端中路由的相关细节。
 
 ....
   Options:
 
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -s, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information
+    -d, --dest [dest]           destination directory - 目标文件夹
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked - 指定项目模型路径，如果提供则不使用交互式
+    -s, --dirShift [dirShift]   directory shift for html imports e.g ../../ - html 中 import 的相对目录偏移量
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string - 为避免交互式输入而提供给 generator 的参数，以 JSON 序列化之后的形势提供
+    -h, --help                  output usage information - 输出使用说明
 ....
 
-Browser screen is available in one of the following flavors (we call it list types):
+浏览界面可以使用下列特定的展示方式（我们称之为列表类型）：
 
 * list
 +
-image:browser-list.png[List browser example]
+image:browser-list.png[列表浏览界面示例]
 
 * cards
 +
-image:browser-cards.png[Cards browser example]
+image:browser-cards.png[卡片式浏览界面示例]
 
 * table
 +
-image:client-react:data-table-demo.gif[Data table showcase]
+image:client-react:data-table-demo.gif[表格浏览界面示例]
 
-`answers` format:
+`answers` 格式：
 
 ....
 {
     "editView": {
-      "name": "car-edit", // Name of view that will be used in Editor screen
-      "entityName": "mpg$Car" // Entity name
+      "name": "car-edit", // 用于编辑界面的视图名称
+      "entityName": "mpg$Car" // 实体名称
     },
-    "editComponentName": "CarEdit", // Editor component name
+    "editComponentName": "CarEdit", // 编辑组件名称
     "listView": {
-      "name": "car-edit", // Name of view that will be used in Browser screen
-      "entityName": "mpg$Car" // Entity name
+      "name": "car-edit", // 用于浏览界面的视图名称
+      "entityName": "mpg$Car" // 实体名称
     },
-    "listComponentName": "CarCards", // List component name
-    "listType": "cards", // List type: list, cards or table
+    "listComponentName": "CarCards", // 列表组件名称
+    "listType": "cards", // 列表类型： list, cards or table
     "entity": {
-      "name": "mpg$Car" // Entity name
+      "name": "mpg$Car" // 实体名称
     },
-    "managementComponentName": "CarManagement" // Management component name (renders either Editor or Browser depending on current route)
+    "managementComponentName": "CarManagement" // 管理组件名称（根据路由渲染为浏览或者编辑组件）
     }
 }
 ....
 
 == react-typescript:entity-cards
 
-include::partial$feat-available-in-studio.adoc[]
+include::generator:partials$feat-available-in-studio.adoc[]
 
-Generates a list of entities where each entity is represented by a card (similar to a List component with `"listType": "cards"`, but read-only, see link:#react-typescript-entity-management[react-typescript:entity-management])
+生成实体列表，每个实体用一个卡片表示（与 List component 的 `"listType": "cards"` 情况类似，只不过这里是只读的，参阅 link:#react-typescript-entity-management[react-typescript:entity-management]）
 
 ....
   Options:
 
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -s, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information
+    -d, --dest [dest]           destination directory - 目标文件夹
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked - 指定项目模型路径，如果提供则不使用交互式
+    -s, --dirShift [dirShift]   directory shift for html imports e.g ../../ - html 中 import 的相对目录偏移量
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string - 为避免交互式输入而提供给 generator 的参数，以 JSON 序列化之后的形势提供
+    -h, --help                  output usage information - 输出使用说明
 ....
 
-`answers` format:
+`answers` 格式：
 
 ....
 {
@@ -107,21 +107,21 @@ Generates a list of entities where each entity is represented by a card (similar
 
 == react-typescript:blank-component
 
-include::partial$feat-available-in-studio.adoc[]
+include::generator:partials$feat-available-in-studio.adoc[]
 
-Generates a blank component.
+生成一个空组件。
 
 ....
   Options:
 
-    -d, --dest [dest]           destination directory
-    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked
-    -s, --dirShift [dirShift]  directory shift for html imports e.g ../../
-    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string
-    -h, --help                  output usage information
+    -d, --dest [dest]           destination directory - 目标文件夹
+    -m, --model [model]         specify path to project model, if given no interactive prompt will be invoked - 指定项目模型路径，如果提供则不使用交互式
+    -s, --dirShift [dirShift]   directory shift for html imports e.g ../../ - html 中 import 的相对目录偏移量
+    -a, --answers [answers]     fulfilled params for generator to avoid interactive input in serialized JSON string - 为避免交互式输入而提供给 generator 的参数，以 JSON 序列化之后的形势提供
+    -h, --help                  output usage information - 输出使用说明
 ....
 
-`answers` format:
+`answers` 格式：
 
 ....
 {
@@ -131,37 +131,37 @@ Generates a blank component.
 
 == react-native:app
 
-Generates a React Native starter app. See xref:client-react-native:starter-guide.adoc[开始使用 React Native Client].
+生成一个 React Native 初始化 app。参阅 xref:client-react-native:starter-guide.adoc[开始使用 React Native Client]。
 
 ....
   Options:
 
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -b, --verbose       log out additional info about generation process
-    -h, --help           output usage information
+    -d, --dest [dest]   destination directory - 目标文件夹
+    -m, --model [model] specify path to project model, if given no interactive prompt will be invoked - 指定项目模型路径，如果提供则不使用交互式
+    -b, --verbose       log out additional info about generation process - 输出代码生成过程中额外的信息
+    -h, --help          output usage information - 输出使用说明
 ....
 
 == sdk:all
 
-Generates framework-agnostic xref:typescript-sdk:index.adoc[TypeScript SDK]. It is also generated when executing link:#react-typescript-app[react-typescript:app] command.
+生成与框架无关的 xref:typescript-sdk:index.adoc[TypeScript SDK]。当执行 link:#react-typescript-app[react-typescript:app] 命令时，也会生成。
 
 ....
   Options:
 
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information
+    -d, --dest [dest]    destination directory - 目标文件夹
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked - 指定项目模型路径，如果提供则不使用交互式
+    -h, --help           output usage information - 输出使用说明
 ....
 
 == sdk:model
 
-Generates SDK model only.
+只生成 SDK 模型。
 
 ....
   Options:
 
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -h, --help           output usage information
+    -d, --dest [dest]    destination directory - 目标文件夹
+    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked - 指定项目模型路径，如果提供则不使用交互式
+    -h, --help           output usage information - 输出使用说明
 ....

@@ -54,7 +54,7 @@ app-name/
     app/
       App.css
       App.tsx          <- App shell。在登录表单和内部应用程序之间切换。
-    cuba/              <- CUBA 模型。 参考 [后端模型]
+    cuba/              <- CUBA 模型。 参阅 [后端模型]
       entitites/       <- 项目实体
         base/          <- 从框架和扩展带来的实体
       enums/           <- 项目中的枚举

@@ -1,1 +1,1 @@
-TIP: This feature is also available in CUBA Studio, see {manual_studio_frontendUi}[Studio Manual].
+TIP: 该功能也能在 Studio 中使用，参阅 {manual_studio_frontendUi}[Studio 使用手册]。

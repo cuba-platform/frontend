@@ -1,14 +1,14 @@
 = FormField
 :api_ui_FormFieldProps: link:../api-reference/cuba-react-ui/modules/_ui_form_form_.html#formfieldprops
 
-`FormField` component automatically creates a correct Form UI component based on entity and property names:
+`FormField` 组件可以根据实体和属性的名称自动创建合适的表单 UI 组件：
 
 [source,typescript]
 ----
 <FormField entityName={Pet.NAME} propertyName='birthDate'/>
 ----
 
-For the attributes with relationship type Association it's possible to provide an instance of DataCollectionStore via `optionsContainer` prop to render an options list.
+对于关联（Association）关系类型的字段属性，可以通过 `optionsContainer` 属性提供 DataCollectionStore 实例，渲染为一个选项列表。
 
 [source,typescript]
 ----

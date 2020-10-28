@@ -1,7 +1,7 @@
 = ImagePreview
 :api_ui_ImagePreviewProps: link:../api-reference/cuba-react-ui/interfaces/_ui_imagepreview_.imagepreviewprops.html
 
-`ImagePreview` allows to preview or download an image. It works with an link:https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL[object URL].
+`ImagePreview` 可以预览并下载图片。需要使用 link:https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL[对象 URL]。
 
 '''
 

@@ -32,6 +32,6 @@ export class Role extends StandardEntity {
 ----
 function changeRole(role: Role) {
   role.defaultRole = true;   // ok
-  role.defaultRole = 'foo';  // compilation fails
+  role.defaultRole = 'foo';  // 编译错误
 }
 ----

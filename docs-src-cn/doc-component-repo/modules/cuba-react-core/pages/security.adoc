@@ -1,30 +1,30 @@
-= 安全
+= Security
 :api_core_Security: link:../api-reference/cuba-react-core/classes/_app_security_.security.html
 
-Security service can be accessed via xref:main-store.adoc[MainStore]:
+安全服务可以通过 xref:main-store.adoc[MainStore] 访问：
 
 [source,typescript]
 ----
 mainStore.security
 ----
 
-It contains the methods to check whether the current user has a certain permission:
+安全服务带有检查当前用户是否具有特定权限的一些方法：
 
-* `isOperationPermissionGranted` for entity operation permissions
-* `isAttributePermissionGranted` for entity attribute permissions
-* `isSpecificPermissionGranted` for specific permissions
+* `isOperationPermissionGranted` 检查实体操作权限
+* `isAttributePermissionGranted` 检查实体属性权限
+* `isSpecificPermissionGranted` 检查特殊权限
 
-See {api_core_Security}[API documentation] for more details.
+参阅 {api_core_Security}[API 文档] 了解更多细节。
 
-Note that in most cases you shouldn't need to check permissions manually. Instead you can use access control components to conditionally hide or disable content based on permissions:
+注意，大多数情况下您不需要手动检查权限。而是可以用访问控制组件，根据权限在一定条件下隐藏或禁用某些功能：
 
-* xref:entity-perm-access-control.adoc[EntityPermAccessControl] when condition involves a single entity operation permission,
-* xref:attr-perm-access-control.adoc[AttrPermAccessControl] when condition involves a single entity attribute permission,
-* xref:specific-perm-access-control.adoc[SpecificPermAccessControl] when condition involves one or more specific permissions,
-* xref:access-control.adoc[AccessControl] when you have a complex condition.
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl] 当判断是否有单个实体操作权限时
+* xref:attr-perm-access-control.adoc[AttrPermAccessControl] 当判断实体属性权限时
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl] 当判断一个或多个特殊权限时
+* xref:access-control.adoc[AccessControl] 当判断条件很复杂时
 
 '''
 
 API: {api_core_Security}[安全].
 
-See also: link:{manual_platform}/permissions.html[Permissions in CUBA]
+另外，还可以参考 link:{manual_platform}/permissions.html[CUBA 中的权限许可]。

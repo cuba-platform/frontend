@@ -24,4 +24,4 @@ export function Button(props) {
 }
 ----
 
-xref:cuba-react-core:index.adoc[CUBA React Core] 和 xref:cuba-react-ui:index.adoc[CUBA React UI] 库提供了一些非常有用的组件。请参考相应的章节进行了解。
+xref:cuba-react-core:index.adoc[CUBA React Core] 和 xref:cuba-react-ui:index.adoc[CUBA React UI] 库提供了一些非常有用的组件。请参阅相应的章节进行了解。

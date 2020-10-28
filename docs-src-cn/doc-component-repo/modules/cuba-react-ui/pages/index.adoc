@@ -1,7 +1,7 @@
-= CUBA React UI Components
+= CUBA React UI 组件
 
-*CUBA React UI* contains the UI components. It uses {antDesign_base}/docs/react/introduce[Ant Design] UI kit and is used by the xref:client-react:starter-guide.adoc[React] client. It is available as an npm package {npm_cubaReactUi}[@cuba-platform/react-ui].
+*CUBA React UI* 包含 UI 组件。使用 {antDesign_base}/docs/react/introduce[Ant Design] UI 开发，在 xref:client-react:starter-guide.adoc[React] 客户端使用。可以通过 npm 安装：{npm_cubaReactUi}[@cuba-platform/react-ui]。
 
-API reference can be found link:../api-reference/cuba-react-ui/index.html[here].
+API 参考文档在 link:../api-reference/cuba-react-ui/index.html[这里]。
 
-See the rest of this section for information on how to use the components provided by this library.
+阅读本章节剩下的部分了解如何使用该库提供的组件。

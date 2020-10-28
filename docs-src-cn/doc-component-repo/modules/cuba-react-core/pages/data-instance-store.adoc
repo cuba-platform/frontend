@@ -3,14 +3,14 @@
 :api_core_instance: link:../api-reference/cuba-react-core/modules/_data_instance_.html#instance-1
 :api_core_useInstance: link:../api-reference/cuba-react-core/modules/_data_instance_.html#useinstance
 
-`DataInstanceStore` is used to work with a single instance of some Entity. It can be created via {api_core_instance}[instance] initializer function:
+`DataInstanceStore` 用来操作某些实体的单一实例。可以通过 {api_core_instance}[instance] initializer 函数创建：
 
 [source,typescript]
 ----
 dataInstance = instance<Pet>(Pet.NAME, {view: 'pet-with-owner-and-type', loadImmediately: false});
 ----
 
-In a functional component you'll need to wrap the call to `instance` in https://reactjs.org/docs/hooks-reference.html#useref[React.useRef] or use a convenience hook {api_core_useInstance}[useInstance].
+在一个功能组件中，需要将对 `instance` 的调用包装在 https://reactjs.org/docs/hooks-reference.html#useref[React.useRef] 中，或者使用更方便的 hook：{api_core_useInstance}[useInstance]。
 
 [source,typescript]
 ----
@@ -22,12 +22,12 @@ const dataInstance = useInstance<Pet>(
   }
 );
 
-// Note that `dataInstance` in this case is a React's `MutableRefObject`.
-// The `DataInstanceStore` is contained in its `current` property.
+// 注意，此时 `dataInstance` 是 React 的 `MutableRefObject`。
+// `DataInstanceStore` 包含在其 `current` 属性中。
 dataInstance.current.load(entityId);
 ----
 
-Use `dataInstance.commit()` method to perform entity update:
+使用 `dataInstance.commit()` 方法可以更新实体：
 
 [source,typescript]
 ----
@@ -35,7 +35,7 @@ dataInstance.item.name = 'New Name';
 dataInstance.commit()
 ----
 
-For String ID entities you'll need to provide the name of the String ID attribute as a `stringIdName` parameter.
+对于字符串 ID 的实体，需要用 `stringIdName` 参数提供字符串 ID 的属性名称：
 
 [source,typescript]
 ----

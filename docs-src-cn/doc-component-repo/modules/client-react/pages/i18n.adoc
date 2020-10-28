@@ -14,7 +14,7 @@
 == 添加新的本地化内容
 
 * 添加本地化消息至 `src/i18n/<locale>.json` 文件
-* 使用标准的 `react-intl` 组件或 API 在您的代码中使用国际化翻译，参考 https://github.com/formatjs/react-intl/blob/master/docs/README.md[react-intl 文档]。
+* 使用标准的 `react-intl` 组件或 API 在您的代码中使用国际化翻译，参阅 https://github.com/formatjs/react-intl/blob/master/docs/README.md[react-intl 文档]。
 
 == 重写已有消息
 

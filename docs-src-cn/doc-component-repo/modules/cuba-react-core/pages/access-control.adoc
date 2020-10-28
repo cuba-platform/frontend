@@ -1,13 +1,13 @@
 = AccessControl
 :api_core_AccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_accesscontrol_.accesscontrolprops.html
 
-`AccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on user permissions and other conditions. This component is intended to be used in complex cases (such as when requirements includes multiple types of permissions, e.g. an entity permission and a specific permission). In most cases simpler components should be used instead:
+`AccessControl` 用来根据用户的权限许可和其他情况有条件的渲染一些组件（我们称之为 _access-controlled components_）。该组件设计用在比较复杂的用例中（比如，当需要设计多种权限类型时，实体权限、特殊权限等）。更多时候，使用更简单的组件就可以了：
 
-* xref:entity-perm-access-control.adoc[EntityPermAccessControl] when condition involves a single entity operation permission.
-* xref:attr-perm-access-control.adoc[AttrPermAccessControl] when condition involves a single entity attribute permission.
-* xref:specific-perm-access-control.adoc[SpecificPermAccessControl] when condition involves one or more specific permissions.
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl] 当需要判断单一实体操作权限
+* xref:attr-perm-access-control.adoc[AttrPermAccessControl] 当需要判断实体属性权限
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl] 当需要判断一个或多个特殊权限
 
-Use this component either by wrapping access-controlled components in it:
+使用时，可以将 access-controlled components 包在该组件内部：
 
 [source,typescript]
 ----
@@ -16,7 +16,7 @@ Use this component either by wrapping access-controlled components in it:
 </AccessControl>
 ----
 
-or by providing a https://reactjs.org/docs/render-props.html[render prop]:
+也可以通过 https://reactjs.org/docs/render-props.html[render] 属性提供：
 
 [source,typescript]
 ----
@@ -25,18 +25,18 @@ or by providing a https://reactjs.org/docs/render-props.html[render prop]:
 />
 ----
 
-If both are provided, render prop takes precedence.
+如果两种方式同时使用，那么 render 属性优先级更高。
 
-In either case to define the requirements use `displayReqs` and `modifyReqs` props.
+两种情况中，都可以使用 `displayReqs` 和 `modifyReqs` 属性定义权限需求。
 
-`displayReqs` contains the requirements that shall be fulfilled in order for access-controlled components to be rendered. If these requirements are not met then `AccessControl` won't render anything. If `displayReqs` is missing, then access-controlled components will always be rendered.
+`displayReqs` 表示需要满足特定要求，access-controlled components 才能展示。如果这些要求没有得到满足，则 `AccessControl` 不会渲染任何组件。如果没有提供 `displayReqs` 属性，access-controlled components 会始终显示。
 
-`modifyReqs` contains requirements that shall be fulfilled in order for rendered access-controlled components to be modifiable (i.e. to not be disabled). If these requirements are not met then `AccessControl` will disable the access-controlled components:
+`modifyReqs` 表示需要满足特定要求，access-controlled components 才能被修改（即不是禁用状态）。如果这些要求没有得到满足，则 `AccessControl` 会禁用 access-controlled components：
 
-* If render prop is used, it will receive `true` as its `disabled` parameter.
-* Otherwise a prop with name `disabled` (can be configured via `disabledPropName` prop) and value `true` (can be configured via `disabledPropValue` prop) will be passed to each child.
+* 如果提供了 render 属性，那么该属性中组件的 disabled 参数会接收 `true`
+* 否则，每个子组件都会收到一个名称为 `disabled` 值为 `true` 的属性。属性名称可以通过 `disabledPropName` 设置，值可以通过 `disabledPropValue` 设置。
 
-Both `displayReqs` and `modifyReqs` are of the same type:
+`displayReqs` 和 `modifyReqs` 是同样的类型：
 
 [source,typescript]
 ----
@@ -54,19 +54,19 @@ Both `displayReqs` and `modifyReqs` are of the same type:
       'some.custom.specific.permission'
     ],
     customReqs: () => {
-      // Some custom logic here.
+      // 一些自定义逻辑
       return true;
     }
 }
 ----
 
-`entityReqs` contains required entity operation permissions, `attrReqs` - entity attribute permissions and `specificReqs` - specific permissions. `customReqs` function can be used to implement custom conditions / complex logic. For example, you might have a button that shall be visible when user has either of two specific permissions (in that case you will need to use the methods from xref:cuba-react-core:security.adoc[Security service] to manually check the permissions). Or, the condition might be something entirely different than permissions.
+`entityReqs` 表示实体操作权限需求，`attrReqs` - 实体属性权限需求，`specificReqs` - 特殊需求。`customReqs` 可以自定义条件、复杂逻辑的函数。比如，当您需要再用户有两种特殊权限之一时才能看到某个按钮（此时需要调用 xref:cuba-react-core:security.adoc[Security service] 内的方法手动检查权限）。亦或，条件根本不是权限许可时。
 
-.Low-Level Details About Matching Permissions
+.匹配权限的底层逻辑
 ****
-*Entity (CRUD) permissions (`entityReqs`)*
+*实体（CRUD）权限（`entityReqs`）*
 
-A requirement is considered fulfilled when there is an entity permission with
+当有实体权限满足下面条件时，才算是满足要求：
 
 * target:
 ** `{$entityName}:{$operation}`
@@ -75,9 +75,9 @@ A requirement is considered fulfilled when there is an entity permission with
 ** or `\*:*`
 * and value `1`.
 
-*Entity attribute permissions (`attrReqs`)*
+*实体属性权限（`attrReqs`）*
 
-A requirement is considered fulfilled when there is an entity attribute permission with
+当有实体属性权限满足下面条件时，才算是满足要求：
 
 * target:
 ** `{$entityName}:{$attrName}`
@@ -87,9 +87,9 @@ A requirement is considered fulfilled when there is an entity attribute permissi
 ** `1` or `2` when `requiredAttrPerm` is `VIEW`
 ** or `2` when `requiredAttrPerm` is `MODIFY`.
 
-*Specific permissions (`specificReqs`)*
+*特殊权限（`specificReqs`）*
 
-A requirement is considered fulfilled when there is a specific permission with
+当有特殊权限满足下面条件时，才算是满足要求：
 
 * a given target
 * and value `1`.
@@ -99,7 +99,7 @@ A requirement is considered fulfilled when there is a specific permission with
 
 API: {api_core_AccessControlProps}[AccessControlProps].
 
-See also:
+另外，可参考：
 
 * xref:entity-perm-access-control.adoc[EntityPermAccessControl]
 * xref:attr-perm-access-control.adoc[AttrPermAccessControl]
