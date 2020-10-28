@@ -76,7 +76,7 @@ npm install
 npm run start
 ----
 
-该命令会打开一个dev server，可以通过 `localhost:3000` 地址访问该服务。
+该命令会打开一个 dev server，可以通过 `localhost:3000` 地址访问该服务。
 
 .其他运行项目的方法
 ****
@@ -159,4 +159,4 @@ image:pet-clinic-browser.png[列表组件]
 
 image:pet-clinic-editor.png[编辑组件]
 
-不错吧！
+效果不错吧！

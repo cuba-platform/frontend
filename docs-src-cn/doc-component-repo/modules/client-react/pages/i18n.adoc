@@ -9,7 +9,8 @@
 
 下列翻译由社区提供。即，这些翻译可能需要一些时间才能更新。通过 {git_frontendUi}[提PR] 的方式帮助我们更新。
 
-* French
+* 中文
+* 法语
 
 == 添加新的本地化内容
 
@@ -24,6 +25,6 @@
 
 * 添加对应的 `<locale>.json` 消息包。注意需要包含 xref:cuba-react-ui:index.adoc[CUBA React UI] 组件（以 `cuba-react` 开头的键值）以及 Ant Design `Form` 验证的消息（以 ``antd.form.validation`` 开头的键值）
 * 修改 `src/i18n/i18nMappings.ts` 内的 `messagesMapping` 创建一个 locale 和消息包的映射。
-* 修改 `src/i18n/i18nMappings.ts` 内的 `antdLocaleMapping` 创建一个 locale 和 `antd/es/locale-provider/Locale` 的映射。因为 Antd 组件中文本翻译都是通过高速 Antd 使用一个预定义的 locale 设置而实现的。Antd 支持的 locales 可以在 {antDesign_base}/docs/react/i18n[这里] 找到。
-* 在 `index.tsx` 中添加对应的 https://github.com/moment/moment[moment] locale 引入。比如 `import 'moment/locale/ru';`。由于部分 Antd 组件使用了 `moment` 中的本地消息。
+* 修改 `src/i18n/i18nMappings.ts` 内的 `antdLocaleMapping` 创建一个 locale 和 `antd/es/locale-provider/Locale` 的映射。因为 Antd 组件的文本翻译都是通过告诉 Antd 使用一个预定义的 locale 设置而实现的。Antd 支持的 locales 可以在 {antDesign_base}/docs/react/i18n[这里] 找到。
+* 在 `index.tsx` 中添加对应的 https://github.com/moment/moment[moment] locale 引入。比如 `import 'moment/locale/ru';`。因为部分 Antd 组件使用了 `moment` 中的本地消息。
 * 添加切换至新 locale 的文本，比如，使用默认的 `LanguageSwitcher` 时，为其添加一个新的选项。
