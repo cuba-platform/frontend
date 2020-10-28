@@ -3,7 +3,7 @@
 [[react-typescript-app]]
 == react-typescript:app
 
-include::generator:partials$feat-available-in-studio.adoc[]
+include::partial$feat-available-in-studio.adoc[]
 
 生成一个 React 初始化 app。参阅 xref:client-react:starter-guide.adoc[开始使用 React Client]。
 
@@ -18,7 +18,7 @@ include::generator:partials$feat-available-in-studio.adoc[]
 [[react-typescript-entity-management]]
 == react-typescript:entity-management
 
-include::generator:partials$feat-available-in-studio.adoc[]
+include::partial$feat-available-in-studio.adoc[]
 
 生成：
 
@@ -39,15 +39,15 @@ include::generator:partials$feat-available-in-studio.adoc[]
 
 浏览界面可以使用下列特定的展示方式（我们称之为列表类型）：
 
-* list
+* list - 列表
 +
 image:browser-list.png[列表浏览界面示例]
 
-* cards
+* cards - 卡片
 +
 image:browser-cards.png[卡片式浏览界面示例]
 
-* table
+* table - 表格
 +
 image:client-react:data-table-demo.gif[表格浏览界面示例]
 
@@ -76,7 +76,7 @@ image:client-react:data-table-demo.gif[表格浏览界面示例]
 
 == react-typescript:entity-cards
 
-include::generator:partials$feat-available-in-studio.adoc[]
+include::partial$feat-available-in-studio.adoc[]
 
 生成实体列表，每个实体用一个卡片表示（与 List component 的 `"listType": "cards"` 情况类似，只不过这里是只读的，参阅 link:#react-typescript-entity-management[react-typescript:entity-management]）
 
@@ -107,7 +107,7 @@ include::generator:partials$feat-available-in-studio.adoc[]
 
 == react-typescript:blank-component
 
-include::generator:partials$feat-available-in-studio.adoc[]
+include::partial$feat-available-in-studio.adoc[]
 
 生成一个空组件。
 

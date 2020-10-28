@@ -4,7 +4,7 @@
 
 如需自定义主题，则需要对生成的 app 做一些修改。
 
-CAUTION: 在 `less` 中，您需要启用废弃的 inline JavaScript，因为 Antd 重度依赖这个功能。link:http://lesscss.org/usage/#less-options-strict-units[废弃的原因]。
+CAUTION: 在 `less` 中，您需要启用废弃的 inline JavaScript，因为 Antd 重度依赖这个功能。查看 link:http://lesscss.org/usage/#less-options-strict-units[废弃的原因]。
 
 - 安装需要的依赖。注意，我们使用 https://github.com/timarney/react-app-rewired[react-app-rewired] 来修改 webpack 的配置，这样就不需要 link:https://create-react-app.dev/docs/available-scripts#npm-run-eject[eject]。
 

@@ -1,6 +1,6 @@
 = CUBA React Core 组件库
 
-*CUBA React Core* 组件库是由一系列组件和工具类组成，负责一些核心功能，比如操作 CUBA 实体。xref:client-react:starter-guide.adoc[React] 和 xref:client-react-native:starter-guide.adoc[React Native] 客户端都用到了这个库。该库可以通过 npm 安装：{npm_cubaReactCore}[@cuba-platform/react-core]。
+*CUBA React Core* 组件库是由一系列组件和工具类组成，负责一些核心功能，比如操作 CUBA 实体。xref:client-react:starter-guide.adoc[React] 和 xref:client-react-native:starter-guide.adoc[React Native] 客户端都用到了这个库。该库可以通过 npm 安装： {npm_cubaReactCore}[@cuba-platform/react-core]
 
 API 参考在 link:../api-reference/cuba-react-core/index.html[这里]。
 

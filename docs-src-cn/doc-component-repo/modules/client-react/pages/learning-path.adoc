@@ -2,7 +2,7 @@
 
 *React Client* 部分剩下的章节主要介绍使用的技术，以及对于很多常见的用例给出了解决方法。我们建议您还是继续阅读，但是可以跳过某些主题，将来需要时再阅读。
 
-xref:generator:index.adoc[Frontend Generator 参考] 介绍了 generator 的详细信息。解释了如何使用 CLI 以及哪些 CLI 功能在 Studio 中也可用。一定要读一读（您会觉得以 `react-typescript` 开头的命令有点意思）。{manual_studio_frontendUi}[Studio 使用手册] 更多是介绍如何在 Studio 中使用 generator。
+xref:generator:index.adoc[Frontend Generator 参考] 介绍了 generator 的详细信息。解释了如何使用 CLI 以及哪些 CLI 功能在 Studio 中也可用。一定要读一读（您会觉得以 `react-typescript` 开头的命令有点意思）。 {manual_studio_frontendUi}[Studio 使用手册] 更多是介绍如何在 Studio 中使用 generator。
 
 当然，前端的开发过程不止是生成代码而已，您也需要手动创建一些组件，或者重用我们库里的一些组件。阅读 xref:cuba-react-core:index.adoc[CUBA React Core] 和 xref:cuba-react-ui:index.adoc[CUBA React UI] 章节，了解有哪些可用组件以及如何使用。
 

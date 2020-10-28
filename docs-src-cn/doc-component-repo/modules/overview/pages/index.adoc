@@ -1,7 +1,7 @@
 = 概览
 :page-aliases: ROOT:index.adoc
 
-*Frontend UI* 是 CUBA 平台中除了 {manual_platform}/gui_framework.html[通用用户界面] 之外做前端的另一个选择。通用用户界面是主要为内部人员（后台人员）使用而设计的。而 Frontend UI 的目标用户则是外部用户，在布局的自定义方面也更加灵活。同时也采用了前端开发人员更熟悉的技术，也更容易集成 JavaScript 生态中的那些 UI 组件库。但是，要求对现代前端框架的理解更透彻。
+*Frontend UI* 是 CUBA 平台中除了 {manual_platform}/gui_framework.html[通用用户界面] 之外前端技术栈的另一个选择。通用用户界面是主要为内部人员（后台人员）使用而设计的。而 Frontend UI 的目标用户则是外部用户，在布局的自定义方面也更加灵活。采用了前端开发人员更熟悉的技术，也更容易集成 JavaScript 生态中的 UI 组件库。但是，要求开发者对现代前端框架的理解更透彻。
 
 Frontend UI 可以用下面的技术开发：
 
@@ -10,19 +10,19 @@ Frontend UI 可以用下面的技术开发：
 - Polymer （废弃）
 - 您喜欢的其他框架（比如 Angular 或 Vue）：可以用平台无关的 xref:typescript-sdk:index.adoc[TypeScript SDK] 来开发。
 
-开发 Frontend UI 过程中，可以使用我们提供下列工具（或库）进行开发。
+开发 Frontend UI 过程中，可以使用我们提供下列工具（或库）。
 
 == Frontend Generator
 
-xref:generator:index.adoc[Frontend Generator] 是一个脚手架工具，用来提高前端 UI 的开发速度。这个工具可以在 {manual_studio}[CUBA Studio] 使用，也可以作为单独的 CLI 工具。使用这个工具能生成一个初始化应用，也能添加其他代码，比如实体浏览界面和编辑界面。另外，也可以用它生成 xref:typescript-sdk:index.adoc[TypeScript SDK]。Frontend Generator 可以通过 npm 包 {npm_frontendGenerator}[@cuba-platform/front-generator] 获取。
+xref:generator:index.adoc[Frontend Generator] 是一个脚手架工具，用来提高前端 UI 的开发速度。这个工具可以在 {manual_studio}[CUBA Studio] 使用，也可以作为单独的 CLI 工具。使用这个工具能生成一个初始化应用程序，也能帮助添加其他代码，比如实体浏览界面和编辑界面。另外，也可以用它生成 xref:typescript-sdk:index.adoc[TypeScript SDK]。Frontend Generator 可以通过 npm 包 {npm_frontendGenerator}[@cuba-platform/front-generator] 获取。
 
 == React 和 React Native 可用的组件和工具库
 
-对于由 xref:generator:index.adoc[Frontend Generator] 生成的 React 和 React Native 客户端，代码中用到了两个库，这两个库也可以独立使用。一个是 xref:cuba-react-core:index.adoc[CUBA React Core]，这个库主要负责一些核心功能，比如操作 CUBA 实体。这个库在 React 和 React Native 都用到了。另一个是 xref:cuba-react-ui:index.adoc[CUBA React UI]，这个库包含了 UI 组件。使用 {antDesign_base}/docs/react/introduce[Ant Design] UI 套件开发，在 React 端使用。这两个库都可以通过 npm 包安装：{npm_cubaReactCore}[@cuba-platform/react-core]，{npm_cubaReactUi}[@cuba-platform/react-ui]。
+对于由 xref:generator:index.adoc[Frontend Generator] 生成的 React 和 React Native 客户端，代码中用到了两个库，这两个库也可以独立使用。一个是 xref:cuba-react-core:index.adoc[CUBA React Core]，这个库主要负责一些核心功能，比如操作 CUBA 实体。这个库在 React 和 React Native 都用到了。另一个是 xref:cuba-react-ui:index.adoc[CUBA React UI]，这个库包含了 UI 组件。使用 {antDesign_base}/docs/react/introduce[Ant Design] UI 套件开发，在 React 端使用。这两个库都可以通过 npm 包安装： {npm_cubaReactCore}[@cuba-platform/react-core] {npm_cubaReactUi}[@cuba-platform/react-ui]
 
 == CUBA REST JS 库
 
-{api_rest}[CUBA REST JS] 是一个用来与 {manual_restApi}[后台通用 REST API] 交互的库。前端客户端通过通用 REST API 与中间件通信。但是，不需要手动在代码里发送这些请求。如果您的客户端是用 React 或者 React Native 开发，那么 xref:cuba-react-core:index.adoc[CUBA React Core] 组件会在底层使用 CUBA REST JS 与后台通信。如果您使用其他前端框架，或者希望更加灵活的处理这些请求，那么可以直接使用 CUBA REST JS。CUBA REST JS 也可以通过 npm 包安装：{npm_cubaRestJs}[@cuba-platform/rest]。
+{api_rest}[CUBA REST JS] 是一个用来与 {manual_restApi}[后台通用 REST API] 交互的库。前端客户端通过 REST API 与中间件通信。但是，不需要手动在代码里发送这些请求。如果您的客户端是用 React 或者 React Native 开发，那么 xref:cuba-react-core:index.adoc[CUBA React Core] 组件会在底层使用 CUBA REST JS 与后台通信。如果您使用其他前端框架，或者希望更加灵活的处理这些请求，那么可以直接使用 CUBA REST JS。CUBA REST JS 也可以通过 npm 包安装：{npm_cubaRestJs}[@cuba-platform/rest]。
 
 == TypeScript SDK
 

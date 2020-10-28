@@ -49,4 +49,4 @@ image:generator:studio-integration.png[开启 Studio 集成功能]
 
 也可以手动导出项目模型。在主菜单选择 `CUBA > Advanced > Export project model` 即可。Studio 会生成 `projectModel.json` 文件。
 
-IMPORTANT: 当项目模型有变化时（即修改了实体、或者添加了视图等），您需要重新生成项目模型文件并在已经生成的代码中更新项目模型。更新模型可以用一个 npm 脚本执行：`npm run update-model`。
+IMPORTANT: 当项目模型有变化时（即修改了实体、或者添加了视图等），您需要重新生成项目模型文件并在已经生成的代码中更新项目模型。更新模型可以用一个 npm 脚本执行：`npm run update-model`

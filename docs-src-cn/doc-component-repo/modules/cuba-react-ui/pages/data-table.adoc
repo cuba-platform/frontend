@@ -44,7 +44,7 @@ image:client-react:data-table-demo.gif[Data table 示例]
 * `buttons` - React 元素数组，表示要添加到表格上方的控制按钮
 * `tableProps` - 可以用来覆盖任何底层 {antDesign_base}/components/table/#Table[表格的属性]
 
-废弃的属性（使用 `columnDefinitions` 替换）：
+废弃的属性（使用 `columnDefinitions` 代替）：
 
 * `fields` - 需要展示的属性名称
 * `columnProps` - 可以用来覆盖底层 {antDesign_base}/components/table/#Column[列属性]，应用到每一列

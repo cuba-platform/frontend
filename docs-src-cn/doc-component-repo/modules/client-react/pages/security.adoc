@@ -12,7 +12,7 @@ NOTE: 参阅 link:{manual_platform}/permissions.html[CUBA 平台手册] 了解 C
 
 === 访问控制组件（CUBA React Core）
 
-当用户权限不足时，您可能需要隐藏某些 UI 元素（或者显式为禁用状态）。比如，当用户没有实体的增删改操作权限时，您需要隐藏 btn:[Create], btn:[Edit] and btn:[Remove] 按钮；或者，如果用户没有某些业务权限，您可能需要隐藏调用该业务逻辑的按钮。通过 CUBA React Core 中的访问控制组件即可实现该需求：
+当用户权限不足时，您可能需要隐藏某些 UI 元素（或者显式为禁用状态）。比如，当用户没有实体的增删改操作权限时，您需要隐藏 btn:[Create]，btn:[Edit] 和 btn:[Remove] 按钮；或者，如果用户没有某些业务权限，您可能需要隐藏调用该业务逻辑的按钮。通过 CUBA React Core 中的访问控制组件即可实现该需求：
 
 * xref:cuba-react-core:entity-perm-access-control.adoc[EntityPermAccessControl] 当判断是否有单个实体操作权限时
 * xref:cuba-react-core:attr-perm-access-control.adoc[AttrPermAccessControl] 当判断实体属性权限时
@@ -21,7 +21,7 @@ NOTE: 参阅 link:{manual_platform}/permissions.html[CUBA 平台手册] 了解 C
 
 === 安全服务 （CUBA React Core）
 
-通过 CUBA React Core 库内的 {api_core_Security}[Security service] 您可以手动检查用户的运行时安全许可。其包含检查许可权限并返回是否授权的布尔类型方法：
+通过 CUBA React Core 库内的 {api_core_Security}[Security service] 您可以手动检查用户的运行时安全许可。它自带的方法可以检查许可权限并返回是否授权（返回值为 boolean）：
 
 * `isOperationPermissionGranted` - 检查实体操作权限
 * `isAttributePermissionGranted` - 检查实体属性权限
@@ -35,4 +35,4 @@ NOTE: 参阅 link:{manual_platform}/permissions.html[CUBA 平台手册] 了解 C
 * `isOperationAllowed` 检查实体操作权限，并返回 `true` 或 `false`。
 * `isSpecificPermissionGranted` 检查特殊权限，并返回 `true` 或 `false`。
 
-与安全服务方法不同，浙西额方法需要以参数传递一个包含当前用户权限的对象。可以通过 {api_rest_getEffectivePermissions}[getEffectivePermissions] 方法获取该对象。
+与安全服务方法不同，这些方法需要以参数传递一个包含当前用户权限的对象。可以通过 {api_rest_getEffectivePermissions}[getEffectivePermissions] 方法获取该对象。
