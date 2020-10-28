@@ -1,7 +1,7 @@
 = EntityProperty
 :api_ui_EntityPropertyProps: link:../api-reference/cuba-react-ui/interfaces/_ui_entityproperty_.entitypropertyprops.html
 
-`EntityProperty` component is used to display a value of an entity property. It automatically applies formatting according to the type of the property and adds a corresponding label from global message pack (defined on the backend).
+`EntityProperty` 组件用来展示实体属性的值。可以根据属性的类型自动应用展示格式，并能从全局消息包（在后台定义）获取文本为属性添加相应的标签。
 
 [source,typescript]
 ----

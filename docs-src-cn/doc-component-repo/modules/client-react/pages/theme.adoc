@@ -52,7 +52,7 @@ body {
 }
 ----
 
-参考：
+参阅：
 
 - Ant Design 网页上详细的 {antDesign_base}/docs/react/use-with-create-react-app#Customize-Theme[文档]
 

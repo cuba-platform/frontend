@@ -2,9 +2,9 @@
 :api_core_EntityPermAccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_entitypermaccesscontrol_.entitypermaccesscontrolprops.html
 :experimental:
 
-`EntityPermAccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on a single entity operation permission. A common use case is conditionally hiding btn:[Create] / btn:[Edit] / btn:[Delete] buttons in an entity list.
+`EntityPermAccessControl` 用来根据单一实体操作权限有条件的渲染其他组件（我们称之为 _access-controlled components_）。最常见的用法是在实体列表中，有条件的隐藏 btn:[Create] / btn:[Edit] / btn:[Delete] 按钮。
 
-Use this component either by wrapping access-controlled components in it:
+使用时，可以将 access-controlled components 包在该组件内部：
 
 [source,typescript]
 ----
@@ -13,7 +13,7 @@ Use this component either by wrapping access-controlled components in it:
 </EntityPermAccessControl>
 ----
 
-or by providing a https://reactjs.org/docs/render-props.html[render prop]:
+也可以通过 https://reactjs.org/docs/render-props.html[render] 属性提供：
 
 [source,typescript]
 ----
@@ -23,20 +23,20 @@ or by providing a https://reactjs.org/docs/render-props.html[render prop]:
 />
 ----
 
-If both are provided, render prop takes precedence.
+如果两种方式同时使用，那么 render 属性优先级更高。
 
-In either example the button will only be shown if the user has a permission to create `scr$Car` entity instances.
+上面两个例子中，只有当用户有权限创建 `scr$Car` 实体实例时，按钮才会显示。
 
-Instead of hiding the access-controlled components you can specify to render them as disabled by setting `mode` prop to `disable`. If `mode` is `disable`:
+除了隐藏 access-controlled components 之外，还可以通过设置 `mode` 属性为 `disable` 来禁用组件。如果 `mode` 是 `disable`：
 
-* If render prop is used, it will receive `true` as its `disabled` parameter.
-* Otherwise a prop with name `disabled` (can be configured via `disabledPropName` prop) and value `true` (can be configured via `disabledPropValue` prop) will be passed to each child.
+* 如果提供了 render 属性，那么该属性中组件的 disabled 参数会接收 `true`
+* 否则，每个子组件都会收到一个名称为 `disabled` 值为 `true` 的属性。属性名称可以通过 `disabledPropName` 设置，值可以通过 `disabledPropValue` 设置。
 
 '''
 
 API: {api_core_EntityPermAccessControlProps}[EntityPermAccessControlProps].
 
-See also:
+另外，可参考：
 
 * xref:access-control.adoc[AccessControl]
 * xref:attr-perm-access-control.adoc[AttrPermAccessControl]

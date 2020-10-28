@@ -2,7 +2,7 @@
 :api_core_CubaAppProviderProps: link:../api-reference/cuba-react-core/interfaces/_app_cubaappprovider_.cubaappproviderprops.html
 :api_rest_PropertyType: link:../api-reference/cuba-rest-js/modules/_model_.html#propertytype
 
-`CubaAppProvider` initializes main CUBA React Core components and provides them to the client application. It receives an instance of REST API service and an optional config object which has the following interface:
+`CubaAppProvider` 初始化主要的 CUBA React Core 组件，并将这些组件提供给客户端应用程序。接收 REST API 服务实例和一个配置对象作为参数，配置对象接口如下：
 
 [source,typescript]
 ----
@@ -14,12 +14,12 @@ export interface CubaAppConfig {
 }
 ----
 
-* `dataTransferFormats` can be used to override the default formats used to (de)serialize the data transferred by REST API.
-* `displayFormats` can be used to override the formats used for data presentation.
+* `dataTransferFormats` 用来覆盖默认的格式，用在 REST API 数据传输的序列化和反序列化时
+* `displayFormats` 用来覆盖数据展示时的格式
 
-See {api_rest_PropertyType}[PropertyType] in CUBA REST JS API docs for the list of available property types.
+参阅 CUBA REST JS API 文档内的 {api_rest_PropertyType}[PropertyType] 了解可用的属性类型。
 
-NOTE: Only formats for temporal types can currently be overridden this way.
+NOTE: 如果只是覆盖时间类型的格式，可以通过这种方式。
 
 [source,typescript]
 ----
@@ -30,7 +30,7 @@ NOTE: Only formats for temporal types can currently be overridden this way.
                    }
                  }}
 >
-   // App component tree
+   // App 组件树
 </CubaAppProvider>
 ----
 

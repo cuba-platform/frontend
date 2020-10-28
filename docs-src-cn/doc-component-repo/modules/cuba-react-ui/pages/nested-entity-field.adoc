@@ -1,9 +1,9 @@
 = NestedEntityField
 :api_ui_NestedEntityFieldProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_form_.nestedentityfieldprops.html
 
-`NestedEntityField` is a form field component that is used in the context of One-to-One Composition and represents the nested entity. It is a control that allows to create, edit or remove the nested entity. Create/edit will open an xref:entity-editor.adoc[EntityEditor] for the nested entity. xref:form-field.adoc[FormField] will automatically render a `NestedEntityField` for an One-to-One Composition entity property.
+`NestedEntityField` 是一个字段组件，用在一对一组合的上下文环境中，用来表示嵌套的实体。可以用来新建、编辑或删除嵌套实体。新建、编辑时，会为嵌套实体打开 xref:entity-editor.adoc[EntityEditor]。对于一对一组合的实体属性，xref:form-field.adoc[FormField] 可以自动渲染为 `NestedEntityField`。
 
-CAUTION: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+CAUTION: 多层级联组合（比如嵌套实体也带有嵌套实体），目前不支持。
 
 '''
 
