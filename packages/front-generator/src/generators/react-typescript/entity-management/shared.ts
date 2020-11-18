@@ -219,7 +219,7 @@ export async function additionalPrompts<T extends string, A extends EntityManage
   return {
     ...answers,
     ...stringIdAnswers,
-    ...nestedEntityInfo
+    nestedEntityInfo
   };
 }
 
