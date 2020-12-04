@@ -1,9 +1,9 @@
-= Configuration
+= 配置
 
-By default, client deployed to Tomcat is built with production preset and aimed to be served under `app-front` context. Use `PUBLIC_URL` env variable to change this behavior (see `.env.production.local`).
+默认情况下，客户端使用生产版本部署至 Tomcat，用 `app-front` 作为路径上下文。修改 `PUBLIC_URL` 环境变量可以配置这个上下文路径（在 `.env.production.local` 内定义）。
 
-The client served from development server has absolute URL of REST API specified in `REACT_APP_CUBA_URL` (see `.env.development.local`).
+开发阶段 serve 的话，客户端使用 REST API 的绝对路径，通过 `REACT_APP_CUBA_URL` 设置（在 `.env.development.local` 内定义）。
 
-See the https://facebook.github.io/create-react-app/docs/advanced-configuration[list of all available environment variables].
+参阅 React 文档了解 https://facebook.github.io/create-react-app/docs/advanced-configuration[所有可用的环境变量]。
 
-See `src/config.ts` for full list of common application settings used in runtime.
+查看 `src/config.ts` 文件，了解运行时通用的应用程序配置。

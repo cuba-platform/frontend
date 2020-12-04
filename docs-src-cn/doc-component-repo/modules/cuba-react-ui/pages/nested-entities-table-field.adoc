@@ -1,8 +1,10 @@
 = NestedEntitiesTableField
 :api_ui_NestedEntitiesTableFieldProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_form_.nestedentitiestablefieldprops.html
 
-`NestedEntitiesTableField` is a form field component that is used in the context of One-to-Many Composition and represents the nested entities. It will render a xref:data-table.adoc[DataTable] with buttons to create, edit or remove nested entities. Clicking create or edit button will open an xref:entity-editor.adoc[EntityEditor]. xref:form-field.adoc[FormField] will automatically render a `NestedEntitiesTableField` for an One-to-Many Composition entity property.
+`NestedEntitiesTableField` 是一个字段组件，用在一对多组合的上下文环境中，用来表示嵌套的实体。渲染结果会展示带有新建、编辑、删除嵌套实体操作按钮的 xref:data-table.adoc[DataTable]。点击新建或者编辑按钮会打开一个 xref:entity-editor.adoc[EntityEditor]。对于一对多组合的实体属性，xref:form-field.adoc[FormField] 可以自动渲染为 `NestedEntitiesTableField`。
 
-CAUTION: Multiple levels of Composition (i.e. nested entities that themselves contain nested entities) are currently not supported.
+CAUTION: 多层级联组合（比如嵌套实体也带有嵌套实体），目前不支持。
+
+'''
 
 API: {api_ui_NestedEntitiesTableFieldProps}[NestedEntitiesTableFieldProps].

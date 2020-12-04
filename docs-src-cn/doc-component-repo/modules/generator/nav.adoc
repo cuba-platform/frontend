@@ -1,2 +1,2 @@
-* xref:index.adoc[Frontend Generator Reference]
-** xref:commands-reference.adoc[Commands Description]
+* xref:index.adoc[Frontend Generator 参考]
+** xref:commands-reference.adoc[命令参考]

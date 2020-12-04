@@ -1,5 +1,7 @@
 = Polymer Client (Deprecated)
 
+*译者注： Polymer 客户端由于废弃，且很少人使用，故不提供翻译。*
+
 WARNING: Starting from the version 7.2 of the Platform the Polymer UI is deprecated. Use xref:client-react:starter-guide.adoc[React Client].
 
 It is based on https://polymer-library.polymer-project.org[Polymer] library and enables tight integration with mobile browsers for adding web applications to the device home screen and for offline work.

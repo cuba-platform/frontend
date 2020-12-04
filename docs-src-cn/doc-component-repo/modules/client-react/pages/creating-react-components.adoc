@@ -1,8 +1,8 @@
-= Creating React Components
+= 创建 React 组件
 
-It is highly recommended to read full https://reactjs.org/docs/getting-started.html[React documentation]. In React, like in many modern frameworks, everything is a component. We use components to create reusable blocks, as well as particular pages and screens.
+推荐您阅读所有的 https://reactjs.org/docs/getting-started.html[React 文档]。在 React 中，一切皆组件，其他现代的框架也是如此。我们使用组件来创建可重用的块，也可以将特定的页面或者界面组合元素做成组件。
 
-Let's create our first component: place the `Button.tsx` file into the `src` directory:
+现在我们来创建第一个组件：将 `Button.tsx` 文件放入 `src` 目录：
 
 [source,typescript]
 ----
@@ -15,7 +15,7 @@ export class Button extends Component {
 }
 ----
 
-Alternatively, you can create the component using a function:
+或者，也可以直接用 function 来创建组件：
 
 [source,typescript]
 ----
@@ -24,4 +24,4 @@ export function Button(props) {
 }
 ----
 
-There are some useful components provided in xref:cuba-react-core:index.adoc[CUBA React Core] and xref:cuba-react-ui:index.adoc[CUBA React UI] libraries. Please see the corresponding sections for more details.
+xref:cuba-react-core:index.adoc[CUBA React Core] 和 xref:cuba-react-ui:index.adoc[CUBA React UI] 库提供了一些非常有用的组件。请参阅相应的章节进行了解。

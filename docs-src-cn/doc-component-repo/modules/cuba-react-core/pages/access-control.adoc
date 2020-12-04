@@ -1,0 +1,107 @@
+= AccessControl
+:api_core_AccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_accesscontrol_.accesscontrolprops.html
+
+`AccessControl` 用来根据用户的权限许可和其他情况有条件的渲染一些组件（我们称之为 _access-controlled components_）。该组件设计用在比较复杂的用例中（比如，当需要设计多种权限类型时，实体权限、特殊权限等）。更多时候，使用更简单的组件就可以了：
+
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl] 当需要判断单一实体操作权限
+* xref:attr-perm-access-control.adoc[AttrPermAccessControl] 当需要判断实体属性权限
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl] 当需要判断一个或多个特殊权限
+
+使用时，可以将 access-controlled components 包在该组件内部：
+
+[source,typescript]
+----
+<AccessControl modifyReqs={{entityReqs: [{entityName: 'scr$Car'}]}}>
+  <button>Do Something</button>
+</AccessControl>
+----
+
+也可以通过 https://reactjs.org/docs/render-props.html[render] 属性提供：
+
+[source,typescript]
+----
+<AccessControl modifyReqs={{entityReqs: [{entityName: 'scr$Car'}]}}
+               render={disabled => <button disabled={disabled}>Do Something</button>}
+/>
+----
+
+如果两种方式同时使用，那么 render 属性优先级更高。
+
+两种情况中，都可以使用 `displayReqs` 和 `modifyReqs` 属性定义权限需求。
+
+`displayReqs` 表示需要满足特定要求，access-controlled components 才能展示。如果这些要求没有得到满足，则 `AccessControl` 不会渲染任何组件。如果没有提供 `displayReqs` 属性，access-controlled components 会始终显示。
+
+`modifyReqs` 表示需要满足特定要求，access-controlled components 才能被修改（即不是禁用状态）。如果这些要求没有得到满足，则 `AccessControl` 会禁用 access-controlled components：
+
+* 如果提供了 render 属性，那么该属性中组件的 disabled 参数会接收 `true`
+* 否则，每个子组件都会收到一个名称为 `disabled` 值为 `true` 的属性。属性名称可以通过 `disabledPropName` 设置，值可以通过 `disabledPropValue` 设置。
+
+`displayReqs` 和 `modifyReqs` 是同样的类型：
+
+[source,typescript]
+----
+{
+    entityReqs: [
+      {entityName: 'scr$Car', operation: 'create' as const},
+      {entityName: 'scr$Garage', operation: 'read' as const}
+    ],
+    attrReqs: [
+      {entityName: 'scr$Car', attrName: 'manufacturer', requiredAttrPerm: 'MODIFY' as const},
+      {entityName: 'scr$Garage', attrName: 'name', requiredAttrPerm: 'VIEW' as const}
+    ],
+    specificReqs: [
+      'cuba.restApi.fileUpload.enabled',
+      'some.custom.specific.permission'
+    ],
+    customReqs: () => {
+      // 一些自定义逻辑
+      return true;
+    }
+}
+----
+
+`entityReqs` 表示实体操作权限需求，`attrReqs` - 实体属性权限需求，`specificReqs` - 特殊需求。`customReqs` 可以自定义条件、复杂逻辑的函数。比如，当您需要再用户有两种特殊权限之一时才能看到某个按钮（此时需要调用 xref:cuba-react-core:security.adoc[Security service] 内的方法手动检查权限）。亦或，条件根本不是权限许可时。
+
+.匹配权限的底层逻辑
+****
+*实体（CRUD）权限（`entityReqs`）*
+
+当有实体权限满足下面条件时，才算是满足要求：
+
+* target:
+** `{$entityName}:{$operation}`
+** or `{$entityName}:*`
+** or `*:{$operation}`
+** or `\*:*`
+* and value `1`.
+
+*实体属性权限（`attrReqs`）*
+
+当有实体属性权限满足下面条件时，才算是满足要求：
+
+* target:
+** `{$entityName}:{$attrName}`
+** or `{$entityName}:*`
+** or `\*:*`
+* and value:
+** `1` or `2` when `requiredAttrPerm` is `VIEW`
+** or `2` when `requiredAttrPerm` is `MODIFY`.
+
+*特殊权限（`specificReqs`）*
+
+当有特殊权限满足下面条件时，才算是满足要求：
+
+* a given target
+* and value `1`.
+****
+
+'''
+
+API: {api_core_AccessControlProps}[AccessControlProps].
+
+另外，可参考：
+
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl]
+* xref:attr-perm-access-control.adoc[AttrPermAccessControl]
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
+* link:{manual_platform}/permissions.html[Permissions in CUBA]

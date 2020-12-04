@@ -1,5 +1,5 @@
 = REST API
 
-Generated frontend clients use {manual_restApi}[Generic REST API]. The detailed documentation on the API endpoints is published {restApiSwagger}[here].
+生成的客户端代码使用 {manual_restApi}[通用 REST API]。详细的 API endpoint 文档在 {restApiSwagger}[这里] 发布。
 
-CUBA REST JS library is used to communicate with Generic REST API. Documentation and API reference can be found {api_rest}[here].
+使用 CUBA REST JS 与通用 REST API 通信。文档和 API 参考可以在 {api_rest}[这里]。

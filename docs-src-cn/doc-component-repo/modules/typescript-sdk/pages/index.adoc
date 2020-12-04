@@ -2,22 +2,22 @@
 :manual_restApi_services: {manual_restApi}/#rest_api_v2_services_config
 :manual_restApi_queries: {manual_restApi}/#rest_api_v2_queries_config
 
-TypeScript SDK contains CUBA data model ({manual_platform}/data_model.html[entities and enums]), rest {manual_restApi_services}[services] and {manual_restApi_queries}[queries] as TypeScript classes.
+TypeScript SDK 包含 CUBA 数据模型（ {manual_platform}/data_model.html[实体和枚举] ）、REST {manual_restApi_services}[服务] 和 {manual_restApi_queries}[查询] 的类，使用 Typescript。
 
-The SDK is framework-agnostic, meaning that in addition to using it with e.g. our React client, you can use it with any TypeScript-compatible framework such as Angular of Vue.
+SDK 与框架无关，也就是说，除了可以在我们的 React 客户端使用之外，也能在其他兼容 TypeScript 的框架使用，比如 Angular 或 Vue。
 
-It's possible to generate the following configurations of SDK depending on your needs (see xref:generator:commands-reference.adoc[usage instruction]):
+可以根据您不同的需求，按下列配置生成相应的代码（参阅 xref:generator:commands-reference.adoc[使用说明]）：
 
-* `gen-cuba-front sdk:model` - generates entities and enums.
-* `gen-cuba-front sdk:all` - generates all toolkit - entities, enums, queries and services.
+* `gen-cuba-front sdk:model` - 生成实体和枚举
+* `gen-cuba-front sdk:all` - 生成所有的工具类 - 实体、枚举、查询和服务
 
-SDK can be used for front-end clients and Node.js-based BFF (Backend for Frontend) development.
+SDK 可以用来做前端客户端开发和 Node.js BFF（服务前端的后端） 开发。
 
-== Entities
+== 实体
 
-=== Persistent Entities
+=== 持久化实体
 
-Consider the `Role` entity class of CUBA Framework generated in TypeScript:
+以下是 CUBA 框架中 `Role` 实体生成的 Typescript 代码：
 
 `src/cuba/entities/base/sec$Role.ts`
 
@@ -34,22 +34,22 @@ export class Role extends StandardEntity {
 }
 ----
 
-* You can easily access entity name using static `NAME` property: `Role.NAME`.
-* `Role` class contains all properties of the domain model entity including those from the class hierarchy. Reference fields have corresponding types as well, so that you can work with them in a type-safe manner:
+* 通过静态的 `NAME` 属性可以很方便的访问实体名称： `Role.NAME`
+* `Role` 类包含模型实体的全部属性，也包含那些从类结构中继承的属性。引用字段也有对应的类型，因此能以类型安全的方式使用这些类：
 +
 [source,typescript]
 ----
 function changeRole(role: Role) {
   role.defaultRole = true;   // ok
-  role.defaultRole = 'foo';  // compilation fails
+  role.defaultRole = 'foo';  // 编译错误
 }
 ----
 
-=== Non-persistent Entities
+=== 非持久化实体
 
-CUBA Platform supports non-persistent entities. Entity class should be annotated with `com.haulmont.chile.core.annotations.MetaClass`, and extended from `com.haulmont.cuba.core.entity.BaseUuidEntity`. Class properties annotated with `com.haulmont.chile.core.annotations.MetaProperty` will be included in the generated model.
+CUBA 平台支持非持久化实体。实体类需要标有 `com.haulmont.chile.core.annotations.MetaClass` 注解，并且从 `com.haulmont.cuba.core.entity.BaseUuidEntity` 继承。其中，带有 `com.haulmont.chile.core.annotations.MetaProperty` 注解的类属性会包含在生成的模型中。
 
-Source:
+源码：
 
 [source,java]
 ----
@@ -71,7 +71,7 @@ public class SampleUserInfo extends BaseUuidEntity {
     }
 ----
 
-Generated:
+生成代码：
 
 [source,typescript]
 ----
@@ -82,9 +82,9 @@ export class SampleUserInfo {
 }
 ----
 
-== Enums
+== 枚举
 
-CUBA REST API module uses enum’s constant name in client-server communication. SDK contains generated string enums e.g.:
+CUBA REST API 模块在前后端通信时，能使用枚举常量名称。因此，SDK 也包含生成的字符串枚举：
 
 [source,typescript]
 ----
@@ -94,7 +94,7 @@ export enum CarType {
 }
 ----
 
-In order to get enum id and localized caption, you can query full information about enums in runtime using `loadEnums` method of {api_rest}[CUBA REST JS]:
+如果需要获取枚举 id 和本地化信息，可以在运行时通过 {api_rest}[CUBA REST JS] 的 `loadEnums` 方法查询枚举的全部信息：
 
 [source,typescript]
 ----
@@ -107,7 +107,7 @@ cubaREST.loadEnums()
     }));
 ----
 
-Response example:
+返回值示例：
 
 [source,json]
 ----

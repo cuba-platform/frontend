@@ -1,12 +1,12 @@
-= Getting Started
+= 开始使用
 
-First of all, install the {manual_studio}/#installation[CUBA Studio].
+首先，请安装 {manual_studio}/#installation[CUBA Studio]。
 
-Your learning path will vary depending on what kind of frontend client you want to build (e.g. React, React Native, etc.). However, the common starting point will be the *Frontend Generator*. There are two ways to use it:
+您的学习路径一般会根据您准备构建什么样的前端（React，React Native，等等）而有所不同。但是，通常从 *Frontend Generator* 开始，两种使用的途径：
 
-- from Studio UI
-- from command line interface using project model file exported via Studio
+- 从 Studio UI 使用
+- 在命令行窗口使用，这里要用到通过 Studio 生成的项目模型文件
 
-CAUTION: Majority of features provided by CLI are supported by the Studio, but there are few exceptions. Check xref:generator:commands-reference.adoc[Frontend Generator Reference] to see which features are supported. Also you will want to use CLI if you prefer to have your frontend client as a separate project rather than as part of your CUBA project (e.g. you may have different teams working on frontend and backend).
+CAUTION: CLI 支持的大部分功能 Studio 都能支持，但是有一些不是。查看 xref:generator:commands-reference.adoc[Frontend Generator 参考] 了解具体支持哪些功能。另外，如果您希望您的前端项目独立于 CUBA 项目（比如前后端由不同团队开发），那么也需要在前端项目使用 CLI。
 
-If you want to use the Frontend Generator from CLI, check xref:cli-specific-instructions.adoc[here] for CLI-specific instructions. Otherwise, proceed to xref:learning-path.adoc[this section].
+如果您需要在 CLI 使用 Frontend Generator，请参阅 xref:cli-specific-instructions.adoc[CLI 特性介绍]。否则，继续阅读 xref:learning-path.adoc[这章]。

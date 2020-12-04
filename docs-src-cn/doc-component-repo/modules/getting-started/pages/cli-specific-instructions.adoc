@@ -1,27 +1,27 @@
-= CLI-specific instructions
+= CLI 特性介绍
 
 [[installation-cli]]
-== Installation
+== 安装
 
-Install https://nodejs.org/en/download/[Node.js] 12+ and npm 6+ (usually comes with node).
+安装 https://nodejs.org/en/download/[Node.js] 12+ 和 npm 6+（通常 node 会自带）。
 
-Install the generator CLI tool using npm:
+使用 npm 安装 generator CLI 工具：
 
 [source,bash]
 ----
 npm install -g @cuba-platform/front-generator
 ----
 
-Check if installation was successful by running the following command:
+使用下面的命令检查安装是否成功：
 
 [source,bash]
 ----
 gen-cuba-front
 ----
 
-This will display the usage info.
+该命令会显示使用说明。
 
-Alternatively, you can run the generator without installation using https://www.npmjs.com/package/npx[npx]:
+或者可以使用 https://www.npmjs.com/package/npx[npx] 直接运行而不需要安装：
 
 [source,bash]
 ----
@@ -29,25 +29,24 @@ npx @cuba-platform/front-generator
 ----
 
 [[exporting-project-model-file]]
-== Project Metadata
+== 项目元数据
 
-The generator CLI tool will require the project metadata: information about your project's entities, views, etc. You can pass this information to the generator using CUBA Studio. There are two ways of doing that.
+Generator CLI 工具需要项目的元数据：即项目中实体、视图等信息。可以通过 CUBA Studio 传递这些信息给 CLI。有两个途径：
 
 [[passing-project-metadata-from-cuba-studio]]
-=== Passing Project Metadata Automatically
+=== 自动传递项目元数据
 
-* Open your project in CUBA Studio.
-* Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA`.
-* Tick the `Enable integration` checkbox:
+* 在 CUBA Studio 打开项目。
+* 打开设置 （`File > Settings`），然后打开 `Languages & Frameworks > CUBA`。
+* 勾选 `Enable integration` 复选框：
 +
-image:generator:studio-integration.png[Enabling Studio integration]
+image:generator:studio-integration.png[开启 Studio 集成功能]
 
-Now the generator will be able to automatically detect CUBA projects opened
-in Studio.
+现在 generator 可以自动识别 Studio 中打开的 CUBA 项目了。
 
 [[passing-project-metadata-manually]]
-=== Passing Project Metadata Manually
+=== 手动传递项目元数据
 
-You can export the project model manually. Select `CUBA > Advanced > Export project model` in the main menu. Studio will generate `projectModel.json` file.
+也可以手动导出项目模型。在主菜单选择 `CUBA > Advanced > Export project model` 即可。Studio 会生成 `projectModel.json` 文件。
 
-IMPORTANT: When the project model changes (e.g. an entity has been altered, a view has been added, etc.), you will need to re-generate the project model file and update the project model in already generated code. In order to do the latter you can use a convenience npm script: `npm run update-model`.
+IMPORTANT: 当项目模型有变化时（即修改了实体、或者添加了视图等），您需要重新生成项目模型文件并在已经生成的代码中更新项目模型。更新模型可以用一个 npm 脚本执行：`npm run update-model`

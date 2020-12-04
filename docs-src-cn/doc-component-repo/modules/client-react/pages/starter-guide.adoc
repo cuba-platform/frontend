@@ -1,43 +1,43 @@
-= Getting Started with React Client
+= 开始使用 React Client
 :experimental:
 
 include::overview:partial$getting-started-note.adoc[]
 
-In this guide we will use the Frontend Generator to create a starter React client and add screens to browse and edit an entity. You can try it with your own CUBA project, or you can use {petclinic}[Petclinic] sample project.
+在本向导中，我们将使用 Frontend Generator 创建一个初始化的 React 客户端，然后添加实体的浏览和编辑界面。您可以使用您的 CUBA 项目试试，或者使用 {petclinic}[Petclinic] 示例项目。
 
-There are two ways to use the generator: from CUBA Studio and from CLI.
+有两种使用 generator 的途径：通过 CUBA Studio 或通过 CLI。
 
-== Using Generator from Studio
+== 从 Studio 使用 Generator
 
-Select *CUBA* view in *Project* tool window. Right-click on menu:Project[Modules] and select menu:Manage{sp}modules[Create 'front' module]. Choose *React* module preset.
+在 *Project* 窗口选择 *CUBA* 视图。右键点击 menu:Project[Modules] 然后选择 menu:Manage{sp}modules[Create 'front' module]。再选择 *React*。
 
-image:studio-create-front-module.gif[Creating front module]
+image:studio-create-front-module.gif[创建前端模块]
 
-Starter React client will be created in the `modules/front` directory.
+Studio 会在 `modules/front` 文件夹创建 React 客户端代码。
 
-== Using Generator from CLI
+== 从 CLI 使用 Generator
 
-If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.
+如果您选择自动传递项目模型给 CLI，在 Studio 打开 CUBA 项目然后在终端窗口输入下面的命令。
 
 [source,bash]
 ----
 gen-cuba-front react-typescript:app
 ----
 
-Generator will prompt you to select one of the currently opened CUBA projects.
+Generator 会提示您选择一个已经在 Studio 中打开的 CUBA 项目。
 
-image:generator:interactive-projects.png[Interactive project selection]
+image:generator:interactive-projects.png[交互式的项目选择]
 
-If you are using an exported project model file, use `--model` parameter to pass it to the generator.
+如果您使用已经导出的项目模型，则可以用 `--model` 将文件传递给 generator。
 
 [source,bash]
 ----
 gen-cuba-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json
 ----
 
-== Exploring the Generated Project
+== 预览生成的项目
 
-Here is the structure of a newly generated project:
+下面是新生成项目的目录结构：
 
 ....
 app-name/
@@ -49,116 +49,114 @@ app-name/
     favicon.ico
   src/
     index.css
-    index.tsx          <- App entry point. Do not move/rename this file
-    routing.ts         <- Routing configuration
+    index.tsx          <- App 入口。不要移动/重命名该文件。
+    routing.ts         <- 路由配置
     app/
       App.css
-      App.tsx          <- App shell. Switches between Login form and internal application
-    cuba/              <- CUBA Model. See [Backend model]
-      entitites/       <- Project entities
-        base/          <- Entities from addons and framework
-      enums/           <- Project enums
+      App.tsx          <- App shell。在登录表单和内部应用程序之间切换。
+    cuba/              <- CUBA 模型。 参阅 [后端模型]
+      entitites/       <- 项目实体
+        base/          <- 从框架和扩展带来的实体
+      enums/           <- 项目中的枚举
 ....
 
-== Running the Client
+== 运行客户端
 
-Navigate to the directory with the generated React client and run the following command to install the dependencies.
+切换到生成的 React 客户端文件夹，并运行下面的命令安装依赖。
 
 [source,bash]
 ----
 npm install
 ----
 
-Now you can run the client by executing the following command:
+安装完成后，可以通过下面的命令启动客户端：
 
 [source,bash]
 ----
 npm run start
 ----
 
-This will launch a dev server and allow you to access your app at `localhost:3000`.
+该命令会打开一个 dev server，可以通过 `localhost:3000` 地址访问该服务。
 
-.Other Ways to Run the Project
+.其他运行项目的方法
 ****
-If the client was generated via CUBA Studio (as a module of CUBA application) you can use Gradle in order to run npm tooling:
+如果客户端是通过 CUBA Studio 生成的（作为 CUBA 应用程序的一个模块），那么可以用 Gradle 运行 npm 工具：
 
 [source,bash]
 ----
 ./gradlew npm_run_start
 ----
 
-NOTE: There is a known
-https://github.com/srs/gradle-node-plugin/issues/339[bug] in Gradle node
-plugin which does not kill JS development server on task interruption.
+NOTE: Gradle node 插件有个已知 https://github.com/srs/gradle-node-plugin/issues/339[bug]，不会在任务中断时杀掉 JS 开发服务。
 
-You can also run your CUBA application normally (e.g. via menu:CUBA[Start Application Server]) and frontend client will be accessible at `localhost:8080/app-front` (context root can be xref:config.adoc[configured]). However, in this case hot deploy will not be available. We recommend using one of the above methods during development.
+也可以按照正常方式启动 CUBA 应用程序（即通过 menu:CUBA[Start Application Server]），然后可以在 `localhost:8080/app-front` 地址访问前端（路径的根目录可以 xref:config.adoc[配置]）。但是，此时就不能用热部署了，所以在开发时，我们还是推荐使用上面的启动方式。
 ****
 
-Either way, this is what you will see once you open your project in a browser.
+不管用什么方式启动，在浏览器打开项目时，能看到如下界面。
 
-image:login-screen.png[Login screen]
+image:login-screen.png[登录界面]
 
-Enter existing user's login and password (`admin/admin` if you are using Petclinic).
+输入用户名密码（如果使用的是 Petclinic 项目的话则是 `admin/admin`）。
 
-image:home-screen.png[Home screen]
+image:home-screen.png[主界面]
 
-That's it! Congratulations, you have just created your first React client!
+成了！恭喜！您已经成功创建您第一个 CUBA React 客户端！
 
-== Adding Components
+== 添加组件
 
-So far our React client doesn't do much. Let's add the screens to browse and edit an entity.
+现在我们的 React 客户端还没有什么功能。我们来添加浏览和编辑实体的界面。
 
-=== Adding Components Using Studio
+=== 使用 Studio 添加组件
 
-In *CUBA* view of *Project* tool window expand *Data{sp}Model* and right-click on an entity class. Select menu:New[Frontend Component]. Select menu:Entity{sp}management[Next, Finish].
+在 *Project* 工具窗口的 *CUBA* 视图中，展开 *Data{sp}Model* 然后右键点击一个实体。选择 menu:New[Frontend Component]。然后选择 menu:Entity{sp}management[Next, Finish]。
 
-image:studio-adding-frontend-component.gif[Adding a frontend component]
+image:studio-adding-frontend-component.gif[添加前端组件]
 
-=== Adding Components Using CLI
+=== 使用 CLI 添加组件
 
-Execute:
+执行：
 
 [source,bash]
 ----
 gen-cuba-front react-typescript:entity-management --dest src/app/pet --dirShift ../../
 ----
 
-`--dest` is the destination path for the components to be generated into. `--dirShift` is the relative path leading from the components destination directory back to `src` directory.
+`--dest` 指定组件生成的路径。`--dirShift` 是相对路径，从组件所在的目录指向 `src` 目录。
 
-As before, if you are using a project model file you'll need to supply it with `--model` parameter.
+跟之前一样，如果您使用项目模型文件，则需要使用 `--model` 参数指定该文件。
 
-The generator will ask you several questions:
+generator 会询问您几个问题：
 
-- Select a project (this won't be asked if you have supplied a project model file).
-- Select an entity for which the components shall be generated.
-- Enter a name for the CRUD component class, it is a component that renders a List component (i.e. an entity browser) or an Edit component (i.e. an entity editor) depending on which route is active.
-- Select a list type, i.e. how your List component shall look like (for now just select `table`).
-- Name the List component class.
-- Select a view for the List component.
-- Name the Edit component class.
-- Select a view for the editor component.
+- 选择一个项目 - 如果已经提供项目模型文件则不会出现该问题
+- 选择一个实体 - 用来生成该组件
+- 为增删改查组件设置名称 - 根据路由选择显示列表组件（即实体浏览界面）或是编辑组件（即实体编辑器）
+- 选择列表类型 - 列表组件的类型，此时我们就选择 `table`
+- 为列表组件命名
+- 为列表组件选择视图
+- 为编辑组件命名
+- 为编辑组件选择视图
 
-If you are using Petclinic sample project you can enter the following values:
+如果您使用的是 Petclinic 示例项目，您可以输入下列值：
 
 [subs=+quotes]
 ----
 ? *Entity* petclinic_Pet
-? *CRUD component class* PetManagement
+? *CRUD component name* PetManagement
 ? *List type* table
-? *List component class* PetBrowser
+? *List component name* PetBrowser
 ? *List view* _minimal
-? *Edit component class name* PetEditor
+? *Edit component name* PetEditor
 ? *Edit view* pet-with-owner-and-type
 ----
 
-Once all questions are answered the generation will begin. You will be asked to confirm the changes to some existing files - agree to all.
+问题回答完之后，就开始生成组件。如果询问是否覆盖已经存在的文件，选择全覆盖。
 
-Now let's go back to `localhost:3000` and see the changes. You should be able to see a new main menu item that will lead you to an entity browser screen.
+现在我们切换回 `localhost:3000` 看看有什么变化。此时应该能看到主菜单多了一项，可以查看实体浏览界面。
 
-image:pet-clinic-browser.png[List component]
+image:pet-clinic-browser.png[列表组件]
 
-If you select an entity and click btn:[Edit] you will be taken to the entity editor.
+如果您选择一个实体然后点击 btn:[Edit]，则会切换到实体编辑器界面。
 
-image:pet-clinic-editor.png[Edit component]
+image:pet-clinic-editor.png[编辑组件]
 
-That's it!
+效果不错吧！

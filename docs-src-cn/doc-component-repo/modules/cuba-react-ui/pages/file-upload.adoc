@@ -1,8 +1,35 @@
 = FileUpload
 :api_ui_FileUploadProps: link:../api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html
 
-`FileUpload` is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via xref:image-preview.adoc[ImagePreview] component.  xref:form-field.adoc[FormField] will automatically render a `FileUpload` for a `FileDescriptor` entity property.
+`FileUpload` 是一个表单字段，可以用来上传、删除以及下载文件。对于图像文件，通过 xref:image-preview.adoc[ImagePreview] 组件可以预览然后再下载文件。如果实体属性是 `FileDescriptor`，xref:form-field.adoc[FormField] 会自动渲染成 `FileUpload`。
 
-image:FileUploadAndImagePreviewDemo.gif[FileUpload and ImagePreview demo]
+image:FileUploadAndImagePreviewDemo.gif[FileUpload 和 ImagePreview 示例]
+
+== 权限许可
+
+查看和下载::
+
+当满足以下条件时，用户可以查看并下载文件：
+
+- 文件对应的实体属性，用户至少对该属性有 *read-only* 权限。
+- `sys$FileDescriptor` 系统实体，用户有 *read* 权限，并且对于该表的属性，用户至少需要有 *read-only* 权限。
+
+删除::
+
+当满足下列条件时，用户可以删除文件：
+
+- 相应的实体属性，用户有 *modify* 权限。
+
+NOTE: “删除文件” 并不会物理上将文件从服务器上删除。只是将实体与文件描述符（file descriptor）的关联性去掉
+
+上传::
+
+当满足以下条件时，用户可以上传文件（并与实体关联）：
+
+- 相应的实体属性，用户有 *modify* 权限。
+- `sys$FileDescriptor` 系统实体，用户有 *create* 权限。
+- 用户有 *使用 REST API 上传文件* 的特殊权限。
+
+'''
 
 API: {api_ui_FileUploadProps}[FileUploadProps].

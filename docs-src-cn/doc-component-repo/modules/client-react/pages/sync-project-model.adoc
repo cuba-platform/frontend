@@ -1,6 +1,6 @@
-= Synchronizing the Project Model
+= 项目模型同步
 
-In order to sync up with the changes on the backend, you can re-generate the project model using the following command:
+如需同步后端改动的模型，可以通过下面命令重新生成项目模型：
 
 [source,bash]
 ----

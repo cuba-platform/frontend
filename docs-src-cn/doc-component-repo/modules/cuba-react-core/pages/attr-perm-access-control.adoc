@@ -1,0 +1,44 @@
+= AttrPermAccessControl
+:api_core_AttrPermAccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_attrpermaccesscontrol_.attrpermaccesscontrolprops.html
+
+`AttrPermAccessControl` 用来根据实体属性权限有条件的渲染其他组件（我们称之为 _access-controlled components_）。
+
+使用时，可以将 access-controlled components 包在该组件内部：
+
+[source,typescript]
+----
+<AttrPermAccessControl entityName='scr$Car' attrName='manufacturer' requiredAttrPerm='VIEW'>
+  <button>Do Something</button>
+</AttrPermAccessControl>
+----
+
+也可以通过 https://reactjs.org/docs/render-props.html[render] 属性提供：
+
+[source,typescript]
+----
+<AttrPermAccessControl entityName='scr$Car'
+                       attrName='manufacturer'
+                       requiredAttrPerm='VIEW'
+                       render={disabled => <button disabled={disabled}>Do Something</button>}
+/>
+----
+
+如果两种方式同时使用，那么 render 属性优先级更高。
+
+上面两个例子中，只有当用户至少对于 `scr$Car` 实体的 `manufacturer` 属性有只读权限时，按钮才会显示。
+
+除了隐藏 access-controlled components 之外，还可以通过设置 `mode` 属性为 `disable` 来禁用组件。如果 `mode` 是 `disable`：
+
+* 如果提供了 render 属性，那么该属性中组件的 disabled 参数会接收 `true`
+* 否则，每个子组件都会收到一个名称为 `disabled` 值为 `true` 的属性。属性名称可以通过 `disabledPropName` 设置，值可以通过 `disabledPropValue` 设置。
+
+'''
+
+API: {api_core_AttrPermAccessControlProps}[AttrPermAccessControlProps]
+
+另外，可参考：
+
+* xref:access-control.adoc[AccessControl]
+* xref:entity-perm-access-control.adoc[EntityPermAccessControl]
+* xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
+* link:{manual_platform}/permissions.html[Permissions in CUBA]

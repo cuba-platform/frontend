@@ -1,8 +1,9 @@
 = DataCollectionStore
 :api_core_DataCollectionStore: link:../api-reference/cuba-react-core/interfaces/_data_collection_.datacollectionstore.html
 :api_core_collection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#collection-1
+:api_core_useCollection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#usecollection
 
-`DataCollectionStore` is a MobX based store that can be used to retrieve entity collections. It can be created via {api_core_collection}[collection] initializer function:
+`DataCollectionStore` 是基于 MobX 的存储，可以用来获取实体集合。可以通过 {api_core_collection}[collection] initializer 函数创建：
 
 [source,typescript]
 ----
@@ -12,12 +13,33 @@ dataCollection = collection<Pet>(Pet.NAME, {
     filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
     limit: 10,
     offset: 0,
-    loadImmediately: true, // true by default
+    loadImmediately: true, // 默认为 true
   }
 );
 ----
 
-`DataCollectionStore` will consider an entity to be a String ID entity when `stringIdName` parameter is provided:
+在一个功能组件中，需要将对 `collection` 的调用包装在 https://reactjs.org/docs/hooks-reference.html#useref[React.useRef] 中，或者使用更方便的 hook：{api_core_useCollection}[useCollection]。
+
+[source,typescript]
+----
+const dataCollection = useCollection<Pet>(
+  Pet.NAME,
+  {
+    view: 'pet-with-owner-and-type',
+    sort: 'identificationNumber',
+    filter: {conditions: [{property: 'name', operator: "contains", value: 'Ro'}]},
+    limit: 10,
+    offset: 0,
+    loadImmediately: true, // 默认为 true
+  }
+);
+
+// 注意，此时 `dataCollection` 是 React 的 `MutableRefObject`。
+// `DataCollectionStore` 包含在其 `current` 属性中。
+dataCollection.current.delete(e);
+----
+
+如果提供了 `stringIdName` 参数，`DataCollectionStore` 会将实体视为具有字符串 ID 的实体：
 
 [source,typescript]
 ----
@@ -27,7 +49,7 @@ dataCollection = collection<Pet>(Pet.NAME, {
 );
 ----
 
-Typically a `DataCollectionStore` is used to display a list of entities. Since it's reactive, any changes in `items` and `status` will trigger a re-render of `@observer` components:
+`DataCollectionStore` 的典型用法是用来展示实体列表。因为它是响应式的，任何对 `items` 和 `status` 的修改都会触发 `@observer` 组件的重新渲染：
 
 [source,typescript]
 ----
@@ -47,4 +69,6 @@ class CarList extends React.Component {
 }
 ----
 
-API: {api_core_DataCollectionStore}[DataCollectionStore], {api_core_collection}[collection].
+'''
+
+API: {api_core_DataCollectionStore}[DataCollectionStore], {api_core_collection}[collection], {api_core_useCollection}[useCollection].

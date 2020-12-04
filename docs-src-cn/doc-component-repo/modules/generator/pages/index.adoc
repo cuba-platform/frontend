@@ -1,10 +1,10 @@
-= Frontend Generator Reference
+= Frontend Generator 参考
 
 include::overview:partial$getting-started-note.adoc[]
 
-NOTE: This section describes how to use the generator from CLI. You can also use many of the described features from CUBA Studio UI. The xref:commands-reference.adoc[commands description] contains information on which features are available in Studio. See {manual_studio_frontendUi}[Studio manual] for more details on using the generator from Studio.
+NOTE: 本章节介绍如何在 CLI 中使用 generator。在 CUBA Studio UI 中，您也可以使用这里介绍的许多功能。xref:commands-reference.adoc[命令参考] 章节介绍了哪些功能在 Studio 中能用。参阅 {manual_studio_frontendUi}[Studio 使用手册] 了解如何从 Studio 中使用 generator 的更多信息。
 
-Run `gen-cuba-front` (or `npx @cuba-platform/front-generator`) without arguments to see usage info.
+直接运行 `gen-cuba-front`（或 `npx @cuba-platform/front-generator`）命令，不带任何参数，即可查看使用说明。
 
 ....
 Usage: gen-cuba-front [command] [options]
@@ -40,13 +40,13 @@ Usage: gen-cuba-front [command] [options]
     sdk:model [options]                              Generates sdk model
 ....
 
-WARNING: Polymer client is deprecated.
+WARNING: Polymer client 已废弃。
 
-Run `gen-cuba-front <command> --help` to see the list of available options.
+运行 `gen-cuba-front <command> --help` 查看选项列表。
 
-Most commands use interactive prompts to capture necessary inputs such as which entity you want to use, which {manual_platform}/views.html[view], etc. Alternatively, `answers` command line parameter can be used to provide these inputs. You may want to use it if you want to automate the generation. `answers` is a base64-encoded JSON string. See xref:commands-reference.adoc[descriptions of individual commands] for details on what shall be put inside this JSON.
+大多数命令都是交互式的，从而能获取必要的信息输入，比如需要使用哪个实体、哪个 {manual_platform}/views.html[视图] 等等。但是，使用 `answers` 命令行参数可以直接提供这些输入，需要做自动代码生成时可以使用。`answers` 是一个使用了 base64 加密的 JSON 字符串。参阅 xref:commands-reference.adoc[单一命令介绍] 了解如何编写这样的 JSON。
 
-Example of using `answers`:
+使用 `answers` 示例：
 
 ....
 gen-cuba-front react-typescript:entity-management \
