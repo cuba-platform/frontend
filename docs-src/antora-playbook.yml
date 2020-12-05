@@ -1,14 +1,14 @@
 site:
-  title: CUBA Frontend UI Manual
-  url: https://doc.cuba-platform.com/frontend
+  title: JMIX Frontend UI Manual
+  url: https://docs.jmix.io/
   start_page: cuba-frontend-docs:overview:index.adoc
 output:
   dir: docs-build
 content:
   sources:
-    - url: https://github.com/cuba-platform/frontend.git
+    - url: https://github.com/haulmont/jmix-frontend.git
       branches:
-        - master
+        - feature/jmix-support
 #        - v[0-9]*
       start_path: docs-src/doc-component-repo
 ui:
