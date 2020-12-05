@@ -10,7 +10,7 @@ console.log(highlight, 'Generating API Reference documentation from TSDoc commen
 rimraf.sync('docs-src/api-reference/cuba-rest-js');
 rimraf.sync('docs-src/api-reference/cuba-react-core');
 rimraf.sync('docs-src/api-reference/cuba-react-ui');
-runCmdSync('lerna run prepublishOnly --scope {@cuba-platform/rest,@cuba-platform/react-core,@cuba-platform/react-ui}');
+runCmdSync('lerna run prepublishOnly --scope @cuba-platform/rest --scope @cuba-platform/react-core --scope @cuba-platform/react-ui}');
 runCmdSync('lerna run generate-docs');
 
 console.log(success, 'API Reference documentation has been updated. Please commit your changes.');
