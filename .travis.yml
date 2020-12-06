@@ -92,16 +92,6 @@ jobs:
         - npm run pack-react-client-libs
         - npm run test:e2e:sdk --prefix packages/front-generator
 
-    - name: "front-generator - e2e - e2e:polymer2"
-      script:
-        - npm run pack-react-client-libs
-        - npm run test:e2e:polymer2 --prefix packages/front-generator
-
-    - name: "front-generator - e2e - e2e:polymer2-ts"
-      script:
-        - npm run pack-react-client-libs
-        - npm run test:e2e:polymer2-ts --prefix packages/front-generator
-
 #    - name: "front-generator - e2e - e2e:react:scr os: windows"
 #      os:
 #        - windows

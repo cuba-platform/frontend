@@ -2,9 +2,10 @@
 
 This is a monorepo for the following npm packages:
 
-* [front-generator](/packages/front-generator)
-* [cuba-rest-js](/packages/cuba-rest-js)
-* [cuba-react](packages/cuba-react)
+* [@haulmont/jmix-front-generator](/packages/jmix-front-generator)
+* [@haulmont/jmix-rest](/packages/jmix-rest)
+* [@haulmont/jmix-react-core](/packages/jmix-react-core)
+* [@haulmont/jmix-react-ui](/packages/jmix-react-ui)
 
 
 ## Bootstrap
@@ -25,7 +26,7 @@ lerna boostrap
 
 To update versions of @cuba-platform/rest and @cuba-platform/react in generated app [react-app-scr](react-app-scr)
 
-* set new versions in [packages/cuba-rest-js/package.json](packages/cuba-rest-js/package.json) 
+* set new versions in [packages/cuba-rest-js/package.json](packages/jmix-rest-js/package.json) 
 and [packages/cuba-react/package.json](packages/cuba-react/package.json)
 
 * bootstrap client app - compile and pack dependencies, generate client app 

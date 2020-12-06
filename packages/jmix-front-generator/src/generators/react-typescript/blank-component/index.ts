@@ -4,9 +4,9 @@ import {blankComponentParams} from "./params";
 import {BaseGenerator} from "../../../common/base-generator";
 import {StudioTemplateProperty} from "../../../common/studio/studio-model";
 import {elementNameToClass, normalizeRelativePath, unCapitalizeFirst} from "../../../common/utils";
-import {CommonTemplateModel} from "../../polymer2/common/template-model";
 import {addToMenu} from "../common/menu";
 import {writeComponentI18nMessages} from '../common/i18n';
+import {CommonTemplateModel} from "../common/template-model";
 
 export interface BlankComponentAnswers {
   componentName: string

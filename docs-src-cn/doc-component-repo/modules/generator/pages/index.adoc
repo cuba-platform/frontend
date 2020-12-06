@@ -17,21 +17,6 @@ Usage: gen-cuba-front [command] [options]
   Commands:
 
     list [options]                                   List all available clients and their clients
-    polymer2:app [options]                           Generates polymer2 app
-    polymer2:blank-component [options]               Generates polymer2 blank-component
-    polymer2:entity-cards [options]                  Generates polymer2 entity-cards
-    polymer2:entity-edit [options]                   Generates polymer2 entity-edit
-    polymer2:entity-list [options]                   Generates polymer2 entity-list
-    polymer2:entity-management [options]             Generates polymer2 entity-management
-    polymer2:query-results [options]                 Generates polymer2 query-results
-    polymer2:service-data [options]                  Generates polymer2 service-data
-    polymer2:service-form [options]                  Generates polymer2 service-form
-    polymer2-typescript:app [options]                Generates polymer2-typescript app
-    polymer2-typescript:blank-component [options]    Generates polymer2-typescript blank-component
-    polymer2-typescript:entity-cards [options]       Generates polymer2-typescript entity-cards
-    polymer2-typescript:entity-edit [options]        Generates polymer2-typescript entity-edit
-    polymer2-typescript:entity-list [options]        Generates polymer2-typescript entity-list
-    polymer2-typescript:entity-management [options]  Generates polymer2-typescript entity-management
     react-typescript:app [options]                   Generates react-typescript app
     react-typescript:blank-component [options]       Generates react-typescript blank-component
     react-typescript:entity-cards [options]          Generates react-typescript entity-cards
@@ -39,8 +24,6 @@ Usage: gen-cuba-front [command] [options]
     sdk:all [options]                                Generates sdk all
     sdk:model [options]                              Generates sdk model
 ....
-
-WARNING: Polymer client is deprecated.
 
 Run `gen-cuba-front <command> --help` to see the list of available options.
 
