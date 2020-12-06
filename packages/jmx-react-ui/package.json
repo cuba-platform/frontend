@@ -1,7 +1,7 @@
 {
-  "name": "@cuba-platform/react-ui",
-  "version": "2.0.0-dev.1",
-  "description": "CUBA Platform utilities and components for React",
+  "name": "@haulmont/jmix-react-ui",
+  "version": "2.0.0-dev.0",
+  "description": "Jmix utilities and components for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -14,8 +14,8 @@
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.0.0",
-    "@cuba-platform/react-core": "^1.0.0",
-    "@cuba-platform/rest": "^1.0.0",
+    "@haulmont/jmix-react-core": "^0.2.0-dev.0",
+    "@haulmont/jmix-rest": "^0.2.0-dev.0",
     "antd": "^4.4.0",
     "mobx": "^4.13.0 || ^5.13.0",
     "mobx-react": "^6.2.2",
@@ -27,8 +27,8 @@
     "@ant-design/icons": "^4.0.0",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "@cuba-platform/react-core": "^2.0.0-dev.1",
-    "@cuba-platform/rest": "^2.0.0-dev.1",
+    "@haulmont/jmix-react-core": "^0.2.0-dev.0",
+    "@haulmont/jmix-rest": "^0.2.0-dev.0",
     "@types/jest": "^24.0.18",
     "@types/query-string": "^6.3.0",
     "@types/react": "^16.9.41",
@@ -71,8 +71,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui"
+    "url": "https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-react-ui"
   },
-  "author": "CUBA Platform Team <info@cuba-platform.com>",
+  "author": "Haulmont <info@haulmont.com>",
   "license": "Apache-2.0"
 }

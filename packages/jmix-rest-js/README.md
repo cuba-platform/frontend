@@ -2,34 +2,25 @@
 
 [![Build Status](https://travis-ci.org/cuba-platform/cuba-rest-js.svg?branch=master)](https://travis-ci.org/cuba-platform/cuba-rest-js)
 
-JavaScript library for web and Node.js which facilitates CUBA Platfotm's REST API usage.
+JavaScript library for web and Node.js which facilitates Jmix REST API usage.
  
 ## Installation
 
 ### npm
 
 ```bash
-npm install @cuba-platform/rest --save
+npm install @haulmont/jmix-rest --save
 ```
 Import as module  
 ```javascript
-const cuba = require('@cuba-platform/rest');
+const jmixRest = require('@haulmont/jmix-rest');
 ```
 
 Or using ES6 imports:
 
 ```javascript
-import * as cuba from '@cuba-platform/rest';
+import * as jmixRest from '@haulmont/jmix-rest';
 ```
-
-### bower
-```bash
-bower install cuba-platform/cuba-rest-js
-```
-```html
-<script src="./bower_components/cuba-rest-js/dist-browser/cuba.js">
-```
-
 
 ## Dependencies and requirements
 Library has no external dependencies. It's assumed that `Promise` and `fetch` -compatible API are available 
@@ -63,7 +54,7 @@ const myApp = cuba.getApp('myApp');
 ```
 or use if you want to manage instances yourself
 ```javascript
-const myApp = new CubaApp("myApp", "http://localhost:8080/app/rest/")
+const myApp = new CubaApp("myApp", "/rest/")
 ```
 
 ```javascript
