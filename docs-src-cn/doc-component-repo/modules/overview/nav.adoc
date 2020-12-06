@@ -24,6 +24,7 @@
 //** link:#react-native-client-getting-started[Getting Started with React Native Client]
 //** link:#technologies-1[Technologies]
 //** link:#react-native-further-learning[Where Do I Go From Here?]
+//* link:#polymer-based-client-deprecated[Polymer-based Client (Deprecated)]
 //* link:#cuba-react-core[CUBA React Core Components]
 //** link:#cubaappprovider[CubaAppProvider]
 //** link:#mainstore[MainStore]

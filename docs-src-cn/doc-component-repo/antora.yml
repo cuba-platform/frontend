@@ -6,6 +6,7 @@ nav:
   - modules/getting-started/nav.adoc
   - modules/client-react/nav.adoc
   - modules/client-react-native/nav.adoc
+  - modules/client-polymer/nav.adoc
   - modules/cuba-react-core/nav.adoc
   - modules/cuba-react-ui/nav.adoc
   - modules/typescript-sdk/nav.adoc

@@ -7,6 +7,7 @@ Frontend UI can be powered by one of the following technologies:
 
 - React
 - React Native
+- Polymer (deprecated)
 - Your favorite framework (such as Angular or Vue): you can use a framework-agnostic xref:typescript-sdk:index.adoc[TypeScript SDK] for that
 
 We provide several tools and libraries that you can use in order to build your Frontend UI application (or *frontend client* as we call it).
