@@ -22,7 +22,7 @@ const QUERIES_VAR_NAME = 'restQueries';
 export function generateQueries(restQueries: RestQuery[], ctx: ModelContext): string {
 
   // import declaration
-  // import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@cuba-platform/rest";
+  // import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@haulmont/jmix-rest";
   const importDec = importDeclaration(
     [CUBA_APP_TYPE, FETCH_OPTIONS_TYPE, SERIALIZED_ENTITY_TYPE, ENTITIES_WITH_COUNT_TYPE],
     CUBA_APP_MODULE_SPEC);

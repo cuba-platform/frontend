@@ -1,5 +1,5 @@
-import {MetaPropertyInfo, TemporalPropertyType} from '@cuba-platform/rest';
-import {getDataTransferFormat, getDisplayFormat, isTemporalProperty} from '@cuba-platform/react-core';
+import {MetaPropertyInfo, TemporalPropertyType} from '@haulmont/jmix-rest';
+import {getDataTransferFormat, getDisplayFormat, isTemporalProperty} from '@haulmont/jmix-react-core';
 import moment from 'moment';
 
 export function toDisplayValue(value: any, propertyInfo: MetaPropertyInfo) {

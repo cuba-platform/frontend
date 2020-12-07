@@ -1,6 +1,6 @@
 import * as React from "react";
 import {observer} from 'mobx-react';
-import { MainStoreInjected, injectMainStore, AccessControl, AccessControlRequirements } from "@cuba-platform/react-core";
+import { MainStoreInjected, injectMainStore, AccessControl, AccessControlRequirements } from "@haulmont/jmix-react-core";
 
 type Props = MainStoreInjected & {
   entityName: string

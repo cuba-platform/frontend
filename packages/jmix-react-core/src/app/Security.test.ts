@@ -1,5 +1,5 @@
 import { Security } from './Security';
-import {EffectivePermsInfo, EntityPermissionValue, Permission, AttributePermissionValue} from '@cuba-platform/rest';
+import {EffectivePermsInfo, EntityPermissionValue, Permission, AttributePermissionValue} from '@haulmont/jmix-rest';
 
 describe('Security service', () => {
   describe('Security#canUploadAndLinkFile()', () => {
@@ -214,7 +214,7 @@ async function createSecurityWithLoadedPerms(permsMockConfig?: PermsMockConfig):
 }
 
 async function createSecurity(permsMockConfig?: PermsMockConfig): Promise<Security> {
-  const cubaREST = jest.genMockFromModule<any>('@cuba-platform/rest').CubaApp;
+  const cubaREST = jest.genMockFromModule<any>('@haulmont/jmix-rest').CubaApp;
   cubaREST.getEffectivePermissions = jest.fn(() => createPerms(permsMockConfig));
   return new Security(cubaREST);
 }

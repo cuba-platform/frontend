@@ -7,7 +7,7 @@ import {<%= className %>} from "./<%= className %>";
 import {Link, Redirect} from "react-router-dom";
 import {toJS} from "mobx";
 import {FormattedMessage, useIntl} from 'react-intl';
-import {defaultHandleFinish, createAntdFormValidationMessages} from '@cuba-platform/react-ui';
+import {defaultHandleFinish, createAntdFormValidationMessages} from '@haulmont/jmix-react-ui';
 import {
 <% if (Object.keys(editAssociations).length > 0) { %>
   loadAssociationOptions,
@@ -17,14 +17,14 @@ import {
   MainStore,
   useMainStore,
   useReaction
-} from "@cuba-platform/react-core";
+} from "@haulmont/jmix-react-core";
 import {
 <% if (editAttributes.length > 0) { %>
   Field,
 <% } %>
   MultilineText,
   Spinner
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 import "<%= relDirShift %>app/App.css";
 <% relationImports.forEach(relationImport =>{ -%>
   import {<%= relationImport.className %>} from "<%= relDirShift %><%= relationImport.path %>";

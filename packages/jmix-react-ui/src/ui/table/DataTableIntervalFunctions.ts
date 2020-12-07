@@ -1,7 +1,7 @@
 import moment, {Moment} from 'moment';
 import {TemporalInterval, DataTableIntervalEditorMode, PredefinedIntervalOption, TimeUnit} from './DataTableIntervalEditor';
-import {PropertyType} from '@cuba-platform/rest';
-import {getDataTransferFormat} from '@cuba-platform/react-core';
+import {PropertyType} from '@haulmont/jmix-rest';
+import {getDataTransferFormat} from '@haulmont/jmix-react-core';
 
 /**
  * Creates a {@link TemporalInterval} based on input in form of "last|next number of time units including|excluding current".

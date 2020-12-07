@@ -10,11 +10,11 @@ import {
   injectMainStore,
   MainStoreInjected,
   EntityPermAccessControl
-} from "@cuba-platform/react-core";
-import { DataTable, Spinner } from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-core";
+import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 
 import { Car } from "cuba/entities/mpg$Car";
-import { SerializedEntity } from "@cuba-platform/rest";
+import { SerializedEntity } from "@haulmont/jmix-rest";
 import { CarManagementLowCase } from "./CarManagementLowCase";
 import {
   FormattedMessage,

@@ -5,11 +5,11 @@ import {IReactionDisposer, reaction} from "mobx";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {Modal, Button, List, message} from "antd";
 
-import {collection, injectMainStore, MainStoreInjected, EntityPermAccessControl} from "@cuba-platform/react-core";
-import {EntityProperty, Paging, setPagination, Spinner} from "@cuba-platform/react-ui";
+import {collection, injectMainStore, MainStoreInjected, EntityPermAccessControl} from "@haulmont/jmix-react-core";
+import {EntityProperty, Paging, setPagination, Spinner} from "@haulmont/jmix-react-ui";
 
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
+import {SerializedEntity} from "@haulmont/jmix-rest";
 import {<%= className %>} from "./<%= className %>";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {PaginationConfig} from "antd/es/pagination";

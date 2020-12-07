@@ -15,7 +15,7 @@ export default {
     }
   ],
   external: [
-    '@cuba-platform/rest',
+    '@haulmont/jmix-rest',
     'mobx',
     'mobx-react',
     'moment',

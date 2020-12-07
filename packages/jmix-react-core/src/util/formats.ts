@@ -1,4 +1,4 @@
-import {PropertyType} from '@cuba-platform/rest';
+import {PropertyType} from '@haulmont/jmix-rest';
 import {getCubaAppConfig} from '../app/CubaAppProvider';
 import { Moment } from 'moment';
 

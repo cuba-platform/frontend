@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 
 import {<%= entity.className %>} from "<%= relDirShift %>cuba/entities/<%= entity.name %>";
 import {Card} from "antd";
-import {collection, MainStoreInjected, injectMainStore} from "@cuba-platform/react-core";
+import {collection, MainStoreInjected, injectMainStore} from "@haulmont/jmix-react-core";
 import {
 addPagingParams, createPagingConfig,
 defaultPagingConfig,
@@ -11,7 +11,7 @@ EntityProperty,
 Paging,
 setPagination,
 Spinner
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 import {action, IReactionDisposer, observable, reaction} from "mobx";
 import {PaginationConfig} from "antd/es/pagination";
 import {RouteComponentProps} from "react-router";

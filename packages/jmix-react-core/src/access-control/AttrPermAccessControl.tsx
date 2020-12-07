@@ -1,4 +1,4 @@
-import { EntityAttrPermissionValue } from "@cuba-platform/rest";
+import { EntityAttrPermissionValue } from "@haulmont/jmix-rest";
 import * as React from "react";
 import {AccessControl} from './AccessControl';
 

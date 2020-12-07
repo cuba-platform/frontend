@@ -8,7 +8,7 @@ import {assertContent, modelCtx} from "../../../test-commons";
 const servicesModel: RestService[] = require('../../../fixtures/service-model.json');
 
 const expectedRestServices = '' +
-  `import { CubaApp, FetchOptions } from "@cuba-platform/rest";
+  `import { CubaApp, FetchOptions } from "@haulmont/jmix-rest";
       import { Car } from "./entities/mpg$Car";
       
       export type mpg_FavoriteService_addFavorite_params = {

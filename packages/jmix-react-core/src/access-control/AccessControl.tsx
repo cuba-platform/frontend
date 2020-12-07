@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useMainStore, MainStore} from '../app/MainStore';
-import { EntityOperationType, EntityAttrPermissionValue } from "@cuba-platform/rest";
+import { EntityOperationType, EntityAttrPermissionValue } from "@haulmont/jmix-rest";
 import { useObserver } from "mobx-react";
 
 export interface AccessControlProps {

@@ -10,7 +10,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import {
   defaultHandleFinish,
   createAntdFormValidationMessages
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 import {
   loadAssociationOptions,
   DataCollectionStore,
@@ -18,8 +18,8 @@ import {
   MainStore,
   useMainStore,
   useReaction
-} from "@cuba-platform/react-core";
-import { Field, MultilineText, Spinner } from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-core";
+import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 import "app/App.css";
 import { DatatypesTestEntity } from "cuba/entities/scr_DatatypesTestEntity";
 import { AssociationO2OTestEntity } from "cuba/entities/scr_AssociationO2OTestEntity";

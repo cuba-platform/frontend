@@ -3,7 +3,7 @@ import { Form } from 'antd';
 import { Button, DatePicker, Divider, Input, message, Select, Spin, TimePicker } from 'antd';
 import {FilterDropdownProps} from 'antd/es/table/interface';
 import {observer} from 'mobx-react';
-import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@cuba-platform/rest';
+import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@haulmont/jmix-rest';
 import {action, computed, observable} from 'mobx';
 import {Moment} from 'moment';
 import {DataTableListEditor} from './DataTableListEditor';
@@ -20,7 +20,7 @@ import {
   assertNever,
   applyDataTransferFormat,
   stripMilliseconds
-} from '@cuba-platform/react-core';
+} from '@haulmont/jmix-react-core';
 import {IntegerInput} from "../form/IntegerInput";
 import {BigDecimalInput} from "../form/BigDecimalInput";
 import {DoubleInput} from "../form/DoubleInput";

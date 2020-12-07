@@ -24,9 +24,9 @@ lerna boostrap
 
 ## Dependencies of Generated App
 
-To update versions of @cuba-platform/rest and @cuba-platform/react in generated app [react-app-scr](react-app-scr)
+To update versions of @haulmont/jmix-rest and @cuba-platform/react in generated app [react-app-scr](react-app-scr)
 
-* set new versions in [packages/cuba-rest-js/package.json](packages/jmix-rest-js/package.json) 
+* set new versions in [packages/cuba-rest-js/package.json](packages/jmix-rest/package.json) 
 and [packages/cuba-react/package.json](packages/cuba-react/package.json)
 
 * bootstrap client app - compile and pack dependencies, generate client app 

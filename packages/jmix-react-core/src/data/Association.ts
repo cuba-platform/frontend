@@ -1,5 +1,5 @@
 import {collection, DataCollectionOptions, DataCollectionStore} from './Collection';
-import {EntityAttrPermissionValue, MetaPropertyInfo, SerializedEntityProps} from '@cuba-platform/rest';
+import {EntityAttrPermissionValue, MetaPropertyInfo, SerializedEntityProps} from '@haulmont/jmix-rest';
 import {WithId} from '../util/metadata';
 
 /**

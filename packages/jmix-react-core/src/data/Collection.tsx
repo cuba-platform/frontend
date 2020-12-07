@@ -5,7 +5,7 @@ import {
   EntityFilter,
   PredefinedView,
   SerializedEntity
-} from "@cuba-platform/rest";
+} from "@haulmont/jmix-rest";
 import {inject, observer} from "mobx-react";
 import { IReactComponent } from "mobx-react/dist/types/IReactComponent";
 import * as React from "react";

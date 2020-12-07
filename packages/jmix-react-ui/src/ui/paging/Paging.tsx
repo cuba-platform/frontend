@@ -1,5 +1,5 @@
 import {PaginationConfig} from "antd/es/pagination";
-import {DataCollectionStore} from "@cuba-platform/react-core";
+import {DataCollectionStore} from "@haulmont/jmix-react-core";
 import React from "react";
 import queryString from "query-string"
 import {Pagination} from "antd";

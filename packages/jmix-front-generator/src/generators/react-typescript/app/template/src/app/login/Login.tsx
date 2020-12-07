@@ -5,7 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {Button, Input, message} from "antd";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
-import {injectMainStore, MainStoreInjected} from "@cuba-platform/react-core";
+import {injectMainStore, MainStoreInjected} from "@haulmont/jmix-react-core";
 import './Login.css';
 import logo from './logo.png';
 import {LanguageSwitcher} from '../../i18n/LanguageSwitcher';

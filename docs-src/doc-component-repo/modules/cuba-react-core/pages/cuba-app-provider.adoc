@@ -6,7 +6,7 @@
 
 [source,typescript]
 ----
-import {PropertyType} from "@cuba-platform/rest";
+import {PropertyType} from "@haulmont/jmix-rest";
 
 export interface CubaAppConfig {
   dataTransferFormats?: Partial<Record<PropertyType, string>>;

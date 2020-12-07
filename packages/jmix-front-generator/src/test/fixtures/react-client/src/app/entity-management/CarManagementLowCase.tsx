@@ -9,7 +9,7 @@ import {
   addPagingParams,
   createPagingConfig,
   defaultPagingConfig
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 
 type Props = RouteComponentProps<{ entityId?: string }>;
 

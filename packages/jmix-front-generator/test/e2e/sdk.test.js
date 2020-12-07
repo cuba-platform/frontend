@@ -28,7 +28,7 @@ describe('test:e2e:sdk', () => {
     console.log('\ne2e:sdk: prepare to compile sdk');
     fs.copyFileSync(path.join(fixturesDir, 'tsconfig.json'), path.join(appDir, 'tsconfig.json'));
 
-    await cmd(`cd ${appDir} && npm init -y && npm install typescript @cuba-platform/rest`,
+    await cmd(`cd ${appDir} && npm init -y && npm install typescript @haulmont/jmix-rest`,
       `e2e:sdk: prepare to compile sdk - install packages, path: ${fs.realpathSync(appDir)}`,
       `e2e:sdk: compile packages - DONE`);
 

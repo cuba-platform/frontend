@@ -19,7 +19,7 @@ describe('generate TS REST query', () => {
 
     const content = generateQueries(queriesModelFull, ctx);
     const expected = '' +
-      `import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@cuba-platform/rest";
+      `import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@haulmont/jmix-rest";
       
       import { Car } from "./entities/mpg$Car";
       import { FavoriteCar } from "./entities/mpg$FavoriteCar";
@@ -112,7 +112,7 @@ describe('generate TS REST query', () => {
   it('should resolve queries overload', function () {
     const content = generateQueries(queriesModelOverloads, modelCtx());
     const expect = '' +
-      `import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@cuba-platform/rest";
+      `import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@haulmont/jmix-rest";
       import { Car } from "./entities/mpg$Car";
       
       export type queries_Car_ecoCars_params = {} | {

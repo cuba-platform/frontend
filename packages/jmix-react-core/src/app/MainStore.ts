@@ -1,5 +1,5 @@
 import {action, autorun, computed, IObservableArray, observable} from "mobx";
-import {CubaApp, EntityMessages, EnumInfo, MetaClassInfo, UserInfo} from "@cuba-platform/rest";
+import {CubaApp, EntityMessages, EnumInfo, MetaClassInfo, UserInfo} from "@haulmont/jmix-rest";
 import {inject, IWrappedComponent, MobXProviderContext} from "mobx-react";
 import {IReactComponent} from "mobx-react/dist/types/IReactComponent";
 import {Security} from './Security';

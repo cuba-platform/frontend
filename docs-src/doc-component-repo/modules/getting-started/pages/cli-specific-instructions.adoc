@@ -9,7 +9,7 @@ Install the generator CLI tool using npm:
 
 [source,bash]
 ----
-npm install -g @cuba-platform/front-generator
+npm install -g @haulmont/jmix-front-generator
 ----
 
 Check if installation was successful by running the following command:
@@ -25,7 +25,7 @@ Alternatively, you can run the generator without installation using https://www.
 
 [source,bash]
 ----
-npx @cuba-platform/front-generator
+npx @haulmont/jmix-front-generator
 ----
 
 [[exporting-project-model-file]]

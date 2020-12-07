@@ -2,15 +2,15 @@ const packClientLibs = require('./pack-client-libs');
 
 packClientLibs(
     [
-        '@cuba-platform/front-generator',
-        '@cuba-platform/rest',
-        '@cuba-platform/react-core',
-        '@cuba-platform/react-ui'
+        '@haulmont/jmix-front-generator',
+        '@haulmont/jmix-rest',
+        '@haulmont/jmix-react-core',
+        '@haulmont/jmix-react-ui'
     ],
     [
-        '@cuba-platform/rest',
-        '@cuba-platform/react-core',
-        '@cuba-platform/react-ui'
+        '@haulmont/jmix-rest',
+        '@haulmont/jmix-react-core',
+        '@haulmont/jmix-react-ui'
     ]
 );
 

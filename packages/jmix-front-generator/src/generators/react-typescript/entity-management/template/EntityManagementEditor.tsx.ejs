@@ -6,7 +6,7 @@ import {<%= className %>} from "./<%= className %>";
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
-import {defaultHandleFinish, createAntdFormValidationMessages} from '@cuba-platform/react-ui';
+import {defaultHandleFinish, createAntdFormValidationMessages} from '@haulmont/jmix-react-ui';
 
 import {
 <% if (Object.keys(editAssociations).length > 0) { %>
@@ -14,7 +14,7 @@ import {
   DataCollectionStore,
 <% } %>
   instance, MainStoreInjected, injectMainStore
-} from "@cuba-platform/react-core";
+} from "@haulmont/jmix-react-core";
 
 import {
 <% if (editAttributes.length > 0) { %>
@@ -22,7 +22,7 @@ import {
 <% } %>
   MultilineText,
   Spinner
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 
 import "<%= relDirShift %>app/App.css";
 

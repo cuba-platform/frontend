@@ -1,4 +1,4 @@
-import {CubaApp, PropertyType} from "@cuba-platform/rest";
+import {CubaApp, PropertyType} from "@haulmont/jmix-rest";
 import * as React from "react";
 import {MainStore} from "./MainStore";
 import {Provider} from "mobx-react";

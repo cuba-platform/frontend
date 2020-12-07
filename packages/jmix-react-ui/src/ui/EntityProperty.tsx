@@ -1,13 +1,13 @@
 import * as React from "react";
 import {observer} from "mobx-react";
 import {toJS} from "mobx";
-import {MetaPropertyInfo} from '@cuba-platform/rest';
+import {MetaPropertyInfo} from '@haulmont/jmix-rest';
 import {
   getEnumCaption,
   getPropertyInfo,
   injectMainStore,
   MainStoreInjected
-} from "@cuba-platform/react-core";
+} from "@haulmont/jmix-react-core";
 import {toDisplayValue} from '../util/formatting';
 
 export interface EntityPropertyProps extends MainStoreInjected {

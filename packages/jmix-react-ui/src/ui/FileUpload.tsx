@@ -8,7 +8,7 @@ import {UploadProps} from 'antd/es/upload';
 import {UploadFile} from 'antd/es/upload/interface';
 import './FileUpload.less';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
-import {getCubaREST, injectMainStore, MainStoreInjected, MainStore} from '@cuba-platform/react-core';
+import {getCubaREST, injectMainStore, MainStoreInjected, MainStore} from '@haulmont/jmix-react-core';
 import {ImagePreview} from './ImagePreview';
 import {saveFile} from '../util/files';
 

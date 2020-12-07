@@ -4,7 +4,7 @@ include::overview:partial$getting-started-note.adoc[]
 
 NOTE: This section describes how to use the generator from CLI. You can also use many of the described features from CUBA Studio UI. The xref:commands-reference.adoc[commands description] contains information on which features are available in Studio. See {manual_studio_frontendUi}[Studio manual] for more details on using the generator from Studio.
 
-Run `gen-cuba-front` (or `npx @cuba-platform/front-generator`) without arguments to see usage info.
+Run `gen-cuba-front` (or `npx @haulmont/jmix-front-generator`) without arguments to see usage info.
 
 ....
 Usage: gen-cuba-front [command] [options]

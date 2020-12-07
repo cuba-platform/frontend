@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { injectMainStore, MainStoreInjected } from "@cuba-platform/react-core";
+import { injectMainStore, MainStoreInjected } from "@haulmont/jmix-react-core";
 import { observer } from "mobx-react";
 import { Login } from "./Login";
 import { ActivityIndicator, StyleSheet, View } from "react-native";

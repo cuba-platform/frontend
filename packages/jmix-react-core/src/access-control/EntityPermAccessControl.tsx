@@ -1,4 +1,4 @@
-import { EntityOperationType } from "@cuba-platform/rest";
+import { EntityOperationType } from "@haulmont/jmix-rest";
 import {AccessControl} from './AccessControl';
 import * as React from "react";
 

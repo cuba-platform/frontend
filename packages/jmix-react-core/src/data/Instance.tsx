@@ -1,7 +1,7 @@
 import {action, computed, observable, reaction, runInAction, toJS} from "mobx";
 import {
   PredefinedView, SerializedEntityProps, TemporalPropertyType, MetaClassInfo, CommitMode
-} from "@cuba-platform/rest";
+} from "@haulmont/jmix-rest";
 import {inject, observer} from "mobx-react";
 import { IReactComponent } from "mobx-react/dist/types/IReactComponent";
 import * as React from "react";

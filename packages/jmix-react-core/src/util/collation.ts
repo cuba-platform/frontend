@@ -1,4 +1,4 @@
-import {SerializedEntity} from '@cuba-platform/rest';
+import {SerializedEntity} from '@haulmont/jmix-rest';
 
 // TODO Implement client-side filtering
 // export function filterEntityInstances<T>(items: Array<SerializedEntity<T>>, _filter: EntityFilter | undefined): Array<SerializedEntity<T>> {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {collection} from "@cuba-platform/react-core";
+import {collection} from "@haulmont/jmix-react-core";
 import {ActivityIndicator, ScrollView, StyleSheet, Text} from "react-native";
-import {PredefinedView} from "@cuba-platform/rest";
+import {PredefinedView} from "@haulmont/jmix-rest";
 import {observer} from "mobx-react";
 import {colors} from '../styles/palette';
 import {User, UserView} from '../cuba/entities/base/sec$User';

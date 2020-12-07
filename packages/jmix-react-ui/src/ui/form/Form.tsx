@@ -15,7 +15,7 @@ import {
   MainStoreInjected,
   WithId,
   loadAllAssociationOptions
-} from '@cuba-platform/react-core';
+} from '@haulmont/jmix-react-core';
 import { FormItemProps, FormInstance } from 'antd/es/form';
 import {observer} from 'mobx-react';
 import {Msg} from '../Msg';
@@ -44,7 +44,7 @@ import {
   MetaPropertyInfo,
   PropertyType,
   SerializedEntityProps, View, ViewProperty,
-} from '@cuba-platform/rest';
+} from '@haulmont/jmix-rest';
 import {uuidPattern} from '../../util/regex';
 import * as React from 'react';
 import {SelectProps, SelectValue} from 'antd/es/select';
@@ -77,7 +77,7 @@ import {MultilineText} from '../MultilineText';
 import {Spinner} from '../Spinner';
 // noinspection ES6PreferShortImport Importing from ../../index.ts will cause a circular dependency
 import {createAntdFormValidationMessages} from '../../i18n/validation';
-import {CommitMode} from '@cuba-platform/rest';
+import {CommitMode} from '@haulmont/jmix-rest';
 
 
 export interface FieldProps extends MainStoreInjected {

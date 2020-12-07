@@ -2,7 +2,7 @@ import {toDisplayValue} from './formatting';
 import {
   MetaPropertyInfo,
   PropertyType
-} from '@cuba-platform/rest';
+} from '@haulmont/jmix-rest';
 import moment from 'moment-timezone';
 
 const mockPropertyInfo: MetaPropertyInfo = {

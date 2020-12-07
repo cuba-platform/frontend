@@ -1,6 +1,6 @@
 # React Native Front-end Client for CUBA Platform
 
-This project was generated with [@cuba-platform/front-generator](https://github.com/cuba-platform/frontend).
+This project was generated with [@haulmont/jmix-front-generator](https://github.com/cuba-platform/frontend).
 
 Install dependencies:
 

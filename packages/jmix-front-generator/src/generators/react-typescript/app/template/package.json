@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cuba-platform/react-core": "^1.0.0",
-    "@cuba-platform/react-ui": "^1.0.0",
-    "@cuba-platform/rest": "^1.0.0",
+    "@haulmont/jmix-react-core": "^1.0.0",
+    "@haulmont/jmix-react-ui": "^1.0.0",
+    "@haulmont/jmix-rest": "^1.0.0",
     "@ant-design/icons": "^4.0.0",
     "antd": "^4.0.0",
     "mobx": "^4.13.0",
@@ -26,7 +26,6 @@
     "update-model": "gen-cuba-front sdk:all --dest src/cuba"
   },
   "devDependencies": {
-    "@cuba-platform/front-generator": "^3.0.0",
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
     "@types/react": "^16.9.41",

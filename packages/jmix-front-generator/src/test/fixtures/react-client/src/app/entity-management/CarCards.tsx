@@ -10,16 +10,16 @@ import {
   injectMainStore,
   MainStoreInjected,
   EntityPermAccessControl
-} from "@cuba-platform/react-core";
+} from "@haulmont/jmix-react-core";
 import {
   EntityProperty,
   Paging,
   setPagination,
   Spinner
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 
 import { Car } from "cuba/entities/mpg$Car";
-import { SerializedEntity } from "@cuba-platform/rest";
+import { SerializedEntity } from "@haulmont/jmix-rest";
 import { CarManagement } from "./CarManagement";
 import {
   FormattedMessage,

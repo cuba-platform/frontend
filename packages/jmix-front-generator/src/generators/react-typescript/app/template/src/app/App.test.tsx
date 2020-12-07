@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
-import {MainStore} from "@cuba-platform/react-core";
-import {initializeApp} from "@cuba-platform/rest";
+import {MainStore} from "@haulmont/jmix-react-core";
+import {initializeApp} from "@haulmont/jmix-rest";
 import {IntlProvider} from 'react-intl';
 
 it('renders without crashing', () => {

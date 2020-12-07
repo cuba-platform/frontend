@@ -7,7 +7,7 @@ import {
   isOperationAllowed,
   isSpecificPermissionGranted,
   EntityOperationType
-} from '@cuba-platform/rest';
+} from '@haulmont/jmix-rest';
 
 
 export class Security {

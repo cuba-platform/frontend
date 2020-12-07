@@ -13,15 +13,15 @@ import {
 import {
   defaultHandleFinish,
   createAntdFormValidationMessages
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 
 import {
   instance,
   MainStoreInjected,
   injectMainStore
-} from "@cuba-platform/react-core";
+} from "@haulmont/jmix-react-core";
 
-import { Field, MultilineText, Spinner } from "@cuba-platform/react-ui";
+import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 
 import "app/App.css";
 

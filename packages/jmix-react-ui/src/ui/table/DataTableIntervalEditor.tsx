@@ -9,7 +9,7 @@ import {determineLastNextXInterval, determinePredefinedInterval} from './DataTab
 import './DataTableIntervalEditor.less';
 import './DataTableFilterControlLayout.less';
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
-import {PropertyType} from '@cuba-platform/rest';
+import {PropertyType} from '@haulmont/jmix-rest';
 
 export interface TemporalInterval {
   minDate: string,

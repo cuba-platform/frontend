@@ -7,7 +7,7 @@ import {
   collection,
   MainStoreInjected,
   injectMainStore
-} from "@cuba-platform/react-core";
+} from "@haulmont/jmix-react-core";
 import {
   addPagingParams,
   createPagingConfig,
@@ -16,7 +16,7 @@ import {
   Paging,
   setPagination,
   Spinner
-} from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-ui";
 import { action, IReactionDisposer, observable, reaction } from "mobx";
 import { PaginationConfig } from "antd/es/pagination";
 import { RouteComponentProps } from "react-router";

@@ -8,15 +8,15 @@ import {
   EnumInfo,
   EnumValueInfo,
   MetaPropertyInfo
-} from '@cuba-platform/rest';
+} from '@haulmont/jmix-rest';
 import {DataTableCell} from './DataTableCell';
 import {
   ComparisonType,
   DataTableCustomFilter as CustomFilter,
 } from './DataTableCustomFilter';
 import { toJS } from 'mobx';
-import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@cuba-platform/react-core';
-import {OperatorType, FilterValue} from "@cuba-platform/rest";
+import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@haulmont/jmix-react-core';
+import {OperatorType, FilterValue} from "@haulmont/jmix-rest";
 import {setPagination} from "../paging/Paging";
 import {Key} from 'antd/es/table/interface';
 import { FormInstance } from 'antd/es/form';

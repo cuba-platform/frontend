@@ -1,4 +1,4 @@
-import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@cuba-platform/rest";
+import { CubaApp, FetchOptions, SerializedEntity, EntitiesWithCount } from "@haulmont/jmix-rest";
 
 import { Car } from "./entities/scr$Car";
 

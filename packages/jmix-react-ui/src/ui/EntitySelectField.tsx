@@ -1,7 +1,7 @@
 import {observer} from "mobx-react";
 import {Select} from "antd";
 import * as React from "react";
-import { DataCollectionStore, WithId } from "@cuba-platform/react-core";
+import { DataCollectionStore, WithId } from "@haulmont/jmix-react-core";
 
 export interface EntitySelectFieldProps {
   optionsContainer?: DataCollectionStore<WithId>,

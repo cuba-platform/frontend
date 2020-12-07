@@ -1,5 +1,5 @@
 import {formFieldsToInstanceItem, instanceItemToFormFields} from './Instance';
-import {AttributeType, Cardinality} from '@cuba-platform/rest';
+import {AttributeType, Cardinality} from '@haulmont/jmix-rest';
 import moment from 'moment';
 import {prepareForCommit} from '../util/internal/data';
 

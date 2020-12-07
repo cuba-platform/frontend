@@ -6,14 +6,14 @@ import { DatePicker, Input, Select, Tag, TimePicker, Tooltip, InputNumber } from
 import {observer} from "mobx-react";
 import {Moment} from "moment";
 import {CaptionValuePair} from "./DataTableCustomFilter";
-import {MetaPropertyInfo, PropertyType} from '@cuba-platform/rest';
+import {MetaPropertyInfo, PropertyType} from '@haulmont/jmix-rest';
 import {ReactNode, Ref} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {IntegerInput} from '../form/IntegerInput';
 import {DoubleInput} from '../form/DoubleInput';
 import {LongInput} from '../form/LongInput';
 import {BigDecimalInput} from '../form/BigDecimalInput';
-import {assertNever, applyDataTransferFormat, applyDisplayFormat, stripMilliseconds} from '@cuba-platform/react-core';
+import {assertNever, applyDataTransferFormat, applyDisplayFormat, stripMilliseconds} from '@haulmont/jmix-react-core';
 import {InputNumberProps} from 'antd/es/input-number';
 import {LabeledValue} from 'antd/es/select';
 import './DataTableListEditor.less';

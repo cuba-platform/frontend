@@ -14,7 +14,7 @@ import {
   handleTableChange,
   isPreservedCondition
 } from './DataTableHelpers';
-import {Condition, ConditionsGroup, EntityAttrPermissionValue, SerializedEntity} from "@cuba-platform/rest";
+import {Condition, ConditionsGroup, EntityAttrPermissionValue, SerializedEntity} from "@haulmont/jmix-rest";
 import {
   MainStoreInjected,
   DataCollectionStore,
@@ -22,7 +22,7 @@ import {
   assertNever,
   getPropertyInfoNN,
   WithId
-} from '@cuba-platform/react-core';
+} from '@haulmont/jmix-react-core';
 import { FormInstance } from 'antd/es/form';
 
 /**

@@ -1,4 +1,4 @@
-import { initializeApp } from "@cuba-platform/rest";
+import { initializeApp } from "@haulmont/jmix-rest";
 import { REACT_NATIVE_APP_CUBA_URL, REACT_NATIVE_APP_REST_CLIENT_ID, REACT_NATIVE_APP_REST_CLIENT_SECRET } from "react-native-dotenv";
 
 export const cubaREST = initializeApp({

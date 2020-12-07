@@ -1,5 +1,5 @@
 import {WithId, getPropertyInfo, isOneToOneComposition, isOneToManyComposition} from '../metadata';
-import {SerializedEntityProps, MetaClassInfo} from '@cuba-platform/rest';
+import {SerializedEntityProps, MetaClassInfo} from '@haulmont/jmix-rest';
 import {TEMPORARY_ENTITY_ID_PREFIX} from '../data';
 
 /**

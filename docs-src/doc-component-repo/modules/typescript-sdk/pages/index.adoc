@@ -98,7 +98,7 @@ In order to get enum id and localized caption, you can query full information ab
 
 [source,typescript]
 ----
-import {EnumInfo, initializeApp} from "@cuba-platform/rest";
+import {EnumInfo, initializeApp} from "@haulmont/jmix-rest";
 
 const cubaREST = initializeApp();
 cubaREST.loadEnums()

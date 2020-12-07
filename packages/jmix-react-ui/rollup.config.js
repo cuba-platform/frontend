@@ -19,8 +19,8 @@ export default {
   ],
   external: [
     '@ant-design/icons',
-    '@cuba-platform/rest',
-    '@cuba-platform/react-core',
+    '@haulmont/jmix-rest',
+    '@haulmont/jmix-react-core',
     'antd',
     'mobx',
     'mobx-react',
