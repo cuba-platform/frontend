@@ -73,6 +73,9 @@
     "type": "git",
     "url": "https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-react-ui"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Haulmont <info@haulmont.com>",
   "license": "Apache-2.0"
 }
