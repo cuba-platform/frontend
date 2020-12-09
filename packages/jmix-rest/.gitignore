@@ -5,6 +5,6 @@ npm-debug.log
 .nyc_output
 coverage
 .gradle
-cuba-platform-rest-*.tgz
+*.tgz
 dist-browser
 dist-node

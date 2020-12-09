@@ -2,5 +2,5 @@
 node_modules
 dist
 dist-transpiled
-cuba-platform-react-core-*.tgz
+*.tgz
 coverage
