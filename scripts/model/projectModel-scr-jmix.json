@@ -2,7 +2,6 @@
   "project": {
     "name": "scr-jmix",
     "namespace": "scr-jmix",
-    "modulePrefix": "app",
     "locales": [
       {
         "code": "en",

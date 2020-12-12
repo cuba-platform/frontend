@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@haulmont/jmix-react-core": "^1.0.0",
-    "@haulmont/jmix-react-ui": "^1.0.0",
-    "@haulmont/jmix-rest": "^1.0.0",
+    "@haulmont/jmix-react-core": "^0.2.0-dev.0",
+    "@haulmont/jmix-react-ui": "^0.2.0-dev.0",
+    "@haulmont/jmix-rest": "^0.2.0-dev.0",
     "@ant-design/icons": "^4.0.0",
     "antd": "^4.0.0",
     "mobx": "^4.13.0",
