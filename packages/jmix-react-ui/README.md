@@ -1,5 +1,5 @@
-# CUBA React UI
+# Jmix React UI
 
-Contains UI components and utilities for CUBA Platform React client.
+Contains UI components and utilities for Jmix React client.
 
-Documentation and API reference can be found [here](https://doc.cuba-platform.com/frontend).
+Documentation and API reference can be found [here](https://docs.jmix.io/jmix/0.x/frontend-ui/index.html).

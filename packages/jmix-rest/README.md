@@ -1,4 +1,4 @@
-# CUBA REST JS
+# Jmix REST
 
 [![Build Status](https://travis-ci.org/cuba-platform/cuba-rest-js.svg?branch=master)](https://travis-ci.org/cuba-platform/cuba-rest-js)
 
@@ -63,7 +63,7 @@ myApp.loadEntities('sec$User', {view: '_minimal', sort: 'login'}).then((users) =
 });
 ```
 
-[Full API reference](https://doc.cuba-platform.com/frontend/latest-cuba-rest-js.html)
+[Full API reference](https://docs.jmix.io/jmix/0.x/frontend-ui/latest-cuba-rest-js.html)
 
 ## Development
 

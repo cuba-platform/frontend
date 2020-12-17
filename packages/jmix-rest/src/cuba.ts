@@ -459,7 +459,7 @@ export class CubaApp {
   }
 
   /**
-   * @since CUBA REST JS 0.7.0, Generic REST API 7.2.0
+   * @since Jmix REST 0.7.0, Generic REST API 7.2.0
    */
   public setSessionLocale(): Promise<void> {
     return this.requestIfSupported('7.2.0', () => this.fetch('PUT', 'user-session/locale'));
