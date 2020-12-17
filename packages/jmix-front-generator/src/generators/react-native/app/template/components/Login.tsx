@@ -86,7 +86,7 @@ export class Login extends Component<Props> {
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
           <View style={styles.header}>
-            <Text style={styles.header_title}>scr</Text>
+            <Text style={styles.header_title}><%=project.name%></Text>
             <Text style={styles.header_subTitle}>Sign in to your account</Text>
           </View>
           <View style={styles.form}>
