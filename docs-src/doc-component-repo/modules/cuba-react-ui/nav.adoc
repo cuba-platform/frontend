@@ -1,4 +1,4 @@
-* xref:index.adoc[CUBA React UI]
+* xref:index.adoc[Jmix React UI]
 ** xref:data-table.adoc[DataTable]
 ** xref:entity-editor.adoc[EntityEditor]
 ** xref:entity-property.adoc[EntityProperty]

@@ -1,4 +1,4 @@
-* xref:index.adoc[CUBA React Core]
+* xref:index.adoc[Jmix React Core]
 ** xref:access-control.adoc[AccessControl]
 ** xref:attr-perm-access-control.adoc[AttrPermAccessControl]
 ** xref:client-side-data-collection-store.adoc[ClientSideDataCollectionStore]

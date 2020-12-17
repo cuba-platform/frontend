@@ -1,6 +1,6 @@
 = ClientSideDataCollectionStore
-:api_core_ClientSideDataCollectionStore: link:../api-reference/cuba-react-core/interfaces/_data_collection_.clientsidedatacollectionstore.html
-:api_core_clientSideCollection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#clientsidecollection
+:api_core_ClientSideDataCollectionStore: link:../api-reference/jmix-react-core/interfaces/_data_collection_.clientsidedatacollectionstore.html
+:api_core_clientSideCollection: link:../api-reference/jmix-react-core/modules/_data_collection_.html#clientsidecollection
 
 `ClientSideDataCollectionStore` is a variant of `DataCollectionStore` intended for situations when data shall be operated client-side. It is useful for example when handling {compositionGuide}[Composition relationship]. `ClientSideDataCollectionStore` can be created via {api_core_clientSideCollection}[clientSideCollection] initializer function.
 

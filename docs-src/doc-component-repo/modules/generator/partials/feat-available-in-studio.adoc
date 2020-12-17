@@ -1,1 +1,2 @@
-TIP: This feature is also available in CUBA Studio, see {manual_studio_frontendUi}[Studio Manual].
+TIP: This feature is also available in Jmix Studio.
+// TODO: Add link to Studio manual

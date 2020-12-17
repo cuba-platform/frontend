@@ -2,4 +2,4 @@
 
 Generated frontend clients use {manual_restApi}[Generic REST API]. The detailed documentation on the API endpoints is published {restApiSwagger}[here].
 
-CUBA REST JS library is used to communicate with Generic REST API. Documentation and API reference can be found {api_rest}[here].
+Jmix REST library is used to communicate with Generic REST API. Documentation and API reference can be found {api_rest}[here].

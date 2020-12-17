@@ -55,6 +55,3 @@ References:
 
 - detailed {antDesign_base}/docs/react/use-with-create-react-app#Customize-Theme[documentation] on Ant Design website
 
-== CSS Methodology
-
-Both the generated client and xref:cuba-react-ui:index.adoc[CUBA React UI] follow http://rscss.io[RSCSS methodology]. Additionally, we adopt Base Rules from http://smacss.com/book/type-base[SMACSS methodology].

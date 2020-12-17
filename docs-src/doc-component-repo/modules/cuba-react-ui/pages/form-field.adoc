@@ -1,5 +1,5 @@
 = FormField
-:api_ui_FormFieldProps: link:../api-reference/cuba-react-ui/modules/_ui_form_form_.html#formfieldprops
+:api_ui_FormFieldProps: link:../api-reference/jmix-react-ui/modules/_ui_form_form_.html#formfieldprops
 
 `FormField` component automatically creates a correct Form UI component based on entity and property names:
 

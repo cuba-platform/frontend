@@ -1,6 +1,6 @@
 = MainStore
-:api_core_MainStore: link:../api-reference/cuba-react-core/modules/_app_mainstore_.html
-:api_core_useMainStore: link:../api-reference/cuba-react-core/modules/_app_mainstore_.html#usemainstore
+:api_core_MainStore: link:../api-reference/jmix-react-core/modules/_app_mainstore_.html
+:api_core_useMainStore: link:../api-reference/jmix-react-core/modules/_app_mainstore_.html#usemainstore
 
 `MainStore` contains common application data. It is initialized by xref:cuba-app-provider.adoc[CubaAppProvider]. You can inject it in a class  component using `@injectMainStore` decorator:
 

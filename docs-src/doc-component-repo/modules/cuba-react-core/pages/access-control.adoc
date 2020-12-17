@@ -1,5 +1,5 @@
 = AccessControl
-:api_core_AccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_accesscontrol_.accesscontrolprops.html
+:api_core_AccessControlProps: link:../api-reference/jmix-react-core/interfaces/_access_control_accesscontrol_.accesscontrolprops.html
 
 `AccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on user permissions and other conditions. This component is intended to be used in complex cases (such as when requirements includes multiple types of permissions, e.g. an entity permission and a specific permission). In most cases simpler components should be used instead:
 
@@ -104,4 +104,4 @@ See also:
 * xref:entity-perm-access-control.adoc[EntityPermAccessControl]
 * xref:attr-perm-access-control.adoc[AttrPermAccessControl]
 * xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
-* link:{manual_platform}/permissions.html[Permissions in CUBA]
+* link:{manual_platform}/security[Security in Jmix]

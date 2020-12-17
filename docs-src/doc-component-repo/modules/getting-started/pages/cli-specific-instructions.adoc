@@ -31,23 +31,23 @@ npx @haulmont/jmix-front-generator
 [[exporting-project-model-file]]
 == Project Metadata
 
-The generator CLI tool will require the project metadata: information about your project's entities, views, etc. You can pass this information to the generator using CUBA Studio. There are two ways of doing that.
+The generator CLI tool will require the project metadata: information about your project's entities, fetch plans, etc. You can pass this information to the generator using Jmix Studio.
 
-[[passing-project-metadata-from-cuba-studio]]
-=== Passing Project Metadata Automatically
+//[[passing-project-metadata-from-cuba-studio]]
+//=== Passing Project Metadata Automatically
 
-* Open your project in CUBA Studio.
-* Open settings (`File > Settings`), then open `Languages & Frameworks > CUBA`.
-* Tick the `Enable integration` checkbox:
-+
-image:generator:studio-integration.png[Enabling Studio integration]
+// TODO Add screenshot (currently not available in Jmix Studio)
+* Open your project in Jmix Studio.
+* Open settings (`File > Settings`), then open `Languages & Frameworks > Jmix`.
+* Tick the `Enable integration` checkbox.
 
-Now the generator will be able to automatically detect CUBA projects opened
+Now the generator will be able to automatically detect Jmix projects opened
 in Studio.
 
-[[passing-project-metadata-manually]]
-=== Passing Project Metadata Manually
+// TODO not available in Jmix Studio yet
+//[[passing-project-metadata-manually]]
+//=== Passing Project Metadata Manually
+//
+//You can export the project model manually. Select `Jmix > Advanced > Export project model` in the main menu. Studio will generate `projectModel.json` file.
 
-You can export the project model manually. Select `CUBA > Advanced > Export project model` in the main menu. Studio will generate `projectModel.json` file.
-
-IMPORTANT: When the project model changes (e.g. an entity has been altered, a view has been added, etc.), you will need to re-generate the project model file and update the project model in already generated code. In order to do the latter you can use a convenience npm script: `npm run update-model`.
+IMPORTANT: When the project model changes (e.g. an entity has been altered, a fetch plan has been added, etc.), you will need to re-generate the project model file and update the project model in already generated code. In order to do the latter you can use a convenience npm script: `npm run update-model`.

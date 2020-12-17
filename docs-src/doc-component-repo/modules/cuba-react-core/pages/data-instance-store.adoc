@@ -1,7 +1,7 @@
 = DataInstanceStore
-:api_core_DataInstanceStore: link:../api-reference/cuba-react-core/classes/_data_instance_.datainstancestore.html
-:api_core_instance: link:../api-reference/cuba-react-core/modules/_data_instance_.html#instance-1
-:api_core_useInstance: link:../api-reference/cuba-react-core/modules/_data_instance_.html#useinstance
+:api_core_DataInstanceStore: link:../api-reference/jmix-react-core/classes/_data_instance_.datainstancestore.html
+:api_core_instance: link:../api-reference/jmix-react-core/modules/_data_instance_.html#instance-1
+:api_core_useInstance: link:../api-reference/jmix-react-core/modules/_data_instance_.html#useinstance
 
 `DataInstanceStore` is used to work with a single instance of some Entity. It can be created via {api_core_instance}[instance] initializer function:
 

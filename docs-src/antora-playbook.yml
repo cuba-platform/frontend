@@ -1,5 +1,5 @@
 site:
-  title: JMIX Frontend UI Manual
+  title: Jmix Frontend UI Manual
   url: https://docs.jmix.io/
   start_page: cuba-frontend-docs:overview:index.adoc
 output:
@@ -18,19 +18,16 @@ ui:
   supplemental_files: ./supplemental-ui
 asciidoc:
   attributes:
-    manual_platform: 'https://doc.cuba-platform.com/manual-latest'
-    manual_restApi: 'https://doc.cuba-platform.com/restapi-7.2'
-    manual_studio: 'https://doc.cuba-platform.com/studio'
-    manual_studio_frontendUi: 'https://doc.cuba-platform.com/studio/#frontend_ui'
+    manual_platform: 'https://docs.jmix.io/jmix/0.x'
+    manual_restApi: 'https://docs.jmix.io/jmix/0.x/rest/index.html'
+    manual_studio: 'https://docs.jmix.io/jmix/0.x/studio/index.html'
     restApiSwagger: 'http://files.cuba-platform.com/swagger/7.2'
-    compositionGuide: 'https://www.cuba-platform.com/guides/data-modelling-composition'
-    petclinic: 'https://github.com/cuba-platform/cuba-petclinic'
-    # TODO Change this link to https://ant.design once https://github.com/cuba-platform/frontend/issues/168 is implemented
+    compositionGuide: 'https://docs.jmix.io/jmix/0.x/data-model/entities.html#references'
     antDesign_base: 'https://ant.design'
     npm_frontendGenerator: 'https://www.npmjs.com/package/@haulmont/jmix-front-generator'
     npm_cubaReactCore: 'https://www.npmjs.com/package/@haulmont/jmix-react-core'
     npm_cubaReactUi: 'https://www.npmjs.com/package/@haulmont/jmix-react-ui'
     npm_cubaRestJs: 'https://www.npmjs.com/package/@haulmont/jmix-rest'
-    forum: 'https://www.cuba-platform.com/discuss'
-    api_rest: 'link:../api-reference/cuba-rest-js/index.html'
-    git_frontendUi: 'https://github.com/cuba-platform/frontend'
+    forum: 'https://www.cuba-platform.com/discuss/c/jmix/40'
+    api_rest: 'link:../api-reference/jmix-rest/index.html'
+    git_frontendUi: 'https://github.com/Haulmont/jmix-frontend'

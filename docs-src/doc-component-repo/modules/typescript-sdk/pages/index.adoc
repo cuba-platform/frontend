@@ -1,90 +1,48 @@
 = TypeScript SDK
-:manual_restApi_services: {manual_restApi}/#rest_api_v2_services_config
-:manual_restApi_queries: {manual_restApi}/#rest_api_v2_queries_config
 
-TypeScript SDK contains CUBA data model ({manual_platform}/data_model.html[entities and enums]), rest {manual_restApi_services}[services] and {manual_restApi_queries}[queries] as TypeScript classes.
+TypeScript SDK contains Jmix data model (entities and enums), rest services and queries as TypeScript classes.
 
 The SDK is framework-agnostic, meaning that in addition to using it with e.g. our React client, you can use it with any TypeScript-compatible framework such as Angular of Vue.
 
 It's possible to generate the following configurations of SDK depending on your needs (see xref:generator:commands-reference.adoc[usage instruction]):
 
 * `gen-cuba-front sdk:model` - generates entities and enums.
-* `gen-cuba-front sdk:all` - generates all toolkit - entities, enums, queries and services.
+* `gen-cuba-front sdk:all` - generates the whole toolkit - entities, enums, queries and services.
 
 SDK can be used for front-end clients and Node.js-based BFF (Backend for Frontend) development.
 
 == Entities
 
-=== Persistent Entities
-
-Consider the `Role` entity class of CUBA Framework generated in TypeScript:
-
-`src/cuba/entities/base/sec$Role.ts`
+Consider this example entity.
 
 [source,typescript]
 ----
-export class Role extends StandardEntity {
-    static NAME = "sec$Role";
-    name?: string | null;
-    locName?: string | null;
-    description?: string | null;
-    type?: any | null;
-    defaultRole?: boolean | null;
-    permissions?: Permission[] | null;
+export class User {
+  static NAME = "scr_User";
+  id?: string;
+  version?: number | null;
+  username?: string | null;
+  password?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  enabled?: boolean | null;
+  phone?: string | null;
 }
 ----
 
-* You can easily access entity name using static `NAME` property: `Role.NAME`.
-* `Role` class contains all properties of the domain model entity including those from the class hierarchy. Reference fields have corresponding types as well, so that you can work with them in a type-safe manner:
-+
-[source,typescript]
-----
-function changeRole(role: Role) {
-  role.defaultRole = true;   // ok
-  role.defaultRole = 'foo';  // compilation fails
-}
-----
-
-=== Non-persistent Entities
-
-CUBA Platform supports non-persistent entities. Entity class should be annotated with `com.haulmont.chile.core.annotations.MetaClass`, and extended from `com.haulmont.cuba.core.entity.BaseUuidEntity`. Class properties annotated with `com.haulmont.chile.core.annotations.MetaProperty` will be included in the generated model.
-
-Source:
-
-[source,java]
-----
-package com.company;
-
-import com.haulmont.chile.core.annotations.MetaClass;
-import com.haulmont.chile.core.annotations.MetaProperty;
-import com.haulmont.cuba.core.entity.BaseUuidEntity;
-
-@MetaClass(name = "SampleUserInfo")
-public class SampleUserInfo extends BaseUuidEntity {
-
-    @MetaProperty
-    public String firstName;
-
-    @MetaProperty
-    public String lastName;
-
-    }
-----
-
-Generated:
+* You can easily access the entity name using static `NAME` property: `User.NAME`,
+* The `User` class contains all properties of the domain model entity. Reference fields has corresponding types as well so that you can work with them in a type-safe manner.
 
 [source,typescript]
 ----
-export class SampleUserInfo {
-    static NAME = "SampleUserInfo";
-    firstName?: string | null;
-    lastName?: string | null;
-}
+user.enabled = true;   // ok
+user.enabled = 'foo';  // compilation fails
 ----
-
+// TODO write about JPA vs DTO entities
 == Enums
 
-CUBA REST API module uses enum’s constant name in client-server communication. SDK contains generated string enums e.g.:
+Jmix REST API uses enum’s constant name in client-server communication. SDK contains generated string enums e.g.:
 
 [source,typescript]
 ----
@@ -94,7 +52,7 @@ export enum CarType {
 }
 ----
 
-In order to get enum id and localized caption, you can query full information about enums in runtime using `loadEnums` method of {api_rest}[CUBA REST JS]:
+In order to get enum id and localized caption, you can query full information about enums in runtime using `loadEnums` method of {api_rest}[Jmix REST]:
 
 [source,typescript]
 ----

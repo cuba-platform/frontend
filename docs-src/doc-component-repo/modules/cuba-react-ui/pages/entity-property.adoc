@@ -1,5 +1,5 @@
 = EntityProperty
-:api_ui_EntityPropertyProps: link:../api-reference/cuba-react-ui/interfaces/_ui_entityproperty_.entitypropertyprops.html
+:api_ui_EntityPropertyProps: link:../api-reference/jmix-react-ui/interfaces/_ui_entityproperty_.entitypropertyprops.html
 
 `EntityProperty` component is used to display a value of an entity property. It automatically applies formatting according to the type of the property and adds a corresponding label from global message pack (defined on the backend).
 
