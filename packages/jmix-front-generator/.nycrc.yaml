@@ -1,0 +1,16 @@
+# coverage check config
+
+extends: "@istanbuljs/nyc-config-typescript"
+check-coverage: true
+skip-full: true
+
+# do not check coverage in this folders
+exclude: [
+  "src/test/**",
+  "src/generators/*/*/template/**",
+]
+
+statements: 89
+branches: 74
+functions: 90
+lines: 89

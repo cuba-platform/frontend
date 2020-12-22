@@ -1,4 +1,4 @@
 .Libraries API Reference
-* link:../api-reference/cuba-rest-js/index.html[CUBA REST JS^]
-* link:../api-reference/cuba-react-core/index.html[CUBA React Core^]
-* link:../api-reference/cuba-react-ui/index.html[CUBA React UI^]
+* link:../api-reference/jmix-rest/index.html[Jmix REST^]
+* link:../api-reference/jmix-react-core/index.html[Jmix React Core^]
+* link:../api-reference/jmix-react-ui/index.html[Jmix React UI^]

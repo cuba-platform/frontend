@@ -1,7 +1,7 @@
-= CUBA React Core Components
+= Jmix React Core Components
 
-*CUBA React Core* library is a collection of components and utilities responsible for core functionalities such as working with CUBA entities. It is used by both xref:client-react:starter-guide.adoc[React] and xref:client-react-native:starter-guide.adoc[React Native] clients. This library is available as an npm package {npm_cubaReactCore}[@cuba-platform/react-core].
+*Jmix React Core* library is a collection of components and utilities responsible for core functionalities such as working with Jmix entities. This library is available as an npm package {npm_cubaReactCore}[@haulmont/jmix-react-core].
 
-API reference can be found link:../api-reference/cuba-react-core/index.html[here].
+API reference can be found link:../api-reference/jmix-react-core/index.html[here].
 
 See the rest of this section for information on how to use the components and utilities provided by this library.

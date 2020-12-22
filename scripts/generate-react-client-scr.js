@@ -23,7 +23,7 @@ const dirShift = '../../';
 gen(
     'React client SCR',
     clientDir,
-    'scripts/model/projectModel-scr.json',
+    'scripts/model/projectModel-scr-jmix.json',
     [
       { command: 'react-typescript:app' },
       // Car Service Center domain entities

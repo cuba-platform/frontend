@@ -1,5 +1,5 @@
 = SpecificPermAccessControl
-:api_core_SpecificPermAccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_specificpermaccesscontrol_.specificpermaccesscontrolprops.html
+:api_core_SpecificPermAccessControlProps: link:../api-reference/jmix-react-core/interfaces/_access_control_specificpermaccesscontrol_.specificpermaccesscontrolprops.html
 
 `SpecificPermAccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on a single or multiple specific permissions.
 
@@ -48,4 +48,4 @@ See also:
 * xref:access-control.adoc[AccessControl]
 * xref:entity-perm-access-control.adoc[EntityPermAccessControl]
 * xref:attr-perm-access-control.adoc[AttrPermAccessControl]
-* link:{manual_platform}/permissions.html[Permissions in CUBA]
+* link:{manual_platform}/security[Security in Jmix]

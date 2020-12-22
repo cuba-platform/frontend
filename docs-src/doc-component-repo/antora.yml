@@ -1,12 +1,11 @@
 name: cuba-frontend-docs
-title: CUBA Frontend UI Manual
-version: v20.1
+title: Jmix Frontend UI Manual
+version: 0.x
 nav:
   - modules/overview/nav.adoc
   - modules/getting-started/nav.adoc
   - modules/client-react/nav.adoc
-  - modules/client-react-native/nav.adoc
-  - modules/client-polymer/nav.adoc
+#  - modules/client-react-native/nav.adoc
   - modules/cuba-react-core/nav.adoc
   - modules/cuba-react-ui/nav.adoc
   - modules/typescript-sdk/nav.adoc

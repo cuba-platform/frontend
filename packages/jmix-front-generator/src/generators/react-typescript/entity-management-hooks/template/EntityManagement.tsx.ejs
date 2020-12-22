@@ -1,0 +1,44 @@
+import * as React from "react";
+import {RouteComponentProps} from "react-router";
+import {observer} from "mobx-react";
+import <%= editComponentClass %> from "./<%= editComponentClass %>";
+import <%= listComponentClass %> from "./<%= listComponentClass %>";
+import {PaginationConfig} from "antd/es/pagination";
+import {action, observable} from "mobx";
+import {addPagingParams, createPagingConfig, defaultPagingConfig} from "@haulmont/jmix-react-ui";
+
+type Props = RouteComponentProps<{entityId?: string}>;
+
+@observer
+export class <%= className %> extends React.Component<Props> {
+  static PATH = '/<%= nameLiteral %>';
+  static NEW_SUBPATH = 'new';
+
+  @observable paginationConfig: PaginationConfig = {...defaultPagingConfig};
+
+  componentDidMount(): void {
+    // to disable paging config pass 'true' as disabled param in function below
+    this.paginationConfig = createPagingConfig(this.props.location.search);
+  }
+
+  render() {
+    const {entityId} = this.props.match.params;
+    return (
+      entityId
+          ? < <%= editComponentClass %> entityId={entityId}/>
+          : < <%= listComponentClass %>
+
+    <% if (listType === 'list' || listType === 'cards') { %> <%# if clause will be removed after paging impleneted on other list types %>
+        onPagingChange={this.onPagingChange}
+        paginationConfig={this.paginationConfig}
+    <% } %>
+
+    />
+    )
+  }
+
+  @action onPagingChange = (current: number, pageSize: number) => {
+    this.props.history.push(addPagingParams('<%= nameLiteral %>', current, pageSize));
+    this.paginationConfig = {...this.paginationConfig, current, pageSize};
+  };
+}

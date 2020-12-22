@@ -2,9 +2,9 @@
 
 include::overview:partial$getting-started-note.adoc[]
 
-NOTE: This section describes how to use the generator from CLI. You can also use many of the described features from CUBA Studio UI. The xref:commands-reference.adoc[commands description] contains information on which features are available in Studio. See {manual_studio_frontendUi}[Studio manual] for more details on using the generator from Studio.
+NOTE: This section describes how to use the generator from CLI. You can also use many of the described features from Jmix Studio UI. The xref:commands-reference.adoc[commands description] contains information on which features are available in Studio. See {manual_studio}[Studio manual] for more details on using the generator from Studio.
 
-Run `gen-cuba-front` (or `npx @cuba-platform/front-generator`) without arguments to see usage info.
+Run `gen-cuba-front` (or `npx @haulmont/jmix-front-generator`) without arguments to see usage info.
 
 ....
 Usage: gen-cuba-front [command] [options]
@@ -17,21 +17,6 @@ Usage: gen-cuba-front [command] [options]
   Commands:
 
     list [options]                                   List all available clients and their clients
-    polymer2:app [options]                           Generates polymer2 app
-    polymer2:blank-component [options]               Generates polymer2 blank-component
-    polymer2:entity-cards [options]                  Generates polymer2 entity-cards
-    polymer2:entity-edit [options]                   Generates polymer2 entity-edit
-    polymer2:entity-list [options]                   Generates polymer2 entity-list
-    polymer2:entity-management [options]             Generates polymer2 entity-management
-    polymer2:query-results [options]                 Generates polymer2 query-results
-    polymer2:service-data [options]                  Generates polymer2 service-data
-    polymer2:service-form [options]                  Generates polymer2 service-form
-    polymer2-typescript:app [options]                Generates polymer2-typescript app
-    polymer2-typescript:blank-component [options]    Generates polymer2-typescript blank-component
-    polymer2-typescript:entity-cards [options]       Generates polymer2-typescript entity-cards
-    polymer2-typescript:entity-edit [options]        Generates polymer2-typescript entity-edit
-    polymer2-typescript:entity-list [options]        Generates polymer2-typescript entity-list
-    polymer2-typescript:entity-management [options]  Generates polymer2-typescript entity-management
     react-typescript:app [options]                   Generates react-typescript app
     react-typescript:blank-component [options]       Generates react-typescript blank-component
     react-typescript:entity-cards [options]          Generates react-typescript entity-cards
@@ -40,11 +25,9 @@ Usage: gen-cuba-front [command] [options]
     sdk:model [options]                              Generates sdk model
 ....
 
-WARNING: Polymer client is deprecated.
-
 Run `gen-cuba-front <command> --help` to see the list of available options.
 
-Most commands use interactive prompts to capture necessary inputs such as which entity you want to use, which {manual_platform}/views.html[view], etc. Alternatively, `answers` command line parameter can be used to provide these inputs. You may want to use it if you want to automate the generation. `answers` is a base64-encoded JSON string. See xref:commands-reference.adoc[descriptions of individual commands] for details on what shall be put inside this JSON.
+Most commands use interactive prompts to capture necessary inputs such as which entity you want to use, which {manual_platform}/data-access[fetch plan], etc. Alternatively, `answers` command line parameter can be used to provide these inputs. You may want to use it if you want to automate the generation. `answers` is a base64-encoded JSON string. See xref:commands-reference.adoc[descriptions of individual commands] for details on what shall be put inside this JSON.
 
 Example of using `answers`:
 

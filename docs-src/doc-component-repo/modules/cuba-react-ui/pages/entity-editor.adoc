@@ -1,5 +1,5 @@
 = EntityEditor
-:api_ui_EntityEditorProps: link:../api-reference/cuba-react-ui/interfaces/_ui_form_form_.entityeditorprops.html
+:api_ui_EntityEditorProps: link:../api-reference/jmix-react-ui/interfaces/_ui_form_form_.entityeditorprops.html
 
 `EntityEditor` component is a form with dynamically rendered fields representing entity properties. It uses xref:form-field.adoc[FormField] to render correct input components (e.g. `Checkbox`, `Datepicker`, etc.) depending on entity property type. The list of displayed fields (that is, the list of properties to be edited) can be configured via `fields` prop.
 

@@ -1,5 +1,5 @@
 = EntityPermAccessControl
-:api_core_EntityPermAccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_entitypermaccesscontrol_.entitypermaccesscontrolprops.html
+:api_core_EntityPermAccessControlProps: link:../api-reference/jmix-react-core/interfaces/_access_control_entitypermaccesscontrol_.entitypermaccesscontrolprops.html
 :experimental:
 
 `EntityPermAccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on a single entity operation permission. A common use case is conditionally hiding btn:[Create] / btn:[Edit] / btn:[Delete] buttons in an entity list.
@@ -41,4 +41,4 @@ See also:
 * xref:access-control.adoc[AccessControl]
 * xref:attr-perm-access-control.adoc[AttrPermAccessControl]
 * xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
-* link:{manual_platform}/permissions.html[Permissions in CUBA]
+* link:{manual_platform}/security[Security in Jmix]

@@ -1,12 +1,12 @@
 = CubaAppProvider
-:api_core_CubaAppProviderProps: link:../api-reference/cuba-react-core/interfaces/_app_cubaappprovider_.cubaappproviderprops.html
-:api_rest_PropertyType: link:../api-reference/cuba-rest-js/modules/_model_.html#propertytype
+:api_core_CubaAppProviderProps: link:../api-reference/jmix-react-core/interfaces/_app_cubaappprovider_.cubaappproviderprops.html
+:api_rest_PropertyType: link:../api-reference/jmix-rest/modules/_model_.html#propertytype
 
-`CubaAppProvider` initializes main CUBA React Core components and provides them to the client application. It receives an instance of REST API service and an optional config object which has the following interface:
+`CubaAppProvider` initializes main Jmix React Core components and provides them to the client application. It receives an instance of REST API service and an optional config object which has the following interface:
 
 [source,typescript]
 ----
-import {PropertyType} from "@cuba-platform/rest";
+import {PropertyType} from "@haulmont/jmix-rest";
 
 export interface CubaAppConfig {
   dataTransferFormats?: Partial<Record<PropertyType, string>>;
@@ -17,7 +17,7 @@ export interface CubaAppConfig {
 * `dataTransferFormats` can be used to override the default formats used to (de)serialize the data transferred by REST API.
 * `displayFormats` can be used to override the formats used for data presentation.
 
-See {api_rest_PropertyType}[PropertyType] in CUBA REST JS API docs for the list of available property types.
+See {api_rest_PropertyType}[PropertyType] in Jmix REST API docs for the list of available property types.
 
 NOTE: Only formats for temporal types can currently be overridden this way.
 

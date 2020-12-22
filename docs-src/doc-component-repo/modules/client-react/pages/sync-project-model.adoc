@@ -4,5 +4,5 @@ In order to sync up with the changes on the backend, you can re-generate the pro
 
 [source,bash]
 ----
-$ npm run `update-model`
+$ npm run update-model
 ----

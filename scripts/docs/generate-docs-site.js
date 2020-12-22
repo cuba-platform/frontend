@@ -42,7 +42,7 @@ function copyApiReference(playbook, docsSrcPath) {
     runCmdSync(`mkdir ${gitTempDir}`);
     process.chdir(gitTempDir);
     runCmdSync(`git clone ${repo}`);
-    process.chdir('frontend');
+    process.chdir('jmix-frontend');
 
     // For each branch copy the API reference files to the built site
     branches.forEach(branch => {

@@ -1,7 +1,7 @@
 = DataCollectionStore
-:api_core_DataCollectionStore: link:../api-reference/cuba-react-core/interfaces/_data_collection_.datacollectionstore.html
-:api_core_collection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#collection-1
-:api_core_useCollection: link:../api-reference/cuba-react-core/modules/_data_collection_.html#usecollection
+:api_core_DataCollectionStore: link:../api-reference/jmix-react-core/interfaces/_data_collection_.datacollectionstore.html
+:api_core_collection: link:../api-reference/jmix-react-core/modules/_data_collection_.html#collection-1
+:api_core_useCollection: link:../api-reference/jmix-react-core/modules/_data_collection_.html#usecollection
 
 `DataCollectionStore` is a MobX based store that can be used to retrieve entity collections. It can be created via {api_core_collection}[collection] initializer function:
 

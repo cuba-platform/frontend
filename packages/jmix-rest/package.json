@@ -1,0 +1,42 @@
+{
+  "name": "@haulmont/jmix-rest",
+  "version": "0.2.0-dev.0",
+  "description": "JavaScript library for working with Jmix REST API",
+  "main": "dist-node/cuba.js",
+  "typings": "dist-node/cuba.d.ts",
+  "scripts": {
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "test": "jest",
+    "coverage": "tsc && npm run test -- --coverage",
+    "prepare-browser-test": "browserify test/cuba.test.js > test/cuba-browser.test.js",
+    "compile": "tsc",
+    "types:browser": "tsc --declarationDir dist-browser --emitDeclarationOnly true",
+    "dist": "npm run compile && mkdir -p dist-browser && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js",
+    "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/jmix-rest src",
+    "prepublishOnly": "npm run dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-rest-js"
+  },
+  "devDependencies": {
+    "babel-jest": "^25.1.0",
+    "browserify": "^16.2.3",
+    "jest": "^25.1.0",
+    "node-fetch": "^2.6.0",
+    "source-map-support": "^0.5.16",
+    "ts-node": "^8.6.2",
+    "tslint": "~5.17.0",
+    "typedoc": "^0.15.3",
+    "typescript": "~3.7.4"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Haulmont <info@haulmont.com>",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/haulmont/jmix-frontend"
+}

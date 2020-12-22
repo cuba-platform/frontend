@@ -1,5 +1,5 @@
 = FileUpload
-:api_ui_FileUploadProps: link:../api-reference/cuba-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html
+:api_ui_FileUploadProps: link:../api-reference/jmix-react-ui/interfaces/_ui_fileupload_.fileuploadprops.html
 
 `FileUpload` is a form field that allows uploading, removing and downloading files. For image files it allows to preview and download the file via xref:image-preview.adoc[ImagePreview] component.  xref:form-field.adoc[FormField] will automatically render a `FileUpload` for a `FileDescriptor` entity property.
 
@@ -11,14 +11,14 @@ View and download::
 
 User will be able to see the file name and download the file when the following conditions are met:
 
-- User has at least *read-only* permission on the corresponding entity attribute.
-- User has *read* permission on `sys$FileDescriptor` system entity and at least *read-only* permission on its attributes.
+- User has at least *View* permission on the corresponding entity attribute.
+- User has *Read* permission on `sys$FileDescriptor` system entity and at least *View* permission on its attributes.
 
 Remove::
 
 User will be able to remove the file when the following conditions are met:
 
-- User has *modify* permission on the corresponding entity attribute.
+- User has *Modify* permission on the corresponding entity attribute.
 
 NOTE: "Removing the file" actually doesn't physically remove the file from server. It just removes the association between the entity and the file descriptor.
 
@@ -26,8 +26,8 @@ Upload::
 
 User will be able to upload the file (and link it with the entity) when the following conditions are met:
 
-- User has *modify* permission on the corresponding entity attribute.
-- User has *create* permission on `sys$FileDescriptor` system entity.
+- User has *Update* permission on the corresponding entity attribute.
+- User has *Create* permission on `sys$FileDescriptor` system entity.
 - User has *Upload files using REST API* specific permission.
 
 '''

@@ -56,12 +56,12 @@ image:client-react:data-table-demo.gif[Data table showcase]
 ....
 {
     "editView": {
-      "name": "car-edit", // Name of view that will be used in Editor screen
+      "name": "car-edit", // Name of the fetch plan that will be used in Editor screen
       "entityName": "mpg$Car" // Entity name
     },
     "editComponentName": "CarEdit", // Editor component name
     "listView": {
-      "name": "car-edit", // Name of view that will be used in Browser screen
+      "name": "car-edit", // Name of fetch plan that will be used in Browser screen
       "entityName": "mpg$Car" // Entity name
     },
     "listComponentName": "CarCards", // List component name
@@ -95,7 +95,7 @@ Generates a list of entities where each entity is represented by a card (similar
 ....
 {
     "entityView": {
-      "name": "favoriteCar-view", // View name
+      "name": "favoriteCar-view", // Fetch plan name
       "entityName": "mpg$FavoriteCar" // Entity name
     },
     "componentName": "FavoriteCarCards", // Component class name
@@ -127,19 +127,6 @@ Generates a blank component.
 {
     "componentName": "BlankComponent" // Component class name
 }
-....
-
-== react-native:app
-
-Generates a React Native starter app. See xref:client-react-native:starter-guide.adoc[Getting Started with React Native Client].
-
-....
-  Options:
-
-    -d, --dest [dest]    destination directory
-    -m, --model [model]  specify path to project model, if given no interactive prompt will be invoked
-    -b, --verbose       log out additional info about generation process
-    -h, --help           output usage information
 ....
 
 == sdk:all

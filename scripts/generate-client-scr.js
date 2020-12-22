@@ -13,14 +13,14 @@ const generateClientScr = async (clientName, clientDir, modelPath, generators) =
 
     console.log(`*** Generating ${clientName} ***`);
     console.log('building front-generator');
-    runCmdSync(`lerna run --scope @cuba-platform/front-generator prepublishOnly`);
+    runCmdSync(`lerna run --scope @haulmont/jmix-front-generator prepublishOnly`);
 
     !fs.existsSync(SCR_APP_DIR) && fs.mkdirSync(SCR_APP_DIR);
     await rimraf(`${SCR_APP_DIR}/*`);
 
     console.log(`starting generating ${clientName} into`, SCR_APP_DIR);
 
-    const genCubaFrontCmd = `node ../packages/front-generator/bin/gen-cuba-front`;
+    const genCubaFrontCmd = `node ../packages/jmix-front-generator/bin/gen-cuba-front`;
 
     for (const generator of generators) {
         if (!generator.command) {

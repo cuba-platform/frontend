@@ -2,16 +2,16 @@
 
 include::overview:partial$getting-started-note.adoc[]
 
-In this guide we will use the Frontend Generator to create a starter React Native client. You can try it with your own CUBA project, or you can use {petclinic}[Petclinic] sample project.
+In this guide we will use the Frontend Generator to create a starter React Native client.
 
-If you are passing the project model automatically, open your CUBA project in Studio and run the following command in the terminal.
+If you are passing the project model automatically, open your Jmix project in Studio and run the following command in the terminal.
 
 [source,bash]
 ----
 gen-cuba-front react-native:app
 ----
 
-Generator will prompt you to select one of the currently opened CUBA projects.
+Generator will prompt you to select one of the currently opened Jmix projects.
 
 image:generator:interactive-projects.png[Interactive project selection]
 

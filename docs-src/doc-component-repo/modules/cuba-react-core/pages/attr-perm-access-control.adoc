@@ -1,5 +1,5 @@
 = AttrPermAccessControl
-:api_core_AttrPermAccessControlProps: link:../api-reference/cuba-react-core/interfaces/_access_control_attrpermaccesscontrol_.attrpermaccesscontrolprops.html
+:api_core_AttrPermAccessControlProps: link:../api-reference/jmix-react-core/interfaces/_access_control_attrpermaccesscontrol_.attrpermaccesscontrolprops.html
 
 `AttrPermAccessControl` is used to conditionally render other components (which we call _access-controlled components_) based on a single entity attribute permission.
 
@@ -41,4 +41,4 @@ See also:
 * xref:access-control.adoc[AccessControl]
 * xref:entity-perm-access-control.adoc[EntityPermAccessControl]
 * xref:specific-perm-access-control.adoc[SpecificPermAccessControl]
-* link:{manual_platform}/permissions.html[Permissions in CUBA]
+* link:{manual_platform}/security[Security in Jmix]

@@ -1,7 +1,7 @@
 = DataTable
-:api_ui_DataTableProps: link:../api-reference/cuba-react-ui/interfaces/_ui_table_datatable_.datatableprops.html
-:api_ui_DataTableCustomFilterProps: link:../api-reference/cuba-react-ui/interfaces/_ui_table_datatablecustomfilter_.datatablecustomfilterprops.html
-:api_ui_DataTableHelpers: link:../api-reference/cuba-react-ui/modules/_ui_table_datatablehelpers_.html
+:api_ui_DataTableProps: link:../api-reference/jmix-react-ui/interfaces/_ui_table_datatable_.datatableprops.html
+:api_ui_DataTableCustomFilterProps: link:../api-reference/jmix-react-ui/interfaces/_ui_table_datatablecustomfilter_.datatablecustomfilterprops.html
+:api_ui_DataTableHelpers: link:../api-reference/jmix-react-ui/modules/_ui_table_datatablehelpers_.html
 
 `DataTable` is used to present data in tabular form.
 

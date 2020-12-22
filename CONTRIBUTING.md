@@ -108,14 +108,6 @@ React client
 ```bash
 npm run test:e2e:react
 ```
-Polymer 2
-```bash
-test:e2e:polymer2
-```
-Polymer 2 typescript
-```bash
-test:e2e:polymer2-ts
-```
 
 <a name="commits"/>
 
