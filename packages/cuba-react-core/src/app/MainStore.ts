@@ -45,6 +45,8 @@ export class MainStore {
   private messagesRequestCount = 0;
   private enumsRequestCount = 0;
 
+  private disposeTokenExpiryListener?: () => {};
+
   constructor(private cubaREST: CubaApp) {
     this.cubaREST.onLocaleChange(this.handleLocaleChange);
     this.security = new Security(this.cubaREST);
@@ -130,6 +132,9 @@ export class MainStore {
     return this.cubaREST.login(login, password).then(action(() => {
       this.userName = login;
       this.authenticated = true;
+      this.disposeTokenExpiryListener = this.cubaREST.onTokenExpiry(() => {
+        this.authenticated = false;
+      });
     }))
   }
 
@@ -143,6 +148,10 @@ export class MainStore {
       return this.cubaREST.logout()
         .then(action(() => {
           this.authenticated = false;
+          if (this.disposeTokenExpiryListener != null) {
+            this.disposeTokenExpiryListener();
+            this.disposeTokenExpiryListener = undefined;
+          }
         }));
     }
     return Promise.resolve();
