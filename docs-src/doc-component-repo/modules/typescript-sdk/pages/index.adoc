@@ -4,11 +4,6 @@ TypeScript SDK contains Jmix data model (entities and enums), rest services and 
 
 The SDK is framework-agnostic, meaning that in addition to using it with e.g. our React client, you can use it with any TypeScript-compatible framework such as Angular of Vue.
 
-It's possible to generate the following configurations of SDK depending on your needs (see xref:generator:commands-reference.adoc[usage instruction]):
-
-* `gen-cuba-front sdk:model` - generates entities and enums.
-* `gen-cuba-front sdk:all` - generates the whole toolkit - entities, enums, queries and services.
-
 SDK can be used for front-end clients and Node.js-based BFF (Backend for Frontend) development.
 
 == Entities

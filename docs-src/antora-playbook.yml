@@ -8,7 +8,7 @@ content:
   sources:
     - url: https://github.com/haulmont/jmix-frontend.git
       branches:
-        - feature/jmix-support
+        - master
 #        - v[0-9]*
       start_path: docs-src/doc-component-repo
 ui:

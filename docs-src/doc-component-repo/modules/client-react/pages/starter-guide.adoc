@@ -1,39 +1,13 @@
 = Getting Started with React Client
 :experimental:
 
-include::overview:partial$getting-started-note.adoc[]
-
-In this guide we will use the Frontend Generator to create a starter React client and add screens to browse and edit an entity.
-
-There are two ways to use the generator: from Jmix Studio and from CLI.
-
-== Using Generator from Studio
+In this guide we will use Jmix Studio to create a starter React client and add screens to browse and edit an entity.
 
 Select *Jmix* view in *Project* tool window. Right-click on project name and select *Generate frontend*. Choose *React* module preset.
 
 image:studio-create-front-module.gif[Creating front module]
 
 Starter React client will be created in the `frontend` directory.
-
-== Using Generator from CLI
-
-If you are passing the project model automatically, open your Jmix project in Studio and run the following command in the terminal.
-
-[source,bash]
-----
-gen-cuba-front react-typescript:app
-----
-
-Generator will prompt you to select one of the currently opened Jmix projects.
-
-image:generator:interactive-projects.png[Interactive project selection]
-
-If you are using an exported project model file, use `--model` parameter to pass it to the generator.
-
-[source,bash]
-----
-gen-cuba-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json
-----
 
 == Exploring the Generated Project
 
@@ -91,44 +65,8 @@ That's it! Congratulations, you have just created your first React client!
 
 So far our React client doesn't do much. Let's add the screens to browse and edit an entity.
 
-=== Adding Components Using Studio
+=== Adding Components
 
 In *Jmix* view of *Project* tool window expand *Sources* and right-click on an entity class. Select menu:New[Frontend Component]. Select menu:Entity{sp}management[Next, Finish].
 
 image:studio-adding-frontend-component.gif[Adding a frontend component]
-
-=== Adding Components Using CLI
-
-Execute:
-
-[source,bash]
-----
-gen-cuba-front react-typescript:entity-management --dest src/app/pet --dirShift ../../
-----
-
-`--dest` is the destination path for the components to be generated into. `--dirShift` is the relative path leading from the components destination directory back to `src` directory.
-
-As before, if you are using a project model file you'll need to supply it with `--model` parameter.
-
-The generator will ask you several questions:
-
-- Select a project (this won't be asked if you have supplied a project model file).
-- Select an entity for which the components shall be generated.
-- Enter a name for the CRUD component, it is a component that renders a List component (i.e. an entity browser) or an Edit component (i.e. an entity editor) depending on which route is active.
-- Select a list type, i.e. how your List component shall look like (for now just select `table`).
-- Name the List component.
-- Select a view for the List component.
-- Name the Edit component.
-- Select a view for the editor component.
-
-Once all questions are answered the generation will begin. You will be asked to confirm the changes to some existing files - agree to all.
-
-Now let's go back to `localhost:3000` and see the changes. You should be able to see a new main menu item that will lead you to an entity browser screen.
-
-image:pet-clinic-browser.png[List component]
-
-If you select an entity and click btn:[Edit] you will be taken to the entity editor.
-
-image:pet-clinic-editor.png[Edit component]
-
-That's it!

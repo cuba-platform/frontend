@@ -1,4 +1,4 @@
-= Choosing a Learning Path
+= Getting Started
 
 If you want to create a React-based Frontend UI, check our xref:client-react:starter-guide.adoc[React Client] guide.
 
