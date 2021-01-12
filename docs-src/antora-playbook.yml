@@ -1,7 +1,7 @@
 site:
   title: Jmix Frontend UI Manual
   url: https://docs.jmix.io/
-  start_page: cuba-frontend-docs:overview:index.adoc
+  start_page: jmix-frontend-docs:overview:index.adoc
 output:
   dir: docs-build
 content:

@@ -1,5 +1,5 @@
 = Where Do I Go From Here?
 
-Check xref:cuba-react-core:index.adoc[Jmix React Core] section to see what components are available to you and how to use them.
+Check xref:jmix-react-core:index.adoc[Jmix React Core] section to see what components are available to you and how to use them.
 
 Check {api_rest}[Jmix REST] to see how your components can communicate with the {manual_restApi}[Generic REST API].

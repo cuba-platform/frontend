@@ -18,11 +18,11 @@ The following translations are provided by the community. It means that these tr
 
 == Overriding Existing Messages
 
-Simply replace existing messages in `src/i18n/<locale>.json` files. This way you can override the messages in the client app, xref:cuba-react-ui:index.adoc[Jmix React UI] components and some of the messages in the Ant Design components.
+Simply replace existing messages in `src/i18n/<locale>.json` files. This way you can override the messages in the client app, xref:jmix-react-ui:index.adoc[Jmix React UI] components and some of the messages in the Ant Design components.
 
 == Adding Support for New Locales
 
-* Add a corresponding `<locale>.json` message pack. Note that it shall contain messages for xref:cuba-react-ui:index.adoc[Jmix React UI] components (keys starting with `cuba-react`) and Ant Design `Form` validation messages (keys starting with `antd.form.validation`).
+* Add a corresponding `<locale>.json` message pack. Note that it shall contain messages for xref:jmix-react-ui:index.adoc[Jmix React UI] components (keys starting with `jmix-react`) and Ant Design `Form` validation messages (keys starting with `antd.form.validation`).
 * Create a mapping between the locale and the message pack by modifying `messagesMapping` in `src/i18n/i18nMappings.ts`.
 * Create a mapping between the locale and `antd/es/locale-provider/Locale` object by modifying `antdLocaleMapping` in `src/i18n/i18nMappings.ts`. This is required because most of the messages in Ant Design components are translated by telling Ant Design to use one of the predefined locales. An extensive list of locales supported by Ant Design can be found {antDesign_base}/docs/react/i18n[here].
 * Add an import of a corresponding https://github.com/moment/moment[moment] locale to `index.tsx`, e.g. `import 'moment/locale/ru';`. This is required because some of the Ant Design components use localized messages from `moment`.

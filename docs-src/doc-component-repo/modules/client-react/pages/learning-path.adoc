@@ -2,6 +2,6 @@
 
 The rest of *React Client* section contains an overview on technologies used and some recipes for the most common use cases. We suggest that you go through it. You may skip some of the topics and come back to them later.
 
-You may want to create some components manually, as well as to reuse some of the components provided by our libraries. Go through xref:cuba-react-core:index.adoc[Jmix React Core] and xref:cuba-react-ui:index.adoc[Jmix React UI] sections to see what components are available to you and how to use them.
+You may want to create some components manually, as well as to reuse some of the components provided by our libraries. Go through xref:jmix-react-core:index.adoc[Jmix React Core] and xref:jmix-react-ui:index.adoc[Jmix React UI] sections to see what components are available to you and how to use them.
 
 Check {api_rest}[Jmix REST] documentation to see how your components can communicate with the {manual_restApi}[Generic REST API].

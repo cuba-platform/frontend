@@ -24,4 +24,4 @@ export function Button(props) {
 }
 ----
 
-There are some useful components provided in xref:cuba-react-core:index.adoc[Jmix React Core] and xref:cuba-react-ui:index.adoc[Jmix React UI] libraries. Please see the corresponding sections for more details.
+There are some useful components provided in xref:jmix-react-core:index.adoc[Jmix React Core] and xref:jmix-react-ui:index.adoc[Jmix React UI] libraries. Please see the corresponding sections for more details.

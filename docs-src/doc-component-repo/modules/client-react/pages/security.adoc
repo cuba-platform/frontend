@@ -14,10 +14,10 @@ NOTE: Check link:{manual_platform}/security[Jmix Platform manual] to learn more 
 
 You may want to hide certain UI elements (or render them as disabled) when the user doesn't have the necessary permissions. For example, you may want to hide the btn:[Create], btn:[Edit] and btn:[Remove] buttons in an entity list when the user doesn't have the corresponding entity operation permissions, or hide a button launching a business method when the user doesn't have a certain specific permission. This can be achieved with access control components which are part of Jmix React Core library. Use:
 
-* xref:cuba-react-core:entity-perm-access-control.adoc[EntityPermAccessControl] when condition involves a single entity operation permission,
-* xref:cuba-react-core:attr-perm-access-control.adoc[AttrPermAccessControl] when condition involves a single entity attribute permission,
-* xref:cuba-react-core:specific-perm-access-control.adoc[SpecificPermAccessControl] when condition involves one or more specific permissions,
-* xref:cuba-react-core:access-control.adoc[AccessControl] when you have a complex condition.
+* xref:jmix-react-core:entity-perm-access-control.adoc[EntityPermAccessControl] when condition involves a single entity operation permission,
+* xref:jmix-react-core:attr-perm-access-control.adoc[AttrPermAccessControl] when condition involves a single entity attribute permission,
+* xref:jmix-react-core:specific-perm-access-control.adoc[SpecificPermAccessControl] when condition involves one or more specific permissions,
+* xref:jmix-react-core:access-control.adoc[AccessControl] when you have a complex condition.
 
 === Security Service (Jmix React Core)
 

@@ -54,7 +54,7 @@ function copyApiReference(playbook, docsSrcPath) {
         const buildDir = playbook.output.dir;
         fse.copySync(
           'docs-src/api-reference',
-          `${projectRootDir}/${buildDir}/cuba-frontend-docs/${version}/api-reference`
+          `${projectRootDir}/${buildDir}/jmix-frontend-docs/${version}/api-reference`
         );
     });
 

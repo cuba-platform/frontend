@@ -60,7 +60,7 @@ Both `displayReqs` and `modifyReqs` are of the same type:
 }
 ----
 
-`entityReqs` contains required entity operation permissions, `attrReqs` - entity attribute permissions and `specificReqs` - specific permissions. `customReqs` function can be used to implement custom conditions / complex logic. For example, you might have a button that shall be visible when user has either of two specific permissions (in that case you will need to use the methods from xref:cuba-react-core:security.adoc[Security service] to manually check the permissions). Or, the condition might be something entirely different than permissions.
+`entityReqs` contains required entity operation permissions, `attrReqs` - entity attribute permissions and `specificReqs` - specific permissions. `customReqs` function can be used to implement custom conditions / complex logic. For example, you might have a button that shall be visible when user has either of two specific permissions (in that case you will need to use the methods from xref:jmix-react-core:security.adoc[Security service] to manually check the permissions). Or, the condition might be something entirely different than permissions.
 
 .Low-Level Details About Matching Permissions
 ****

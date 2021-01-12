@@ -6,8 +6,8 @@ React client is based on the following frameworks and libraries:
 * https://mobx.js.org/[MobX] - reactive state management.
 * {antDesign_base}/docs/react/introduce[Ant Design] - UI components.
 * https://reacttraining.com/react-router/[React Router] - routing.
-* xref:cuba-react-core:index.adoc[Jmix React Core] - core components and utilities.
-* xref:cuba-react-ui:index.adoc[Jmix React UI] - UI components and utilities.
+* xref:jmix-react-core:index.adoc[Jmix React Core] - core components and utilities.
+* xref:jmix-react-ui:index.adoc[Jmix React UI] - UI components and utilities.
 * {api_rest}[Jmix REST] - interaction with Jmix generic REST API.
 * https://facebook.github.io/create-react-app/[Create React App] - build scripts and configuration.
 

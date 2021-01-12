@@ -4,7 +4,7 @@ The client is based on the following frameworks and libraries:
 
 * https://facebook.github.io/react-native/[React Native] - UI rendering;
 * https://mobx.js.org/[MobX] - reactive state management;
-* xref:cuba-react-core:index.adoc[Jmix React Core] - Jmix React core components and utilities;
+* xref:jmix-react-core:index.adoc[Jmix React Core] - Jmix React core components and utilities;
 * {api_rest}[Jmix REST] - interaction with СUBA generic REST API;
 * https://expo.io/[Expo] - development tools for React Native;
 
