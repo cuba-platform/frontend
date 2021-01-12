@@ -31,9 +31,7 @@ function copyApiReference(playbook, docsSrcPath) {
     log.info('Adding API Reference documentation');
 
     // Determine the branches corresponding to versions that will be documented on the site
-    const repo = playbook.content.sources[0].url;
     const branches = playbook.content.sources[0].branches;
-    log.info(`Repo: ${repo}`);
     log.info(`Branches containing documentation: ${branches}`);
 
     // Checkout the repo to a temporary directory
@@ -41,9 +39,9 @@ function copyApiReference(playbook, docsSrcPath) {
     const gitTempDir = `${docsSrcPath}/_temp`;
     fse.removeSync(gitTempDir);
     runCmdSync(`mkdir ${gitTempDir}`);
+    log.info(process.cwd());
+    runCmdSync(`git clone . ${gitTempDir}`);
     process.chdir(gitTempDir);
-    runCmdSync(`git clone ${repo}`);
-    process.chdir('jmix-frontend');
 
     // For each branch copy the API reference files to the built site
     branches.forEach(branch => {
