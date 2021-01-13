@@ -6,7 +6,7 @@
 ----
 menuItems.push({
   pathPattern: '/pets', // 路径 pattern 也可以带一些参数，比如：/pets/:petId?
-  menuLink: '/pest',
+  menuLink: '/pets',
   component: PetBrowser, // 将被渲染的组件，需要在 `routes.ts` 引入
   caption: 'Pets' // 菜单项标题
 });

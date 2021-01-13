@@ -674,7 +674,7 @@ in the main menu:
 ```typescript jsx
 menuItems.push({
   pathPattern: '/pets', // pattern may be used to consume some parameters, e.g.: /pets/:petId?
-  menuLink: '/pest',
+  menuLink: '/pets',
   component: PetBrowser, // component to be rendered, should be imported in `routes.ts`
   caption: 'Pets' // Menu item caption
 });
