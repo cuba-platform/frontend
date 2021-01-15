@@ -1,4 +1,5 @@
 const execSync = require('child_process').execSync;
+const fse = require('fs-extra');
 
 exports.runCmdSync = (command, cwd = process.cwd()) => {
   try {
@@ -18,3 +19,11 @@ exports.log = {
   success: (message) => console.log(highlightSuccess, message),
   error: (message) => console.log(highlightError, message),
 };
+
+exports.isEmptyDir = (dir) => {
+  return fse.readdirSync(dir).length === 0;
+}
+
+exports.isWindows = () => {
+  return process.platform === 'win32';
+}
