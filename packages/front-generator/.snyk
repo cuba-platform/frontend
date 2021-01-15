@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-LODASH-567746:
@@ -30,26 +30,40 @@ ignore:
   SNYK-JS-LODASH-590103:
     - yeoman-environment > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
     - yeoman-environment > grouped-queue > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
     - yeoman-environment > inquirer > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
     - yeoman-generator > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
     - yeoman-generator > yeoman-environment > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
     - yeoman-generator > async > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
     - yeoman-generator > yeoman-environment > grouped-queue > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
     - yeoman-generator > yeoman-environment > inquirer > lodash:
         reason: No remediation available
-        expires: '2020-10-22T14:51:49.929Z'
+        expires: '2021-02-20T18:35:18.576Z'
+  SNYK-JS-EJS-1049328:
+    - yeoman-generator > mem-fs-editor > ejs:
+        reason: None given
+        expires: '2021-02-20T18:35:18.576Z'
+  SNYK-JS-GLOBPARENT-1016905:
+    - yeoman-environment > globby > fast-glob > glob-parent:
+        reason: None given
+        expires: '2021-02-20T18:35:18.576Z'
+    - yeoman-generator > yeoman-environment > globby > fast-glob > glob-parent:
+        reason: None given
+        expires: '2021-02-20T18:35:18.576Z'
+    - yeoman-generator > mem-fs-editor > globby > fast-glob > glob-parent:
+        reason: None given
+        expires: '2021-02-20T18:35:18.576Z'
 patch: {}

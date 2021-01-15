@@ -18,3 +18,5 @@ exports.log = {
   success: (message) => console.log(highlightSuccess, message),
   error: (message) => console.log(highlightError, message),
 };
+
+exports.isWindows = () => process.platform === 'win32';
