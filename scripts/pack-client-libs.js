@@ -6,7 +6,7 @@ const packClientLibs = (prepublishLibs, packLibs) => {
   const packScope = composeScope(packLibs);
 
   const prepublishCmd = prepublishScope && `lerna run prepublishOnly ${prepublishScope}`;
-  const packCmd = packScope && `lerna exec ${packScope} 'npm pack -q'`;
+  const packCmd = packScope && `lerna exec ${packScope} "npm pack -q"`;
 
   let cmd = prepublishCmd ? prepublishCmd : '';
   if (cmd.length > 0 && packCmd) cmd += ' && ';
