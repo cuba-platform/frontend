@@ -186,9 +186,9 @@ function createEntityClassMembers(ctx: ClassCreationContext): {
 }
 
 function createUnionWithNull(node: ts.TypeNode): ts.TypeNode {
-  return ts.createUnionTypeNode([
+  return ts.factory.createUnionTypeNode([
     node,
-    ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)
+    ts.factory.createLiteralTypeNode(ts.factory.createToken(ts.SyntaxKind.NullKeyword))
   ]);
 }
 

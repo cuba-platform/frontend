@@ -215,7 +215,7 @@ export const FormField = injectMainStore(observer(React.forwardRef((props: FormF
           if (propertyInfo.cardinality === 'ONE_TO_ONE') {
             return <NestedEntityField nestedEntityName={nestedEntityName}
                                       nestedEntityView={nestedEntityView}
-                                      {...(rest as NestedEntityFieldProps)}
+                                      {...(rest as Partial<NestedEntityFieldProps>)}
             />;
           }
 
@@ -224,7 +224,7 @@ export const FormField = injectMainStore(observer(React.forwardRef((props: FormF
                                              nestedEntityView={nestedEntityView}
                                              parentEntityName={entityName}
                                              parentEntityInstanceId={parentEntityInstanceId}
-                                             {...(rest as NestedEntitiesTableFieldProps)}
+                                             {...(rest as Partial<NestedEntitiesTableFieldProps>)}
             />;
           }
         }

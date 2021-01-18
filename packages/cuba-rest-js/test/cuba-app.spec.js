@@ -88,7 +88,12 @@ describe('CubaApp', () => {
         id: '91099ca3-194e-6ba5-7aa6-15b03bcef05a',
         description: 'Updated role description'
       };
-      return app.commitEntity('sec$Role', managersRole)
+
+      const fetchOptions = {
+        commitMode: 'edit'
+      }
+
+      return app.commitEntity('sec$Role', managersRole, fetchOptions)
         .then(() => app.loadEntity('sec$Role', managersRole.id))
         .then((updatedRole) => assert(updatedRole.description === 'Updated role description'));
     });
