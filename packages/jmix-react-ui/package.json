@@ -1,6 +1,6 @@
 {
   "name": "@haulmont/jmix-react-ui",
-  "version": "2.0.0-dev.0",
+  "version": "2.0.0-dev.1",
   "description": "Jmix utilities and components for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -27,8 +27,8 @@
     "@ant-design/icons": "^4.0.0",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "@haulmont/jmix-react-core": "^0.2.0-dev.0",
-    "@haulmont/jmix-rest": "^0.2.0-dev.0",
+    "@haulmont/jmix-react-core": "^0.2.0-dev.1",
+    "@haulmont/jmix-rest": "^0.2.0-dev.1",
     "@types/jest": "^24.0.18",
     "@types/query-string": "^6.3.0",
     "@types/react": "^16.9.41",

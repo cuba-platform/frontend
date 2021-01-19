@@ -1,6 +1,6 @@
 {
   "name": "@haulmont/jmix-react-core",
-  "version": "0.2.0-dev.0",
+  "version": "0.2.0-dev.1",
   "description": "Jmix core utilities and components for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -9,8 +9,8 @@
     "dist/"
   ],
   "dependencies": {
-    "moment": "^2.25.3",
-    "@haulmont/jmix-rest": "^0.2.0-dev.0"
+    "@haulmont/jmix-rest": "^0.2.0-dev.1",
+    "moment": "^2.25.3"
   },
   "peerDependencies": {
     "@haulmont/jmix-rest": "^0.2.0-dev.0",
