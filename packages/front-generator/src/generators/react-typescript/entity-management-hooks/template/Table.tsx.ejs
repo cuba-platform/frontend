@@ -113,7 +113,7 @@ const <%= listComponentClass %> = () => {
               <FormattedMessage id="common.create" />
             </span>
           </Button>
-        </Link>,
+        </Link>
       </EntityPermAccessControl>),
       (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='update' key='update'>
         <Link to={PATH + "/" + store.selectedRowKey} key="edit">
@@ -125,7 +125,7 @@ const <%= listComponentClass %> = () => {
           >
             <FormattedMessage id="common.edit" />
           </Button>
-        </Link>,
+        </Link>
       </EntityPermAccessControl>),
       (<EntityPermAccessControl entityName={<%= entity.className %>.NAME} operation='delete' key='delete'>
         <Button
