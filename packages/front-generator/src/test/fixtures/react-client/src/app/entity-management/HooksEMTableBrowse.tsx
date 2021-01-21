@@ -132,7 +132,6 @@ const HooksEMTableBrowse = () => {
             </span>
           </Button>
         </Link>
-        ,
       </EntityPermAccessControl>,
       <EntityPermAccessControl
         entityName={DatatypesTestEntity.NAME}
@@ -149,7 +148,6 @@ const HooksEMTableBrowse = () => {
             <FormattedMessage id="common.edit" />
           </Button>
         </Link>
-        ,
       </EntityPermAccessControl>,
       <EntityPermAccessControl
         entityName={DatatypesTestEntity.NAME}
