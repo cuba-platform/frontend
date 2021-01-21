@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@2.0.0-beta.0...@cuba-platform/react-ui@2.0.0-beta.1) (2021-01-21)
+
+**Note:** Version bump only for package @cuba-platform/react-ui
+
+
+
+
+
 # [2.0.0-beta.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@2.0.0-dev.1...@cuba-platform/react-ui@2.0.0-beta.0) (2021-01-20)
 
 
