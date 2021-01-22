@@ -2,12 +2,14 @@ import {writeComponentI18nMessages, SUPPORTED_CLIENT_LOCALES} from '../../../../
 import {expect, use} from 'chai';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
+import * as path from "path";
 import {Locale} from '../../../../common/model/cuba-model';
 
 use(sinonChai);
 
-const expectEnPath = 'directory/shift/i18n/en.json';
-const expectRuPath = 'directory/shift/i18n/ru.json';
+const langDirPath = path.join('directory', 'shift', 'i18n');
+const expectEnPath = path.join(`${langDirPath}`, 'en.json');
+const expectRuPath = path.join(`${langDirPath}`, 'ru.json');
 
 const enExisting = {
   'key1': 'predefined value 1',
