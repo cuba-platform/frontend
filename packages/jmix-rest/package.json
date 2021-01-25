@@ -11,7 +11,7 @@
     "prepare-browser-test": "browserify test/cuba.test.js > test/cuba-browser.test.js",
     "compile": "tsc",
     "types:browser": "tsc --declarationDir dist-browser --emitDeclarationOnly true",
-    "dist": "npm run compile && mkdir -p dist-browser && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js",
+    "dist": "npm run compile && mkdirp dist-browser && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js",
     "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/jmix-rest src",
     "prepublishOnly": "npm run dist"
   },

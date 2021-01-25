@@ -63,7 +63,7 @@
     "copyless": "copyfiles -u 1 \"./src/**/*.less\" \"./dist\"",
     "copyless-transpiled": "copyfiles -u 1 \"./src/**/*.less\" \"./dist-transpiled\"",
     "compile": "npm run clean && tsc && npm run copyless-transpiled && rollup -c && npm run copyless",
-    "clean": "rm -rf dist && rm -rf dist-transpiled",
+    "clean": "rimraf dist && rimraf dist-transpiled",
     "test": "jest",
     "coverage": "npm test -- --coverage",
     "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/jmix-react-ui src",

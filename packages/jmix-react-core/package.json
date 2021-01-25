@@ -44,7 +44,7 @@
   },
   "scripts": {
     "compile": "npm run clean && tsc && rollup -c",
-    "clean": "rm -rf dist && rm -rf dist-transpiled",
+    "clean": "rimraf dist && rimraf dist-transpiled",
     "test": "jest",
     "coverage": "npm test -- --coverage",
     "generate-docs": "typedoc --module commonjs --out ../../docs-src/api-reference/jmix-react-core src",
