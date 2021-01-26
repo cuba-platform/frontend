@@ -1,0 +1,58 @@
+<% if (listType === 'list' || listType === 'cards') { -%>
+  import React, { useCallback } from "react";
+<% } else { -%>
+  import React from "react";
+<% } -%>
+import {RouteComponentProps} from "react-router";
+import {
+  <% if (listType === 'list' || listType === 'cards') { -%>
+    useLocalStore,
+  <% } -%>
+  useObserver
+} from "mobx-react";
+import <%= editComponentClass %> from "./<%= editComponentClass %>";
+import <%= listComponentClass %> from "./<%= listComponentClass %>";
+<% if (listType === 'list' || listType === 'cards') { -%>
+  import {action} from "mobx";
+  import {PaginationConfig} from "antd/es/pagination";
+  import {addPagingParams, createPagingConfig} from "@haulmont/jmix-react-ui";
+<% } -%>
+
+type Props = RouteComponentProps<{entityId?: string}>;
+
+<% if (listType === 'list' || listType === 'cards') { -%>
+  type <%= className %>LocalStore = {
+    paginationConfig: PaginationConfig;
+  };
+<% } -%>
+
+export const PATH = "/<%= nameLiteral %>";
+export const NEW_SUBPATH = "new";
+
+export const <%= className %> = (props: Props) => {
+  const { entityId } = props.match.params;
+
+  <% if (listType === 'list' || listType === 'cards') { -%>
+    const store: <%= className %>LocalStore = useLocalStore(() => ({
+      paginationConfig: createPagingConfig(props.location.search)
+    }));
+
+    const onPagingChange = useCallback(action((current: number, pageSize: number) => {
+      props.history.push(addPagingParams('<%= nameLiteral %>', current, pageSize));
+      store.paginationConfig = {...store.paginationConfig, current, pageSize};
+    }), []);
+  <% } -%>
+
+  return useObserver(() => {
+    return (entityId != null) ? (
+      < <%= editComponentClass %> entityId={entityId} />
+    ) : (
+      < <%= listComponentClass %>
+        <% if (listType === 'list' || listType === 'cards') { %>
+          onPagingChange={onPagingChange}
+          paginationConfig={store.paginationConfig}
+        <% } %>
+      />
+    );
+  });
+};

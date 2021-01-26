@@ -1,10 +1,16 @@
 import {Entity, ProjectModel} from "../../../common/model/cuba-model";
 import {isBaseProjectEntity} from "../../../common/model/cuba-model-utils";
 
+/**
+ * @deprecated
+ */
 export interface EntityTemplateModel extends  Entity{
   path: string // path relative to SDK placement
 }
 
+/**
+ * @deprecated
+ */
 export interface CommonTemplateModel {
   componentName: string;
   className: string;

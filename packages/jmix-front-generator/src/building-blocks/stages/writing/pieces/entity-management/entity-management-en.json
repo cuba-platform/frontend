@@ -1,0 +1,8 @@
+{
+  "management.browser.delete.areYouSure":  "Are you sure you want to delete {instanceName}?",
+  "management.browser.delete.ok": "Delete",
+  "management.browser.noItems":  "No data",
+  "management.editor.validationError": "Validation Error. Please check the data you entered.",
+  "management.editor.success":  "Entity has been updated",
+  "management.editor.error": "Error"
+}

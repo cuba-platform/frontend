@@ -1,0 +1,268 @@
+import React, {useCallback, useEffect, RefObject} from "react";
+import {Form, Alert, Button, Card, message} from "antd";
+import {FormInstance} from "antd/es/form";
+import useForm from "antd/lib/form/hooks/useForm";
+import {useLocalStore, useObserver} from "mobx-react";
+import {PATH, NEW_SUBPATH} from "./<%= className %>";
+import {Link, Redirect} from "react-router-dom";
+import {toJS} from "mobx";
+import {FormattedMessage, useIntl} from 'react-intl';
+import {createAntdFormValidationMessages} from '@haulmont/jmix-react-ui';
+import {
+  useMainStore,
+  useReaction,
+  instanceItemToFormFields
+} from "@haulmont/jmix-react-core";
+import {
+<% if (editAttributes.length > 0) { %>
+  Field,
+<% } %>
+  MultilineText,
+  Spinner
+} from "@haulmont/jmix-react-ui";
+import {gql, useMutation, useLazyQuery} from "@apollo/client";
+import { MetaClassInfo } from "@haulmont/jmix-rest";
+import { getFields } from "./<%= listComponentClass %>"; <%# //TODO Temporary, to be moved to react-core %>
+import "<%= relDirShift %>app/App.css";
+<% relationImports.forEach(relationImport =>{ -%>
+  import {<%= relationImport.className %>} from "<%= relDirShift %><%= relationImport.path %>";
+<% }) %>
+
+type Props = {
+  entityId: string;
+};
+
+type <%= editComponentClass %>AssociationOptions = {
+<% Object.entries(editAssociations).forEach(([attrName, nestedEntity]) => { -%>
+  <%= attrName %>sDc?: DataCollectionStore<<%= nestedEntity.className %>>;
+<% }) %>
+};
+
+type <%= editComponentClass %>LocalStore = <%= editComponentClass %>AssociationOptions & {
+  updated: boolean;
+  globalErrors: string[];
+  formRef: RefObject<FormInstance<any>>;
+};
+
+function getEntityIdFieldName(entityName: String, metadata: MetaClassInfo[]): string {
+  return 'id'; // TODO determine the correct name for id field based on metadata
+}
+
+const <%= entity.className.toUpperCase() %>_BY_ID = gql`
+  query <%= entity.className %>ById($id: String!) {
+    <%= entity.className.toLowerCase() %>ById(id: $id) {
+      instanceName
+      id
+      <% editAttributes.forEach(p => { -%>
+        <%= p.name %>
+      <% }) %>
+    }
+  }
+`;
+
+const UPSERT_<%= entity.className.toUpperCase() %> = gql`
+  mutation Upsert<%= entity.className %>($<%= entity.className.toLowerCase() %>: inp_scr_<%= entity.className %>!) {
+    create<%= entity.className.toUpperCase() %>(<%= entity.className.toLowerCase() %>: $<%= entity.className.toLowerCase() %>) {
+      id
+    }
+  }
+`;
+
+const <%= editComponentClass %> = (props: Props) => {
+  const { entityId } = props;
+
+  const intl = useIntl();
+  const mainStore = useMainStore();
+  const [form] = useForm();
+
+  const [get<%= entity.className %>, {loading: queryLoading, error: queryError, data: <%= entity.className.toLowerCase() %>Data}] = useLazyQuery(<%= entity.className.toUpperCase() %>_BY_ID);
+
+  const [upsert<%= entity.className %>, {loading: upsertLoading}] = useMutation(UPSERT_<%= entity.className.toUpperCase() %>);
+
+  const store = useLocalStore(() => ({
+    // Association options
+    garagesDc: undefined,
+    technicalCertificatesDc: undefined,
+    photosDc: undefined,
+
+    // Other
+    updated: false,
+    globalErrors: [],
+    formRef: React.createRef<FormInstance<any>>()
+  }));
+
+  // Create a reaction that sets the fields values based on query data
+  useReaction(
+    () => [store.formRef.current, queryLoading, queryError, <%= entity.className.toLowerCase() %>Data],
+    ([formInstance]) => {
+      if (formInstance != null && !queryLoading && queryError == null) {
+        form.setFieldsValue(<%= entity.className.toLowerCase() %>Data);
+      }
+    },
+    { fireImmediately: true }
+  );
+
+  useEffect(() => {
+    if (entityId != null && entityId !== NEW_SUBPATH) {
+      get<%= entity.className %>({
+        variables: {
+          id: entityId
+        }
+      })
+    }
+  }, [entityId, get<%= entity.className %>]);
+
+  useEffect(() => {
+      if (store.formRef.current != null && !queryLoading && queryError == null && <%= entity.className.toLowerCase() %>Data != null) {
+        form.setFieldsValue(jmix2ant<<%= entity.className %>>(
+          <%= entity.className.toLowerCase() %>Data.<%= entity.className.toLowerCase() %>ById,
+          <%= entity.className %>.NAME,
+          mainStore.metadata
+        ));
+      }
+    },
+    [queryLoading, queryError, <%= entity.className.toLowerCase() %>Data, form, mainStore.metadata, store.formRef]
+  );
+
+  const handleFinishFailed = useCallback(() => {
+    message.error(
+      intl.formatMessage({ id: "management.editor.validationError" })
+    );
+  }, [intl]);
+
+  const handleFinish = useCallback(
+    (values: { [field: string]: any }) => {
+      if (form != null && mainStore.metadata != null) {
+        upsert<%= entity.className %>({
+          variables: {
+            <%= entity.className.toLowerCase() %>: {
+              ...values,
+              ...addIdIfExistingEntity(entityId, mainStore.metadata) <%# This will be refactored once we move to separate create/update mutations %>
+            }
+          }
+        }).then(({errors}) => {
+          if (errors == null || errors.length === 0) {
+            store.updated = true;
+          } else {
+            console.error(errors); <%# //TODO Error handling %>
+          }
+        }).catch(e => {
+          console.error(e);
+        });
+      }
+    },
+    [entityId, form, mainStore.metadata, store.updated, upsert<%= entity.className %>]
+  );
+
+  return useObserver(() => {
+    if (store.updated) {
+      return <Redirect to={PATH} />;
+    }
+
+    if (queryLoading) {
+      return <Spinner />;
+    }
+
+    if (queryError != null) {
+      console.error(queryError);
+      return (
+        <>
+          <FormattedMessage id="common.requestFailed" />.
+          <br />
+          <br />
+          <Button htmlType="button" onClick={() => get<%= entity.className %>()}>
+          <FormattedMessage id="common.retry" />
+          </Button>
+        </>
+      );
+    }
+
+    return (
+      <Card className="narrow-layout">
+        <Form
+          onFinish={handleFinish}
+          onFinishFailed={handleFinishFailed}
+          layout="vertical"
+          ref={store.formRef}
+          form={form}
+          validateMessages={createAntdFormValidationMessages(intl)}
+        >
+          <% editAttributes.forEach(attr => { %>
+            <Field entityName={<%= entity.className %>.NAME}
+                   propertyName="<%= attr.name %>"
+
+              <% if (readOnlyFields.includes(attr.name)) { %>
+                   disabled={true}
+              <% } else if (attr.name === locals.stringIdName) { %>
+                   disabled={!isNewEntity(entityId)}
+              <% } %>
+
+              <% if (Object.keys(editCompositions).includes(attr.name)) { %>
+                <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
+                   nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
+                <% } %>
+                   parentEntityInstanceId={entityId !== NEW_SUBPATH ? entityId : undefined}
+              <% } %>
+
+              <% if (Object.keys(editAssociations).includes(attr.name)) { %>
+                   optionsContainer={store.<%= attr.name %>sDc}
+              <% } %>
+
+                    formItemProps={{
+                    style: {marginBottom: "12px"},
+              <% if (attr.mandatory) { -%>
+                    rules: [{required: true}],
+              <% } -%>
+              <% if (attr.type && attr.type.fqn === 'java.lang.Boolean') { -%>
+                    valuePropName: "checked",
+              <% } -%>
+              }}
+            /> <%# end Field %>
+          <% }) %>
+
+          {store.globalErrors.length > 0 && (
+            <Alert
+              message={<MultilineText lines={toJS(store.globalErrors)} />}
+              type="error"
+              style={{ marginBottom: "24px" }}
+            />
+          )}
+
+          <Form.Item style={{textAlign: 'center'}}>
+            <Link to={PATH}>
+              <Button htmlType="button">
+                <FormattedMessage id='common.cancel'/>
+              </Button>
+            </Link>
+            <Button type="primary"
+                    htmlType="submit"
+                    <%# disabled={status !== "DONE" && status !== "ERROR"} //TODO client-side validation %>
+                    loading={upsertLoading}
+                    style={{marginLeft: '8px'}}>
+              <FormattedMessage id='common.submit'/>
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
+    );
+  });
+};
+
+function addIdIfExistingEntity(entityId: string, metadata: MetaClassInfo[]) {
+  return entityId === NEW_SUBPATH
+    ? undefined
+    : {[getEntityIdFieldName(<%= entity.className %>.NAME, metadata)]: entityId};
+}
+
+function jmix2ant<T>(
+  item: Record<string, any>,
+  entityName: string,
+  metadata?: MetaClassInfo[],
+  stringIdName?: string
+): Record<string, any> {
+  const displayedProperties = getFields(item, stringIdName != null);
+
+  return instanceItemToFormFields(item, entityName, metadata!, displayedProperties, stringIdName)
+}
+
+export default <%= editComponentClass %>;

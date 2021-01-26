@@ -23,12 +23,16 @@ import * as AutocompletePrompt from 'inquirer-autocomplete-prompt';
 import through2 = require('through2');
 import prettier = require('prettier');
 
+/**
+ * @deprecated
+ */
 interface ProjectInfoAnswers {
   projectInfo: StudioProjectInfo;
 }
 
 /**
  * @alpha
+ * @deprecated
  */
 export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> extends Base {
 
@@ -172,6 +176,9 @@ export abstract class BaseGenerator<A, M, O extends CommonGenerationOptions> ext
   abstract writing(): void
 }
 
+/**
+ * @deprecated
+ */
 export interface GeneratorExports {
   generator: typeof BaseGenerator,
   options?: OptionsConfig,
@@ -179,6 +186,10 @@ export interface GeneratorExports {
   description?: string;
 }
 
+/**
+ * @deprecated
+ * @param modelFilePath
+ */
 export function readProjectModel(modelFilePath?: string): ProjectModel {
   if (!modelFilePath || !fs.existsSync(modelFilePath)) {
     throw new Error('Specified model file does not exist ' + modelFilePath);
@@ -187,6 +198,12 @@ export function readProjectModel(modelFilePath?: string): ProjectModel {
 }
 
 // TODO fix answers type
+/**
+ * @deprecated
+ * @param projectModel
+ * @param generatorParams
+ * @param answers
+ */
 export function refineAnswers<T>(projectModel: ProjectModel, generatorParams: StudioTemplateProperty[], answers: any): T {
   const refinedAnswers: { [key: string]: any } = {};
 
@@ -229,6 +246,7 @@ export function refineAnswers<T>(projectModel: ProjectModel, generatorParams: St
 /**
  * Transform stream for remove .ejs extension from files. We are using this extension to improve code
  * highlight in editor
+ * @deprecated
  */
 function createEjsRenameTransform() {
     return through2.obj(function (file, enc, callback) {
@@ -244,6 +262,7 @@ function createEjsRenameTransform() {
 
 /**
  * Prettier formatting transform stream for .ts and .tsx files
+ * @deprecated
  */
 function createFormatTransform() {
   return through2.obj(function (file, enc, callback) {

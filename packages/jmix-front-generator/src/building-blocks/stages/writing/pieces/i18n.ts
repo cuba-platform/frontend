@@ -1,16 +1,15 @@
-import * as path from 'path';
 import {MemFsEditor} from "yeoman-generator";
-import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
-import {Locale} from '../../../common/model/cuba-model';
+import {Locale} from "../../../../common/model/cuba-model";
+import * as path from "path";
+import {capitalizeFirst, splitByCapitalLetter} from "../../../../common/utils";
 
-export const SUPPORTED_CLIENT_LOCALES = ['en', 'fr', 'ru'];
+// TODO Switch to a single i18n pack
+// Moved (almost) unchanged from src/common
 
 /**
  * Adds component i18n messages to the frontend client i18n message packs.
  * Also adds a menu item caption to the i18n file for locale `en`. The caption is constructed from the class name.
  * If any message already exists in the file - it will NOT be overwritten with a new value.
- *
- * @deprecated moved to building-blocks
  *
  * @param fs - yeoman fs
  * @param className - component class name
@@ -84,4 +83,3 @@ function hasNewEntries(newVals: Record<string, string>, oldVals: Record<string, 
 
   return !newKeys.every((newK) => Object.keys(oldVals).some((oldK) => oldK === newK));
 }
-

@@ -21,6 +21,9 @@ import {StudioTemplateProperty, StudioTemplatePropertyType, ViewInfo} from '../.
 import {fromStudioProperties} from '../../../common/questions';
 import {findEntity, findView} from '../../../common/model/cuba-model-utils';
 
+/**
+ * @deprecated
+ */
 export interface EntityManagementAnswers<T> extends BaseEntityScreenAnswers {
   managementComponentName: string;
   listType: T;
@@ -31,6 +34,9 @@ export interface EntityManagementAnswers<T> extends BaseEntityScreenAnswers {
   nestedEntityInfo?: Record<string, string>;
 }
 
+/**
+ * @deprecated
+ */
 export function writeReactTSEntityManagement<
   T extends string,
   A extends EntityManagementAnswers<T>,
@@ -75,6 +81,9 @@ export function writeReactTSEntityManagement<
   return {model};
 }
 
+/**
+ * @deprecated
+ */
 export function writeManagementComponent<T extends string, M extends EntityManagementTemplateModel<T>>(
   gen: Pick<Base, 'fs' | 'templatePath' | 'destinationPath'>,
   extension: string,
@@ -87,6 +96,9 @@ export function writeManagementComponent<T extends string, M extends EntityManag
   );
 }
 
+/**
+ * @deprecated
+ */
 export function writeListComponent<T extends string, M extends EntityManagementTemplateModel<T>>(
   gen: Pick<Base, 'fs' | 'templatePath' | 'destinationPath'>,
   listType: string,
@@ -101,6 +113,9 @@ export function writeListComponent<T extends string, M extends EntityManagementT
   );
 }
 
+/**
+ * @deprecated
+ */
 export function writeEditorComponent<T extends string, M extends EntityManagementTemplateModel<T>>(
   gen: Pick<Base, 'fs' | 'templatePath' | 'destinationPath'>,
   extension: string,
@@ -113,6 +128,9 @@ export function writeEditorComponent<T extends string, M extends EntityManagemen
   );
 }
 
+/**
+ * @deprecated
+ */
 export function addMenuItem<T extends string, M extends EntityManagementTemplateModel<T>, O extends ComponentOptions>(
   gen: Pick<Base, 'fs' | 'destinationRoot' | 'log'>,
   options: O,
@@ -141,6 +159,9 @@ export function addMenuItem<T extends string, M extends EntityManagementTemplate
   }
 }
 
+/**
+ * @deprecated
+ */
 export function answersToManagementModel<
   T extends string,
   A extends EntityManagementAnswers<T>,
@@ -193,6 +214,9 @@ export function answersToManagementModel<
   }
 }
 
+/**
+ * @deprecated
+ */
 export async function additionalPrompts<T extends string, A extends EntityManagementAnswers<T>>(
   gen: Pick<Base, 'prompt'>,
   answers: A,
@@ -223,6 +247,9 @@ export async function additionalPrompts<T extends string, A extends EntityManage
   };
 }
 
+/**
+ * @deprecated
+ */
 export async function nestedEntityPrompts<T extends string, A extends EntityManagementAnswers<T>>(
   gen: Pick<Base, 'prompt'>,
   answers: A,
@@ -262,6 +289,9 @@ export async function nestedEntityPrompts<T extends string, A extends EntityMana
   return nestedEntityInfo;
 }
 
+/**
+ * @deprecated
+ */
 export function getViewAttrs<T extends string, A extends EntityManagementAnswers<T>>(
   projectModel: ProjectModel,
   answers: A
@@ -273,6 +303,9 @@ export function getViewAttrs<T extends string, A extends EntityManagementAnswers
   return [...new Set([...listAttrs, ...editAttrs])];
 }
 
+/**
+ * @deprecated
+ */
 export function getRelationImports(relations: EditRelations, entity: EntityTemplateModel): RelationImport[] {
   const entities: EntityTemplateModel[] = Object.values(relations);
   entities.unshift(entity);
@@ -287,6 +320,9 @@ export function getRelationImports(relations: EditRelations, entity: EntityTempl
       } , [] as RelationImport[])
 }
 
+/**
+ * @deprecated
+ */
 export function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelationsSplit {
   return attributes.reduce<EditRelationsSplit>((relations, attribute) => {
     if (attribute.type == null || (attribute.mappingType !== 'ASSOCIATION' && attribute.mappingType !== 'COMPOSITION')) {
@@ -309,6 +345,9 @@ export function getRelations(projectModel: ProjectModel, attributes: EntityAttri
   }, {editAssociations: {}, editCompositions: {}});
 }
 
+/**
+ * @deprecated
+ */
 export {
   EntityManagementTemplateModel,
   entityManagementGeneratorParams,
