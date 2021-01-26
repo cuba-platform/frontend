@@ -1,4 +1,5 @@
 const {runCmdSync, isWindows} = require("../common");
+const path = require("path");
 
 function startJmixApp() {
   let gradlew = 'gradlew';
@@ -6,7 +7,12 @@ function startJmixApp() {
     gradlew = 'gradlew.bat';
   }
 
-  runCmdSync(`scr-jmix/${gradlew} -p scr-jmix bootRun`);
+  const basePath = process.cwd();
+  const pathToGradlew = path.join(basePath, 'scr-jmix', gradlew);
+  const arg = '-p scr-jmix bootRun'
+
+  const cmd = `${pathToGradlew} ${arg}`
+  runCmdSync(cmd);
 }
 
 startJmixApp();
