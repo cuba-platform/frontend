@@ -19,7 +19,7 @@ Perform npm install and lerna bootstrap:
 
 ```
 npm install
-lerna boostrap
+lerna bootstrap
 ```
 
 ## Dependencies of Generated App
@@ -29,24 +29,24 @@ To update versions of @haulmont/jmix-rest and @cuba-platform/react in generated 
 * set new versions in [packages/cuba-rest-js/package.json](packages/jmix-rest/package.json) 
 and [packages/cuba-react/package.json](packages/cuba-react/package.json)
 
+* bootstrap backend - clone repository with backend
+```bash
+npm run bootstrap-jmix-app
+```
+
+* start backend
+```bash
+npm run start-jmix-app
+```
+
 * bootstrap client app - compile and pack dependencies, generate client app 
 ```bash
 npm run bootstrap-react-app
 ```
 
-* bootstrap and start backend
-```bash
-npm run bootstrap-cuba-app && npm run start-cuba-app
-```
-
 * start app
 ```bash
 npm run start-react-app
-```
-
-* all-in-one command:
-```bash
-npm run react-all
 ```
 
 ## Rebuild and Install Dependencies During Development

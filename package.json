@@ -27,7 +27,7 @@
     "lerna": "lerna",
     "antora": "antora",
     "antora:gen": "antora --fetch",
-    "commit": "node_modules/commitizen/bin/git-cz",
+    "commit": "node node_modules/commitizen/bin/git-cz",
     "pack-given-client-libs": "node scripts/pack-given-client-libs.js",
     "pack-react-client-libs": "node scripts/pack-react-client-libs.js",
     "pack-react-native-client-libs": "node scripts/pack-react-native-client-libs.js",

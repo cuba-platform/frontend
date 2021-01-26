@@ -52,6 +52,23 @@ const foobar = foo && foo.bar && foo.bar.baz;
 const foobar = foo?.bar?.baz;
 ```
 
+### Database
+
+#### Setup database
+
+For work with the project you need to install and setup [PostgreSQL](https://www.postgresql.org/download/). For setup you can use pgAdmin(graphical administration utility) or psql(PostgreSQL cli).
+
+You need to:
+- Create user `cuba` with password `cuba`. And set privilege `LOGIN` for the new user.
+- Create database with `scr-jmix` name.
+
+Psql exemple:
+```
+sudo -u postgres psql
+postgres=# create database "scr-jmix";
+postgres=# create user cuba with encrypted password 'cuba';
+```
+
 ### Testing
 
 This section explains how to test the generator.
