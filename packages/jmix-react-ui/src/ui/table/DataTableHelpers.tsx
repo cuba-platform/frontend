@@ -15,7 +15,7 @@ import {
   DataTableCustomFilter as CustomFilter,
 } from './DataTableCustomFilter';
 import { toJS } from 'mobx';
-import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption } from '@haulmont/jmix-react-core';
+import { MainStore, getPropertyInfoNN, DataCollectionStore, getPropertyCaption, isPropertyTypeSupported } from '@haulmont/jmix-react-core';
 import {OperatorType, FilterValue} from "@haulmont/jmix-rest";
 import {setPagination} from "../paging/Paging";
 import {Key} from 'antd/es/table/interface';
@@ -476,20 +476,4 @@ export function isConditionsGroup(conditionOrConditionsGroup: Condition | Condit
  */
 export function isPreservedCondition(condition: Condition | ConditionsGroup, fields: string[]): boolean {
   return isConditionsGroup(condition) || fields.indexOf((condition as Condition).property) === -1;
-}
-
-export function isPropertyTypeSupported(propertyInfo: MetaPropertyInfo): boolean {
-  const supportedAttributeTypes: string[] = ['ENUM', 'ASSOCIATION', 'COMPOSITION'];
-  const supportedTypes: string[] = [
-    'string',
-    'uuid',
-    'int', 'double', 'decimal', 'long',
-    'date', 'time', 'dateTime',
-    'localDate', 'localTime', 'localDateTime',
-    'offsetTime', 'offsetDateTime',
-    'boolean'
-  ];
-
-  return supportedAttributeTypes.indexOf(propertyInfo.attributeType) > -1
-    || supportedTypes.indexOf(propertyInfo.type) > -1;
 }

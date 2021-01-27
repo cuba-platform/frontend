@@ -1,4 +1,4 @@
-import {EntityMessages, EnumInfo, MetaClassInfo, MetaPropertyInfo} from "@haulmont/jmix-rest";
+import {AttributeType, EntityMessages, EnumInfo, MetaClassInfo, MetaPropertyInfo} from "@haulmont/jmix-rest";
 
 export function getPropertyInfo(metadata: MetaClassInfo[], entityName: string, propertyName: string): MetaPropertyInfo | null {
     const metaClass = metadata.find(mci => mci.entityName === entityName);
@@ -58,6 +58,22 @@ export function getEnumCaption(enumValueName: string, propertyInfo: MetaProperty
  */
 export function getPropertyCaption(propertyName: string, entityName: string, messages: EntityMessages): string {
   return messages[entityName + '.' + propertyName];
+}
+
+export function isPropertyTypeSupported(propertyInfo: MetaPropertyInfo): boolean {
+  const supportedAttributeTypes: AttributeType[] = ['ENUM', 'ASSOCIATION', 'COMPOSITION'];
+  const supportedTypes: string[] = [
+    'string',
+    'uuid',
+    'int', 'double', 'decimal', 'long',
+    'date', 'time', 'dateTime',
+    'localDate', 'localTime', 'localDateTime',
+    'offsetTime', 'offsetDateTime',
+    'boolean'
+  ];
+
+  return supportedAttributeTypes.indexOf(propertyInfo.attributeType) > -1
+    || supportedTypes.indexOf(propertyInfo.type) > -1;
 }
 
 export function isFileProperty(propertyInfo: MetaPropertyInfo): boolean {
