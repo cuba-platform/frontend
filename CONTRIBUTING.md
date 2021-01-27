@@ -2,7 +2,124 @@
 
 <a name="react-client-templates"/>
 
-### Code Generation Templates
+### Generators
+
+#### Basics and Terminology
+
+`packages/jmix-front-generator` contains the source code for `@haulmont/jmix-front-generator` library which is used for code generation (scaffolding). This library uses [Yeoman](https://yeoman.io/), however, in order to extend and reuse functionality we are using functions composition rather than Yeoman's usual approach of class inheritance. This will be covered in more detail in [How to Write a Generator](#how-to-write-a-generator) section. The code is generated from [EJS](https://ejs.co/) templates. 
+
+This library can be used as a standalone CLI tool, but most of the time it will be used from Studio. When used as a CLI tool it can interactively ask questions and use the **answers** to resolve interpolations in the templates. Studio will ask these questions using its graphical interface and invoke the generator CLI, passing the base64-encoded answers object as `--answers` **option**. There are other options, for example `--dest` that tells the generator where to put the generated files.  
+
+In addition to *answers* and *options* there is a **project model** - information about your Jmix project's entities, fetch plans, services, queries, etc. It can be obtained from Studio.
+
+> EJS template + options + answers + project model = generated code
+
+A **generator** is a combination of an EJS template and code that is responsible for asking questions and turning the answers, options and project model into generated code. For each **client** (e.g. React client, React Native client, etc.) there is always a generator that creates a starter app and zero or more generators that adds the components.
+
+> TIP: use `gen-cuba-front -h` to see the available clients, generators and options.
+
+#### How to Write a Generator
+
+There is a convention that enables CLI/Studio to discover generators. When you want to add a new generator:
+
+1. Create a new folder in `src/generators/{clientName}/{generatorName}`.
+2. Add an EJS template (by convention we put it under the `template` directory).
+3. Add `index.ts` file. It should contain:
+
+   - A generator class that extends `YeomanGenerator` and contains a constructor and a single method. By convention this method is called `generate`. 
+   - An export that looks like this: 
+      ```
+      export {
+         YourGeneratorClassName as generator,
+         optionsConfig as options,
+         allQuestions as params,
+         description
+      }
+      ```
+
+`optionsConfig` is an `OptionsConfig` object that contains available options. `allQuestions` is a `StudioTemplateProperty` array representing all possible questions that can be asked by this generator. `description` will be shown by CLI and Studio.
+
+`generate` method will contain the generator's logic. Since a lot of logic is duplicated between the generators, we are using the following convention to reuse it.
+
+#### Pipelines and Stages
+
+Generally the process of code generation can be viewed as the following **pipeline**:
+
+```
+     +-------------+
+     | get options |
+     +------+------+
+            |
+            v
+   +--------+---------+
+   | configure Yeoman |
+   +--------+---------+
+            |
+            v
+  +---------+----------+
+  | get project model  |
+  +---------+----------+
+            |
+            v
+     +------+------+
+     | get answers |
+     +------+------+
+            |
+            v
++-----------+-----------+
+| derive template model |
++-----------+-----------+
+            |
+            v
+     +------+------+
+     |    write    |
+     +------+------+
+```
+
+Let us describe the **stages** of this pipeline:
+
+- `get options`: we tell Yeoman what options are allowed and get the values of those options.
+- `configure Yeoman`: set the source and destination directory, register transformations, etc.
+- `get project model`: read it from file system if the model file path was provided in options, or get it directly from Studio using integration.
+- `get answers`: ask questions and get the answers. Or get the answers from options.
+- `derive template model`: use answers, options and project model to create a **template model** - a set of data that will be used to resolve interpolations in the template. This stage is kind of like MobX's `@computed`.
+- `write`: use the template and template model to resolve the interpolations and write the result to the file system.
+
+To use this pipeline call `defaultPipeline` function in your `generate` method. The arguments:
+
+- `templateDir` - template location. 
+- `questions` - an array of all possible questions (if your generator is using any).
+- `options` - options config (defaults to `commonGenerationOptionsConfig`).
+- `stages` - an object containing your custom implementations of stages:
+    - `getOptions`
+    - `configureGenerator`
+    - `getProjectModel`
+    - `getAnswersFromOptions`
+    - `getAnswersFromPrompt`
+    - `deriveTemplateModel`
+    - `write`
+    
+There are default implementations of stages that are suitable for most cases. Most likely you'll need to customize `getAnswersFromPrompt`, `deriveTemplateModel` and `write`. Implementations of these stages also share some code between themselves. This code is extracted into functions which we put under `src/building-blocks/stages/{stageName}/pieces`. When creating your own reusable functions it is important to give them clear names so that your functions can be easily discovered and reused by fellow developers.
+
+Inside your generator folder, organize your custom code based on the stage it belongs to. For example, put your questions and your implementation of `getAnswersFromPrompt` to `answers.ts`, your `TemplateModel` type and `deriveTemplateModel` implementation to `template-model.ts`, etc. A typical generator folder may look like this:
+
+```
+├── answers.ts
+├── index.ts
+├── options.ts
+├── template
+│ ├── Cards.tsx.ejs
+│ ├── EntityManagementEditor.tsx.ejs
+│ ├── EntityManagement.tsx.ejs
+│ ├── List.tsx.ejs
+│ └── Table.tsx.ejs
+├── template-model.ts
+└── write.ts
+```
+
+If you need to use a different/modified pipeline, write your own analogue of the `defaultPipeline` function. You can still reuse the default implementation of stages that are relevant to you.
+
+#### Templates
 The ```template``` folder inside generator is used to create templates from which the code will be generated. 
 Templates are processed using [EJS](https://ejs.co/). 
 <br>

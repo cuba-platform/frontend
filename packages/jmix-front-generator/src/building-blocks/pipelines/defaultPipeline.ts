@@ -10,9 +10,21 @@ import {StudioTemplateProperty} from "../../common/studio/studio-model";
 import {ProjectModel} from "../../common/model/cuba-model";
 
 export interface DefaultPipelineInput<O extends CommonGenerationOptions, A, M> {
+  /**
+   * Template location.
+   */
   templateDir: string;
+  /**
+   * All possible questions that can be asked by this generator.
+   */
   questions: StudioTemplateProperty[],
+  /**
+   * Defaults to {@link commonGenerationOptionsConfig}.
+   */
   optionsConfig?: OptionsConfig;
+  /**
+   * Can be used to replace default implementations of pipeline stages.
+   */
   stages: DefaultPipelineStages<O, A, M>;
 }
 
