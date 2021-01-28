@@ -135,6 +135,38 @@ It means that files ```EntityManagementEditor.tsx.ejs``` and ```EntityManagement
 
 > NOTE: This section is under construction.
 
+#### Cross-platforming
+
+When you are working with code, you need to adhere to several recommendations in order for the app to work correctly on both UNIX and Windows OS:
+
+1. Remember that Windows uses "\\" symbol as path separator, but UNIX uses "/". For this reason, you need to use "path" package when you work with paths in code:
+
+```
+Examples:
+
+// wrong
+const examplePath = 'my/test/directory';
+
+// correct
+const examplePath = path.join('my', 'test', 'directory');
+``` 
+
+2. Avoid using CLI commands which depend on OS, like 'mkdir -p', 'rm -rf', etc. Instead, use npm packages with CLI that have the same functionality:
+
+```
+Examples (package.json scripts):
+
+// wrong
+"clean": "rm -rf dist && rm -rf dist-transpiled",
+"dist": "npm run compile && mkdir -p dist-browser && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js"
+
+// correct
+"clean": "rimraf dist && rimraf dist-transpiled",
+"dist": "npm run compile && mkdirp dist-browser && browserify --standalone cuba dist-node/cuba.js > dist-browser/cuba.js"
+``` 
+
+3. When you are working with shell scripts, you need to provide `.sh` script for UNIX users and `.bat` for Windows users. Also, you need to implement logic of running `.sh` scripts for UNIX users, and `.bat` for Windows users.
+
 #### TypeScript
 
 ##### Use Semantically Correct Idioms
