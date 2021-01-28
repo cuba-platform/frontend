@@ -26,6 +26,7 @@ import {BigDecimalInput} from "../form/BigDecimalInput";
 import {DoubleInput} from "../form/DoubleInput";
 import {LongInput} from "../form/LongInput";
 import {UuidInput} from '../form/UuidInput';
+import {CharInput} from '../form/CharInput';
 import {uuidPattern} from "../../util/regex";
 import {LabeledValue} from "antd/es/select";
 import {wrapInFormItem, getDefaultFilterFormItemProps} from './DataTableCustomFilterFields';
@@ -341,6 +342,7 @@ class DataTableCustomFilterComponent<E extends WithId>
       case 'double':
       case 'decimal':
       case 'long':
+      case 'char':
         return '=';
       case 'string':
         return 'contains';
@@ -536,6 +538,18 @@ class DataTableCustomFilterComponent<E extends WithId>
             return this.yesNoSelectField;
         }
 
+        case 'char':
+          switch (this.operator) {
+            case '=':
+            case '<>':
+              return this.charInputField;
+            case 'in':
+            case 'notIn':
+              return this.listEditor;
+            case 'notEmpty':
+              return this.yesNoSelectField;
+          }
+
       default:
         throw new Error(this.cannotDetermineConditionInput(propertyInfo.type));
     }
@@ -544,6 +558,11 @@ class DataTableCustomFilterComponent<E extends WithId>
   @computed
   get textInputField(): ReactNode {
     return this.createFilterInput(<Input onChange={this.onTextInputChange}/>, true);
+  }
+
+  @computed
+  get charInputField(): ReactNode {
+    return this.createFilterInput(<CharInput onChange={this.onTextInputChange}/>, true);
   }
 
   @computed
@@ -762,6 +781,7 @@ function getAvailableOperators(propertyInfo: MetaPropertyInfo): ComparisonType[]
     case 'string':
       return ['contains', '=', 'in', 'notIn', '<>', 'doesNotContain', 'notEmpty', 'startsWith', 'endsWith'];
     case 'uuid':
+    case 'char':
       return ['=', 'in', 'notIn', '<>', 'notEmpty'];
     default:
       throw new Error(`Could not determine available condition operators for property ${propertyInfo.name} with attribute type ${propertyInfo.attributeType} and type ${propertyInfo.type}`);

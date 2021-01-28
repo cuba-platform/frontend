@@ -63,7 +63,7 @@ export function getPropertyCaption(propertyName: string, entityName: string, mes
 export function isPropertyTypeSupported(propertyInfo: MetaPropertyInfo): boolean {
   const supportedAttributeTypes: AttributeType[] = ['ENUM', 'ASSOCIATION', 'COMPOSITION'];
   const supportedTypes: string[] = [
-    'string',
+    'string', 'char',
     'uuid',
     'int', 'double', 'decimal', 'long',
     'date', 'time', 'dateTime',

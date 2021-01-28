@@ -13,6 +13,7 @@ import {IntegerInput} from '../form/IntegerInput';
 import {DoubleInput} from '../form/DoubleInput';
 import {LongInput} from '../form/LongInput';
 import {BigDecimalInput} from '../form/BigDecimalInput';
+import {CharInput} from "../form/CharInput";
 import {assertNever, applyDataTransferFormat, applyDisplayFormat, stripMilliseconds} from '@haulmont/jmix-react-core';
 import {InputNumberProps} from 'antd/es/input-number';
 import {LabeledValue} from 'antd/es/select';
@@ -27,6 +28,7 @@ interface DataTableListEditorProps {
 
 export enum DataTableListEditorType {
   TEXT = 'text',
+  CHAR = 'char',
   INTEGER = 'integer',
   DOUBLE = 'double',
   LONG = 'long',
@@ -57,6 +59,8 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
         case 'string':
         case 'uuid':
           return DataTableListEditorType.TEXT;
+        case 'char':
+          return DataTableListEditorType.CHAR;
         case 'int':
           return DataTableListEditorType.INTEGER;
         case 'double':
@@ -241,6 +245,20 @@ export class DataTableListEditor extends React.Component<DataTableListEditorProp
             />
           </div>
         );
+      case DataTableListEditorType.CHAR:
+        return (
+          <div>
+            <CharInput
+              ref={this.trapFocus}
+              type='text'
+              size='small'
+              v-model={this.inputModel.value}
+              onChange={this.onTextInputChange}
+              onBlur={this.onInputBlurOrEnter}
+              onPressEnter={this.onInputBlurOrEnter}
+            />
+            </div>
+          );
       case DataTableListEditorType.INTEGER:
         return (
           <div>

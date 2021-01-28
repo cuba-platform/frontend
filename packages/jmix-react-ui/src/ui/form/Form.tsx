@@ -60,6 +60,7 @@ import {DoubleInput} from './DoubleInput';
 import {LongInput} from './LongInput';
 import {BigDecimalInput} from './BigDecimalInput';
 import {UuidInput} from './UuidInput';
+import {CharInput} from "./CharInput";
 import {FormattedMessage, injectIntl, WrappedComponentProps, IntlShape} from 'react-intl';
 import {computed, IObservableArray, IReactionDisposer, observable, reaction, toJS} from 'mobx';
 import {RefObject} from 'react';
@@ -255,6 +256,8 @@ export const FormField = injectMainStore(observer(React.forwardRef((props: FormF
       return <BigDecimalInput {...(rest as InputNumberProps)}/>;
     case 'uuid':
       return <UuidInput {...(rest as InputProps)}/>
+    case 'char':
+      return <CharInput {...(rest as InputProps)}/>
   }
   return <Input {...(rest as InputProps)}/>;
 })));

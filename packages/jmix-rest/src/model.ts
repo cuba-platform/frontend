@@ -8,7 +8,7 @@ export type TemporalPropertyType =
 export type NumericPropertyType = 'int' | 'long' | 'double' | 'decimal';
 
 export type PropertyType = TemporalPropertyType |
-  'string' | 'uuid'
+  'string' | 'uuid' | 'char'
   | 'byteArray'
   | NumericPropertyType
   | 'boolean';
