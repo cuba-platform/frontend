@@ -3,10 +3,10 @@ import {Button, Modal} from "antd";
 import * as React from "react";
 import {observer} from "mobx-react";
 import './AppHeader.css';
-import logo from './logo.png';
 import {injectMainStore, MainStoreInjected} from "@haulmont/jmix-react-core";
 import {LanguageSwitcher} from '../../i18n/LanguageSwitcher';
 import {injectIntl, WrappedComponentProps} from 'react-intl';
+import JmixLightIcon from '../icons/JmixLightIcon';
 
 @injectMainStore
 @observer
@@ -17,9 +17,8 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
 
     return (
       <div className="app-header">
-        <div>
-          <img src={logo} alt={this.props.intl.formatMessage({id: 'common.alt.logo'})}/>
-        </div>
+        <JmixLightIcon className="app-header__icon" />
+
         <div className="user-panel">
           <LanguageSwitcher className='panelelement language-switcher -header'/>
           <span className="panelelement">{appState.userName}</span>
