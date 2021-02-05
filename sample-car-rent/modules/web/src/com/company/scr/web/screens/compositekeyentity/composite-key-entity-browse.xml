@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://compositeKeyEntityBrowse.caption"
+        focusComponent="compositeKeyEntitiesTable"
+        messagesPack="com.company.scr.web.screens.compositekeyentity">
+    <data readOnly="true">
+        <collection id="compositeKeyEntitiesDc"
+                    class="com.company.scr.entity.test.CompositeKeyEntity">
+            <view extends="_local"/>
+            <loader id="compositeKeyEntitiesDl">
+                <query>
+                    <![CDATA[select e from scr_CompositeKeyEntity e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="compositeKeyEntitiesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="compositeKeyEntitiesTable"
+                dataLoader="compositeKeyEntitiesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="compositeKeyEntitiesTable"
+                    width="100%"
+                    dataContainer="compositeKeyEntitiesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id.first_field"/>
+                <column id="id.second_field"/>
+                <column id="id.third_field"/>
+                <column id="testfld"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="compositeKeyEntitiesTable.create"/>
+                <button id="editBtn" action="compositeKeyEntitiesTable.edit"/>
+                <button id="removeBtn" action="compositeKeyEntitiesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

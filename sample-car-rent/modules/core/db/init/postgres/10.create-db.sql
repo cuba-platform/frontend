@@ -428,3 +428,16 @@ create table SCR_BORING_STRING_ID_TEST_ENTITY (
     primary key (ID)
 )^
 -- end SCR_BORING_STRING_ID_TEST_ENTITY
+-- begin SCR_COMPOSITE_KEY_ENTITY
+create table SCR_COMPOSITE_KEY_ENTITY (
+    UUID uuid,
+    --
+    FIRST_FIELD varchar(255),
+    SECOND_FIELD varchar(255),
+    THIRD_FIELD varchar(255),
+    --
+    TESTFLD varchar(255),
+    --
+    primary key (FIRST_FIELD, SECOND_FIELD, THIRD_FIELD)
+)^
+-- end SCR_COMPOSITE_KEY_ENTITY
