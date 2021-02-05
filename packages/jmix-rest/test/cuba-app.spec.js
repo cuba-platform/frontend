@@ -88,7 +88,12 @@ describe('CubaApp', () => {
         id: '3da61043-aaad-7e30-c7f5-c1f1328d3980',
         model: '2122'
       };
-      return app.commitEntity('scr$Car', car)
+
+      const fetchOptions = {
+        commitMode: 'edit'
+      }
+
+      return app.commitEntity('scr$Car', car, fetchOptions)
         .then(() => app.loadEntity('scr$Car', car.id))
         .then((updatedCar) => assert(updatedCar.model === '2122'));
     });
