@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://compositeKeyEntityEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.scr.web.screens.compositekeyentity">
+    <data>
+        <instance id="compositeKeyEntityDc"
+                  class="com.company.scr.entity.test.CompositeKeyEntity">
+            <view extends="_local"/>
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="compositeKeyEntityDc">
+            <column width="350px">
+                <textField id="idFirst_fieldField" property="id.first_field"/>
+                <textField id="idSecond_fieldField" property="id.second_field"/>
+                <textField id="idThird_fieldField" property="id.third_field"/>
+                <textField id="testfldField" property="testfld"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

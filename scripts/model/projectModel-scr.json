@@ -4,8 +4,6 @@
     "namespace": "scr",
     "modulePrefix": "app",
     "modelPrefix": "app",
-    "restClientId": "scr-886snZDO",
-    "restClientSecret": "{noop}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9",
     "locales": [
       {
         "code": "en",
@@ -27,7 +25,9 @@
         "language": "Français",
         "dataFormats": {}
       }
-    ]
+    ],
+    "restClientId": "scr-886snZDO",
+    "restClientSecret": "{noop}bf37f38be32f307c4fc5b2c1517cac2984ea46eaf6856dfa56cfe92212ee26c9"
   },
   "entities": [
     {
@@ -48,7 +48,6 @@
       "namePattern": "%s - %s|manufacturer,model",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.Car",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -198,6 +197,7 @@
           "column": "GARAGE_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -263,6 +263,7 @@
           "column": "TECHNICAL_CERTIFICATE_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -281,6 +282,7 @@
           "column": "PHOTO_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -302,7 +304,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.CarRent",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -322,6 +323,7 @@
           "column": "CAR_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -395,7 +397,6 @@
       "namePattern": "%s|car",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.FavoriteCar",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -415,6 +416,7 @@
           "column": "CAR_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -432,6 +434,7 @@
           "column": "USER_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -470,7 +473,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.Garage",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -622,7 +624,6 @@
       "namePattern": "#getCaption|login,name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.ScrUser",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.security.entity",
       "parentClassName": "User",
       "idAttributeName": "id",
@@ -646,71 +647,6 @@
       ]
     },
     {
-      "name": "ScrUserInfo",
-      "className": "ScrUserInfo",
-      "packageName": "com.company.scr.entity",
-      "updatable": false,
-      "creatable": false,
-      "hasUuid": false,
-      "softDelete": false,
-      "versioned": false,
-      "embeddable": false,
-      "persistentEntity": false,
-      "replaceParent": false,
-      "systemLevel": false,
-      "mappedSuperclass": false,
-      "fqn": "com.company.scr.entity.ScrUserInfo",
-      "imported": false,
-      "parentPackage": "com.haulmont.cuba.core.entity",
-      "parentClassName": "BaseUuidEntity",
-      "idAttributeName": "id",
-      "attributes": [
-        {
-          "name": "firstName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "lastName",
-          "type": {
-            "packageName": "java.lang",
-            "className": "String",
-            "fqn": "java.lang.String",
-            "label": "String"
-          },
-          "mappingType": "DATATYPE",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "favouriteCars",
-          "type": {
-            "packageName": "com.company.scr.entity",
-            "className": "Car",
-            "fqn": "com.company.scr.entity.Car",
-            "label": "Car",
-            "entityName": "scr$Car"
-          },
-          "mappingType": "ASSOCIATION",
-          "readOnly": false,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        }
-      ]
-    },
-    {
       "name": "scr$SparePart",
       "className": "SparePart",
       "packageName": "com.company.scr.entity",
@@ -728,7 +664,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.SparePart",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -764,6 +699,7 @@
           "column": "SPARE_PARTS_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -786,7 +722,6 @@
       "namePattern": "%s|certNumber",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.TechnicalCertificate",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -844,7 +779,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.AssociationM2MTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -902,7 +836,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.AssociationM2OTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -943,7 +876,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.AssociationO2MTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -963,6 +895,7 @@
           "column": "DATATYPES_TEST_ENTITY_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -1001,7 +934,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.AssociationO2OTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -1076,7 +1008,6 @@
       "namePattern": "%s|description",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.BoringStringIdTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseStringIdEntity",
       "idAttributeName": "id",
@@ -1244,6 +1175,145 @@
       ]
     },
     {
+      "name": "scr_CompositeAttribute",
+      "className": "CompositeAttribute",
+      "packageName": "com.company.scr.entity.test",
+      "dataStore": "_MAIN_",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": false,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": true,
+      "persistentEntity": false,
+      "replaceParent": false,
+      "systemLevel": false,
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.test.CompositeAttribute",
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "EmbeddableEntity",
+      "attributes": [
+        {
+          "name": "first_field",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "FIRST_FIELD",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "second_field",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "SECOND_FIELD",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "third_field",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "THIRD_FIELD",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        }
+      ]
+    },
+    {
+      "name": "scr_CompositeKeyEntity",
+      "className": "CompositeKeyEntity",
+      "packageName": "com.company.scr.entity.test",
+      "dataStore": "_MAIN_",
+      "table": "SCR_COMPOSITE_KEY_ENTITY",
+      "updatable": false,
+      "creatable": false,
+      "hasUuid": true,
+      "softDelete": false,
+      "versioned": false,
+      "embeddable": false,
+      "persistentEntity": true,
+      "replaceParent": false,
+      "systemLevel": false,
+      "mappedSuperclass": false,
+      "fqn": "com.company.scr.entity.test.CompositeKeyEntity",
+      "parentPackage": "com.haulmont.cuba.core.entity",
+      "parentClassName": "BaseGenericIdEntity",
+      "idAttributeName": "id",
+      "attributes": [
+        {
+          "name": "id",
+          "type": {
+            "packageName": "com.company.scr.entity.test",
+            "className": "CompositeAttribute",
+            "fqn": "com.company.scr.entity.test.CompositeAttribute",
+            "label": "CompositeAttribute",
+            "entityName": "scr_CompositeAttribute"
+          },
+          "mappingType": "EMBEDDED",
+          "readOnly": false,
+          "mandatory": true,
+          "unique": false,
+          "transient": false
+        },
+        {
+          "name": "testfld",
+          "type": {
+            "packageName": "java.lang",
+            "className": "String",
+            "fqn": "java.lang.String",
+            "label": "String"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "TESTFLD",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        },
+        {
+          "name": "uuid",
+          "type": {
+            "packageName": "java.util",
+            "className": "UUID",
+            "fqn": "java.util.UUID",
+            "label": "UUID"
+          },
+          "mappingType": "DATATYPE",
+          "readOnly": false,
+          "column": "UUID",
+          "mandatory": false,
+          "unique": false,
+          "length": "255",
+          "transient": false
+        }
+      ]
+    },
+    {
       "name": "scr_CompositionO2MTestEntity",
       "className": "CompositionO2MTestEntity",
       "packageName": "com.company.scr.entity.test",
@@ -1261,7 +1331,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.CompositionO2MTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -1281,6 +1350,7 @@
           "column": "DATATYPES_TEST_ENTITY_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -1335,7 +1405,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.CompositionO2OTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -1387,6 +1456,7 @@
           "column": "NESTED_COMPOSITION_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         }
@@ -1410,7 +1480,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.DatatypesTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -1705,6 +1774,7 @@
           "column": "ASSOCIATION_O2_OATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -1740,6 +1810,7 @@
           "column": "ASSOCIATION_M2_OATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -1774,6 +1845,7 @@
           "column": "COMPOSITION_O2_OATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -1825,6 +1897,7 @@
           "column": "INT_IDENTITY_ID_TEST_ENTITY_ASSOCIATION_O2O_ATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -1860,6 +1933,7 @@
           "column": "DATATYPES_TEST_ENTITY3_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -1877,6 +1951,7 @@
           "column": "STRING_ID_TEST_ENTITY_ASSOCIATION_O2O_IDENTIFIER",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -1895,6 +1970,7 @@
           "column": "STRING_ID_TEST_ENTITY_ASSOCIATION_M2O_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -1932,7 +2008,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.DatatypesTestEntity2",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -1952,6 +2027,7 @@
           "column": "DATATYPES_TEST_ENTITY_ATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -1970,6 +2046,7 @@
           "column": "INT_IDENTITY_ID_TEST_ENTITY_ATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -1988,6 +2065,7 @@
           "column": "INTEGER_ID_TEST_ENTITY_ATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -2006,6 +2084,7 @@
           "column": "STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -2024,6 +2103,7 @@
           "column": "WEIRD_STRING_ID_TEST_ENTITY_ATTR_IDENTIFIER",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         }
@@ -2047,7 +2127,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.DatatypesTestEntity3",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -2173,7 +2252,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.DeeplyNestedTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -2209,6 +2287,7 @@
           "column": "ASSOCIATION_O2_OATTR_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         }
@@ -2232,7 +2311,6 @@
       "namePattern": "%s|description",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.IntIdentityIdTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseIntIdentityIdEntity",
       "idAttributeName": "id",
@@ -2380,6 +2458,7 @@
           "column": "DATATYPES_TEST_ENTITY3_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -2419,7 +2498,6 @@
       "namePattern": "%s|description",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.IntegerIdTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseIntegerIdEntity",
       "idAttributeName": "id",
@@ -2567,6 +2645,7 @@
           "column": "DATATYPES_TEST_ENTITY3_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -2606,7 +2685,6 @@
       "namePattern": "%s|identifier",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.StringIdTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseStringIdEntity",
       "idAttributeName": "identifier",
@@ -2803,6 +2881,7 @@
           "column": "DATATYPES_TEST_ENTITY3_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -2825,7 +2904,6 @@
       "namePattern": "%s|description",
       "mappedSuperclass": false,
       "fqn": "com.company.scr.entity.test.WeirdStringIdTestEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseStringIdEntity",
       "idAttributeName": "identifier",
@@ -3005,6 +3083,7 @@
           "column": "DATATYPES_TEST_ENTITY3_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3084,7 +3163,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.DataGenerationCommand",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -3099,8 +3177,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "TYPE_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3113,21 +3193,26 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "AMOUNT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
           "name": "entityGenerationSettings",
           "type": {
-            "className": "T",
-            "fqn": "T",
+            "packageName": "",
+            "className": "<unknown>",
+            "fqn": "<unknown>",
             "label": ""
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "ENTITYGENERATIONSETTINGS",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3147,7 +3232,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.EntityGenerationSettings",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -3162,8 +3246,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "AMOUNT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3179,6 +3265,7 @@
           "readOnly": false,
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3187,6 +3274,7 @@
       "name": "datagen_GeneratedEntity",
       "className": "GeneratedEntity",
       "packageName": "com.haulmont.addon.datagen.entity",
+      "dataStore": "_MAIN_",
       "table": "DATAGEN_GENERATED_ENTITY",
       "updatable": false,
       "creatable": true,
@@ -3200,7 +3288,6 @@
       "namePattern": "%s|entityName",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.GeneratedEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -3301,7 +3388,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.PropertyGenerationSettings",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -3322,7 +3408,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.bool.BooleanPropertyGenerationSettings",
-      "imported": false,
       "parentPackage": "com.haulmont.addon.datagen.entity",
       "parentClassName": "PropertyGenerationSettings",
       "idAttributeName": "id",
@@ -3337,8 +3422,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MANUALVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3351,8 +3438,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "STRATEGY",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3372,7 +3461,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.enm.EnumPropGenSettings",
-      "imported": false,
       "parentPackage": "com.haulmont.addon.datagen.entity",
       "parentClassName": "PropertyGenerationSettings",
       "idAttributeName": "id",
@@ -3387,8 +3475,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "STRATEGY",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3408,7 +3498,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.number.NumberPropGenSettings",
-      "imported": false,
       "parentPackage": "com.haulmont.addon.datagen.entity",
       "parentClassName": "PropertyGenerationSettings",
       "idAttributeName": "id",
@@ -3423,8 +3512,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "STRATEGY",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3437,8 +3528,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MANUALINTEGERVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3451,8 +3544,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MANUALFLOATVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3465,8 +3560,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MINRANDOMVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3479,8 +3576,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MAXRANDOMVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3500,7 +3599,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.ref.ReferencePropGenSettings",
-      "imported": false,
       "parentPackage": "com.haulmont.addon.datagen.entity",
       "parentClassName": "PropertyGenerationSettings",
       "idAttributeName": "id",
@@ -3518,6 +3616,7 @@
           "readOnly": false,
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3537,7 +3636,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.datagen.entity.str.StringPropGenSettings",
-      "imported": false,
       "parentPackage": "com.haulmont.addon.datagen.entity",
       "parentClassName": "PropertyGenerationSettings",
       "idAttributeName": "id",
@@ -3552,8 +3650,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MANUALVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3566,8 +3666,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "STRATEGY",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3580,8 +3682,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "FAKERFUNCTIONREF",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -3590,6 +3694,7 @@
       "name": "sys$AccessToken",
       "className": "AccessToken",
       "packageName": "com.haulmont.addon.restapi.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_ACCESS_TOKEN",
       "updatable": false,
       "creatable": false,
@@ -3602,7 +3707,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.restapi.entity.AccessToken",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -3757,6 +3861,7 @@
       "name": "sys$RefreshToken",
       "className": "RefreshToken",
       "packageName": "com.haulmont.addon.restapi.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_REFRESH_TOKEN",
       "updatable": false,
       "creatable": false,
@@ -3769,7 +3874,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.addon.restapi.entity.RefreshToken",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -3887,7 +3991,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.config.AppPropertyEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -3902,8 +4005,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "UPDATETS",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3916,8 +4021,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "UPDATEDBY",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3933,6 +4040,7 @@
           "readOnly": false,
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3945,8 +4053,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3959,8 +4069,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DEFAULTVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3973,8 +4085,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "CURRENTVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -3987,8 +4101,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "CATEGORY",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4001,8 +4117,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "OVERRIDDEN",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4015,8 +4133,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DATATYPENAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4029,8 +4149,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "ENUMVALUES",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4043,8 +4165,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "SECRET",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4092,7 +4216,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.AbstractNotPersistentEntity",
-      "imported": false,
       "attributes": [
         {
           "name": "id",
@@ -4104,15 +4227,18 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "ID",
           "mandatory": false,
           "unique": false,
-          "transient": true
+          "length": "255",
+          "transient": false
         }
       ]
     },
     {
       "className": "AbstractSearchFolder",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "updatable": true,
       "creatable": false,
       "hasUuid": false,
@@ -4124,7 +4250,6 @@
       "systemLevel": true,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.AbstractSearchFolder",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "Folder",
       "idAttributeName": "id",
@@ -4196,6 +4321,7 @@
       "name": "sys$AppFolder",
       "className": "AppFolder",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_APP_FOLDER",
       "discriminator": "A",
       "updatable": true,
@@ -4209,7 +4335,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.AppFolder",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "AbstractSearchFolder",
       "idAttributeName": "id",
@@ -4278,7 +4403,6 @@
       "namePattern": "%s %s|name,languageWithCode",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.AttributeLocaleData",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -4293,8 +4417,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4307,8 +4433,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DESCRIPTION",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4321,8 +4449,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "LOCALE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4335,8 +4465,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "LANGUAGE_",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -4370,7 +4502,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseDbGeneratedIdEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseGenericIdEntity",
       "attributes": []
@@ -4390,7 +4521,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseGenericIdEntity",
-      "imported": false,
       "attributes": []
     },
     {
@@ -4408,7 +4538,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseIdentityIdEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseDbGeneratedIdEntity",
       "idAttributeName": "id",
@@ -4446,7 +4575,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseIntIdentityIdEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseDbGeneratedIdEntity",
       "idAttributeName": "id",
@@ -4484,7 +4612,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseIntegerIdEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseGenericIdEntity",
       "idAttributeName": "id",
@@ -4522,7 +4649,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseLongIdEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseGenericIdEntity",
       "idAttributeName": "id",
@@ -4560,7 +4686,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseStringIdEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseGenericIdEntity",
       "attributes": []
@@ -4580,7 +4705,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.BaseUuidEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseGenericIdEntity",
       "idAttributeName": "id",
@@ -4607,6 +4731,7 @@
       "name": "sys$CategorizedEntity",
       "className": "CategorizedEntity",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "updatable": false,
       "creatable": false,
       "hasUuid": false,
@@ -4618,7 +4743,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.CategorizedEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -4638,6 +4762,7 @@
           "column": "CATEGORY_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -4646,6 +4771,7 @@
       "name": "sys$Category",
       "className": "Category",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_CATEGORY",
       "discriminator": "0",
       "updatable": true,
@@ -4660,7 +4786,6 @@
       "namePattern": "%s|localeName",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.Category",
-      "imported": false,
       "inheritanceType": "JOINED",
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
@@ -4783,6 +4908,7 @@
       "name": "sys$CategoryAttribute",
       "className": "CategoryAttribute",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_CATEGORY_ATTR",
       "updatable": true,
       "creatable": false,
@@ -4796,7 +4922,6 @@
       "namePattern": "%s (%s)|localeName,code",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.CategoryAttribute",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -4816,6 +4941,7 @@
           "column": "CATEGORY_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5386,7 +5512,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.CategoryAttributeConfiguration",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseGenericIdEntity",
       "idAttributeName": "id",
@@ -5401,8 +5526,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5415,8 +5542,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MININT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5429,8 +5558,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MINDOUBLE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5443,8 +5574,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MINDECIMAL",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5457,8 +5590,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MAXINT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5471,8 +5606,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MAXDOUBLE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5485,8 +5622,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MAXDECIMAL",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5499,8 +5638,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "VALIDATORGROOVYSCRIPT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5513,8 +5654,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "COLUMNNAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5527,8 +5670,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "COLUMNALIGNMENT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5541,8 +5686,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "COLUMNWIDTH",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5555,8 +5702,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NUMBERFORMATPATTERN",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5569,8 +5718,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "OPTIONSLOADERTYPE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5583,8 +5734,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "OPTIONSLOADERSCRIPT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5597,8 +5750,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "RECALCULATIONSCRIPT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5610,9 +5765,11 @@
             "label": "Integer"
           },
           "mappingType": "DATATYPE",
-          "readOnly": true,
+          "readOnly": false,
+          "column": "XCOORDINATE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5624,25 +5781,12 @@
             "label": "Integer"
           },
           "mappingType": "DATATYPE",
-          "readOnly": true,
-          "mandatory": false,
-          "unique": false,
-          "transient": false
-        },
-        {
-          "name": "dependsOnAttributes",
-          "type": {
-            "packageName": "com.haulmont.cuba.core.entity",
-            "className": "CategoryAttribute",
-            "fqn": "com.haulmont.cuba.core.entity.CategoryAttribute",
-            "label": "CategoryAttribute",
-            "entityName": "sys$CategoryAttribute"
-          },
-          "mappingType": "ASSOCIATION",
           "readOnly": false,
+          "column": "YCOORDINATE",
           "mandatory": false,
           "unique": false,
-          "transient": true
+          "length": "255",
+          "transient": false
         }
       ]
     },
@@ -5661,7 +5805,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.CategoryAttributeEnumValue",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -5676,8 +5819,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "VALUE_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5690,8 +5835,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "LOCALIZEDVALUES",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -5700,6 +5847,7 @@
       "name": "sys$CategoryAttributeValue",
       "className": "CategoryAttributeValue",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_ATTR_VALUE",
       "updatable": true,
       "creatable": false,
@@ -5712,7 +5860,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.CategoryAttributeValue",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -5732,6 +5879,7 @@
           "column": "CATEGORY_ATTR_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -5924,6 +6072,7 @@
           "column": "PARENT_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -5932,6 +6081,7 @@
       "name": "sys$Config",
       "className": "Config",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_CONFIG",
       "updatable": true,
       "creatable": true,
@@ -5944,7 +6094,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.Config",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -6077,13 +6226,13 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.EmbeddableEntity",
-      "imported": false,
       "attributes": []
     },
     {
       "name": "sys$EntitySnapshot",
       "className": "EntitySnapshot",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_ENTITY_SNAPSHOT",
       "updatable": false,
       "creatable": true,
@@ -6096,7 +6245,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.EntitySnapshot",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -6228,6 +6376,7 @@
           "column": "AUTHOR_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -6279,6 +6428,7 @@
       "name": "sys$EntityStatistics",
       "className": "EntityStatistics",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_ENTITY_STATISTICS",
       "updatable": true,
       "creatable": true,
@@ -6291,7 +6441,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.EntityStatistics",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -6462,6 +6611,7 @@
       "name": "sys$FileDescriptor",
       "className": "FileDescriptor",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_FILE",
       "updatable": true,
       "creatable": false,
@@ -6475,7 +6625,6 @@
       "namePattern": "%s (%s)|name,createDate,extension",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.FileDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -6566,6 +6715,7 @@
       "name": "sys$Folder",
       "className": "Folder",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_FOLDER",
       "discriminator": "F",
       "updatable": true,
@@ -6579,7 +6729,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.Folder",
-      "imported": false,
       "inheritanceType": "JOINED",
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
@@ -6600,6 +6749,7 @@
           "column": "PARENT_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -6672,6 +6822,7 @@
       "name": "sys$FtsQueue",
       "className": "FtsQueue",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_FTS_QUEUE",
       "updatable": false,
       "creatable": true,
@@ -6684,7 +6835,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.FtsQueue",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -6871,6 +7021,7 @@
       "name": "sys$JmxInstance",
       "className": "JmxInstance",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_JMX_INSTANCE",
       "updatable": true,
       "creatable": false,
@@ -6884,7 +7035,6 @@
       "namePattern": "#getCaption|nodeName,address",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.JmxInstance",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -6970,13 +7120,13 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.KeyValueEntity",
-      "imported": false,
       "attributes": []
     },
     {
       "name": "sys$LockDescriptor",
       "className": "LockDescriptor",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_LOCK_CONFIG",
       "updatable": false,
       "creatable": true,
@@ -6989,7 +7139,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.LockDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -7064,6 +7213,7 @@
       "name": "sys$QueryResult",
       "className": "QueryResult",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_QUERY_RESULT",
       "updatable": false,
       "creatable": false,
@@ -7076,7 +7226,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.QueryResult",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseIdentityIdEntity",
       "idAttributeName": "id",
@@ -7183,6 +7332,7 @@
       "name": "sys$ReferenceToEntity",
       "className": "ReferenceToEntity",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "updatable": false,
       "creatable": false,
       "hasUuid": false,
@@ -7194,7 +7344,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.ReferenceToEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "EmbeddableEntity",
       "attributes": [
@@ -7268,6 +7417,7 @@
       "name": "sys$ScheduledExecution",
       "className": "ScheduledExecution",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_SCHEDULED_EXECUTION",
       "updatable": false,
       "creatable": true,
@@ -7280,7 +7430,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.ScheduledExecution",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -7348,6 +7497,7 @@
           "column": "TASK_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -7434,6 +7584,7 @@
       "name": "sys$ScheduledTask",
       "className": "ScheduledTask",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_SCHEDULED_TASK",
       "updatable": true,
       "creatable": true,
@@ -7447,7 +7598,6 @@
       "namePattern": "#name|beanName,methodName,className,scriptName",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.ScheduledTask",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -7936,6 +8086,7 @@
       "name": "sys$SendingAttachment",
       "className": "SendingAttachment",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_SENDING_ATTACHMENT",
       "updatable": true,
       "creatable": false,
@@ -7948,7 +8099,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.SendingAttachment",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -7968,6 +8118,7 @@
           "column": "MESSAGE_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -8001,6 +8152,7 @@
           "column": "CONTENT_FILE_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -8090,6 +8242,7 @@
       "name": "sys$SendingMessage",
       "className": "SendingMessage",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_SENDING_MESSAGE",
       "updatable": true,
       "creatable": false,
@@ -8102,7 +8255,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.SendingMessage",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -8218,6 +8370,7 @@
           "column": "CONTENT_TEXT_FILE_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "mappedBy": "",
           "transient": false
         },
@@ -8388,6 +8541,7 @@
       "name": "sys$Server",
       "className": "Server",
       "packageName": "com.haulmont.cuba.core.entity",
+      "dataStore": "_MAIN_",
       "table": "SYS_SERVER",
       "updatable": true,
       "creatable": true,
@@ -8401,7 +8555,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.Server",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -8535,7 +8688,6 @@
       "systemLevel": false,
       "mappedSuperclass": true,
       "fqn": "com.haulmont.cuba.core.entity.StandardEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -8669,7 +8821,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.diff.EntityBasicPropertyDiff",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity.diff",
       "parentClassName": "EntityPropertyDiff",
       "idAttributeName": "id",
@@ -8690,7 +8841,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.diff.EntityClassPropertyDiff",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity.diff",
       "parentClassName": "EntityPropertyDiff",
       "idAttributeName": "id",
@@ -8711,7 +8861,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.diff.EntityCollectionPropertyDiff",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity.diff",
       "parentClassName": "EntityPropertyDiff",
       "idAttributeName": "id",
@@ -8732,7 +8881,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.diff.EntityDiff",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -8768,13 +8916,12 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.entity.diff.EntityPropertyDiff",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
       "attributes": [
         {
-          "name": "name",
+          "name": "label",
           "type": {
             "packageName": "java.lang",
             "className": "String",
@@ -8783,12 +8930,14 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "LABEL",
           "mandatory": false,
           "unique": false,
-          "transient": true
+          "length": "255",
+          "transient": false
         },
         {
-          "name": "label",
+          "name": "name",
           "type": {
             "packageName": "java.lang",
             "className": "String",
@@ -8888,7 +9037,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.core.global.LockInfo",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -8967,7 +9115,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.core.categories.ScreenAndComponent",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -8982,8 +9129,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "SCREEN",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -8996,8 +9145,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "COMPONENT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9018,7 +9169,6 @@
       "namePattern": "%s|keyValue",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.core.showinfo.InfoParamEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -9033,8 +9183,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "KEY_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9047,8 +9199,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "KEYVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9068,7 +9222,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.security.entity.AbstractPermissionTarget",
-      "imported": false,
       "attributes": [
         {
           "name": "id",
@@ -9080,8 +9233,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9094,8 +9249,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "CAPTION",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9108,8 +9265,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "PERMISSIONVALUE",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9129,7 +9288,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.security.entity.AttributeTarget",
-      "imported": false,
       "attributes": [
         {
           "name": "id",
@@ -9141,8 +9299,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9155,8 +9315,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "PERMISSIONVARIANT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9176,7 +9338,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.security.entity.BasicPermissionTarget",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.app.security.entity",
       "parentClassName": "AbstractPermissionTarget",
       "attributes": [
@@ -9190,8 +9351,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "PERMISSIONVARIANT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9211,7 +9374,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.security.entity.MultiplePermissionTarget",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.app.security.entity",
       "parentClassName": "AbstractPermissionTarget",
       "attributes": [
@@ -9228,6 +9390,7 @@
           "readOnly": true,
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9240,8 +9403,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "LOCALNAME",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9254,8 +9419,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "ENTITYMETACLASSNAME",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9289,7 +9456,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.security.entity.OperationPermissionTarget",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.app.security.entity",
       "parentClassName": "AbstractPermissionTarget",
       "attributes": [
@@ -9303,8 +9469,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "CREATEPERMISSIONVARIANT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9317,8 +9485,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "READPERMISSIONVARIANT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9331,8 +9501,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "UPDATEPERMISSIONVARIANT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9345,8 +9517,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "DELETEPERMISSIONVARIANT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9359,8 +9533,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "LOCALNAME",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9373,8 +9549,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "ENTITYMETACLASSNAME",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9394,7 +9572,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.app.security.entity.UiPermissionTarget",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.app.security.entity",
       "parentClassName": "AbstractPermissionTarget",
       "attributes": [
@@ -9408,8 +9585,10 @@
           },
           "mappingType": "ENUM",
           "readOnly": false,
+          "column": "PERMISSIONVARIANT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9422,8 +9601,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "SCREEN",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9436,8 +9617,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "COMPONENT",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9457,7 +9640,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.ScreenComponentDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -9475,6 +9657,7 @@
           "readOnly": false,
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -9508,7 +9691,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.condition.AbstractCondition",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -9523,8 +9705,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "LOCCAPTION",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -9544,7 +9728,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.condition.CustomCondition",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.condition",
       "parentClassName": "AbstractCondition",
       "idAttributeName": "id",
@@ -9565,7 +9748,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.condition.DynamicAttributesCondition",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.condition",
       "parentClassName": "AbstractCondition",
       "idAttributeName": "id",
@@ -9586,7 +9768,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.condition.FtsCondition",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.condition",
       "parentClassName": "AbstractCondition",
       "idAttributeName": "id",
@@ -9607,7 +9788,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.condition.GroupCondition",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.condition",
       "parentClassName": "AbstractCondition",
       "idAttributeName": "id",
@@ -9628,7 +9808,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.condition.PropertyCondition",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.condition",
       "parentClassName": "AbstractCondition",
       "idAttributeName": "id",
@@ -9649,7 +9828,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.AbstractConditionDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -9664,9 +9842,11 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": true,
+          "column": "LOCCAPTION",
           "mandatory": false,
           "unique": false,
-          "transient": true
+          "length": "255",
+          "transient": false
         },
         {
           "name": "treeCaption",
@@ -9699,7 +9879,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.CustomConditionCreator",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
       "idAttributeName": "id",
@@ -9720,7 +9899,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.CustomConditionDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
       "idAttributeName": "id",
@@ -9741,7 +9919,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.DynamicAttributesConditionCreator",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
       "idAttributeName": "id",
@@ -9762,7 +9939,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.FtsConditionDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
       "idAttributeName": "id",
@@ -9783,7 +9959,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.HeaderConditionDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
       "idAttributeName": "id",
@@ -9804,7 +9979,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.gui.components.filter.descriptor.PropertyConditionDescriptor",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.gui.components.filter.descriptor",
       "parentClassName": "AbstractConditionDescriptor",
       "idAttributeName": "id",
@@ -9814,6 +9988,7 @@
       "name": "sec$Constraint",
       "className": "Constraint",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_CONSTRAINT",
       "updatable": true,
       "creatable": false,
@@ -9826,7 +10001,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.Constraint",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -9988,6 +10162,7 @@
           "column": "GROUP_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10023,7 +10198,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.EntityLogAttr",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -10041,6 +10215,7 @@
           "readOnly": false,
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10053,8 +10228,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10067,8 +10244,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "VALUE_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10081,8 +10260,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "OLDVALUE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10095,8 +10276,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "VALUEID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10109,8 +10292,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "OLDVALUEID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10123,8 +10308,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "MESSAGESPACK",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10203,6 +10390,7 @@
       "name": "sec$EntityLog",
       "className": "EntityLogItem",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_ENTITY_LOG",
       "updatable": false,
       "creatable": true,
@@ -10215,7 +10403,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.EntityLogItem",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -10299,6 +10486,7 @@
           "column": "USER_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10415,6 +10603,7 @@
       "name": "sec$Filter",
       "className": "FilterEntity",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_FILTER",
       "updatable": true,
       "creatable": false,
@@ -10428,7 +10617,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.FilterEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -10511,6 +10699,7 @@
           "column": "USER_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10551,6 +10740,7 @@
       "name": "sec$Group",
       "className": "Group",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_GROUP",
       "updatable": true,
       "creatable": false,
@@ -10564,7 +10754,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.Group",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -10600,6 +10789,7 @@
           "column": "PARENT_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10675,6 +10865,7 @@
       "name": "sec$GroupHierarchy",
       "className": "GroupHierarchy",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_GROUP_HIERARCHY",
       "updatable": false,
       "creatable": true,
@@ -10687,7 +10878,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.GroupHierarchy",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -10755,6 +10945,7 @@
           "column": "GROUP_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10772,6 +10963,7 @@
           "column": "PARENT_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10796,6 +10988,7 @@
       "name": "sec$LocalizedConstraintMessage",
       "className": "LocalizedConstraintMessage",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_LOCALIZED_CONSTRAINT_MSG",
       "updatable": true,
       "creatable": false,
@@ -10808,7 +11001,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.LocalizedConstraintMessage",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -10866,6 +11058,7 @@
       "name": "sec$LoggedAttribute",
       "className": "LoggedAttribute",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_LOGGED_ATTR",
       "updatable": false,
       "creatable": true,
@@ -10878,7 +11071,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.LoggedAttribute",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -10930,6 +11122,7 @@
           "column": "ENTITY_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -10954,6 +11147,7 @@
       "name": "sec$LoggedEntity",
       "className": "LoggedEntity",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_LOGGED_ENTITY",
       "updatable": false,
       "creatable": true,
@@ -10966,7 +11160,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.LoggedEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -11074,6 +11267,7 @@
       "name": "sec$Permission",
       "className": "Permission",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_PERMISSION",
       "updatable": true,
       "creatable": false,
@@ -11086,7 +11280,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.Permission",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -11154,6 +11347,7 @@
           "column": "ROLE_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -11162,6 +11356,7 @@
       "name": "sec$Presentation",
       "className": "Presentation",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_PRESENTATION",
       "updatable": true,
       "creatable": true,
@@ -11175,7 +11370,6 @@
       "namePattern": "%s|name",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.Presentation",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -11275,6 +11469,7 @@
           "column": "USER_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11347,6 +11542,7 @@
       "name": "sec$RememberMeToken",
       "className": "RememberMeToken",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_REMEMBER_ME",
       "updatable": false,
       "creatable": false,
@@ -11359,7 +11555,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.RememberMeToken",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -11379,6 +11574,7 @@
           "column": "USER_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11419,6 +11615,7 @@
       "name": "sec$Role",
       "className": "Role",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_ROLE",
       "updatable": true,
       "creatable": false,
@@ -11432,7 +11629,6 @@
       "namePattern": "%s [%s]|locName,name",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.Role",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -11586,6 +11782,7 @@
       "name": "sec$ScreenHistory",
       "className": "ScreenHistoryEntity",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_SCREEN_HISTORY",
       "updatable": false,
       "creatable": true,
@@ -11598,7 +11795,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.ScreenHistoryEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -11666,6 +11862,7 @@
           "column": "USER_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11683,6 +11880,7 @@
           "column": "SUBSTITUTED_USER_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11752,6 +11950,7 @@
       "name": "sec$SearchFolder",
       "className": "SearchFolder",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_SEARCH_FOLDER",
       "discriminator": "S",
       "updatable": true,
@@ -11765,7 +11964,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.SearchFolder",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "AbstractSearchFolder",
       "idAttributeName": "id",
@@ -11785,6 +11983,7 @@
           "column": "USER_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11802,6 +12001,7 @@
           "column": "PRESENTATION_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11842,6 +12042,7 @@
       "name": "sec$SessionAttribute",
       "className": "SessionAttribute",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_SESSION_ATTR",
       "updatable": true,
       "creatable": false,
@@ -11854,7 +12055,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.SessionAttribute",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -11922,6 +12122,7 @@
           "column": "GROUP_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -11960,6 +12161,7 @@
       "name": "sec$SessionLogEntry",
       "className": "SessionLogEntry",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_SESSION_LOG",
       "updatable": true,
       "creatable": false,
@@ -11972,7 +12174,6 @@
       "systemLevel": false,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.SessionLogEntry",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -12008,6 +12209,7 @@
           "column": "SUBSTITUTED_USER_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12025,6 +12227,7 @@
           "column": "USER_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12178,6 +12381,7 @@
       "name": "sec$User",
       "className": "User",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_USER",
       "updatable": true,
       "creatable": false,
@@ -12191,7 +12395,6 @@
       "namePattern": "#getCaption|login,name",
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.User",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -12451,6 +12654,7 @@
           "column": "GROUP_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12541,6 +12745,7 @@
       "name": "sec$UserRole",
       "className": "UserRole",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_USER_ROLE",
       "updatable": true,
       "creatable": false,
@@ -12553,7 +12758,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.UserRole",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -12573,6 +12777,7 @@
           "column": "USER_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12590,6 +12795,7 @@
           "column": "ROLE_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12625,7 +12831,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.UserSessionEntity",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -12640,8 +12845,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "LOGIN",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12654,8 +12861,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "USERNAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12668,8 +12877,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "ADDRESS",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12682,8 +12893,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "CLIENTINFO",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12696,8 +12909,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "SINCE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12710,8 +12925,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "LASTUSEDTS",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12724,8 +12941,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "SYSTEM_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12738,8 +12957,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "SYSTENANTID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -12748,6 +12969,7 @@
       "name": "sec$UserSetting",
       "className": "UserSetting",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_USER_SETTING",
       "updatable": false,
       "creatable": true,
@@ -12760,7 +12982,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.UserSetting",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -12812,6 +13033,7 @@
           "column": "USER_ID",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12867,6 +13089,7 @@
       "name": "sec$UserSubstitution",
       "className": "UserSubstitution",
       "packageName": "com.haulmont.cuba.security.entity",
+      "dataStore": "_MAIN_",
       "table": "SEC_USER_SUBSTITUTION",
       "updatable": true,
       "creatable": false,
@@ -12879,7 +13102,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.security.entity.UserSubstitution",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "StandardEntity",
       "idAttributeName": "id",
@@ -12899,6 +13121,7 @@
           "column": "USER_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12916,6 +13139,7 @@
           "column": "SUBSTITUTED_USER_ID",
           "mandatory": true,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -12985,7 +13209,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.web.app.ui.statistics.PerformanceParameter",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -13000,8 +13223,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "PARAMETERNAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13014,8 +13239,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DISPLAYNAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13028,8 +13255,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "PARAMETERGROUP",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13091,7 +13320,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.web.app.ui.statistics.ThreadSnapshot",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -13106,8 +13334,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13120,8 +13350,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "STATUS",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13134,8 +13366,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "CPU",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13148,8 +13382,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DEADLOCKED",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13162,8 +13398,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "STACKTRACE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -13183,7 +13421,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.web.jmx.entity.ManagedBeanAttribute",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -13198,8 +13435,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13212,8 +13451,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DESCRIPTION",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13226,8 +13467,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "TYPE_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13240,8 +13483,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "READABLEWRITEABLE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13254,8 +13499,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "READABLE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13268,8 +13515,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "WRITEABLE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13303,7 +13552,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.web.jmx.entity.ManagedBeanDomain",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -13318,8 +13566,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -13339,7 +13589,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.web.jmx.entity.ManagedBeanInfo",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -13354,8 +13603,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "CLASSNAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13368,8 +13619,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DESCRIPTION",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13382,8 +13635,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "OBJECTNAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13396,8 +13651,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DOMAIN_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13410,8 +13667,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "PROPERTYLIST",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13427,6 +13686,7 @@
           "readOnly": false,
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -13446,7 +13706,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.web.jmx.entity.ManagedBeanOperation",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -13461,8 +13720,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13475,8 +13736,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "RETURNTYPE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13489,8 +13752,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DESCRIPTION",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13503,8 +13768,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "RUNASYNC",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13517,8 +13784,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "TIMEOUT",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -13538,7 +13807,6 @@
       "systemLevel": true,
       "mappedSuperclass": false,
       "fqn": "com.haulmont.cuba.web.jmx.entity.ManagedBeanOperationParameter",
-      "imported": false,
       "parentPackage": "com.haulmont.cuba.core.entity",
       "parentClassName": "BaseUuidEntity",
       "idAttributeName": "id",
@@ -13553,8 +13821,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "NAME",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13567,8 +13837,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "DESCRIPTION",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13581,8 +13853,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "TYPE_",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         },
         {
@@ -13595,8 +13869,10 @@
           },
           "mappingType": "DATATYPE",
           "readOnly": false,
+          "column": "JAVATYPE",
           "mandatory": false,
           "unique": false,
+          "length": "255",
           "transient": false
         }
       ]
@@ -14660,33 +14936,6 @@
     },
     {
       "name": "_base",
-      "entity": "ScrUserInfo",
-      "classFqn": "com.company.scr.entity.ScrUserInfo",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_local",
-      "entity": "ScrUserInfo",
-      "classFqn": "com.company.scr.entity.ScrUserInfo",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_minimal",
-      "entity": "ScrUserInfo",
-      "classFqn": "com.company.scr.entity.ScrUserInfo",
-      "overwrite": false,
-      "systemProperties": false,
-      "properties": [],
-      "allProperties": []
-    },
-    {
-      "name": "_base",
       "entity": "scr$SparePart",
       "classFqn": "com.company.scr.entity.SparePart",
       "overwrite": false,
@@ -15202,6 +15451,132 @@
           "lazy": false
         }
       ]
+    },
+    {
+      "name": "_base",
+      "entity": "scr_CompositeAttribute",
+      "classFqn": "com.company.scr.entity.test.CompositeAttribute",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "first_field",
+          "lazy": false
+        },
+        {
+          "name": "second_field",
+          "lazy": false
+        },
+        {
+          "name": "third_field",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "first_field",
+          "lazy": false
+        },
+        {
+          "name": "second_field",
+          "lazy": false
+        },
+        {
+          "name": "third_field",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "scr_CompositeAttribute",
+      "classFqn": "com.company.scr.entity.test.CompositeAttribute",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "first_field",
+          "lazy": false
+        },
+        {
+          "name": "second_field",
+          "lazy": false
+        },
+        {
+          "name": "third_field",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "first_field",
+          "lazy": false
+        },
+        {
+          "name": "second_field",
+          "lazy": false
+        },
+        {
+          "name": "third_field",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "scr_CompositeAttribute",
+      "classFqn": "com.company.scr.entity.test.CompositeAttribute",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
+    },
+    {
+      "name": "_base",
+      "entity": "scr_CompositeKeyEntity",
+      "classFqn": "com.company.scr.entity.test.CompositeKeyEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "testfld",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "testfld",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_local",
+      "entity": "scr_CompositeKeyEntity",
+      "classFqn": "com.company.scr.entity.test.CompositeKeyEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [
+        {
+          "name": "testfld",
+          "lazy": false
+        }
+      ],
+      "allProperties": [
+        {
+          "name": "testfld",
+          "lazy": false
+        }
+      ]
+    },
+    {
+      "name": "_minimal",
+      "entity": "scr_CompositeKeyEntity",
+      "classFqn": "com.company.scr.entity.test.CompositeKeyEntity",
+      "overwrite": false,
+      "systemProperties": false,
+      "properties": [],
+      "allProperties": []
     },
     {
       "name": "_base",
@@ -15887,6 +16262,10 @@
           "lazy": false
         },
         {
+          "name": "readOnlyStringAttr",
+          "lazy": false
+        },
+        {
           "name": "associationO2Oattr",
           "entity": "scr_AssociationO2OTestEntity",
           "lazy": false
@@ -15934,10 +16313,6 @@
         {
           "name": "stringIdTestEntityAssociationM2O",
           "entity": "scr_StringIdTestEntity",
-          "lazy": false
-        },
-        {
-          "name": "readOnlyStringAttr",
           "lazy": false
         }
       ]

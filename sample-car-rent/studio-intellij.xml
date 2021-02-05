@@ -4,6 +4,7 @@
     <option name="isOneToOneIndex" value="false" />
     <option name="isNewFkConstraintNaming" value="false" />
     <option name="isJoinedInheritanceDeleteCascade" value="false" />
+    <option name="groupUpdateScriptsBy" value="MONTH" />
     <option name="stateVersion" value="1" />
   </component>
 </project>

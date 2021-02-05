@@ -25,5 +25,7 @@
         <class>com.company.scr.entity.test.IntegerIdTestEntity</class>
         <class>com.company.scr.entity.test.WeirdStringIdTestEntity</class>
         <class>com.company.scr.entity.test.BoringStringIdTestEntity</class>
+        <class>com.company.scr.entity.test.CompositeAttribute</class>
+        <class>com.company.scr.entity.test.CompositeKeyEntity</class>
     </persistence-unit>
 </persistence>
