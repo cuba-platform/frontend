@@ -21,7 +21,8 @@ import {
   injectMainStore,
   assertNever,
   getPropertyInfoNN,
-  WithId
+  getStringId,
+  WithCompositeId
 } from '@cuba-platform/react-core';
 import { FormInstance } from 'antd/es/form';
 
@@ -519,8 +520,8 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
       : true;
   }
 
-  constructRowKey(record: E & WithId): string {
-    return record.id!;
+  constructRowKey(record: E & WithCompositeId): string {
+    return getStringId(record.id!);
   }
 
 }
