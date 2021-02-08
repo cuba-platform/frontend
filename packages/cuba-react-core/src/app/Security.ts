@@ -6,7 +6,8 @@ import {
   getAttributePermission,
   isOperationAllowed,
   isSpecificPermissionGranted,
-  EntityOperationType
+  EntityOperationType,
+  CubaRestError
 } from '@cuba-platform/rest';
 
 
@@ -135,12 +136,12 @@ export class Security {
           this.effectivePermissions = effectivePermsInfo;
         }
       }))
-      .catch(reason => {
+      .catch((error: CubaRestError) => {
         // support rest api version < 7.2
-        if (reason === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
+        if (error.message === CubaApp.NOT_SUPPORTED_BY_API_VERSION) {
           this.restSupportEffectivePerms = false;
         } else {
-          throw reason;
+          throw error;
         }
       });
   }
