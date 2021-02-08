@@ -32,22 +32,22 @@ jobs:
     env:
       - ALLOWED_TO_FAIL=true
   include:
-    - name: "Dependency vulnerability check"
-      script:
-        - npm run snyk:test
+#    - name: "Dependency vulnerability check"
+#      script:
+#        - npm run snyk:test
+#
+#    - name: "Send snapshot to Snyk"
+#      if: branch = master
+#      env: ALLOWED_TO_FAIL=true
+#      script:
+#        - npm run snyk:monitor
 
-    - name: "Send snapshot to Snyk"
-      if: branch = master
-      env: ALLOWED_TO_FAIL=true
-      script:
-        - npm run snyk:monitor
-
-    - name: "Push client builds"
-      if: branch = master
-      script:
-        - npm run bootstrap-react-app
-        - npm run bootstrap-react-native-app
-        - travis/push-client-builds.sh
+#    - name: "Push client builds"
+#      if: branch = master
+#      script:
+#        - npm run bootstrap-react-app
+#        - npm run bootstrap-react-native-app
+#        - travis/push-client-builds.sh
 
     - name: "Tests on generated app"
       # setup cuba postgres user; build and run backend app
@@ -60,16 +60,6 @@ jobs:
         - sleep 120
         - npm test react-client-scr/ --prefix test-pup
 
-    - name: "Tests on generated app - backward compatibility 7.1"
-      # setup cuba postgres user; build and run backend app
-      before_install: node scripts/ci-bootstrap-backend.js sample-car-rent-7-1
-      script:
-        - npm run bootstrap-react-app
-        - npm run start-react-app &
-        - sleep 120
-        - npm test react-client-scr/app-start.test.js --prefix test-pup
-        - npm test react-client-scr-71 --prefix test-pup
-
     - name: "Unit tests, coverage and lint commits"
       # setup cuba postgres user; build and run backend app
       before_install: node scripts/ci-bootstrap-backend.js
@@ -80,17 +70,17 @@ jobs:
     - name: "front-generator - e2e - e2e:react:new-project"
       script:
         - npm run pack-react-client-libs
-        - npm run test:e2e:react:new-project --prefix packages/front-generator
+        - npm run test:e2e:react:new-project --prefix packages/jmix-front-generator
 
     - name: "front-generator - e2e - e2e:react:empty-model"
       script:
         - npm run pack-react-client-libs
-        - npm run test:e2e:react:empty-model --prefix packages/front-generator
+        - npm run test:e2e:react:empty-model --prefix packages/jmix-front-generator
 
     - name: "front-generator - e2e - e2e:sdk"
       script:
         - npm run pack-react-client-libs
-        - npm run test:e2e:sdk --prefix packages/front-generator
+        - npm run test:e2e:sdk --prefix packages/jmix-front-generator
 
 #    - name: "front-generator - e2e - e2e:react:scr os: windows"
 #      os:

@@ -11,13 +11,13 @@ describe('app-start', () => {
 
   it('should check that app started', async () => {
     await page.goto('http://localhost:3000/#/');
-    await expect(page.title()).resolves.toMatch('sample-car-rent');
+    await expect(page.title()).resolves.toMatch('scr-jmix');
   });
 
   it('should login in generated app', async () => {
     await login(page);
     const name = await page.$eval('main > div', el => el.innerHTML);
-    await expect(name).toMatch('Welcome to sample-car-rent!');
+    await expect(name).toMatch('Welcome to scr-jmix!');
   });
 
   afterAll(async done => {

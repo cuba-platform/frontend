@@ -5,7 +5,7 @@ const {initApp} = require('./common');
 
 global.fetch = require('node-fetch');
 
-describe('CubaApp security methods', () => {
+xdescribe('CubaApp security methods', () => {
 
   const apiUrl = 'http://localhost:8080/app/rest/';
   let app;

@@ -78,20 +78,20 @@ const execute = (command, projectPath, includeDevDependencies, savedPolicyFile) 
     `${basePath}`,
     false);
   runSnykCommand(snykExecutable, command,
-    'CUBA React Core',
-    `${basePath}/packages/cuba-react-core`,
+    'React Core',
+    `${basePath}/packages/jmix-react-core`,
     false);
   runSnykCommand(snykExecutable, command,
-    'CUBA React UI',
-    `${basePath}/packages/cuba-react-ui`,
+    'React UI',
+    `${basePath}/packages/jmix-react-ui`,
     false);
   runSnykCommand(snykExecutable, command,
-    'CUBA REST JS',
-    `${basePath}/packages/cuba-rest-js`,
+    'REST JS',
+    `${basePath}/packages/jmix-rest-js`,
     false);
   runSnykCommand(snykExecutable, command,
     'Frontend Generator',
-    `${basePath}/packages/front-generator`,
+    `${basePath}/packages/jmix-front-generator`,
     false);
   //
   // react-client-scr causes Snyk to crash due to the size of the dependency tree

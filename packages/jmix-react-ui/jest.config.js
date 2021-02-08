@@ -28,7 +28,7 @@ module.exports = {
   // In case of FieldPermissionContainer.test.tsx that would result in an Invalid Hook Call,
   // apparently because the test transitively imports MainStore, which declares a custom hook.
   "moduleNameMapper": {
-    "^react$": "<rootDir>/../cuba-react-core/node_modules/react",
-    "^mobx-react$": "<rootDir>/../cuba-react-core/node_modules/mobx-react"
+    "^react$": "<rootDir>/../jmix-react-core/node_modules/react",
+    "^mobx-react$": "<rootDir>/../jmix-react-core/node_modules/mobx-react"
   }
 };

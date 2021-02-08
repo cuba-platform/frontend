@@ -56,7 +56,7 @@ describe('CubaApp', () => {
   it('.getUserInfo()', () => app.getUserInfo());
 
   it('.loadEntity()', done => {
-    app.loadEntity('sec$User', 'a405db59-e674-4f63-8afe-269dda788fe8')
+    app.loadEntity('scr_User', '60885987-1b61-4247-94c7-dff348347f93')
       .then((entity) => {
         assert(entity._instanceName != null);
         done();
@@ -68,36 +68,36 @@ describe('CubaApp', () => {
 
   describe('.commitEntity()', () => {
     it('should create new entity and pass persisted one in promise', () => {
-      const role = {
-        name: 'cuba-rest-test-role-' + Math.random(),
-        description: 'Role for managers',
-        type: 'READONLY'
+      const car = {
+        model: 'car-' + Math.random(),
+        manufacturer: 'Manufacturer',
+        carType: "SEDAN"
       };
 
       return app
-        .commitEntity('sec$Role', role)
-        .then(createdEntity => app.loadEntity('sec$Role', createdEntity.id))
+        .commitEntity('scr$Car', car)
+        .then(createdEntity => app.loadEntity('scr$Car', createdEntity.id))
         .then((entity) => {
-          assert.strictEqual(entity.name, role.name);
+          assert.strictEqual(entity.model, car.model);
           assert(entity.id != null);
         });
     });
 
     it('should update existing entity', async () => {
-      const managersRole = {
-        id: '91099ca3-194e-6ba5-7aa6-15b03bcef05a',
-        description: 'Updated role description'
+      const car = {
+        id: '3da61043-aaad-7e30-c7f5-c1f1328d3980',
+        model: '2122'
       };
-      return app.commitEntity('sec$Role', managersRole)
-        .then(() => app.loadEntity('sec$Role', managersRole.id))
-        .then((updatedRole) => assert(updatedRole.description === 'Updated role description'));
+      return app.commitEntity('scr$Car', car)
+        .then(() => app.loadEntity('scr$Car', car.id))
+        .then((updatedCar) => assert(updatedCar.model === '2122'));
     });
   });
 
   describe('.deleteEntity()', () => {
     it('should delete entity', done => {
-      app.commitEntity('sec$Role', {name: 'newRole'}).then(newRole => {
-        app.deleteEntity('sec$Role', newRole.id)
+      app.commitEntity('scr$Car', {manufacturer: "VAZ", carType: 'SEDAN'}).then(car => {
+        app.deleteEntity('scr$Car', car.id)
           .then(() => {
             done();
           })
@@ -112,14 +112,14 @@ describe('CubaApp', () => {
   describe('.loadEntities()', () => {
     it('should load list of entities', done => {
       const options = {
-        view: '_minimal',
+        view: '_instance_name',
         limit: 1,
       };
-      app.loadEntities('sec$User', options)
-        .then(users => {
-          assert.strictEqual(users.length, 1);
-          assert.ok(!users[0].hasOwnProperty('password'));
-          assert(users[0]._instanceName != null);
+      app.loadEntities('scr$Car', options)
+        .then(cars => {
+          assert.strictEqual(cars.length, 1);
+          assert.ok(!cars[0].hasOwnProperty('price'));
+          assert(cars[0]._instanceName != null);
           done();
         })
         .catch(e => {
@@ -130,12 +130,11 @@ describe('CubaApp', () => {
 
   describe('.loadEntitiesWithCount()', () => {
     it('should return entities and count', done => {
-      app.loadEntitiesWithCount('sec$User')
+      app.loadEntitiesWithCount('scr_User')
         .then(resp => {
           assert(Array.isArray(resp.result), '.result is not array');
-          assert(resp.result.length === 4, 'result array should contain 4 entities');
-          assert(resp.count === 4, 'count should be 4');
-          assert(resp.result[0]._instanceName != null);
+          assert(resp.result.length === 1, 'result array should contain 4 entities');
+          assert(resp.count === 1, 'count should be 1');
           done();
         })
         .catch(e => {
@@ -146,7 +145,7 @@ describe('CubaApp', () => {
 
   const simpleFilter = {
     conditions: [{
-      property: 'name',
+      property: 'username',
       operator: 'contains',
       value: 'adm'
     }]
@@ -156,11 +155,11 @@ describe('CubaApp', () => {
     conditions: [{
       group: 'OR',
       conditions: [{
-        property: 'name',
+        property: 'username',
         operator: 'contains',
         value: 'adm'
       }, {
-        property: 'active',
+        property: 'enabled',
         operator: '=',
         value: true
       }]
@@ -168,13 +167,13 @@ describe('CubaApp', () => {
   };
 
   describe('.searchEntities()', () => {
-    it('should search entities by a simple condition', () => app.searchEntities('sec$User', simpleFilter));
-    it('should search group conditions', () => app.searchEntities('sec$User', groupConditionsFilter))
+    it('should search entities by a simple condition', () => app.searchEntities('scr_User', simpleFilter));
+    it('should search group conditions', () => app.searchEntities('scr_User', groupConditionsFilter))
   });
 
   describe('.searchEntitiesWithCount()', () => {
     it('should search entities by a simple condition', done => {
-      app.searchEntitiesWithCount('sec$User', simpleFilter)
+      app.searchEntitiesWithCount('scr_User', simpleFilter)
         .then(resp => {
           assert(Array.isArray(resp.result), '.result is not array');
           assert(resp.result.length === 1, 'result array should contain 1 entities, contains ' + resp.result.length);
@@ -187,11 +186,11 @@ describe('CubaApp', () => {
         });
     });
     it('should search group conditions', done => {
-      app.searchEntitiesWithCount('sec$User', groupConditionsFilter)
+      app.searchEntitiesWithCount('scr_User', groupConditionsFilter)
         .then(resp => {
           assert(Array.isArray(resp.result), '.result is not array');
-          assert(resp.result.length === 4, 'result array should contain 4 entities, contains ' + resp.result.length);
-          assert(resp.count === 4, 'count should be 4');
+          assert(resp.result.length === 1, 'result array should contain 1 entities, contains ' + resp.result.length);
+          assert(resp.count === 1, 'count should be 1');
           assert(resp.result[0]._instanceName != null);
           done();
         })
@@ -201,7 +200,8 @@ describe('CubaApp', () => {
     })
   });
 
-  describe('.query()', () => {
+  // todo https://github.com/Haulmont/jmix-frontend/issues/102
+  xdescribe('.query()', () => {
 
     it('should load query results', () => app
       .query('scr$Car', 'allCars')
@@ -229,23 +229,23 @@ describe('CubaApp', () => {
 
   describe('.loadEntityViews()', () => {
     it('should load entity views', async () => {
-      const views = await app.loadEntityViews('sec$User');
+      const views = await app.loadEntityViews('scr_User');
       assert(Array.isArray(views));
     })
   });
 
-  describe('.loadEntityView()', () => {
+  xdescribe('.loadEntityView()', () => {
     it('should load particular view', async () => {
       const view = await app.loadEntityView('sec$User', 'user.browse');
       assert(typeof view === 'object');
     })
   });
 
-  describe('.setSessionLocale()', () => {
+  xdescribe('.setSessionLocale()', () => {
     it('should set session locale', () => app.setSessionLocale());
   });
 
-  describe('.getApiVersion()', () => {
+  xdescribe('.getApiVersion()', () => {
     it('should get API version', async () => {
       const version = await app.getApiVersion();
       assert(version);
@@ -254,7 +254,7 @@ describe('CubaApp', () => {
     });
   });
 
-  describe('.refreshApiVersion()', () => {
+  xdescribe('.refreshApiVersion()', () => {
     it('should refresh API version', async () => {
       const version = await app.refreshApiVersion();
       assert.equal(version, app.apiVersion);

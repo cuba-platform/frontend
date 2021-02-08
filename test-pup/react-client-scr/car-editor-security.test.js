@@ -1,7 +1,7 @@
 const {login} = require("../common/login-to-scr");
 const puppeteer = require("puppeteer");
 
-describe('car editor security - mechanic', () => {
+xdescribe('car editor security - mechanic', () => {
 
   let pageMech;
   let pageMan;
