@@ -38,6 +38,7 @@ import {
 } from 'antd';
 import {
   Cardinality,
+  CubaRestError,
   EnumInfo,
   EnumValueInfo,
   MetaClassInfo,
@@ -71,8 +72,12 @@ import {DataTable} from '../table/DataTable';
 import {
   clearFieldErrors,
   constructFieldsWithErrors,
-  extractServerValidationErrors
+  extractServerValidationErrors,
 } from '../../util/errorHandling';
+import {
+  defaultMapCubaRestErrorToIntlId,
+  mapCubaRestErrorToIntlId,
+} from '../../util/mapCubaRestErrorToIntlId';
 import {MultilineText} from '../MultilineText';
 import {Spinner} from '../Spinner';
 // noinspection ES6PreferShortImport Importing from ../../index.ts will cause a circular dependency
@@ -1000,25 +1005,29 @@ export const defaultHandleFinish = <E extends unknown>(
       message.success(intl.formatMessage({ id: "management.editor.success" }));
       return {success: true, globalErrors: []};
     })
-    .catch((serverError: any) => {
+    .catch((serverError: CubaRestError) => {
       if (serverError.response && typeof serverError.response.json === "function") {
         return serverError.response.json().then((response: any) => {
           const {globalErrors, fieldErrors} = extractServerValidationErrors(response);
           if (fieldErrors.size > 0) {
             formInstance.setFields(constructFieldsWithErrors(fieldErrors, formInstance));
           }
-
-          if (fieldErrors.size > 0 || globalErrors.length > 0) {
-            message.error(intl.formatMessage({id: "management.editor.validationError"}));
-          } else {
-            message.error(intl.formatMessage({id: "management.editor.error"}));
-          }
+          
+          const intlMessageId = mapCubaRestErrorToIntlId(
+            (): void | string => {
+              if (fieldErrors.size > 0 || globalErrors.length > 0) {
+                return "management.editor.validationError";
+              }
+            },
+            serverError,
+          )
+          message.error(intl.formatMessage({id: intlMessageId}));
 
           return {success: false, globalErrors};
         });
       } else {
         message.error(
-          intl.formatMessage({ id: "management.editor.error" })
+          intl.formatMessage({ id: defaultMapCubaRestErrorToIntlId(serverError) })
         );
         return {success: false, globalErrors: []};
       }

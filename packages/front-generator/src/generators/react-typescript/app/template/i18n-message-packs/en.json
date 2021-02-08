@@ -78,6 +78,14 @@
   "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Are you sure you want to delete the nested entity?",
 
 
+  "cubaRest.error.serverNotResponded": "Server not responded",
+  "cubaRest.error.serverError": "Internal server error",
+  "cubaRest.error.badRequest": "Bad request",
+  "cubaRest.error.unauthorized": "Authorization error",
+  "cubaRest.error.notFound": "Not found",
+  "cubaRest.error.unknown": "Unknown error",
+  
+
   "antd.form.validation.default": "Field ${name} has a validation error.",
   "antd.form.validation.required": "Field ${name} is mandatory.",
   "antd.form.validation.enum": "Specified value in field ${name} shall be restricted to the following list: ${enum}.",

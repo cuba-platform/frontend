@@ -21,8 +21,8 @@ describe('CubaApp version <7.2.0', () => {
         .then(() => {
           done('did not fail');
         })
-        .catch(reason => {
-          assert(reason === cuba.CubaApp.NOT_SUPPORTED_BY_API_VERSION);
+        .catch(error => {
+          assert(error.message === cuba.CubaApp.NOT_SUPPORTED_BY_API_VERSION);
           done();
         });
     });

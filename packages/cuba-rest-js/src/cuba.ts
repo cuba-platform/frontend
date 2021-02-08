@@ -1,3 +1,4 @@
+import { CubaRestError } from './error';
 import {
   EffectivePermsInfo,
   EffectivePermsLoadOptions,
@@ -14,6 +15,7 @@ import {EntityFilter} from "./filter";
 import {base64encode, encodeGetParams, matchesVersion, getStringId} from "./util";
 import { restEventEmitter } from './event_emitter';
 
+export * from './error';
 export * from './model';
 export * from './storage';
 export * from './filter';
@@ -102,6 +104,10 @@ export interface LoginOptions {
   tokenEndpoint: string;
 }
 
+const throwNormolizedCubaRestError = (e: Error | CubaRestError) => {
+  throw e.name === 'CubaRestError' ? e : new CubaRestError({message: e.message});
+}
+
 export class CubaApp {
 
   public static NOT_SUPPORTED_BY_API_VERSION = 'Not supported by current REST API version';
@@ -171,7 +177,8 @@ export class CubaApp {
       .then((data) => {
         this.restApiToken = data.access_token;
         return data;
-      });
+      })
+      .catch(throwNormolizedCubaRestError);
     return loginRes;
   }
 
@@ -186,7 +193,9 @@ export class CubaApp {
       body: 'token=' + encodeURIComponent(token),
     };
     this.clearAuthData();
-    return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions).then(this.checkStatus);
+    return fetch(this.apiUrl + 'v2/oauth/revoke', fetchOptions)
+      .then(this.checkStatus)
+      .catch(throwNormolizedCubaRestError);
   }
 
   public loadEntities<T>(
@@ -414,25 +423,26 @@ export class CubaApp {
       }
     });
 
-    return fetchRes.then((resp) => {
-
-      if (resp.status === 204) {
-        return resp.text();
-      }
-
-      switch (handleAs) {
-        case "text":
+    return fetchRes
+      .then((resp) => {
+        if (resp.status === 204) {
           return resp.text();
-        case "blob":
-          return resp.blob();
-        case "json":
-          return resp.json();
-        case "raw":
-          return resp;
-        default:
-          return resp.text();
-      }
-    });
+        }
+
+        switch (handleAs) {
+          case "text":
+            return resp.text();
+          case "blob":
+            return resp.blob();
+          case "json":
+            return resp.json();
+          case "raw":
+            return resp;
+          default:
+            return resp.text();
+        }
+      })
+      .catch(throwNormolizedCubaRestError);
   }
 
   public onLocaleChange(c) {
@@ -503,7 +513,11 @@ export class CubaApp {
     if (await this.isFeatureSupported(minVersion)) {
       return requestCallback();
     } else {
-      return Promise.reject(CubaApp.NOT_SUPPORTED_BY_API_VERSION);
+      const error = new CubaRestError({
+        message: CubaApp.NOT_SUPPORTED_BY_API_VERSION,
+      })
+
+      return Promise.reject(error);
     }
   }
 
@@ -528,7 +542,12 @@ export class CubaApp {
     if (response.status >= 200 && response.status < 300) {
       return response;
     } else {
-      return Promise.reject({message: response.statusText, response});
+      const error = new CubaRestError({
+        message: response.statusText,
+        response,
+      });
+
+      return Promise.reject(error);
     }
   }
 

@@ -78,6 +78,14 @@
   "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Удалить вложенную сущность?",
 
 
+  "cubaRest.error.serverNotResponded": "Сервер не отвечает",
+  "cubaRest.error.serverError": "Ошибка на стороне сервера",
+  "cubaRest.error.badRequest": "Запрос сформирован неправильно",
+  "cubaRest.error.unauthorized": "Ошибка авторзации",
+  "cubaRest.error.notFound": "Отсутствует ответ на запрос",
+  "cubaRest.error.unknown": "Неизвестная ошибка",
+
+
   "antd.form.validation.default": "Ошибка валидации в поле ${name}.",
   "antd.form.validation.required": "Поле ${name} является обязательным.",
   "antd.form.validation.enum":  "Поле ${name} должно иметь одно из следующих значений: ${enum}.",

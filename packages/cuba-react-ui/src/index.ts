@@ -11,6 +11,7 @@ export * from './ui/Spinner';
 export * from './ui/paging/Paging';
 
 export * from './util/errorHandling';
+export * from './util/mapCubaRestErrorToIntlId';
 
 export * from './i18n/I18nProvider';
 export * from './i18n/validation';
