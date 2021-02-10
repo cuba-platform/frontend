@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@2.0.0-beta.0...@cuba-platform/react-core@2.0.0-beta.1) (2021-01-21)
+
+**Note:** Version bump only for package @cuba-platform/react-core
+
+
+
+
+
+# [2.0.0-beta.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@2.0.0-dev.1...@cuba-platform/react-core@2.0.0-beta.0) (2021-01-20)
+
+
+### Bug Fixes
+
+* login form not shown when session expires [#350](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/350) ([8e37109](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/8e371096abb66bead60799efd2192cc1feb070cf))
+* mobx-react batching warning ([e3dcc13](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/e3dcc135c915605fd1ec974fc73cc41a7a68c679))
+
+
+### Features
+
+* allow to conditionally show content based on permissions ([51ceb8d](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/51ceb8dc8bdaef0978da237060d56bc9eb8c1415)), closes [#309](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/309)
+
+
+### BREAKING CHANGES
+
+* Minimum version requirement for mobx-react is now ^6.3.0
+
+
+
+
+
 # [1.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@1.0.2...@cuba-platform/react-core@1.1.0) (2020-08-04)
 
 

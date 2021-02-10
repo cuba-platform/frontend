@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@2.0.0-dev.1...@cuba-platform/rest@2.0.0-beta.0) (2021-01-20)
+
+
+### Features
+
+* code-review fixes ([880616c](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/880616c496ad88bc109c060f64ef5d8d4e40bf19))
+
+
+
+
+
 ## [1.0.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@1.0.0...@cuba-platform/rest@1.0.1) (2020-08-04)
 
 **Note:** Version bump only for package @cuba-platform/rest

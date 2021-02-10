@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.0.0-beta.0...@cuba-platform/front-generator@4.0.0-beta.1) (2021-01-21)
+
+**Note:** Version bump only for package @cuba-platform/front-generator
+
+
+
+
+
+# [4.0.0-beta.0](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.0.0-dev.1...@cuba-platform/front-generator@4.0.0-beta.0) (2021-01-20)
+
+
+### Bug Fixes
+
+* **React:** cosmetics in entity management hooks template ([fb505d7](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/fb505d73577ef885229724b5eb29cabd8119411b))
+* build error due to antd using newer version of TypeScript ([51a39a1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/51a39a17d405f296714149db562877147576c4d3))
+* mobx-react batching warning ([e3dcc13](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/e3dcc135c915605fd1ec974fc73cc41a7a68c679))
+* **Front Generator:** sort only updatable entites on EntityCards ([1446474](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/1446474ad5fe9b6246f58d5a804ab04ae6860271)), closes [#120](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/120)
+* missing composition fields in editor ([31d9aa8](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/31d9aa8b64af00bf7f2ba833793768e8ed44ee62))
+
+
+### Features
+
+* allow to conditionally show content based on permissions ([51ceb8d](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/51ceb8dc8bdaef0978da237060d56bc9eb8c1415)), closes [#309](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/309)
+* provide app translation for Chinese ([5967219](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/5967219cc3141d72a15342776dab6848910c954f))
+* provide entity management template implemented using hooks ([4a010a2](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/4a010a2f2190b9e1819e6867d9f3f64d74904c6d)), closes [#4](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/4)
+* support password question type ([f8d47c5](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/f8d47c52e9134c4ca3d6653bdffc8d9b298c0e52))
+
+
+### BREAKING CHANGES
+
+* Minimum version requirement for mobx-react is now ^6.3.0
+
+
+
+
+
 ## [3.1.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@3.1.0...@cuba-platform/front-generator@3.1.1) (2020-08-05)
 
 
