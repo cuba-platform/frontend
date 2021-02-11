@@ -1,4 +1,4 @@
-ª# Jmix Frontend Tools and Libraries
+# Jmix Frontend Tools and Libraries
 
 [![Build Status](https://travis-ci.org/cuba-platform/frontend.svg?branch=master)](https://travis-ci.org/cuba-platform/frontend)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
