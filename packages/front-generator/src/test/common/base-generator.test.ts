@@ -6,6 +6,7 @@ import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../common/s
 import {Entity, ProjectModel} from "../../common/model/cuba-model";
 import * as Generator from "yeoman-generator";
 import YeomanEnvironment = require("yeoman-environment");
+import {getOpenedCubaProjects} from "../../../lib";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
@@ -79,7 +80,8 @@ class TestGenerator extends BaseGenerator<Answers, {}, CommonGenerationOptions> 
     return Promise.resolve({projectInfo: 'projectInfo'} as any);
   }
 
-  writing() {}
+  writing() {
+  }
 }
 
 const opts = {
@@ -109,14 +111,19 @@ describe('BaseGenerator', () => {
     expect(gen.answers!.projectInfo).eq('projectInfo');
   });
 
-  it('should fail on obtain project model if no cuba connection', (done) => {
+  it('should fail on obtain project model if no cuba connection', async () => {
+
+    const openedProjects = await getOpenedCubaProjects();
+    if (openedProjects !== null) {
+      return;
+    }
+
     const gen = new TestGenerator([], {...opts, model: undefined});
-    gen
-      ._obtainCubaProjectModel()
-      .catch(e => {
-        expect(e.message).eq(ERR_STUDIO_NOT_CONNECTED);
-        done();
-      });
+    try {
+      await gen._obtainCubaProjectModel()
+    } catch (e) {
+      expect(e.message).eq(ERR_STUDIO_NOT_CONNECTED);
+    }
   });
 
   it('should refine answers', () => {
@@ -131,7 +138,7 @@ describe('BaseGenerator', () => {
     };
 
     let refined = refineAnswers(projectModel, [], {intAnswer: 1.1});
-    expect(refined).eql({ intAnswer: 1.1 });
+    expect(refined).eql({intAnswer: 1.1});
 
     const generatorParams: StudioTemplateProperty[] = [
       {
@@ -142,10 +149,10 @@ describe('BaseGenerator', () => {
       },
     ];
     refined = refineAnswers(projectModel, generatorParams, {intAnswer: 1});
-    expect(refined).eql({ intAnswer: 1 });
+    expect(refined).eql({intAnswer: 1});
 
     refined = refineAnswers(projectModel, generatorParams, {intAnswer: 0});
-    expect(refined).eql({ intAnswer: 0 });
+    expect(refined).eql({intAnswer: 0});
 
     expect(() => refineAnswers(projectModel, generatorParams, {intAnswer: 1.1}))
       .to.throw(`Question with code 'intAnswer' has INTEGER type and can't contain '1.1' as answer`);
