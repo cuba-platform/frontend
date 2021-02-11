@@ -7,13 +7,6 @@ This is a monorepo for the following npm packages:
 * [cuba-react](packages/cuba-react)
 
 
-## Bootstrap
-
-```
-npm install
-lerna boostrap
-```
-
 ## Dependencies of Generated App
 
 To update versions of @cuba-platform/rest and @cuba-platform/react in generated app [react-app-scr](react-app-scr)

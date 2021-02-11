@@ -24,6 +24,7 @@
     "snyk": "^1.299.0"
   },
   "scripts": {
+    "prepare": "lerna bootstrap",
     "lerna": "lerna",
     "antora": "antora",
     "antora:gen": "antora --fetch",
