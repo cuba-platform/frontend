@@ -1,11 +1,4 @@
-{
-  "management.browser.delete.areYouSure": "确定要删除 {instanceName}？",
-  "management.browser.delete.ok": "删除",
-  "management.browser.noItems": "暂无数据",
-  "management.editor.validationError": "验证错误。请检查输入的数据",
-  "management.editor.success": "实体已更新",
-  "management.editor.error": "错误",
-  
+{ 
   "common.alt.logo": "Logo",
   "common.ok": "确认",
   "common.cancel": "取消",

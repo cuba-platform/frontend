@@ -18,6 +18,9 @@ import {antdLocaleMapping, messagesMapping} from './i18n/i18nMappings';
 <% if (isLocaleUsed('fr')) { -%>
   import 'moment/locale/fr';
 <% } -%>
+<% if (isLocaleUsed('zh-cn')) { -%>
+  import 'moment/locale/zh-cn';
+<% } -%>
 
 export const cubaREST = initializeApp({
   name: '<%=project.namespace%>',
