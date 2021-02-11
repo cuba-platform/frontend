@@ -13,13 +13,18 @@
         "dataFormats": {}
       },
       {
-        "code": "fr",
-        "language": "Français",
+        "code": "ru",
+        "language": "Русский",
         "dataFormats": {}
       },
       {
-        "code": "ru",
-        "language": "Русский",
+        "code": "zh-cn",
+        "language": "中文",
+        "dataFormats": {}
+      },
+      {
+        "code": "fr",
+        "language": "Français",
         "dataFormats": {}
       }
     ]

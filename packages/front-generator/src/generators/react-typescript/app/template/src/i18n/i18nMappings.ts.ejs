@@ -10,6 +10,10 @@
   import ru from './ru.json';
   import ruRu from 'antd/es/locale/ru_RU';
 <% } -%>
+<% if (isLocaleUsed('zh-cn')) { -%>
+  import zh from './zh-cn.json';
+  import zhCn from 'antd/es/locale/zh_CN';
+<% } -%>
 
 export const antdLocaleMapping = {
   <% if (isLocaleUsed('en')) { -%>
@@ -20,6 +24,9 @@ export const antdLocaleMapping = {
   <% } -%>
   <% if (isLocaleUsed('ru')) { -%>
     'ru': ruRu,
+  <% } -%>
+  <% if (isLocaleUsed('zh-cn')) { -%>
+    'zh-cn': zhCn,
   <% } -%>
 };
 
@@ -32,5 +39,8 @@ export const messagesMapping = {
   <% } -%>
   <% if (isLocaleUsed('ru')) { -%>
     'ru': ru,
+  <% } -%>
+  <% if (isLocaleUsed('zh-cn')) { -%>
+    'zh-cn': zh,
   <% } -%>
 };

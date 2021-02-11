@@ -18,6 +18,7 @@ import {
 import * as entityManagementEn from './entity-management-en.json';
 import * as entityManagementFr from './entity-management-fr.json';
 import * as entityManagementRu from './entity-management-ru.json';
+import * as entityManagementZhCn from './entity-management-zh-cn.json';
 // noinspection ES6PreferShortImport
 import { BaseGenerator } from "../../../common/base-generator";
 // noinspection ES6PreferShortImport
@@ -53,7 +54,8 @@ export class ReactEntityManagementGenerator extends BaseGenerator<Answers, Templ
       {
         en: entityManagementEn,
         fr: entityManagementFr,
-        ru: entityManagementRu
+        ru: entityManagementRu,
+        'zh-cn': entityManagementZhCn,
       },
       this.cubaProjectModel
     );
