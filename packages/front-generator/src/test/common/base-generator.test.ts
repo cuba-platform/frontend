@@ -1,12 +1,15 @@
 import {BaseGenerator, refineAnswers} from "../../common/base-generator";
 import {CommonGenerationOptions, commonGenerationOptionsConfig, OptionsConfig} from "../../common/cli-options";
-import {ERR_STUDIO_NOT_CONNECTED, StudioProjectInfo} from "../../common/studio/studio-integration";
+import {
+  ERR_STUDIO_NOT_CONNECTED,
+  getOpenedCubaProjects,
+  StudioProjectInfo
+} from "../../common/studio/studio-integration";
 import {expect} from "chai";
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../common/studio/studio-model";
 import {Entity, ProjectModel} from "../../common/model/cuba-model";
 import * as Generator from "yeoman-generator";
 import YeomanEnvironment = require("yeoman-environment");
-import {getOpenedCubaProjects} from "../../../lib";
 
 interface Answers {
   projectInfo: StudioProjectInfo;
