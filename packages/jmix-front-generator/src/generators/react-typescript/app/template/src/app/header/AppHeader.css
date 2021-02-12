@@ -1,7 +1,13 @@
 .app-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: #CCCCCC;
+}
+
+.app-header__icon {
+  width: 32px;
+  height: 32px;
 }
 
 .user-panel > .panelelement {

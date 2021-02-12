@@ -208,7 +208,6 @@ describe('i18n message packs', async () => {
 
 const ALL_I18N_KEYS = [
   // Main message pack
-  "common.alt.logo",
   "common.ok",
   "common.cancel",
   "common.create",

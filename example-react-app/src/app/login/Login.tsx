@@ -7,13 +7,13 @@ import { observer } from "mobx-react";
 import { action, observable } from "mobx";
 import { injectMainStore, MainStoreInjected } from "@haulmont/jmix-react-core";
 import "./Login.css";
-import logo from "./logo.png";
 import { LanguageSwitcher } from "../../i18n/LanguageSwitcher";
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
+import JmixDarkIcon from "../icons/JmixDarkIcon";
 
 @injectMainStore
 @observer
@@ -53,12 +53,10 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
   render() {
     return (
       <div className="login-form">
-        <img
-          src={logo}
-          alt={this.props.intl.formatMessage({ id: "common.alt.logo" })}
-          className="logo"
-        />
+        <JmixDarkIcon className="logo" />
+
         <div className="title">scr-jmix</div>
+
         <Form layout="vertical" onFinish={this.doLogin}>
           <Form.Item>
             <Input
