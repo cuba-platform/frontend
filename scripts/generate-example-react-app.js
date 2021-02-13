@@ -1,7 +1,7 @@
 const gen = require('./generate-client-scr');
 
-const clientDir = 'react-client-scr';
-const answers = require('./model/react-client-scr-answers');
+const clientDir = 'example-react-app';
+const answers = require('./model/example-react-app-answers.json');
 const intIdentityIdCardsConfig = require('./screens/int-identity-id-cards.json');
 const intIdentityIdManagementTableConfig = require('./screens/int-identity-id-management-table.json');
 const intIdentityIdManagementCardsConfig = require('./screens/int-identity-id-management-cards.json');

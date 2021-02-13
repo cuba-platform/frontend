@@ -55,10 +55,10 @@ jobs:
       script:
         - npm run bootstrap-react-app
         - npm run validate-react-app
-        - npm run build --prefix react-client-scr
+        - npm run build --prefix example-react-app
         - npm run start-react-app &
         - sleep 120
-        - npm test react-client-scr/ --prefix test-pup
+        - npm test example-react-app/ --prefix test-pup
 
     - name: "Unit tests, coverage and lint commits"
       # setup cuba postgres user; build and run backend app

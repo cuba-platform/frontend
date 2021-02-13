@@ -6,10 +6,10 @@ const fs = require('fs-extra');
  * @param snykExecutable - path to the Snyk executable
  * @param command - one of the allowed Snyk commands
  * @param projectName - only used in the logs
- * @param projectPath - path to the project, relative to `basePath`, for example `react-client-scr`
+ * @param projectPath - path to the project, relative to `basePath`, for example `example-react-app`
  * @param includeDevDependencies - whether to add `--dev` parameter to the Snyk command
  * @param savedPolicyFile - path to the stored Snyk policy file, relative to `basePath`,
- * for example `.snyk-react-client-scr`.
+ * for example `.snyk-example-react-app`.
  * Used when applying a Snyk command to the generated client.
  * Since the generated client itself is not committed to the repository, we store its .snyk policy file separately.
  * Providing this parameter will cause Snyk to:
@@ -54,7 +54,7 @@ const runSnykCommand = (snykExecutable, command, projectName, projectPath, inclu
 /**
  *
  * @param command - one of the allowed Snyk commands
- * @param projectPath - relative path to the project, for example `react-client-scr`.
+ * @param projectPath - relative path to the project, for example `example-react-app`.
  * If not provided, the command will be applied to all projects.
  * @param includeDevDependencies - whether to add `--dev` parameter to the given Snyk command.
  * Only respected if `projectPath` is provided. Otherwise default per-project settings will apply.
@@ -101,7 +101,7 @@ const execute = (command, projectPath, includeDevDependencies, savedPolicyFile) 
   //   'the generated frontend client',
   //   `${basePath}/react-client-scr`,
   //   true,
-  //   `${basePath}/.snyk-react-client-scr`);
+  //   `${basePath}/.snyk-example-react-app`);
 };
 
 const commandParam = process.argv[2];

@@ -9,7 +9,7 @@ cd frontend-scr-builds || exit
 git remote set-url origin $REPO_URL > /dev/null 2>&1
 
 echo "Copying the built clients"
-cp -r ../react-client-scr .
+cp -r ../example-react-app .
 cp -r ../react-native-client-scr .
 
 echo "Committing"

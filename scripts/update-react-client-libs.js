@@ -1,6 +1,6 @@
 const updateClientLibs = require('./update-client-libs');
 
 updateClientLibs(
-    'react-client-scr',
+    'example-react-app',
     ['rest', 'react-core', 'react-ui']
 );
