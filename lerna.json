@@ -1,6 +1,6 @@
 {
   "packages": [
-    "packages/*", "test-pup"
+    "packages/*", "test-pup", "example-react-app"
   ],
   "version": "independent"
 }
