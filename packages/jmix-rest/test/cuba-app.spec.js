@@ -138,8 +138,8 @@ describe('CubaApp', () => {
       app.loadEntitiesWithCount('scr_User')
         .then(resp => {
           assert(Array.isArray(resp.result), '.result is not array');
-          assert(resp.result.length === 1, 'result array should contain 4 entities');
-          assert(resp.count === 1, 'count should be 1');
+          assert(resp.result.length === 3, 'result array should contain 3 entities');
+          assert(resp.count === 3, 'count should be 1');
           done();
         })
         .catch(e => {
@@ -164,9 +164,9 @@ describe('CubaApp', () => {
         operator: 'contains',
         value: 'adm'
       }, {
-        property: 'enabled',
-        operator: '=',
-        value: true
+        property: 'username',
+        operator: 'contains',
+        value: 'mech'
       }]
     }]
   };
@@ -194,8 +194,8 @@ describe('CubaApp', () => {
       app.searchEntitiesWithCount('scr_User', groupConditionsFilter)
         .then(resp => {
           assert(Array.isArray(resp.result), '.result is not array');
-          assert(resp.result.length === 1, 'result array should contain 1 entities, contains ' + resp.result.length);
-          assert(resp.count === 1, 'count should be 1');
+          assert(resp.result.length === 2, 'result array should contain 2 entities, contains ' + resp.result.length);
+          assert(resp.count === 2, 'count should be 2');
           assert(resp.result[0]._instanceName != null);
           done();
         })
