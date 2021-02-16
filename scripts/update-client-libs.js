@@ -12,7 +12,7 @@ const updateClientLibs = async (clientDir, libs, updateCubaLibsOnly, packagesDir
   for (const lib of libs) {
     console.log(`updating @haulmont/${lib}...`);
     const version = require(`${packagesDir}/${dirNames[lib]}/package.json`).version;
-    cmd(clientDir, `npm install ${packagesDir}/${dirNames[lib]}/haulmont-${dirNames[lib]}-${version}.tgz`);
+    cmd(clientDir, `npm install ${packagesDir}/${dirNames[lib]}/haulmont-${dirNames[lib]}-${version}.tgz --no-save`);
     console.log(`@haulmont/${lib} updated`);
   }
 
