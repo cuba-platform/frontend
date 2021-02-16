@@ -10,16 +10,11 @@ This is a monorepo for the following npm packages:
 
 ## Bootstrap
 
-Install [Lerna](https://lerna.js.org/):
-```
-npm i -g lerna@~3.19
-```
-
 Perform npm install and lerna bootstrap:
 
 ```
 npm install
-lerna bootstrap
+npx lerna bootstrap
 ```
 
 ## Dependencies of Generated App
