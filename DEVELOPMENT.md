@@ -34,7 +34,12 @@ npm run bootstrap-jmix-app
 npm run start-jmix-app
 ```
 
-* bootstrap client app - compile and pack dependencies, generate client app 
+* to install local packages to the `example-react-app`:
+```bash
+npm run update-react-client-libs
+```
+
+* to fully regenerate react client app, compile and pack dependencies:
 ```bash
 npm run bootstrap-react-app
 ```
@@ -44,10 +49,22 @@ npm run bootstrap-react-app
 npm run start-react-app
 ```
 
-## Rebuild and Install Dependencies During Development
+## Rebuild and Install Packages To the Generated App During Development
+
+Update all packages:
+
 ```bash
 npm run update-client-libs
 ```
+
+Specific package:
+
+```bash
+npm run update-react-ui
+npm run update-react-core
+npm run update-react-core-and-ui
+```
+
 
 ## Dependency Audit
 

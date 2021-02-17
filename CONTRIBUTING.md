@@ -372,6 +372,8 @@ Short description should use imperative tense. Long description is optional. Not
 
 #### Commit Workflow
 
+0. Note! If you made some changes in templates (generators) which reflected in generated code you must update (regenerate) example app as well `npm run bootstrap-react-app`.
+
 1. Create a feature branch from `master`. Branch name should be `{initials}/{type}/{issueNumber}/{shortDescription}`, e.g. `pv/feat/34/bean-validation`:
 
     - `initials` are the first letters of author's first and last name. If the initials are already used by another team member - add additional letters (e.g. first letter of middle name).
