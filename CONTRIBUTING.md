@@ -229,6 +229,11 @@ This section explains how to test the generator.
 `/expected` - files gauges used for comparison with generated code.<br>
 
 #### Unit Tests
+From project root all unit tests could be run with coverage
+```bash
+npm run test:coverage
+```
+or inside specific package
 ```bash
 npm test
 ```
