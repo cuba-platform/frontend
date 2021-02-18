@@ -10,6 +10,7 @@
     "common.requestFailed": "L'éxecution de l'opération demandée a échouée",
     "common.retry": "Recommencer",
 
+
     "home.welcome": "Bienvenu à",
     "router.home": "Accueil",
     "login.failed": "Echec de l'authentification",
@@ -19,6 +20,7 @@
     "header.logout.areYouSure": "Êtes-vous sûr de vouloir vous déconnecter?",
     "header.logout.ok": "Déconnection",
     "header.logout.cancel": "Annuler",
+
 
     "cubaReact.dataTable.clearAllFilters": "Effacer les filtres",
     "cubaReact.dataTable.validation.requiredField": "Champ obligatoire",
@@ -75,37 +77,44 @@
   
     "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Êtes-vous sûr de vouloir effacer l'entité imbriqué?",
 
-    "antd.form.validation.default": "Le champ %s a une erreur de validation.",
-    "antd.form.validation.required": "Le champ %s est obligatoire.",
-    "antd.form.validation.enum": "Le champ %s n’autorise que l’une des valeurs de la liste suivante : %s.",
-    "antd.form.validation.whitespace": "Le champ %s ne peut pas contenir uniquement que des caractère blanc.",
-    "antd.form.validation.date.format": "Le champ %s contient la date %s qui n’est pas conforme au format requis %s.",
-    "antd.form.validation.date.parse": "Le champ %s contient la date %s qui ne peut pas être interprétée.",
-    "antd.form.validation.date.invalid": "Le champ %s contient une date invalide %s.",
-    "antd.form.validation.types.string": "%s a un type différent de %s.",
-    "antd.form.validation.types.method": "%s a un type différent de from %s.",
-    "antd.form.validation.types.array": "%s a un type différent de %s.",
-    "antd.form.validation.types.object": "%s a un type différent de %s.",
-    "antd.form.validation.types.number": "%s a un type différent de %s.",
-    "antd.form.validation.types.date": "%s a un type différent de %s.",
-    "antd.form.validation.types.boolean": "%s a un type différent de %s.",
-    "antd.form.validation.types.integer": "%s a un type différent de %s.",
-    "antd.form.validation.types.float": "%s a un type différent de %s.",
-    "antd.form.validation.types.regexp": "La valeur spécifiée dans le champ %s is n’est pas une %s valide.",
-    "antd.form.validation.types.email": "La valeur renseigné dans le champ %s n’est pas une %s valide.",
-    "antd.form.validation.types.url": " La valeur renseigné dans le champ %s n’est pas une %s valide.",
-    "antd.form.validation.types.hex": " La valeur renseigné dans le champ %s n’est pas une %s valide.",
-    "antd.form.validation.string.len": " Le champ %s doit avoir exactement une longueur %s carcatères.",
-    "antd.form.validation.string.min": "La champ %s doit avoir au moins %s caractères.",
-    "antd.form.validation.string.max": " La champ %s doit avoir au plus %s caractères.",
-    "antd.form.validation.string.range": "Le champ %s doit avoir une longueur comprise entre %s à %s caractères.",
-    "antd.form.validation.number.len": "%s doit être égale à %s.",
-    "antd.form.validation.number.min": "%s ne doit pas être inférieur à %s.",
-    "antd.form.validation.number.max": "%s ne doit pas être supérieur à %s.",
-    "antd.form.validation.number.range": "%s doit être compris entre %s à %s.",
-    "antd.form.validation.array.len": "%s doit avoir exactement %s éléments.",
-    "antd.form.validation.array.min": "%s ne doit pas avoir moins de %s éléments.",
-    "antd.form.validation.array.max": "%s ne doit pas avoir plus de %s éléments.",
-    "antd.form.validation.array.range": "%s doit avoir entre %s à %s éléments.",
-    "antd.form.validation.pattern.mismatch": "%s a la valeur %s qui n’est pas conforme à l’expression régulière %s."
-  }
+
+    "antd.form.validation.default": "Le champ ${name} a une erreur de validation.",
+    "antd.form.validation.required": "Le champ ${name} est obligatoire.",
+    "antd.form.validation.enum": "Le champ ${name} n’autorise que l’une des valeurs de la liste suivante: ${enum}.",
+    "antd.form.validation.whitespace": "Le champ ${name} ne peut pas contenir uniquement que des caractère blanc.",
+
+    "antd.form.validation.date.format": "Le champ ${name} n'est pas valide pour la date de format.",
+    "antd.form.validation.date.parse": "Le champ ${name} n'a pas pu être analysé comme date",
+    "antd.form.validation.date.invalid": "Le champ ${name} est une date invalide.",
+
+    "antd.form.validation.types.string": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.method": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.array": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.object": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.number": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.date": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.boolean": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.integer": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.float": "${name} a un type différent de ${type}.",
+    "antd.form.validation.types.regexp": "La valeur spécifiée dans le champ ${name} is n’est pas une ${type} valide.",
+    "antd.form.validation.types.email": "La valeur renseigné dans le champ ${name} n’est pas une ${type} valide.",
+    "antd.form.validation.types.url": "La valeur renseigné dans le champ ${name} n’est pas une ${type} valide.",
+    "antd.form.validation.types.hex": "La valeur renseigné dans le champ ${name} n’est pas une ${type} valide.",
+
+    "antd.form.validation.string.len": "Le champ ${name} doit avoir exactement une longueur ${len} carcatères.",
+    "antd.form.validation.string.min": "La champ ${name} doit avoir au moins ${min} caractères.",
+    "antd.form.validation.string.max": "La champ ${name} doit avoir au plus ${max} caractères.",
+    "antd.form.validation.string.range": "Le champ ${name} doit avoir une longueur comprise entre ${min} à ${max} caractères.",
+
+    "antd.form.validation.number.len": "${name} doit être égale à ${len}.",
+    "antd.form.validation.number.min": "${name} ne doit pas être inférieur à ${min}.",
+    "antd.form.validation.number.max": "${name} ne doit pas être supérieur à ${max}.",
+    "antd.form.validation.number.range": "${name} doit être compris entre ${min} à ${max}.",
+
+    "antd.form.validation.array.len": "${name} doit avoir exactement ${len} éléments.",
+    "antd.form.validation.array.min": "${name} ne doit pas avoir moins de ${min} éléments.",
+    "antd.form.validation.array.max": "${name} ne doit pas avoir plus de ${max} éléments.",
+    "antd.form.validation.array.range": "${name} doit avoir entre ${min} à ${max} éléments.",
+
+    "antd.form.validation.pattern.mismatch": "${name} n’est pas conforme à l’expression régulière ${pattern}."
+}
