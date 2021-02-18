@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "update-model": "gen-cuba-front sdk:all --dest src/cuba"
+    "update-model": "gen-jmix-front sdk:all --dest src/jmix"
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
