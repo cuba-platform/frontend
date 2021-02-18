@@ -8,7 +8,7 @@ If you are passing the project model automatically, open your Jmix project in St
 
 [source,bash]
 ----
-gen-cuba-front react-native:app
+gen-jmix-front react-native:app
 ----
 
 Generator will prompt you to select one of the currently opened Jmix projects.
@@ -19,7 +19,7 @@ If you are using the exported project model file, use `--model` parameter to pas
 
 [source,bash]
 ----
-gen-cuba-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json
+gen-jmix-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json
 ----
 
 Either way, your starter React Native client will be generated.

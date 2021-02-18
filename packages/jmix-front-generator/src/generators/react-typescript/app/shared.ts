@@ -191,7 +191,7 @@ export async function generateSdk(
     throwError(gen, 'Failed to generate SDK: unable to find model file path');
   }
 
-  const sdkDest = 'src/cuba';
+  const sdkDest = 'src/jmix';
   gen.log(`Generate SDK model and services to ${sdkDest}`);
 
   const sdkOpts = {

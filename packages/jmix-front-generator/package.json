@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "gen-cuba-front": "bin/gen-cuba-front.js"
+    "gen-jmix-front": "bin/gen-jmix-front.js"
   },
   "engines": {
     "node": ">=12"

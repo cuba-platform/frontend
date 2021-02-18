@@ -1,3 +1,3 @@
 # TypeScript SDK
 
-Documentation is available [here](https://doc.cuba-platform.com/frontend).
+Documentation is available [here](https://docs.jmix.io/jmix-frontend-docs/0.x/overview/index.html).

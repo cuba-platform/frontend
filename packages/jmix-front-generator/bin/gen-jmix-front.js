@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.title = 'gen-cuba-front';
+process.title = 'gen-jmix-front';
 
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection ', p, ' reason: ', reason);

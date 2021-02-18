@@ -8,8 +8,8 @@ SDK 与框架无关，也就是说，除了可以在我们的 React 客户端使
 
 可以根据您不同的需求，按下列配置生成相应的代码（参阅 xref:generator:commands-reference.adoc[使用说明]）：
 
-* `gen-cuba-front sdk:model` - 生成实体和枚举
-* `gen-cuba-front sdk:all` - 生成所有的工具类 - 实体、枚举、查询和服务
+* `gen-jmix-front sdk:model` - 生成实体和枚举
+* `gen-jmix-front sdk:all` - 生成所有的工具类 - 实体、枚举、查询和服务
 
 SDK 可以用来做前端客户端开发和 Node.js BFF（服务前端的后端） 开发。
 

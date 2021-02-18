@@ -8,7 +8,7 @@ include::overview:partial$getting-started-note.adoc[]
 
 [source,bash]
 ----
-gen-cuba-front react-native:app
+gen-jmix-front react-native:app
 ----
 
 Generator 会提示您选择一个已经在 Studio 中打开的 CUBA 项目。
@@ -19,7 +19,7 @@ image:generator:interactive-projects.png[交互式的项目选择]
 
 [source,bash]
 ----
-gen-cuba-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json
+gen-jmix-front react-native:app --model /work/cuba-samples/sample-sales/projectModel.json
 ----
 
 使用任何一种方式，都能为您生成 React Native 客户端。

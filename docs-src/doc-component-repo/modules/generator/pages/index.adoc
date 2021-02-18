@@ -4,10 +4,10 @@ include::overview:partial$getting-started-note.adoc[]
 
 NOTE: This section describes how to use the generator from CLI. You can also use many of the described features from Jmix Studio UI. The xref:commands-reference.adoc[commands description] contains information on which features are available in Studio. See {manual_studio}[Studio manual] for more details on using the generator from Studio.
 
-Run `gen-cuba-front` (or `npx @haulmont/jmix-front-generator`) without arguments to see usage info.
+Run `gen-jmix-front` (or `npx @haulmont/jmix-front-generator`) without arguments to see usage info.
 
 ....
-Usage: gen-cuba-front [command] [options]
+Usage: gen-jmix-front [command] [options]
 
   Options:
 
@@ -25,14 +25,14 @@ Usage: gen-cuba-front [command] [options]
     sdk:model [options]                              Generates sdk model
 ....
 
-Run `gen-cuba-front <command> --help` to see the list of available options.
+Run `gen-jmix-front <command> --help` to see the list of available options.
 
 Most commands use interactive prompts to capture necessary inputs such as which entity you want to use, which {manual_platform}/data-access[fetch plan], etc. Alternatively, `answers` command line parameter can be used to provide these inputs. You may want to use it if you want to automate the generation. `answers` is a base64-encoded JSON string. See xref:commands-reference.adoc[descriptions of individual commands] for details on what shall be put inside this JSON.
 
 Example of using `answers`:
 
 ....
-gen-cuba-front react-typescript:entity-management \
+gen-jmix-front react-typescript:entity-management \
   --dest ../model-playground/modules/front/src/app/car \
   --model /home/myusername/model-playground/projectModel.json \
   --dirShift ../../ \

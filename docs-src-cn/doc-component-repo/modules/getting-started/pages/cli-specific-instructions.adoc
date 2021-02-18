@@ -16,7 +16,7 @@ npm install -g @cuba-platform/front-generator
 
 [source,bash]
 ----
-gen-cuba-front
+gen-jmix-front
 ----
 
 该命令会显示使用说明。

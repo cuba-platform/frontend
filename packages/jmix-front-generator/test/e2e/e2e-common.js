@@ -40,7 +40,7 @@ module.exports = function (generatorName, logFileSuffix) {
   function runGenerator(moduleName, dest, answersJSONString, dirShift, modelFile = 'projectModel-scr.json') {
     const pathToModel = path.join(process.cwd(), 'test/e2e/fixtures', modelFile);
 
-    let command = `node bin/gen-cuba-front ${generatorName}:${moduleName} --model ${pathToModel}`;
+    let command = `node bin/gen-jmix-front ${generatorName}:${moduleName} --model ${pathToModel}`;
     if (dest) {
       command += ` --dest ${dest}`;
     }

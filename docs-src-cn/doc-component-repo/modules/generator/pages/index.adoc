@@ -4,10 +4,10 @@ include::overview:partial$getting-started-note.adoc[]
 
 NOTE: 本章节介绍如何在 CLI 中使用 generator。在 CUBA Studio UI 中，您也可以使用这里介绍的许多功能。xref:commands-reference.adoc[命令参考] 章节介绍了哪些功能在 Studio 中能用。参阅 {manual_studio_frontendUi}[Studio 使用手册] 了解如何从 Studio 中使用 generator 的更多信息。
 
-直接运行 `gen-cuba-front`（或 `npx @cuba-platform/front-generator`）命令，不带任何参数，即可查看使用说明。
+直接运行 `gen-jmix-front`（或 `npx @cuba-platform/front-generator`）命令，不带任何参数，即可查看使用说明。
 
 ....
-Usage: gen-cuba-front [command] [options]
+Usage: gen-jmix-front [command] [options]
 
   Options:
 
@@ -42,14 +42,14 @@ Usage: gen-cuba-front [command] [options]
 
 WARNING: Polymer client 已废弃。
 
-运行 `gen-cuba-front <command> --help` 查看选项列表。
+运行 `gen-jmix-front <command> --help` 查看选项列表。
 
 大多数命令都是交互式的，从而能获取必要的信息输入，比如需要使用哪个实体、哪个 {manual_platform}/views.html[视图] 等等。但是，使用 `answers` 命令行参数可以直接提供这些输入，需要做自动代码生成时可以使用。`answers` 是一个使用了 base64 加密的 JSON 字符串。参阅 xref:commands-reference.adoc[单一命令介绍] 了解如何编写这样的 JSON。
 
 使用 `answers` 示例：
 
 ....
-gen-cuba-front react-typescript:entity-management \
+gen-jmix-front react-typescript:entity-management \
   --dest ../model-playground/modules/front/src/app/car \
   --model /home/myusername/model-playground/projectModel.json \
   --dirShift ../../ \

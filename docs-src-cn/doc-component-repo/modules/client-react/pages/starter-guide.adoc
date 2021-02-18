@@ -21,7 +21,7 @@ Studio 会在 `modules/front` 文件夹创建 React 客户端代码。
 
 [source,bash]
 ----
-gen-cuba-front react-typescript:app
+gen-jmix-front react-typescript:app
 ----
 
 Generator 会提示您选择一个已经在 Studio 中打开的 CUBA 项目。
@@ -32,7 +32,7 @@ image:generator:interactive-projects.png[交互式的项目选择]
 
 [source,bash]
 ----
-gen-cuba-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json
+gen-jmix-front react-typescript:app --model /work/cuba-samples/sample-sales/projectModel.json
 ----
 
 == 预览生成的项目
@@ -118,7 +118,7 @@ image:studio-adding-frontend-component.gif[添加前端组件]
 
 [source,bash]
 ----
-gen-cuba-front react-typescript:entity-management --dest src/app/pet --dirShift ../../
+gen-jmix-front react-typescript:entity-management --dest src/app/pet --dirShift ../../
 ----
 
 `--dest` 指定组件生成的路径。`--dirShift` 是相对路径，从组件所在的目录指向 `src` 目录。

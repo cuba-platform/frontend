@@ -16,7 +16,7 @@ In addition to *answers* and *options* there is a **project model** - informatio
 
 A **generator** is a combination of an EJS template and code that is responsible for asking questions and turning the answers, options and project model into generated code. For each **client** (e.g. React client, React Native client, etc.) there is always a generator that creates a starter app and zero or more generators that adds the components.
 
-> TIP: use `gen-cuba-front -h` to see the available clients, generators and options.
+> TIP: use `gen-jmix-front -h` to see the available clients, generators and options.
 
 #### How to Write a Generator
 

@@ -16,7 +16,7 @@ Check if installation was successful by running the following command:
 
 [source,bash]
 ----
-gen-cuba-front
+gen-jmix-front
 ----
 
 This will display the usage info.

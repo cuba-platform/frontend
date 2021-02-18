@@ -20,7 +20,7 @@ const generateClientScr = async (clientName, clientDir, modelPath, generators) =
 
     console.log(`starting generating ${clientName} into`, SCR_APP_DIR);
 
-    const genCubaFrontCmd = `node ../packages/jmix-front-generator/bin/gen-cuba-front`;
+    const genCubaFrontCmd = `node ../packages/jmix-front-generator/bin/gen-jmix-front`;
 
     for (const generator of generators) {
         if (!generator.command) {
