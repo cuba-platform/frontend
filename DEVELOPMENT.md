@@ -17,12 +17,16 @@ npm install
 npx lerna bootstrap
 ```
 
-## Dependencies of Generated App
+## Example React App and Jmix Backend
 
-To update versions of @haulmont/jmix-rest and @cuba-platform/react in generated app [react-app-scr](react-app-scr)
+As an example of using `jmix-front-generator` we generate react app (`example-react-app`) based on jmix sample project 
+located in `scr-jmix` folder. Reusable functionality of frontend app is divided to a separate 
+npm packages `jmix-rest` `jmix-react-core` `jmix-react-ui`.
+During development it becomes necessary to change these packages and update them in frontend app. 
+Paragraphs below are described how to do this.
 
-* set new versions in [packages/cuba-rest-js/package.json](packages/jmix-rest/package.json) 
-and [packages/cuba-react/package.json](packages/cuba-react/package.json)
+
+### Backend App
 
 * bootstrap backend - clone repository with backend
 ```bash
@@ -34,10 +38,7 @@ npm run bootstrap-jmix-app
 npm run start-jmix-app
 ```
 
-* to install local packages to the `example-react-app`:
-```bash
-npm run update-react-client-libs
-```
+### Frontend App
 
 * to fully regenerate react client app, compile and pack dependencies:
 ```bash
@@ -49,7 +50,14 @@ npm run bootstrap-react-app
 npm run start-react-app
 ```
 
-## Rebuild and Install Packages To the Generated App During Development
+### Frontend Libs
+
+* to install local packages to the `example-react-app`:
+```bash
+npm run update-react-client-libs
+```
+
+### Rebuild and Install Packages To the Generated App During Development
 
 Update all packages:
 
