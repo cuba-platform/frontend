@@ -9,13 +9,13 @@
     "dist/"
   ],
   "dependencies": {
+    "@haulmont/jmix-react-core": "^0.3.0-beta.0",
+    "@haulmont/jmix-rest": "^0.3.0-beta.0",
     "moment": "^2.25.3",
     "query-string": "^6.11.0"
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.0.0",
-    "@haulmont/jmix-react-core": "^0.2.0-dev.0",
-    "@haulmont/jmix-rest": "^0.2.0-dev.0",
     "antd": "^4.4.0",
     "mobx": "^4.13.0 || ^5.13.0",
     "mobx-react": "^6.2.2",
@@ -27,8 +27,6 @@
     "@ant-design/icons": "^4.0.0",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "@haulmont/jmix-react-core": "^0.3.0-beta.0",
-    "@haulmont/jmix-rest": "^0.3.0-beta.0",
     "@types/jest": "^24.0.18",
     "@types/query-string": "^6.3.0",
     "@types/react": "^16.9.41",
