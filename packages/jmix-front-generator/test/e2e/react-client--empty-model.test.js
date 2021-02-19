@@ -16,7 +16,7 @@ describe('test:e2e:react:empty-model', () => {
     await runGenerator('app', EMPTY_APP_DIR,
       undefined, undefined, 'projectModel-empty.json');
 
-    const srcCubaDir = path.join(EMPTY_APP_DIR, 'src/cuba');
+    const srcCubaDir = path.join(EMPTY_APP_DIR, 'src/jmix');
     assert.ok(!fs.existsSync(`${srcCubaDir}/enums/enums.ts`));
     assert.ok(!fs.existsSync(`${srcCubaDir}/entities`));
 

@@ -17,7 +17,7 @@ describe('test:e2e:react:new-project', () => {
     await runGenerator('app', NEW_PRJ_APP_DIR,
       undefined, undefined, 'projectModel-new.json');
 
-    const srcCubaDir = path.join(NEW_PRJ_APP_DIR, 'src/cuba');
+    const srcCubaDir = path.join(NEW_PRJ_APP_DIR, 'src/jmix');
     assert.ok(!fs.existsSync(`${srcCubaDir}/enums/enums.ts`));
 
     await checkFormat(NEW_PRJ_APP_DIR);
