@@ -26,7 +26,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "strict": false
+    "strict": false,
+    "baseUrl": "./src"
   },
   "exclude": [
     "node_modules",
@@ -38,6 +39,6 @@
     "src/setupTests.ts"
   ],
   "include": [
-    "src"
+    "./src"
   ]
 }

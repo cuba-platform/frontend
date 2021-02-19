@@ -18,7 +18,7 @@ import { Datatypes3Management } from "./app/datatypes3/Datatypes3Management";
 import { Datatypes2Management } from "./app/datatypes2/Datatypes2Management";
 import { CompositionO2MManagement } from "./app/compositionO2M/CompositionO2MManagement";
 import { CompositionO2OManagement } from "./app/compositionO2O/CompositionO2OManagement";
-import { AssociationM2MManagement } from "./app/associationM2M/AssociationM2MManagement";
+import "./app/associationM2M/AssociationM2MManagement";
 import { AssociationM2OManagement } from "./app/associationM2O/AssociationM2OManagement";
 import { AssociationO2MManagement } from "./app/associationO2M/AssociationO2MManagement";
 import { AssociationO2OManagement } from "./app/associationO2O/AssociationO2OManagement";
@@ -30,9 +30,10 @@ import { CarManagement3 } from "./app/entity-management3/CarManagement3";
 import { CarManagement2 } from "./app/entity-management2/CarManagement2";
 import { CarManagement } from "./app/entity-management/CarManagement";
 import { FavoriteCars } from "./app/entity-cards/FavoriteCars";
-import { getMenuItems } from "@haulmont/jmix-react-core";
+import { menuItems as mi } from 'helpers/componentsRegistration';
 
-export const menuItems = getMenuItems();
+export const menuItems = mi;
+
 
 // Code below demonstrates how we can create SubMenu section
 // Remove '/*' '*/' comments and restart app to get this block in menu
@@ -129,13 +130,13 @@ menuItems.push({
   component: AssociationM2OManagement,
   caption: "AssociationM2OManagement"
 });
-
+/*
 menuItems.push({
   pathPattern: "/associationM2MManagement/:entityId?",
   menuLink: "/associationM2MManagement",
   component: AssociationM2MManagement,
   caption: "AssociationM2MManagement"
-});
+});*/
 
 menuItems.push({
   pathPattern: "/compositionO2OManagement/:entityId?",
