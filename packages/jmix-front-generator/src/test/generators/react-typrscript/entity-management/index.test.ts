@@ -13,20 +13,20 @@ describe('entity management generation test', function () {
     const attributes: EntityAttribute[] = [createAttr('attr1'), createAttr('attr2')];
     const relations = getRelations(projectModel, attributes);
 
-    expect(relations.editAssociations.attr1.path).eq('cuba/entities/mpg$Car');
-    expect(relations.editAssociations.attr2.path).eq('cuba/entities/mpg$Car');
+    expect(relations.editAssociations.attr1.path).eq('jmix/entities/mpg$Car');
+    expect(relations.editAssociations.attr2.path).eq('jmix/entities/mpg$Car');
   });
 
   it('should sort out identical items from relation imports', function () {
     const relations: EditRelations = {
-      e1: {className: 'Car', path: 'cuba/entities/mpg$Car'} as any,
-      e2: {className: 'Car', path: 'cuba/entities/mpg$Car'} as any
+      e1: {className: 'Car', path: 'jmix/entities/mpg$Car'} as any,
+      e2: {className: 'Car', path: 'jmix/entities/mpg$Car'} as any
     };
-    const entity: EntityTemplateModel = {className: 'Car', path: 'cuba/entities/mpg$Car'} as any;
+    const entity: EntityTemplateModel = {className: 'Car', path: 'jmix/entities/mpg$Car'} as any;
     const relationImports = getRelationImports(relations, entity);
     expect(relationImports.length).eq(1);
     expect(relationImports[0].className).eq('Car');
-    expect(relationImports[0].path).eq('cuba/entities/mpg$Car');
+    expect(relationImports[0].path).eq('jmix/entities/mpg$Car');
   });
 
   it('should determine view attributes', () => {

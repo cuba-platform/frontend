@@ -19,7 +19,7 @@ export interface CommonTemplateModel {
 
 export function getEntityPath(entity: Entity, projectModel: ProjectModel): string {
   if (isBaseProjectEntity(entity, projectModel)) {
-    return `cuba/entities/base/${entity.name}`;
+    return `jmix/entities/base/${entity.name}`;
   }
-  return `cuba/entities/${entity.name}`;
+  return `jmix/entities/${entity.name}`;
 }

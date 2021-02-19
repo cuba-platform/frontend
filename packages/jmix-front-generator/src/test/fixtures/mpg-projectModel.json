@@ -2,7 +2,6 @@
   "project": {
     "name": "model-playground",
     "namespace": "mpg",
-    "modulePrefix": "app",
     "modelPrefix": "app",
     "restClientId": "rest-client-id-9876",
     "restClientSecret": "{noop}rest-secret-54321",

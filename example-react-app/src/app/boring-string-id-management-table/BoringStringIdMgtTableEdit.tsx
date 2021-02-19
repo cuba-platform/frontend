@@ -25,7 +25,7 @@ import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 
 import "../../app/App.css";
 
-import { BoringStringIdTestEntity } from "../../cuba/entities/scr_BoringStringIdTestEntity";
+import { BoringStringIdTestEntity } from "../../jmix/entities/scr_BoringStringIdTestEntity";
 
 type Props = EditorProps & MainStoreInjected;
 

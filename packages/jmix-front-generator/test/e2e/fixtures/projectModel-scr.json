@@ -2,7 +2,6 @@
   "project": {
     "name": "scr",
     "namespace": "scr",
-    "modulePrefix": "app",
     "modelPrefix": "app"
   },
   "entities": [

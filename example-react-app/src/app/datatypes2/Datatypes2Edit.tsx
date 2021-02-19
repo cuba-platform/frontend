@@ -25,7 +25,7 @@ import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 
 import "../../app/App.css";
 
-import { DatatypesTestEntity2 } from "../../cuba/entities/scr_DatatypesTestEntity2";
+import { DatatypesTestEntity2 } from "../../jmix/entities/scr_DatatypesTestEntity2";
 
 type Props = EditorProps & MainStoreInjected;
 

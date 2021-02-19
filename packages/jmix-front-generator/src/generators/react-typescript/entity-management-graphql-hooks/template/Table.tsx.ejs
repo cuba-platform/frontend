@@ -7,10 +7,10 @@ import {
   useCollection,
   useMainStore,
   EntityPermAccessControl
-} from "@cuba-platform/react-core";
-import { DataTable, Spinner } from "@cuba-platform/react-ui";
+} from "@haulmont/jmix-react-core";
+import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
+import {SerializedEntity} from "@haulmont/jmix-rest";
 import {PATH, NEW_SUBPATH} from "./<%= className %>";
 import {FormattedMessage, useIntl} from 'react-intl';
 

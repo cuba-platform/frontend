@@ -13,7 +13,7 @@ import {
 } from "@haulmont/jmix-react-core";
 import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 
-import { AssociationM2MTestEntity } from "../../cuba/entities/scr_AssociationM2MTestEntity";
+import { AssociationM2MTestEntity } from "../../jmix/entities/scr_AssociationM2MTestEntity";
 import { SerializedEntity } from "@haulmont/jmix-rest";
 import { AssociationM2MManagement } from "./AssociationM2MManagement";
 import {

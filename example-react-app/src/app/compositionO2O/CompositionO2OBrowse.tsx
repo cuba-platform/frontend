@@ -13,7 +13,7 @@ import {
 } from "@haulmont/jmix-react-core";
 import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 
-import { CompositionO2OTestEntity } from "../../cuba/entities/scr_CompositionO2OTestEntity";
+import { CompositionO2OTestEntity } from "../../jmix/entities/scr_CompositionO2OTestEntity";
 import { SerializedEntity } from "@haulmont/jmix-rest";
 import { CompositionO2OManagement } from "./CompositionO2OManagement";
 import {

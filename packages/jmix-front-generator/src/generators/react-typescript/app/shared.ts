@@ -65,7 +65,7 @@ export async function promptForProjectModel(
   const answers = await gen.prompt([{
     name: 'projectInfo',
     type: 'list',
-    message: 'Please select CUBA project you want to use for generation',
+    message: 'Please select Jmix project you want to use for generation',
     choices: openedCubaProjects && openedCubaProjects.map(p => ({
       name: `${p.name} [${p.path}]`,
       value: p
@@ -119,7 +119,7 @@ export function createModel(project: ProjectInfo): ReactTSAppTemplateModel {
     ownVersion,
     title: project.name,
     project,
-    basePath: project.modulePrefix + '-front'
+    basePath: project.modulePrefix ? (project.modulePrefix + '-front') : 'front'
   };
 
   model.project.restClientId = project.restClientId ?? 'client';

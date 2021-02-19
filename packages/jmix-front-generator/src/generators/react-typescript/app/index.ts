@@ -41,7 +41,7 @@ class ReactTSAppGenerator extends BaseGenerator<ReactTSAppAnswers, ReactTSAppTem
   }
 
   end() {
-    this.log(`CUBA React client has been successfully generated into ${this.destinationRoot()}`);
+    this.log(`React client has been successfully generated into ${this.destinationRoot()}`);
   }
 }
 

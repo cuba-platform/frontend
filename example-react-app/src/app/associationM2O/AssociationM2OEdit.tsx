@@ -25,7 +25,7 @@ import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 
 import "../../app/App.css";
 
-import { AssociationM2OTestEntity } from "../../cuba/entities/scr_AssociationM2OTestEntity";
+import { AssociationM2OTestEntity } from "../../jmix/entities/scr_AssociationM2OTestEntity";
 
 type Props = EditorProps & MainStoreInjected;
 

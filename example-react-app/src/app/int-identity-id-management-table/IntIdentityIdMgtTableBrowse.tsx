@@ -13,7 +13,7 @@ import {
 } from "@haulmont/jmix-react-core";
 import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 
-import { IntIdentityIdTestEntity } from "../../cuba/entities/scr_IntIdentityIdTestEntity";
+import { IntIdentityIdTestEntity } from "../../jmix/entities/scr_IntIdentityIdTestEntity";
 import { SerializedEntity } from "@haulmont/jmix-rest";
 import { IntIdentityIdMgtTableManagement } from "./IntIdentityIdMgtTableManagement";
 import {

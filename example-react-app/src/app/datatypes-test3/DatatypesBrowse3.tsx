@@ -13,7 +13,7 @@ import {
 } from "@haulmont/jmix-react-core";
 import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 
-import { DatatypesTestEntity } from "../../cuba/entities/scr_DatatypesTestEntity";
+import { DatatypesTestEntity } from "../../jmix/entities/scr_DatatypesTestEntity";
 import { SerializedEntity } from "@haulmont/jmix-rest";
 import { DatatypesManagement3 } from "./DatatypesManagement3";
 import {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 
-import { StringIdTestEntity } from "../../cuba/entities/scr_StringIdTestEntity";
+import { StringIdTestEntity } from "../../jmix/entities/scr_StringIdTestEntity";
 import { Card } from "antd";
 import {
   collection,

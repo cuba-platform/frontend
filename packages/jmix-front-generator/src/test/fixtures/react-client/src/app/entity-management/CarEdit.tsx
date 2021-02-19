@@ -27,10 +27,10 @@ import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 
 import "app/App.css";
 
-import { Car } from "cuba/entities/mpg$Car";
-import { Garage } from "cuba/entities/mpg$Garage";
-import { TechnicalCertificate } from "cuba/entities/mpg$TechnicalCertificate";
-import { FileDescriptor } from "cuba/entities/base/sys$FileDescriptor";
+import { Car } from "jmix/entities/mpg$Car";
+import { Garage } from "jmix/entities/mpg$Garage";
+import { TechnicalCertificate } from "jmix/entities/mpg$TechnicalCertificate";
+import { FileDescriptor } from "jmix/entities/base/sys$FileDescriptor";
 
 type Props = EditorProps & MainStoreInjected;
 

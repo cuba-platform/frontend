@@ -1,4 +1,4 @@
-# React Native Front-end Client for CUBA Platform
+# React Native Front-end Client for Jmix
 
 This project was generated with [@haulmont/jmix-front-generator](https://github.com/cuba-platform/frontend).
 
@@ -23,6 +23,6 @@ npm run ios
 
 ### Learn More
 
-React Native client documentation is available [here](https://doc.cuba-platform.com/frontend).
+React Native client documentation is available [here](https://docs.jmix.io/jmix-frontend-docs/0.x/overview/index.html).
 
 The client uses Expo. Documentation is available [here](https://expo.io/).

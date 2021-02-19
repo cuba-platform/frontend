@@ -25,7 +25,7 @@ import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 
 import "../../app/App.css";
 
-import { CompositionO2OTestEntity } from "../../cuba/entities/scr_CompositionO2OTestEntity";
+import { CompositionO2OTestEntity } from "../../jmix/entities/scr_CompositionO2OTestEntity";
 
 type Props = EditorProps & MainStoreInjected;
 

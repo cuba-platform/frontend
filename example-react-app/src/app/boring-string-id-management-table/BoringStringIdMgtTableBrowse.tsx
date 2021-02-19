@@ -13,7 +13,7 @@ import {
 } from "@haulmont/jmix-react-core";
 import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 
-import { BoringStringIdTestEntity } from "../../cuba/entities/scr_BoringStringIdTestEntity";
+import { BoringStringIdTestEntity } from "../../jmix/entities/scr_BoringStringIdTestEntity";
 import { SerializedEntity } from "@haulmont/jmix-rest";
 import { BoringStringIdManagementTable } from "./BoringStringIdManagementTable";
 import {

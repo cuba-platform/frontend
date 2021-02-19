@@ -13,7 +13,7 @@ import {
 } from "@haulmont/jmix-react-core";
 import { DataTable, Spinner } from "@haulmont/jmix-react-ui";
 
-import { Car } from "../../cuba/entities/scr$Car";
+import { Car } from "../../jmix/entities/scr$Car";
 import { SerializedEntity } from "@haulmont/jmix-rest";
 import { CarManagement3 } from "./CarManagement3";
 import {

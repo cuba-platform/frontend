@@ -1,7 +1,7 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 
-import { FavoriteCar } from "cuba/entities/mpg$FavoriteCar";
+import { FavoriteCar } from "jmix/entities/mpg$FavoriteCar";
 import { Card } from "antd";
 import {
   collection,

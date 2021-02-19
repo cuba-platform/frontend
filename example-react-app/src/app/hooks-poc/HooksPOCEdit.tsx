@@ -21,13 +21,13 @@ import {
 } from "@haulmont/jmix-react-core";
 import { Field, MultilineText, Spinner } from "@haulmont/jmix-react-ui";
 import "../../app/App.css";
-import { DatatypesTestEntity } from "../../cuba/entities/scr_DatatypesTestEntity";
-import { AssociationO2OTestEntity } from "../../cuba/entities/scr_AssociationO2OTestEntity";
-import { AssociationM2OTestEntity } from "../../cuba/entities/scr_AssociationM2OTestEntity";
-import { AssociationM2MTestEntity } from "../../cuba/entities/scr_AssociationM2MTestEntity";
-import { IntIdentityIdTestEntity } from "../../cuba/entities/scr_IntIdentityIdTestEntity";
-import { IntegerIdTestEntity } from "../../cuba/entities/scr_IntegerIdTestEntity";
-import { StringIdTestEntity } from "../../cuba/entities/scr_StringIdTestEntity";
+import { DatatypesTestEntity } from "../../jmix/entities/scr_DatatypesTestEntity";
+import { AssociationO2OTestEntity } from "../../jmix/entities/scr_AssociationO2OTestEntity";
+import { AssociationM2OTestEntity } from "../../jmix/entities/scr_AssociationM2OTestEntity";
+import { AssociationM2MTestEntity } from "../../jmix/entities/scr_AssociationM2MTestEntity";
+import { IntIdentityIdTestEntity } from "../../jmix/entities/scr_IntIdentityIdTestEntity";
+import { IntegerIdTestEntity } from "../../jmix/entities/scr_IntegerIdTestEntity";
+import { StringIdTestEntity } from "../../jmix/entities/scr_StringIdTestEntity";
 
 type Props = {
   entityId: string;

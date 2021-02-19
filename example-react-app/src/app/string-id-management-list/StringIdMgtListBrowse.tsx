@@ -18,7 +18,7 @@ import {
   Spinner
 } from "@haulmont/jmix-react-ui";
 
-import { StringIdTestEntity } from "../../cuba/entities/scr_StringIdTestEntity";
+import { StringIdTestEntity } from "../../jmix/entities/scr_StringIdTestEntity";
 import { SerializedEntity } from "@haulmont/jmix-rest";
 import { StringIdMgtListManagement } from "./StringIdMgtListManagement";
 import {
