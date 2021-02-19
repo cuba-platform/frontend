@@ -1,6 +1,5 @@
 {
   "name": "<%= project.name %>",
-  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.6",
