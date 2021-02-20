@@ -19,12 +19,12 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
-import { referencesListByEntityName } from 'helpers/referrencesList';
-import { multiScreenState } from 'globalState/multiScreen';
-import { routerData } from 'helpers/componentsRegistration';
+import { referencesListByEntityName } from "helpers/referrencesList";
+import { multiScreenState } from "globalState/multiScreen";
+import { routerData } from "helpers/componentsRegistration";
 
-const ENTITY_NAME = 'associationM2M';
-const ROUTING_PATH = '/associationM2MManagement';
+const ENTITY_NAME = "associationM2M";
+const ROUTING_PATH = "/associationM2MManagement";
 
 @injectMainStore
 @observer
@@ -63,26 +63,26 @@ class AssociationM2MBrowseComponent extends React.Component<
 
     multiScreenState.pushScreen({
       title: registeredReferral.entityItemNew.title,
-      content: registeredReferral.entityItemNew.content,
+      content: registeredReferral.entityItemNew.content
     });
-  }
+  };
 
   onEditBtnClick = () => {
     const registeredReferral = referencesListByEntityName[ENTITY_NAME];
 
     // If we on root screen
     if (multiScreenState.currentScreenIndex === 0) {
-      routerData.history.replace(ROUTING_PATH + '/' + this.selectedRowKey);
+      routerData.history.replace(ROUTING_PATH + "/" + this.selectedRowKey);
     }
 
     multiScreenState.pushScreen({
       title: registeredReferral.entityItemEdit.title,
       content: registeredReferral.entityItemEdit.content,
       params: {
-        entityId: this.selectedRowKey,
+        entityId: this.selectedRowKey
       }
     });
-  }
+  };
 
   render() {
     if (this.props.mainStore?.isEntityDataLoaded() !== true) return <Spinner />;
@@ -93,7 +93,6 @@ class AssociationM2MBrowseComponent extends React.Component<
         operation="create"
         key="create"
       >
-
         <Button
           htmlType="button"
           style={{ margin: "0 12px 12px 0" }}
@@ -105,14 +104,12 @@ class AssociationM2MBrowseComponent extends React.Component<
             <FormattedMessage id="common.create" />
           </span>
         </Button>
-
       </EntityPermAccessControl>,
       <EntityPermAccessControl
         entityName={AssociationM2MTestEntity.NAME}
         operation="update"
         key="update"
       >
-
         <Button
           htmlType="button"
           style={{ margin: "0 12px 12px 0" }}
@@ -122,7 +119,6 @@ class AssociationM2MBrowseComponent extends React.Component<
         >
           <FormattedMessage id="common.edit" />
         </Button>
-
       </EntityPermAccessControl>,
       <EntityPermAccessControl
         entityName={AssociationM2MTestEntity.NAME}

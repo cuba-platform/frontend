@@ -27,14 +27,14 @@ import "../../app/App.css";
 
 import { AssociationM2MTestEntity } from "jmix/entities/scr_AssociationM2MTestEntity";
 import { DatatypesTestEntity } from "jmix/entities/scr_DatatypesTestEntity";
-import { MultiScreenContext } from 'components/MultiScreen';
-import { IMultiScreenItem, multiScreenState } from 'globalState/multiScreen';
-import { routerData } from 'helpers/componentsRegistration';
+import { MultiScreenContext } from "components/MultiScreen";
+import { IMultiScreenItem, multiScreenState } from "globalState/multiScreen";
+import { routerData } from "helpers/componentsRegistration";
 
 type Props = MainStoreInjected;
 
-const ENTITY_NAME = 'associationM2M';
-const ROUTING_PATH = '/associationM2MManagement';
+const ENTITY_NAME = "associationM2M";
+const ROUTING_PATH = "/associationM2MManagement";
 
 @injectMainStore
 @observer
@@ -135,7 +135,10 @@ class AssociationM2MEditComponent extends React.Component<
           <FormattedMessage id="common.requestFailed" />.
           <br />
           <br />
-          <Button htmlType="button" onClick={() => load(this.context?.params?.entityId!)}>
+          <Button
+            htmlType="button"
+            onClick={() => load(this.context?.params?.entityId!)}
+          >
             <FormattedMessage id="common.retry" />
           </Button>
         </>
@@ -177,7 +180,6 @@ class AssociationM2MEditComponent extends React.Component<
           )}
 
           <Form.Item style={{ textAlign: "center" }}>
-
             <Button htmlType="button" onClick={this.onCancelBtnClick}>
               <FormattedMessage id="common.cancel" />
             </Button>

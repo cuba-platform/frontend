@@ -1,32 +1,32 @@
 .breadcrumbs {
-    margin-bottom: 20px;
-    display: flex;
+  margin-bottom: 20px;
+  display: flex;
 
-    .breadcrumb {
-        margin-right: 20px;
-        position: relative;
-        cursor: pointer;
-        color: #197de1;
+  .breadcrumb {
+    margin-right: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #197de1;
 
-        &:hover {
-            text-decoration: underline;
-        }
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        &:not(:last-child) {
-            &:after {
-                content: '>';
-                position: absolute;
-                right: -14px;
-                top: 0;
-            }
-        }
-
-        &[data-active="true"] {
-            color: inherit;
-        }
+    &:hover {
+      text-decoration: underline;
     }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:not(:last-child) {
+      &:after {
+        content: ">";
+        position: absolute;
+        right: -14px;
+        top: 0;
+      }
+    }
+
+    &[data-active="true"] {
+      color: inherit;
+    }
+  }
 }

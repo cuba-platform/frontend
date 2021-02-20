@@ -1,5 +1,5 @@
 export class CurrentRootPageData {
-    title: string = '';
+  title: string = "";
 }
 
 export const currentRootPageData = new CurrentRootPageData();
