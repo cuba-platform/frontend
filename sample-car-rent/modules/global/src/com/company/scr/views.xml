@@ -137,4 +137,7 @@
         <property name="stringIdTestEntityAttr" view="_minimal"/>
         <property name="weirdStringIdTestEntityAttr" view="_minimal"/>
     </view>
+    <view entity="scr_EmbeddedTestEntity" name="embeddedTestEntity-withEmbedded" extends="_local">
+        <property name="embedded" view="_local"/>
+    </view>
 </views>

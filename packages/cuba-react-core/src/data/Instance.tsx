@@ -13,7 +13,7 @@ import {
   isTemporalProperty, isToManyAssociation,
   WithId,
   WithName,
-  isToOneAssociation, isFileProperty, isRelationProperty,
+  isToOneAssociation, isFileProperty, isRelationProperty, isEmbedded,
 } from "../util/metadata";
 import moment from 'moment';
 import {
@@ -22,6 +22,7 @@ import {
 import {stripMilliseconds} from '../util/temporal';
 import {TEMPORARY_ENTITY_ID_PREFIX} from "../util/data";
 import { prepareForCommit } from "../util/internal/data";
+import { flattenObject } from "../util/path";
 
 /**
  * Retrieves an entity instance using Generic REST API.
@@ -387,10 +388,26 @@ export function instanceItemToFormFields<T>(
   if (item == null || metadata == null) {
     return {};
   }
-
+  
   const fields: Record<string, any> = {};
+  
+  const jsItem = toJS(item)
 
-  Object.entries(toJS(item)).forEach(([key, value]) => {
+  const embeddedKeys = Object.keys(jsItem).filter(key => {
+    const propInfo = getPropertyInfo(metadata, entityName, key);
+    return propInfo !== null && isEmbedded(propInfo);
+  })
+  const embeddedFields = embeddedKeys.reduce((acc, key) => ({...acc, [key]: jsItem[key]}), {})
+  const flatEmbeddedFields = flattenObject(embeddedFields)
+
+  const noEmbeddedKeys = Object.keys(jsItem).filter(key => !embeddedKeys.includes(key))
+  const noEmbeddedFields = noEmbeddedKeys.reduce((acc, key) => ({...acc, [key]: jsItem[key]}), {})
+
+  Object.entries(flatEmbeddedFields).forEach(([key, value]) => {
+    fields[key] = value
+  })
+
+  Object.entries<any>(noEmbeddedFields).forEach(([key, value]) => {
     const propInfo = getPropertyInfo(metadata, entityName, key);
 
     const isStringIdAttr: boolean = (stringIdName != null) && (key === 'id');

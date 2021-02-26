@@ -12,6 +12,7 @@ export * from './data/Collection';
 export * from './data/Instance';
 export * from './data/Association';
 
+export * from './util/path';
 export * from './util/collation';
 export * from './util/metadata';
 export * from './util/data';

@@ -83,6 +83,7 @@ export interface EntityAttribute {
   mappedBy?: string;
   transient: boolean;
   temporalType?: TemporalType;
+  attributes?: EntityAttribute[];
 }
 
 export interface View {

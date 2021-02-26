@@ -10,6 +10,7 @@ export interface EditRelations {
 export interface EditRelationsSplit {
   editAssociations: EditRelations;
   editCompositions: EditRelations;
+  editEmbeddeds: EditRelations;
 }
 
 export interface RelationImport {
@@ -27,6 +28,7 @@ export interface EntityManagementTemplateModel<T extends string> extends BaseEnt
   listAttributes: EntityAttribute[];
   editView: View;
   editAttributes: EntityAttribute[];
+  editFieldStringPaths: string[];
   readOnlyFields: string[];
   editCompositions: EditRelations;
   editAssociations: EditRelations;

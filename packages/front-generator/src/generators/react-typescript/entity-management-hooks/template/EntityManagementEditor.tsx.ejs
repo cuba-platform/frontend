@@ -216,7 +216,7 @@ const <%= editComponentClass %> = (props: Props) => {
 
           <% editAttributes.forEach(attr => { %>
             <Field entityName={<%= entity.className %>.NAME}
-                   propertyName="<%= attr.name %>"
+                   stringPath="<%= attr.name %>"
 
               <% if (readOnlyFields.includes(attr.name)) { %>
                 disabled={true}

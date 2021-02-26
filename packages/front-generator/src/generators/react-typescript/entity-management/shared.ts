@@ -141,6 +141,34 @@ export function addMenuItem<T extends string, M extends EntityManagementTemplate
   }
 }
 
+type Path = string[]
+
+function convertPathToStringPath(path: Path): string {
+  return path.join('.')
+}
+
+export function getFieldPathsFromEntityAttributes(attrs: EntityAttribute[], path: Path = []): Path[] {
+  return attrs
+    .reduce<string[][]>((acc, attr) =>
+      attr.attributes
+        ? [...acc, ...getFieldPathsFromEntityAttributes(attr.attributes, [...path, attr.name])]
+        : [...acc, [...path, attr.name]]
+      ,
+      [],
+    )
+}
+
+function mapEmbeddedAttributes(projectModel: ProjectModel, attr: EntityAttribute): EntityAttribute {
+  if (attr.mappingType === 'EMBEDDED' && attr.type.entityName) {
+    const embeddedEntity = findEntity(projectModel, attr.type.entityName);
+
+    if(embeddedEntity) {
+      attr.attributes = embeddedEntity.attributes.map(attr => mapEmbeddedAttributes(projectModel, attr));
+    }
+  }
+  return attr;
+}
+
 export function answersToManagementModel<
   T extends string,
   A extends EntityManagementAnswers<T>,
@@ -152,7 +180,7 @@ export function answersToManagementModel<
   const className = elementNameToClass(answers.managementComponentName);
   const entity: EntityTemplateModel = createEntityTemplateModel(answers.entity, projectModel);
 
-  const { stringIdName, listAttributes, editAttributes } = stringIdAnswersToModel(
+  let { stringIdName, listAttributes, editAttributes } = stringIdAnswersToModel(
     answers,
     projectModel,
     entity,
@@ -160,16 +188,25 @@ export function answersToManagementModel<
     getDisplayedAttributes(answers.editView.allProperties, entity, projectModel, ScreenType.EDITOR)
   );
 
+  editAttributes = editAttributes.map(attr => mapEmbeddedAttributes(projectModel, attr));
+  listAttributes = listAttributes.map(attr => mapEmbeddedAttributes(projectModel, attr));
+
   const readOnlyFields = editAttributes
     .filter((attr: EntityAttribute) => attr.readOnly)
     .map((attr: EntityAttribute) => attr.name);
 
-  const { editAssociations, editCompositions } = getRelations(projectModel, editAttributes);
+  const { editAssociations, editCompositions, editEmbeddeds } = getRelations(projectModel, editAttributes);
 
   const nestedEntityInfo = answers.nestedEntityInfo;
 
-  // Associations only
-  const relationImports = getRelationImports(editAssociations, entity);
+  // Own Entity import, Association imports and Embedded imports
+  const relationImports = getRelationImports({
+    ...editAssociations,
+    ...editEmbeddeds,
+  }, entity);
+
+  const editFieldStringPaths = getFieldPathsFromEntityAttributes(editAttributes)
+    .map(convertPathToStringPath);
 
   return {
     componentName: answers.managementComponentName,
@@ -184,12 +221,13 @@ export function answersToManagementModel<
     listAttributes,
     editView: answers.editView,
     editAttributes,
+    editFieldStringPaths,
     readOnlyFields,
     nestedEntityInfo,
     editCompositions,
     editAssociations,
     relationImports,
-    stringIdName
+    stringIdName,
   }
 }
 
@@ -289,7 +327,14 @@ export function getRelationImports(relations: EditRelations, entity: EntityTempl
 
 export function getRelations(projectModel: ProjectModel, attributes: EntityAttribute[]): EditRelationsSplit {
   return attributes.reduce<EditRelationsSplit>((relations, attribute) => {
-    if (attribute.type == null || (attribute.mappingType !== 'ASSOCIATION' && attribute.mappingType !== 'COMPOSITION')) {
+    if (
+      attribute.type == null
+      || (
+        attribute.mappingType !== 'ASSOCIATION'
+        && attribute.mappingType !== 'COMPOSITION'
+        && attribute.mappingType !== 'EMBEDDED'
+      )
+    ) {
       return relations;
     }
     const entity = findEntity(projectModel, attribute.type.entityName!);
@@ -304,9 +349,12 @@ export function getRelations(projectModel: ProjectModel, attributes: EntityAttri
       if (attribute.mappingType === 'COMPOSITION') {
         relations.editCompositions[attribute.name] = entityWithPath;
       }
+      if (attribute.mappingType === 'EMBEDDED') {
+        relations.editEmbeddeds[attribute.name] = entityWithPath;
+      }
     }
     return relations;
-  }, {editAssociations: {}, editCompositions: {}});
+  }, {editAssociations: {}, editCompositions: {}, editEmbeddeds: {}});
 }
 
 export {

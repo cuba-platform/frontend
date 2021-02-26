@@ -6,7 +6,13 @@ import {<%= className %>} from "./<%= className %>";
 import {Link, Redirect} from "react-router-dom";
 import {IReactionDisposer, observable, reaction, toJS} from "mobx";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
-import {defaultHandleFinish, createAntdFormValidationMessages} from '@cuba-platform/react-ui';
+import {
+  defaultHandleFinish,
+  createAntdFormValidationMessages,
+  <% if (editAttributes.filter(attr => attr.mappingType === "EMBEDDED").length > 0) { %> 
+    Msg,
+  <% } %> 
+} from '@cuba-platform/react-ui';
 
 import {
 <% if (Object.keys(editAssociations).length > 0) { %>
@@ -57,9 +63,9 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
   reactionDisposers: IReactionDisposer[] = [];
 
   fields = [
-  <% editAttributes.forEach(p => { -%>
-    '<%= p.name %>',
-  <% }) %>
+    <% editFieldStringPaths.forEach(p => { -%>
+      '<%= p %>',
+    <% }) %>
   ];
 
   @observable globalErrors: string[] = [];
@@ -138,40 +144,55 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
               ref={this.formRef}
               validateMessages={createAntdFormValidationMessages(intl)}
         >
-
-          <% editAttributes.forEach(attr => { %>
-            <Field entityName={<%= entity.className %>.NAME}
-                   propertyName="<%= attr.name %>"
-
-              <% if (readOnlyFields.includes(attr.name)) { %>
-                disabled={true}
-              <% } else if (attr.name === locals.stringIdName) { %>
-                disabled={!this.isNewEntity()}
+          <% (function renderFields(attrs, entityClassName, previusFields) { %>
+            <% attrs.forEach(function (attr) { %>
+              <% if (attr.mappingType === "EMBEDDED") {%>
+                <Card
+                  style={{marginBottom: 12}}
+                  size="small"
+                  title={<Msg entityName={<%= entityClassName %>.NAME} propertyName="<%= attr.name %>"/>}
+                >
               <% } %>
 
-              <% if (Object.keys(editCompositions).includes(attr.name)) { %>
-                   <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
-                        nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
-                   <% } %>
-                   parentEntityInstanceId={this.props.entityId !== <%= className %>.NEW_SUBPATH ? this.props.entityId : undefined}
+              <% if (attr.mappingType !== 'EMBEDDED') { %>
+                <Field entityName={<%= entityClassName %>.NAME}
+                      stringPath="<%= [...previusFields, attr.name].join('.') %>"
+  
+                  <% if (readOnlyFields.includes(attr.name)) { %>
+                    disabled={true}
+                  <% } else if (attr.name === locals.stringIdName) { %>
+                    disabled={!this.isNewEntity()}
+                  <% } %>
+  
+                  <% if (Object.keys(editCompositions).includes(attr.name)) { %>
+                      <% if (typeof nestedEntityInfo !== 'undefined' && typeof nestedEntityInfo[attr.name] !== 'undefined') {%>
+                            nestedEntityView='<%= nestedEntityInfo[attr.name] %>'
+                      <% } %>
+                      parentEntityInstanceId={this.props.entityId !== <%= className %>.NEW_SUBPATH ? this.props.entityId : undefined}
+                  <% } %>
+  
+                  <% if (Object.keys(editAssociations).includes(attr.name)) { %>
+                      optionsContainer={this.<%= attr.name %>sDc}
+                  <% } %>
+  
+                      formItemProps={{
+                        style: {marginBottom: "12px"},
+                      <% if (attr.mandatory) { -%>
+                        rules: [{required: true}],
+                      <% } -%>
+                      <% if (attr.type && attr.type.fqn === 'java.lang.Boolean') { -%>
+                        valuePropName: "checked",
+                      <% } -%>
+                      }}
+                /> <%# end Field %>
               <% } %>
 
-              <% if (Object.keys(editAssociations).includes(attr.name)) { %>
-                   optionsContainer={this.<%= attr.name %>sDc}
-              <% } %>
-
-                   formItemProps={{
-                     style: {marginBottom: "12px"},
-                   <% if (attr.mandatory) { -%>
-                     rules: [{required: true}],
-                   <% } -%>
-                   <% if (attr.type && attr.type.fqn === 'java.lang.Boolean') { -%>
-                     valuePropName: "checked",
-                   <% } -%>
-                   }}
-            /> <%# end Field %>
-          <% }) %>
-
+              <% if (attr.mappingType === "EMBEDDED") {
+                renderFields(attr.attributes, attr.type.className, [...previusFields, attr.name]) %>
+                </Card>
+              <% }
+            })
+          })(editAttributes, entity.className, []) %>
 
           {this.globalErrors.length > 0 && (
             <Alert
@@ -233,7 +254,7 @@ class <%= editComponentClass %>Component extends React.Component<Props & Wrapped
         { fireImmediately: true }
       ));
     <% } %>
-
+    
     this.reactionDisposers.push(reaction(
       () => this.formRef.current,
       (formRefCurrent, formRefReaction) => {
