@@ -1,0 +1,1 @@
+alter table SCR_EMBEDDED_TEST_ENTITY drop column EMBEDDED_ENTITY_NAME__U27563 cascade ;

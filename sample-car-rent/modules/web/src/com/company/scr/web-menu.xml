@@ -21,5 +21,6 @@
         <item screen="scr_DatatypesTestEntity3.browse"/>
         <item screen="scr_StringIdTestEntity.browse" caption="mainMsg://menu_config.scr_StringIdTestEntity.browse"/>
         <item screen="scr_CompositeKeyEntity.browse" caption="mainMsg://menu_config.scr_CompositeKeyEntity.browse"/>
+        <item screen="scr_EmbeddedTestEntity.browse" caption="mainMsg://menu_config.scr_EmbeddedTestEntity.browse"/>
     </menu>
 </menu-config>

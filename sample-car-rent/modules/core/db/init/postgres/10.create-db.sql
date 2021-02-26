@@ -441,3 +441,21 @@ create table SCR_COMPOSITE_KEY_ENTITY (
     primary key (FIRST_FIELD, SECOND_FIELD, THIRD_FIELD)
 )^
 -- end SCR_COMPOSITE_KEY_ENTITY
+-- begin SCR_EMBEDDED_TEST_ENTITY
+create table SCR_EMBEDDED_TEST_ENTITY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    EMBEDDED_NAME varchar(255),
+    --
+    OWN_ATTRIBUTE varchar(255),
+    --
+    primary key (ID)
+)^
+-- end SCR_EMBEDDED_TEST_ENTITY

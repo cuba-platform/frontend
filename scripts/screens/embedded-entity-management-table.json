@@ -1,0 +1,17 @@
+{
+  "editView": {
+    "name": "_local",
+    "entityName": "scr_EmbeddedTestEntity"
+  },
+  "editComponentName": "EmbeddedEntityEdit",
+  "listView": {
+    "name": "_local",
+    "entityName": "scr_EmbeddedTestEntity"
+  },
+  "listComponentName": "EmbeddedEntityTable",
+  "listType": "table",
+  "entity": {
+    "name": "scr_EmbeddedTestEntity"
+  },
+  "managementComponentName": "EmbeddedEntityManagement"
+}

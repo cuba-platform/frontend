@@ -21,6 +21,7 @@ const hooksMgtTableConfig = require('./screens/hooks-management-table.json');
 const hooksMgtCardsConfig = require('./screens/hooks-management-cards.json');
 const hooksMgtListConfig = require('./screens/hooks-management-list.json');
 const compositeKeyEntityManagement = require('./screens/composite-key-entity-management-table.json');
+const embeddedEntityManagementTable = require('./screens/embedded-entity-management-table.json');
 const dirShift = '../../';
 
 gen(
@@ -243,6 +244,12 @@ gen(
         dirShift,
         dest: 'src/app/composite-key-entity-management-table',
         answers: compositeKeyEntityManagement
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/embedded-entity-management-table',
+        answers: embeddedEntityManagementTable
       }
     ]
 );

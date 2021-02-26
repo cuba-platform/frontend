@@ -27,5 +27,7 @@
         <class>com.company.scr.entity.test.BoringStringIdTestEntity</class>
         <class>com.company.scr.entity.test.CompositeAttribute</class>
         <class>com.company.scr.entity.test.CompositeKeyEntity</class>
+        <class>com.company.scr.entity.test.EmbeddedEntity</class>
+        <class>com.company.scr.entity.test.EmbeddedTestEntity</class>
     </persistence-unit>
 </persistence>
