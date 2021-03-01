@@ -14,15 +14,14 @@ import {
   handleTableChange,
   isPreservedCondition
 } from './DataTableHelpers';
-import {Condition, ConditionsGroup, EntityAttrPermissionValue, SerializedEntity} from "@cuba-platform/rest";
+import {Condition, ConditionsGroup, EntityAttrPermissionValue, SerializedEntity, getStringId} from "@cuba-platform/rest";
 import {
   MainStoreInjected,
   DataCollectionStore,
   injectMainStore,
   assertNever,
   getPropertyInfoNN,
-  getStringId,
-  WithCompositeId
+  WithId
 } from '@cuba-platform/react-core';
 import { FormInstance } from 'antd/es/form';
 
@@ -520,7 +519,7 @@ class DataTableComponent<E extends object> extends React.Component<DataTableProp
       : true;
   }
 
-  constructRowKey(record: E & WithCompositeId): string {
+  constructRowKey(record: E & WithId): string {
     return getStringId(record.id!);
   }
 

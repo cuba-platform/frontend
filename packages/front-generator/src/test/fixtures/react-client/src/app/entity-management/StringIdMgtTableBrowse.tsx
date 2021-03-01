@@ -14,7 +14,7 @@ import {
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
 
 import { StringIdTestEntity } from "cuba/entities/scr_StringIdTestEntity";
-import { SerializedEntity } from "@cuba-platform/rest";
+import { SerializedEntity, getStringId } from "@cuba-platform/rest";
 import { StringIdMgtTableManagement } from "./StringIdMgtTableManagement";
 import {
   FormattedMessage,
@@ -129,7 +129,9 @@ class StringIdMgtTableBrowseComponent extends React.Component<
   getRecordById(id: string): SerializedEntity<StringIdTestEntity> {
     const record:
       | SerializedEntity<StringIdTestEntity>
-      | undefined = this.dataCollection.items.find(record => record.id === id);
+      | undefined = this.dataCollection.items.find(
+      record => getStringId(record.id!) === id
+    );
 
     if (!record) {
       throw new Error("Cannot find entity with id " + id);

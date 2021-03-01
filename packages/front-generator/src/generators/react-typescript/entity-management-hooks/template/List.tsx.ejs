@@ -16,7 +16,7 @@ import {
   Spinner
 } from "@cuba-platform/react-ui";
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
+import {SerializedEntity, getStringId} from "@cuba-platform/rest";
 import {PATH, NEW_SUBPATH} from "./<%= className %>";
 import {FormattedMessage, useIntl} from "react-intl";
 import { PaginationConfig } from "antd/es/pagination";
@@ -109,7 +109,7 @@ const <%= listComponentClass %> = (props: Props) => {
             <DeleteOutlined
               key='delete'
               onClick={() => showDeletionDialog(item)}/>,
-            <Link to={PATH + '/' + item.id} key='edit'>
+            <Link to={PATH + '/' + getStringId(item.id!)} key='edit'>
               <EditOutlined />
             </Link>
           ]}>

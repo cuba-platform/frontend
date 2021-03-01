@@ -20,7 +20,9 @@ const boringStringIdManagementTableConfig = require('./screens/boring-string-id-
 const hooksMgtTableConfig = require('./screens/hooks-management-table.json');
 const hooksMgtCardsConfig = require('./screens/hooks-management-cards.json');
 const hooksMgtListConfig = require('./screens/hooks-management-list.json');
-const compositeKeyEntityManagement = require('./screens/composite-key-entity-management-table.json');
+const compositeKeyEntityManagementTable = require('./screens/composite-key-entity-management-table.json');
+const compositeKeyEntityManagementCards = require('./screens/composite-key-entity-management-cards.json');
+const compositeKeyEntityManagementList = require('./screens/composite-key-entity-management-list.json');
 const dirShift = '../../';
 
 gen(
@@ -242,7 +244,19 @@ gen(
         command: 'react-typescript:entity-management',
         dirShift,
         dest: 'src/app/composite-key-entity-management-table',
-        answers: compositeKeyEntityManagement
+        answers: compositeKeyEntityManagementTable
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/composite-key-entity-list',
+        answers: compositeKeyEntityManagementList
+      },
+      {
+        command: 'react-typescript:entity-management',
+        dirShift,
+        dest: 'src/app/composite-key-entity-cards',
+        answers: compositeKeyEntityManagementCards
       }
     ]
 );

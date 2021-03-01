@@ -17,6 +17,7 @@ import {
   setPagination,
   Spinner
 } from "@cuba-platform/react-ui";
+import { getStringId } from "@cuba-platform/rest";
 import { action, IReactionDisposer, observable, reaction } from "mobx";
 import { PaginationConfig } from "antd/es/pagination";
 import { RouteComponentProps } from "react-router";
@@ -61,7 +62,7 @@ export class MpgFavoriteCarCards extends React.Component<Props> {
         {items.map(e => (
           <Card
             title={e._instanceName}
-            key={e.id ? e.id : undefined}
+            key={e.id ? getStringId(e.id) : undefined}
             style={{ marginBottom: "12px" }}
           >
             {this.fields.map(p => (

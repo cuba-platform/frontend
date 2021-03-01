@@ -3,7 +3,7 @@ import { Form } from 'antd';
 import { Button, DatePicker, Divider, Input, message, Select, Spin, TimePicker } from 'antd';
 import {FilterDropdownProps} from 'antd/es/table/interface';
 import {observer} from 'mobx-react';
-import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType} from '@cuba-platform/rest';
+import {MetaClassInfo, MetaPropertyInfo, NumericPropertyType, OperatorType, PropertyType, getStringId} from '@cuba-platform/rest';
 import {action, computed, observable} from 'mobx';
 import {Moment} from 'moment';
 import {DataTableListEditor} from './DataTableListEditor';
@@ -121,7 +121,7 @@ class DataTableCustomFilterComponent<E extends WithId>
             resp.forEach((instance) => {
               this.nestedEntityOptions.push({
                 caption: instance._instanceName || '',
-                value: instance.id
+                value: getStringId(instance.id!)
               });
             });
             this.loading = false;

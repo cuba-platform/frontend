@@ -3,15 +3,15 @@
     "name": "_local",
     "entityName": "scr_CompositeKeyEntity"
   },
-  "editComponentName": "CompositeKeyEntityTableEdit",
+  "editComponentName": "CompositeKeyEntityListEdit",
   "listView": {
     "name": "_local",
     "entityName": "scr_CompositeKeyEntity"
   },
-  "listComponentName": "CompositeKeyEntityTable",
-  "listType": "table",
+  "listComponentName": "CompositeKeyEntityList",
+  "listType": "list",
   "entity": {
     "name": "scr_CompositeKeyEntity"
   },
-  "managementComponentName": "CompositeKeyEntityManagement1"
+  "managementComponentName": "CompositeKeyEntityManagement2"
 }

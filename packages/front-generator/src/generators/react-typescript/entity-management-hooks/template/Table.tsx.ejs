@@ -10,7 +10,7 @@ import {
 } from "@cuba-platform/react-core";
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
+import {SerializedEntity, getStringId} from "@cuba-platform/rest";
 import {PATH, NEW_SUBPATH} from "./<%= className %>";
 import {FormattedMessage, useIntl} from 'react-intl';
 
@@ -65,7 +65,7 @@ const <%= listComponentClass %> = () => {
 
   const getRecordById = useCallback(
     (id: string): SerializedEntity<<%= entity.className %>> => {
-      const record: SerializedEntity<<%= entity.className %>> | undefined = dataCollection.current.items.find(record => record.id === id);
+      const record: SerializedEntity<<%= entity.className %>> | undefined = dataCollection.current.items.find(record => getStringId(record.id!) === id);
 
       if (!record) {
         throw new Error("Cannot find entity with id " + id);

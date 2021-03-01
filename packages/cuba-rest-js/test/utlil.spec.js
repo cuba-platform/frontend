@@ -54,5 +54,15 @@ describe('util', function() {
     })
   });
 
+  describe('.getStringId()', function() {
+    const stringId = 'tested id';
+    const objId = {testFld: "tested id"};
+    it ('return source id, if it has string type', function() {
+      assert.equal(util.getStringId(stringId), stringId);
+    });
+    it ('return converted id, if it has object type', function() {
+      assert.equal(util.getStringId(objId), "eyJ0ZXN0RmxkIjoidGVzdGVkIGlkIn0=");
+    });
+  });
 
 });

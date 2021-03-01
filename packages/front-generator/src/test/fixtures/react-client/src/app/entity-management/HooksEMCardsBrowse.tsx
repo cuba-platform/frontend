@@ -16,7 +16,7 @@ import {
   Spinner
 } from "@cuba-platform/react-ui";
 import { DatatypesTestEntity } from "cuba/entities/scr_DatatypesTestEntity";
-import { SerializedEntity } from "@cuba-platform/rest";
+import { SerializedEntity, getStringId } from "@cuba-platform/rest";
 import { PATH, NEW_SUBPATH } from "./HooksEMCardsMgt";
 import { FormattedMessage, useIntl } from "react-intl";
 import { PaginationConfig } from "antd/es/pagination";
@@ -131,14 +131,14 @@ const HooksEMCardsBrowse = (props: Props) => {
         {items.map(e => (
           <Card
             title={e._instanceName}
-            key={e.id ? e.id : undefined}
+            key={e.id ? getStringId(e.id) : undefined}
             style={{ marginBottom: "12px" }}
             actions={[
               <DeleteOutlined
                 key="delete"
                 onClick={() => showDeletionDialog(e)}
               />,
-              <Link to={PATH + "/" + e.id} key="edit">
+              <Link to={PATH + "/" + getStringId(e.id!)} key="edit">
                 <EditOutlined />
               </Link>
             ]}
