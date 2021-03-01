@@ -10,6 +10,7 @@
   "common.requestFailed": "Не удалось выполнить операцию",
   "common.retry": "Повторить",
 
+
   "home.welcome": "Добро пожаловать в",
   "router.home": "Главная страница",
   "login.failed": "Не удалось войти",
@@ -19,6 +20,7 @@
   "header.logout.areYouSure": "Вы действительно хотите выйти?",
   "header.logout.ok": "Выйти",
   "header.logout.cancel": "Отмена",
+
 
   "cubaReact.dataTable.clearAllFilters": "Очистить фильтры",
   "cubaReact.dataTable.validation.requiredField": "Обязательное поле",
@@ -75,37 +77,44 @@
 
   "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Удалить вложенную сущность?",
 
-  "antd.form.validation.default": "Ошибка валидации в поле %s.",
-  "antd.form.validation.required": "Поле %s является обязательным.",
-  "antd.form.validation.enum":  "Поле %s должно иметь одно из следующих значений: %s.",
-  "antd.form.validation.whitespace": "Поле %s не может состоять только из неотображаемых символов.",
-  "antd.form.validation.date.format":  "Поле %s содержит дату %s, которая не является валидной для формата %s.",
-  "antd.form.validation.date.parse": "Поле %s содержит дату %s, которая не может быть обработана.",
-  "antd.form.validation.date.invalid":  "Поле %s содержит невалидную дату %s.",
-  "antd.form.validation.types.string": "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.method": "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.array": "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.object":  "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.number": "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.date":  "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.boolean": "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.integer":  "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.float": "Поле %s имеет тип, отличный от %s.",
-  "antd.form.validation.types.regexp":  "Значение поля %s не является валидным %s.",
-  "antd.form.validation.types.email": "Значение поля %s не является валидным %s.",
-  "antd.form.validation.types.url": "Значение поля %s не является валидным %s.",
-  "antd.form.validation.types.hex": "Значение поля %s не является валидным %s.",
-  "antd.form.validation.string.len":  "Поле %s должно содержать ровно %s символов.",
-  "antd.form.validation.string.min": "Поле %s должно содержать не менее %s символов.",
-  "antd.form.validation.string.max":  "Поле %s должно содержать не более %s символов.",
-  "antd.form.validation.string.range": "Поле %s должно содержать от %s до %s символов.",
-  "antd.form.validation.number.len":  "Значение поля %s должно быть равно %s.",
-  "antd.form.validation.number.min": "Значение поля %s не должно быть менее %s.",
-  "antd.form.validation.number.max":  "Значение поля %s не должно быть более %s.",
-  "antd.form.validation.number.range": "Значение поля %s должно лежать в пределах от %s до %s.",
-  "antd.form.validation.array.len":  "Поле %s должно содержать ровно %s элементов.",
-  "antd.form.validation.array.min": "Поле %s должно содержать не менее %s элементов.",
-  "antd.form.validation.array.max":  "Поле %s должно содержать не более %s элементов.",
-  "antd.form.validation.array.range": "Поле %s должно содержать от %s до %s элементов.",
-  "antd.form.validation.pattern.mismatch":  "Поле %s имеет значение %s, не подходящее под паттерн %s."
+
+  "antd.form.validation.default": "Ошибка валидации в поле ${name}.",
+  "antd.form.validation.required": "Поле ${name} является обязательным.",
+  "antd.form.validation.enum":  "Поле ${name} должно иметь одно из следующих значений: ${enum}.",
+  "antd.form.validation.whitespace": "Поле ${name} не может состоять только из неотображаемых символов.",
+
+  "antd.form.validation.date.format":  "Поле ${name} не является валидным форматом даты.",
+  "antd.form.validation.date.parse": "Поле ${name} не может быть обработано как дата.",
+  "antd.form.validation.date.invalid":  "Поле ${name} содержит невалидную дату.",
+
+  "antd.form.validation.types.string": "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.method": "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.array": "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.object":  "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.number": "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.date":  "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.boolean": "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.integer":  "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.float": "Поле ${name} имеет тип, отличный от ${type}.",
+  "antd.form.validation.types.regexp":  "Значение поля ${name} не является валидным ${type}.",
+  "antd.form.validation.types.email": "Значение поля ${name} не является валидным ${type}.",
+  "antd.form.validation.types.url": "Значение поля ${name} не является валидным ${type}.",
+  "antd.form.validation.types.hex": "Значение поля ${name} не является валидным ${type}.",
+
+  "antd.form.validation.string.len":  "Поле ${name} должно содержать ровно ${len} символов.",
+  "antd.form.validation.string.min": "Поле ${name} должно содержать не менее ${min} символов.",
+  "antd.form.validation.string.max":  "Поле ${name} должно содержать не более ${max} символов.",
+  "antd.form.validation.string.range": "Поле ${name} должно содержать от ${min} до ${max} символов.",
+
+  "antd.form.validation.number.len":  "Значение поля ${name} должно быть равно ${len}.",
+  "antd.form.validation.number.min": "Значение поля ${name} не должно быть менее ${min}.",
+  "antd.form.validation.number.max":  "Значение поля ${name} не должно быть более ${max}.",
+  "antd.form.validation.number.range": "Значение поля ${name} должно лежать в пределах от ${min} до ${max}.",
+
+  "antd.form.validation.array.len":  "Поле ${name} должно содержать ровно ${len} элементов.",
+  "antd.form.validation.array.min": "Поле ${name} должно содержать не менее ${min} элементов.",
+  "antd.form.validation.array.max":  "Поле ${name} должно содержать не более ${max} элементов.",
+  "antd.form.validation.array.range": "Поле ${name} должно содержать от ${min} до ${max} элементов.",
+
+  "antd.form.validation.pattern.mismatch":  "Поле ${name} не подходящее под паттерн ${pattern}."
 }

@@ -10,6 +10,7 @@
   "common.requestFailed": "请求的操作执行失败",
   "common.retry": "重试",
 
+
   "home.welcome": "欢迎使用",
   "router.home": "主界面",
   "login.failed": "登录失败",
@@ -19,6 +20,7 @@
   "header.logout.areYouSure": "确认退出？",
   "header.logout.ok": "退出",
   "header.logout.cancel": "取消",
+
 
   "cubaReact.dataTable.clearAllFilters": "清空过滤器",
   "cubaReact.dataTable.validation.requiredField": "必填字段",
@@ -75,37 +77,44 @@
 
   "cubaReact.nestedEntitiesTableField.delete.areYouSure": "确定要删除子实体？",
 
-  "antd.form.validation.default": " %s 字段验证错误。",
-  "antd.form.validation.required": " %s 字段必填。",
-  "antd.form.validation.enum":  "%s 字段的值只能从列表选择：%s ",
-  "antd.form.validation.whitespace": " %s 字段不能全是空格。",
-  "antd.form.validation.date.format":  " %s 字段包含的日期 %s 不符合要求的格式 %s。",
-  "antd.form.validation.date.parse": " %s 字段包含的日期 %s 解析错误。",
-  "antd.form.validation.date.invalid":  " %s 字段包含无效日期 %s",
-  "antd.form.validation.types.string": "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.method": "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.array": "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.object":  "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.number": "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.date":  "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.boolean": "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.integer":  "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.float": "%s 类型不符，要求： %s.",
-  "antd.form.validation.types.regexp":  "%s 字段的值并非有效 %s。",
-  "antd.form.validation.types.email": "%s 字段的值并非有效 %s。",
-  "antd.form.validation.types.url": "%s 字段的值并非有效 %s。",
-  "antd.form.validation.types.hex": "%s 字段的值并非有效 %s。",
-  "antd.form.validation.string.len":  " %s 字段必须包含 %s 个字符",
-  "antd.form.validation.string.min": " %s 字段必须包含不少于 %s 个字符",
-  "antd.form.validation.string.max":  " %s 字段必须包含不多于 %s 个字符",
-  "antd.form.validation.string.range": " %s 字段必须包含 %s 至 %s 个字符",
-  "antd.form.validation.number.len":  "%s 需要等于 %s",
-  "antd.form.validation.number.min": "%s 不能小于 %s",
-  "antd.form.validation.number.max":  "%s 不能超过 %s",
-  "antd.form.validation.number.range": "%s 范围应在 %s 至 %s",
-  "antd.form.validation.array.len":  "%s 必须有 %s 个元素",
-  "antd.form.validation.array.min": "%s 不能少于 %s 个元素",
-  "antd.form.validation.array.max":  "%s 不能多于 %s 个元素",
-  "antd.form.validation.array.range": "%s 需要有 %s 至 %s 个元素",
-  "antd.form.validation.pattern.mismatch":  "%s 的值 %s 不匹配需要的格式： %s"
+
+  "antd.form.validation.default": "${name} 字段验证错误.",
+  "antd.form.validation.required": "${name} 字段必填.",
+  "antd.form.validation.enum":  "${name} 字段的值只能从列表选择: ${enum}.",
+  "antd.form.validation.whitespace": "${name} 字段不能全是空格.",
+
+  "antd.form.validation.date.format":  "${name} 格式日期无效.",
+  "antd.form.validation.date.parse": "${name} 无法解析为日期.",
+  "antd.form.validation.date.invalid":  "${name} 无效的日期.",
+
+  "antd.form.validation.types.string": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.method": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.array": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.object": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.number": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.date": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.boolean": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.integer": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.float": "${name} 类型不符，要求: ${type}.",
+  "antd.form.validation.types.regexp": "${name} 字段的值并非有效 ${type}.",
+  "antd.form.validation.types.email": "${name} 字段的值并非有效 ${type}.",
+  "antd.form.validation.types.url": "${name} 字段的值并非有效 ${type}.",
+  "antd.form.validation.types.hex": "${name} 字段的值并非有效 ${type}.",
+
+  "antd.form.validation.string.len": "${name} 字段必须包含 ${len} 个字符.",
+  "antd.form.validation.string.min": "${name} 字段必须包含不少于 ${min} 个字符.",
+  "antd.form.validation.string.max": "${name} 字段必须包含不多于 ${max} 个字符.",
+  "antd.form.validation.string.range": "${name} 字段必须包含 ${min} 至 ${max} 个字符.",
+
+  "antd.form.validation.number.len": "${name} 需要等于 ${len}.",
+  "antd.form.validation.number.min": "${name} 不能小于 ${min}.",
+  "antd.form.validation.number.max": "${name} 不能超过 ${max}.",
+  "antd.form.validation.number.range": "${name} 范围应在 ${min} 至 ${max}.",
+
+  "antd.form.validation.array.len": "${name} 必须有 ${len} 个元素.",
+  "antd.form.validation.array.min": "${name} 不能少于 ${min} 个元素.",
+  "antd.form.validation.array.max": "${name} 不能多于 ${max} 个元素.",
+  "antd.form.validation.array.range": "${name} 需要有 ${min} 至 ${max} 个元素.",
+
+  "antd.form.validation.pattern.mismatch": "${name} 与模式不符 ${pattern}."
 }
