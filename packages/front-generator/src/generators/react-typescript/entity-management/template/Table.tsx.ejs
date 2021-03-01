@@ -9,7 +9,7 @@ import {collection, injectMainStore, MainStoreInjected, EntityPermAccessControl}
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
 
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
+import {SerializedEntity, getStringId} from "@cuba-platform/rest";
 import {<%= className %>} from "./<%= className %>";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 
@@ -99,7 +99,7 @@ class <%= listComponentClass %>Component extends React.Component<MainStoreInject
 
   getRecordById(id: string): SerializedEntity<<%= entity.className %>> {
     const record: SerializedEntity<<%= entity.className %>> | undefined =
-    this.dataCollection.items.find(record => record.id === id);
+    this.dataCollection.items.find(record => getStringId(record.id!) === id);
 
     if (!record) {
       throw new Error('Cannot find entity with id ' + id);

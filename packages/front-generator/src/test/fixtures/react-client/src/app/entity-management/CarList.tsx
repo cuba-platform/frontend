@@ -19,7 +19,7 @@ import {
 } from "@cuba-platform/react-ui";
 
 import { Car } from "cuba/entities/mpg$Car";
-import { SerializedEntity } from "@cuba-platform/rest";
+import { SerializedEntity, getStringId } from "@cuba-platform/rest";
 import { CarManagement2 } from "./CarManagement2";
 import {
   FormattedMessage,
@@ -137,7 +137,10 @@ class CarListComponent extends React.Component<Props> {
                   key="delete"
                   onClick={() => this.showDeletionDialog(item)}
                 />,
-                <Link to={CarManagement2.PATH + "/" + item.id} key="edit">
+                <Link
+                  to={CarManagement2.PATH + "/" + getStringId(item.id!)}
+                  key="edit"
+                >
                   <EditOutlined />
                 </Link>
               ]}

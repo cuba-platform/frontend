@@ -9,7 +9,7 @@ import {collection, injectMainStore, MainStoreInjected, EntityPermAccessControl}
 import {EntityProperty, Paging, setPagination, Spinner} from "@cuba-platform/react-ui";
 
 import {<%= entity.className %>} from "<%= relDirShift %><%= entity.path %>";
-import {SerializedEntity} from "@cuba-platform/rest";
+import {SerializedEntity, getStringId} from "@cuba-platform/rest";
 import {<%= className %>} from "./<%= className %>";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from 'react-intl';
 import {PaginationConfig} from "antd/es/pagination";
@@ -107,7 +107,7 @@ class <%= listComponentClass %>Component extends React.Component<Props> {
                     <DeleteOutlined
                           key='delete'
                           onClick={() => this.showDeletionDialog(item)}/>,
-                    <Link to={<%= className %>.PATH + '/' + item.id} key='edit'>
+                    <Link to={<%= className %>.PATH + '/' + getStringId(item.id!)} key='edit'>
                       <EditOutlined />
                     </Link>
                 ]}>

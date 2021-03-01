@@ -60,10 +60,6 @@ export function getPropertyCaption(propertyName: string, entityName: string, mes
   return messages[entityName + '.' + propertyName];
 }
 
-export function getStringId(id: string | object) : string {
-  return typeof id === "object" ? JSON.stringify(id) : id;
-}
-
 export function isFileProperty(propertyInfo: MetaPropertyInfo): boolean {
   return (propertyInfo.type === 'sys$FileDescriptor') && isRelationProperty(propertyInfo);
 }
@@ -195,11 +191,6 @@ export function isOneToManyComposition(propertyInfo: MetaPropertyInfo): boolean 
   return isComposition(propertyInfo) && isOneToManyRelation(propertyInfo);
 }
 
-export type WithId = {id?: any};
-
-// todo: after implementation of supporting composite keys,
-// need to remove this type and add 'object' to WithId type
-// It's temp solution for fixing #367 issue
-export type WithCompositeId = {id? : string | object}
+export type WithId = {id?: string | object};
 
 export type WithName = {name?: string};

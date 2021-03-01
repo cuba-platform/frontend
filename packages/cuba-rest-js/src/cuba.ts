@@ -11,7 +11,7 @@ import {
 } from './model';
 import {DefaultStorage} from "./storage";
 import {EntityFilter} from "./filter";
-import {base64encode, encodeGetParams, matchesVersion} from "./util";
+import {base64encode, encodeGetParams, matchesVersion, getStringId} from "./util";
 import { restEventEmitter } from './event_emitter';
 
 export * from './model';
@@ -19,6 +19,7 @@ export * from './storage';
 export * from './filter';
 export * from './security';
 export * from './event_emitter';
+export * from './util';
 
 const apps: CubaApp[] = [];
 
@@ -241,25 +242,25 @@ export class CubaApp {
 
   public loadEntity<T>(
     entityName: string,
-    id,
+    id : string | object,
     options?: { view?: string },
     fetchOptions?: FetchOptions
   ): Promise<SerializedEntity<T>> {
-    return this.fetch('GET', 'v2/entities/' + entityName + '/' + id, options, {handleAs: 'json', ...fetchOptions});
+    return this.fetch('GET', 'v2/entities/' + entityName + '/' + getStringId(id), options, {handleAs: 'json', ...fetchOptions});
   }
 
-  public deleteEntity(entityName: string, id, fetchOptions?: FetchOptions): Promise<void> {
-    return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + id, null, fetchOptions);
+  public deleteEntity(entityName: string, id: string | object, fetchOptions?: FetchOptions): Promise<void> {
+    return this.fetch('DELETE', 'v2/entities/' + entityName + '/' + getStringId(id), null, fetchOptions);
   }
 
-  public commitEntity<T extends {id?: string}>(
+  public commitEntity<T extends {id?: string | object}>(
     entityName: string,
     entity: T,
     fetchOptions?: FetchOptions
   ): Promise<Partial<T>> {
     const {commitMode} = fetchOptions ?? {};
     if (commitMode === 'edit' || (commitMode == null && entity.id != null)) {
-      return this.fetch('PUT', 'v2/entities/' + entityName + '/' + entity.id, JSON.stringify(entity),
+      return this.fetch('PUT', 'v2/entities/' + entityName + '/' + getStringId(entity.id), JSON.stringify(entity),
         {handleAs: 'json', ...fetchOptions});
     } else {
       return this.fetch('POST', 'v2/entities/' + entityName, JSON.stringify(entity),

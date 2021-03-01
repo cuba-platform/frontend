@@ -1,6 +1,11 @@
 import {action, computed, observable, reaction, runInAction, toJS} from "mobx";
 import {
-  PredefinedView, SerializedEntityProps, TemporalPropertyType, MetaClassInfo, CommitMode
+  PredefinedView, 
+  SerializedEntityProps, 
+  TemporalPropertyType, 
+  MetaClassInfo, 
+  CommitMode,
+  getStringId
 } from "@cuba-platform/rest";
 import {inject, observer} from "mobx-react";
 import { IReactComponent } from "mobx-react/dist/types/IReactComponent";
@@ -431,7 +436,7 @@ export function instanceItemToFormFields<T>(
 
       const entityList = value as unknown as WithId[];
       fields[key] = entityList.reduce<string[]>((accumulator, nextEntity) => {
-        accumulator.push(nextEntity.id!);
+        accumulator.push(getStringId(nextEntity.id!));
         return accumulator;
       }, []);
       return;

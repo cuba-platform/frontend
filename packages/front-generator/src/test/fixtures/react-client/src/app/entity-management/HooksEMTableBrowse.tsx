@@ -10,7 +10,7 @@ import {
 } from "@cuba-platform/react-core";
 import { DataTable, Spinner } from "@cuba-platform/react-ui";
 import { DatatypesTestEntity } from "cuba/entities/scr_DatatypesTestEntity";
-import { SerializedEntity } from "@cuba-platform/rest";
+import { SerializedEntity, getStringId } from "@cuba-platform/rest";
 import { PATH, NEW_SUBPATH } from "./HooksEMTableMgt";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -84,7 +84,7 @@ const HooksEMTableBrowse = () => {
       const record:
         | SerializedEntity<DatatypesTestEntity>
         | undefined = dataCollection.current.items.find(
-        record => record.id === id
+        record => getStringId(record.id!) === id
       );
 
       if (!record) {

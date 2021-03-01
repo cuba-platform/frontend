@@ -16,7 +16,7 @@ import {
   Spinner
 } from "@cuba-platform/react-ui";
 import { DatatypesTestEntity } from "cuba/entities/scr_DatatypesTestEntity";
-import { SerializedEntity } from "@cuba-platform/rest";
+import { SerializedEntity, getStringId } from "@cuba-platform/rest";
 import { PATH, NEW_SUBPATH } from "./HooksEMListMgt";
 import { FormattedMessage, useIntl } from "react-intl";
 import { PaginationConfig } from "antd/es/pagination";
@@ -135,7 +135,7 @@ const HooksEMListBrowse = (props: Props) => {
                   key="delete"
                   onClick={() => showDeletionDialog(item)}
                 />,
-                <Link to={PATH + "/" + item.id} key="edit">
+                <Link to={PATH + "/" + getStringId(item.id!)} key="edit">
                   <EditOutlined />
                 </Link>
               ]}

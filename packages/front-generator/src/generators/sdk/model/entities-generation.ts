@@ -163,9 +163,8 @@ function createEntityClassMembers(ctx: ClassCreationContext): {
       if (attributeTypeInfo.importInfo) { importInfos.push(attributeTypeInfo.importInfo); }
 
         const idAttrName = ctx.entity.idAttributeName ?? 'id';
-        // REST API always sends ids as strings
-        const typeNode = entityAttr.name === idAttrName
-          ? ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+        const typeNode = isIdAttr(entityAttr.name, idAttrName)
+          ? getIdTypeNode(entityAttr.mappingType)
           : createUnionWithNull(attributeTypeInfo.node);
 
         // REST API puts the id into the property "id" regardless of the actual attribute name.
@@ -287,3 +286,12 @@ function createImportInfo(importedEntity: ProjectEntityInfo, isCurrentEntityBase
   }
 }
 
+function isIdAttr(entityAttrName: string, idAttrName: string): boolean {
+  return entityAttrName === idAttrName;
+}
+
+function getIdTypeNode (idMappingTime: string): ts.TypeNode {
+  return idMappingTime =="EMBEDDED" 
+    ? ts.factory.createKeywordTypeNode(ts.SyntaxKind.ObjectKeyword)
+    : ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
+}

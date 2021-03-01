@@ -79,3 +79,7 @@ function serialize(rawParam): string {
   }
   return rawParam;
 }
+
+export function getStringId(id: string | object) : string {
+  return typeof id === "object" ? base64encode(JSON.stringify(id)) : id;
+}
