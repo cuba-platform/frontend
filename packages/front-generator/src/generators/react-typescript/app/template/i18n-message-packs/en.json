@@ -10,6 +10,7 @@
   "common.requestFailed": "Failed to perform the requested operation",
   "common.retry": "Retry",
 
+
   "home.welcome": "Welcome to",
   "router.home": "Home",
   "login.failed": "Login failed",
@@ -19,6 +20,7 @@
   "header.logout.areYouSure": "Are you sure you want to logout?",
   "header.logout.ok": "Logout",
   "header.logout.cancel": "Cancel",
+
 
   "cubaReact.dataTable.clearAllFilters": "Clear filters",
   "cubaReact.dataTable.validation.requiredField": "Required field",
@@ -75,37 +77,44 @@
 
   "cubaReact.nestedEntitiesTableField.delete.areYouSure": "Are you sure you want to delete the nested entity?",
 
-  "antd.form.validation.default": "Field %s has a validation error.",
-  "antd.form.validation.required": "Field %s is mandatory.",
-  "antd.form.validation.enum":  "Specified value in field %s shall be restricted to the following list: %s.",
-  "antd.form.validation.whitespace": "Field %s cannot contain only whitespaces.",
-  "antd.form.validation.date.format":  "Field %s contains a date %s that does not conform to the required format %s.",
-  "antd.form.validation.date.parse": "Field %s contains a date %s that cannot be parsed.",
-  "antd.form.validation.date.invalid":  "Field %s contains an invalid date %s.",
-  "antd.form.validation.types.string": "%s has type different from %s.",
-  "antd.form.validation.types.method": "%s has type different from %s.",
-  "antd.form.validation.types.array": "%s has type different from %s.",
-  "antd.form.validation.types.object":  "%s has type different from %s.",
-  "antd.form.validation.types.number": "%s has type different from %s.",
-  "antd.form.validation.types.date":  "%s has type different from %s.",
-  "antd.form.validation.types.boolean": "%s has type different from %s.",
-  "antd.form.validation.types.integer":  "%s has type different from %s.",
-  "antd.form.validation.types.float": "%s has type different from %s.",
-  "antd.form.validation.types.regexp":  "Specified value in field %s is not a valid %s.",
-  "antd.form.validation.types.email": "Specified value in field %s is not a valid %s.",
-  "antd.form.validation.types.url": "Specified value in field %s is not a valid %s.",
-  "antd.form.validation.types.hex": "Specified value in field %s is not a valid %s.",
-  "antd.form.validation.string.len":  "Field %s shall be exactly %s characters long.",
-  "antd.form.validation.string.min": "Field %s shall contain no less than %s characters.",
-  "antd.form.validation.string.max":  "Field %s shall contain no more than %s characters.",
-  "antd.form.validation.string.range": "Field %s shall contain from %s to %s characters.",
-  "antd.form.validation.number.len":  "%s shall be equal to %s.",
-  "antd.form.validation.number.min": "%s shall not be less than %s.",
-  "antd.form.validation.number.max":  "%s shall not exceed %s.",
-  "antd.form.validation.number.range": "%s shall be within a range from %s to %s.",
-  "antd.form.validation.array.len":  "%s shall have exactly %s elements.",
-  "antd.form.validation.array.min": "%s shall have no less than %s elements.",
-  "antd.form.validation.array.max":  "%s shall have no more than %s elements.",
-  "antd.form.validation.array.range": "%s shall have from %s to %s elements.",
-  "antd.form.validation.pattern.mismatch":  "%s has value %s that doesn't match pattern %s."
+
+  "antd.form.validation.default": "Field ${name} has a validation error.",
+  "antd.form.validation.required": "Field ${name} is mandatory.",
+  "antd.form.validation.enum": "Specified value in field ${name} shall be restricted to the following list: ${enum}.",
+  "antd.form.validation.whitespace": "Field ${name} cannot contain only whitespaces.",
+
+  "antd.form.validation.date.format": "Field ${name} is invalid for format date.",
+  "antd.form.validation.date.parse": "Field ${name} could not be parsed as date.",
+  "antd.form.validation.date.invalid": "Field ${name} is invalid date.",
+
+  "antd.form.validation.types.string": "${name} has type different from ${type}.",
+  "antd.form.validation.types.method": "${name} has type different from ${type}.",
+  "antd.form.validation.types.array": "${name} has type different from ${type}.",
+  "antd.form.validation.types.object": "${name} has type different from ${type}.",
+  "antd.form.validation.types.number": "${name} has type different from ${type}.",
+  "antd.form.validation.types.date": "${name} has type different from ${type}.",
+  "antd.form.validation.types.boolean": "${name} has type different from ${type}.",
+  "antd.form.validation.types.integer": "${name} has type different from ${type}.",
+  "antd.form.validation.types.float": "${name} has type different from ${type}.",
+  "antd.form.validation.types.regexp": "Specified value in field ${name} is not a valid ${type}.",
+  "antd.form.validation.types.email": "Specified value in field ${name} is not a valid ${type}.",
+  "antd.form.validation.types.url": "Specified value in field ${name} is not a valid ${type}.",
+  "antd.form.validation.types.hex": "Specified value in field ${name} is not a valid ${type}.",
+
+  "antd.form.validation.string.len": "Field ${name} shall be exactly ${len} characters long.",
+  "antd.form.validation.string.min": "Field ${name} shall contain no less than ${min} characters.",
+  "antd.form.validation.string.max": "Field ${name} shall contain no more than ${max} characters.",
+  "antd.form.validation.string.range": "Field ${name} shall contain from ${min} to ${max} characters.",
+
+  "antd.form.validation.number.len": "${name} shall be equal to ${len}.",
+  "antd.form.validation.number.min": "${name} shall not be less than ${min}.",
+  "antd.form.validation.number.max": "${name} shall not exceed ${max}.",
+  "antd.form.validation.number.range": "${name} shall be within a range from ${min} to ${max}.",
+
+  "antd.form.validation.array.len": "${name} shall have exactly ${len} elements.",
+  "antd.form.validation.array.min": "${name} shall have no less than ${min} elements.",
+  "antd.form.validation.array.max": "${name} shall have no more than ${max} elements.",
+  "antd.form.validation.array.range": "${name} shall have from ${min} to ${max} elements.",
+
+  "antd.form.validation.pattern.mismatch": "${name} does not match pattern ${pattern}."
 }

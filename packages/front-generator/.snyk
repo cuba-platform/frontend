@@ -29,41 +29,91 @@ ignore:
         expires: '2020-07-15T12:32:29.788Z'
   SNYK-JS-LODASH-590103:
     - yeoman-environment > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.279Z'
     - yeoman-environment > grouped-queue > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-environment > inquirer > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-generator > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-generator > yeoman-environment > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-generator > async > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-generator > yeoman-environment > grouped-queue > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-generator > yeoman-environment > inquirer > lodash:
-        reason: No remediation available
-        expires: '2021-02-20T18:35:18.576Z'
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
   SNYK-JS-EJS-1049328:
     - yeoman-generator > mem-fs-editor > ejs:
         reason: None given
-        expires: '2021-02-20T18:35:18.576Z'
+        expires: '2021-03-31T14:01:06.280Z'
   SNYK-JS-GLOBPARENT-1016905:
     - yeoman-environment > globby > fast-glob > glob-parent:
         reason: None given
-        expires: '2021-02-20T18:35:18.576Z'
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-generator > yeoman-environment > globby > fast-glob > glob-parent:
         reason: None given
-        expires: '2021-02-20T18:35:18.576Z'
+        expires: '2021-03-31T14:01:06.280Z'
     - yeoman-generator > mem-fs-editor > globby > fast-glob > glob-parent:
         reason: None given
-        expires: '2021-02-20T18:35:18.576Z'
+        expires: '2021-03-31T14:01:06.280Z'
+  SNYK-JS-LODASH-1018905:
+    - yeoman-environment > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.279Z'
+    - yeoman-environment > grouped-queue > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.279Z'
+    - yeoman-environment > inquirer > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > yeoman-environment > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > async > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > yeoman-environment > inquirer > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+  SNYK-JS-LODASH-1040724:
+    - yeoman-environment > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.279Z'
+    - yeoman-environment > grouped-queue > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.279Z'
+    - yeoman-environment > inquirer > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > yeoman-environment > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > async > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
+    - yeoman-generator > yeoman-environment > inquirer > lodash:
+        reason: None given
+        expires: '2021-03-31T14:01:06.280Z'
 patch: {}
