@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/prettier": "~1.19.0",
-    "commander": "~2.13.0",
+    "commander": "~2.20.3",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "node-fetch": "^2.6.1",
     "prettier": "~1.19.1",
