@@ -119,7 +119,7 @@ class StringIdMgtTableEditComponent extends React.Component<
         >
           <Field
             entityName={StringIdTestEntity.NAME}
-            propertyName="description"
+            stringPath="description"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -127,7 +127,7 @@ class StringIdMgtTableEditComponent extends React.Component<
 
           <Field
             entityName={StringIdTestEntity.NAME}
-            propertyName="identifier"
+            stringPath="identifier"
             disabled={!this.isNewEntity()}
             formItemProps={{
               style: { marginBottom: "12px" },
@@ -137,7 +137,7 @@ class StringIdMgtTableEditComponent extends React.Component<
 
           <Field
             entityName={StringIdTestEntity.NAME}
-            propertyName="productCode"
+            stringPath="productCode"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}

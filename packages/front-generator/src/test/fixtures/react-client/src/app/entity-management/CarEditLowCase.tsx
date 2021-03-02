@@ -180,7 +180,7 @@ class CarEditLowCaseComponent extends React.Component<
         >
           <Field
             entityName={Car.NAME}
-            propertyName="manufacturer"
+            stringPath="manufacturer"
             formItemProps={{
               style: { marginBottom: "12px" },
               rules: [{ required: true }]
@@ -189,7 +189,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="model"
+            stringPath="model"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -197,7 +197,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="regNumber"
+            stringPath="regNumber"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -205,7 +205,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="purchaseDate"
+            stringPath="purchaseDate"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -213,7 +213,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="manufactureDate"
+            stringPath="manufactureDate"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -221,7 +221,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="wheelOnRight"
+            stringPath="wheelOnRight"
             formItemProps={{
               style: { marginBottom: "12px" },
               valuePropName: "checked"
@@ -230,7 +230,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="carType"
+            stringPath="carType"
             formItemProps={{
               style: { marginBottom: "12px" },
               rules: [{ required: true }]
@@ -239,7 +239,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="ecoRank"
+            stringPath="ecoRank"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -247,7 +247,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="maxPassengers"
+            stringPath="maxPassengers"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -255,7 +255,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="price"
+            stringPath="price"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -263,7 +263,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="mileage"
+            stringPath="mileage"
             formItemProps={{
               style: { marginBottom: "12px" }
             }}
@@ -271,7 +271,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="garage"
+            stringPath="garage"
             optionsContainer={this.garagesDc}
             formItemProps={{
               style: { marginBottom: "12px" }
@@ -280,7 +280,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="technicalCertificate"
+            stringPath="technicalCertificate"
             optionsContainer={this.technicalCertificatesDc}
             formItemProps={{
               style: { marginBottom: "12px" }
@@ -289,7 +289,7 @@ class CarEditLowCaseComponent extends React.Component<
 
           <Field
             entityName={Car.NAME}
-            propertyName="photo"
+            stringPath="photo"
             optionsContainer={this.photosDc}
             formItemProps={{
               style: { marginBottom: "12px" }
