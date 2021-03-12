@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-beta.2](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.0.0-beta.1...@cuba-platform/front-generator@4.0.0-beta.2) (2021-03-12)
+
+
+### Bug Fixes
+
+* antd error message templates ([90fb02d](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/90fb02d81c9f9e924f85efb9602b4e93c8ab1c1a))
+* **React:** cosmetics in entity management hooks template ([75b031a](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/75b031ae033ae62ccf5a33ef3eae21c925b0784a))
+
+
+### Features
+
+* add zh-cn locale ([e166542](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/e166542e827655f11ce6a7ef78ec99e04b919750))
+* added support of editing and removing entities with composite keys ([5fbe93a](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/5fbe93a5f87f5cf586955459cf182427806e484c))
+
+
+### BREAKING CHANGES
+
+* react-intl version was updated to 5.3.0
+
+
+
+
+
 # [4.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.0.0-beta.0...@cuba-platform/front-generator@4.0.0-beta.1) (2021-01-21)
 
 **Note:** Version bump only for package @cuba-platform/front-generator

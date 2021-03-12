@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@2.0.0-beta.1...@cuba-platform/react-ui@2.0.0-beta.2) (2021-03-12)
+
+
+### Bug Fixes
+
+* antd error message templates ([90fb02d](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/90fb02d81c9f9e924f85efb9602b4e93c8ab1c1a))
+* fixed issues with composite row key in DataTable ([8f2a585](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/8f2a5854a2df2380a91cde6b4d1996dd5d44b1db))
+
+
+### Features
+
+* added support of editing and removing entities with composite keys ([5fbe93a](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/5fbe93a5f87f5cf586955459cf182427806e484c))
+
+
+### BREAKING CHANGES
+
+* react-intl version was updated to 5.3.0
+
+
+
+
+
 # [2.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@2.0.0-beta.0...@cuba-platform/react-ui@2.0.0-beta.1) (2021-01-21)
 
 **Note:** Version bump only for package @cuba-platform/react-ui

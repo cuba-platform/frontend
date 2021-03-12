@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@2.0.0-beta.0...@cuba-platform/rest@2.0.0-beta.1) (2021-03-12)
+
+
+### Features
+
+* added support of editing and removing entities with composite keys ([5fbe93a](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/5fbe93a5f87f5cf586955459cf182427806e484c))
+
+
+
+
+
 # [2.0.0-beta.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@2.0.0-dev.1...@cuba-platform/rest@2.0.0-beta.0) (2021-01-20)
 
 
