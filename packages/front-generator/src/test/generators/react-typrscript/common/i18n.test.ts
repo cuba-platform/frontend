@@ -195,14 +195,18 @@ describe('i18n message packs', async () => {
   it('has the same keys', async () => {
     for (const locale of SUPPORTED_CLIENT_LOCALES) {
       const appMessagePack =
-        await import(`../../../../generators/react-typescript/app/template/i18n-message-packs/${locale}.json`);
+        await import(`../../../../generators/react-typescript/app/template/i18n-message-packs/${locale.name}.json`);
       const entityManagementMessagePack =
-        await import(`../../../../generators/react-typescript/entity-management/entity-management-${locale}.json`);
+        await import(`../../../../generators/react-typescript/entity-management/entity-management-${locale.name}.json`);
       const mergedMessagePack = {...appMessagePack, ...entityManagementMessagePack};
       const keys = Object.keys(mergedMessagePack);
-      expect(keys.length).to.equal(ALL_I18N_KEYS.length, `Number of keys is mismatched for locale ${locale}`);
+
+      if (locale.strict) {
+        expect(keys.length).to.equal(ALL_I18N_KEYS.length, `Number of keys is mismatched for locale ${locale.name}`);
+      }
+      
       keys.forEach((key) => {
-        expect(ALL_I18N_KEYS.includes(key), `${locale} does not include key ${key}`).to.be.true;
+        expect(ALL_I18N_KEYS.includes(key), `${locale.name} does not include key ${key}`).to.be.true;
       });
     }
   });
