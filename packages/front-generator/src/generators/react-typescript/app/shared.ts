@@ -143,16 +143,18 @@ export function writeReactTSApp(
 
   let clientLocales: string[];
   const modelHasLocalesInfo = (gen.model.project.locales != null);
+  const supportedClientLocaleNames = SUPPORTED_CLIENT_LOCALES.map(location => location.name);
+
   if (!modelHasLocalesInfo) {
     // Could be if using an old Studio version that doesn't export locales.
     gen.log('Project model does not contain project locales info. I18n messages will be added for all supported locales.');
-    clientLocales = SUPPORTED_CLIENT_LOCALES;
+    clientLocales = supportedClientLocaleNames;
   } else {
     const projectLocales = gen.model.project.locales.map(locale => locale.code);
-    clientLocales = projectLocales.filter(locale => SUPPORTED_CLIENT_LOCALES.includes(locale));
+    clientLocales = projectLocales.filter(locale => supportedClientLocaleNames.includes(locale));
     if (clientLocales.length === 0) {
       gen.log('WARNING. None of the project locales are supported by Frontend Generator.'
-        + ` Project locales: ${JSON.stringify(projectLocales)}. Supported locales: ${JSON.stringify(SUPPORTED_CLIENT_LOCALES)}.`);
+        + ` Project locales: ${JSON.stringify(projectLocales)}. Supported locales: ${JSON.stringify(supportedClientLocaleNames)}.`);
     }
   }
   clientLocales.forEach(locale => {

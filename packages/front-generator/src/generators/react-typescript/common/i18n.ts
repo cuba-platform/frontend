@@ -3,7 +3,20 @@ import {MemFsEditor} from "yeoman-generator";
 import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
 import {Locale} from '../../../common/model/cuba-model';
 
-export const SUPPORTED_CLIENT_LOCALES = ['en', 'fr', 'ru', 'zh-cn'];
+/**
+ * @property strict - if true then all i18n keys must be filled
+ */
+ interface SupportClientLocation {
+  name: string,
+  strict: boolean,
+}
+
+export const SUPPORTED_CLIENT_LOCALES: SupportClientLocation[] = [
+  {name: 'en', strict: true },
+  {name: 'ru', strict: true },
+  {name: 'fr', strict: false },
+  {name: 'zh-cn', strict: false },
+];
 
 /**
  * Adds component i18n messages to the frontend client i18n message packs.
