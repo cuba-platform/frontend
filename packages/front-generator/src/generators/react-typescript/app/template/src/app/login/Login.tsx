@@ -47,12 +47,6 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
       }));
   };
 
-  private mapCubaRestErrorToIntlId(error: CubaRestError): string | void {
-    switch (error?.response?.status) {
-      case 400: return 'login.failed';
-    }
-  }
-
   render() {
     return(
       <div className='login-form'>
