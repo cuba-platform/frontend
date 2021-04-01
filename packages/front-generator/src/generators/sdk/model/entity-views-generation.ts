@@ -105,7 +105,7 @@ function createEntityViewType(
  */
 function createPickPropertiesType(
   className: string, view: View, allowedAttrs: EntityAttribute[], idAttributeName: string = 'id'
-): ts.TypeReferenceNode {
+): ts.TypeReferenceNode | ts.KeywordTypeNode<ts.SyntaxKind.NeverKeyword> {
 
   const viewProperties = idAttributeName === 'id'
     ? [...view.allProperties]
@@ -128,13 +128,15 @@ function createPickPropertiesType(
       )
     );
 
-  return ts.createTypeReferenceNode(
-    'Pick',
-    [
-      ts.createTypeReferenceNode(className, undefined),
-      ts.createUnionTypeNode(viewTypeNodes)
-    ]
-  );
+  return viewTypeNodes.length > 0 
+    ? ts.createTypeReferenceNode(
+      'Pick',
+      [
+        ts.createTypeReferenceNode(className, undefined),
+        ts.createUnionTypeNode(viewTypeNodes)
+      ]
+    )
+    : ts.createKeywordTypeNode(ts.SyntaxKind.NeverKeyword)
 }
 
 function findViews(name: string, projectModel: ProjectModel): View[] {
