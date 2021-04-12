@@ -16,7 +16,7 @@
     "react-input-mask": "^2.0.4",
     "react-intl": "^5.3.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.0"
+    "react-scripts": "4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,7 +33,13 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-input-mask": "^2.0.5",
     "@types/react-router-dom": "^5.1.5",
-    "typescript": "~4.1.3"
+    "typescript": "~4.2.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "cubaPlatform": {
     "generator": "react-typescript"
