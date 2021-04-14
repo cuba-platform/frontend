@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@2.0.0-dev.1...@cuba-platform/react-ui@2.1.0) (2021-04-14)
+
+
+### Bug Fixes
+
+* antd error message templates ([90fb02d](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/90fb02d81c9f9e924f85efb9602b4e93c8ab1c1a))
+* fixed installing issue with npm7 ([9b8edb0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/9b8edb00d198de420799f18e347c36d10a8b0d62))
+* fixed issues with composite row key in DataTable ([8f2a585](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/8f2a5854a2df2380a91cde6b4d1996dd5d44b1db))
+* mobx-react batching warning ([e3dcc13](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/e3dcc135c915605fd1ec974fc73cc41a7a68c679))
+
+
+### Features
+
+* added support of editing and removing entities with composite keys ([5fbe93a](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/5fbe93a5f87f5cf586955459cf182427806e484c))
+* allow to conditionally show content based on permissions ([51ceb8d](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/51ceb8dc8bdaef0978da237060d56bc9eb8c1415)), closes [#309](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/issues/309)
+* info message error handler ([54e1b92](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/commit/54e1b9213f26442001e377fa80211c8219de2eab))
+
+
+### BREAKING CHANGES
+
+* updated typscript and react-scripts versions
+* react-intl version was updated to 5.3.0
+* Minimum version requirement for mobx-react is now ^6.3.0
+
+
+
+
+
+
 # [2.0.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-ui/compare/@cuba-platform/react-ui@2.0.0-beta.2...@cuba-platform/react-ui@2.0.0) (2021-03-12)
 
 **Note:** Version bump only for package @cuba-platform/react-ui

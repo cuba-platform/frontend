@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@2.0.0-dev.1...@cuba-platform/rest@2.1.0) (2021-04-14)
+
+
+### Bug Fixes
+
+* fixed installing issue with npm7 ([9b8edb0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/9b8edb00d198de420799f18e347c36d10a8b0d62))
+
+
+### Features
+
+* added support of editing and removing entities with composite keys ([5fbe93a](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/5fbe93a5f87f5cf586955459cf182427806e484c))
+* code-review fixes ([880616c](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/880616c496ad88bc109c060f64ef5d8d4e40bf19))
+* info message error handler ([54e1b92](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/54e1b9213f26442001e377fa80211c8219de2eab))
+
+
+### BREAKING CHANGES
+
+* updated typscript and react-scripts versions
+
+
+
+
+
+
 # [2.0.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@2.0.0-beta.1...@cuba-platform/rest@2.0.0) (2021-03-12)
 
 **Note:** Version bump only for package @cuba-platform/rest

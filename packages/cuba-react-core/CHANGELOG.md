@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@2.0.0-dev.1...@cuba-platform/react-core@2.1.0) (2021-04-14)
+
+
+### Bug Fixes
+
+* fixed installing issue with npm7 ([9b8edb0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/9b8edb00d198de420799f18e347c36d10a8b0d62))
+* fixed issues with composite row key in DataTable ([8f2a585](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/8f2a5854a2df2380a91cde6b4d1996dd5d44b1db))
+* login form not shown when session expires [#350](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/350) ([8e37109](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/8e371096abb66bead60799efd2192cc1feb070cf))
+* mobx-react batching warning ([e3dcc13](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/e3dcc135c915605fd1ec974fc73cc41a7a68c679))
+
+
+### Features
+
+* added support of editing and removing entities with composite keys ([5fbe93a](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/5fbe93a5f87f5cf586955459cf182427806e484c))
+* allow to conditionally show content based on permissions ([51ceb8d](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/51ceb8dc8bdaef0978da237060d56bc9eb8c1415)), closes [#309](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/309)
+* info message error handler ([54e1b92](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/54e1b9213f26442001e377fa80211c8219de2eab))
+* return promise in DataInstanceStore.load [#408](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/issues/408) ([75ba649](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/commit/75ba64937ae5e460f7f8cbd59321d3345c1ddf03))
+
+
+### BREAKING CHANGES
+
+* updated typscript and react-scripts versions
+* Minimum version requirement for mobx-react is now ^6.3.0
+
+
+
+
+
+
 # [2.0.0](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-react-core/compare/@cuba-platform/react-core@2.0.0-beta.2...@cuba-platform/react-core@2.0.0) (2021-03-12)
 
 **Note:** Version bump only for package @cuba-platform/react-core
