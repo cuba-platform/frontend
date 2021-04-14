@@ -1,11 +1,11 @@
 import {action, computed, observable, reaction, runInAction, toJS} from "mobx";
 import {
-  PredefinedView, 
-  SerializedEntityProps, 
-  TemporalPropertyType, 
-  MetaClassInfo, 
+  PredefinedView,
+  SerializedEntityProps,
+  TemporalPropertyType,
+  MetaClassInfo,
   CommitMode,
-  getStringId
+  getStringId, SerializedEntity
 } from "@cuba-platform/rest";
 import {inject, observer} from "mobx-react";
 import { IReactComponent } from "mobx-react/dist/types/IReactComponent";
@@ -80,26 +80,29 @@ export class DataInstanceStore<T> implements DataContainer {
    * @param id - id of an entity instance to be retrieved.
    */
   @action
-  load = (id: string) => {
+  load = (id: string): Promise<SerializedEntity<T>> => {
     this.item = undefined;
     if (!id) {
-      return;
+      return Promise.reject();
     }
     this.status = "LOADING";
-    getCubaREST()!.loadEntity<T>(this.entityName, id, {view: this.viewName})
-      .then((loadedEntity) => {
-        runInAction(() => {
-          this.item = loadedEntity;
-          this.status = "DONE"
-        })
+    const loadingPromise = getCubaREST()!.loadEntity<T>(this.entityName, id, {view: this.viewName})
+
+    loadingPromise.then((loadedEntity) => {
+      runInAction(() => {
+        this.item = loadedEntity;
+        this.status = "DONE"
       })
-      .catch(() => {
-        runInAction(() => {
-          this.status = "ERROR";
-          this.lastError = "LOAD_ERROR";
-        })
+    })
+    .catch(() => {
+      runInAction(() => {
+        this.status = "ERROR";
+        this.lastError = "LOAD_ERROR";
       })
-  };
+    });
+
+    return loadingPromise;
+  }
 
   /**
    * Sets the {@link item} to the provided value. Changes {@link status} to `DONE`.
