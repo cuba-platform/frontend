@@ -1,4 +1,4 @@
 # Exclude docs folder from GitHub language statistics
-/docs/* linguist-documentation
-/docs-src/* linguist-documentation
-/docs-src-cn/*  linguist-documentation
+docs/** linguist-documentation
+docs-src/** linguist-documentation
+docs-src-cn/** linguist-documentation
