@@ -1,6 +1,5 @@
 .idea
 node_modules
-react-client-scr/**
 react-native-client-scr/**
 docs-build*/**
 _testgen/**
