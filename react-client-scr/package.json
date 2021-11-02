@@ -1,0 +1,53 @@
+{
+  "name": "sample-car-rent",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^4.0.0",
+    "@cuba-platform/react-core": "file:../packages/cuba-react-core/cuba-platform-react-core-2.1.0.tgz",
+    "@cuba-platform/react-ui": "file:../packages/cuba-react-ui/cuba-platform-react-ui-2.1.0.tgz",
+    "@cuba-platform/rest": "file:../packages/cuba-rest-js/cuba-platform-rest-2.1.0.tgz",
+    "antd": "^4.0.0",
+    "mobx": "^4.13.0",
+    "mobx-react": "^6.3.0",
+    "moment": "^2.25.3",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-input-mask": "^2.0.4",
+    "react-intl": "^5.3.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "update-model": "gen-cuba-front sdk:all --dest src/cuba"
+  },
+  "devDependencies": {
+    "@cuba-platform/front-generator": "^4.0.0-beta.0",
+    "@types/jest": "^23.3.12",
+    "@types/node": "^10.12.18",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-input-mask": "^2.0.5",
+    "@types/react-router-dom": "^5.1.5",
+    "typescript": "~4.2.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "cubaPlatform": {
+    "generator": "react-typescript"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
