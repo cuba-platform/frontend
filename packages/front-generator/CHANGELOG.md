@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.1.0...@cuba-platform/front-generator@4.1.1) (2021-11-11)
+
+
+### Bug Fixes
+
+* npm i fails on npm v7+ due to peer deps [#449](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/449) ([78bdad3](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/78bdad3c67dee2c1df35d1eab8d4d8a0c886bd39))
+
+
+
+
+
 # [4.1.0](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.0.0-dev.1...@cuba-platform/front-generator@4.1.0) (2021-04-14)
 
 
