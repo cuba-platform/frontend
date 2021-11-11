@@ -7,6 +7,7 @@ import { useForm } from "antd/es/form/Form";
 import {Car} from "../../cuba/entities/scr$Car";
 import {SerializedEntity} from "@cuba-platform/rest";
 import {observer} from "mobx-react";
+import {restQueries} from "../../cuba/queries";
 
 type Favorite = {id: string, _instanceName: string, notes: string};
 
@@ -42,8 +43,8 @@ const HomePage = observer(() => {
     if (cubaApp == null) {
       return;
     }
-    // Loading entities. We could use DataCollection for that, but here we demonstrate how to use CUBA REST directly.
-    cubaApp.loadEntities<Car>('scr$Car').then(c => setCars(c));
+    // Loading entities. We could use DataCollection for that, but here we demonstrate how to use predefined JPQL query.
+    restQueries.Car.allCars(cubaApp)().then(c => setCars(c));
   }, [cubaApp]);
 
   const handleSubmit = useCallback((values: { carId: string, notes: string }) => {
