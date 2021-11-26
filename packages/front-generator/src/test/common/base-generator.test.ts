@@ -124,7 +124,7 @@ describe('BaseGenerator', () => {
     const gen = new TestGenerator([], {...opts, model: undefined});
     try {
       await gen._obtainCubaProjectModel()
-    } catch (e) {
+    } catch (e: any) {
       expect(e.message).eq(ERR_STUDIO_NOT_CONNECTED);
     }
   });
