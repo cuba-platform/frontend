@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@2.1.1...@cuba-platform/rest@2.1.2) (2021-11-26)
+
+
+### Bug Fixes
+
+* sdk generation fails ([0c3e11e](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/commit/0c3e11ee3a5849940ecb9597a7ee531bd6d77c4d))
+
+
+
+
+
 ## [2.1.1](https://github.com/cuba-platform/frontend/tree/master/packages/cuba-rest-js/compare/@cuba-platform/rest@2.1.0...@cuba-platform/rest@2.1.1) (2021-11-11)
 
 **Note:** Version bump only for package @cuba-platform/rest
