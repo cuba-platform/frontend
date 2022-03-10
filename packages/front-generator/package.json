@@ -1,6 +1,6 @@
 {
   "name": "@cuba-platform/front-generator",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "description": "CUBA Platform front-end clients generator",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
