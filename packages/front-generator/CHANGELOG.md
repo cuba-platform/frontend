@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.5](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.1.4...@cuba-platform/front-generator@4.1.5) (2022-04-04)
+
+
+### Bug Fixes
+
+* npm error when running simple application [#474](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/issues/474) ([9ef94c1](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/commit/9ef94c1c1f1544fd6956b48ce96ea5d88cd1d5ff))
+
+
+
+
+
 ## [4.1.4](https://github.com/cuba-platform/frontend/tree/master/packages/front-generator/compare/@cuba-platform/front-generator@4.1.3...@cuba-platform/front-generator@4.1.4) (2022-03-10)
 
 **Note:** Version bump only for package @cuba-platform/front-generator
