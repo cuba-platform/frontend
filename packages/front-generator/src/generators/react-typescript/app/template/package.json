@@ -16,7 +16,7 @@
     "react-input-mask": "^2.0.4",
     "react-intl": "~5.20.10",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
