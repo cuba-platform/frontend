@@ -16,11 +16,11 @@
     "fs-extra": "^8.1.0",
     "husky": "^4.0.6",
     "js-yaml": "^3.13.1",
-    "lerna": "^3.19.0",
+    "lerna": "^6.4.1",
     "mkdirp": "^1.0.4",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
-    "semantic-release": "^15.13.31",
+    "semantic-release": "^20.1.0",
     "snyk": "^1.299.0"
   },
   "scripts": {
