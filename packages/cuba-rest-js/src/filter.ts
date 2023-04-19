@@ -1,5 +1,5 @@
 export type OperatorType = '=' | '>' | '>=' | '<' | '<=' | '<>' | 'startsWith' | 'endsWith' | 'contains'
-  | 'doesNotContain' | 'in' | 'notIn' | 'notEmpty';
+  | 'doesNotContain' | 'in' | 'notIn' | 'notEmpty' | 'isNull';
 
 export type GroupType = 'AND' | 'OR';
 
